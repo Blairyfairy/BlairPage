@@ -29,3 +29,35 @@ document.querySelectorAll('.course-toggle').forEach(btn => {
   });
 });
 </script>
+
+<script>
+/* =========================================================
+   APPENDED JS FIXES — SAFE / ADDITIVE ONLY
+   ========================================================= */
+
+/* Ensure theme toggle ALWAYS works */
+(function () {
+  const themeToggle = document.getElementById("themeToggle");
+  if (!themeToggle) return;
+
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    themeToggle.textContent =
+      document.body.classList.contains("dark") ? "☀️" : "🌙";
+  });
+})();
+
+/* Certification cards expand / collapse */
+(function () {
+  document.querySelectorAll(".cert-card").forEach(card => {
+    card.addEventListener("click", () => {
+      card.classList.toggle("open");
+    });
+  });
+})();
+
+/* Defensive fix: prevent nested links from blocking expand */
+document.querySelectorAll(".cert-card a").forEach(link => {
+  link.addEventListener("click", e => e.stopPropagation());
+});
+</script>
