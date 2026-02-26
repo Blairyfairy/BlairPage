@@ -464,3 +464,79 @@ body {
     gap: 0.2rem;
   }
 }
+
+/* =========================
+   CERTIFICATIONS (ADVANCED)
+   ========================= */
+
+.certs-section {
+  margin-top: 4rem;
+}
+
+.certs-title {
+  font-size: 1.7rem;
+  margin-bottom: 2.5rem;
+}
+
+.cert-group {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.75rem;
+  margin-bottom: 3rem;
+}
+
+.cert-logo {
+  max-width: 110px;
+  opacity: 0.9;
+  align-self: start;
+}
+
+.cert-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.cert-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  padding: 1rem 1.2rem;
+  backdrop-filter: blur(12px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cert-card h4 {
+  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+}
+
+.cert-card p,
+.cert-card small {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.cert-card a {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  display: inline-block;
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.45);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .cert-group {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .cert-logo {
+    margin: 0 auto;
+  }
+}
