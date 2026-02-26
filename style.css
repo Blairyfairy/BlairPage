@@ -612,4 +612,47 @@ body {
   cursor: pointer;
 }
 
+/* =========================================================
+   CERT CARD STABILITY FIX (ADDITIVE ONLY)
+   This section resolves expansion + logo/text layout issues
+   WITHOUT modifying or removing existing rules.
+   ========================================================= */
+
+/* Ensure cert cards expand vertically like top sections */
+.cert-card {
+  align-items: flex-start;
+}
+
+/* Prevent logo / badge column from forcing height */
+.cert-badge,
+.cert-logo {
+  flex-shrink: 0;
+}
+
+/* Allow certificate text blocks to grow naturally */
+.cert-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Improve multi-line flow for long credential names */
+.cert-body h3,
+.cert-body h4 {
+  line-height: 1.35;
+}
+
+/* Ensure paragraphs and credential IDs never clip */
+.cert-body p,
+.cert-body small {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Mobile: allow full vertical stacking without collapse */
+@media (max-width: 768px) {
+  .cert-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 
