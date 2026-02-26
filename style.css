@@ -656,3 +656,102 @@ body {
   }
 }
 
+/* =========================================================
+   APPENDED CERTIFICATION INTERACTION + ICON FIXES
+   (ADD-ONLY — SAFE TO APPEND)
+   ========================================================= */
+
+/* Make cert cards expandable like matrix cards */
+.cert-card {
+  cursor: pointer;
+  flex-direction: column;
+}
+
+/* Header row inside cert cards */
+.cert-card::before {
+  content: "";
+  display: none;
+}
+
+/* Wrap cert body so it can collapse */
+.cert-body {
+  max-height: 6.5rem;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+/* Expanded state */
+.cert-card.open .cert-body {
+  max-height: 2000px;
+}
+
+/* Chevron indicator */
+.cert-card::after {
+  content: "▾";
+  align-self: flex-end;
+  opacity: 0.7;
+  transition: transform 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.cert-card.open::after {
+  transform: rotate(180deg);
+}
+
+/* Replace text-based logos with SVG-style badges */
+.cert-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.cert-badge::before {
+  content: "";
+  width: 28px;
+  height: 28px;
+  display: block;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  background: #fff;
+}
+
+/* Brand-neutral logical icons (no letters) */
+.aws::before {
+  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazonaws.svg");
+}
+
+.linux::before {
+  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/linux.svg");
+}
+
+.plesk::before {
+  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plesk.svg");
+}
+
+.cpanel::before {
+  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cpanel.svg");
+}
+
+.mongo::before {
+  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mongodb.svg");
+}
+
+.redhat::before {
+  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/redhat.svg");
+}
+
+/* Hide legacy text like "MongoDB logo" without deleting it */
+.cert-body p:contains("logo") {
+  display: none;
+}
+
+/* Mobile behavior */
+@media (max-width: 768px) {
+  .cert-card {
+    padding-bottom: 1rem;
+  }
+
+  .cert-card::after {
+    align-self: center;
+  }
+}
