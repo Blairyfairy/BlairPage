@@ -1,64 +1,72 @@
 <script>
 /* =========================================================
-   FOLLOW / CONNECT BUTTON
+   DOM READY WRAPPER (REQUIRED FIX)
    ========================================================= */
 
-const followBtn = document.getElementById("followBtn");
-const btnText = document.querySelector(".btn-text");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (followBtn && btnText) {
-  followBtn.addEventListener("click", () => {
-    followBtn.classList.toggle("following");
+  /* =========================================================
+     FOLLOW / CONNECT BUTTON
+     ========================================================= */
 
-    if (followBtn.classList.contains("following")) {
-      btnText.textContent = "Connected ✓";
-    } else {
-      btnText.textContent = "Connect";
-    }
+  const followBtn = document.getElementById("followBtn");
+  const btnText = document.querySelector(".btn-text");
+
+  if (followBtn && btnText) {
+    followBtn.addEventListener("click", () => {
+      followBtn.classList.toggle("following");
+
+      if (followBtn.classList.contains("following")) {
+        btnText.textContent = "Connected ✓";
+      } else {
+        btnText.textContent = "Connect";
+      }
+    });
+  }
+
+  /* =========================================================
+     THEME TOGGLE (LIGHT / DARK) — FIXED
+     ========================================================= */
+
+  const themeToggle = document.getElementById("themeToggle");
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+
+      themeToggle.textContent =
+        document.body.classList.contains("dark") ? "☀️" : "🌙";
+    });
+  }
+
+  /* =========================================================
+     COURSE SECTION TOGGLES
+     ========================================================= */
+
+  document.querySelectorAll(".course-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      btn.parentElement.classList.toggle("open");
+    });
   });
-}
 
-/* =========================================================
-   THEME TOGGLE (LIGHT / DARK)
-   ========================================================= */
+  /* =========================================================
+     CERTIFICATION CARD EXPAND / COLLAPSE
+     ========================================================= */
 
-const themeToggle = document.getElementById("themeToggle");
-
-if (themeToggle) {
-  themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-
-    themeToggle.textContent =
-      document.body.classList.contains("dark") ? "☀️" : "🌙";
+  document.querySelectorAll(".cert-card").forEach(card => {
+    card.addEventListener("click", () => {
+      card.classList.toggle("open");
+    });
   });
-}
 
-/* =========================================================
-   COURSE SECTION TOGGLES
-   ========================================================= */
+  /* =========================================================
+     DEFENSIVE FIX:
+     Prevent nested links from blocking expand
+     ========================================================= */
 
-document.querySelectorAll(".course-toggle").forEach(btn => {
-  btn.addEventListener("click", () => {
-    btn.parentElement.classList.toggle("open");
+  document.querySelectorAll(".cert-card a").forEach(link => {
+    link.addEventListener("click", e => e.stopPropagation());
   });
-});
 
-/* =========================================================
-   CERTIFICATION CARD EXPAND / COLLAPSE
-   ========================================================= */
-
-document.querySelectorAll(".cert-card").forEach(card => {
-  card.addEventListener("click", () => {
-    card.classList.toggle("open");
-  });
-});
-
-/* =========================================================
-   DEFENSIVE FIX:
-   Prevent nested links from blocking card expand
-   ========================================================= */
-
-document.querySelectorAll(".cert-card a").forEach(link => {
-  link.addEventListener("click", e => e.stopPropagation());
 });
 </script>
