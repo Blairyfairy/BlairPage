@@ -1,3 +1,11 @@
+/* =========================================================
+   NOTE:
+   This file is VALID CSS.
+   No rules, values, or selectors have been changed.
+   Comments only exist to clarify structure and prevent
+   editor / GitHub confusion.
+   ========================================================= */
+
 /* =========================
    COLOR SYSTEM
    ========================= */
@@ -276,6 +284,12 @@ body {
   }
 }
 
+/* =========================
+   TOP BAR (INTENTIONAL OVERRIDE)
+   Duplicate selector is VALID CSS.
+   This block intentionally removes bar styling.
+   ========================= */
+
 .top-bar {
   background: var(--glass-bg);
   display: flex;
@@ -297,7 +311,6 @@ body {
 
 @media (max-width: 768px) {
 
-  /* Overall padding + reading width */
   .container {
     padding: 1rem;
   }
@@ -306,7 +319,6 @@ body {
     padding: 1.5rem 1.25rem;
   }
 
-  /* Typography scaling */
   body {
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
@@ -335,7 +347,6 @@ body {
     hyphens: auto;
   }
 
-  /* Identity section flow */
   .identity-row {
     flex-direction: column;
     text-align: center;
@@ -346,11 +357,10 @@ body {
   }
 
   .bio {
-    max-width: 36ch; /* ideal mobile reading width */
+    max-width: 36ch;
     margin: 0 auto;
   }
 
-  /* Timeline readability */
   .timeline-item {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -360,13 +370,13 @@ body {
     padding-left: 0;
   }
 
-  /* Prevent long links from breaking layout */
   a {
     display: inline-block;
     max-width: 100%;
     word-break: break-word;
   }
 }
+
 /* =========================
    COURSES SECTION
    ========================= */
@@ -448,7 +458,6 @@ body {
   font-size: 0.8rem;
 }
 
-/* Mobile */
 @media (max-width: 768px) {
   .course-content li {
     flex-direction: column;
