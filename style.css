@@ -540,3 +540,76 @@ body {
     margin: 0 auto;
   }
 }
+
+.certs-section {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 1rem;
+}
+
+.certs-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.cert-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: transform .25s ease, box-shadow .25s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.3);
+}
+
+.cert-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #fff;
+}
+
+.aws { background: #ff9900; }
+.redhat { background: #cc0000; }
+.linux { background: #333; }
+.mongo { background: #47a248; }
+.cpanel { background: #ff6c2c; }
+.plesk { background: #52bbe6; }
+.acronis { background: #0033a0; }
+.code { background: #1f2937; }
+
+.cert-body h3 {
+  font-size: 1rem;
+  margin-bottom: .25rem;
+}
+
+.cert-body p,
+.cert-body small {
+  display: block;
+  opacity: 0.85;
+  font-size: .85rem;
+}
+
+.link-card {
+  cursor: pointer;
+}
+
+
