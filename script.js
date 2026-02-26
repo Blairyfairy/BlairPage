@@ -1,62 +1,63 @@
+<script>
+/* =========================================================
+   FOLLOW / CONNECT BUTTON
+   ========================================================= */
+
 const followBtn = document.getElementById("followBtn");
 const btnText = document.querySelector(".btn-text");
 
-followBtn.addEventListener("click", () => {
-  followBtn.classList.toggle("following");
+if (followBtn && btnText) {
+  followBtn.addEventListener("click", () => {
+    followBtn.classList.toggle("following");
 
-  if (followBtn.classList.contains("following")) {
-    btnText.textContent = "Connected ✓";
-  } else {
-    btnText.textContent = "Connect";
-  }
-});
+    if (followBtn.classList.contains("following")) {
+      btnText.textContent = "Connected ✓";
+    } else {
+      btnText.textContent = "Connect";
+    }
+  });
+}
+
+/* =========================================================
+   THEME TOGGLE (LIGHT / DARK)
+   ========================================================= */
 
 const themeToggle = document.getElementById("themeToggle");
 
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-
-  if (document.body.classList.contains("dark")) {
-    themeToggle.textContent = "☀️";
-  } else {
-    themeToggle.textContent = "🌙";
-  }
-});
-<script>
-document.querySelectorAll('.course-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    btn.parentElement.classList.toggle('open');
-  });
-});
-</script>
-
-<script>
-/* =========================================================
-   APPENDED JS FIXES — SAFE / ADDITIVE ONLY
-   ========================================================= */
-
-/* Ensure theme toggle ALWAYS works */
-(function () {
-  const themeToggle = document.getElementById("themeToggle");
-  if (!themeToggle) return;
-
+if (themeToggle) {
   themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark");
+
     themeToggle.textContent =
       document.body.classList.contains("dark") ? "☀️" : "🌙";
   });
-})();
+}
 
-/* Certification cards expand / collapse */
-(function () {
-  document.querySelectorAll(".cert-card").forEach(card => {
-    card.addEventListener("click", () => {
-      card.classList.toggle("open");
-    });
+/* =========================================================
+   COURSE SECTION TOGGLES
+   ========================================================= */
+
+document.querySelectorAll(".course-toggle").forEach(btn => {
+  btn.addEventListener("click", () => {
+    btn.parentElement.classList.toggle("open");
   });
-})();
+});
 
-/* Defensive fix: prevent nested links from blocking expand */
+/* =========================================================
+   CERTIFICATION CARD EXPAND / COLLAPSE
+   ========================================================= */
+
+document.querySelectorAll(".cert-card").forEach(card => {
+  card.addEventListener("click", () => {
+    card.classList.toggle("open");
+  });
+});
+
+/* =========================================================
+   DEFENSIVE FIX:
+   Prevent nested links from blocking card expand
+   ========================================================= */
+
 document.querySelectorAll(".cert-card a").forEach(link => {
   link.addEventListener("click", e => e.stopPropagation());
 });
