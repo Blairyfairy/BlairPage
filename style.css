@@ -1,9 +1,5 @@
 /* =========================================================
-   NOTE:
-   This file is VALID CSS.
-   No rules, values, or selectors have been changed.
-   Comments only exist to clarify structure and prevent
-   editor / GitHub confusion.
+   BlairPage Full Modernized Portfolio CSS
    ========================================================= */
 
 /* =========================
@@ -29,6 +25,7 @@
   --glass-bg: rgba(240, 239, 244, 0.08);
   --glass-border: rgba(240, 239, 244, 0.22);
   --text-light: var(--ghost-white);
+  --transition-time: 0.35s;
 }
 
 /* =========================
@@ -43,7 +40,6 @@ body.dark {
     #291528ff 70%,
     #3a3e3bff 100%
   );
-
   --glass-bg: rgba(0, 0, 0, 0.65);
   --glass-border: rgba(240, 239, 244, 0.12);
   --text-light: #f8f7fb;
@@ -58,7 +54,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background: var(--bg-light);
   color: var(--text-light);
-  transition: background 0.7s ease;
+  transition: background var(--transition-time) ease;
 }
 
 .container {
@@ -76,10 +72,13 @@ body {
   padding: 1rem 2rem;
   font-size: 0.75rem;
   letter-spacing: 0.6px;
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
 }
 
 /* =========================
-   THEME TOGGLE (TRUE MATCH)
+   THEME TOGGLE BUTTON
    ========================= */
 
 .theme-btn {
@@ -90,12 +89,9 @@ body {
   color: var(--ghost-white);
   cursor: pointer;
   backdrop-filter: blur(12px);
-
-  /* THIS creates the light edge */
   box-shadow:
     inset 0 0 0 1px rgba(240, 239, 244, 0.18),
     0 8px 22px rgba(0, 0, 0, 0.35);
-
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -225,12 +221,7 @@ body {
 
 .follow-btn {
   margin-top: 0.5rem;
-  background: linear-gradient(
-    135deg,
-    #291528ff,
-    #3a3e3bff,
-    #9e829cff
-  );
+  background: linear-gradient(135deg, #291528ff, #3a3e3bff, #9e829cff);
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 30px;
@@ -246,12 +237,7 @@ body {
 }
 
 .following {
-  background: linear-gradient(
-    135deg,
-    #9e829cff,
-    #291528ff,
-    #000000ff
-  );
+  background: linear-gradient(135deg, #9e829cff, #291528ff, #000000ff);
 }
 
 /* =========================
@@ -270,114 +256,6 @@ body {
 }
 
 /* =========================
-   RESPONSIVE
-   ========================= */
-
-@media (max-width: 768px) {
-  .identity-row {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .timeline-item {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* =========================
-   TOP BAR (INTENTIONAL OVERRIDE)
-   Duplicate selector is VALID CSS.
-   This block intentionally removes bar styling.
-   ========================= */
-
-.top-bar {
-  background: var(--glass-bg);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.6px;
-
-  /* remove bar appearance */
-  background: transparent;
-  border: none;
-  backdrop-filter: none;
-}
-
-/* =========================
-   MOBILE TEXT FLOW FIXES
-   ========================= */
-
-@media (max-width: 768px) {
-
-  .container {
-    padding: 1rem;
-  }
-
-  .resume-shell {
-    padding: 1.5rem 1.25rem;
-  }
-
-  body {
-    font-size: 15px;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-
-  h1 {
-    font-size: 1.65rem;
-  }
-
-  h2 {
-    font-size: 1.35rem;
-  }
-
-  h3 {
-    font-size: 1.05rem;
-  }
-
-  p,
-  li {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    max-width: 100%;
-    word-break: normal;
-    overflow-wrap: anywhere;
-    hyphens: auto;
-  }
-
-  .identity-row {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .identity-info {
-    text-align: center;
-  }
-
-  .bio {
-    max-width: 36ch;
-    margin: 0 auto;
-  }
-
-  .timeline-item {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .timeline-content {
-    padding-left: 0;
-  }
-
-  a {
-    display: inline-block;
-    max-width: 100%;
-    word-break: break-word;
-  }
-}
-
-/* =========================
    COURSES SECTION
    ========================= */
 
@@ -385,29 +263,6 @@ body {
   margin-top: 1.5rem;
   display: grid;
   gap: 1.25rem;
-}
-
-.course-profiles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.course-profiles a {
-  padding: 0.45rem 0.9rem;
-  border-radius: 20px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  text-decoration: none;
-  font-size: 0.85rem;
-  color: var(--ghost-white);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.course-profiles a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.4);
 }
 
 .course-group {
@@ -458,92 +313,15 @@ body {
   font-size: 0.8rem;
 }
 
-@media (max-width: 768px) {
-  .course-content li {
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-}
-
 /* =========================
-   CERTIFICATIONS (ADVANCED)
+   CERTIFICATIONS
    ========================= */
 
 .certs-section {
   margin-top: 4rem;
-}
-
-.certs-title {
-  font-size: 1.7rem;
-  margin-bottom: 2.5rem;
-}
-
-.cert-group {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 1.75rem;
-  margin-bottom: 3rem;
-}
-
-.cert-logo {
-  max-width: 110px;
-  opacity: 0.9;
-  align-self: start;
-}
-
-.cert-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
-}
-
-.cert-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 18px;
-  padding: 1rem 1.2rem;
-  backdrop-filter: blur(12px);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.cert-card h4 {
-  margin: 0 0 0.3rem;
-  font-size: 0.95rem;
-}
-
-.cert-card p,
-.cert-card small {
-  display: block;
-  font-size: 0.75rem;
-  opacity: 0.75;
-}
-
-.cert-card a {
-  margin-top: 0.4rem;
-  font-size: 0.75rem;
-  display: inline-block;
-}
-
-.cert-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 36px rgba(0,0,0,0.45);
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .cert-group {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .cert-logo {
-    margin: 0 auto;
-  }
-}
-
-.certs-section {
   max-width: 1200px;
-  margin: 4rem auto;
+  margin-left: auto;
+  margin-right: auto;
   padding: 1rem;
 }
 
@@ -561,19 +339,19 @@ body {
 
 .cert-card {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   padding: 1.25rem;
   border-radius: 14px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   transition: transform .25s ease, box-shadow .25s ease;
-  text-decoration: none;
-  color: inherit;
+  cursor: pointer;
 }
 
 .cert-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,.3);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .3);
 }
 
 .cert-badge {
@@ -585,20 +363,13 @@ body {
   font-weight: 700;
   font-size: 0.85rem;
   color: #fff;
+  flex-shrink: 0;
 }
-
-.aws { background: #ff9900; }
-.redhat { background: #cc0000; }
-.linux { background: #333; }
-.mongo { background: #47a248; }
-.cpanel { background: #ff6c2c; }
-.plesk { background: #52bbe6; }
-.acronis { background: #0033a0; }
-.code { background: #1f2937; }
 
 .cert-body h3 {
   font-size: 1rem;
   margin-bottom: .25rem;
+  line-height: 1.35;
 }
 
 .cert-body p,
@@ -606,152 +377,99 @@ body {
   display: block;
   opacity: 0.85;
   font-size: .85rem;
-}
-
-.link-card {
-  cursor: pointer;
-}
-
-/* =========================================================
-   CERT CARD STABILITY FIX (ADDITIVE ONLY)
-   This section resolves expansion + logo/text layout issues
-   WITHOUT modifying or removing existing rules.
-   ========================================================= */
-
-/* Ensure cert cards expand vertically like top sections */
-.cert-card {
-  align-items: flex-start;
-}
-
-/* Prevent logo / badge column from forcing height */
-.cert-badge,
-.cert-logo {
-  flex-shrink: 0;
-}
-
-/* Allow certificate text blocks to grow naturally */
-.cert-body {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-/* Improve multi-line flow for long credential names */
-.cert-body h3,
-.cert-body h4 {
-  line-height: 1.35;
-}
-
-/* Ensure paragraphs and credential IDs never clip */
-.cert-body p,
-.cert-body small {
   white-space: normal;
   word-break: break-word;
 }
 
-/* Mobile: allow full vertical stacking without collapse */
-@media (max-width: 768px) {
-  .cert-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-/* =========================================================
-   APPENDED CERTIFICATION INTERACTION + ICON FIXES
-   (ADD-ONLY — SAFE TO APPEND)
-   ========================================================= */
-
-/* Make cert cards expandable like matrix cards */
-.cert-card {
-  cursor: pointer;
-  flex-direction: column;
-}
-
-/* Header row inside cert cards */
-.cert-card::before {
-  content: "";
-  display: none;
-}
-
-/* Wrap cert body so it can collapse */
-.cert-body {
-  max-height: 6.5rem;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-}
-
-/* Expanded state */
 .cert-card.open .cert-body {
   max-height: 2000px;
 }
 
-/* Chevron indicator */
-.cert-card::after {
-  content: "▾";
-  align-self: flex-end;
-  opacity: 0.7;
-  transition: transform 0.3s ease;
-  font-size: 0.9rem;
+/* Certification Badges */
+.aws { background: #ff9900; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazonaws.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
+.redhat { background: #cc0000; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/redhat.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
+.linux { background: #333; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/linux.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
+.mongo { background: #47a248; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mongodb.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
+.cpanel { background: #ff6c2c; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cpanel.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
+.plesk { background: #52bbe6; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plesk.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
+
+/* =========================
+   VOLUNTEER & EDUCATION
+   ========================= */
+
+.volunteer-card, .education-card {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.cert-card.open::after {
-  transform: rotate(180deg);
+.volunteer-card:hover, .education-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,.3);
 }
 
-/* Replace text-based logos with SVG-style badges */
-.cert-badge {
-  position: relative;
-  overflow: hidden;
+.volunteer-logo, .edu-logo {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  border-radius: 12px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,.1);
 }
 
-.cert-badge::before {
-  content: "";
-  width: 28px;
-  height: 28px;
-  display: block;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  background: #fff;
-}
+/* =========================
+   RESPONSIVE
+   ========================= */
 
-/* Brand-neutral logical icons (no letters) */
-.aws::before {
-  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazonaws.svg");
-}
-
-.linux::before {
-  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/linux.svg");
-}
-
-.plesk::before {
-  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plesk.svg");
-}
-
-.cpanel::before {
-  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cpanel.svg");
-}
-
-.mongo::before {
-  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mongodb.svg");
-}
-
-.redhat::before {
-  mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/redhat.svg");
-}
-
-/* Hide legacy text like "MongoDB logo" without deleting it */
-.cert-body p:contains("logo") {
-  display: none;
-}
-
-/* Mobile behavior */
 @media (max-width: 768px) {
-  .cert-card {
-    padding-bottom: 1rem;
+  .identity-row {
+    flex-direction: column;
+    text-align: center;
   }
 
-  .cert-card::after {
-    align-self: center;
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .resume-shell {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .bio {
+    max-width: 36ch;
+    margin: 0 auto;
+  }
+
+  .cert-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .course-content li {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  a {
+    display: inline-block;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  .volunteer-card, .education-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .volunteer-logo, .edu-logo {
+    margin: 0 auto;
   }
 }
