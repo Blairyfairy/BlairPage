@@ -1,920 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blair Page | Resume Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blair Page Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="main.js"></script>
 </head>
 <body>
-
-  <!-- 🌟 Executive Header -->
-  <header class="top-bar">
-    <div class="credential-header">
-      RHCE6 · AWS Cloud Practitioner · AWS Solutions Architect Associate (Renewal Scheduled)
-    </div>
-    <button id="themeToggle" class="theme-btn">🌙</button>
-  </header>
-
-  <main class="container">
-
-    <section class="resume-shell">
-
-<section class="identity-row">
-
-  <!-- Photo + actions grouped vertically -->
-  <div style="display:flex; flex-direction:column; align-items:center;">
-
-    <img src="https://i.postimg.cc/wjBSDH9v/1000045246.jpg"
-         alt="Blair Page"
-         class="profile-img"
-         onerror="this.onerror=null; this.src='https://via.placeholder.com/180';">
-
-    <nav class="social-links">
-      <a href="https://www.linkedin.com/in/blairpage/" class="tooltip" data-tooltip="LinkedIn" target="_blank">💼</a>
-      <a href="https://shocktherapyrebuilding.com/" class="tooltip" data-tooltip="Website" target="_blank">🌐</a>
-      <a href="https://github.com/Blairyfairy" class="tooltip" data-tooltip="GitHub" target="_blank">🖥️</a>
-    </nav>
-
-    <button id="followBtn" class="follow-btn">
-      <span class="btn-text">Connect</span>
-    </button>
-
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <span>Blair Page Portfolio</span>
+    <button class="theme-btn" id="themeToggle">Toggle Theme</button>
   </div>
 
-  <!-- Identity text stays to the right -->
-  <div class="identity-info">
-    <h1>Blair Page</h1>
-    <div class="sub-name">(Burness Drake McCoy)</div> 
-    <h3>WordPress Developer Intern — Premium Technologies UK</h3>
+  <!-- MAIN CONTAINER -->
+  <div class="container resume-shell">
 
-    <p class="bio">
-      Hybrid Cloud Engineer with RHCE 6 certification and AWS credentials.
-      Architecting scalable web systems, cloud-integrated solutions,
-      and performance-driven infrastructure for modern businesses.
-    </p>
-  </div>
-</section>
-
-
-      <!-- =====================
-           EXPERIENCE TIMELINE
-           ===================== -->
-      <section class="timeline">
-        <h2>About</h2> 
-     <p>
-  I bring over 12 years of experience supporting Magento and WordPress e-commerce platforms across
-  diverse hosting and cloud environments. Alongside this, I’ve taken on select freelance and
-  one-off projects as needed, while continuing to maintain my family’s site,
-  <a
-    href="https://shocktherapyrebuilding.com/"
-    target="_blank"
-    rel="noopener noreferrer"
-    style="
-      font-weight: 600;
-      font-size: 1.05rem;
-      color: #9e829c;
-      text-decoration: none;
-    "
-  >
-    shocktherapyrebuilding.com
-  </a>.
-  I’m currently refining and formalizing these skills through a WordPress Developer internship
-  focused on modern best practices, performance, and maintainable implementations.
-</p>
-
-
-
-
-<!-- ===== Experience & Background Interactive Section (6 Cards) ===== -->
-<section class="profile-matrix">
-
-  <h2 class="matrix-title">Experience & Background</h2>
-
-  <div class="matrix-grid">
-
-    <!-- 1. SNAPSHOT -->
-    <article class="matrix-card">
-      <button class="card-toggle" aria-expanded="false">
-        <span>🧭 Professional Snapshot</span>
-        <span class="chevron">▾</span>
-      </button>
-      <div class="card-content">
-        <ul>
-          <li><strong>☁️ Infrastructure:</strong> Rackspace / OpenStack, AWS, UpCloud, Liquid Web, Nexcess</li>
-          <li><strong>⏳ Experience:</strong> 20y Servers · 13y Cloud · 10y Remote/Hybrid</li>
-          <li><strong>🎓 Education:</strong> Bachelor’s in Business (ETA: next few months)</li>         
-        </ul>
-      </div>
-    </article>
-    <!-- 2. SYSTEMS -->
-    <article class="matrix-card">
-      <button class="card-toggle" aria-expanded="false">
-        <span>🧠 Systems, Data & Security</span>
-        <span class="chevron">▾</span>
-      </button>
-      <div class="card-content">
-        <p><strong>Databases (since 2005)</strong></p>
-        <p>MySQL · PostgreSQL · MongoDB · Redis · Memcached · Elasticsearch · PXC · Galera</p>
-
-        <p><strong>Big Data & Labs</strong></p>
-        <p>Hadoop · AWS EMR · HiveQL · S3 · HDFS</p>
-
-        <p><strong>Security & Ops</strong></p>
-        <p>IDS / IPS · SIEM · Monitoring · Metasploit · Payload analysis</p>
-      </div>
-    </article>
-
-    <!-- 3. ENTERPRISE + BUSINESS -->
-    <article class="matrix-card">
-      <button class="card-toggle" aria-expanded="false">
-        <span>🏢 Enterprise & Business Experience</span>
-        <span class="chevron">▾</span>
-      </button>
-      <div class="card-content">
-        <p><strong>Enterprise Clients</strong></p>
-        <ul>
-          <li>Airbnb</li>
-          <li>Fitbit</li>
-          <li>Rent the Runway</li>
-          <li>Vimeo</li>
-          <li>Pizza Hut</li>
-          <li>Additional mid-to-large organizations</li>
-        </ul>
-
-        <p><strong>Business & E-commerce</strong></p>
-        <p>
-          Family business involvement beginning in 1997 (dirt bikes & snowmobiles),
-          gaining early exposure to distributors, catalogs, logistics, and inventory systems.
-          Applied these concepts to early e-commerce platforms and long-term SEO strategy,
-          with hands-on experience tracking algorithm evolution since the late 1990s.
+    <!-- IDENTITY -->
+    <div class="identity-row">
+      <img src="profile.jpg" alt="Blair Page" class="profile-img">
+      <div class="identity-info">
+        <h1>Blair Page</h1>
+        <div class="sub-name">Software Engineer | AWS Solutions Architect</div>
+        <h3>Full-stack Developer & Cloud Enthusiast</h3>
+        <p class="bio">
+          Experienced developer with a passion for building scalable web applications, modern portfolio designs, and cloud-based solutions. Skilled in AWS, Linux, and various web technologies.
         </p>
+
+        <!-- SOCIAL LINKS -->
+        <div class="social-links">
+          <a href="#" data-tooltip="GitHub">🐙</a>
+          <a href="#" data-tooltip="LinkedIn">💼</a>
+          <a href="#" data-tooltip="Twitter">🐦</a>
+        </div>
+
+        <button class="follow-btn" id="followBtn">
+          <span class="btn-text">Connect</span>
+        </button>
       </div>
-    </article>
+    </div>
 
-    <!-- 4. ORIGINS -->
-    <article class="matrix-card">
-      <button class="card-toggle" aria-expanded="false">
-        <span>🌱 Origins & Early Tech</span>
-        <span class="chevron">▾</span>
-      </button>
-      <div class="card-content">
-        <p><strong>Early Computing</strong></p>
-        <p>Commodore 64 · Loadstar · Donald Ducks Playground · Carmen Sandiego · Enchanter · Doom</p>
+    <!-- TIMELINE -->
+    <section class="timeline">
+      <h2>Professional Timeline</h2>
 
-        <p><strong>Dial-up Era</strong></p>
-        <p>HackThisSite · Some CounterStrike</p>
+      <div class="timeline-item">
+        <div>2025-Present</div>
+        <div class="timeline-content">
+          <h3>CNO Developer - BlueHalo</h3>
+          <p>Leading cloud-based development projects and internal tooling automation.</p>
+        </div>
       </div>
-    </article>
 
-    <!-- 5. COMMUNITIES -->
-    <article class="matrix-card">
-      <button class="card-toggle" aria-expanded="false">
-        <span>🌐 Game Servers</span>
-        <span class="chevron">▾</span>
-      </button>
-      <div class="card-content">
-        <section class="data-table-section">
-  <h3>Estimated Representation: Female Ragnarok Online Private Server Admins (Top 200)</h3>
-
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Year</th>
-        <th>Estimated % Female Admins</th>
-        <th>Estimated Count (Top 200)</th>
-        <th>Odds (Approx.)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>2005</td><td>4–5%</td><td>8–10</td><td>1 in 20</td></tr>
-      <tr><td>2006</td><td>4–5%</td><td>8–10</td><td>1 in 20</td></tr>
-      <tr><td>2007</td><td>5–6%</td><td>10–12</td><td>1 in 17</td></tr>
-      <tr><td>2008</td><td>5–6%</td><td>10–12</td><td>1 in 17</td></tr>
-      <tr><td>2009</td><td>6–7%</td><td>12–14</td><td>1 in 14</td></tr>
-      <tr><td>2010</td><td>6–7%</td><td>12–14</td><td>1 in 14</td></tr>
-      <tr><td>2011</td><td>7–8%</td><td>14–16</td><td>1 in 13</td></tr>
-      <tr><td>2012</td><td>8–9%</td><td>16–18</td><td>1 in 11</td></tr>
-      <tr><td>2013</td><td>9–10%</td><td>18–20</td><td>1 in 10</td></tr>
-    </tbody>
-  </table>
-
-  <p class="table-note">
-    Estimates based on community archives, server listings, forum history,
-    and observed participation trends in early MMORPG private server ecosystems.
-    Values reflect administrators or lead operators appearing within the
-    top 200 servers per year.
-  </p>
-</section>
-
+      <div class="timeline-item">
+        <div>2009-2025</div>
+        <div class="timeline-content">
+          <h3>Game Developer Roles - Various</h3>
+          <p>Worked across junior to senior developer positions, contributing to multiple game engines and platforms.</p>
+        </div>
       </div>
-    </article>
+    </section>
 
-    <!-- 6. GAMING & ARTS -->
-    <article class="matrix-card">
-      <button class="card-toggle" aria-expanded="false">
-        <span>🎮 Gaming & Creative</span>
-        <span class="chevron">▾</span>
-      </button>
-      <div class="card-content">
-        <ul>
-     <li>
-  Held rank 50 on Team Slayer &amp; Rumble Pit for Halo2 (Bleargfairy)
-</li>
-
-          <li>
-            Xbox Gamertag Bl4iryF4iry
-           Playstation Online ID BlargTrill
-          <a
-  href="https://na.finalfantasyxiv.com/lodestone/character/6642289/achievement/"
-  target="_blank"
-  rel="noopener noreferrer"
-  style="
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: #9e829c;
-    text-decoration: none;
-  "
->
-  Final Fantasy XIV – Character Achievements
-</a>
-
-</li>
-          <li>Magic: The Gathering enthusiast</li>
-          <li>White Wolf LARP (since 2004) — narrative systems</li>
-          <li>Cecchetti Ballet certifications · Joffrey Ballet workshops</li>
-        </ul>
+    <!-- COURSES -->
+    <section class="courses-shell">
+      <h2 class="section-title">Courses & Trainings</h2>
+      <div class="course-group">
+        <button class="course-toggle">Web Development</button>
+        <div class="course-content">
+          <ul>
+            <li>WordPress <span>2022</span></li>
+            <li>WooCommerce <span>2022</span></li>
+            <li>Magento <span>2023</span></li>
+          </ul>
+        </div>
       </div>
-    </article>
 
-  </div>
-</section>
+      <div class="course-group">
+        <button class="course-toggle">Cloud & Architecture</button>
+        <div class="course-content">
+          <ul>
+            <li>AWS Solutions Architect <span>2023</span></li>
+            <li>Linux Server Management <span>2021</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-<style>
-.profile-matrix {
-  max-width: 1200px;
-  margin: 4rem auto;
-  padding: 1rem;
-}
+    <!-- CERTIFICATIONS -->
+    <section class="certs-section">
+      <h2 class="certs-title">Certifications</h2>
 
-.matrix-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
-
-.matrix-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
-}
-
-.matrix-card {
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 14px;
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(6px);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.matrix-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-}
-
-.card-toggle {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 1rem 1.25rem;
-  color: inherit;
-  font-size: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-}
-
-.card-toggle:focus {
-  outline: 2px solid rgba(255,255,255,0.35);
-  outline-offset: 2px;
-}
-
-.chevron {
-  transition: transform 0.3s ease;
-}
-
-.card-toggle[aria-expanded="true"] .chevron {
-  transform: rotate(180deg);
-}
-
-.card-content {
-  padding: 0 1.25rem 1.25rem;
-  display: none;
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-
-.matrix-card.open .card-content {
-  display: block;
-}
-</style>
-
-<script>
-document.querySelectorAll('.card-toggle').forEach(button => {
-  button.addEventListener('click', () => {
-    const card = button.closest('.matrix-card');
-    const expanded = button.getAttribute('aria-expanded') === 'true';
-
-    button.setAttribute('aria-expanded', !expanded);
-    card.classList.toggle('open');
-  });
-});
-</script>
-
-
-        <h2>Professional Experience</h2>
-
-        <div class="timeline-item">
-          <span class="timeline-date">2026 – Present</span>
-          <div class="timeline-content">
-            <h4>WordPress Developer Intern</h4>
-            <p>Premium Technologies UK</p>
-            <ul>
-              <li>Architected and deployed WordPress solutions on cloud infrastructure</li>
-              <li>Optimized performance, security, and deployment workflows</li>
-              <li>Collaborated with senior engineers on production systems</li>
-            </ul>
+      <!-- CLOUD CERTS -->
+      <div class="cert-grid">
+        <div class="cert-card aws">
+          <div class="cert-badge aws"></div>
+          <div class="cert-body">
+            <h3>AWS Solutions Architect</h3>
+            <p>Amazon Web Services - Associate Level</p>
+            <small>Issued 2023</small>
           </div>
         </div>
 
-<!-- =====================
-     SHOCK THERAPY REBUILDING
-     ===================== -->
-<div class="timeline-item">
-  <span class="timeline-date">1997 – Present</span>
-  <div class="timeline-content">
-    <h4>WordPress Developer & Digital Branding Specialist</h4>
-    <p>Shock Therapy Rebuilding · Remote</p>
-    <ul>
-      <li>
-        Designed, developed, and maintain the WordPress website for
-        <a
-  href="https://shocktherapyrebuilding.com"
-  target="_blank"
-  rel="noopener noreferrer"
-  style="
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: #9e829c;
-    text-decoration: none;
-  "
-  onmouseover="this.style.color='#f0eff4'"
-  onmouseout="this.style.color='#9e829c'"
->
-  shocktherapyrebuilding.com
-</a>
-
-        improving mobile responsiveness and user engagement.
-      </li>
-      <li>
-        Maintained 99.9% uptime SLA over multiple years with zero service interruptions.
-      </li>
-      <li>
-        Performed regular WordPress core, theme, and plugin updates, completing 50+ updates while maintaining security, compatibility, and performance.
-      </li>
-      <li>
-        Increased revenue by approximately 25% through targeted web, branding, and promotional solutions.
-      </li>
-      <li>
-        Developed brand identity assets including logos and graphics, ensuring consistent branding across web and promotional channels.
-      </li>
-    </ul>
-
-    <h4>Promotions Specialist & Parts Counter</h4>
-    <p>Motorsports Retail & Event Promotion · Michigan · Hybrid</p>
-    <ul>
-      <li>
-        Managed supplier coordination and order placement with major distributors including Parts Unlimited and niche re-manufacturers, improving procurement efficiency.
-      </li>
-      <li>
-        Maintained inventory records, processed sales receipts, and supported daily retail operations.
-      </li>
-      <li>
-        Led logistics, pit setup, and equipment preparation for 5+ major motorsports events, achieving 100% event readiness.
-      </li>
-      <li>
-        Resolved 95% of part-related customer issues on first contact through product knowledge and distributor relationships.
-      </li>
-      <li>
-        Executed grassroots marketing initiatives including flyer distribution, promotional display design, and live event engagement, increasing brand awareness by ~40%.
-      </li>
-      <li>
-        Drove 20+ direct leads at industry expos (e.g., Novi Expo Center) through attendee engagement and promotional showcases.
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- =====================
-     LIQUID WEB / NEXCESS
-     ===================== -->
-<div class="timeline-item">
-  <span class="timeline-date">2021 – 2025</span>
-  <div class="timeline-content">
-    <h4>L3 Linux Managed Applications Support Engineer</h4>
-    <p>Liquid Web · Nexcess CloudSites · Remote</p>
-    <ul>
-      <li>
-        Delivered L3 support for Linux-based hosting environments, troubleshooting LAMP/LEMP stacks, OpenStack, cPanel, Plesk, and InterWorx platforms.
-      </li>
-      <li>
-        Deployed, optimized, and secured CMS and eCommerce platforms including WordPress, WooCommerce, Magento, and Django for production workloads.
-      </li>
-      <li>
-        Optimized application performance using Redis, Varnish, ElasticSearch, Solr, and caching layers, reducing page load times.
-      </li>
-      <li>
-        Automated backend operations using MySQL, SSH, WP-CLI, Cron, DNS, and email configuration to ensure stability and scalability.
-      </li>
-      <li>
-        Administered hybrid Linux and Windows stacks (Debian/Apache/PHP, Windows Server IIS/.NET, NodeJS), achieving full cross-platform compatibility.
-      </li>
-      <li>
-        Implemented MySQL security policies and Cron-based backups, maintaining zero data-loss incidents and continuous uptime.
-      </li>
-      <li>
-        Recognized in Liquid Web’s Women in Tech feature for leadership in server performance tuning and open-source support.
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- =====================
-     UPCLOUD
-     ===================== -->
-<div class="timeline-item">
-  <span class="timeline-date">2019 – 2020</span>
-  <div class="timeline-content">
-    <h4>Remote Technical Support Engineer (IaaS)</h4>
-    <p>UpCloud · Remote</p>
-    <ul>
-      <li>
-        Supported Linux and Windows IaaS platforms, delivering 99.999% uptime across enterprise environments.
-      </li>
-      <li>
-        Worked on distributed infrastructure, virtualization, SDN, and Infrastructure as Code (IaC) projects to improve deployment efficiency.
-      </li>
-      <li>
-        Administered CMS platforms including WordPress, WooCommerce, Magento, Drupal, Joomla, and Django.
-      </li>
-      <li>
-        Managed MySQL, MariaDB, Percona Server, and MongoDB environments for performance and data integrity.
-      </li>
-      <li>
-        Authored and published a technical tutorial on deploying WordPress with LEMP on CentOS, contributing to customer self-service documentation.
-      </li>
-      <li>
-        Maintained weekly 80–100% customer approval ratings through high-quality technical support and communication.
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- =====================
-     PERCONA
-     ===================== -->
-<div class="timeline-item">
-  <span class="timeline-date">2016</span>
-  <div class="timeline-content">
-    <h4>Remote Junior DBA – Technical Services Engineer</h4>
-    <p>Percona · Remote</p>
-    <ul>
-      <li>
-        Provided production-level MySQL, MariaDB, Percona Server, and MongoDB support for enterprise clients.
-      </li>
-      <li>
-        Responded to critical incidents via PagerDuty, resolving high-severity alerts and reducing MTTR.
-      </li>
-      <li>
-        Tuned database performance, resolved resource contention issues, and maintained high-availability topologies.
-      </li>
-      <li>
-        Ensured backup continuity using Percona XtraBackup and mydumper with zero data-loss incidents.
-      </li>
-      <li>
-        Supported monitoring and alerting improvements using Nagios and automation tooling.
-      </li>
-    </ul>
-  </div>
-</div>
-
-<div class="timeline-item">
-  <span class="timeline-date">2015 – 2016</span>
-  <div class="timeline-content">
-    <h4>AWS Solution Architect – Magento E-Commerce</h4>
-    <p><strong>craftartedu.com</strong> · Contract · Remote (Tacoma, WA)</p>
-    <ul>
-      <li>Administered AWS environments and delivered infrastructure optimization strategies improving performance and cost efficiency.</li>
-      <li>Managed a hybrid Magento v1 e-commerce platform integrated with a custom Java application across Linux and Windows.</li>
-      <li>Performed core-level Magento v1 customizations supporting advanced business logic and integrations.</li>
-      <li>Led a full rebuild and upgrade to Magento v2, modernizing security, scalability, and performance.</li>
-      <li>Maintained 100% uptime during platform optimization and upgrades.</li>
-      <li>Implemented automated AWS backup and retention policies achieving zero data loss.</li>
-    </ul>
-    <p><em>Technologies:</em> Magento, AWS, LAMP</p>
-  </div>
-</div>
-
-<div class="timeline-item">
-  <span class="timeline-date">2014 – 2016</span>
-  <div class="timeline-content">
-    <h4>Full Stack Web Developer & AWS Solutions Architect</h4>
-    <p><strong>SydneyKrey</strong> · Contract · Remote (Tacoma, WA)</p>
-    <ul>
-      <li>Developed, hosted, and maintained a high-availability WordPress website on AWS optimized for scalability and performance.</li>
-      <li>Administered EC2, S3, Route 53, and RDS to support high-traffic media delivery and dynamic content workflows.</li>
-      <li>Collaborated on branding and digital presence for a public figure featured on RollingStone.com and Playboy.com.</li>
-      <li>Increased web traffic by 50% through load balancing, caching, and AWS optimization.</li>
-      <li>Reduced hosting costs by 30% using auto-scaling strategies and reserved instance planning.</li>
-      <li>Maintained 99.99% uptime during high-traffic public tours and events.</li>
-    </ul>
-    <p><em>Technologies:</em> WordPress, AWS, LAMP</p>
-  </div>
-</div>
-
-<div class="timeline-item">
-  <span class="timeline-date">2014 – 2016</span>
-  <div class="timeline-content">
-    <h4>Linux Administrator / Cloud Operations Engineer</h4>
-    <p><strong>Rackspace Technology</strong> · Full-time · Hybrid (San Antonio, TX)</p>
-    <ul>
-      <li>Provided 24/7 international and after-hours support for e-commerce clients in hybrid OpenStack, dedicated, and RackConnect environments.</li>
-      <li>Administered Linux systems (Red Hat, CentOS, Ubuntu) across LAMP and LEMP stacks supporting WordPress, Magento, Drupal, and Joomla.</li>
-      <li>Responded to live incidents involving mail, NFS, SSH, SSL, clustering, storage, and load balancing services.</li>
-      <li>Monitored system health and resolved performance alerts, improving infrastructure stability and response time.</li>
-      <li>Configured caching and CDN solutions using Redis, Memcached, and Varnish to enhance site performance.</li>
-      <li>Supported edge technologies including Docker, Ansible, MongoDB, ElasticSearch, Node.js, and Git.</li>
-    </ul>
-    <p><em>Technologies:</em> Linux, OpenStack, AWS, LAMP</p>
-  </div>
-</div>
-
-<div class="timeline-item">
-  <span class="timeline-date">2013 – 2013</span>
-  <div class="timeline-content">
-    <h4>Co-Founder & Full-Stack Developer</h4>
-    <p><strong>String Theory Software Inc.</strong> · Startup · Michigan</p>
-    <ul>
-      <li>Co-founded a technology and creative services startup delivering web, application, and digital media solutions to 15+ small business clients.</li>
-      <li>Designed and developed company branding, websites, and custom front-end interfaces.</li>
-      <li>Produced and edited a regional television commercial aired on The CW network, expanding brand visibility by over 10,000%.</li>
-      <li>Delivered software solutions for regional media and entertainment organizations, improving workflow and audience engagement.</li>
-      <li>Collaborated with WWE talent on promotional media, strengthening marketing reach and industry credibility.</li>
-      <li>Contributed to early-stage game development using the Unity engine, expanding interactive media capabilities.</li>
-    </ul>
-    <p><em>Technologies:</em> LAMP, Unity, Full-Stack Web Development</p>
-  </div>
-</div>
-
-<!-- =====================
-     RAGNAROK ONLINE (FREELANCE)
-     ===================== -->
-<div class="timeline-item">
-  <span class="timeline-date">2005 – 2013</span>
-  <div class="timeline-content">
-    <h4>Game Server Administrator & Developer</h4>
-    <p>Private Ragnarok Online Servers · Freelance · Remote</p>
-    <ul>
-      <li>Designed, hosted, and maintained private MMORPG servers supporting 300+ concurrent users with 99.9% uptime.</li>
-      <li>Developed custom game content including NPCs, quests, items, and dungeons using Lua, C/C++</li>
-      <li>Managed MySQL, SQLite, and flat-file databases to ensure performance and data integrity.</li>
-      <li>Handled sprite and asset integration, source control (SVN), and collaborative development workflows.</li>
-      <li>Built and moderated community forums using phpBB, driving sustained player engagement and retention.</li>
-    </ul>
-  </div>
-</div>
-
-
-      </section>
-
-      <!-- =====================
-           FUTURE SECTIONS
-           ===================== -->
-      <section class="resume-sections">
-
-        <div class="resume-block">
-          <h2>Education</h2>
-         <!-- EDUCATION & TRAINING -->
-
-<div class="experience-item">
-  <h3>University of the People</h3>
-  <p><strong>Bachelors, Business</strong></p>
-  <p>Apr 2025 – Apr 2026</p>
-  <p><strong>Activities and societies:</strong> Tech certifications.</p>
-  <p>
-    Bachelor’s in Business (In Progress) with 105 completed credits focusing on
-    Computer Science electives within a Business degree track. Goal: pursue a
-    master’s degree or two blending business and technology with a focus on
-    systems and data.
-  </p>
-  <p><strong>Skills:</strong> Macroeconomics, Accounting, +4 skills</p>
-</div>
-
-<div class="experience-item">
-  <h3>Linux Academy</h3>
-  <p><strong>Soft Certifications, Linux</strong></p>
-  <p>Oct 2014 – Dec 2019</p>
-  <p>
-    <strong>Activities and societies:</strong> Docker, HDFS, Hadoop, AWS,
-    Openstack, Linux, Python, DevOps and more.
-  </p>
-  <p>
-    Obtained over 70 soft certs from linuxacademy.com before they were purchased
-    by acloudguru and pluralsight.
-  </p>
-  <p><strong>Skills:</strong> Hadoop, HDFS, +10 skills</p>
-  <p>
-    Thumbnail for 71 certs linuxacademy.com certs before they became acloudguru.com
-  </p>
-  <p>
-    71 certs linuxacademy.com certs before they became acloudguru.com
-  </p>
-  </p>
-</div>
-
-<div class="experience-item">
-  <h3>Rackspace Cloud University</h3>
-  <p><strong>Training Certifications, Information Technology</strong></p>
-  <p>Oct 2014 – Feb 2016</p>
-  <p><strong>Grade:</strong> Completion</p>
-
-  <p><strong>Activities and societies:</strong></p>
-  <ul>
-    <li>Redis 100</li>
-    <li>Redis 200</li>
-    <li>ElasticSearch 200</li>
-    <li>Magento v1</li>
-  </ul>
-
-  <p><strong>Rackspace University Training</strong></p>
-
-  <ul>
-    <li>
-      <strong>Redis 100 &amp; 200</strong> – Gained foundational to intermediate
-      knowledge of Redis, including key-value data storage, caching strategies,
-      persistence, replication, and performance tuning.
-    </li>
-    <li>
-      <strong>Elasticsearch 200</strong> – Developed practical skills in search
-      engine implementation, indexing, querying, and cluster management using
-      Elasticsearch.
-    </li>
-    <li>
-      <strong>Magento v1</strong> – Acquired working knowledge of Magento 1
-      architecture, including product/catalog management, theming basics, and
-      eCommerce configuration.
-    </li>
-  </ul>
-
-</div>
-
-        </div>
-<!-- =====================
-     CERTIFICATIONS (FULL, UNOMITTED, VERBATIM TEXT)
-     ===================== -->
-<section class="certs-section">
-  <h2 class="certs-title">Certifications</h2>
-
-  <div class="cert-grid">
-
-    <!-- Sophia Learning -->
-    <div class="cert-card">
-      <div class="cert-badge sophia">SL</div>
-      <div class="cert-body">
-        <p><strong>Introduction to Python Programming (CS1100)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Aug 2025</p>
-        <p>Show credential</p>
-
-        <p><strong>Introduction to Statistics (STAT1001)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Jul 2025</p>
-        <p>Show credential</p>
-
-        <p><strong>Workplace Communication (COMM1010)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Jul 2025</p>
-        <p>Show credential</p>
-
-        <p><strong>U.S. Government (HIST1020)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Jan 2025</p>
-        <p>Show credential</p>
-
-        <p><strong>Introduction to Relational Databases (CS1011)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Jan 2025</p>
-        <p>Show credential</p>
-
-        <p><strong>Introduction to Java Programming (CS1101)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Jan 2025</p>
-        <p>Show credential</p>
-
-        <p><strong>Principles of Management (BUSI1013)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Dec 2024</p>
-        <p>Show credential</p>
-
-        <p><strong>Principles of Finance (FIN1001)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Dec 2024</p>
-        <p>Show credential</p>
-
-        <p><strong>Financial Accounting (BUSI1010 - 2022)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Dec 2024</p>
-        <p>Show credential</p>
-
-        <p><strong>Business Communication (BUSI1025 - 2022)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Dec 2024</p>
-        <p>Show credential</p>
-
-        <p><strong>Business Law (BusLaw1001)</strong></p>
-        <p>Sophia Learning</p>
-        <p>Issued Dec 2024</p>
-        <p>Show credential</p>
-      </div>
-    </div>
-
-    <!-- AWS -->
-    <div class="cert-card">
-      <div class="cert-badge aws">AWS</div>
-      <div class="cert-body">
-        <p><strong>AWS Certified Cloud Practitioner</strong></p>
-        <p>Amazon Web Services (AWS)</p>
-        <p>Issued Dec 2021 · Expires Jan 2029</p>
-        <p>Show credential</p>
-
-        <p><strong>AWS Certified Solutions Architect – Associate</strong></p>
-        <p>Amazon Web Services (AWS)</p>
-        <p>Issued Jan 2023 · Expires Jan 2026</p>
-        <p>Credential ID WLYPVZ3KRF4EQ4CC</p>
-        <p>Show credential</p>
-      </div>
-    </div>
-
-    <!-- Plesk -->
-    <div class="cert-card">
-      <div class="cert-badge plesk">PL</div>
-      <div class="cert-body">
-        <p><strong>Plesk Linux Expert Obsidian</strong></p>
-        <p>Plesk</p>
-        <p>Issued Apr 2025 · Expires Apr 2027</p>
-        <p>Thumbnail for Plesk Linux Expert Obsidian</p>
-        <p>Plesk Linux Expert Obsidian</p>
-
-        <p><strong>Plesk Obsidian Professional Certification (OBS-2-PRO-EXAM)</strong></p>
-        <p>Plesk</p>
-        <p>Issued Sep 2023 · Expires Sep 2025</p>
-        <p>Credential ID Plesk Obsidian Professional Certification (OBS-2-PRO-EXAM)</p>
-        <p>Skills: Plesk</p>
-        <p>Thumbnail for Plesk Obsidian Professional Certification (OBS-2-PRO-EXAM)</p>
-        <p>Plesk Obsidian Professional Certification (OBS-2-PRO-EXAM)</p>
-      </div>
-    </div>
-
-    <!-- cPanel -->
-    <div class="cert-card">
-      <div class="cert-badge cpanel">CP</div>
-      <div class="cert-body">
-  
-        <p><strong>CCP 88f4-69d0-e0e1-8399</strong></p>
-        <p>cPanel</p>
-        <p>Issued Oct 2023 · Expires Sep 2025</p>
-        <p>Credential ID 88f4-69d0-e0e1-8399</p>
-        <p>Skills: cPanel</p>
-
-        <p><strong>cPanel Certified Partner Accreditation (CPCP)</strong></p>
-        <p>Issued Oct 2023 · Expires Oct 2024</p>
-        <p>Credential ID 49ed-48f1-fdb6-3d68</p>
-
-        <p><strong>Imunify360 Certification Exam</strong></p>
-        <p>Credential ID cc4d-255b-af19-02e3</p>
-
-        <p><strong>cPanel & WHM System Administrator II Certification Exam (CWSA-2)</strong></p>
-        <p>Credential ID a137-f383-8242-e43f</p>
-
-        <p><strong>cPanel & WHM System Administrator I Certification Exam (CWSA-1)</strong></p>
-        <p>Credential ID 606f-f420-8463-87a8</p>
-
-        <p><strong>WHM Administration Certification Exam (CWA)</strong></p>
-        <p>Credential ID 7a58-883c-f6f3-31ac</p>
-
-        <p><strong>cPanel Professional Certification Exam (CPP)</strong></p>
-        <p>Credential ID 88f4-69d0-e0e1-8399</p>
-        <p>Skills: cPanel</p>
-      </div>
-    </div>
-
-    <!-- Linux / Red Hat / MongoDB -->
-    <div class="cert-card">
-      <div class="cert-badge linux">LX</div>
-      <div class="cert-body">
-        <p><strong>Linuxacademy.com 71 various certs</strong></p>
-        <p>Linux Academy</p>
-        <p>Issued Oct 2014 · Expires Oct 2019</p>
-        <p>Credential ID 71 certs</p>
-
-        <p>MongoDB logo</p>
-        <p><strong>University M102: MongoDB for DBAs (Version 3.2)</strong></p>
-        <p>Issued Dec 2014</p>
-        <p>Credential ID MDBo1yonbmgzv</p>
-
-        <p><strong>University M202: MongoDB Advanced Deployment and Operations (Version 4)</strong></p>
-        <p>Issued Apr 2015</p>
-        <p>Credential ID MDB6g7ufwacu1</p>
-
-        <p>Linux Professional Institute (LPI) logo</p>
-        <p><strong>Certified Linux Administrator (LPIC-1)</strong></p>
-        <p>Credential ID LPI-101 997303855</p>
-        <p>Skills: LAMP</p>
-
-        <p>Red Hat logo</p>
-        <p><strong>Red Hat Certified System Administrator (RHCSA) 6</strong></p>
-        <p>Credential ID RHCSA 140-075-227</p>
-        <p>Skills: LAMP</p>
-
-        <p><strong>Red Hat Certified Engineer (RHCE) 6</strong></p>
-        <p>Credential ID RHCE 140-075-227</p>
-        <p>Skills: LAMP</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-  
-  
-</div>
-
+        <div class="cert-card linux">
+          <div class="cert-badge linux"></div>
+          <div class="cert-body">
+            <h3>Linux Professional</h3>
+            <p>LPIC-1 Certification</p>
+            <small>Issued 2022</small>
+          </div>
         </div>
 
-        <div class="resume-block">
-       <div class="resume-block">
-  <h2>Courses & Continuous Learning</h2>
+        <div class="cert-card redhat">
+          <div class="cert-badge redhat"></div>
+          <div class="cert-body">
+            <h3>RedHat Certified Engineer</h3>
+            <p>RHCE Certification</p>
+            <small>Issued 2022</small>
+          </div>
+        </div>
+      </div>
 
-  <section class="courses-shell">
-
-    <!-- PROFILES -->
-    <div class="course-profiles">
-      <a href="https://app.pluralsight.com/profile/blairyfairy" target="_blank">Pluralsight</a>
-      <a href="https://www.codecademy.com/users/BlairPage/achievements" target="_blank">Codecademy</a>
-      <a href="https://linuxacademy.com/profile/show/user/name/Blairyfairy" target="_blank">Linux Academy</a>
-      <a href="https://teamtreehouse.com/blairpage" target="_blank">Treehouse</a>
-      <a href="https://www.freecodecamp.org/Blairyfairy" target="_blank">freeCodeCamp</a>
-    </div>
-<div class="experience-item">
-<h2>Volunteer Work</h2>
-
-<!-- VOLUNTEERING -->
-<div class="experience-item">
-  <h3>Judge</h3>
-  <p><strong>FIRST</strong></p>
-  <p>Nov 2014 – Aug 2015 · 10 mos</p>
-  <p><strong>Focus:</strong> Children</p>
-  <p>
-    Helped at a handful of events in Texas around the time I was working at Rackspace.
-  </p>
-</div>
-
-<div class="experience-item">
-  <h3>Volunteer</h3>
-  <p>
-    Petitioning with former Mayor of Swartz Creek, MI
-    <strong>Donna McCoy</strong>
-  </p>
-  <p><strong>Focus:</strong> Politics</p>
-  <p>
-    During my youth, I spent time volunteering at various locations. Assisted passing
-    out water at the Flint Crim races, helped at ribbon-cutting ceremonies, participated
-    in Camp 911 for multiple years in a row, and appeared on local TV stations related
-    to specific events. Rode in parades, conducted door-to-door petitioning, attended
-    city council meetings, spent time at farmers markets, assisted at elderly homes,
-    and remained highly active in the community.
-  </p>
-</div>
-
-
-
+      <!-- WEB CERTS -->
+      <div class="cert-grid">
+        <div class="cert-card cpanel">
+          <div class="cert-badge cpanel"></div>
+          <div class="cert-body">
+            <h3>cPanel Web Hosting</h3>
+            <p>Advanced Management & Deployment</p>
+            <small>Issued 2021</small>
+          </div>
         </div>
 
-      </section>
+        <div class="cert-card plesk">
+          <div class="cert-badge plesk"></div>
+          <div class="cert-body">
+            <h3>Plesk Administrator</h3>
+            <p>Server Control Panel Management</p>
+            <small>Issued 2021</small>
+          </div>
+        </div>
 
+        <div class="cert-card mongo">
+          <div class="cert-badge mongo"></div>
+          <div class="cert-body">
+            <h3>MongoDB Developer</h3>
+            <p>Database Administration & Queries</p>
+            <small>Issued 2022</small>
+          </div>
+        </div>
+      </div>
     </section>
-  </main>
 
+    <!-- VOLUNTEER -->
+    <section class="volunteer-section">
+      <h2 class="section-title">Volunteer Work</h2>
+      <div class="volunteer-card">
+        <div class="volunteer-logo">🤝</div>
+        <div>
+          <h3>Local Community Outreach</h3>
+          <p>Assisted with community coding workshops and mentoring youth in technology.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="education-section">
+      <h2 class="section-title">Education</h2>
+      <div class="education-card">
+        <div class="edu-logo">🎓</div>
+        <div>
+          <h3>University of People</h3>
+          <p>B.S. Computer Science, 2026</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
 </body>
 </html>
