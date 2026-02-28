@@ -1,475 +1,362 @@
 /* =========================================================
-   BlairPage Full Modernized Portfolio CSS
+   BlairPage | Modern Resume Portfolio
+   Responsive & Dark/Light Theme
    ========================================================= */
 
 /* =========================
    COLOR SYSTEM
    ========================= */
-
 :root {
-  --black: #000000ff;
-  --midnight-violet: #291528ff;
-  --charcoal-brown: #3a3e3bff;
-  --ghost-white: #f0eff4ff;
-  --dusty-mauve: #9e829cff;
-
-  --bg-light: linear-gradient(
-    135deg,
-    #000000ff 0%,
-    #291528ff 30%,
-    #3a3e3bff 60%,
-    #9e829cff 85%,
-    #f0eff4ff 100%
-  );
-
-  --glass-bg: rgba(240, 239, 244, 0.08);
-  --glass-border: rgba(240, 239, 244, 0.22);
-  --text-light: var(--ghost-white);
-  --transition-time: 0.35s;
+  --primary: #9e829c;
+  --secondary: #f0eff4;
+  --background: #f9f9f9;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --text-color: #2b2b2b;
+  --accent: #6c63ff;
+  --timeline-line: #9e829c;
+  --timeline-bg: #fefefe;
+  --btn-bg: #6c63ff;
+  --btn-text: #fff;
 }
-
-/* =========================
-   DARK MODE
-   ========================= */
 
 body.dark {
-  --bg-light: linear-gradient(
-    135deg,
-    #000000ff 0%,
-    #1a0d19 35%,
-    #291528ff 70%,
-    #3a3e3bff 100%
-  );
-  --glass-bg: rgba(0, 0, 0, 0.65);
-  --glass-border: rgba(240, 239, 244, 0.12);
-  --text-light: #f8f7fb;
+  --primary: #9e829c;
+  --secondary: #f0eff4;
+  --background: #121212;
+  --card-bg: rgba(0, 0, 0, 0.5);
+  --text-color: #f5f5f5;
+  --accent: #bb86fc;
+  --timeline-line: #bb86fc;
+  --timeline-bg: #1e1e1e;
+  --btn-bg: #bb86fc;
+  --btn-text: #121212;
 }
-
-/* =========================
-   BASE
-   ========================= */
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: var(--bg-light);
-  color: var(--text-light);
-  transition: background var(--transition-time) ease;
-}
-
-.container {
-  padding: 2rem;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background);
+  transition: background 0.3s, color 0.3s;
 }
 
 /* =========================
-   TOP BAR
+   HEADER / TOP BAR
    ========================= */
-
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.6px;
-  background: transparent;
-  border: none;
-  backdrop-filter: none;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: var(--secondary);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* =========================
-   THEME TOGGLE BUTTON
-   ========================= */
-
 .theme-btn {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  padding: 0.4rem 1rem;
-  color: var(--ghost-white);
+  background: none;
+  border: none;
+  color: var(--secondary);
+  font-size: 1.5rem;
   cursor: pointer;
-  backdrop-filter: blur(12px);
-  box-shadow:
-    inset 0 0 0 1px rgba(240, 239, 244, 0.18),
-    0 8px 22px rgba(0, 0, 0, 0.35);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.3s;
 }
 
 .theme-btn:hover {
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 0 0 1px rgba(240, 239, 244, 0.28),
-    0 12px 30px rgba(0, 0, 0, 0.45);
+  transform: rotate(20deg);
 }
 
 /* =========================
-   RESUME SHELL
+   CONTAINER & SECTIONS
    ========================= */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
 
-.resume-shell {
-  max-width: 1100px;
-  margin: auto;
-  backdrop-filter: blur(20px);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 28px;
-  padding: 3rem;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+section {
+  margin-bottom: 3rem;
 }
 
 /* =========================
-   IDENTITY ROW
+   PROFILE HEADER
    ========================= */
-
 .identity-row {
   display: flex;
-  gap: 3rem;
-  align-items: center;
   flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
 }
 
 .profile-img {
   width: 180px;
   height: 180px;
-  object-fit: cover;
   border-radius: 50%;
-  border: 4px solid rgba(240, 239, 244, 0.45);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.7);
-}
-
-.identity-info {
-  flex: 1;
+  border: 3px solid var(--accent);
+  object-fit: cover;
 }
 
 .identity-info h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.25rem;
 }
 
 .sub-name {
-  font-size: 0.75rem;
-  opacity: 0.7;
-  margin-bottom: 0.5rem;
+  font-style: italic;
+  color: var(--accent);
 }
 
 .identity-info h3 {
-  margin: 0.6rem 0 1rem;
+  margin: 0.5rem 0;
   font-weight: 500;
-  color: var(--dusty-mauve);
 }
 
 .bio {
-  font-size: 0.95rem;
-  line-height: 1.55;
-  max-width: 720px;
+  margin-top: 1rem;
+  font-size: 1rem;
 }
 
 /* =========================
    SOCIAL LINKS
    ========================= */
-
 .social-links {
   display: flex;
-  gap: 1.5rem;
-  margin: 1.4rem 0;
+  gap: 1rem;
+  margin: 0.5rem 0 1rem;
 }
 
 .social-links a {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   text-decoration: none;
-  position: relative;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  color: var(--text-color);
+  transition: transform 0.2s;
 }
 
 .social-links a:hover {
-  transform: translateY(-6px);
-  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.75));
-}
-
-/* =========================
-   TOOLTIP
-   ========================= */
-
-.tooltip::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 160%;
-  left: 50%;
-  transform: translateX(-50%) translateY(6px);
-  background: rgba(0, 0, 0, 0.95);
-  color: var(--ghost-white);
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  letter-spacing: 0.5px;
-  opacity: 0;
-  white-space: nowrap;
-  pointer-events: none;
-  transition: all 0.25s ease;
-}
-
-.tooltip:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: scale(1.2);
 }
 
 /* =========================
    CONNECT BUTTON
    ========================= */
-
 .follow-btn {
-  margin-top: 0.5rem;
-  background: linear-gradient(135deg, #291528ff, #3a3e3bff, #9e829cff);
+  padding: 0.5rem 1rem;
+  background: var(--btn-bg);
+  color: var(--btn-text);
   border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 30px;
-  color: var(--ghost-white);
-  font-weight: 600;
+  border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+  font-weight: 600;
+  transition: all 0.3s;
 }
 
 .follow-btn:hover {
-  transform: scale(1.06);
+  opacity: 0.85;
 }
 
-.following {
-  background: linear-gradient(135deg, #9e829cff, #291528ff, #000000ff);
+.follow-btn.following {
+  background-color: var(--accent);
+  color: var(--secondary);
 }
 
 /* =========================
    TIMELINE
    ========================= */
-
-.timeline {
-  margin-top: 4rem;
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-left: 3px solid var(--timeline-line);
+  margin-left: 1rem;
+  position: relative;
+  background-color: var(--timeline-bg);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  transition: background 0.3s;
 }
 
-.timeline-item {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 2rem;
-  margin-bottom: 2.5rem;
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  background-color: var(--accent);
+  border-radius: 50%;
+}
+
+.timeline-date {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
 }
 
 /* =========================
-   COURSES SECTION
+   PROFILE MATRIX CARDS
    ========================= */
+.profile-matrix {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-.courses-shell {
-  margin-top: 1.5rem;
+.matrix-grid {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.25rem;
 }
 
-.course-group {
-  border: 1px solid var(--glass-border);
-  border-radius: 18px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
+.matrix-card {
+  border-radius: 14px;
+  background: var(--card-bg);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.course-toggle {
+.matrix-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.card-toggle {
   width: 100%;
   background: none;
   border: none;
   padding: 1rem 1.25rem;
+  color: var(--text-color);
   font-size: 1rem;
-  font-weight: 600;
-  color: var(--ghost-white);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   cursor: pointer;
 }
 
-.course-content {
+.chevron {
+  transition: transform 0.3s;
+}
+
+.card-toggle[aria-expanded="true"] .chevron {
+  transform: rotate(180deg);
+}
+
+.card-content {
+  padding: 0 1.25rem 1rem;
   display: none;
-  padding: 0 1.25rem 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
-.course-group.open .course-content {
+.matrix-card.open .card-content {
   display: block;
-}
-
-.course-content ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.course-content li {
-  padding: 0.4rem 0;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-}
-
-.course-content span {
-  opacity: 0.65;
-  font-size: 0.8rem;
 }
 
 /* =========================
    CERTIFICATIONS
    ========================= */
-
 .certs-section {
-  margin-top: 4rem;
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1rem;
-}
-
-.certs-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 2rem;
+  margin: 0 auto;
 }
 
 .cert-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .cert-card {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1.25rem;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: transform .25s ease, box-shadow .25s ease;
+  border-radius: 12px;
+  background: var(--card-bg);
+  padding: 1rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .cert-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, .3);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
 .cert-badge {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   font-weight: 700;
-  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
   color: #fff;
-  flex-shrink: 0;
 }
 
-.cert-body h3 {
-  font-size: 1rem;
-  margin-bottom: .25rem;
-  line-height: 1.35;
-}
+.cert-badge.sophia { background: #ff6f61; }
+.cert-badge.aws { background: #ff9900; }
+.cert-badge.plesk { background: #0099ff; }
+.cert-badge.cpanel { background: #f37021; }
+.cert-badge.linux { background: #8dc63f; }
 
-.cert-body p,
-.cert-body small {
-  display: block;
-  opacity: 0.85;
-  font-size: .85rem;
-  white-space: normal;
-  word-break: break-word;
+.cert-body p {
+  margin: 0.25rem 0;
 }
-
-.cert-card.open .cert-body {
-  max-height: 2000px;
-}
-
-/* Certification Badges */
-.aws { background: #ff9900; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazonaws.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
-.redhat { background: #cc0000; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/redhat.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
-.linux { background: #333; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/linux.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
-.mongo { background: #47a248; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mongodb.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
-.cpanel { background: #ff6c2c; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cpanel.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
-.plesk { background: #52bbe6; mask-image: url("https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plesk.svg"); mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
 
 /* =========================
-   VOLUNTEER & EDUCATION
+   COURSES PROFILES
    ========================= */
-
-.volunteer-card, .education-card {
+.course-profiles {
   display: flex;
-  gap: 1rem;
-  align-items: center;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 14px;
-  padding: 1rem 1.25rem;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-.volunteer-card:hover, .education-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0,0,0,.3);
+.course-profiles a {
+  padding: 0.5rem 0.75rem;
+  background-color: var(--accent);
+  color: var(--secondary);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.25s;
 }
 
-.volunteer-logo, .edu-logo {
-  width: 56px;
-  height: 56px;
-  display: grid;
-  place-items: center;
-  font-size: 1.5rem;
-  border-radius: 12px;
-  flex-shrink: 0;
-  background: rgba(255,255,255,.1);
+.course-profiles a:hover {
+  transform: scale(1.05);
 }
 
 /* =========================
    RESPONSIVE
    ========================= */
-
 @media (max-width: 768px) {
   .identity-row {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
-
   .timeline-item {
+    margin-left: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-img {
+    width: 140px;
+    height: 140px;
+  }
+  .matrix-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
   }
-
-  .resume-shell {
-    padding: 1.5rem 1.25rem;
-  }
-
-  .bio {
-    max-width: 36ch;
-    margin: 0 auto;
-  }
-
   .cert-grid {
     grid-template-columns: 1fr;
-  }
-
-  .course-content li {
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  a {
-    display: inline-block;
-    max-width: 100%;
-    word-break: break-word;
-  }
-
-  .volunteer-card, .education-card {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .volunteer-logo, .edu-logo {
-    margin: 0 auto;
   }
 }
