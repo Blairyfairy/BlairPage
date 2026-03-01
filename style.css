@@ -1,11 +1,3 @@
-/* =========================================================
-   NOTE:
-   This file is VALID CSS.
-   No rules, values, or selectors have been changed.
-   Comments only exist to clarify structure and prevent
-   editor / GitHub confusion.
-   ========================================================= */
-
 /* =========================
    COLOR SYSTEM
    ========================= */
@@ -284,12 +276,6 @@ body {
   }
 }
 
-/* =========================
-   TOP BAR (INTENTIONAL OVERRIDE)
-   Duplicate selector is VALID CSS.
-   This block intentionally removes bar styling.
-   ========================= */
-
 .top-bar {
   background: var(--glass-bg);
   display: flex;
@@ -311,6 +297,7 @@ body {
 
 @media (max-width: 768px) {
 
+  /* Overall padding + reading width */
   .container {
     padding: 1rem;
   }
@@ -319,6 +306,7 @@ body {
     padding: 1.5rem 1.25rem;
   }
 
+  /* Typography scaling */
   body {
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
@@ -347,6 +335,7 @@ body {
     hyphens: auto;
   }
 
+  /* Identity section flow */
   .identity-row {
     flex-direction: column;
     text-align: center;
@@ -357,10 +346,11 @@ body {
   }
 
   .bio {
-    max-width: 36ch;
+    max-width: 36ch; /* ideal mobile reading width */
     margin: 0 auto;
   }
 
+  /* Timeline readability */
   .timeline-item {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -370,288 +360,10 @@ body {
     padding-left: 0;
   }
 
+  /* Prevent long links from breaking layout */
   a {
     display: inline-block;
     max-width: 100%;
     word-break: break-word;
-  }
-}
-
-/* =========================
-   COURSES SECTION
-   ========================= */
-
-.courses-shell {
-  margin-top: 1.5rem;
-  display: grid;
-  gap: 1.25rem;
-}
-
-.course-profiles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.course-profiles a {
-  padding: 0.45rem 0.9rem;
-  border-radius: 20px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  text-decoration: none;
-  font-size: 0.85rem;
-  color: var(--ghost-white);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.course-profiles a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.4);
-}
-
-.course-group {
-  border: 1px solid var(--glass-border);
-  border-radius: 18px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  overflow: hidden;
-}
-
-.course-toggle {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 1rem 1.25rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--ghost-white);
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.course-content {
-  display: none;
-  padding: 0 1.25rem 1.25rem;
-}
-
-.course-group.open .course-content {
-  display: block;
-}
-
-.course-content ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.course-content li {
-  padding: 0.4rem 0;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-}
-
-.course-content span {
-  opacity: 0.65;
-  font-size: 0.8rem;
-}
-
-@media (max-width: 768px) {
-  .course-content li {
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-}
-
-/* =========================
-   CERTIFICATIONS (ADVANCED)
-   ========================= */
-
-.certs-section {
-  margin-top: 4rem;
-}
-
-.certs-title {
-  font-size: 1.7rem;
-  margin-bottom: 2.5rem;
-}
-
-.cert-group {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 1.75rem;
-  margin-bottom: 3rem;
-}
-
-.cert-logo {
-  max-width: 110px;
-  opacity: 0.9;
-  align-self: start;
-}
-
-.cert-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
-}
-
-.cert-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 18px;
-  padding: 1rem 1.2rem;
-  backdrop-filter: blur(12px);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.cert-card h4 {
-  margin: 0 0 0.3rem;
-  font-size: 0.95rem;
-}
-
-.cert-card p,
-.cert-card small {
-  display: block;
-  font-size: 0.75rem;
-  opacity: 0.75;
-}
-
-.cert-card a {
-  margin-top: 0.4rem;
-  font-size: 0.75rem;
-  display: inline-block;
-}
-
-.cert-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 36px rgba(0,0,0,0.45);
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .cert-group {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .cert-logo {
-    margin: 0 auto;
-  }
-}
-
-.certs-section {
-  max-width: 1200px;
-  margin: 4rem auto;
-  padding: 1rem;
-}
-
-.certs-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
-
-.cert-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.cert-card {
-  display: flex;
-  gap: 1rem;
-  padding: 1.25rem;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.15);
-  transition: transform .25s ease, box-shadow .25s ease;
-  text-decoration: none;
-  color: inherit;
-}
-
-.cert-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,.3);
-}
-
-.cert-badge {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: #fff;
-}
-
-.aws { background: #ff9900; }
-.redhat { background: #cc0000; }
-.linux { background: #333; }
-.mongo { background: #47a248; }
-.cpanel { background: #ff6c2c; }
-.plesk { background: #52bbe6; }
-.acronis { background: #0033a0; }
-.code { background: #1f2937; }
-
-.cert-body h3 {
-  font-size: 1rem;
-  margin-bottom: .25rem;
-}
-
-.cert-body p,
-.cert-body small {
-  display: block;
-  opacity: 0.85;
-  font-size: .85rem;
-}
-
-.link-card {
-  cursor: pointer;
-}
-
-/* =========================================================
-   CERT CARD STABILITY FIX (ADDITIVE ONLY)
-   This section resolves expansion + logo/text layout issues
-   WITHOUT modifying or removing existing rules.
-   ========================================================= */
-
-/* Ensure cert cards expand vertically like top sections */
-.cert-card {
-  align-items: flex-start;
-}
-
-/* Prevent logo / badge column from forcing height */
-.cert-badge,
-.cert-logo {
-  flex-shrink: 0;
-}
-
-/* Allow certificate text blocks to grow naturally */
-.cert-body {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-/* Improve multi-line flow for long credential names */
-.cert-body h3,
-.cert-body h4 {
-  line-height: 1.35;
-}
-
-/* Ensure paragraphs and credential IDs never clip */
-.cert-body p,
-.cert-body small {
-  white-space: normal;
-  word-break: break-word;
-}
-
-/* Mobile: allow full vertical stacking without collapse */
-@media (max-width: 768px) {
-  .cert-card {
-    flex-direction: column;
-    align-items: flex-start;
   }
 }
