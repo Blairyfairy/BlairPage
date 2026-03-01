@@ -1,181 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blair Page Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="main.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blair Page | Resume Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <!-- TOP BAR -->
-  <div class="top-bar">
-    <span>Blair Page Portfolio</span>
-    <button class="theme-btn" id="themeToggle">Toggle Theme</button>
-  </div>
 
-  <!-- MAIN CONTAINER -->
-  <div class="container resume-shell">
-
-    <!-- IDENTITY -->
-    <div class="identity-row">
-      <img src="profile.jpg" alt="Blair Page" class="profile-img">
-      <div class="identity-info">
-        <h1>Blair Page</h1>
-        <div class="sub-name">Software Engineer | AWS Solutions Architect</div>
-        <h3>Full-stack Developer & Cloud Enthusiast</h3>
-        <p class="bio">
-          Experienced developer with a passion for building scalable web applications, modern portfolio designs, and cloud-based solutions. Skilled in AWS, Linux, and various web technologies.
-        </p>
-
-        <!-- SOCIAL LINKS -->
-        <div class="social-links">
-          <a href="#" data-tooltip="GitHub">🐙</a>
-          <a href="#" data-tooltip="LinkedIn">💼</a>
-          <a href="#" data-tooltip="Twitter">🐦</a>
-        </div>
-
-        <button class="follow-btn" id="followBtn">
-          <span class="btn-text">Connect</span>
-        </button>
-      </div>
+  <!-- 🌟 Executive Header -->
+  <header class="top-bar">
+    <div class="credential-header">
+      RHCE6 · AWS Cloud Practitioner · AWS Solutions Architect Associate (Renewal Scheduled)
     </div>
+    <button id="themeToggle" class="theme-btn">🌙</button>
+  </header>
 
-    <!-- TIMELINE -->
-    <section class="timeline">
-      <h2>Professional Timeline</h2>
+  <main class="container">
 
-      <div class="timeline-item">
-        <div>2025-Present</div>
-        <div class="timeline-content">
-          <h3>CNO Developer - BlueHalo</h3>
-          <p>Leading cloud-based development projects and internal tooling automation.</p>
+    <section class="resume-shell">
+
+      <!-- Identity Section -->
+      <section class="identity-row">
+
+        <div class="identity-photo">
+          <img src="https://i.postimg.cc/wjBSDH9v/1000045246.jpg"
+               alt="Blair Page"
+               class="profile-img"
+               onerror="this.onerror=null; this.src='https://via.placeholder.com/180';">
+
+          <nav class="social-links">
+            <a href="https://www.linkedin.com/in/blairpage/" class="tooltip" data-tooltip="LinkedIn" target="_blank">💼</a>
+            <a href="https://shocktherapyrebuilding.com/" class="tooltip" data-tooltip="Website" target="_blank">🌐</a>
+            <a href="https://github.com/Blairyfairy" class="tooltip" data-tooltip="GitHub" target="_blank">🖥️</a>
+          </nav>
+
+          <button id="followBtn" class="follow-btn">
+            <span class="btn-text">Connect</span>
+          </button>
         </div>
-      </div>
 
-      <div class="timeline-item">
-        <div>2009-2025</div>
-        <div class="timeline-content">
-          <h3>Game Developer Roles - Various</h3>
-          <p>Worked across junior to senior developer positions, contributing to multiple game engines and platforms.</p>
+        <div class="identity-info">
+          <h1>Blair Page</h1>
+          <div class="sub-name">(Burness Drake McCoy)</div> 
+          <h3>WordPress Developer Intern — Premium Technologies UK</h3>
+
+          <p class="bio">
+            Hybrid Cloud Engineer with RHCE 6 certification and AWS credentials.
+            Architecting scalable web systems, cloud-integrated solutions,
+            and performance-driven infrastructure for modern businesses.
+          </p>
         </div>
-      </div>
+      </section>
+
+      <!-- About Section -->
+      <section class="timeline">
+        <h2>About</h2> 
+        <p>
+          I bring over 12 years of experience supporting Magento and WordPress e-commerce platforms across
+          diverse hosting and cloud environments. Alongside this, I’ve taken on select freelance and
+          one-off projects as needed, while continuing to maintain my family’s site,
+          <a href="https://shocktherapyrebuilding.com/" target="_blank" rel="noopener noreferrer">
+            shocktherapyrebuilding.com
+          </a>.
+          I’m currently refining and formalizing these skills through a WordPress Developer internship
+          focused on modern best practices, performance, and maintainable implementations.
+        </p>
+      </section>
+
+      <!-- Experience & Background Matrix -->
+      <section class="profile-matrix">
+        <h2 class="matrix-title">Experience & Background</h2>
+        <div class="matrix-grid">
+
+          <!-- Matrix Cards -->
+          <article class="matrix-card">
+            <button class="card-toggle" aria-expanded="false">
+              <span>🧭 Professional Snapshot</span>
+              <span class="chevron">▾</span>
+            </button>
+            <div class="card-content">
+              <ul>
+                <li><strong>☁️ Infrastructure:</strong> Rackspace / OpenStack, AWS, UpCloud, Liquid Web, Nexcess</li>
+                <li><strong>⏳ Experience:</strong> 20y Servers · 13y Cloud · 10y Remote/Hybrid</li>
+                <li><strong>🎓 Education:</strong> Bachelor’s in Business (ETA: next few months)</li>         
+              </ul>
+            </div>
+          </article>
+
+          <article class="matrix-card">
+            <button class="card-toggle" aria-expanded="false">
+              <span>🧠 Systems, Data & Security</span>
+              <span class="chevron">▾</span>
+            </button>
+            <div class="card-content">
+              <p><strong>Databases (since 2005)</strong></p>
+              <p>MySQL · PostgreSQL · MongoDB · Redis · Memcached · Elasticsearch · PXC · Galera</p>
+
+              <p><strong>Big Data & Labs</strong></p>
+              <p>Hadoop · AWS EMR · HiveQL · S3 · HDFS</p>
+
+              <p><strong>Security & Ops</strong></p>
+              <p>IDS / IPS · SIEM · Monitoring · Metasploit · Payload analysis</p>
+            </div>
+          </article>
+
+          <article class="matrix-card">
+            <button class="card-toggle" aria-expanded="false">
+              <span>🏢 Enterprise & Business Experience</span>
+              <span class="chevron">▾</span>
+            </button>
+            <div class="card-content">
+              <p><strong>Enterprise Clients</strong></p>
+              <ul>
+                <li>Airbnb</li>
+                <li>Fitbit</li>
+                <li>Rent the Runway</li>
+                <li>Vimeo</li>
+                <li>Pizza Hut</li>
+                <li>Additional mid-to-large organizations</li>
+              </ul>
+
+              <p><strong>Business & E-commerce</strong></p>
+              <p>
+                Family business involvement beginning in 1997 (dirt bikes & snowmobiles),
+                gaining early exposure to distributors, catalogs, logistics, and inventory systems.
+                Applied these concepts to early e-commerce platforms and long-term SEO strategy,
+                with hands-on experience tracking algorithm evolution since the late 1990s.
+              </p>
+            </div>
+          </article>
+
+          <article class="matrix-card">
+            <button class="card-toggle" aria-expanded="false">
+              <span>🌱 Origins & Early Tech</span>
+              <span class="chevron">▾</span>
+            </button>
+            <div class="card-content">
+              <p><strong>Early Computing</strong></p>
+              <p>Commodore 64 · Loadstar · Donald Ducks Playground · Carmen Sandiego · Enchanter · Doom</p>
+
+              <p><strong>Dial-up Era</strong></p>
+              <p>HackThisSite · Some CounterStrike</p>
+            </div>
+          </article>
+
+          <article class="matrix-card">
+            <button class="card-toggle" aria-expanded="false">
+              <span>🌐 Game Servers</span>
+              <span class="chevron">▾</span>
+            </button>
+            <div class="card-content">
+              <section class="data-table-section">
+                <h3>Estimated Representation: Female Ragnarok Online Private Server Admins (Top 200)</h3>
+
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Year</th>
+                      <th>Estimated % Female Admins</th>
+                      <th>Estimated Count (Top 200)</th>
+                      <th>Odds (Approx.)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>2005</td><td>4–5%</td><td>8–10</td><td>1 in 20</td></tr>
+                    <tr><td>2006</td><td>4–5%</td><td>8–10</td><td>1 in 20</td></tr>
+                    <tr><td>2007</td><td>5–6%</td><td>10–12</td><td>1 in 17</td></tr>
+                    <tr><td>2008</td><td>5–6%</td><td>10–12</td><td>1 in 17</td></tr>
+                    <tr><td>2009</td><td>6–7%</td><td>12–14</td><td>1 in 14</td></tr>
+                    <tr><td>2010</td><td>6–7%</td><td>12–14</td><td>1 in 14</td></tr>
+                    <tr><td>2011</td><td>7–8%</td><td>14–16</td><td>1 in 13</td></tr>
+                    <tr><td>2012</td><td>8–9%</td><td>16–18</td><td>1 in 11</td></tr>
+                    <tr><td>2013</td><td>9–10%</td><td>18–20</td><td>1 in 10</td></tr>
+                  </tbody>
+                </table>
+
+                <p class="table-note">
+                  Estimates based on community archives, server listings, forum history,
+                  and observed participation trends in early MMORPG private server ecosystems.
+                  Values reflect administrators or lead operators appearing within the
+                  top 200 servers per year.
+                </p>
+              </section>
+            </div>
+          </article>
+
+          <article class="matrix-card">
+            <button class="card-toggle" aria-expanded="false">
+              <span>🎮 Gaming & Creative</span>
+              <span class="chevron">▾</span>
+            </button>
+            <div class="card-content">
+              <ul>
+                <li>Held rank 50 on Team Slayer & Rumble Pit for Halo2 (Bleargfairy)</li>
+                <li>
+                  Xbox Gamertag Bl4iryF4iry · Playstation Online ID BlargTrill
+                  <a href="https://na.finalfantasyxiv.com/lodestone/character/6642289/achievement/" target="_blank" rel="noopener noreferrer">
+                    Final Fantasy XIV – Character Achievements
+                  </a>
+                </li>
+                <li>Magic: The Gathering enthusiast</li>
+                <li>White Wolf LARP (since 2004) — narrative systems</li>
+                <li>Cecchetti Ballet certifications · Joffrey Ballet workshops</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Timeline, Certifications, Education, Courses, Volunteer go here -->
+
     </section>
-
-    <!-- COURSES -->
-    <section class="courses-shell">
-      <h2 class="section-title">Courses & Trainings</h2>
-      <div class="course-group">
-        <button class="course-toggle">Web Development</button>
-        <div class="course-content">
-          <ul>
-            <li>WordPress <span>2022</span></li>
-            <li>WooCommerce <span>2022</span></li>
-            <li>Magento <span>2023</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="course-group">
-        <button class="course-toggle">Cloud & Architecture</button>
-        <div class="course-content">
-          <ul>
-            <li>AWS Solutions Architect <span>2023</span></li>
-            <li>Linux Server Management <span>2021</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CERTIFICATIONS -->
-    <section class="certs-section">
-      <h2 class="certs-title">Certifications</h2>
-
-      <!-- CLOUD CERTS -->
-      <div class="cert-grid">
-        <div class="cert-card aws">
-          <div class="cert-badge aws"></div>
-          <div class="cert-body">
-            <h3>AWS Solutions Architect</h3>
-            <p>Amazon Web Services - Associate Level</p>
-            <small>Issued 2023</small>
-          </div>
-        </div>
-
-        <div class="cert-card linux">
-          <div class="cert-badge linux"></div>
-          <div class="cert-body">
-            <h3>Linux Professional</h3>
-            <p>LPIC-1 Certification</p>
-            <small>Issued 2022</small>
-          </div>
-        </div>
-
-        <div class="cert-card redhat">
-          <div class="cert-badge redhat"></div>
-          <div class="cert-body">
-            <h3>RedHat Certified Engineer</h3>
-            <p>RHCE Certification</p>
-            <small>Issued 2022</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- WEB CERTS -->
-      <div class="cert-grid">
-        <div class="cert-card cpanel">
-          <div class="cert-badge cpanel"></div>
-          <div class="cert-body">
-            <h3>cPanel Web Hosting</h3>
-            <p>Advanced Management & Deployment</p>
-            <small>Issued 2021</small>
-          </div>
-        </div>
-
-        <div class="cert-card plesk">
-          <div class="cert-badge plesk"></div>
-          <div class="cert-body">
-            <h3>Plesk Administrator</h3>
-            <p>Server Control Panel Management</p>
-            <small>Issued 2021</small>
-          </div>
-        </div>
-
-        <div class="cert-card mongo">
-          <div class="cert-badge mongo"></div>
-          <div class="cert-body">
-            <h3>MongoDB Developer</h3>
-            <p>Database Administration & Queries</p>
-            <small>Issued 2022</small>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- VOLUNTEER -->
-    <section class="volunteer-section">
-      <h2 class="section-title">Volunteer Work</h2>
-      <div class="volunteer-card">
-        <div class="volunteer-logo">🤝</div>
-        <div>
-          <h3>Local Community Outreach</h3>
-          <p>Assisted with community coding workshops and mentoring youth in technology.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- EDUCATION -->
-    <section class="education-section">
-      <h2 class="section-title">Education</h2>
-      <div class="education-card">
-        <div class="edu-logo">🎓</div>
-        <div>
-          <h3>University of People</h3>
-          <p>B.S. Computer Science, 2026</p>
-        </div>
-      </div>
-    </section>
-
-  </div>
+  </main>
 </body>
 </html>
