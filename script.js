@@ -22,10 +22,3 @@ themeToggle.addEventListener("click", () => {
     themeToggle.textContent = "🌙";
   }
 });
-<script>
-document.querySelectorAll('.course-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    btn.parentElement.classList.toggle('open');
-  });
-});
-</script>
