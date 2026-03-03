@@ -1,5 +1,4 @@
-/* =========================
-   COLOR SYSTEM
+/* =========================  Mar 3
    ========================= */
 
 :root {
@@ -9,6 +8,12 @@
   --ghost-white: #f0eff4ff;
   --dusty-mauve: #9e829cff;
 
+  /* Portfolio Card Structure Variables */
+  --deep-blue: var(--midnight-violet);
+  --vibrant-orange: var(--dusty-mauve);
+  --text-light: var(--ghost-white);
+
+  /* IDENTICAL GRADIENT */
   --bg-light: linear-gradient(
     135deg,
     #000000ff 0%,
@@ -20,15 +25,14 @@
 
   --glass-bg: rgba(240, 239, 244, 0.08);
   --glass-border: rgba(240, 239, 244, 0.22);
-  --text-light: var(--ghost-white);
 
-  /* Unified Link System */
+  /* Keep your link system */
   --link-primary: #d8b4ff;
   --link-hover: #c084fc;
 }
 
 /* =========================
-   DARK MODE
+   DARK MODE (MATCHED)
    ========================= */
 
 body.dark {
@@ -53,6 +57,7 @@ body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: var(--bg-light);
+  background-attachment: fixed; /* ensures smooth depth like portfolio-card */
   color: var(--text-light);
   transition: background 0.7s ease;
 }
@@ -240,89 +245,13 @@ a:active {
 }
 
 /* =========================
-   TIMELINE
-   ========================= */
-
-.timeline {
-  margin-top: 4rem;
-}
-
-.timeline-item {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 2rem;
-  margin-bottom: 2.5rem;
-}
-
-/* =========================
-   EDUCATION + COURSES
-   ========================= */
-
-.education-wrapper {
-  margin-top: 6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-}
-
-.edu-card,
-.courses-card,
-.certs-card {
-  padding: 2.5rem;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 20px;
-}
-
-.section-title {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  letter-spacing: -0.5px;
-}
-
-/* Course Grid */
-
-.course-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2.5rem;
-}
-
-.course-group ul {
-  list-style: none;
-  padding: 0;
-  font-size: 0.97rem;
-  line-height: 1.7;
-}
-
-.course-group li {
-  margin-bottom: 0.5rem;
-}
-
-/* =========================
-   BRAND COLORS
+   BRAND COLORS (UNCHANGED)
    ========================= */
 
 .mongodb { color: #47A248; }
 .lcc { color: #142C5A; }
 .rackspace { color: #a94444; }
 .udemy { color: #ffffff; font-weight: 600; }
-
-/* =========================
-   CERTIFICATIONS POLISH
-   ========================= */
-
-.cert-columns {
-  column-count: 2;
-  column-gap: 3rem;
-}
-
-@media (max-width: 900px) {
-  .cert-columns {
-    column-count: 1;
-  }
-}
 
 /* =========================
    RESPONSIVE
@@ -335,19 +264,11 @@ a:active {
     text-align: center;
   }
 
-  .timeline-item {
-    grid-template-columns: 1fr;
-  }
-
   .container {
     padding: 1rem;
   }
 
   .resume-shell {
     padding: 1.5rem 1.25rem;
-  }
-
-  .two-col {
-    columns: 1;
   }
 }
