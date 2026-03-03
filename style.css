@@ -1,8 +1,7 @@
 /* =========================================================
    BLAIRPAGE — UNIFIED VISUAL SYSTEM
-   Matched to Portfolio Card gradient + refined polish
-   Responsive structure restored
-   Volunteer icons properly constrained
+   ShockTherapyRebuilding Unified Link System
+   Responsive preserved
    ========================================================= */
 
 /* =========================
@@ -30,8 +29,9 @@
   --glass-bg: rgba(240, 239, 244, 0.08);
   --glass-border: rgba(240, 239, 244, 0.22);
 
-  --link-primary: #d4b5ff;
-  --link-hover: #f1e4ff;
+  /* Shock Therapy Brand Link System */
+  --link-primary: #9e829c;
+  --link-hover: #f0eff4;
 }
 
 /* =========================
@@ -71,6 +71,7 @@ body {
 
 /* =========================
    GLOBAL LINK SYSTEM
+   Unified Shock Therapy Hover
    ========================= */
 
 a {
@@ -78,12 +79,12 @@ a {
   text-decoration: none;
   font-weight: 600;
   letter-spacing: 0.3px;
-  transition: all 0.25s ease;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
 }
 
 a:hover {
   color: var(--link-hover);
-  text-shadow: 0 0 12px rgba(212, 181, 255, 0.6);
+  text-shadow: 0 0 14px rgba(240, 239, 244, 0.65);
 }
 
 a:visited {
@@ -203,7 +204,6 @@ a:active {
   align-items: center;
 }
 
-/* SOCIAL ICONS (unchanged) */
 .social-links img,
 .social-links svg {
   width: 32px;
@@ -216,7 +216,6 @@ a:active {
   transform: translateY(-4px);
 }
 
-/* VOLUNTEER ICONS — HARD CONSTRAINED */
 .volunteer-icons a {
   display: inline-flex;
   align-items: center;
@@ -272,16 +271,7 @@ a:active {
 }
 
 /* =========================
-   BRAND TEXT
-   ========================= */
-
-.mongodb { color: #4ade80; font-weight: 700; }
-.lcc { color: #60a5fa; font-weight: 700; }
-.rackspace { color: #ff6b6b; font-weight: 700; }
-.udemy { color: #ffffff; font-weight: 700; }
-
-/* =========================
-   RESPONSIVE (RESTORED FORMAT)
+   RESPONSIVE
    ========================= */
 
 @media (max-width: 768px) {
