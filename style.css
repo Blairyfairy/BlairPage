@@ -604,3 +604,144 @@ body {
     columns: 1;
   }
 }
+
+/* =========================
+   EDUCATION + COURSES STACK
+   ========================= */
+
+.education-wrapper {
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* Shared Card Style */
+
+.edu-card,
+.courses-card,
+.certs-card {
+  padding: 2.5rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+}
+
+/* Section Titles */
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  letter-spacing: -0.5px;
+}
+
+/* Education */
+
+.edu-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.edu-school {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.edu-degree {
+  font-size: 0.95rem;
+  opacity: 0.75;
+}
+
+.edu-date {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+.edu-meta {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+
+.edu-description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+/* Course Grid */
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+}
+
+.course-group ul {
+  list-style: none;
+  padding: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.course-group li {
+  margin-bottom: 0.4rem;
+}
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.course-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.course-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  opacity: 0.6;
+}
+
+/* Brand Colors (Refined) */
+
+.mongodb { color: #3f9f3f; }
+.udemy { color: #9f3ed5; }
+.rackspace { color: #b83a3a; }
+
+/* Link Styling */
+
+.course-group a {
+  color: #c8a2ff;
+  text-decoration: none;
+  transition: all .2s ease;
+}
+
+.course-group a:hover {
+  color: #ffffff;
+}
+
+.course-group a:visited {
+  color: #a78bd6;
+}
+
+/* Two Column List */
+
+.two-col {
+  columns: 2;
+  column-gap: 2.5rem;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .two-col {
+    columns: 1;
+  }
+}
