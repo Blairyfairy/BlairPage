@@ -369,81 +369,64 @@ body {
 }
 
 /* =========================
-   VOLUNTEER SECTION (CLEAN MODERN)
+   VOLUNTEER SECTION
    ========================= */
 
 .volunteer-section {
   margin-top: 4rem;
 }
 
-.volunteer-header-band {
-  background: linear-gradient(
-    135deg,
-    var(--midnight-violet),
-    var(--dusty-mauve)
-  );
-  padding: 1.25rem 2rem;
-  border-radius: 18px;
-  margin-bottom: 2.5rem;
+.volunteer-title {
   text-align: center;
-}
-
-.volunteer-header-band h2 {
-  color: var(--ghost-white);
-  font-size: 1.9rem;
+  font-size: 1.85rem;
+  margin-bottom: 2.25rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  margin: 0;
 }
 
 .volunteer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
+  gap: 1.75rem;
 }
 
 .volunteer-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 20px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
   padding: 2rem;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .volunteer-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.55);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
 }
 
 .volunteer-top {
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
 }
 
-.volunteer-logo-img {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  background: white;
-  padding: 10px;
-  border-radius: 14px;
-}
-
-.civic-icon {
-  width: 70px;
-  height: 70px;
-  font-size: 32px;
+.volunteer-logo {
+  width: 74px;
+  height: 74px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.05);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    135deg,
-    var(--midnight-violet),
-    var(--dusty-mauve)
-  );
-  border-radius: 14px;
+}
+
+.volunteer-logo svg {
+  width: 52px;
+  height: 52px;
+}
+
+.civic-logo svg {
+  fill: var(--dusty-mauve);
 }
 
 .org-name {
@@ -458,19 +441,19 @@ body {
 
 .focus-tag {
   display: inline-block;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.6px;
   padding: 0.35rem 0.8rem;
   border-radius: 20px;
   margin-bottom: 1rem;
   background: rgba(158,130,156,0.15);
   border: 1px solid rgba(158,130,156,0.3);
   color: var(--dusty-mauve);
-  letter-spacing: 0.5px;
 }
 
 .volunteer-text {
   font-size: 0.95rem;
-  line-height: 1.7;
+  line-height: 1.65;
   opacity: 0.9;
 }
 
