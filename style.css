@@ -456,107 +456,149 @@ body {
   line-height: 1.65;
   opacity: 0.9;
 }
-
 /* =========================
-   COURSES — CLEAN TECH STYLE
+   EDUCATION + COURSES
    ========================= */
 
-.courses-section {
-  margin-top: 4rem;
+.education-training-section {
+  margin-top: 7rem; /* more breathing room under Credly */
+}
+
+.education-training-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 4.5rem;
 }
 
 .section-title {
   font-size: 2rem;
   font-weight: 600;
-  letter-spacing: -0.5px;
-  margin-bottom: 2.5rem;
-  color: var(--ghost-white);
+  margin-bottom: 2rem;
+  letter-spacing: -0.4px;
 }
 
-.courses-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
+/* Education */
+
+.edu-card {
+  padding: 2rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
 }
 
-.course-item {
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-
-.course-meta {
+.edu-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 1rem;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.course-source {
-  font-size: 1.15rem;
+.edu-school {
+  font-size: 1.2rem;
   font-weight: 600;
-  letter-spacing: -0.2px;
 }
 
-.course-type {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
+.edu-degree {
+  font-size: 0.95rem;
+  opacity: 0.75;
+}
+
+.edu-date {
+  font-size: 0.85rem;
   opacity: 0.6;
 }
 
-/* Brand Accent Accuracy */
-
-.course-source.mongodb {
-  color: #47A248;
+.edu-meta {
+  font-size: 0.85rem;
+  opacity: 0.65;
+  margin-bottom: 1rem;
 }
 
-.course-source.udemy {
-  color: #A435F0;
-}
-
-.course-source.rackspace {
-  color: #EB1F26;
-}
-
-.course-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.edu-description {
   font-size: 0.95rem;
   line-height: 1.7;
-  color: rgba(255,255,255,0.85);
+  opacity: 0.88;
 }
 
-.course-list li {
-  margin-bottom: 0.5rem;
+/* Courses */
+
+.course-group {
+  margin-bottom: 2.75rem;
 }
 
-.course-list a {
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.course-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.course-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  opacity: 0.6;
+}
+
+.course-group ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 0.96rem;
+  line-height: 1.75;
+}
+
+.course-group li {
+  margin-bottom: 0.4rem;
+}
+
+/* Refined Link System */
+
+.course-group a {
   text-decoration: none;
+  color: #d8b4ff; /* softer lavender */
   font-weight: 500;
-  color: var(--dusty-mauve);
-  transition: color .2s ease;
+  transition: all 0.2s ease;
 }
 
-.course-list a:hover {
+.course-group a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(216,180,255,0.4);
+}
+
+.course-group a:visited {
+  color: #b48ce0; /* muted mauve */
+}
+
+.course-group a:active {
   color: #ffffff;
 }
 
+/* Brand Accents */
+
+.mongodb { color: #47A248; }
+.udemy { color: #A435F0; }
+.rackspace { color: #EB1F26; }
+
+/* Two Column Udemy */
+
 .two-col {
   columns: 2;
-  column-gap: 3rem;
+  column-gap: 3.5rem;
 }
 
-@media (max-width: 768px) {
+/* Responsive */
+
+@media (max-width: 980px) {
+  .education-training-grid {
+    grid-template-columns: 1fr;
+  }
+
   .two-col {
     columns: 1;
   }
-
-  .course-meta {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
-
