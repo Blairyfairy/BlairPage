@@ -203,19 +203,27 @@ a:active {
   margin: 1.4rem 0;
 }
 
-/* FIXED ICON SIZE ISSUE */
-.social-links img,
-.social-links svg,
+/* --- ONLY CHANGE: Volunteer icon scaling fix --- */
+
 .volunteer-icons img,
 .volunteer-icons svg {
+  max-height: 22px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Keep social icons untouched */
+.social-links img,
+.social-links svg {
   width: 32px;
   height: 32px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-.social-links a:hover,
-.volunteer-icons a:hover {
+.social-links a:hover {
   transform: translateY(-4px);
 }
 
