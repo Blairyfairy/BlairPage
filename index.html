@@ -711,36 +711,30 @@ document.querySelectorAll('.card-toggle').forEach(button => {
     systems and data.
   </p>
 </div>
-     <div class="resume-block">
-  <h2 class="courses-title">Courses & Technical Training</h2>
+       <section class="resume-block courses-section">
 
-  <div class="courses-grid">
+  <h2 class="section-title">Courses & Technical Training</h2>
+
+  <div class="courses-container">
 
     <!-- Academic -->
-    <div class="course-card">
-      <div class="course-header">
-        <div class="course-icon academic-icon">
-          🎓
-        </div>
-        <h3>Academic Coursework</h3>
+    <div class="course-item">
+      <div class="course-meta">
+        <span class="course-source">Lansing Community College</span>
+        <span class="course-type">Academic</span>
       </div>
 
       <ul class="course-list">
-        <li><strong>Lansing Community College</strong> — Composition I (WRIT 121)</li>
-        <li><strong>Lansing Community College</strong> — Principles of Economics – Micro (ECON 201)</li>
+        <li>Composition I (WRIT 121)</li>
+        <li>Principles of Economics – Micro (ECON 201)</li>
       </ul>
     </div>
 
     <!-- MongoDB -->
-    <div class="course-card">
-      <div class="course-header">
-        <div class="course-icon mongodb-icon">
-          <!-- MongoDB Leaf -->
-          <svg viewBox="0 0 256 512">
-            <path fill="#47A248" d="M127.6 0C107.6 89.2 35 145.4 35 262.4 35 365.3 100 448 127.6 512 155.2 448 220 365.3 220 262.4 220 145.4 147.6 89.2 127.6 0z"/>
-          </svg>
-        </div>
-        <h3>MongoDB University</h3>
+    <div class="course-item">
+      <div class="course-meta">
+        <span class="course-source mongodb">MongoDB University</span>
+        <span class="course-type">Database Engineering</span>
       </div>
 
       <ul class="course-list">
@@ -750,12 +744,10 @@ document.querySelectorAll('.card-toggle').forEach(button => {
     </div>
 
     <!-- Rackspace -->
-    <div class="course-card">
-      <div class="course-header">
-        <div class="course-icon cloud-icon">
-          ☁️
-        </div>
-        <h3>Rackspace Cloud University</h3>
+    <div class="course-item">
+      <div class="course-meta">
+        <span class="course-source rackspace">Rackspace Cloud University</span>
+        <span class="course-type">Cloud Infrastructure</span>
       </div>
 
       <ul class="course-list">
@@ -767,12 +759,10 @@ document.querySelectorAll('.card-toggle').forEach(button => {
     </div>
 
     <!-- Online Platforms -->
-    <div class="course-card">
-      <div class="course-header">
-        <div class="course-icon platform-icon">
-          💻
-        </div>
-        <h3>Online Learning Platforms</h3>
+    <div class="course-item">
+      <div class="course-meta">
+        <span class="course-source">Online Platforms</span>
+        <span class="course-type">Continuous Learning</span>
       </div>
 
       <ul class="course-list">
@@ -789,20 +779,15 @@ document.querySelectorAll('.card-toggle').forEach(button => {
       </ul>
     </div>
 
-    <!-- Udemy Certifications -->
-    <div class="course-card full-width">
-      <div class="course-header">
-        <div class="course-icon udemy-icon">
-          <!-- Minimal Udemy U -->
-          <svg viewBox="0 0 24 24">
-            <path fill="#A435F0" d="M12 2L4 7v10l8 5 8-5V7l-8-5z"/>
-          </svg>
-        </div>
-        <h3>Udemy Certifications</h3>
+    <!-- Udemy -->
+    <div class="course-item">
+      <div class="course-meta">
+        <span class="course-source udemy">Udemy Certifications</span>
+        <span class="course-type">Professional Training</span>
       </div>
 
-      <ul class="course-list two-column">
-        <li><a href="https://www.udemy.com/certificate/UC-03566515-9d9b-45e7-8d71-ca8cae05adde/" target="_blank">WooCommerce WordPress E-Commerce Development</a></li>
+      <ul class="course-list two-col">
+        <li><a href="https://www.udemy.com/certificate/UC-03566515-9d9b-45e7-8d71-ca8cae05adde/" target="_blank">WooCommerce WordPress E-Commerce</a></li>
         <li><a href="https://www.udemy.com/certificate/UC-30e2a324-7424-4366-a3b4-cf18d2661445/" target="_blank">Docker & Kubernetes Complete Guide</a></li>
         <li><a href="https://www.udemy.com/certificate/UC-7ec5a9a5-bc03-4395-b384-83a283b7f090/" target="_blank">Master Magento Admin v2</a></li>
         <li><a href="https://www.udemy.com/certificate/UC-B9GBH49V/" target="_blank">MySQL 8</a></li>
@@ -813,7 +798,8 @@ document.querySelectorAll('.card-toggle').forEach(button => {
     </div>
 
   </div>
-</div>
+</section>
+ 
 <!-- =======================
      VOLUNTEER WORK
      ======================= -->
