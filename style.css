@@ -1,6 +1,5 @@
 /* =========================
    COLOR SYSTEM
-   ========================= */
 
 :root {
   --black: #000000ff;
@@ -585,6 +584,10 @@ body {
 .rackspace {
   color: #a94444; /* softened red with warmth */
 }
+.lcc {
+  color: #142C5A; /* elegant deep navy */
+}
+
 
 /* Two Column Udemy */
 
