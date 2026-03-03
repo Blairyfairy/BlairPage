@@ -745,3 +745,73 @@ body {
     columns: 1;
   }
 }
+
+/* ======================================
+   CERTIFICATIONS VISUAL POLISH
+   ====================================== */
+
+/* Stronger group spacing */
+.certs-card .course-group {
+  margin-bottom: 3rem;
+}
+
+/* Refined titles */
+.certs-card .course-title {
+  font-size: 1.18rem;
+  font-weight: 650;
+  letter-spacing: 0.4px;
+}
+
+.certs-card .course-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  opacity: 0.5;
+}
+
+/* Improved list rhythm */
+.certs-card ul {
+  margin-top: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.certs-card li {
+  margin-bottom: 0.75rem;
+  font-size: 0.97rem;
+  letter-spacing: 0.25px;
+}
+
+/* Clean responsive columns */
+.cert-columns {
+  column-count: 2;
+  column-gap: 3rem;
+}
+
+@media (max-width: 900px) {
+  .cert-columns {
+    column-count: 1;
+  }
+}
+
+/* Premium link color system */
+.certs-card a {
+  font-weight: 500;
+  color: #d9b8ff; /* softened refined violet */
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.certs-card a:hover {
+  color: #ffffff;
+}
+
+.certs-card a:visited {
+  color: #b996e6;
+}
+
+/* Subtle separation feel */
+.certs-card li:not(:last-child) {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  padding-bottom: 0.6rem;
+}
