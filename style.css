@@ -456,96 +456,107 @@ body {
   line-height: 1.65;
   opacity: 0.9;
 }
+
 /* =========================
-   COURSES SECTION
+   COURSES — CLEAN TECH STYLE
    ========================= */
 
-.courses-title {
-  text-align: center;
-  margin-bottom: 2.5rem;
-  font-size: 1.9rem;
+.courses-section {
+  margin-top: 4rem;
+}
+
+.section-title {
+  font-size: 2rem;
   font-weight: 600;
+  letter-spacing: -0.5px;
+  margin-bottom: 2.5rem;
+  color: var(--ghost-white);
 }
 
-.courses-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.75rem;
-}
-
-.course-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 22px;
-  padding: 2rem;
-  backdrop-filter: blur(18px);
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-
-.course-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 50px rgba(0,0,0,0.55);
-}
-
-.course-header {
+.courses-container {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.2rem;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
-.course-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+.course-item {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.course-meta {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(158,130,156,0.12);
-  border: 1px solid rgba(158,130,156,0.25);
-  font-size: 1.4rem;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.course-icon svg {
-  width: 26px;
-  height: 26px;
+.course-source {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+.course-type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  opacity: 0.6;
+}
+
+/* Brand Accent Accuracy */
+
+.course-source.mongodb {
+  color: #47A248;
+}
+
+.course-source.udemy {
+  color: #A435F0;
+}
+
+.course-source.rackspace {
+  color: #EB1F26;
 }
 
 .course-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  line-height: 1.65;
   font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
 }
 
 .course-list li {
-  margin-bottom: 0.6rem;
-  opacity: 0.92;
+  margin-bottom: 0.5rem;
 }
 
 .course-list a {
-  color: var(--dusty-mauve);
   text-decoration: none;
-  font-weight: 600;
-  transition: color .25s ease;
+  font-weight: 500;
+  color: var(--dusty-mauve);
+  transition: color .2s ease;
 }
 
 .course-list a:hover {
-  color: var(--ghost-white);
+  color: #ffffff;
 }
 
-.full-width {
-  grid-column: 1 / -1;
-}
-
-.two-column {
+.two-col {
   columns: 2;
+  column-gap: 3rem;
 }
 
 @media (max-width: 768px) {
-  .two-column {
+  .two-col {
     columns: 1;
+  }
+
+  .course-meta {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
