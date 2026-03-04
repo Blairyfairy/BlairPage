@@ -1,7 +1,7 @@
 /* =========================================================
-   BLAIRPAGE — UNIFIED VISUAL SYSTEM (STABLE BUILD)
+   BLAIRPAGE — UNIFIED VISUAL SYSTEM
    ShockTherapyRebuilding Unified Link System
-   Fully Conflict-Resolved Layout
+   Responsive preserved
    ========================================================= */
 
 /* =========================
@@ -29,6 +29,7 @@
   --glass-bg: rgba(240, 239, 244, 0.08);
   --glass-border: rgba(240, 239, 244, 0.22);
 
+  /* Shock Therapy Brand Link System */
   --link-primary: #9e829c;
   --link-hover: #f0eff4;
 }
@@ -52,12 +53,8 @@ body.dark {
 }
 
 /* =========================
-   GLOBAL BASE
+   BASE
    ========================= */
-
-* {
-  box-sizing: border-box;
-}
 
 body {
   margin: 0;
@@ -72,33 +69,30 @@ body {
   padding: 2rem;
 }
 
-section {
-  margin-top: 4rem;
-}
-
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1.75rem;
-}
-
-p, li {
-  overflow-wrap: break-word;
-}
-
 /* =========================
-   LINK SYSTEM
+   GLOBAL LINK SYSTEM
+   Unified Shock Therapy Hover
    ========================= */
 
 a {
   color: var(--link-primary);
   text-decoration: none;
   font-weight: 600;
+  letter-spacing: 0.3px;
   transition: color 0.25s ease, text-shadow 0.25s ease;
 }
 
 a:hover {
   color: var(--link-hover);
   text-shadow: 0 0 14px rgba(240, 239, 244, 0.65);
+}
+
+a:visited {
+  color: var(--link-primary);
+}
+
+a:active {
+  color: var(--link-hover);
 }
 
 /* =========================
@@ -111,6 +105,32 @@ a:hover {
   align-items: center;
   padding: 1rem 2rem;
   font-size: 0.75rem;
+  letter-spacing: 0.6px;
+}
+
+/* =========================
+   THEME BUTTON
+   ========================= */
+
+.theme-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  color: var(--ghost-white);
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 0 0 1px rgba(240, 239, 244, 0.18),
+    0 8px 22px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 0 1px rgba(240, 239, 244, 0.28),
+    0 12px 30px rgba(0, 0, 0, 0.45);
 }
 
 /* =========================
@@ -148,38 +168,295 @@ a:hover {
   box-shadow: 0 16px 35px rgba(0, 0, 0, 0.7);
 }
 
+.identity-info h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.4px;
+}
+
+.sub-name {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.identity-info h3 {
+  margin: 0.6rem 0 1rem;
+  font-weight: 600;
+  color: var(--dusty-mauve);
+}
+
 .bio {
-  max-width: 720px;
+  font-size: 0.95rem;
   line-height: 1.6;
+  max-width: 720px;
 }
 
 /* =========================
-   TIMELINE CARDS
+   SOCIAL + VOLUNTEER ICONS
    ========================= */
 
-.timeline-item {
+.social-links,
+.volunteer-icons {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1.4rem 0;
+  align-items: center;
+}
+
+.social-links img,
+.social-links svg {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+  transform: translateY(-4px);
+}
+
+.volunteer-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.volunteer-icons img,
+.volunteer-icons svg {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 20px !important;
+  max-height: 20px !important;
+  object-fit: contain;
+  display: block;
+}
+
+/* =========================
+   CONNECT BUTTON
+   ========================= */
+
+.follow-btn {
+  margin-top: 0.5rem;
+  background: linear-gradient(
+    135deg,
+    #291528,
+    #3a3e3b,
+    #9e829c
+  );
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 30px;
+  color: var(--ghost-white);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+  transition: transform 0.3s ease;
+}
+
+.follow-btn:hover {
+  transform: scale(1.06);
+}
+
+.following {
+  background: linear-gradient(
+    135deg,
+    #9e829c,
+    #291528,
+    #000000
+  );
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 768px) {
+
+  .identity-row {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .resume-shell {
+    padding: 1.5rem 1.25rem;
+  }
+
+}
+
+/* =========================
+   ENHANCED TIMELINE SPACING
+   Room for future icons
+   ========================= */
+
+.timeline-enhanced {
+  margin-top: 3rem;
+}
+
+/* Each timeline block gets breathing room */
+.timeline-enhanced .timeline-item {
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+
+/* Add visual left spacing without centering */
+.timeline-enhanced .timeline-content {
+  padding-left: 2.25rem;
+  max-width: 900px;
+}
+
+/* Subtle alignment refinement */
+.timeline-enhanced .timeline-content h4 {
+  margin-bottom: 0.35rem;
+}
+
+/* Company line spacing */
+.timeline-enhanced .timeline-content p {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  opacity: 0.85;
+}
+
+/* Bullet refinement */
+.timeline-enhanced .timeline-content ul {
+  padding-left: 1.4rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+}
+
+.timeline-enhanced .timeline-content li {
+  margin-bottom: 0.55rem;
+  line-height: 1.6;
+}
+
+/* Date spacing */
+.timeline-enhanced .timeline-date {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+}
+
+/* =========================================================
+   MODERN RESPONSIVE RECTANGLE LAYOUT ENHANCEMENT
+   (Non-destructive — preserves ALL existing content)
+   ========================================================= */
+
+/* =========================
+   GLOBAL SECTION SPACING
+   ========================= */
+
+section {
+  margin-top: 4rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  letter-spacing: -0.3px;
+  margin-bottom: 1.75rem;
+}
+
+/* =========================
+   MATRIX GRID POLISH
+   ========================= */
+
+.profile-matrix {
+  margin-top: 5rem;
+}
+
+.matrix-card {
+  padding: 0.5rem 0;
+  border-radius: 20px;
+}
+
+.matrix-card ul {
+  padding-left: 1.2rem;
+}
+
+.matrix-card li {
+  margin-bottom: 0.55rem;
+}
+
+/* =========================
+   TIMELINE -> CARD LAYOUT
+   Converts vertical stack into modern card grid feel
+   ========================= */
+
+.timeline-enhanced {
+  display: grid;
+  gap: 3rem;
+}
+
+.timeline-enhanced .timeline-item {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 22px;
   padding: 2rem;
-  margin-bottom: 3rem;
   box-shadow: 0 18px 50px rgba(0,0,0,0.55);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.timeline-item:hover {
+.timeline-enhanced .timeline-item:hover {
   transform: translateY(-6px);
   box-shadow: 0 25px 70px rgba(0,0,0,0.75);
 }
 
+.timeline-enhanced .timeline-content {
+  padding-left: 0;
+  max-width: 100%;
+}
+
 /* =========================
-   EDUCATION + COURSES GRID
+   PROJECT LIST RECTANGLES
+   ========================= */
+
+.project-list {
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-list li a {
+  display: block;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.project-list li a:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.08);
+}
+
+.project-url {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-top: 0.35rem;
+}
+
+/* =========================
+   EDUCATION + COURSES
+   Two-column responsive block
    ========================= */
 
 .education-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 2.5rem;
+  margin-top: 3rem;
 }
 
 .edu-card,
@@ -191,7 +468,6 @@ a:hover {
   border-radius: 24px;
   padding: 2.2rem;
   box-shadow: 0 20px 55px rgba(0,0,0,0.65);
-  height: 100%;
 }
 
 .course-grid {
@@ -200,21 +476,26 @@ a:hover {
   gap: 1.8rem;
 }
 
-/* =========================
-   CERTIFICATIONS (STABLE GRID)
-   ========================= */
-
-.certifications-section {
-  position: relative;
+.course-group ul {
+  padding-left: 1.2rem;
 }
+
+/* =========================
+   CERTIFICATION — STRUCTURED GRID
+   Left / Right Balanced Layout
+   ========================= */
 
 .certification-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: 1fr 1fr; /* strict left-right */
   gap: 2rem 2.5rem;
   margin-top: 2.5rem;
-  position: relative;
-  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .certification-list {
+    grid-template-columns: 1fr;
+  }
 }
 
 .cert-card {
@@ -225,7 +506,6 @@ a:hover {
   backdrop-filter: blur(16px);
   box-shadow: 0 18px 50px rgba(0,0,0,0.6);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
 }
 
 .cert-card:hover {
@@ -233,7 +513,165 @@ a:hover {
   box-shadow: 0 28px 80px rgba(0,0,0,0.85);
 }
 
-/* Subtle two-tone right column background */
+.cert-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+}
+
+.cert-card p {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+/* =========================
+   VOLUNTEER — MATCHING GRID SYSTEM
+   Same Concept, Separate Class
+   ========================= */
+
+.volunteer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* strict left-right */
+  gap: 2rem 2.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .volunteer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.volunteer-card {
+  backdrop-filter: blur(18px);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  padding: 2rem;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.volunteer-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.85);
+}
+
+/* =========================
+   CREDLY WRAPPER POLISH
+   ========================= */
+
+section[style*="margin-top:3rem"] {
+  margin-top: 5rem !important;
+}
+
+/* =========================
+   SMOOTHER MOBILE STACKING
+   ========================= */
+
+@media (max-width: 1024px) {
+
+  .timeline-enhanced {
+    gap: 2.5rem;
+  }
+
+  .timeline-enhanced .timeline-item {
+    padding: 1.75rem;
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .edu-card,
+  .courses-card,
+  .certs-card,
+  .volunteer-card,
+  .timeline-enhanced .timeline-item {
+    padding: 1.5rem;
+  }
+
+  .profile-img {
+    width: 150px;
+    height: 150px;
+  }
+
+}
+
+/* =========================
+   GLOBAL CONTENT ALIGNMENT FIX
+   Ensures all major blocks align under same left edge
+   ========================= */
+
+.resume-sections,
+.profile-matrix,
+.timeline,
+.certifications-section,
+.volunteer-section {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Remove internal centering from matrix */
+.profile-matrix {
+  margin: 4rem 0;
+  padding: 0;
+}
+
+/* Make Certifications + Volunteer match timeline width */
+.certifications-section,
+.volunteer-section {
+  margin-top: 5rem;
+}
+
+/* Ensure grids align perfectly under section header */
+.certification-list,
+.volunteer-grid {
+  width: 100%;
+}
+
+/* =========================
+   CERTIFICATIONS – Masonry + Two Tone
+   ========================= */
+
+.certification-list {
+  column-count: 2;
+  column-gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .certification-list {
+    column-count: 1;
+  }
+}
+
+.certification-card {
+  break-inside: avoid;
+  margin-bottom: 2rem;
+  padding: 1.75rem;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Stagger Effect */
+.certification-card:nth-child(even) {
+  margin-top: 2rem;
+}
+
+/* Subtle Two-Tone Column Background */
+.certifications-section {
+  position: relative;
+}
+
 .certifications-section::before {
   content: "";
   position: absolute;
@@ -249,8 +687,169 @@ a:hover {
   pointer-events: none;
 }
 
+/* Hover polish */
+.certification-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+}
+
 /* =========================
-   VOLUNTEER GRID (MATCHED)
+   CERTIFICATIONS – Masonry + Two Tone
+   ========================= */
+
+.certification-list {
+  column-count: 2;
+  column-gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .certification-list {
+    column-count: 1;
+  }
+}
+
+.certification-card {
+  break-inside: avoid;
+  margin-bottom: 2rem;
+  padding: 1.75rem;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Stagger Effect */
+.certification-card:nth-child(even) {
+  margin-top: 2rem;
+}
+
+/* Subtle Two-Tone Column Background */
+.certifications-section {
+  position: relative;
+}
+
+.certifications-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.02),
+    rgba(0,0,0,0.04)
+  );
+  pointer-events: none;
+}
+
+/* Hover polish */
+.certification-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+}
+
+
+/* =========================================================
+   FINAL STRUCTURE OVERRIDES
+   Non-destructive conflict resolution layer
+   (Appended only – nothing removed above)
+   ========================================================= */
+
+
+/* =========================
+   GLOBAL SAFETY
+   Prevent overflow & layout break
+   ========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+p, li, h3, h4 {
+  overflow-wrap: break-word;
+}
+
+
+/* =========================
+   CERTIFICATIONS
+   Force stable grid over column masonry
+   (Overrides earlier column-count rules)
+   ========================= */
+
+.certification-list {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  column-count: unset !important;
+  column-gap: unset !important;
+  gap: 2rem 2.5rem !important;
+}
+
+@media (max-width: 900px) {
+  .certification-list {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Ensure consistent card structure */
+.cert-card,
+.certification-card {
+  break-inside: unset !important;
+  height: 100%;
+}
+
+
+/* =========================
+   KEEP TWO-TONE BACKGROUND
+   (Preserved but stabilized)
+   ========================= */
+
+.certifications-section {
+  position: relative;
+}
+
+.certifications-section::before {
+  pointer-events: none;
+  z-index: 0;
+}
+
+.certification-list,
+.cert-card,
+.certification-card {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* =========================
+   VOLUNTEER GRID STABILIZER
+   ========================= */
+
+.volunteer-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 2rem 2.5rem !important;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .volunteer-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.volunteer-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+
+/* =========================
+   BOTTOM PAGE ANCHOR FINISH
+   Makes Volunteer visually close page
    ========================= */
 
 .volunteer-section {
@@ -258,32 +857,6 @@ a:hover {
   position: relative;
 }
 
-.volunteer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 2rem 2.5rem;
-  margin-top: 2.5rem;
-}
-
-.volunteer-card {
-  backdrop-filter: blur(18px);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 22px;
-  padding: 2rem;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.volunteer-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 28px 80px rgba(0,0,0,0.85);
-}
-
-/* Bottom fade anchor */
 .volunteer-section::after {
   content: "";
   position: absolute;
@@ -299,36 +872,30 @@ a:hover {
   pointer-events: none;
 }
 
+
 /* =========================
-   RESPONSIVE
+   EDUCATION + COURSES ALIGNMENT
+   Prevent uneven column stretch
    ========================= */
 
-@media (max-width: 1024px) {
-  .resume-shell {
-    padding: 2rem;
-  }
+.education-wrapper {
+  align-items: stretch;
 }
 
-@media (max-width: 768px) {
-  .identity-row {
-    flex-direction: column;
-    text-align: center;
-  }
+.edu-card,
+.courses-card,
+.certs-card {
+  height: 100%;
+}
 
-  .container {
-    padding: 1rem;
-  }
 
-  .resume-shell {
-    padding: 1.5rem;
-  }
+/* =========================
+   HARD ALIGNMENT LOCK
+   Ensures all grids line up perfectly
+   ========================= */
 
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .profile-img {
-    width: 150px;
-    height: 150px;
-  }
+.certification-list,
+.volunteer-grid,
+.education-wrapper {
+  width: 100%;
 }
