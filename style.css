@@ -635,3 +635,120 @@ section[style*="margin-top:3rem"] {
 .volunteer-grid {
   width: 100%;
 }
+
+/* =========================
+   CERTIFICATIONS – Masonry + Two Tone
+   ========================= */
+
+.certification-list {
+  column-count: 2;
+  column-gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .certification-list {
+    column-count: 1;
+  }
+}
+
+.certification-card {
+  break-inside: avoid;
+  margin-bottom: 2rem;
+  padding: 1.75rem;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Stagger Effect */
+.certification-card:nth-child(even) {
+  margin-top: 2rem;
+}
+
+/* Subtle Two-Tone Column Background */
+.certifications-section {
+  position: relative;
+}
+
+.certifications-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.02),
+    rgba(0,0,0,0.04)
+  );
+  pointer-events: none;
+}
+
+/* Hover polish */
+.certification-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+}
+
+/* =========================
+   CERTIFICATIONS – Masonry + Two Tone
+   ========================= */
+
+.certification-list {
+  column-count: 2;
+  column-gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .certification-list {
+    column-count: 1;
+  }
+}
+
+.certification-card {
+  break-inside: avoid;
+  margin-bottom: 2rem;
+  padding: 1.75rem;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Stagger Effect */
+.certification-card:nth-child(even) {
+  margin-top: 2rem;
+}
+
+/* Subtle Two-Tone Column Background */
+.certifications-section {
+  position: relative;
+}
+
+.certifications-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.02),
+    rgba(0,0,0,0.04)
+  );
+  pointer-events: none;
+}
+
+/* Hover polish */
+.certification-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+}
+
+
+
