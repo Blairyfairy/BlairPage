@@ -932,10 +932,6 @@ p, li, h3, h4 {
   color: #13aa52; /* official MongoDB green */
 }
 
-/* Rackspace Cloud University — Deep Red */
-.course-title.rackspace {
-  color: #8b0000; /* deep red */
-}
 
 /* =========================
    CERTIFICATION BRAND COLORS
@@ -947,9 +943,10 @@ p, li, h3, h4 {
   letter-spacing: 0.4px;
 }
 
-/* SAME Rackspace Deep Red */
+/* Rackspace + Red Hat — Grey-toned muted red */
+.course-title.rackspace,
 .course-title.redhat {
-  color: #8b0000; /* same deep red as Rackspace */
+  color: #a04555;
 }
 
 /* Yellow — LPIC */
