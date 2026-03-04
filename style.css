@@ -1031,3 +1031,30 @@ a:focus {
   color: #9A8FB2;
   font-weight: 600;
 }
+
+/* Ragnarok Header Layout */
+.ragnarok-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.ragnarok-icon {
+  width: 90px;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+/* Mobile stack */
+@media (max-width: 600px) {
+  .ragnarok-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ragnarok-icon {
+    margin-bottom: 0.5rem;
+  }
+}
+
