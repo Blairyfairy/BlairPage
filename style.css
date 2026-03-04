@@ -191,55 +191,30 @@ a:active {
   line-height: 1.6;
   max-width: 720px;
 }
-
 /* =========================
-   SOCIAL ICONS — MATCH PORTFOLIO CARD EXACTLY
+   SOCIAL ICONS — EXACT PORTFOLIO MATCH
    ========================= */
 
 .social-links {
   display: flex;
   gap: 1.5rem;
   margin: 1.5rem 0;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .social-links a {
-  position: relative;
-  font-size: 1.85rem;   /* exact visual match */
+  font-size: 1.75rem;     /* matches portfolio-card */
   line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
   text-decoration: none;
   transition: transform 0.25s ease;
 }
 
-/* Hover lift */
 .social-links a:hover {
   transform: translateY(-5px);
 }
 
-/* Tooltip text (matches portfolio-card behavior) */
-.social-links a::after {
-  content: attr(data-label);
-  position: absolute;
-  bottom: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  white-space: nowrap;
-}
-
-.social-links a:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(4px);
-}
 /* =========================
    RESPONSIVE
    ========================= */
