@@ -906,5 +906,7 @@ p, li, h3, h4 {
     var(--black)
   );
 }
-
+.card-content > *:first-child {
+  margin-top: 0;
+}
 
