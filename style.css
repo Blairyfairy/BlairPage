@@ -1058,3 +1058,34 @@ a:focus {
   }
 }
 
+/* Job Layout with Logo Column */
+.job-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+/* Logo Column */
+.job-logo img {
+  width: 95px;              /* Professional logo size */
+  height: auto;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+/* Text Column */
+.job-details {
+  flex: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .job-layout {
+    flex-direction: column;
+  }
+
+  .job-logo img {
+    width: 80px;
+    margin-bottom: 0.5rem;
+  }
+}
