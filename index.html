@@ -806,7 +806,13 @@ document.querySelectorAll('.card-toggle').forEach(button => {
 <section id="certifications" class="certifications-section">
   <h2>Certifications</h2>
 
-<div class="certification-list">
+  <div class="certification-list"
+     style="
+       display:grid;
+       grid-template-columns:1fr 1fr;
+       gap:2rem 2.5rem;
+       margin-top:2.5rem;
+     ">
 
     <!-- AWS -->
     <div class="cert-card">
@@ -944,10 +950,17 @@ document.querySelectorAll('.card-toggle').forEach(button => {
 
   </div>
 </section>
- <!-- TECHNICAL TRAINING & CERTIFICATIONS -->
+
+  <!-- TECHNICAL TRAINING & CERTIFICATIONS -->
  <div class="certs-card">
 
   <h2 class="section-title">Technical Training & Certifications</h2>
+
+  <div class="course-grid">
+
+    <!-- Online Platforms -->
+    <div class="course-group">
+      <div class="course-header">
         <span class="course-title">Online Learning Platforms</span>
       </div>
       <ul>
@@ -964,6 +977,9 @@ document.querySelectorAll('.card-toggle').forEach(button => {
       </ul>
     </div>
 
+    <!-- Udemy -->
+    <div class="course-group">
+      <div class="course-header">
         <span class="course-title udemy">Udemy Certifications</span>
       </div>
 
@@ -986,7 +1002,6 @@ document.querySelectorAll('.card-toggle').forEach(button => {
 
   </div>
 </div>
- 
 <!-- =======================
      VOLUNTEER WORK
      ======================= -->
@@ -994,7 +1009,14 @@ document.querySelectorAll('.card-toggle').forEach(button => {
 
   <h2 class="volunteer-title">Volunteer Work</h2>
 
-<div class="volunteer-grid">
+  <div class="volunteer-grid"
+       style="
+         display:grid;
+         grid-template-columns:1fr 1fr;
+         gap:2rem 2.5rem;
+         margin-top:2.5rem;
+         align-items:stretch;
+       ">
 
     <!-- FIRST Robotics -->
     <article class="volunteer-card"
