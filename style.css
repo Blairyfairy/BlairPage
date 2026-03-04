@@ -1089,3 +1089,104 @@ a:focus {
     margin-bottom: 0.5rem;
   }
 }
+
+
+/* ==========================================
+   PROFESSIONAL LOGO + JOB CARD SYSTEM
+   ========================================== */
+
+/* Timeline card becomes structured layout */
+.timeline-enhanced .timeline-item {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* Logo Column */
+.timeline-enhanced .timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -95px;
+  top: 0;
+}
+
+/* Create real logo container */
+.timeline-enhanced .timeline-item {
+  padding-left: 120px;
+}
+
+/* Circular Logo */
+.timeline-enhanced .timeline-item::after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 35px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-image: url("https://media.tenor.com/jumG5hFdFZwAAAAj/arc-angeling-ragnarok.gif");
+  background-size: cover;
+  background-position: center;
+  border: 3px solid rgba(240,239,244,0.35);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.65);
+}
+
+/* Date spacing refinement */
+.timeline-enhanced .timeline-date {
+  position: absolute;
+  left: 120px;
+  top: 0;
+}
+
+/* Content block alignment */
+.timeline-enhanced .timeline-content {
+  margin-top: 1.5rem;
+}
+
+/* ==========================================
+   MEDIA STRIP UNDER EACH JOB
+   Placeholder using same GIF
+   ========================================== */
+
+.timeline-enhanced .timeline-content::after {
+  content: "";
+  display: block;
+  margin-top: 1.5rem;
+  height: 140px;
+  border-radius: 16px;
+  background-image: url("https://media.tenor.com/jumG5hFdFZwAAAAj/arc-angeling-ragnarok.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left center;
+  opacity: 0.75;
+}
+
+/* Hover polish */
+.timeline-enhanced .timeline-item:hover::after {
+  transform: scale(1.05);
+}
+
+/* ==========================================
+   MOBILE FIX
+   ========================================== */
+
+@media (max-width: 900px) {
+
+  .timeline-enhanced .timeline-item {
+    padding-left: 0;
+  }
+
+  .timeline-enhanced .timeline-item::after {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-bottom: 1rem;
+  }
+
+  .timeline-enhanced .timeline-date {
+    position: relative;
+    left: 0;
+  }
+
+}
