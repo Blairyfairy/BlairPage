@@ -871,3 +871,40 @@ p, li, h3, h4 {
 .education-wrapper {
   width: 100%;
 }
+
+/* =========================
+   CONNECT BUTTON — EXACT PORTFOLIO MATCH
+   ========================= */
+
+.follow-btn {
+  margin-top: 1rem;
+  background: linear-gradient(
+    135deg,
+    var(--midnight-violet),
+    var(--charcoal-brown),
+    var(--dusty-mauve)
+  );
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 30px;
+  color: var(--ghost-white);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+}
+
+.follow-btn:hover {
+  transform: scale(1.06);
+}
+
+.follow-btn.following {
+  background: linear-gradient(
+    135deg,
+    var(--dusty-mauve),
+    var(--midnight-violet),
+    var(--black)
+  );
+}
+
+
