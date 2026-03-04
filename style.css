@@ -912,3 +912,27 @@ p, li, h3, h4 {
 .card-content {
   padding: 0 1.5rem 1.5rem 1.5rem;
 }
+/* =========================
+   COURSE TITLE BRAND COLORS
+   ========================= */
+
+.course-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.4px;
+}
+
+/* Lansing Community College — Deep Navy */
+.course-title.lcc {
+  color: #0b1f3a; /* deep academic navy */
+}
+
+/* MongoDB University — Brand-matched green */
+.course-title.mongodb {
+  color: #13aa52; /* official MongoDB green */
+}
+
+/* Rackspace Cloud University — Deep Red */
+.course-title.rackspace {
+  color: #8b0000; /* deep red */
+}
