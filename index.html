@@ -1010,63 +1010,59 @@ document.querySelectorAll('.card-toggle').forEach(button => {
   <h2 class="volunteer-title">Volunteer Work</h2>
 
   <div class="volunteer-grid"
-     style="
-       display:grid;
-       grid-template-columns:1fr 1fr;
-       gap:2rem 2.5rem;
-       margin-top:2.5rem;
-     ">
+       style="
+         display:grid;
+         grid-template-columns:1fr 1fr;
+         gap:2rem 2.5rem;
+         margin-top:2.5rem;
+         align-items:stretch;
+       ">
 
     <!-- FIRST Robotics -->
-    <article class="volunteer-card">
+    <article class="volunteer-card"
+             style="
+               display:flex;
+               flex-direction:column;
+               height:100%;
+             ">
 
-      <div class="volunteer-top">
-        </div>
+      <div style="flex-grow:1;">
+        <h3>Judge</h3>
+        <p class="org-name">FIRST Robotics</p>
+        <p class="volunteer-date">Nov 2014 – Aug 2015 · 10 mos</p>
+        <p class="focus-tag">Youth STEM</p>
 
-        <div>
-          <h3>Judge</h3>
-          <p class="org-name">FIRST Robotics</p>
-          <p class="volunteer-date">Nov 2014 – Aug 2015 · 10 mos</p>
-                <p class="focus-tag">Youth STEM</p>
-
-      <p class="volunteer-text">
-        Helped at multiple robotics events in Texas while working at Rackspace,
-        evaluating student teams, judging innovation categories, and supporting
-        competition operations.
-      </p>
-        </div>
-
+        <p class="volunteer-text">
+          Helped at multiple robotics events in Texas while working at Rackspace,
+          evaluating student teams, judging innovation categories, and supporting
+          competition operations.
+        </p>
       </div>
-
-
 
     </article>
 
     <!-- Civic Volunteer -->
-    <article class="volunteer-card">
+    <article class="volunteer-card"
+             style="
+               display:flex;
+               flex-direction:column;
+               height:100%;
+             ">
 
-      <div class="volunteer-top">
-          </svg>
-        </div>
+      <div style="flex-grow:1;">
+        <h3>Community Volunteer</h3>
+        <p class="org-name">
+          Petitioning with former Mayor of Swartz Creek, MI
+          <strong>Donna McCoy</strong>
+        </p>
+        <p class="focus-tag">Civic Engagement</p>
 
-        <div>
-          <h3>Community Volunteer</h3>
-          <p class="org-name">
-            Petitioning with former Mayor of Swartz Creek, MI
-            <strong>Donna McCoy</strong>
-          </p>
-              <p class="focus-tag">Civic Engagement</p>
-
-      <p class="volunteer-text">
-        Assisted with community events including Flint Crim races, ribbon-cuttings,
-        Camp 911, parades, door-to-door petitioning, council meetings, farmers
-        markets, and outreach at elderly homes.
-      </p>
-        </div>
-
+        <p class="volunteer-text">
+          Assisted with community events including Flint Crim races, ribbon-cuttings,
+          Camp 911, parades, door-to-door petitioning, council meetings, farmers
+          markets, and outreach at elderly homes.
+        </p>
       </div>
-
-  
 
     </article>
 
