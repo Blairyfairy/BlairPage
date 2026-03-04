@@ -981,3 +981,29 @@ p, li, h3, h4 {
 .course-title.plesk {
   color: #9acd32; /* light lime */
 }
+
+/* ======================================
+   PROJECT CARDS — SHOCK THERAPY HOVER FIX
+   ====================================== */
+
+.project-list li a {
+  color: var(--link-primary);
+  transition: 
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+.project-list li a:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.08);
+  color: var(--link-hover);
+  text-shadow: 0 0 18px rgba(240, 239, 244, 0.75);
+}
+
+/* Also ensure URL text follows */
+.project-list li a:hover .project-url {
+  color: var(--link-hover);
+  opacity: 1;
+}
