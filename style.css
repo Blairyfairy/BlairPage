@@ -193,65 +193,53 @@ a:active {
 }
 
 /* =========================
-   SOCIAL ICONS — MATCH PORTFOLIO CARD
+   SOCIAL ICONS — MATCH PORTFOLIO CARD EXACTLY
    ========================= */
 
 .social-links {
   display: flex;
-  gap: 1.75rem;
-  margin: 1.6rem 0;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
   align-items: center;
   justify-content: center;
 }
 
 .social-links a {
-  font-size: 2.1rem;              /* controls emoji size */
+  position: relative;
+  font-size: 1.85rem;   /* exact visual match */
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.28s ease, text-shadow 0.28s ease;
+  text-decoration: none;
+  transition: transform 0.25s ease;
 }
 
+/* Hover lift */
 .social-links a:hover {
-  transform: translateY(-6px) scale(1.08);
-  text-shadow: 0 0 16px rgba(240, 239, 244, 0.7);
+  transform: translateY(-5px);
 }
-/* =========================
-   CONNECT BUTTON
-   ========================= */
 
-.follow-btn {
-  margin-top: 0.5rem;
-  background: linear-gradient(
-    135deg,
-    #291528,
-    #3a3e3b,
-    #9e829c
-  );
-  border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 30px;
-  color: var(--ghost-white);
+/* Tooltip text (matches portfolio-card behavior) */
+.social-links a::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
   font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
-  transition: transform 0.3s ease;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
 }
 
-.follow-btn:hover {
-  transform: scale(1.06);
+.social-links a:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(4px);
 }
-
-.following {
-  background: linear-gradient(
-    135deg,
-    #9e829c,
-    #291528,
-    #000000
-  );
-}
-
 /* =========================
    RESPONSIVE
    ========================= */
