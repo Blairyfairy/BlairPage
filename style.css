@@ -943,10 +943,14 @@ p, li, h3, h4 {
   letter-spacing: 0.4px;
 }
 
-/* Rackspace + Red Hat — Grey-toned muted red */
+/* =========================
+   PREMIUM RED — Rackspace & Red Hat
+   Harmonized for BlairPage Violet System
+   ========================= */
+
 .course-title.rackspace,
 .course-title.redhat {
-  color: #a04555;
+  color: #a63d4f;
 }
 
 /* Yellow — LPIC */
@@ -1054,3 +1058,7 @@ a:focus {
     margin-bottom: 0.5rem;
   }
 }
+
+
+
+
