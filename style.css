@@ -1026,4 +1026,8 @@ a:focus {
   text-shadow: 0 0 18px rgba(240, 239, 244, 0.75);
 }
 
-
+/* University of the People Purple */
+.uopeople-purple {
+  color: #5B2D82;
+  font-weight: 600;
+}
