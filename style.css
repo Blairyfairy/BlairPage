@@ -193,48 +193,30 @@ a:active {
 }
 
 /* =========================
-   SOCIAL + VOLUNTEER ICONS
+   SOCIAL ICONS — MATCH PORTFOLIO CARD
    ========================= */
 
-.social-links,
-.volunteer-icons {
+.social-links {
   display: flex;
-  gap: 1.5rem;
-  margin: 1.4rem 0;
+  gap: 1.75rem;
+  margin: 1.6rem 0;
   align-items: center;
+  justify-content: center;
 }
 
-.social-links img,
-.social-links svg {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-}
-
-.social-links a:hover {
-  transform: translateY(-4px);
-}
-
-.volunteer-icons a {
+.social-links a {
+  font-size: 2.1rem;              /* controls emoji size */
+  line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  overflow: hidden;
+  transition: transform 0.28s ease, text-shadow 0.28s ease;
 }
 
-.volunteer-icons img,
-.volunteer-icons svg {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 20px !important;
-  max-height: 20px !important;
-  object-fit: contain;
-  display: block;
+.social-links a:hover {
+  transform: translateY(-6px) scale(1.08);
+  text-shadow: 0 0 16px rgba(240, 239, 244, 0.7);
 }
-
 /* =========================
    CONNECT BUTTON
    ========================= */
