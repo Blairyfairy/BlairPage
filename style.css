@@ -936,3 +936,48 @@ p, li, h3, h4 {
 .course-title.rackspace {
   color: #8b0000; /* deep red */
 }
+
+/* =========================
+   CERTIFICATION BRAND COLORS
+   ========================= */
+
+.course-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.4px;
+}
+
+/* SAME Rackspace Deep Red */
+.course-title.redhat {
+  color: #8b0000; /* same deep red as Rackspace */
+}
+
+/* Yellow — LPIC */
+.course-title.lpic {
+  color: #f4c430; /* strong certification yellow */
+}
+
+/* MongoDB Green (already defined but ensuring consistency) */
+.course-title.mongodb {
+  color: #13aa52; /* Mongo official green */
+}
+
+/* cPanel Orange */
+.course-title.cpanel {
+  color: #ff6c2c; /* official cPanel orange */
+}
+
+/* Different Blue — Cloud Tech */
+.course-title.cloudtech {
+  color: #1f4fa3; /* rich cloud blue */
+}
+
+/* Different Green — Imunify360 */
+.course-title.imunify {
+  color: #1f8f4e; /* security green */
+}
+
+/* Light Lime Green — Plesk */
+.course-title.plesk {
+  color: #9acd32; /* light lime */
+}
