@@ -602,3 +602,36 @@ section[style*="margin-top:3rem"] {
   }
 
 }
+
+/* =========================
+   GLOBAL CONTENT ALIGNMENT FIX
+   Ensures all major blocks align under same left edge
+   ========================= */
+
+.resume-sections,
+.profile-matrix,
+.timeline,
+.certifications-section,
+.volunteer-section {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Remove internal centering from matrix */
+.profile-matrix {
+  margin: 4rem 0;
+  padding: 0;
+}
+
+/* Make Certifications + Volunteer match timeline width */
+.certifications-section,
+.volunteer-section {
+  margin-top: 5rem;
+}
+
+/* Ensure grids align perfectly under section header */
+.certification-list,
+.volunteer-grid {
+  width: 100%;
+}
