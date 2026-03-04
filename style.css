@@ -1007,3 +1007,23 @@ p, li, h3, h4 {
   color: var(--link-hover);
   opacity: 1;
 }
+
+/* ======================================
+   FORCE SHOCK THERAPY HOVER MATCH
+   ====================================== */
+
+a,
+a:visited {
+  color: var(--link-primary);
+  transition: 
+    color 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+a:hover,
+a:focus {
+  color: var(--link-hover) !important;
+  text-shadow: 0 0 18px rgba(240, 239, 244, 0.75);
+}
+
+
