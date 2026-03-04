@@ -909,4 +909,6 @@ p, li, h3, h4 {
 .card-content > *:first-child {
   margin-top: 0;
 }
-
+.card-content {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
