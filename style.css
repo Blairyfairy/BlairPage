@@ -1156,7 +1156,7 @@ a:focus {
 }
 
 /* =====================================
-   SCROLL TO TOP BUTTON – MINIMAL TRIANGLE
+   SCROLL TO TOP – CHEVRON STYLE
    ===================================== */
 
 #scrollTopBtn {
@@ -1164,76 +1164,67 @@ a:focus {
   bottom: 35px;
   right: 35px;
 
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
 
-  background: #000;
+  background: #7a6f9f; /* your primary grey-purple */
   border: none;
-  border-radius: 10px;  /* Rounded square */
-  cursor: pointer;
+  border-radius: 6px; /* rectangle */
 
   display: none;
+  cursor: pointer;
   z-index: 9999;
 
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-  transition: all 0.25s ease;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  transition: background 0.25s ease, transform 0.2s ease;
 }
 
-/* Triangle Arrow – Theme Purple Scale */
-.arrow-up {
+/* Chevron Icon */
+.chevron-up {
+  width: 20px;
+  height: 20px;
+  stroke: #e9e6f5; /* soft light purple from theme */
+  stroke-width: 2.5;
+  fill: none;
   display: block;
-  width: 0;
-  height: 0;
   margin: auto;
-  margin-top: 17px;
-
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid #b7aed6; /* lighter site purple */
+  margin-top: 14px;
 }
 
-/* Hover – invert purple scale */
+/* Hover – slightly lighter purple */
 #scrollTopBtn:hover {
-  background: #8a7db3; /* lighter purple */
+  background: #8a7db3;
+  transform: translateY(-3px);
 }
 
-#scrollTopBtn:hover .arrow-up {
-  border-bottom: 12px solid #5f547e; /* darker purple tone */
+#scrollTopBtn:hover .chevron-up {
+  stroke: #ffffff;
 }
+
 /* =====================================
-   CUSTOM SCROLLBAR – THEME MATCH
+   THEME-MATCHED SCROLLBAR
    ===================================== */
 
-/* Chrome, Edge, Safari */
+/* Chrome / Edge / Safari */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f4f4f7;  /* soft light background */
+  background: #f3f2f8; /* very subtle purple tint */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    #b7aed6,
-    #8a7db3
-  );
-  border-radius: 10px;
-  border: 2px solid #f4f4f7;
+  background: #7a6f9f;
+  border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    180deg,
-    #9c8ec9,
-    #7566a3
-  );
+  background: #8a7db3;
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #8a7db3 #f4f4f7;
+  scrollbar-color: #7a6f9f #f3f2f8;
 }
-
