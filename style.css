@@ -1179,23 +1179,27 @@ a:focus {
   transition: all 0.25s ease;
 }
 
-/* Triangle Arrow */
+/* Triangle Arrow – Theme Purple Scale */
 .arrow-up {
-  display: inline-block;
+  display: block;
   width: 0;
   height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 14px solid white;
+  margin: auto;
+  margin-top: 17px;
+
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid #b7aed6; /* lighter site purple */
 }
 
-/* Hover — Theme Purple */
+/* Hover – invert purple scale */
 #scrollTopBtn:hover {
-  background: #8a7db3; /* Your lighter grey-purple */
-  transform: translateY(-4px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+  background: #8a7db3; /* lighter purple */
 }
 
+#scrollTopBtn:hover .arrow-up {
+  border-bottom: 12px solid #5f547e; /* darker purple tone */
+}
 /* =====================================
    CUSTOM SCROLLBAR – THEME MATCH
    ===================================== */
