@@ -1834,3 +1834,59 @@ html {
 
 }
 
+/* ===============================
+   JOB TITLE + LOGO TRUE INLINE FIX
+   =============================== */
+
+.job-layout{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.job-logo{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  margin:0;
+  padding:0;
+}
+
+.job-logo img{
+  width:56px;
+  height:56px;
+  object-fit:contain;
+  margin:0;
+  display:block;
+}
+
+.job-details{
+  flex:1;
+}
+
+.job-details h3{
+  margin:0;
+  line-height:1.2;
+}
+
+/* Mobile alignment */
+@media (max-width:768px){
+
+  .job-layout{
+    display:flex;
+    flex-direction:row;
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .job-logo img{
+    width:52px;
+    height:52px;
+  }
+
+  .job-details h3{
+    margin-top:0;
+  }
+
+}
