@@ -1697,3 +1697,47 @@ html {
   scrollbar-width: thin;
   scrollbar-color: #9e829c rgba(0,0,0,0.08);
 }
+
+/* ==========================================
+   JOB LAYOUT FIX – KEEP GIF LEFT OF TEXT
+   ========================================== */
+
+.job-layout{
+  display:flex;
+  align-items:flex-start;
+  gap:22px;
+}
+
+/* Logo container */
+.job-logo{
+  flex:0 0 90px;
+  display:flex;
+  justify-content:flex-start;
+  align-items:flex-start;
+  margin:0;
+  padding:0;
+}
+
+/* Logo image */
+.job-logo img{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  display:block;
+}
+
+/* Job text column */
+.job-details{
+  flex:1;
+}
+
+/* Ensure text starts aligned with logo */
+.job-details h3{
+  margin-top:0;
+}
+
+/* Space between jobs */
+.timeline-item{
+  margin-bottom:60px;
+}
+
