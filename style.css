@@ -1097,4 +1097,89 @@ a:focus {
   }
 }
 
+/* =====================================
+   MOBILE FIX FOR PROFESSIONAL EXPERIENCE
+   ===================================== */
+
+@media (max-width: 768px) {
+
+  .job-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  }
+
+  .job-logo img {
+    width: 85px;
+  }
+
+  .job-details {
+    width: 100%;
+  }
+
+  .timeline-item {
+    margin-bottom: 90px;  /* Better separation on mobile */
+  }
+
+  .job-gif-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+
+  .job-gif-row img {
+    width: 60px;
+  }
+
+}
+
+/* =====================================
+   CERTIFICATIONS RESIZE (GROUPED)
+   ===================================== */
+
+.certifications-container {
+  transform: scale(0.9);
+  transform-origin: top center;
+}
+
+.certification-card {
+  padding: 14px 18px;
+  font-size: 0.95rem;
+}
+
+.certification-card h4 {
+  font-size: 1rem;
+}
+
+.certification-card p {
+  font-size: 0.85rem;
+}
+
+/* =====================================
+   SCROLL TO TOP BUTTON
+   ===================================== */
+
+#scrollTopBtn {
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+  background: linear-gradient(135deg, #7a6a9d, #5f547e);
+  color: white;
+  border: none;
+  padding: 14px 16px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+  transform: translateY(-3px);
+}
+
+
 
