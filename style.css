@@ -1741,3 +1741,57 @@ html {
   margin-bottom:60px;
 }
 
+
+/* ===============================
+   JOB TITLE + LOGO ALIGNMENT FIX
+   =============================== */
+
+.job-layout{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+}
+
+/* logo column */
+.job-logo{
+  flex:0 0 70px;
+  margin:0;
+  padding:0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+
+/* logo image */
+.job-logo img{
+  width:60px;
+  height:60px;
+  object-fit:contain;
+  margin-top:4px;
+}
+
+/* text column */
+.job-details{
+  flex:1;
+}
+
+/* force job title to start at same height as logo */
+.job-details h3{
+  margin-top:0;
+  margin-bottom:6px;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:0.4px;
+}
+
+/* job meta text */
+.job-details p{
+  margin:4px 0;
+  line-height:1.6;
+}
+
+/* spacing between jobs */
+.timeline-item{
+  margin-bottom:70px;
+}
+
