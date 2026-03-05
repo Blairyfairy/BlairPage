@@ -1059,6 +1059,42 @@ a:focus {
   }
 }
 
+/* =========================
+   JOB LOGO LAYOUT SYSTEM
+   ========================= */
 
+.job-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.75rem;
+}
+
+.job-logo {
+  flex: 0 0 90px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.job-logo img {
+  width: 85px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.job-details {
+  flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .job-layout {
+    flex-direction: column;
+  }
+
+  .job-logo {
+    margin-bottom: 1rem;
+  }
+}
 
 
