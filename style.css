@@ -1795,3 +1795,42 @@ html {
   margin-bottom:70px;
 }
 
+/* ===============================
+   MOBILE JOB LOGO ALIGNMENT FIX
+   =============================== */
+
+@media (max-width: 768px){
+
+  .job-layout{
+    display:flex;
+    flex-direction:row;
+    align-items:flex-start;
+    gap:12px;
+  }
+
+  .job-logo{
+    flex:0 0 60px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:flex-start;
+    margin:0;
+    padding:0;
+  }
+
+  .job-logo img{
+    width:55px;
+    height:55px;
+    object-fit:contain;
+    margin-top:2px;
+  }
+
+  .job-details{
+    flex:1;
+  }
+
+  .job-details h3{
+    margin-top:0;
+  }
+
+}
+
