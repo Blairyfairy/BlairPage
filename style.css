@@ -1168,6 +1168,22 @@ a:focus {
   flex: 1;
 }
 
+/* =========================
+   Desktop Logo Size & Alignment for Job Titles
+   ========================= */
+@media (min-width: 769px) {
+  .job-logo {
+    display: flex;
+    align-items: center; /* vertically center logo with first line of job title */
+    margin-right: 0.25rem; /* tiny gap, optional */
+  }
+
+  .job-logo img {
+    width: 60px;   /* desktop size */
+    height: 60px;  /* maintain aspect ratio */
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .job-layout {
