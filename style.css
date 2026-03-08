@@ -2024,3 +2024,33 @@ html {
   }
 
 }
+
+/* Base styling for all devices (mobile-first) */
+.logo-img {
+  width: 80px;        /* Mobile-friendly size */
+  height: auto;       /* Maintain aspect ratio */
+  display: block;
+  margin: 0 auto;     /* Center if needed */
+  object-fit: contain;
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 768px) {
+  .logo-img {
+    width: 120px;     /* Larger logo on tablets */
+  }
+}
+
+/* Large screens (desktop / laptops) */
+@media (min-width: 1024px) {
+  .logo-img {
+    width: 150px;     /* Even larger logo on desktops */
+  }
+}
+
+/* Optional: Extra large screens */
+@media (min-width: 1440px) {
+  .logo-img {
+    width: 180px;
+  }
+}
