@@ -1879,26 +1879,42 @@ html {
 
 
 /* =========================
-   MOBILE TIMELINE LOGO FIX
+   JOB LOGO MOBILE ALIGNMENT
    ========================= */
 
-@media (max-width: 768px){
+.job-layout{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+}
 
-  .timeline-content{
+.job-logo img{
+  width:44px;
+  height:44px;
+  flex-shrink:0;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+
+  .job-layout{
     display:flex;
+    flex-direction:row;
     align-items:flex-start;
     gap:12px;
   }
 
-  .timeline-content img{
-    width:42px;
-    height:42px;
+  .job-logo{
     flex-shrink:0;
-    margin-top:2px;
   }
 
-  .timeline-content h3{
-    margin:0;
+  .job-logo img{
+    width:38px;
+    height:38px;
+  }
+
+  .job-details{
+    flex:1;
   }
 
 }
