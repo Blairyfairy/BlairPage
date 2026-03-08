@@ -1963,3 +1963,48 @@ html {
   }
 
 }
+
+/* =========================
+   EXACT LOGO TO TITLE ALIGNMENT
+   ========================= */
+
+.job-layout{
+  display:flex;
+  align-items:flex-start;
+}
+
+.job-logo{
+  margin-right:0;
+}
+
+.job-logo img{
+  width:34px;
+  height:34px;
+  display:block;
+}
+
+/* remove spacing that pushes title away */
+.job-details{
+  padding:0;
+  margin:0;
+}
+
+.job-details h4{
+  margin:0;
+  padding:0;
+  line-height:1.2;
+}
+
+/* mobile tightening */
+@media (max-width:768px){
+
+  .job-logo img{
+    width:28px;
+    height:28px;
+  }
+
+  .job-layout{
+    gap:0; /* removes gap between logo and title */
+  }
+
+}
