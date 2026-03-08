@@ -1,4 +1,80 @@
-/* =========================================================
+/* =========================
+   COURSE + CERTIFICATION SWATCH SYSTEM
+   Theme Harmonized
+   ========================= */
+
+.course-title{
+  font-weight:700;
+  font-size:1.05rem;
+  letter-spacing:0.4px;
+}
+
+
+/* =========================
+   SCHOOL COLORS
+   ========================= */
+
+/* Lansing Community College
+   Academic slate tone that fits violet theme */
+.course-title.lcc{
+  color:#6f7b95;
+}
+
+/* University of the People
+   Keep purple but slightly refined */
+.uopeople-purple{
+  color:#a592c7;
+  font-weight:600;
+}
+
+
+/* =========================
+   CERTIFICATION COLORS
+   Modern palette derived from theme
+   ========================= */
+
+/* Rackspace + RedHat
+   Deep ruby toned to match mauve theme */
+.course-title.rackspace,
+.course-title.redhat{
+  color:#b05263;
+}
+
+/* LPIC Linux
+   Muted gold instead of bright yellow */
+.course-title.lpic{
+  color:#d2b85c;
+}
+
+/* MongoDB
+   Slightly softened green */
+.course-title.mongodb{
+  color:#3f9b6c;
+}
+
+/* cPanel
+   Burnt orange toned toward rose */
+.course-title.cpanel{
+  color:#d26a3f;
+}
+
+/* Cloud Technologies
+   Indigo cloud tone matching palette */
+.course-title.cloudtech{
+  color:#6b7ed1;
+}
+
+/* Imunify360
+   Security teal */
+.course-title.imunify{
+  color:#4a9a7a;
+}
+
+/* Plesk
+   Lime shifted toward olive */
+.course-title.plesk{
+  color:#9fbf4a;
+}/* =========================================================
    BLAIRPAGE — UNIFIED VISUAL SYSTEM
    ShockTherapyRebuilding Unified Link System
    Responsive preserved
@@ -913,76 +989,82 @@ p, li, h3, h4 {
   padding: 0 1.5rem 1.5rem 1.5rem;
 }
 /* =========================
-   COURSE TITLE BRAND COLORS
+   COURSE + CERTIFICATION SWATCH SYSTEM
+   Theme Harmonized
    ========================= */
 
-.course-title {
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.4px;
-}
-
-/* Lansing Community College — Deep Navy */
-.course-title.lcc {
-  color: #0b1f3a; /* deep academic navy */
-}
-
-/* MongoDB University — Brand-matched green */
-.course-title.mongodb {
-  color: #13aa52; /* official MongoDB green */
+.course-title{
+  font-weight:700;
+  font-size:1.05rem;
+  letter-spacing:0.4px;
 }
 
 
 /* =========================
-   CERTIFICATION BRAND COLORS
+   SCHOOL COLORS
    ========================= */
 
-.course-title {
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.4px;
+/* Lansing Community College
+   Academic slate tone that fits violet theme */
+.course-title.lcc{
+  color:#6f7b95;
 }
 
+/* University of the People
+   Keep purple but slightly refined */
+.uopeople-purple{
+  color:#a592c7;
+  font-weight:600;
+}
+
+
 /* =========================
-   PREMIUM RED — Rackspace & Red Hat
-   Harmonized for BlairPage Violet System
+   CERTIFICATION COLORS
+   Modern palette derived from theme
    ========================= */
 
+/* Rackspace + RedHat
+   Deep ruby toned to match mauve theme */
 .course-title.rackspace,
-.course-title.redhat {
-  color: #a63d4f;
+.course-title.redhat{
+  color:#b05263;
 }
 
-/* Yellow — LPIC */
-.course-title.lpic {
-  color: #f4c430; /* strong certification yellow */
+/* LPIC Linux
+   Muted gold instead of bright yellow */
+.course-title.lpic{
+  color:#d2b85c;
 }
 
-/* MongoDB Green (already defined but ensuring consistency) */
-.course-title.mongodb {
-  color: #13aa52; /* Mongo official green */
+/* MongoDB
+   Slightly softened green */
+.course-title.mongodb{
+  color:#3f9b6c;
 }
 
-/* cPanel Orange */
-.course-title.cpanel {
-  color: #ff6a00; /* official cPanel orange */
+/* cPanel
+   Burnt orange toned toward rose */
+.course-title.cpanel{
+  color:#d26a3f;
 }
 
-/* Different Blue — Cloud Tech */
-.course-title.cloudtech {
-  color: #1f4fa3; /* rich cloud blue */
+/* Cloud Technologies
+   Indigo cloud tone matching palette */
+.course-title.cloudtech{
+  color:#6b7ed1;
 }
 
-/* Different Green — Imunify360 */
-.course-title.imunify {
-  color: #1f8f4e; /* security green */
+/* Imunify360
+   Security teal */
+.course-title.imunify{
+  color:#4a9a7a;
 }
 
-/* Light Lime Green — Plesk */
-.course-title.plesk {
-  color: #9acd32; /* light lime */
+/* Plesk
+   Lime shifted toward olive */
+.course-title.plesk{
+  color:#9fbf4a;
 }
-
 /* ======================================
    PROJECT CARDS — SHOCK THERAPY HOVER FIX
    ====================================== */
