@@ -1918,3 +1918,48 @@ html {
   }
 
 }
+
+
+/* =========================
+   JOB LAYOUT ALIGNMENT FIX
+   ========================= */
+
+.job-layout{
+  display:grid;
+  grid-template-columns: 40px 1fr;
+  gap:10px;
+  align-items:start;
+}
+
+.job-logo{
+  grid-column:1;
+}
+
+.job-details{
+  grid-column:2;
+}
+
+.job-logo img{
+  width:36px;
+  height:36px;
+  display:block;
+}
+
+/* tighten spacing on mobile */
+@media (max-width:768px){
+
+  .job-layout{
+    grid-template-columns:32px 1fr;
+    gap:8px;
+  }
+
+  .job-logo img{
+    width:30px;
+    height:30px;
+  }
+
+  .job-details h4{
+    margin-top:0;
+  }
+
+}
