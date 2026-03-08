@@ -1,1950 +1,233 @@
 /* =========================================================
-   BLAIRPAGE — UNIFIED VISUAL SYSTEM
-   ShockTherapyRebuilding Unified Link System
-   Responsive preserved
+   BLAIRPAGE FINAL CLEANUP LAYER
+   Non-destructive — preserves ALL existing features
    ========================================================= */
 
-/* =========================
-   COLOR SYSTEM
-   ========================= */
-
-:root {
-  --black: #000000ff;
-  --midnight-violet: #291528ff;
-  --charcoal-brown: #3a3e3bff;
-  --ghost-white: #f0eff4ff;
-  --dusty-mauve: #9e829cff;
-
-  --text-light: var(--ghost-white);
-
-  --bg-light: linear-gradient(
-    135deg,
-    #000000 0%,
-    #291528 30%,
-    #3a3e3b 60%,
-    #9e829c 85%,
-    #f0eff4 100%
-  );
-
-  --glass-bg: rgba(240, 239, 244, 0.08);
-  --glass-border: rgba(240, 239, 244, 0.22);
-
-  /* Shock Therapy Brand Link System */
-  --link-primary: #9e829c;
-  --link-hover: #f0eff4;
-}
-
-/* =========================
-   DARK MODE
-   ========================= */
-
-body.dark {
-  --bg-light: linear-gradient(
-    135deg,
-    #000000 0%,
-    #1a0d19 35%,
-    #291528 70%,
-    #3a3e3b 100%
-  );
-
-  --glass-bg: rgba(0, 0, 0, 0.65);
-  --glass-border: rgba(240, 239, 244, 0.12);
-  --text-light: #f8f7fb;
-}
-
-/* =========================
-   BASE
-   ========================= */
-
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: var(--bg-light);
-  background-attachment: fixed;
-  color: var(--text-light);
-  transition: background 0.7s ease;
-}
-
-.container {
-  padding: 2rem;
-}
-
-/* =========================
-   GLOBAL LINK SYSTEM
-   Unified Shock Therapy Hover
-   ========================= */
-
-a {
-  color: var(--link-primary);
-  text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  transition: color 0.25s ease, text-shadow 0.25s ease;
-}
-
-a:hover {
-  color: var(--link-hover);
-  text-shadow: 0 0 14px rgba(240, 239, 244, 0.65);
-}
-
-a:visited {
-  color: var(--link-primary);
-}
-
-a:active {
-  color: var(--link-hover);
-}
-
-/* =========================
-   TOP BAR
-   ========================= */
-
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.6px;
-}
-
-/* =========================
-   THEME BUTTON
-   ========================= */
-
-.theme-btn {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  padding: 0.4rem 1rem;
-  color: var(--ghost-white);
-  cursor: pointer;
-  backdrop-filter: blur(12px);
-  box-shadow:
-    inset 0 0 0 1px rgba(240, 239, 244, 0.18),
-    0 8px 22px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.theme-btn:hover {
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 0 0 1px rgba(240, 239, 244, 0.28),
-    0 12px 30px rgba(0, 0, 0, 0.45);
-}
-
-/* =========================
-   RESUME SHELL
-   ========================= */
-
-.resume-shell {
-  max-width: 1100px;
-  margin: auto;
-  backdrop-filter: blur(20px);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 28px;
-  padding: 3rem;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
-}
-
-/* =========================
-   IDENTITY
-   ========================= */
-
-.identity-row {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.profile-img {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid rgba(240, 239, 244, 0.45);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.7);
-}
-
-.identity-info h1 {
-  margin: 0;
-  font-size: 2rem;
-  letter-spacing: -0.4px;
-}
-
-.sub-name {
-  font-size: 0.75rem;
-  opacity: 0.7;
-  margin-bottom: 0.5rem;
-}
-
-.identity-info h3 {
-  margin: 0.6rem 0 1rem;
-  font-weight: 600;
-  color: var(--dusty-mauve);
-}
-
-.bio {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  max-width: 720px;
-}
-/* =========================
-   SOCIAL LINKS — EXACT MATCH
-   ========================= */
-
-.social-links {
-  margin: 1.6rem 0;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-}
-
-.social-links a {
-  font-size: 27px;
-  text-decoration: none;
-  position: relative;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.social-links a:hover {
-  transform: translateY(-6px);
-  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.75));
-}
-
-/* =========================
-   TOOLTIP — EXACT MATCH
-   ========================= */
-
-.tooltip::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 160%;
-  left: 50%;
-  transform: translateX(-50%) translateY(6px);
-  background: rgba(0, 0, 0, 0.95);
-  color: var(--ghost-white);
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  letter-spacing: 0.5px;
-  opacity: 0;
-  white-space: nowrap;
-  pointer-events: none;
-  transition: all 0.25s ease;
-}
-
-.tooltip:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-
-/* =========================
-   RESPONSIVE
-   ========================= */
-
-@media (max-width: 768px) {
-
-  .identity-row {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .container {
-    padding: 1rem;
-  }
-
-  .resume-shell {
-    padding: 1.5rem 1.25rem;
-  }
-
-}
-
-/* =========================
-   ENHANCED TIMELINE SPACING
-   Room for future icons
-   ========================= */
-
-.timeline-enhanced {
-  margin-top: 3rem;
-}
-
-/* Each timeline block gets breathing room */
-.timeline-enhanced .timeline-item {
-  margin-bottom: 3.5rem;
-  position: relative;
-}
-
-/* Add visual left spacing without centering */
-.timeline-enhanced .timeline-content {
-  padding-left: 2.25rem;
-  max-width: 900px;
-}
-
-/* Subtle alignment refinement */
-.timeline-enhanced .timeline-content h4 {
-  margin-bottom: 0.35rem;
-}
-
-/* Company line spacing */
-.timeline-enhanced .timeline-content p {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-  opacity: 0.85;
-}
-
-/* Bullet refinement */
-.timeline-enhanced .timeline-content ul {
-  padding-left: 1.4rem;
-  margin-top: 0.75rem;
-  margin-bottom: 0;
-}
-
-.timeline-enhanced .timeline-content li {
-  margin-bottom: 0.55rem;
-  line-height: 1.6;
-}
-
-/* Date spacing */
-.timeline-enhanced .timeline-date {
-  display: inline-block;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  opacity: 0.8;
-}
 
 /* =========================================================
-   MODERN RESPONSIVE RECTANGLE LAYOUT ENHANCEMENT
-   (Non-destructive — preserves ALL existing content)
+   CERTIFICATION COLOR SWATCH SYSTEM
+   Theme matched palette
    ========================================================= */
 
-/* =========================
-   GLOBAL SECTION SPACING
-   ========================= */
+:root{
+
+  --cert-violet:#9e829c;
+  --cert-plum:#7b5d87;
+  --cert-lavender:#b4a3c1;
+  --cert-rose:#a46d7a;
+  --cert-amethyst:#8661a9;
+  --cert-indigo:#5b6ea9;
+  --cert-slate:#6b7a8f;
+  --cert-olive:#6f8a6b;
 
-section {
-  margin-top: 4rem;
-}
-
-h2 {
-  font-size: 1.8rem;
-  letter-spacing: -0.3px;
-  margin-bottom: 1.75rem;
-}
-
-/* =========================
-   MATRIX GRID POLISH
-   ========================= */
-
-.profile-matrix {
-  margin-top: 5rem;
-}
-
-.matrix-card {
-  padding: 0.5rem 0;
-  border-radius: 20px;
-}
-
-.matrix-card ul {
-  padding-left: 1.2rem;
-}
-
-.matrix-card li {
-  margin-bottom: 0.55rem;
-}
-
-/* =========================
-   TIMELINE -> CARD LAYOUT
-   Converts vertical stack into modern card grid feel
-   ========================= */
-
-.timeline-enhanced {
-  display: grid;
-  gap: 3rem;
-}
-
-.timeline-enhanced .timeline-item {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 22px;
-  padding: 2rem;
-  box-shadow: 0 18px 50px rgba(0,0,0,0.55);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.timeline-enhanced .timeline-item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 25px 70px rgba(0,0,0,0.75);
-}
-
-.timeline-enhanced .timeline-content {
-  padding-left: 0;
-  max-width: 100%;
-}
-
-/* =========================
-   PROJECT LIST RECTANGLES
-   ========================= */
-
-.project-list {
-  list-style: none;
-  padding-left: 0;
-  display: grid;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.project-list li a {
-  display: block;
-  padding: 1rem 1.25rem;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  transition: transform 0.25s ease, background 0.25s ease;
-}
-
-.project-list li a:hover {
-  transform: translateY(-4px);
-  background: rgba(255,255,255,0.08);
-}
-
-.project-url {
-  display: block;
-  font-size: 0.8rem;
-  opacity: 0.7;
-  margin-top: 0.35rem;
-}
-
-/* =========================
-   EDUCATION + COURSES
-   Two-column responsive block
-   ========================= */
-
-.education-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 2.5rem;
-  margin-top: 3rem;
-}
-
-.edu-card,
-.courses-card,
-.certs-card {
-  backdrop-filter: blur(18px);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 2.2rem;
-  box-shadow: 0 20px 55px rgba(0,0,0,0.65);
-}
-
-.course-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.8rem;
-}
-
-.course-group ul {
-  padding-left: 1.2rem;
-}
-
-/* =========================
-   CERTIFICATION — STRUCTURED GRID
-   Left / Right Balanced Layout
-   ========================= */
-
-.certification-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* strict left-right */
-  gap: 2rem 2.5rem;
-  margin-top: 2.5rem;
-}
-
-@media (max-width: 900px) {
-  .certification-list {
-    grid-template-columns: 1fr;
-  }
-}
-
-.cert-card {
-  background: rgba(255,255,255,0.045);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 22px;
-  padding: 1.75rem 1.75rem 2rem;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 18px 50px rgba(0,0,0,0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.cert-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 28px 80px rgba(0,0,0,0.85);
-}
-
-.cert-card h3 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-  font-size: 1.05rem;
-}
-
-.cert-card p {
-  margin: 0;
-  opacity: 0.8;
-  font-size: 0.9rem;
-}
-
-/* =========================
-   VOLUNTEER — MATCHING GRID SYSTEM
-   Same Concept, Separate Class
-   ========================= */
-
-.volunteer-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* strict left-right */
-  gap: 2rem 2.5rem;
-  margin-top: 2.5rem;
-}
-
-@media (max-width: 900px) {
-  .volunteer-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.volunteer-card {
-  backdrop-filter: blur(18px);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 22px;
-  padding: 2rem;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.volunteer-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 28px 80px rgba(0,0,0,0.85);
-}
-
-/* =========================
-   CREDLY WRAPPER POLISH
-   ========================= */
-
-section[style*="margin-top:3rem"] {
-  margin-top: 5rem !important;
-}
-
-/* =========================
-   SMOOTHER MOBILE STACKING
-   ========================= */
-
-@media (max-width: 1024px) {
-
-  .timeline-enhanced {
-    gap: 2.5rem;
-  }
-
-  .timeline-enhanced .timeline-item {
-    padding: 1.75rem;
-  }
-
-}
-
-@media (max-width: 640px) {
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .edu-card,
-  .courses-card,
-  .certs-card,
-  .volunteer-card,
-  .timeline-enhanced .timeline-item {
-    padding: 1.5rem;
-  }
-
-  .profile-img {
-    width: 150px;
-    height: 150px;
-  }
-
-}
-
-/* =========================
-   GLOBAL CONTENT ALIGNMENT FIX
-   Ensures all major blocks align under same left edge
-   ========================= */
-
-.resume-sections,
-.profile-matrix,
-.timeline,
-.certifications-section,
-.volunteer-section {
-  max-width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-/* Remove internal centering from matrix */
-.profile-matrix {
-  margin: 4rem 0;
-  padding: 0;
-}
-
-/* Make Certifications + Volunteer match timeline width */
-.certifications-section,
-.volunteer-section {
-  margin-top: 5rem;
-}
-
-/* Ensure grids align perfectly under section header */
-.certification-list,
-.volunteer-grid {
-  width: 100%;
-}
-
-/* =========================
-   CERTIFICATIONS – Masonry + Two Tone
-   ========================= */
-
-.certification-list {
-  column-count: 2;
-  column-gap: 2.5rem;
-  margin-top: 2.5rem;
-}
-
-@media (max-width: 900px) {
-  .certification-list {
-    column-count: 1;
-  }
-}
-
-.certification-card {
-  break-inside: avoid;
-  margin-bottom: 2rem;
-  padding: 1.75rem;
-  border-radius: 14px;
-  background: #ffffff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-/* Stagger Effect */
-.certification-card:nth-child(even) {
-  margin-top: 2rem;
-}
-
-/* Subtle Two-Tone Column Background */
-.certifications-section {
-  position: relative;
-}
-
-.certifications-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.02),
-    rgba(0,0,0,0.04)
-  );
-  pointer-events: none;
-}
-
-/* Hover polish */
-.certification-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
-}
-
-/* =========================
-   CERTIFICATIONS – Masonry + Two Tone
-   ========================= */
-
-.certification-list {
-  column-count: 2;
-  column-gap: 2.5rem;
-  margin-top: 2.5rem;
-}
-
-@media (max-width: 900px) {
-  .certification-list {
-    column-count: 1;
-  }
-}
-
-.certification-card {
-  break-inside: avoid;
-  margin-bottom: 2rem;
-  padding: 1.75rem;
-  border-radius: 14px;
-  background: #ffffff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-/* Stagger Effect */
-.certification-card:nth-child(even) {
-  margin-top: 2rem;
-}
-
-/* Subtle Two-Tone Column Background */
-.certifications-section {
-  position: relative;
-}
-
-.certifications-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.02),
-    rgba(0,0,0,0.04)
-  );
-  pointer-events: none;
-}
-
-/* Hover polish */
-.certification-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
 }
 
 
 /* =========================================================
-   FINAL STRUCTURE OVERRIDES
-   Non-destructive conflict resolution layer
-   (Appended only – nothing removed above)
+   CERTIFICATION TITLE COLOR OVERRIDE
+   Replaces mismatched brand colors with theme palette
    ========================================================= */
 
+.course-title.rackspace{color:var(--cert-violet)!important;}
+.course-title.redhat{color:var(--cert-plum)!important;}
+.course-title.lpic{color:var(--cert-amethyst)!important;}
+.course-title.mongodb{color:var(--cert-olive)!important;}
+.course-title.cpanel{color:var(--cert-rose)!important;}
+.course-title.cloudtech{color:var(--cert-indigo)!important;}
+.course-title.imunify{color:var(--cert-slate)!important;}
+.course-title.plesk{color:var(--cert-lavender)!important;}
 
-/* =========================
-   GLOBAL SAFETY
-   Prevent overflow & layout break
-   ========================= */
 
-* {
-  box-sizing: border-box;
+/* =========================================================
+   CERTIFICATION GRID STABILITY
+   Prevent column/grid conflicts
+   ========================================================= */
+
+.certification-list{
+
+  display:grid!important;
+
+  grid-template-columns:1fr 1fr!important;
+
+  column-count:unset!important;
+
+  column-gap:unset!important;
+
+  gap:2rem 2.5rem!important;
+
 }
 
-p, li, h3, h4 {
-  overflow-wrap: break-word;
-}
+@media(max-width:900px){
 
-
-/* =========================
-   CERTIFICATIONS
-   Force stable grid over column masonry
-   (Overrides earlier column-count rules)
-   ========================= */
-
-.certification-list {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  column-count: unset !important;
-  column-gap: unset !important;
-  gap: 2rem 2.5rem !important;
-}
-
-@media (max-width: 900px) {
-  .certification-list {
-    grid-template-columns: 1fr !important;
+  .certification-list{
+    grid-template-columns:1fr!important;
   }
+
 }
 
-/* Ensure consistent card structure */
+
+/* =========================================================
+   CERTIFICATION CARD CONSISTENCY
+   ========================================================= */
+
 .cert-card,
-.certification-card {
-  break-inside: unset !important;
-  height: 100%;
+.certification-card{
+
+  break-inside:unset!important;
+
+  height:100%;
+
 }
 
 
-/* =========================
-   KEEP TWO-TONE BACKGROUND
-   (Preserved but stabilized)
-   ========================= */
+/* =========================================================
+   VOLUNTEER GRID STABILITY
+   ========================================================= */
 
-.certifications-section {
-  position: relative;
+.volunteer-grid{
+
+  display:grid!important;
+
+  grid-template-columns:1fr 1fr!important;
+
+  gap:2rem 2.5rem!important;
+
+  align-items:stretch;
+
 }
 
-.certifications-section::before {
-  pointer-events: none;
-  z-index: 0;
-}
+@media(max-width:900px){
 
-.certification-list,
-.cert-card,
-.certification-card {
-  position: relative;
-  z-index: 1;
-}
-
-
-/* =========================
-   VOLUNTEER GRID STABILIZER
-   ========================= */
-
-.volunteer-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 2rem 2.5rem !important;
-  align-items: stretch;
-}
-
-@media (max-width: 900px) {
-  .volunteer-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-.volunteer-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-
-/* =========================
-   BOTTOM PAGE ANCHOR FINISH
-   Makes Volunteer visually close page
-   ========================= */
-
-.volunteer-section {
-  padding-bottom: 6rem;
-  position: relative;
-}
-
-.volunteer-section::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0),
-    rgba(0,0,0,0.08)
-  );
-  pointer-events: none;
-}
-
-
-/* =========================
-   EDUCATION + COURSES ALIGNMENT
-   Prevent uneven column stretch
-   ========================= */
-
-.education-wrapper {
-  align-items: stretch;
-}
-
-.edu-card,
-.courses-card,
-.certs-card {
-  height: 100%;
-}
-
-
-/* =========================
-   HARD ALIGNMENT LOCK
-   Ensures all grids line up perfectly
-   ========================= */
-
-.certification-list,
-.volunteer-grid,
-.education-wrapper {
-  width: 100%;
-}
-
-/* =========================
-   CONNECT BUTTON — EXACT PORTFOLIO MATCH
-   ========================= */
-
-.follow-btn {
-  margin-top: 1rem;
-  background: linear-gradient(
-    135deg,
-    var(--midnight-violet),
-    var(--charcoal-brown),
-    var(--dusty-mauve)
-  );
-  border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 30px;
-  color: var(--ghost-white);
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
-}
-
-.follow-btn:hover {
-  transform: scale(1.06);
-}
-
-.follow-btn.following {
-  background: linear-gradient(
-    135deg,
-    var(--dusty-mauve),
-    var(--midnight-violet),
-    var(--black)
-  );
-}
-.card-content > *:first-child {
-  margin-top: 0;
-}
-.card-content {
-  padding: 0 1.5rem 1.5rem 1.5rem;
-}
-/* =========================
-   COURSE TITLE BRAND COLORS
-   ========================= */
-
-.course-title {
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.4px;
-}
-
-/* Lansing Community College — Deep Navy */
-.course-title.lcc {
-  color: #0b1f3a; /* deep academic navy */
-}
-
-/* MongoDB University — Brand-matched green */
-.course-title.mongodb {
-  color: #13aa52; /* official MongoDB green */
-}
-
-
-/* =========================
-   CERTIFICATION BRAND COLORS
-   ========================= */
-
-.course-title {
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.4px;
-}
-
-/* =========================
-   PREMIUM RED — Rackspace & Red Hat
-   Harmonized for BlairPage Violet System
-   ========================= */
-
-.course-title.rackspace,
-.course-title.redhat {
-  color: #a63d4f;
-}
-
-/* Yellow — LPIC */
-.course-title.lpic {
-  color: #f4c430; /* strong certification yellow */
-}
-
-/* MongoDB Green (already defined but ensuring consistency) */
-.course-title.mongodb {
-  color: #13aa52; /* Mongo official green */
-}
-
-/* cPanel Orange */
-.course-title.cpanel {
-  color: #ff6a00; /* official cPanel orange */
-}
-
-/* Different Blue — Cloud Tech */
-.course-title.cloudtech {
-  color: #1f4fa3; /* rich cloud blue */
-}
-
-/* Different Green — Imunify360 */
-.course-title.imunify {
-  color: #1f8f4e; /* security green */
-}
-
-/* Light Lime Green — Plesk */
-.course-title.plesk {
-  color: #9acd32; /* light lime */
-}
-
-/* ======================================
-   PROJECT CARDS — SHOCK THERAPY HOVER FIX
-   ====================================== */
-
-.project-list li a {
-  color: var(--link-primary);
-  transition: 
-    transform 0.25s ease,
-    background 0.25s ease,
-    color 0.25s ease,
-    text-shadow 0.25s ease;
-}
-
-.project-list li a:hover {
-  transform: translateY(-4px);
-  background: rgba(255,255,255,0.08);
-  color: var(--link-hover);
-  text-shadow: 0 0 18px rgba(240, 239, 244, 0.75);
-}
-
-/* Also ensure URL text follows */
-.project-list li a:hover .project-url {
-  color: var(--link-hover);
-  opacity: 1;
-}
-
-/* ======================================
-   FORCE SHOCK THERAPY HOVER MATCH
-   ====================================== */
-
-a,
-a:visited {
-  color: var(--link-primary);
-  transition: 
-    color 0.25s ease,
-    text-shadow 0.25s ease;
-}
-
-a:hover,
-a:focus {
-  color: var(--link-hover) !important;
-  text-shadow: 0 0 18px rgba(240, 239, 244, 0.75);
-}
-
-/* University of the People Purple */
-.uopeople-purple {
-  color: #9A8FB2;
-  font-weight: 600;
-}
-
-/* Ragnarok Header Layout */
-.ragnarok-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.ragnarok-icon {
-  width: 90px;
-  image-rendering: pixelated;
-  flex-shrink: 0;
-}
-
-/* Mobile stack */
-@media (max-width: 600px) {
-  .ragnarok-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .ragnarok-icon {
-    margin-bottom: 0.5rem;
-  }
-}
-
-/* =========================
-   JOB LOGO LAYOUT SYSTEM
-   ========================= */
-
-.job-layout {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.75rem;
-}
-
-.job-logo {
-  flex: 0 0 90px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.job-logo img {
-  width: 85px;
-  height: auto;
-  image-rendering: pixelated;
-}
-
-.job-details {
-  flex: 1;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .job-layout {
-    flex-direction: column;
-  }
-
-  .job-logo {
-    margin-bottom: 1rem;
-  }
-}
-
-/* =====================================
-   MOBILE FIX FOR PROFESSIONAL EXPERIENCE
-   ===================================== */
-
-@media (max-width: 768px) {
-
-  .job-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-  }
-
-  .job-logo img {
-    width: 85px;
-  }
-
-  .job-details {
-    width: 100%;
-  }
-
-  .timeline-item {
-    margin-bottom: 90px;  /* Better separation on mobile */
-  }
-
-  .job-gif-row {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
-
-  .job-gif-row img {
-    width: 60px;
+  .volunteer-grid{
+    grid-template-columns:1fr!important;
   }
 
 }
 
-/* =====================================
-   CERTIFICATIONS RESIZE (GROUPED)
-   ===================================== */
+.volunteer-card{
 
-.certifications-container {
-  transform: scale(0.9);
-  transform-origin: top center;
-}
+  height:100%;
 
-.certification-card {
-  padding: 14px 18px;
-  font-size: 0.95rem;
-}
+  display:flex;
 
-.certification-card h4 {
-  font-size: 1rem;
-}
-
-.certification-card p {
-  font-size: 0.85rem;
-}
-
-/* =====================================
-   SCROLL TO TOP – CHEVRON STYLE
-   ===================================== */
-
-#scrollTopBtn {
-  position: fixed;
-  bottom: 35px;
-  right: 35px;
-
-  width: 48px;
-  height: 48px;
-
-  background: #7a6f9f; /* your primary grey-purple */
-  border: none;
-  border-radius: 6px; /* rectangle */
-
-  display: none;
-  cursor: pointer;
-  z-index: 9999;
-
-  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-  transition: background 0.25s ease, transform 0.2s ease;
-}
-
-/* Chevron Icon */
-.chevron-up {
-  width: 20px;
-  height: 20px;
-  stroke: #e9e6f5; /* soft light purple from theme */
-  stroke-width: 2.5;
-  fill: none;
-  display: block;
-  margin: auto;
-  margin-top: 14px;
-}
-
-/* Hover – slightly lighter purple */
-#scrollTopBtn:hover {
-  background: #8a7db3;
-  transform: translateY(-3px);
-}
-
-#scrollTopBtn:hover .chevron-up {
-  stroke: #ffffff;
-}
-
-/* =====================================
-   THEME-MATCHED SCROLLBAR
-   ===================================== */
-
-/* Chrome / Edge / Safari */
-::-webkit-scrollbar {
-  width: 9px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f3f2f8; /* very subtle purple tint */
-}
-
-::-webkit-scrollbar-thumb {
-  background: #7a6f9f;
-  border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #8a7db3;
-}
-
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #7a6f9f #f3f2f8;
-}
-
-/* ==========================================
-   MOBILE LAYOUT REFINEMENT
-   ========================================== */
-
-@media (max-width: 820px) {
-
-/* Container spacing */
-.container {
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-/* Identity header stacks properly */
-.identity-row {
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 18px;
-}
-
-.identity-info h1 {
-  font-size: 1.8rem;
-}
-
-.identity-info h3 {
-  font-size: 1rem;
-}
-
-.bio {
-  font-size: .95rem;
-  line-height: 1.55;
-}
-
-/* Profile image */
-.profile-img {
-  width: 140px;
-  height: 140px;
-  object-fit: cover;
-}
-
-/* =================================
-   JOB LAYOUT FIX
-   ================================= */
-
-.job-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* Logo centered above job */
-.job-logo {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 6px;
-}
-
-/* Fix GIF scaling */
-.job-logo img {
-  width: 70px;
-  height: auto;
-  max-width: 100%;
-}
-
-/* Better spacing between jobs */
-.timeline-item {
-  margin-bottom: 38px;
-}
-
-/* Job text readability */
-.job-details h4 {
-  font-size: 1.2rem;
-}
-
-.job-details p,
-.job-details li {
-  font-size: .95rem;
-  line-height: 1.55;
-}
-
-/* Prevent text overflow */
-.job-details {
-  width: 100%;
-}
-
-/* Lists padding */
-.job-details ul {
-  padding-left: 18px;
-}
-
-/* =================================
-   PROJECT LINKS
-   ================================= */
-
-.project-list a {
-  word-break: break-word;
-  font-size: .92rem;
-}
-
-.project-url {
-  display: block;
-  font-size: .82rem;
-  opacity: .85;
-}
-
-/* =================================
-   PROFILE MATRIX GRID
-   ================================= */
-
-.matrix-grid {
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
-/* Card padding refinement */
-.matrix-card {
-  padding-bottom: 6px;
-}
-
-/* =================================
-   TABLE FIX (Game server section)
-   ================================= */
-
-.data-table-section {
-  overflow-x: auto;
-}
-
-.data-table {
-  font-size: .85rem;
-  min-width: 500px;
-}
-
-/* =================================
-   CERTIFICATIONS / CREDLY SIZE FIX
-   ================================= */
-
-.resume-block iframe {
-  transform: scale(.85);
-  transform-origin: top center;
-}
-
-/* =================================
-   REMOVE WHITE SCROLL FLASH
-   ================================= */
-
-body {
-  background: #0f0c17;
-}
-
-html {
-  background: #0f0c17;
-}
-
-/* =================================
-   SOCIAL ICONS
-   ================================= */
-
-.social-links {
-  gap: 12px;
-}
-
-.social-links a {
-  font-size: 1.2rem;
-}
-
-/* =================================
-   FOLLOW BUTTON
-   ================================= */
-
-.follow-btn {
-  margin-top: 8px;
-  padding: 8px 16px;
-  font-size: .9rem;
-}
-
-/* =================================
-   SCROLL BUTTON POSITION MOBILE
-   ================================= */
-
-#scrollTopBtn {
-  bottom: 20px;
-  right: 16px;
-}
+  flex-direction:column;
 
 }
 
-/* =====================================
-   SCROLL TO TOP – THEME MATCHED
-   ===================================== */
 
-#scrollTopBtn {
-  position: fixed;
-  bottom: 35px;
-  right: 35px;
+/* =========================================================
+   JOB LAYOUT CONSOLIDATION
+   Prevent multiple rule conflicts
+   ========================================================= */
 
-  width: 48px;
-  height: 48px;
+.job-layout{
 
-  background: var(--dusty-mauve);
-  border: none;
-  border-radius: 6px;
+  display:flex!important;
 
-  display: none;
-  cursor: pointer;
-  z-index: 9999;
+  align-items:flex-start!important;
 
-  box-shadow: 0 8px 20px rgba(0,0,0,0.45);
-  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  gap:12px!important;
+
 }
 
-/* Chevron Icon */
-.chevron-up {
-  width: 20px;
-  height: 20px;
-  stroke: var(--ghost-white);
-  stroke-width: 2.5;
-  fill: none;
-  display: block;
-  margin: auto;
-  margin-top: 14px;
+.job-logo{
+
+  flex:0 0 auto!important;
+
+  display:flex!important;
+
+  align-items:center!important;
+
 }
 
-/* Hover */
-#scrollTopBtn:hover {
-  background: var(--midnight-violet);
-  transform: translateY(-4px);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.65);
+.job-logo img{
+
+  width:56px!important;
+  height:56px!important;
+
+  object-fit:contain;
+
 }
 
-#scrollTopBtn:hover .chevron-up {
-  stroke: var(--ghost-white);
-}
-/* ==========================================
-   FINAL MOBILE LAYOUT FIXES
-   ========================================== */
+.job-details{
 
-@media (max-width: 820px) {
+  flex:1;
 
-/* -----------------------------
-   Container spacing
------------------------------ */
-
-.container {
-  padding-left: 16px;
-  padding-right: 16px;
 }
 
-/* -----------------------------
-   Identity section
------------------------------ */
+.job-details h3{
 
-.identity-row {
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 18px;
+  margin:0;
+
+  line-height:1.2;
+
 }
 
-.identity-info h1 {
-  font-size: 1.8rem;
-}
 
-.identity-info h3 {
-  font-size: 1rem;
-}
+/* =========================================================
+   MOBILE JOB ALIGNMENT FIX
+   ========================================================= */
 
-.bio {
-  font-size: .95rem;
-  line-height: 1.55;
-}
+@media(max-width:768px){
 
-.profile-img {
-  width: 140px;
-  height: 140px;
-  object-fit: cover;
-}
+  .job-layout{
 
-/* -----------------------------
-   JOB BLOCK LAYOUT
------------------------------ */
+    flex-direction:row!important;
 
-.timeline-item {
-  margin-bottom: 80px; /* more breathing room */
-}
+    align-items:flex-start!important;
 
-/* Stack logo + text */
-.job-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-}
+    gap:10px!important;
 
-/* Center logo */
-.job-logo {
-  display: flex;
-  justify-content: center;
-}
+  }
 
-.job-logo img {
-  width: 70px;
-  height: auto;
-}
+  .job-logo img{
 
-/* Job text full width */
-.job-details {
-  width: 100%;
-}
+    width:52px!important;
+    height:52px!important;
 
-/* -----------------------------
-   JOB GIF GRID (5 icons)
------------------------------ */
-
-.job-gif-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 14px;
-  margin-top: 14px;
-}
-
-.job-gif-row img {
-  width: 48px;
-  height: auto;
-  justify-self: center;
-}
-
-/* If screen very small collapse to 3 */
-@media (max-width: 520px) {
-
-  .job-gif-row {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
   }
 
 }
 
-/* -----------------------------
-   CERTIFICATIONS
-   Smaller but grouped
------------------------------ */
 
-.certifications-container {
-  transform: scale(.88);
-  transform-origin: top center;
-}
+/* =========================================================
+   SCROLL BUTTON FINAL OVERRIDE
+   Ensures single consistent style
+   ========================================================= */
 
-.certification-card {
-  padding: 12px 16px;
-}
+#scrollTopBtn{
 
-.certification-card h3,
-.certification-card h4 {
-  font-size: .95rem;
-}
+  width:46px!important;
+  height:46px!important;
 
-.certification-card p {
-  font-size: .82rem;
-}
+  border-radius:8px!important;
 
-/* Maintain grid spacing */
-.certification-list {
-  gap: 18px 20px;
-}
-
-/* -----------------------------
-   EDUCATION + COURSES
------------------------------ */
-
-.education-wrapper {
-  grid-template-columns: 1fr;
-  gap: 24px;
-}
-
-/* -----------------------------
-   Timeline cards
------------------------------ */
-
-.timeline-enhanced {
-  gap: 40px;
-}
-
-.timeline-enhanced .timeline-item {
-  padding: 20px;
-}
-
-}
-
-/* ==========================================
-   SCROLL BUTTON POLISH
-   (matches site purple scale)
-   ========================================== */
-
-#scrollTopBtn {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-
-  width: 46px;
-  height: 46px;
-
-  border-radius: 8px;
-  border: none;
-
-  background: linear-gradient(
+  background:linear-gradient(
     135deg,
     #291528,
     #3a3e3b,
     #9e829c
-  );
+  )!important;
 
-  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+  box-shadow:0 10px 22px rgba(0,0,0,.35)!important;
 
-  cursor: pointer;
-  z-index: 9999;
-
-  display: none;
-
-  transition: transform .2s ease, box-shadow .2s ease;
 }
 
-#scrollTopBtn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 28px rgba(0,0,0,.45);
-}
 
-/* Chevron icon color */
-#scrollTopBtn svg {
-  stroke: #f0eff4;
-  stroke-width: 2.5;
-}
+/* =========================================================
+   SCROLLBAR FINAL THEME MATCH
+   ========================================================= */
 
-/* ==========================================
-   THEME MATCHED SCROLLBAR
-   ========================================== */
+::-webkit-scrollbar-thumb{
 
-/* Chrome / Edge / Safari */
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.08);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(
+  background:linear-gradient(
     #291528,
     #3a3e3b,
     #9e829c
-  );
-  border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    #3a3e3b,
-    #9e829c,
-    #f0eff4
-  );
-}
-
-/* Firefox */
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #9e829c rgba(0,0,0,0.08);
-}
-
-/* ==========================================
-   JOB LAYOUT FIX – KEEP GIF LEFT OF TEXT
-   ========================================== */
-
-.job-layout{
-  display:flex;
-  align-items:flex-start;
-  gap:22px;
-}
-
-/* Logo container */
-.job-logo{
-  flex:0 0 90px;
-  display:flex;
-  justify-content:flex-start;
-  align-items:flex-start;
-  margin:0;
-  padding:0;
-}
-
-/* Logo image */
-.job-logo img{
-  width:70px;
-  height:70px;
-  object-fit:contain;
-  display:block;
-}
-
-/* Job text column */
-.job-details{
-  flex:1;
-}
-
-/* Ensure text starts aligned with logo */
-.job-details h3{
-  margin-top:0;
-}
-
-/* Space between jobs */
-.timeline-item{
-  margin-bottom:60px;
-}
-
-
-/* ===============================
-   JOB TITLE + LOGO ALIGNMENT FIX
-   =============================== */
-
-.job-layout{
-  display:flex;
-  align-items:flex-start;
-  gap:16px;
-}
-
-/* logo column */
-.job-logo{
-  flex:0 0 70px;
-  margin:0;
-  padding:0;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-}
-
-/* logo image */
-.job-logo img{
-  width:60px;
-  height:60px;
-  object-fit:contain;
-  margin-top:4px;
-}
-
-/* text column */
-.job-details{
-  flex:1;
-}
-
-/* force job title to start at same height as logo */
-.job-details h3{
-  margin-top:0;
-  margin-bottom:6px;
-  font-size:20px;
-  font-weight:700;
-  letter-spacing:0.4px;
-}
-
-/* job meta text */
-.job-details p{
-  margin:4px 0;
-  line-height:1.6;
-}
-
-/* spacing between jobs */
-.timeline-item{
-  margin-bottom:70px;
-}
-
-/* ===============================
-   MOBILE JOB LOGO ALIGNMENT FIX
-   =============================== */
-
-@media (max-width: 768px){
-
-  .job-layout{
-    display:flex;
-    flex-direction:row;
-    align-items:flex-start;
-    gap:12px;
-  }
-
-  .job-logo{
-    flex:0 0 60px;
-    display:flex;
-    align-items:flex-start;
-    justify-content:flex-start;
-    margin:0;
-    padding:0;
-  }
-
-  .job-logo img{
-    width:55px;
-    height:55px;
-    object-fit:contain;
-    margin-top:2px;
-  }
-
-  .job-details{
-    flex:1;
-  }
-
-  .job-details h3{
-    margin-top:0;
-  }
+  )!important;
 
 }
 
-/* ===============================
-   JOB TITLE + LOGO TRUE INLINE FIX
-   =============================== */
-
-.job-layout{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-}
-
-.job-logo{
-  flex:0 0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  margin:0;
-  padding:0;
-}
-
-.job-logo img{
-  width:56px;
-  height:56px;
-  object-fit:contain;
-  margin:0;
-  display:block;
-}
-
-.job-details{
-  flex:1;
-}
-
-.job-details h3{
-  margin:0;
-  line-height:1.2;
-}
-
-/* Mobile alignment */
-@media (max-width:768px){
-
-  .job-layout{
-    display:flex;
-    flex-direction:row;
-    align-items:flex-start;
-    gap:10px;
-  }
-
-  .job-logo img{
-    width:52px;
-    height:52px;
-  }
-
-  .job-details h3{
-    margin-top:0;
-  }
-
-}
-
-
-/* ===============================
-   JOB TITLE + LOGO TRUE INLINE FIX
-   =============================== */
-
-.job-layout{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-}
-
-.job-logo{
-  flex:0 0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  margin:0;
-  padding:0;
-}
-
-.job-logo img{
-  width:56px;
-  height:56px;
-  object-fit:contain;
-  margin:0;
-  display:block;
-}
-
-.job-details{
-  flex:1;
-}
-
-.job-details h3{
-  margin:0;
-  line-height:1.2;
-}
-
-/* Mobile alignment */
-@media (max-width:768px){
-
-  .job-layout{
-    display:flex;
-    flex-direction:row;
-    align-items:flex-start;
-    gap:10px;
-  }
-
-  .job-logo img{
-    width:52px;
-    height:52px;
-  }
-
-  .job-details h3{
-    margin-top:0;
-  }
-
+*{
+  scrollbar-color:#9e829c rgba(0,0,0,.08)!important;
 }
