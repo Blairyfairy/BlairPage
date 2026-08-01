@@ -122,8 +122,8 @@ body.dark{
   position:absolute;
   top:0;
   left:0;
-  width:100vw;
-  height:100vh;
+  width:100%;
+  height:100%;
   object-fit:cover;
   object-position:center;
   filter:brightness(.6);
@@ -473,11 +473,11 @@ body::before{
 
 /* FIX: make video fill snugly past mobile bottom edges */
 .hero video{
-  position:fixed !important;
+  position:absolute !important;
   inset:0 !important;
-  width:100vw !important;
-  height:100dvh !important;
-  min-height:100dvh !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:100% !important;
   object-fit:cover !important;
   object-position:center center !important;
   display:block;
@@ -863,13 +863,6 @@ body::before{
   }
 }
 </style>
-
-<style id="hero-fullscreen-final-fix">
-html,body{margin:0!important;padding:0!important;width:100%!important;height:100%!important;overflow-x:hidden!important;}
-.hero{position:fixed!important;inset:0!important;top:0!important;left:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;margin:0!important;padding:0!important;overflow:hidden!important;z-index:-1!important;}
-.hero video{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center center!important;display:block!important;margin:0!important;padding:0!important;border:none!important;}
-</style>
-
 </head>
 
 <body id="gallery-page">
@@ -1530,11 +1523,11 @@ hero.style.overflow="hidden";
 if(video){
 video.style.background="transparent";
 video.style.display="block";
-video.style.position="fixed";
+video.style.position="absolute";
 video.style.inset="0";
-video.style.width="100vw";
-video.style.height="100dvh";
-video.style.minHeight="100dvh";
+video.style.width="100%";
+video.style.height="100%";
+video.style.minHeight="100%";
 video.style.objectFit="cover";
 video.style.objectPosition="center center";
 video.style.transform="translateZ(0)";
@@ -1939,7 +1932,7 @@ setInterval(updatePageScrollButton,500);
           height: 100dvh !important;
           min-height: 100dvh !important;
           overflow: hidden !important;
-          z-index: 0 !important;
+          z-index: -1 !important;
           pointer-events: none !important;
           opacity: 1 !important;
           visibility: visible !important;
@@ -1947,12 +1940,11 @@ setInterval(updatePageScrollButton,500);
         }
 
         body#${PAGE_ID} .hero video {
-          position: fixed !important;
+          position: absolute !important;
           inset: 0 !important;
-          width: 100vw !important;
-          height: 100vh !important;
-          height: 100dvh !important;
-          min-height: 100dvh !important;
+          width: 100% !important;
+          height: 100% !important;
+          min-height: 100% !important;
           object-fit: cover !important;
           object-position: center center !important;
           display: block !important;
@@ -1962,7 +1954,7 @@ setInterval(updatePageScrollButton,500);
           background: transparent !important;
           transform: translateZ(0) !important;
           -webkit-transform: translateZ(0) !important;
-          z-index: 0 !important;
+          z-index: -1 !important;
         }
 
         body#${PAGE_ID} .top-bar,
@@ -2073,11 +2065,11 @@ setInterval(updatePageScrollButton,500);
     video.setAttribute("disableremoteplayback", "");
     video.removeAttribute("poster");
 
-    video.style.setProperty("position", "fixed", "important");
+    video.style.setProperty("position", "absolute", "important");
     video.style.setProperty("inset", "0", "important");
-    video.style.setProperty("width", "100vw", "important");
-    video.style.setProperty("height", "100dvh", "important");
-    video.style.setProperty("min-height", "100dvh", "important");
+    video.style.setProperty("width", "100%", "important");
+    video.style.setProperty("height", "100%", "important");
+    video.style.setProperty("min-height", "100%", "important");
     video.style.setProperty("object-fit", "cover", "important");
     video.style.setProperty("object-position", "center center", "important");
     video.style.setProperty("display", "block", "important");
@@ -2087,7 +2079,7 @@ setInterval(updatePageScrollButton,500);
     video.style.setProperty("background", "transparent", "important");
     video.style.setProperty("transform", "translateZ(0)", "important");
     video.style.setProperty("-webkit-transform", "translateZ(0)", "important");
-    video.style.setProperty("z-index", "0", "important");
+    video.style.setProperty("z-index", "-1", "important");
   }
 
   function tryPlay(video) {
