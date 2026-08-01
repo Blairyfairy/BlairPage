@@ -14,6 +14,19 @@ html, body {
   height:100%;
 }
 
+/* GALLERY PAGE: force html/body transparent so this page's own
+   video can act as the true background. If both html and body get
+   a background from the shared style.css (used on other pages),
+   body's background stops acting as the page canvas and paints as
+   a normal box ABOVE a z-index:-1 element like .hero, hiding the
+   video behind an opaque layer. Neutralize that here. */
+html,
+body#gallery-page{
+  background:transparent !important;
+  background-color:transparent !important;
+  background-image:none !important;
+}
+
 /* ===== MATCH BLOG GLASS VARIABLES ===== */
 
 :root{
@@ -611,6 +624,18 @@ body::before{
   padding:0 !important;
   min-height:100vh !important;
   min-height:100dvh !important;
+  background:transparent !important;
+  background-image:none !important;
+}
+
+#gallery-page .gallery-wrapper{
+  background:transparent !important;
+  background-image:none !important;
+}
+
+#gallery-page .top-bar{
+  background:transparent !important;
+  background-image:none !important;
 }
 
 #gallery-page .top-bar{
