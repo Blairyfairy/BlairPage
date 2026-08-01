@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Let Me Karen That For U</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #241825;
+  --deep: #2A1736;
+  --plum: #5D3B72;
+  --rose: #B86B8F;
+  --mauve: #D6B3C9;
+  --cream: #FFF4E8;
+  --white: #FFFFFF;
+  --mint: #BFE8D4;
+  --gold: #FFD28F;
+  --glass: rgba(255,255,255,0.72);
+  --glass-dark: rgba(42,23,54,0.38);
+  --border: rgba(255,255,255,0.55);
+  --shadow: 0 24px 70px rgba(36,24,37,0.26);
+  --shadow-soft: 0 14px 36px rgba(36,24,37,0.16);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255,210,143,0.95), transparent 26%),
+    radial-gradient(circle at 88% 18%, rgba(191,232,212,0.9), transparent 28%),
+    radial-gradient(circle at 50% 95%, rgba(184,107,143,0.55), transparent 34%),
+    linear-gradient(135deg, #fff4e8 0%, #ead4ea 44%, #c9b7dd 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.24) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 78%);
+}
+
+.page {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 42px;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 34px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.78), rgba(255,255,255,0.38));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  padding: clamp(24px, 5vw, 58px);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  right: -90px;
+  top: -90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,107,143,0.44), transparent 70%);
+  pointer-events: none;
+}
+
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-soft);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.brand-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--rose), var(--gold));
+  box-shadow: 0 0 0 5px rgba(184,107,143,0.14);
+}
+
+.mode-pill {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--deep), var(--plum));
+  box-shadow: 0 12px 26px rgba(42,23,54,0.26);
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(20px, 4vw, 42px);
+  align-items: stretch;
+}
+
+.title h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.88;
+  letter-spacing: -0.07em;
+  margin: 0;
+  color: var(--deep);
+}
+
+.title h1 span {
+  display: block;
+  background: linear-gradient(135deg, var(--deep), var(--rose));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  max-width: 580px;
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  line-height: 1.75;
+  margin: 22px 0 0;
+  color: rgba(36,24,37,0.78);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.stat {
+  border-radius: 20px;
+  padding: 14px;
+  background: rgba(255,255,255,0.58);
+  border: 1px solid rgba(255,255,255,0.7);
+}
+
+.stat strong {
+  display: block;
+  font-size: 1.25rem;
+  color: var(--deep);
+}
+
+.stat small {
+  color: rgba(36,24,37,0.62);
+  font-weight: 700;
+}
+
+.panel {
+  border-radius: 30px;
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.72);
+  box-shadow: var(--shadow-soft);
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  font-weight: 900;
+  color: var(--deep);
+  letter-spacing: -0.02em;
+}
+
+.helper {
+  font-size: 0.88rem;
+  color: rgba(36,24,37,0.64);
+  margin-top: 4px;
+}
+
+select, textarea, button {
+  font-family: inherit;
+}
+
+select {
+  appearance: none;
+  border: 1px solid rgba(93,59,114,0.18);
+  background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,244,232,0.72));
+  border-radius: 16px;
+  padding: 11px 36px 11px 13px;
+  font-weight: 800;
+  color: var(--deep);
+  outline: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--plum) 50%),
+    linear-gradient(135deg, var(--plum) 50%, transparent 50%);
+  background-position:
+    calc(100% - 17px) 50%,
+    calc(100% - 11px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+textarea {
+  width: 100%;
+  min-height: 150px;
+  resize: vertical;
+  border: 1px solid rgba(93,59,114,0.16);
+  border-radius: 22px;
+  padding: 18px;
+  outline: none;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: rgba(255,255,255,0.88);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+textarea:focus {
+  border-color: rgba(184,107,143,0.72);
+  box-shadow: 0 0 0 5px rgba(184,107,143,0.14), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 18px;
+  padding: 14px 16px;
+  cursor: pointer;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn.primary {
+  color: var(--white);
+  background: linear-gradient(135deg, var(--deep), var(--rose));
+  box-shadow: 0 16px 34px rgba(93,59,114,0.28);
+}
+
+.btn.secondary {
+  color: var(--deep);
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(93,59,114,0.16);
+}
+
+.output-wrap {
+  margin-top: 20px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(42,23,54,0.96), rgba(93,59,114,0.92));
+  color: var(--white);
+  box-shadow: 0 18px 42px rgba(42,23,54,0.28);
+}
+
+.output-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.output-head strong {
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+.copy-btn {
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.output {
+  min-height: 190px;
+  padding: 18px;
+  white-space: pre-wrap;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.tone-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.tone-card {
+  border-radius: 22px;
+  padding: 16px;
+  background: rgba(255,255,255,0.56);
+  border: 1px solid rgba(255,255,255,0.66);
+}
+
+.tone-card h3 {
+  margin: 0 0 8px;
+  color: var(--deep);
+  font-size: 1rem;
+}
+
+.tone-card p {
+  margin: 0;
+  color: rgba(36,24,37,0.68);
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(42,23,54,0.96);
+  color: var(--white);
+  padding: 12px 16px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+  font-weight: 900;
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 10;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 880px) {
+  .page { width: min(100% - 20px, 1180px); padding-top: 10px; }
+  .hero { border-radius: 24px; }
+  .topline { align-items: stretch; flex-direction: column; }
+  .brand-pill, .mode-pill { justify-content: center; width: 100%; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .stats, .tone-grid { grid-template-columns: 1fr; }
+  .actions { grid-template-columns: 1fr; }
+  .title h1 { text-align: center; }
+  .subtitle { text-align: center; margin-left: auto; margin-right: auto; }
+  .form-row { flex-direction: column; align-items: stretch; }
+  select { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 18px; }
+  .panel { padding: 16px; border-radius: 22px; }
+  textarea { min-height: 130px; border-radius: 18px; }
+  .output { font-size: 0.95rem; }
+}
+</style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="topline">
+        <button class="mode-pill" id="randomExample">Generate dramatic example</button>
+      </div>
+
+      <div class="hero-grid">
+        <div class="title">
+          <h1>Let Me <span>Karen That</span> For U</h1>
+          <p class="subtitle">
+            Drop in a plain complaint, awkward request, or customer-service issue and instantly transform it into a polished, assertive, manager-requesting message with maximum “I expected better” energy.
+          </p>
+          <div class="stats">
+            <div class="stat"><small>1 Super Betchen Beastie Button</small></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="form-row">
+            <div>
+              <label for="inputText">What needs to be Karen-worded?</label>
+              <div class="helper">Works best with short facts: what happened, what you wanted, and what outcome you expect.</div>
+            </div>
+            <select id="toneMode" aria-label="Tone mode">
+              <option value="professional">Professional Karen</option>
+              <option value="corporate">Corporate Escalation</option>
+              <option value="retail">Retail Counter Energy</option>
+              <option value="nuclear">Polite Nuclear</option>
+            </select>
+          </div>
+
+          <textarea id="inputText" placeholder="Example: My order arrived late, the box was damaged, and support keeps sending me generic replies."></textarea>
+
+          <div class="actions">
+            <button class="btn primary" id="generateBtn">Karen That For Me</button>
+            <button class="btn secondary" id="clearBtn">Clear</button>
+          </div>
+
+          <div class="output-wrap">
+            <div class="output-head">
+              <strong>Your upgraded response</strong>
+              <button class="copy-btn" id="copyBtn">Copy</button>
+            </div>
+            <div class="output" id="outputText">Your polished response will appear here.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tone-grid">
+        <article class="tone-card">
+          <h3>Professional Karen</h3>
+          <p>Firm, clear, and hard to ignore without sounding messy.</p>
+        </article>
+        <article class="tone-card">
+          <h3>Corporate Escalation</h3>
+          <p>Turns the issue into a documented service-quality concern.</p>
+        </article>
+        <article class="tone-card">
+          <h3>Polite Nuclear</h3>
+          <p>Still civil, but unmistakably escalated and outcome-driven.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">Copied to clipboard.</div>
+
+<script>
+(function () {
+  const input = document.getElementById('inputText');
+  const output = document.getElementById('outputText');
+  const tone = document.getElementById('toneMode');
+  const generateBtn = document.getElementById('generateBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const randomExample = document.getElementById('randomExample');
+  const toast = document.getElementById('toast');
+
+  const examples = [
+    'The hotel charged me twice, the front desk said they would fix it, and nobody followed up.',
+    'My food delivery was cold, missing two items, and support only offered a tiny credit.',
+    'The website project was promised Friday, but I have not received an update or finished files.',
+    'My internet has been dropping all week and the support team keeps telling me to restart the router.',
+    'The product arrived damaged and the company wants me to pay return shipping.'
+  ];
+
+  const openers = {
+    professional: 'Hello, I am reaching out because this situation needs to be corrected promptly and professionally.',
+    corporate: 'Hello, I would like this documented as a formal service-quality issue requiring review and escalation.',
+    retail: 'Hello, I need assistance from someone who can actually resolve this, because the current handling has not been acceptable.',
+    nuclear: 'Hello, I am giving your team one clear opportunity to resolve this properly before I pursue further escalation.'
+  };
+
+  const closers = {
+    professional: 'Please confirm the next step, the person responsible, and the expected resolution timeline.',
+    corporate: 'Please escalate this to the appropriate manager or resolution team and provide a written confirmation of the corrective action.',
+    retail: 'I would appreciate a real solution instead of another generic reply. Please have a manager or empowered representative review this.',
+    nuclear: 'Please respond with a concrete resolution, not a template response. I expect this to be handled with urgency and accountability.'
+  };
+
+  function sanitize(text) {
+    return text.replace(/\s+/g, ' ').trim();
+  }
+
+  function splitFacts(text) {
+    return sanitize(text)
+      .split(/(?<=[.!?])\s+|,\s+|;\s+/)
+      .map(x => x.trim())
+      .filter(Boolean)
+      .slice(0, 6);
+  }
+
+  function inferAsk(text) {
+    const lower = text.toLowerCase();
+    if (lower.includes('refund') || lower.includes('charged') || lower.includes('billing') || lower.includes('pay')) {
+      return 'I am requesting a refund, billing correction, or equivalent adjustment that accurately reflects the inconvenience and error.';
+    }
+    if (lower.includes('late') || lower.includes('delay') || lower.includes('missed')) {
+      return 'I am requesting a clear explanation for the delay and a reasonable corrective action.';
+    }
+    if (lower.includes('damaged') || lower.includes('broken') || lower.includes('missing')) {
+      return 'I am requesting a replacement, refund, or corrected delivery without additional burden placed on me.';
+    }
+    if (lower.includes('support') || lower.includes('reply') || lower.includes('response')) {
+      return 'I am requesting escalation to someone who can provide a specific answer and actual resolution.';
+    }
+    return 'I am requesting a fair, specific, and timely resolution.';
+  }
+
+  function karenify(text, mode) {
+    const clean = sanitize(text);
+    if (!clean) return 'Please enter the situation first, and I will Karen-word it professionally.';
+
+    const facts = splitFacts(clean);
+    const bulletFacts = facts.length
+      ? facts.map(f => `• ${f.charAt(0).toUpperCase() + f.slice(1)}`).join('\n')
+      : `• ${clean}`;
+
+    const ask = inferAsk(clean);
+
+    const intensity = {
+      professional: 'I want to be clear that I am not looking for a back-and-forth exchange; I am looking for a reasonable resolution based on the facts.',
+      corporate: 'At this point, the issue reflects a gap in process, communication, and customer handling that should be reviewed internally.',
+      retail: 'I have already spent more time than should be necessary trying to get a basic issue fixed.',
+      nuclear: 'This has moved beyond a minor inconvenience and now requires a documented resolution from someone with authority.'
+    }[mode];
+
+    return `${openers[mode]}\n\nHere is the issue as clearly as possible:\n${bulletFacts}\n\n${intensity}\n\n${ask}\n\n${closers[mode]}\n\nThank you.`;
+  }
+
+  function generate() {
+    output.textContent = karenify(input.value, tone.value);
+  }
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1400);
+  }
+
+  generateBtn.addEventListener('click', generate);
+  tone.addEventListener('change', generate);
+  input.addEventListener('input', () => {
+    if (input.value.trim().length > 8) generate();
+    if (!input.value.trim()) output.textContent = 'Your polished response will appear here.';
+  });
+
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    output.textContent = 'Your polished response will appear here.';
+    input.focus();
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    const text = output.textContent.trim();
+    if (!text || text === 'Your polished response will appear here.') {
+      showToast('Nothing to copy yet.');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast('Copied to clipboard.');
+    } catch (e) {
+      const range = document.createRange();
+      range.selectNodeContents(output);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      showToast('Selected text for manual copy.');
+    }
+  });
+
+  randomExample.addEventListener('click', () => {
+    input.value = examples[Math.floor(Math.random() * examples.length)];
+    tone.value = ['professional', 'corporate', 'retail', 'nuclear'][Math.floor(Math.random() * 4)];
+    generate();
+  });
+
+  output.textContent = karenify('My order arrived late, the box was damaged, and support keeps sending me generic replies.', 'professional');
+})();
+</script>
+<!-- =========================================
+FORCED APPEND — FASHION EDITORIAL + KAREN IT
+DARK PURPLE CLEAN CHEVRON ▲ TOP BUTTON
+Matches the clean blog.html style exactly
+Append before </body>
+========================================= -->
+
+<style>
+/* REMOVE ALL OTHER TOP BUTTONS */
+#articleScrollTop,
+.article-scroll-top,
+#singleCleanTopChevron,
+#forcedChevronTop,
+#scrollTopBtn,
+#toTop,
+#topArrow,
+.scroll-top,
+.scrollToTop,
+.back-to-top,
+.backTop,
+.to-top,
+.top-arrow,
+.chevron-up {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* MAIN CLEAN CHEVRON */
+#pageScrollTop,
+.page-scroll-top {
+  position: fixed !important;
+  right: 18px !important;
+  bottom: 18px !important;
+
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+
+  color: #291528 !important; /* darkest purple swatch */
+
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+
+  cursor: pointer !important;
+  z-index: 2147483647 !important;
+
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  transform: none !important;
+  transition: opacity 0.18s ease !important;
+}
+
+/* SHOW STATE */
+#pageScrollTop.show,
+.page-scroll-top.show {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* KILL INNER ICONS / DUPLICATES */
+#pageScrollTop::before,
+#pageScrollTop::after,
+#pageScrollTop span,
+#pageScrollTop svg,
+.page-scroll-top::before,
+.page-scroll-top::after,
+.page-scroll-top span,
+.page-scroll-top svg {
+  display: none !important;
+  content: none !important;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  #pageScrollTop,
+  .page-scroll-top {
+    right: 14px !important;
+    bottom: 14px !important;
+    font-size: 18px !important;
+  }
+}
+</style>
+
+<script>
+/* =========================================
+FORCED CLEAN SINGLE CHEVRON ▲
+========================================= */
+(function () {
+
+  /* REMOVE DUPLICATES */
+  const removeSelectors = [
+    '#articleScrollTop',
+    '.article-scroll-top',
+    '#singleCleanTopChevron',
+    '#forcedChevronTop',
+    '#scrollTopBtn',
+    '#toTop',
+    '#topArrow',
+    '.scroll-top',
+    '.scrollToTop',
+    '.back-to-top',
+    '.backTop',
+    '.to-top',
+    '.top-arrow',
+    '.chevron-up'
+  ];
+
+  document.querySelectorAll(removeSelectors.join(',')).forEach(el => {
+    el.remove();
+  });
+
+  /* CREATE / FORCE MAIN BUTTON */
+  let btn = document.getElementById('pageScrollTop');
+
+  if (!btn) {
+    btn = document.createElement('button');
+    document.body.appendChild(btn);
+  }
+
+  btn.id = 'pageScrollTop';
+  btn.className = 'page-scroll-top';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Back to top');
+
+  /* EXACT CLEAN CHEVRON */
+  btn.textContent = '▲';
+
+  /* SHOW / HIDE */
+  function updateChevron() {
+    if ((window.scrollY || document.documentElement.scrollTop) > 180) {
+      btn.classList.add('show');
+    } else {
+      btn.classList.remove('show');
+    }
+  }
+
+  /* SCROLL TO TOP */
+  btn.onclick = function () {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  window.addEventListener('scroll', updateChevron, {
+    passive: true
+  });
+
+  document.addEventListener('DOMContentLoaded', updateChevron);
+
+  updateChevron();
+
+})();
+</script>
+<script>
+/* ==========================================
+   VALLEY GIRL PLAYER (MOON ZAPPA)
+   STARTS CLOSED — CLICK TO OPEN / PLAY
+   ========================================== */
+(function () {
+  const PLAYER_ID = 'valley-girl-player';
+  const BUTTON_ID = 'valley-girl-button';
+  const FRAME_ID = 'valleyGirlFrame';
+
+  const VIDEO_ID = 'Qb21lsCQ3EM';
+
+  /* REMOVE EXISTING IF RE-APPENDED */
+  const oldPlayer = document.getElementById(PLAYER_ID);
+  const oldBtn = document.getElementById(BUTTON_ID);
+  if (oldPlayer) oldPlayer.remove();
+  if (oldBtn) oldBtn.remove();
+
+  function buildSrc(muted) {
+    return (
+      'https://www.youtube.com/embed/' + VIDEO_ID +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&loop=1' +
+      '&playlist=' + VIDEO_ID
+    );
+  }
+
+  /* PLAYER CONTAINER — CREATED BUT CLOSED */
+  const container = document.createElement('div');
+  container.id = PLAYER_ID;
+  container.style.position = 'fixed';
+  container.style.bottom = '70px';
+  container.style.left = '20px';
+  container.style.width = '260px';
+  container.style.height = '150px';
+  container.style.zIndex = '10000';
+  container.style.borderRadius = '12px';
+  container.style.overflow = 'hidden';
+  container.style.boxShadow = '0 10px 25px rgba(0,0,0,0.6)';
+  container.style.background = 'black';
+  container.style.display = 'none';
+
+  /* CONTROL BUTTON */
+  const btn = document.createElement('button');
+  btn.id = BUTTON_ID;
+  btn.type = 'button';
+
+  btn.style.position = 'fixed';
+  btn.style.bottom = '20px';
+  btn.style.left = '20px';
+  btn.style.width = '52px';
+  btn.style.height = '52px';
+  btn.style.borderRadius = '50%';
+  btn.style.border = '1px solid rgba(240,239,244,0.35)';
+  btn.style.background = 'rgba(58,62,59,0.72)';
+  btn.style.color = '#fff';
+  btn.style.cursor = 'pointer';
+  btn.style.zIndex = '10001';
+  btn.style.fontSize = '1.15rem';
+  btn.style.fontWeight = '700';
+  btn.style.display = 'flex';
+  btn.style.alignItems = 'center';
+  btn.style.justifyContent = 'center';
+  btn.style.boxShadow = '0 8px 20px rgba(0,0,0,0.45)';
+  btn.style.backdropFilter = 'blur(8px)';
+
+  let state = 'closed';
+
+  function setButton() {
+    if (state === 'closed') btn.textContent = '▶';
+    if (state === 'open-muted') btn.textContent = '🔊';
+    if (state === 'playing') btn.textContent = '🔇';
+  }
+
+  function openMuted() {
+    state = 'open-muted';
+    container.style.display = 'block';
+    container.innerHTML = `
+      <iframe
+        id="${FRAME_ID}"
+        width="100%"
+        height="100%"
+        src="${buildSrc(true)}"
+        frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    `;
+    setButton();
+  }
+
+  function playUnmuted() {
+    state = 'playing';
+    container.style.display = 'block';
+    container.innerHTML = `
+      <iframe
+        id="${FRAME_ID}"
+        width="100%"
+        height="100%"
+        src="${buildSrc(false)}"
+        frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    `;
+    setButton();
+  }
+
+  function stopAndClose() {
+    state = 'closed';
+    container.innerHTML = '';
+    container.style.display = 'none';
+    setButton();
+  }
+
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+
+    if (state === 'closed') {
+      openMuted();
+      return;
+    }
+
+    if (state === 'open-muted') {
+      playUnmuted();
+      return;
+    }
+
+    if (state === 'playing') {
+      stopAndClose();
+      return;
+    }
+  });
+
+  document.body.appendChild(container);
+  document.body.appendChild(btn);
+
+  /* INITIAL STATE — CLOSED, NO VIDEO LOADED */
+  setButton();
+})();
+</script>
+  <div class="footer-counter" style="margin-top:12px;text-align:center;">
+    <img
+        src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
+        alt="Portfolio Visitors"
+        style="border-radius:8px;opacity:.9;">
+</div>
+</body>
+</html>

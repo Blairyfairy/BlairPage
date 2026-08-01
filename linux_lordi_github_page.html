@@ -1,0 +1,5157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blair Page Linux, Linus Torvalds, and Lordi</title>
+<meta name="description" content="A BlairPage-style HTML5 page about Linux kernel history, Linus Torvalds, Lordi, and a music-driven technical narrative with public GitHub-powered signals.">
+<meta name="keywords" content="Linux kernel, Linus Torvalds, Lordi, GitHub Pages, GitHub API, HTML5, SEO, Linux timeline, YouTube player, static site">
+<meta name="author" content="Blair Page">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="linux_lordi_github_page.html">
+<meta property="og:title" content="Linux, Linus Torvalds, and Lordi | Blair Page">
+<meta property="og:description" content="Linux timeline, Linus Torvalds context, Lordi music embeds, and single-file GitHub Pages integrations in a BlairPage-matching layout.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://i.postimg.cc/wjBSDH9v/1000045246.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Linux, Linus Torvalds, and Lordi | Blair Page">
+<meta name="twitter:description" content="A BlairPage-style static HTML5 page with Linux history, Lordi, and GitHub-friendly browser integrations.">
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="preconnect" href="https://api.github.com">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Linux, Linus Torvalds, and Lordi",
+      "description": "A responsive HTML5 page covering Linux kernel milestones, Linus Torvalds, Lordi, and single-file GitHub Pages integrations.",
+      "author": { "@type": "Person", "name": "Blair Page" },
+      "publisher": { "@type": "Person", "name": "Blair Page" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Person",
+      "name": "Linus Torvalds"
+    },
+    {
+      "@type": "MusicGroup",
+      "name": "Lordi"
+    },
+    {
+      "@type": "WebPage",
+      "name": "Linux, Linus Torvalds, and Lordi"
+    }
+  ]
+}
+</script>
+<style>
+:root {
+  --black: #000000ff;
+  --midnight-violet: #291528ff;
+  --charcoal-brown: #3a3e3bff;
+  --ghost-white: #f0eff4ff;
+  --dusty-mauve: #9e829cff;
+  --text-light: var(--ghost-white);
+  --bg-light: linear-gradient(
+    135deg,
+    #000000ff 0%,
+    #291528ff 30%,
+    #3a3e3bff 60%,
+    #9e829cff 85%,
+    #f0eff4ff 100%
+  );
+  --glass-bg: rgba(58,62,59,0.15);
+  --glass-border: rgba(240,239,244,0.22);
+  --shadow-strong: 0 18px 40px rgba(0,0,0,.55);
+  --shadow-soft: 0 10px 26px rgba(0,0,0,.35);
+  --panel-dark: rgba(0,0,0,.18);
+  --accent-soft: rgba(158,130,156,.18);
+}
+
+body.dark {
+  --bg-light: linear-gradient(
+    135deg,
+    #050507 0%,
+    #0d0f16 25%,
+    #141824 55%,
+    #1c1f2b 78%,
+    #26212d 100%
+  );
+  --glass-bg: rgba(8,10,14,0.42);
+  --glass-border: rgba(240,239,244,0.14);
+  --shadow-strong: 0 20px 42px rgba(0,0,0,.68);
+  --shadow-soft: 0 10px 22px rgba(0,0,0,.45);
+  --panel-dark: rgba(255,255,255,.04);
+  --accent-soft: rgba(158,130,156,.14);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.top-bar {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 100 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  grid-template-areas: "cred toggle" "nav toggle" !important;
+  align-items: start !important;
+  row-gap: 2px !important;
+  padding: 1rem 2rem !important;
+  font-size: .85rem !important;
+  letter-spacing: .6px !important;
+  text-align: left !important;
+}
+
+.credential-header {
+  grid-area: cred !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  max-width: calc(100% - 92px) !important;
+  text-align: left !important;
+  line-height: 1.05 !important;
+  justify-self: start !important;
+  align-self: start !important;
+  z-index: 121 !important;
+}
+
+.credential-header, .credential-header * {
+  text-align: left !important;
+}
+
+.site-nav {
+  grid-area: nav !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+  justify-self: start !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  margin: 2px 0 0 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  z-index: 121 !important;
+}
+
+.site-nav a {
+  margin: 0 1rem 0 0 !important;
+  color: var(--dusty-mauve);
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.2 !important;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  text-decoration: underline;
+  color: var(--text-light);
+}
+
+.theme-btn,
+.action-btn,
+.track-btn,
+.mini-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: .45rem 1rem;
+  min-height: 34px;
+  font-size: .85rem;
+  line-height: 1;
+  box-sizing: border-box;
+  color: var(--text-light);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  outline: none;
+  transition: background 0.3s ease, transform 0.2s ease, border-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+}
+
+.theme-btn:hover,
+.action-btn:hover,
+.track-btn:hover,
+.mini-btn:hover {
+  transform: translateY(-1px);
+}
+
+#themeToggle {
+  grid-area: toggle !important;
+  justify-self: end !important;
+  align-self: start !important;
+  min-width: 44px !important;
+}
+
+.hero {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -2;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+  pointer-events: none;
+  will-change: transform;
+  contain: paint;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(240,239,244,0.09), transparent 22%),
+    radial-gradient(circle at 78% 28%, rgba(158,130,156,0.20), transparent 24%),
+    radial-gradient(circle at 62% 78%, rgba(240,239,244,0.08), transparent 18%),
+    linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35));
+}
+
+.logo-top-left {
+  position: absolute;
+  top: 100px;
+  left: 16px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid rgba(240,239,244,.45);
+  box-shadow: 0 8px 20px rgba(0,0,0,.7);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.logo-top-left:hover { transform: translateY(-2px) scale(1.02); }
+.logo-top-left img { width: 100%; height: 100%; object-fit: cover; }
+
+.page-shell {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 19vh 2rem 2rem;
+  box-sizing: border-box;
+}
+
+.page-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 1.3rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
+  overflow: hidden;
+}
+
+.page-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.08));
+  pointer-events: none;
+}
+
+.page-card > * { position: relative; z-index: 1; }
+
+.page-title {
+  margin: 0 0 .55rem;
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  color: var(--text-light);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.page-subtitle {
+  max-width: 1040px;
+  margin: 0 auto 1.25rem;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(240,239,244,0.92);
+}
+
+.viewer-actions,
+.track-controls,
+.mini-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  margin: 0 0 1rem;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.info-panel,
+.player-panel,
+.reference-panel,
+.timeline-panel,
+.seo-panel,
+.github-panel,
+.status-panel,
+.embed-panel {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(240,239,244,0.14);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.section-title {
+  margin: 0 0 .65rem;
+  font-size: 1.2rem;
+}
+
+.lead-copy,
+.body-copy,
+.reference-list,
+.timeline-list,
+.source-note,
+.status-list {
+  line-height: 1.75;
+  color: rgba(240,239,244,0.92);
+}
+
+.timeline-list,
+.status-list {
+  display: grid;
+  gap: .85rem;
+}
+
+.timeline-item,
+.status-item,
+.repo-card {
+  padding: .85rem .9rem;
+  border-radius: 14px;
+  background: var(--panel-dark);
+  border: 1px solid rgba(240,239,244,0.1);
+}
+
+.timeline-date,
+.repo-title {
+  font-weight: 700;
+  color: var(--ghost-white);
+  margin-bottom: .3rem;
+}
+
+.timestamp-chip,
+.meta-chip {
+  display: inline-block;
+  margin-top: .35rem;
+  margin-right: .4rem;
+  padding: .24rem .55rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(240,239,244,.14);
+  font-size: .72rem;
+  color: rgba(240,239,244,.9);
+}
+
+.player-frame-wrap {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(240,239,244,0.14);
+  box-shadow: var(--shadow-strong);
+}
+
+.player-frame {
+  display: block;
+  width: 100%;
+  height: 62vh;
+  min-height: 420px;
+  border: 0;
+  background: #111;
+}
+
+.track-controls { margin-top: 1rem; }
+.track-btn, .mini-btn { border-radius: 999px; font-weight: 600; }
+
+.player-status {
+  margin-top: .9rem;
+  display: grid;
+  gap: .45rem;
+}
+
+.kv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+}
+
+.kv-card {
+  padding: .8rem .9rem;
+  border-radius: 14px;
+  background: var(--panel-dark);
+  border: 1px solid rgba(240,239,244,0.1);
+}
+
+.kv-label {
+  display: block;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(240,239,244,.72);
+  margin-bottom: .2rem;
+}
+
+.kv-value {
+  font-size: 1rem;
+  color: var(--ghost-white);
+  word-break: break-word;
+}
+
+.repo-grid {
+  display: grid;
+  gap: .8rem;
+}
+
+.github-overview-grid,
+.github-count-grid,
+.github-pages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .75rem;
+  margin: .85rem 0 1rem;
+}
+
+.github-count-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.github-pages-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.github-stat-card,
+.github-profile-card,
+.pages-card {
+  padding: .85rem .9rem;
+  border-radius: 14px;
+  background: var(--panel-dark);
+  border: 1px solid rgba(240,239,244,0.1);
+  box-shadow: var(--shadow-soft);
+}
+
+.github-stat-number {
+  display: block;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 800;
+  color: var(--ghost-white);
+  line-height: 1.1;
+}
+
+.github-stat-label {
+  display: block;
+  margin-top: .22rem;
+  color: rgba(240,239,244,.76);
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.github-profile-card {
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr);
+  align-items: center;
+  gap: .85rem;
+  margin: .85rem 0 1rem;
+}
+
+.github-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(240,239,244,.32);
+  box-shadow: 0 8px 18px rgba(0,0,0,.45);
+}
+
+.repo-card {
+  display: grid;
+  gap: .42rem;
+}
+
+.repo-desc {
+  min-height: 1.4em;
+}
+
+.repo-topic-row,
+.repo-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  align-items: center;
+}
+
+.repo-topic {
+  display: inline-flex;
+  align-items: center;
+  padding: .18rem .48rem;
+  border-radius: 999px;
+  background: rgba(240,239,244,.07);
+  border: 1px solid rgba(240,239,244,.1);
+  color: rgba(240,239,244,.82);
+  font-size: .68rem;
+}
+
+.repo-progress-bar {
+  position: relative;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(240,239,244,.08);
+  border: 1px solid rgba(240,239,244,.08);
+}
+
+.repo-progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--repo-activity-width, 18%);
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(158,130,156,.9), rgba(240,239,244,.7));
+}
+
+@media (max-width: 900px) {
+  .github-overview-grid,
+  .github-count-grid,
+  .github-pages-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .github-overview-grid,
+  .github-count-grid,
+  .github-pages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .github-profile-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .github-avatar {
+    margin: 0 auto;
+  }
+}
+
+.repo-card a,
+.reference-list a,
+.body-copy a,
+.source-note a,
+.repo-card a:visited {
+  color: var(--dusty-mauve);
+  text-decoration: none;
+}
+
+.repo-card a:hover,
+.reference-list a:hover,
+.body-copy a:hover,
+.source-note a:hover {
+  color: var(--text-light);
+  text-decoration: underline;
+}
+
+.small-muted {
+  color: rgba(240,239,244,.72);
+  font-size: .88rem;
+}
+
+.inline-code,
+code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: .95em;
+}
+
+.reference-list {
+  padding-left: 1.1rem;
+  margin: 0;
+}
+.reference-list li + li { margin-top: .65rem; }
+
+.page-scroll-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10050;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-scroll-top.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+  html, body {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+    background-attachment: scroll !important;
+  }
+
+  .top-bar {
+    padding: 10px 16px 0 16px !important;
+    min-height: 52px !important;
+  }
+
+  .credential-header { font-size: 0.425rem !important; }
+  .hero { background: var(--bg-light) !important; background-image: var(--bg-light) !important; }
+  .logo-top-left { top: 80px; width: 50px; height: 50px; }
+  .page-shell { padding: 18vh 1rem 1.25rem; }
+  .content-grid,
+  .kv-grid { grid-template-columns: 1fr; }
+  .player-frame { height: 58vh; min-height: 340px; }
+
+  .site-nav {
+    flex-wrap: wrap !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  .site-nav a {
+    margin: 0 0.7rem 0 0 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-nav a {
+    margin: 0 0.55rem 0 0 !important;
+    font-size: 0.74rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .page-card { padding: 1rem; }
+  .player-frame { height: 52vh; min-height: 300px; }
+}
+
+@media (max-width: 420px) {
+  .site-nav a {
+    margin: 0 0.45rem 0 0 !important;
+    font-size: 0.7rem !important;
+    line-height: 1.1 !important;
+  }
+}
+/* ==========================================
+   FINAL VISUAL + FUNCTIONAL OVERRIDE LAYER
+   (non-destructive, keeps original file intact)
+   ========================================== */
+
+/* --- normalize spacing + remove over-forced stacking --- */
+.bp-mobile-page #mobileContent .timeline-item,
+.bp-mobile-page #mobileContent .matrix-card,
+.bp-mobile-page #mobileContent section {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* --- unify card look (like target file behavior) --- */
+.bp-mobile-page #mobileContent .timeline-item,
+.bp-mobile-page #mobileContent .matrix-card,
+.bp-mobile-page #mobileContent .bp-fused-top-card {
+  background: rgba(255,255,255,0.035) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4) !important;
+}
+
+/* --- remove “over-fragmented layout feel” --- */
+.bp-mobile-page #mobileContent .job-layout {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: 0.75rem !important;
+}
+
+/* --- normalize text hierarchy (closer to clean file) --- */
+.bp-mobile-page #mobileContent h2 {
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.2px !important;
+}
+
+.bp-mobile-page #mobileContent h3 {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+
+/* --- simplify background (remove layered “feel”) --- */
+body.bp-mobile-page,
+body.bp-mobile-page.dark {
+  background: linear-gradient(
+    135deg,
+    #0a0c12 0%,
+    #121622 50%,
+    #1b1f2d 100%
+  ) !important;
+}
+
+/* --- remove excessive glass stacking --- */
+.bp-mobile-page #mobileContent .resume-shell,
+.bp-mobile-page #mobileContent .container {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* --- make sections feel unified instead of stacked blocks --- */
+.bp-mobile-page #mobileContent > .resume-shell > section {
+  margin-bottom: 1.2rem !important;
+}
+
+/* --- smoother expand/collapse (less jumpy) --- */
+.bp-mobile-page #mobileContent .card-content {
+  transition: all 0.25s ease !important;
+}
+
+/* --- reduce visual noise globally --- */
+.bp-mobile-page #mobileContent * {
+  text-shadow: none !important;
+}
+
+/* ==========================================
+   END FINAL OVERRIDE
+   ========================================== */
+  /* =========================================================
+   LORDI PLAYER — FORCED RESPONSIVE CINEMATIC OVERRIDE
+   (append only — keeps all original code intact)
+   ========================================================= */
+
+.player-panel{
+  width:100% !important;
+  min-width:0 !important;
+  overflow:hidden !important;
+}
+
+/* cleaner responsive wrap */
+.player-frame-wrap{
+  position:relative !important;
+  width:100% !important;
+  max-width:100% !important;
+  overflow:hidden !important;
+
+  border-radius:22px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(158,130,156,0.16),
+      rgba(0,0,0,0.42)
+    ) !important;
+
+  border:1px solid rgba(240,239,244,0.14) !important;
+
+  box-shadow:
+    0 14px 40px rgba(0,0,0,0.55),
+    0 0 0 1px rgba(255,255,255,0.04) inset !important;
+
+  isolation:isolate !important;
+}
+
+/* responsive aspect ratio system */
+.player-frame-wrap::before{
+  content:"" !important;
+  display:block !important;
+  width:100% !important;
+  padding-top:56.25% !important; /* 16:9 */
+}
+
+/* actual iframe */
+.player-frame,
+#lordiPlayer{
+  position:absolute !important;
+  inset:0 !important;
+
+  width:100% !important;
+  height:100% !important;
+
+  min-height:0 !important;
+  max-height:none !important;
+
+  border:0 !important;
+  display:block !important;
+
+  background:#000 !important;
+
+  border-radius:22px !important;
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 10px 28px rgba(0,0,0,0.65) !important;
+}
+
+/* subtle cinematic overlay */
+.player-frame-wrap::after{
+  content:"" !important;
+
+  position:absolute !important;
+  inset:0 !important;
+
+  pointer-events:none !important;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.04),
+      transparent 18%,
+      transparent 82%,
+      rgba(0,0,0,0.25)
+    ) !important;
+
+  z-index:2 !important;
+}
+
+/* track controls cleaner layout */
+.track-controls{
+  width:100% !important;
+
+  display:flex !important;
+  flex-wrap:wrap !important;
+
+  justify-content:center !important;
+  align-items:center !important;
+
+  gap:0.7rem !important;
+
+  margin-top:1rem !important;
+}
+
+/* buttons fit better */
+.track-btn{
+  flex:0 1 auto !important;
+
+  min-width:0 !important;
+  max-width:100% !important;
+
+  white-space:nowrap !important;
+
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+
+  padding:0.7rem 1rem !important;
+
+  border-radius:999px !important;
+}
+
+/* desktop enhancement */
+@media (min-width:1200px){
+
+  .player-panel{
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  .player-frame-wrap{
+    max-height:78vh !important;
+  }
+}
+
+/* tablet */
+@media (max-width:900px){
+
+  .player-panel{
+    padding:0.9rem !important;
+  }
+
+  .player-frame-wrap{
+    border-radius:18px !important;
+  }
+
+  .player-frame,
+  #lordiPlayer{
+    border-radius:18px !important;
+  }
+
+  .track-btn{
+    width:auto !important;
+    font-size:0.82rem !important;
+  }
+}
+
+/* mobile stabilization */
+@media (max-width:640px){
+
+  .player-panel{
+    overflow:hidden !important;
+  }
+
+  .player-frame-wrap{
+    width:100% !important;
+
+    border-radius:16px !important;
+
+    transform:translateZ(0) !important;
+    backface-visibility:hidden !important;
+
+    contain:layout paint style !important;
+  }
+
+  .player-frame,
+  #lordiPlayer{
+    border-radius:16px !important;
+
+    transform:translateZ(0) !important;
+    backface-visibility:hidden !important;
+  }
+
+  .track-controls{
+    gap:0.5rem !important;
+  }
+
+  .track-btn{
+    flex:1 1 calc(50% - 0.5rem) !important;
+
+    min-height:42px !important;
+
+    font-size:0.76rem !important;
+
+    padding:0.72rem 0.8rem !important;
+  }
+}
+
+/* ultra small phones */
+@media (max-width:420px){
+
+  .track-btn{
+    flex:1 1 100% !important;
+  }
+
+  .player-panel .lead-copy{
+    font-size:0.92rem !important;
+    line-height:1.65 !important;
+  }
+}
+
+/* force prevent weird iframe overflow/glitching */
+.player-frame-wrap,
+.player-frame,
+#lordiPlayer{
+  will-change:auto !important;
+  contain:layout paint !important;
+}
+
+/* =========================================================
+   END LORDI RESPONSIVE OVERRIDE
+   ========================================================= */
+/* =========================================================
+   LORDI IFRAME HARD ROUNDING + FIT FIX
+   (append only)
+   ========================================================= */
+
+/* outer shell */
+.player-frame-wrap{
+  position:relative !important;
+  overflow:hidden !important;
+
+  border-radius:26px !important;
+
+  isolation:isolate !important;
+
+  background:#000 !important;
+}
+
+/* actual iframe container */
+.player-frame-wrap iframe,
+.player-frame,
+#lordiPlayer{
+  position:absolute !important;
+  inset:0 !important;
+
+  width:100% !important;
+  height:100% !important;
+
+  display:block !important;
+
+  overflow:hidden !important;
+
+  border:none !important;
+
+  border-radius:26px !important;
+
+  clip-path: inset(0 round 26px) !important;
+
+  -webkit-mask-image:
+    -webkit-radial-gradient(white, black) !important;
+
+  background:#000 !important;
+}
+
+/* force youtube internal layer clipping */
+.player-frame-wrap::before,
+.player-frame-wrap::after{
+  border-radius:26px !important;
+  overflow:hidden !important;
+}
+
+/* cinematic edge */
+.player-frame-wrap{
+  box-shadow:
+    0 14px 38px rgba(0,0,0,0.62),
+    0 0 0 1px rgba(255,255,255,0.05) inset,
+    0 0 24px rgba(158,130,156,0.18) !important;
+}
+
+/* stop any bleed on mobile safari */
+.player-frame-wrap,
+.player-frame-wrap *{
+  transform:translateZ(0) !important;
+  backface-visibility:hidden !important;
+}
+
+/* tablet */
+@media (max-width:900px){
+
+  .player-frame-wrap,
+  .player-frame-wrap iframe,
+  .player-frame,
+  #lordiPlayer{
+    border-radius:20px !important;
+    clip-path: inset(0 round 20px) !important;
+  }
+}
+
+/* mobile */
+@media (max-width:640px){
+
+  .player-frame-wrap,
+  .player-frame-wrap iframe,
+  .player-frame,
+  #lordiPlayer{
+    border-radius:16px !important;
+    clip-path: inset(0 round 16px) !important;
+  }
+}
+
+/* tiny phones */
+@media (max-width:420px){
+
+  .player-frame-wrap,
+  .player-frame-wrap iframe,
+  .player-frame,
+  #lordiPlayer{
+    border-radius:14px !important;
+    clip-path: inset(0 round 14px) !important;
+  }
+}
+
+/* =========================================================
+   END LORDI HARD ROUNDING FIX
+   ========================================================= */
+
+/* =========================================================
+   GARBAGE / 007 SUPER PLAYER — SCOPED SEPARATE PLAYER
+   (append only, no Lordi player collision)
+   ========================================================= */
+.garbage-007-panel{
+  position:relative !important;
+  overflow:hidden !important;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(240,239,244,0.13), transparent 28%),
+    linear-gradient(145deg, rgba(41,21,40,0.52), rgba(0,0,0,0.34)) !important;
+  border:1px solid rgba(240,239,244,0.16) !important;
+  border-radius:20px !important;
+  box-shadow:var(--shadow-soft) !important;
+}
+
+.garbage-007-panel::before{
+  content:"007" !important;
+  position:absolute !important;
+  right:1rem !important;
+  top:0.35rem !important;
+  font-size:clamp(3rem,9vw,7rem) !important;
+  line-height:1 !important;
+  font-weight:900 !important;
+  letter-spacing:-0.08em !important;
+  color:rgba(240,239,244,0.055) !important;
+  pointer-events:none !important;
+  z-index:0 !important;
+}
+
+.garbage-007-panel > *{
+  position:relative !important;
+  z-index:1 !important;
+}
+
+.garbage-player-frame-wrap{
+  position:relative !important;
+  width:100% !important;
+  overflow:hidden !important;
+  border-radius:26px !important;
+  background:#000 !important;
+  border:1px solid rgba(240,239,244,0.14) !important;
+  box-shadow:
+    0 14px 38px rgba(0,0,0,0.62),
+    0 0 0 1px rgba(255,255,255,0.05) inset,
+    0 0 24px rgba(158,130,156,0.18) !important;
+  isolation:isolate !important;
+  transform:translateZ(0) !important;
+  backface-visibility:hidden !important;
+}
+
+.garbage-player-frame-wrap::before{
+  content:"" !important;
+  display:block !important;
+  width:100% !important;
+  padding-top:56.25% !important;
+}
+
+.garbage-player-frame-wrap::after{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  pointer-events:none !important;
+  z-index:2 !important;
+  border-radius:26px !important;
+  background:
+    linear-gradient(to bottom, rgba(255,255,255,0.045), transparent 18%, transparent 78%, rgba(0,0,0,0.32)),
+    radial-gradient(circle at 78% 12%, rgba(158,130,156,0.14), transparent 32%) !important;
+}
+
+#garbage007Player{
+  position:absolute !important;
+  inset:0 !important;
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  border:0 !important;
+  border-radius:26px !important;
+  clip-path:inset(0 round 26px) !important;
+  background:#000 !important;
+}
+
+.garbage-track-controls{
+  width:100% !important;
+  display:flex !important;
+  flex-wrap:wrap !important;
+  justify-content:center !important;
+  align-items:center !important;
+  gap:0.7rem !important;
+  margin-top:1rem !important;
+}
+
+.garbage-track-btn{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  flex:0 1 auto !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  min-height:42px !important;
+  padding:0.7rem 1rem !important;
+  border-radius:999px !important;
+  border:1px solid rgba(240,239,244,0.18) !important;
+  background:rgba(255,255,255,0.055) !important;
+  color:var(--text-light) !important;
+  font-weight:700 !important;
+  font-size:0.84rem !important;
+  line-height:1.1 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  cursor:pointer !important;
+  backdrop-filter:blur(10px) !important;
+  -webkit-backdrop-filter:blur(10px) !important;
+  box-shadow:0 8px 18px rgba(0,0,0,0.24) !important;
+  transition:background 0.25s ease, transform 0.2s ease, border-color 0.25s ease, color 0.25s ease !important;
+}
+
+.garbage-track-btn:hover,
+.garbage-track-btn.active{
+  transform:translateY(-1px) !important;
+  border-color:rgba(240,239,244,0.38) !important;
+  background:rgba(158,130,156,0.22) !important;
+  color:#f0eff4 !important;
+}
+
+.garbage-player-status{
+  margin-top:0.9rem !important;
+}
+
+@media (max-width:900px){
+  .garbage-007-panel{padding:0.9rem !important;}
+  .garbage-player-frame-wrap,
+  #garbage007Player{border-radius:20px !important;clip-path:inset(0 round 20px) !important;}
+  .garbage-track-btn{font-size:0.82rem !important;}
+}
+
+@media (max-width:640px){
+  .garbage-player-frame-wrap,
+  #garbage007Player{border-radius:16px !important;clip-path:inset(0 round 16px) !important;}
+  .garbage-track-controls{gap:0.5rem !important;}
+  .garbage-track-btn{flex:1 1 calc(50% - 0.5rem) !important;font-size:0.76rem !important;padding:0.72rem 0.8rem !important;}
+}
+
+@media (max-width:420px){
+  .garbage-track-btn{flex:1 1 100% !important;}
+}
+/* =========================================================
+   END GARBAGE / 007 SCOPED PLAYER
+   ========================================================= */
+
+/* =========================================================
+   WHOLE GITHUB PAGES COUNTER — NO-KEY BADGE + LOCAL FALLBACK
+   ========================================================= */
+.best-effort-count-panel{
+  margin:1rem 0 !important;
+  padding:1rem !important;
+  border-radius:18px !important;
+  background:rgba(0,0,0,0.16) !important;
+  border:1px solid rgba(240,239,244,0.14) !important;
+}
+
+.best-effort-count-grid{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:0.75rem !important;
+  margin:0.85rem 0 0.85rem !important;
+}
+
+.best-effort-count-card{
+  min-width:0 !important;
+  padding:0.85rem 0.9rem !important;
+  border-radius:14px !important;
+  background:var(--panel-dark) !important;
+  border:1px solid rgba(240,239,244,0.1) !important;
+  box-shadow:var(--shadow-soft) !important;
+}
+
+.best-effort-count-number{
+  display:block !important;
+  font-size:clamp(1.05rem,2.7vw,1.75rem) !important;
+  font-weight:800 !important;
+  color:var(--ghost-white) !important;
+  line-height:1.15 !important;
+  word-break:break-word !important;
+}
+
+.best-effort-count-label{
+  display:block !important;
+  margin-top:0.22rem !important;
+  color:rgba(240,239,244,.76) !important;
+  font-size:0.72rem !important;
+  text-transform:uppercase !important;
+  letter-spacing:0.08em !important;
+}
+
+.github-pages-public-counter-card{
+  grid-column:span 2 !important;
+  background:linear-gradient(145deg,rgba(158,130,156,0.22),rgba(0,0,0,0.2)) !important;
+}
+
+.github-pages-hit-badge-wrap{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  min-height:36px !important;
+  overflow:hidden !important;
+}
+
+.github-pages-hit-badge-wrap img{
+  display:block !important;
+  max-width:100% !important;
+  height:28px !important;
+  border:0 !important;
+}
+
+.best-effort-count-meta{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:0.4rem !important;
+  align-items:center !important;
+}
+
+.counter-health-dot{
+  display:inline-block !important;
+  width:0.55rem !important;
+  height:0.55rem !important;
+  border-radius:50% !important;
+  background:rgba(240,239,244,0.55) !important;
+  margin-right:0.35rem !important;
+}
+
+.counter-health-dot.ok{ background:rgba(160,255,190,0.85) !important; }
+.counter-health-dot.warn{ background:rgba(255,220,140,0.9) !important; }
+
+@media (max-width:900px){
+  .best-effort-count-grid{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+}
+
+@media (max-width:520px){
+  .best-effort-count-grid{ grid-template-columns:1fr !important; }
+  .github-pages-public-counter-card{ grid-column:span 1 !important; }
+}
+/* =========================================================
+   END WHOLE GITHUB PAGES COUNTER
+   ========================================================= */
+
+</style>
+</head>
+<body>
+<header class="top-bar">
+  <div class="credential-header">
+    RHCE6 · AWS Certified
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a href="https://www.kernel.org/pub/linux/kernel/v1.0/" target="_blank" rel="noopener noreferrer">Linux 1.0</a>
+    <a href="https://www.linuxfoundation.org/about/leadership" target="_blank" rel="noopener noreferrer">Linus</a>
+    <a href="https://www.kernel.org/" target="_blank" rel="noopener noreferrer">Kernel</a>
+    <a href="https://lordinband.com/" target="_blank" rel="noopener noreferrer">Lordi Rules</a>
+  </nav>
+  <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+</header>
+
+<a href="index.html" class="logo-top-left" aria-label="Return to home">
+  <img src="BlairPageImages/blog.jpg" alt="Blair Page logo">
+</a>
+
+<div class="hero"></div>
+
+<main class="page-shell">
+  <section class="page-card">
+    <h1 class="page-title">Linux, Linus Torvalds, and Lordi</h1>
+    <p class="page-subtitle">
+      Linux starts with Linus Torvalds, early kernel release dates, and the archival timestamps that mark the operating system’s first major public milestones. Lordi adds a second Finnish thread: theatrical hard rock, monster imagery, and songs whose titles feel oddly at home next to hacker culture, kernel debugging, release chaos, and the drama of shipping code. The strongest real overlap is cultural rather than official: both Linux and Lordi are Finnish exports that broke through globally by refusing to look or sound like the default version of their field.
+      <a href="https://blairyfairy.github.io/BlairPage/aws_exam_results_pdf_viewer.html"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="jag-seen-btn">
+  666 AWS EXAM RESULTS & EXAM ID — ~1 IN 1,000,000+ ODDS
+</a>
+
+<style>
+.jag-seen-btn {
+  display: inline-block;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+
+  color: #9e829c;
+
+  text-shadow:
+    0 0 6px rgba(158,130,156,0.45),
+    0 0 14px rgba(158,130,156,0.35),
+    0 0 28px rgba(158,130,156,0.25),
+    0 2px 6px rgba(0,0,0,0.6);
+
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(158,130,156,0.18) 0%,
+    rgba(158,130,156,0.10) 35%,
+    rgba(158,130,156,0.04) 65%,
+    transparent 80%
+  );
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  transition: all 0.35s ease;
+}
+
+.jag-seen-btn:hover {
+  color: #f0eff4;
+
+  text-shadow:
+    0 0 10px rgba(158,130,156,0.8),
+    0 0 20px rgba(158,130,156,0.6),
+    0 0 40px rgba(158,130,156,0.4),
+    0 4px 12px rgba(0,0,0,0.7);
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(158,130,156,0.30) 0%,
+    rgba(158,130,156,0.18) 40%,
+    rgba(158,130,156,0.08) 70%,
+    transparent 90%
+  );
+
+  transform: translateY(-2px) scale(1.03);
+}
+
+.jag-seen-btn:active {
+  transform: scale(0.97);
+}
+</style>
+<style>
+/* CENTER */
+.egg-center-wrap{
+  width:100% !important;
+  display:flex !important;
+  justify-content:center !important;
+  margin-top:0.6rem !important;
+  margin-bottom:1.2rem !important;
+}
+
+/* BUTTON */
+.egg-sw-badge{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  padding:24px 52px !important; /* doubled */
+  border-radius:999px !important;
+
+  border:2px solid rgba(158,130,156,0.5) !important;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(158,130,156,0.24) 0%,
+    rgba(158,130,156,0.14) 45%,
+    rgba(158,130,156,0.06) 75%,
+    transparent 95%
+  ) !important;
+
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+
+  text-decoration:none !important;
+
+  transition: all 0.35s ease !important;
+}
+
+/* MAIN TEXT */
+.egg-sw-badge .label{
+  font-family:'Orbitron', sans-serif !important;
+  font-weight:800 !important;
+  font-size:2.1rem !important; /* doubled */
+  letter-spacing:0.18em !important;
+
+  color:#9e829c !important;
+
+  text-shadow:
+    0 0 14px rgba(158,130,156,0.7),
+    0 0 30px rgba(158,130,156,0.5),
+    0 0 50px rgba(158,130,156,0.35),
+    0 5px 14px rgba(0,0,0,0.8);
+}
+
+/* SUB TEXT */
+.egg-sw-badge .sub{
+  font-family:'Orbitron', sans-serif !important;
+  font-weight:700 !important;
+  font-size:1.3rem !important; /* doubled */
+  letter-spacing:0.28em !important;
+
+  color:#9e829c !important;
+  opacity:0.95 !important;
+
+  text-shadow:
+    0 0 10px rgba(158,130,156,0.6),
+    0 0 20px rgba(158,130,156,0.4);
+}
+
+/* 🔥 HOVER → WHITE GLOW */
+.egg-sw-badge:hover{
+  transform:translateY(-4px) scale(1.06) !important;
+
+  border-color:rgba(240,239,244,0.7) !important;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(158,130,156,0.4) 0%,
+    rgba(158,130,156,0.25) 45%,
+    rgba(158,130,156,0.12) 75%,
+    transparent 95%
+  ) !important;
+}
+
+.egg-sw-badge:hover .label,
+.egg-sw-badge:hover .sub{
+  color:#f0eff4 !important;
+
+  text-shadow:
+    0 0 18px rgba(240,239,244,0.95),
+    0 0 40px rgba(240,239,244,0.8),
+    0 0 70px rgba(240,239,244,0.6),
+    0 6px 18px rgba(0,0,0,0.9);
+}
+</style>
+      
+    </p>
+
+    <div class="viewer-actions">
+      <a class="action-btn" href="https://www.kernel.org/pub/linux/kernel/v1.0/" target="_blank" rel="noopener noreferrer">Kernel 1.0 archive</a>
+      <a class="action-btn" href="https://www.linuxfoundation.org/about/leadership" target="_blank" rel="noopener noreferrer">Linus profile</a>
+      <a class="action-btn" href="https://www.youtube.com/watch?v=uGe8qID9gSs" target="_blank" rel="noopener noreferrer">Hard Rock Hallelujah</a>
+      <a class="action-btn" href="https://www.youtube.com/watch?v=muWsZLwu7Qg" target="_blank" rel="noopener noreferrer">Who's Your Daddy</a>
+      <a class="action-btn" href="https://www.youtube.com/watch?v=MFfK9jbTS-U" target="_blank" rel="noopener noreferrer">Monsterman</a>
+      <a class="action-btn" href="https://www.youtube.com/watch?v=hSaLtzvvTyU" target="_blank" rel="noopener noreferrer">It Snows in Hell</a>
+    </div>
+
+    <div class="content-grid">
+      <div class="timeline-panel">
+        <h2 class="section-title">Linux kernel timeline</h2>
+        <div class="timeline-list" id="timelineList"></div>
+      </div>
+
+      <div class="player-panel">
+        <h2 class="section-title">Super Lordi player</h2>
+        <p class="lead-copy">The player opens on “Hard Rock Hallelujah,” then rotates through “Who’s Your Daddy?,” “Would You Love a Monsterman?,” and “It Snows in Hell” before moving through the rest of the Lordi set. That order gives the page a stronger Finnish hard-rock spine while keeping the Linux side anchored in kernel dates, archival timestamps, release milestones, and Linus Torvalds history.</p>
+        <div class="player-frame-wrap">
+          <iframe
+            id="lordiPlayer"
+            class="player-frame"
+            src="https://www.youtube-nocookie.com/embed/uGe8qID9gSs?playlist=muWsZLwu7Qg,MFfK9jbTS-U,hSaLtzvvTyU,FNrvkl5mCmY,Rnhlt3S-BdY,YUDX4L-Inco,UNgGGOcuto4,AgE6vzKH2ws,jvSnRC8hyRU,kO4lY0mydXA,OtL9I2xgnec,X6jzN6h7x5A&autoplay=0&rel=0&loop=1"
+            title="Lordi YouTube playlist player"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="track-controls" aria-label="Lordi player controls">
+          <button class="track-btn" data-video="uGe8qID9gSs?playlist=muWsZLwu7Qg,MFfK9jbTS-U,hSaLtzvvTyU&loop=1" data-label="Hard Rock Hallelujah queue">Hard Rock Hallelujah</button>
+          <button class="track-btn" data-video="muWsZLwu7Qg?playlist=MFfK9jbTS-U,hSaLtzvvTyU,uGe8qID9gSs&loop=1" data-label="Who's Your Daddy queue">Who's Your Daddy</button>
+          <button class="track-btn" data-video="MFfK9jbTS-U?playlist=hSaLtzvvTyU,uGe8qID9gSs,muWsZLwu7Qg&loop=1" data-label="Monsterman queue">Monsterman</button>
+          <button class="track-btn" data-video="hSaLtzvvTyU?playlist=uGe8qID9gSs,muWsZLwu7Qg,MFfK9jbTS-U&loop=1" data-label="It Snows in Hell queue">It Snows in Hell</button>
+        </div>
+        <div class="player-status">
+          <div class="kv-grid">
+            <div class="kv-card">
+              <span class="kv-label">Now selected</span>
+              <span id="nowSelected" class="kv-value">Hard Rock Hallelujah queue</span>
+            </div>
+            <div class="kv-card">
+              <span class="kv-label">Playback mode</span>
+              <span id="playbackMode" class="kv-value">Muted autoplay queue</span>
+            </div>
+            <div class="kv-card">
+              <span class="kv-label">Embed host</span>
+              <span class="kv-value">youtube-nocookie.com</span>
+            </div>
+            <div class="kv-card">
+              <span class="kv-label">Single-page safe</span>
+              <span class="kv-value">Yes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="content-grid">
+      <div class="player-panel garbage-007-panel" id="garbage007SuperPlayerPanel">
+        <h2 class="section-title">Garbage / 007 super player</h2>
+        <p class="lead-copy">A separate cinematic Garbage player for “The World Is Not Enough,” “Vow,” and matching noir-gloss Garbage tracks. This block uses its own iframe, buttons, status labels, CSS classes, and JavaScript selector names so it does not affect the Lordi player.</p>
+        <div class="garbage-player-frame-wrap">
+          <iframe
+            id="garbage007Player"
+            src="https://www.youtube-nocookie.com/embed/JBrz-5ai1mo?rel=0"
+            title="Garbage / 007 YouTube player"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="garbage-track-controls" aria-label="Garbage and 007 player controls">
+          <button class="garbage-track-btn active" data-garbage-video="JBrz-5ai1mo" data-garbage-label="Garbage — The World Is Not Enough">The World Is Not Enough</button>
+          <button class="garbage-track-btn" data-garbage-video="qZsVcoWRIkY" data-garbage-label="Garbage — Vow">Garbage — Vow</button>
+          <button class="garbage-track-btn" data-garbage-video="GpBFOJ3R0M4" data-garbage-label="Garbage — Only Happy When It Rains">Only Happy When It Rains</button>
+          <button class="garbage-track-btn" data-garbage-video="2GhPUAVgHZc" data-garbage-label="Garbage — Stupid Girl">Stupid Girl</button>
+          <button class="garbage-track-btn" data-garbage-video="3ppiohVRZ0s" data-garbage-label="Garbage — Queer">Queer</button>
+          <button class="garbage-track-btn" data-garbage-video="ypr18UmxOas" data-garbage-label="Garbage — I Think I’m Paranoid">I Think I’m Paranoid</button>
+        </div>
+        <div class="garbage-player-status">
+          <div class="kv-grid">
+            <div class="kv-card">
+              <span class="kv-label">Now selected</span>
+              <span id="garbageNowSelected" class="kv-value">Garbage — The World Is Not Enough</span>
+            </div>
+            <div class="kv-card">
+              <span class="kv-label">Playback mode</span>
+              <span id="garbagePlaybackMode" class="kv-value">Click-to-play separate queue</span>
+            </div>
+            <div class="kv-card">
+              <span class="kv-label">Embed host</span>
+              <span class="kv-value">youtube-nocookie.com</span>
+            </div>
+            <div class="kv-card">
+              <span class="kv-label">Separate-player safe</span>
+              <span class="kv-value">Yes — scoped IDs only</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-panel">
+        <h2 class="section-title">Why this Garbage set fits</h2>
+        <div class="status-list">
+          <div class="status-item">
+            <div class="repo-title">Bond noir opener</div>
+            <div class="body-copy">“The World Is Not Enough” stays first because it carries the 007 atmosphere directly: glossy, cold, dramatic, and cinematic enough to sit beside a technical page without feeling random.</div>
+          </div>
+          <div class="status-item">
+            <div class="repo-title">Vow replaces the supplied label</div>
+            <div class="body-copy">The supplied video is now clearly labeled “Garbage — Vow,” so the button reads as an actual track choice instead of a placeholder video slot.</div>
+          </div>
+          <div class="status-item">
+            <div class="repo-title">Dark alt-pop matches</div>
+            <div class="body-copy">“Only Happy When It Rains,” “Stupid Girl,” “Queer,” and “I Think I’m Paranoid” keep the same 1990s Garbage mood: stylish, industrial-leaning, noir-friendly, and visually strong enough to belong beside the 007 theme.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="github-panel">
+        <h2 class="section-title">Live project signals</h2>
+        <div class="mini-actions">
+          <button id="refreshGitHubBtn" class="mini-btn" type="button">Refresh repo data</button>
+          <button id="clearGitHubCacheBtn" class="mini-btn" type="button">Clear cache</button>
+        </div>
+        <div id="githubProfileCard" class="github-profile-card">
+          <div class="github-avatar" aria-hidden="true"></div>
+          <div>
+            <div class="repo-title">Loading public GitHub profile…</div>
+            <div class="small-muted">This pulls public GitHub profile, repository, Pages, language, topic, and recent-push signals with no API keys.</div>
+          </div>
+        </div>
+        <div id="githubOverviewGrid" class="github-overview-grid"></div>
+        <div id="githubCountGrid" class="github-count-grid"></div>
+        <div id="githubPagesGrid" class="github-pages-grid"></div>
+
+        <section id="bestEffortCountsPanel" class="best-effort-count-panel" aria-label="Best effort no-key GitHub and page view counts">
+          <h3 class="section-title">Best-effort no-key repo + page count signals</h3>
+          <p class="source-note">Live analytics counter added for <strong>linux_lordi_github_page.html</strong>: the badge counts the published GitHub Pages URL, while the local cards track browser-local page loads as a fallback.</p>
+          <div id="bestEffortCountGrid" class="best-effort-count-grid">
+            <div class="best-effort-count-card github-pages-public-counter-card">
+              <span class="best-effort-count-number" id="linuxLordiPageHitsLabel">Live</span>
+              <span class="best-effort-count-label">Linux Lordi Page Hits</span>
+              <span class="github-pages-hit-badge-wrap">
+                <img src="https://hits.sh/blairyfairy.github.io/BlairPage/linux_lordi_github_page.html.svg?style=for-the-badge&label=linux%20lordi%20page%20hits&color=9e829c&labelColor=291528" alt="Linux Lordi page hit counter" loading="eager" referrerpolicy="no-referrer-when-downgrade">
+              </span>
+              <span class="best-effort-count-label"><span class="counter-health-dot warn"></span>loading public page counter</span>
+            </div>
+            <div class="best-effort-count-card">
+              <span class="best-effort-count-number">Loading…</span>
+              <span class="best-effort-count-label">public API counts</span>
+            </div>
+          </div>
+          <div id="bestEffortCountMeta" class="best-effort-count-meta">
+            <span class="meta-chip">No token</span>
+            <span class="meta-chip">No secret</span>
+            <span class="meta-chip">Public GitHub API + local browser counter</span>
+          </div>
+          <p class="source-note">This panel is upgraded for GitHub Pages without API keys: it shows a live public hits.sh page counter badge for the exact published page URL, keeps a browser-local fallback counter, and auto-pulls public GitHub repository/profile totals. GitHub Pages is static hosting, so verified owner-only GitHub Traffic analytics still cannot be read from plain HTML without a secret or backend proxy, but this is the strongest no-key whole-page counter that can work out of the box.</p>
+        </section>
+        <div id="repoGrid" class="repo-grid">
+          <div class="repo-card">
+            <div class="repo-title">Loading public GitHub repo signals…</div>
+            <div class="small-muted">This uses the public GitHub REST API only, so it can run on GitHub Pages without secrets.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-panel">
+        <h2 class="section-title">Linux themes in the Lordi tracks</h2>
+        <div class="status-list">
+          <div class="status-item">
+            <div class="repo-title">Hard Rock Hallelujah</div>
+            <div class="body-copy">Placed first because it is the strongest Lordi entry point and the cleanest musical parallel to Linux reaching visible global recognition. In the page logic, it plays the same role that Linux 1.0 does in the timeline: the moment when an underground build becomes a widely recognized release.</div>
+          </div>
+          <div class="status-item">
+            <div class="repo-title">Who’s Your Daddy and Would You Love a Monsterman?</div>
+            <div class="body-copy">These are two of the exact tracks you wanted in the rotation, and they help the player feel like a real Lordi page instead of a one-song nod. “Would You Love a Monsterman?” also fits the page theme directly, because Linux culture has always had room for mascots, creatures, weirdness, and memorable iconography.</div>
+          </div>
+          <div class="status-item">
+            <div class="repo-title">It Snows in Hell, Syntax Terror, and the darker cuts</div>
+            <div class="body-copy">“It Snows in Hell” adds one of the band’s strongest dramatic songs to the core set, while “Syntax Terror” almost reads like a compiler joke turned into a track title. Together they connect naturally to code culture, kernel debugging, release drama, and the kind of dark humor technical communities tend to keep around long nights and broken builds.</div>
+          </div>
+          <div class="status-item">
+            <div class="repo-title">Deeper queue after the core songs</div>
+            <div class="body-copy">After the first four named tracks, the player keeps going with Hellizabeth, Dead Again Jayne, Syntax Terror, Abracadaver, Devil Is a Loser, Blood Red Sandman, This Is Heavy Metal, and other Lordi material so the queue feels broad instead of repetitive. That makes the page feel intentionally built around Lordi rather than just decorated with one working embed.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="info-panel">
+        <h2 class="section-title">Why Linux and Lordi belong on the same page</h2>
+        <p class="body-copy">Linus Torvalds anchors the Linux side through the earliest development dates, the August 1991 public announcement, and the kernel.org timestamps surrounding Linux 1.0 in March 1994. Those milestones give the page its hard technical spine.</p>
+        <p class="body-copy">Lordi anchors the cultural side through Finland, spectacle, and “Hard Rock Hallelujah,” the song that turned the band into a wider international reference point. That shared Finnish thread makes the pairing intentional, while the band’s titles and imagery fit naturally beside the vocabulary of code, errors, patching, late-night fixes, and operating-system mythology.</p>
+      </div>
+    </div>
+
+    <div class="seo-panel" style="margin-top: 1rem;">
+      <h2 class="section-title">Static build and deploy metadata</h2>
+      <div class="kv-grid">
+        <div class="kv-card">
+          <span class="kv-label">Page version</span>
+          <span class="kv-value">v2.0 single-page GitHub edition</span>
+        </div>
+        <div class="kv-card">
+          <span class="kv-label">Suggested branch</span>
+          <span class="kv-value">main</span>
+        </div>
+        <div class="kv-card">
+          <span class="kv-label">Last manual content refresh</span>
+          <span id="contentRefreshValue" class="kv-value">2026-04-17</span>
+        </div>
+        <div class="kv-card">
+          <span class="kv-label">GitHub data cache window</span>
+          <span class="kv-value">15 minutes</span>
+        </div>
+      </div>
+      <p class="source-note" style="margin-top: .85rem;">The build block keeps the page feeling release-aware, so the Linux dates, Lordi queue, and project cards all read as parts of one maintained technical surface instead of separate fragments.</p>
+    </div>
+
+    
+      <div class="status-panel">
+        <h2 class="section-title">Finnish easter eggs</h2>
+        <div class="status-list">
+          <div class="status-item">
+            <div class="repo-title">Linux-kernel tie</div>
+            <div class="body-copy"> One of the most interesting real overlaps between Linux and Lordi is not just cultural—it actually appears inside the Linux kernel release history itself.
+
+In 2006, during development of the Linux 2.6 series, release candidate 2.6.17-rc5 was given the nickname “Lordi Rules”. This happened immediately after Lordi won the Eurovision Song Contest with “Hard Rock Hallelujah”, marking Finland’s first victory.
+
+Linux release candidates (rc versions) often receive informal, humorous nicknames from Linus Torvalds. These are not technical labels, rules, or features—they are part of the culture of kernel development. Other examples include similarly strange and comedic naming patterns reflecting events, jokes, or moods during development cycles.
+
+The “Lordi Rules” name reflects:
+
+    Timing: Eurovision 2006 victory
+    Finnish identity shared by both Linux and Lordi
+    Torvalds’ long-standing habit of humorous naming
+
+It is important to note that:
+
+    There is no technical feature called “Lordi Rules”
+    There are no kernel coding rules tied to Lordi
+    The name exists purely as a release nickname
+
+However, it remains one of the most memorable cultural easter eggs in Linux kernel history. </div>
+          </div>
+          <div class="status-item">
+            <div class="repo-title">Hard Rock Hallelujah as a release moment</div>
+            <div class="body-copy">“Hard Rock Hallelujah” works as the music-side mirror of Linux 1.0 because both read like public arrival moments: Linux 1.0 gave the kernel a major archival milestone in March 1994, while Lordi’s 2006 Eurovision win gave Finland its first contest victory and made the band an instant global reference point.</div>
+          </div>
+          <div class="status-item">
+            <div class="repo-title">Monsters, bugs, and folklore</div>
+            <div class="body-copy">Lordi’s monster-costume identity fits technical culture almost too well. Kernel work grows its own folklore around strange bugs, regressions, legendary fixes, and late-night patching, so the page quietly treats Lordi’s horror imagery like the theatrical version of the monsters engineers already joke about.</div>
+          </div>
+          <div class="status-item">
+            <div class="repo-title">Syntax, snow, and stubborn systems</div>
+            <div class="body-copy">The best hidden joke is that titles such as “Would You Love a Monsterman?” and “It Snows in Hell” sound like dramatic summaries of hostile production incidents, while Finland itself ties the whole theme together: one side brings kernel history from Helsinki, the other brings shock-rock spectacle from Rovaniemi.</div>
+          </div>
+        </div>
+      </div>
+<div class="reference-panel" style="margin-top: 1rem;">
+      <h2 class="section-title">APA-style references</h2>
+      <ol class="reference-list">
+        <li>Encyclopaedia Britannica. (2026, February 26). <em>Linus Torvalds</em>. <a href="https://www.britannica.com/biography/Linus-Torvalds" target="_blank" rel="noopener noreferrer">https://www.britannica.com/biography/Linus-Torvalds</a></li>
+        <li>Encyclopaedia Britannica. (2026, March 21). <em>Eurovision Song Contest winner</em>. <a href="https://www.britannica.com/art/Eurovision-Song-Contest-winner-2226035" target="_blank" rel="noopener noreferrer">https://www.britannica.com/art/Eurovision-Song-Contest-winner-2226035</a></li>
+        <li>Kernel.org. (1994). <em>Index of /pub/linux/kernel/v1.0/</em>. <a href="https://www.kernel.org/pub/linux/kernel/v1.0/" target="_blank" rel="noopener noreferrer">https://www.kernel.org/pub/linux/kernel/v1.0/</a></li>
+        <li>Linux Foundation. (n.d.). <em>Leadership: Linus Torvalds</em>. <a href="https://www.linuxfoundation.org/about/leadership" target="_blank" rel="noopener noreferrer">https://www.linuxfoundation.org/about/leadership</a></li>
+        <li>Linux Foundation. (2020, March 2). <em>The Linux Foundation: It’s not just the Linux operating system</em>. <a href="https://www.linuxfoundation.org/blog/blog/the-linux-foundation-its-not-just-the-linux-operating-system" target="_blank" rel="noopener noreferrer">https://www.linuxfoundation.org/blog/blog/the-linux-foundation-its-not-just-the-linux-operating-system</a></li>
+        <li>LORDI. (n.d.). <em>Hard Rock Hallelujah</em> [Video]. YouTube. <a href="https://www.youtube.com/watch?v=uGe8qID9gSs" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=uGe8qID9gSs</a></li>
+        <li>LORDI. (n.d.). <em>Who's Your Daddy</em> [Video]. YouTube. <a href="https://www.youtube.com/watch?v=muWsZLwu7Qg" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=muWsZLwu7Qg</a></li>
+        <li>LORDI. (n.d.). <em>Would You Love a Monsterman?</em> [Video]. YouTube. <a href="https://www.youtube.com/watch?v=MFfK9jbTS-U" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=MFfK9jbTS-U</a></li>
+        <li>LORDI. (n.d.). <em>It Snows in Hell</em> [Video]. YouTube. <a href="https://www.youtube.com/watch?v=hSaLtzvvTyU" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=hSaLtzvvTyU</a></li>
+        <li>GitHub Docs. (n.d.). <em>Rate limits for the REST API</em>. <a href="https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api" target="_blank" rel="noopener noreferrer">https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api</a></li>
+      </ol>
+      <p class="source-note" style="margin-top: 1rem;">The references below support both halves of the page: Linux release history and Linus Torvalds on the one hand, and Lordi’s place in Finnish rock and international visibility on the other.</p>
+    </div>
+  </section>
+</main>
+
+<button id="pageScrollTop" class="page-scroll-top" aria-label="Back to top">▲</button>
+
+<script id="linuxTimelineData" type="application/json">
+[
+  {
+    "date": "April 1991",
+    "text": "The Linux Foundation says Linus Torvalds began the project in April 1991 while he was a student at the University of Helsinki.",
+    "chip": "Origin window: project start"
+  },
+  {
+    "date": "August 25, 1991",
+    "text": "Torvalds publicly announced the operating-system project to the comp.os.minix newsgroup, which is the most cited community-facing starting point for Linux history.",
+    "chip": "Historical milestone: public announcement"
+  },
+  {
+    "date": "March 13, 1994",
+    "text": "The kernel.org archive shows the main linux-1.0 source package files dated March 13, 1994, giving a direct archival timestamp for Linux 1.0 release materials.",
+    "chip": "Archive timestamp: 13-Mar-1994 00:00"
+  },
+  {
+    "date": "March 14, 1994",
+    "text": "Kernel.org also shows early 1.0 patch files dated March 14, 1994, reflecting the rapid post-release patch cycle around Linux 1.0.",
+    "chip": "Archive timestamp: 14-Mar-1994 00:00"
+  },
+  {
+    "date": "2006",
+    "text": "Lordi won the Eurovision Song Contest for Finland with “Hard Rock Hallelujah,” giving the page’s music side a strong and recognizable Finnish milestone.",
+    "chip": "Cultural anchor: Lordi milestone"
+  }
+]
+</script>
+
+<script id="repoTargetsData" type="application/json">
+{
+  "username": "Blairyfairy",
+  "maxRecentRepos": 16,
+  "maxPagesChecks": 24,
+  "maxLanguageChecks": 16,
+  "includeArchived": true,
+  "includeForks": true,
+  "featuredRepos": [
+    "BlairPage",
+    "portfolio-card",
+    "PremiumRDPHosting",
+    "QuakeTracker",
+    "WeatherWaypoint"
+  ]
+}
+</script>
+
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const pageScrollTop = document.getElementById('pageScrollTop');
+const lordiPlayer = document.getElementById('lordiPlayer');
+const trackButtons = document.querySelectorAll('.track-btn');
+const repoGrid = document.getElementById('repoGrid');
+const githubProfileCard = document.getElementById('githubProfileCard');
+const githubOverviewGrid = document.getElementById('githubOverviewGrid');
+const githubCountGrid = document.getElementById('githubCountGrid');
+const githubPagesGrid = document.getElementById('githubPagesGrid');
+const refreshGitHubBtn = document.getElementById('refreshGitHubBtn');
+const clearGitHubCacheBtn = document.getElementById('clearGitHubCacheBtn');
+const nowSelected = document.getElementById('nowSelected');
+const playbackMode = document.getElementById('playbackMode');
+const timelineList = document.getElementById('timelineList');
+
+const bestEffortCountGrid = document.getElementById('bestEffortCountGrid');
+const bestEffortCountMeta = document.getElementById('bestEffortCountMeta');
+const BEST_EFFORT_VIEW_KEY = 'blair-linux-lordi-local-page-views-v1';
+const BEST_EFFORT_FIRST_SEEN_KEY = 'blair-linux-lordi-first-seen-v1';
+const BEST_EFFORT_SESSION_KEY = 'blair-linux-lordi-session-seen-v1';
+
+function renderBestEffortCountCard(number, label) {
+  return `
+    <div class="best-effort-count-card">
+      <span class="best-effort-count-number">${escapeHtml(numberWithCommas(number))}</span>
+      <span class="best-effort-count-label">${escapeHtml(label)}</span>
+    </div>
+  `;
+}
+
+function updateBestEffortLocalViews() {
+  const now = new Date();
+  let totalViews = 1;
+  let firstSeen = now.toISOString();
+  let sessionSeen = 'new session view';
+
+  try {
+    const storedViews = Number(localStorage.getItem(BEST_EFFORT_VIEW_KEY) || 0);
+    totalViews = storedViews + 1;
+    localStorage.setItem(BEST_EFFORT_VIEW_KEY, String(totalViews));
+
+    const storedFirstSeen = localStorage.getItem(BEST_EFFORT_FIRST_SEEN_KEY);
+    if (storedFirstSeen) {
+      firstSeen = storedFirstSeen;
+    } else {
+      localStorage.setItem(BEST_EFFORT_FIRST_SEEN_KEY, firstSeen);
+    }
+  } catch (error) {
+    console.warn('Local page-view counter unavailable.', error);
+  }
+
+  try {
+    if (sessionStorage.getItem(BEST_EFFORT_SESSION_KEY)) {
+      sessionSeen = 'return in this tab';
+    } else {
+      sessionStorage.setItem(BEST_EFFORT_SESSION_KEY, now.toISOString());
+    }
+  } catch (error) {
+    console.warn('Session counter unavailable.', error);
+  }
+
+  return {
+    totalViews,
+    firstSeen,
+    sessionSeen,
+    firstSeenDays: daysSince(firstSeen)
+  };
+}
+
+function renderBestEffortCounts(payload, sourceLabel) {
+  if (!bestEffortCountGrid) return;
+
+  const repos = payload && Array.isArray(payload.repos) ? payload.repos : [];
+  const stats = calculateRepoStats(repos);
+  const localViews = updateBestEffortLocalViews();
+  const blairPageRepo = repos.find(repo => String(repo.name || '').toLowerCase() === 'blairpage');
+  const pagesRepos = repos.filter(repo => repo.has_pages || repo.homepage).length;
+  const pushedRepos = repos.filter(repo => repo.pushed_at).length;
+
+  bestEffortCountGrid.innerHTML = [
+    renderBestEffortCountCard(localViews.totalViews, 'local page loads'),
+    renderBestEffortCountCard(stats.total, 'public repos pulled'),
+    renderBestEffortCountCard(stats.stars, 'public stars'),
+    renderBestEffortCountCard(stats.forks, 'public forks'),
+    renderBestEffortCountCard(stats.watchers, 'public watchers'),
+    renderBestEffortCountCard(stats.openIssues, 'open issues'),
+    renderBestEffortCountCard(pagesRepos, 'repo pages/homepages'),
+    renderBestEffortCountCard(pushedRepos, 'repos with pushes'),
+    renderBestEffortCountCard(blairPageRepo ? (blairPageRepo.stargazers_count || 0) : 0, 'BlairPage stars'),
+    renderBestEffortCountCard(blairPageRepo ? (blairPageRepo.forks_count || 0) : 0, 'BlairPage forks'),
+    renderBestEffortCountCard(blairPageRepo ? (blairPageRepo.watchers_count || 0) : 0, 'BlairPage watchers'),
+    renderBestEffortCountCard(localViews.firstSeenDays ?? 0, 'days since first local view')
+  ].join('');
+
+  if (bestEffortCountMeta) {
+    bestEffortCountMeta.innerHTML = `
+      <span class="meta-chip">Source: ${escapeHtml(sourceLabel || 'public GitHub API')}</span>
+      <span class="meta-chip">No API key</span>
+      <span class="meta-chip">Local counter: ${escapeHtml(localViews.sessionSeen)}</span>
+      <span class="meta-chip">First local view: ${escapeHtml(formatDate(localViews.firstSeen))}</span>
+      <span class="meta-chip">Public repo traffic only; private traffic endpoint not used</span>
+    `;
+  }
+}
+
+function renderBestEffortCountsMessage(title, message) {
+  if (!bestEffortCountGrid) return;
+  bestEffortCountGrid.innerHTML = `
+    <div class="best-effort-count-card">
+      <span class="best-effort-count-number">${escapeHtml(title)}</span>
+      <span class="best-effort-count-label">${escapeHtml(message)}</span>
+    </div>
+  `;
+}
+
+const STORAGE_KEY = 'blair-enterprise-theme';
+const GITHUB_CACHE_KEY = 'blair-github-public-cache-v3-full-public-profile';
+const GITHUB_CACHE_TTL_MS = 15 * 60 * 1000;
+
+function applyThemeIcon() {
+  if (!themeToggle) return;
+  themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+}
+
+function applySavedTheme() {
+  try {
+    if (localStorage.getItem(STORAGE_KEY) === 'dark') {
+      document.body.classList.add('dark');
+    }
+  } catch (error) {
+    console.warn('Theme storage unavailable.', error);
+  }
+  applyThemeIcon();
+}
+
+function bindThemeToggle() {
+  if (!themeToggle) return;
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    applyThemeIcon();
+    try {
+      localStorage.setItem(STORAGE_KEY, document.body.classList.contains('dark') ? 'dark' : 'light');
+    } catch (error) {
+      console.warn('Theme storage unavailable.', error);
+    }
+  });
+}
+
+function bindScrollTop() {
+  window.addEventListener('scroll', () => {
+    if ((window.scrollY || document.documentElement.scrollTop) > 180) pageScrollTop.classList.add('show');
+    else pageScrollTop.classList.remove('show');
+  }, { passive: true });
+
+  pageScrollTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+function parseJsonScript(id, fallback) {
+  try {
+    const el = document.getElementById(id);
+    if (!el) return fallback;
+    return JSON.parse(el.textContent);
+  } catch (error) {
+    console.warn(`Failed to parse ${id}`, error);
+    return fallback;
+  }
+}
+
+function renderTimeline() {
+  const timelineData = parseJsonScript('linuxTimelineData', []);
+  if (!timelineList) return;
+  timelineList.innerHTML = timelineData.map(item => `
+    <article class="timeline-item">
+      <div class="timeline-date">${escapeHtml(item.date || '')}</div>
+      <div class="body-copy">${escapeHtml(item.text || '')}</div>
+      <div class="timestamp-chip">${escapeHtml(item.chip || '')}</div>
+    </article>
+  `).join('');
+}
+
+function bindTrackButtons() {
+  if (!lordiPlayer || !trackButtons.length) return;
+
+  trackButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const target = button.getAttribute('data-video');
+      const label = button.getAttribute('data-label') || 'Custom selection';
+      if (!target) return;
+
+            const separator = target.includes('?') ? '&' : '?';
+      lordiPlayer.src = `https://www.youtube-nocookie.com/embed/${target}${separator}autoplay=1&mute=1&rel=0`;
+
+      if (nowSelected) nowSelected.textContent = label;
+      if (playbackMode) playbackMode.textContent = 'Muted autoplay';
+    });
+  });
+}
+
+
+
+function bindGarbage007Buttons() {
+  const garbage007Player = document.getElementById('garbage007Player');
+  const garbageButtons = document.querySelectorAll('#garbage007SuperPlayerPanel .garbage-track-btn');
+  const garbageNowSelected = document.getElementById('garbageNowSelected');
+  const garbagePlaybackMode = document.getElementById('garbagePlaybackMode');
+
+  if (!garbage007Player || !garbageButtons.length) return;
+
+  garbageButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const target = button.getAttribute('data-garbage-video');
+      const label = button.getAttribute('data-garbage-label') || 'Garbage selection';
+      if (!target) return;
+
+      garbage007Player.src = `https://www.youtube-nocookie.com/embed/${target}?autoplay=1&rel=0`;
+
+      garbageButtons.forEach((item) => item.classList.remove('active'));
+      button.classList.add('active');
+
+      if (garbageNowSelected) garbageNowSelected.textContent = label;
+      if (garbagePlaybackMode) garbagePlaybackMode.textContent = 'Click-to-play active';
+    });
+  });
+}
+
+function formatDate(value) {
+  if (!value) return 'Unknown';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit'
+  });
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function setRepoGridMessage(title, message) {
+  if (!repoGrid) return;
+  repoGrid.innerHTML = `
+    <div class="repo-card">
+      <div class="repo-title">${escapeHtml(title)}</div>
+      <div class="small-muted">${escapeHtml(message)}</div>
+    </div>
+  `;
+}
+
+function numberWithCommas(value) {
+  const number = Number(value || 0);
+  return Number.isFinite(number) ? number.toLocaleString() : '0';
+}
+
+function daysSince(value) {
+  if (!value) return null;
+  const then = new Date(value).getTime();
+  if (!Number.isFinite(then)) return null;
+  return Math.max(0, Math.floor((Date.now() - then) / 86400000));
+}
+
+function activityWidth(repo, newestPushTime) {
+  const pushed = new Date(repo.pushed_at || repo.updated_at || repo.created_at || 0).getTime();
+  if (!Number.isFinite(pushed) || !newestPushTime) return 12;
+  const ageDays = Math.max(0, Math.floor((newestPushTime - pushed) / 86400000));
+  return Math.max(12, Math.min(100, 100 - (ageDays * 2)));
+}
+
+function renderStatCard(number, label) {
+  return `
+    <div class="github-stat-card">
+      <span class="github-stat-number">${escapeHtml(numberWithCommas(number))}</span>
+      <span class="github-stat-label">${escapeHtml(label)}</span>
+    </div>
+  `;
+}
+
+function renderGitHubProfile(user, repos, sourceLabel) {
+  if (!githubProfileCard) return;
+  const profileUrl = user.html_url || `https://github.com/${encodeURIComponent(user.login || 'Blairyfairy')}`;
+  const displayName = user.name || user.login || 'Blairyfairy';
+  const bio = user.bio || 'Public GitHub profile and repository signals.';
+  githubProfileCard.innerHTML = `
+    <a href="${escapeHtml(profileUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Open GitHub profile">
+      <img class="github-avatar" src="${escapeHtml(user.avatar_url || '')}" alt="${escapeHtml(displayName)} GitHub avatar">
+    </a>
+    <div>
+      <div class="repo-title">
+        <a href="${escapeHtml(profileUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(displayName)}</a>
+      </div>
+      <div class="body-copy">${escapeHtml(bio)}</div>
+      <div>
+        <span class="meta-chip">@${escapeHtml(user.login || 'Blairyfairy')}</span>
+        <span class="meta-chip">Public repos: ${escapeHtml(numberWithCommas(user.public_repos ?? repos.length))}</span>
+        <span class="meta-chip">Followers: ${escapeHtml(numberWithCommas(user.followers ?? 0))}</span>
+        <span class="meta-chip">Following: ${escapeHtml(numberWithCommas(user.following ?? 0))}</span>
+        <span class="meta-chip">Source: ${escapeHtml(sourceLabel)}</span>
+      </div>
+    </div>
+  `;
+}
+
+function calculateRepoStats(repos) {
+  const stats = repos.reduce((acc, repo) => {
+    acc.total += 1;
+    if (repo.fork) acc.forksOnly += 1;
+    if (repo.archived) acc.archived += 1;
+    if (!repo.fork && !repo.archived) acc.activeOriginal += 1;
+    if (repo.has_pages) acc.hasPagesFlag += 1;
+    acc.stars += Number(repo.stargazers_count || 0);
+    acc.forks += Number(repo.forks_count || 0);
+    acc.watchers += Number(repo.watchers_count || 0);
+    acc.openIssues += Number(repo.open_issues_count || 0);
+    if (repo.language) acc.languages.add(repo.language);
+    return acc;
+  }, {
+    total: 0,
+    activeOriginal: 0,
+    forksOnly: 0,
+    archived: 0,
+    hasPagesFlag: 0,
+    stars: 0,
+    forks: 0,
+    watchers: 0,
+    openIssues: 0,
+    languages: new Set()
+  });
+
+  return {
+    ...stats,
+    languages: Array.from(stats.languages).sort()
+  };
+}
+
+function renderGitHubSummary(payload, sourceLabel) {
+  const repos = payload.repos || [];
+  const stats = calculateRepoStats(repos);
+  const recent = repos
+    .slice()
+    .sort((a, b) => new Date(b.pushed_at || b.updated_at || 0) - new Date(a.pushed_at || a.updated_at || 0));
+
+  const newest = recent[0];
+  const oldest = repos
+    .slice()
+    .sort((a, b) => new Date(a.created_at || 0) - new Date(b.created_at || 0))[0];
+
+  if (githubOverviewGrid) {
+    githubOverviewGrid.innerHTML = [
+      renderStatCard(stats.total, 'public repositories'),
+      renderStatCard(stats.activeOriginal, 'active original repos'),
+      renderStatCard(stats.languages.length, 'languages detected'),
+      renderStatCard(stats.hasPagesFlag, 'repos flagged with Pages')
+    ].join('');
+  }
+
+  if (githubCountGrid) {
+    githubCountGrid.innerHTML = [
+      renderStatCard(stats.stars, 'total stars'),
+      renderStatCard(stats.forks, 'total forks'),
+      renderStatCard(stats.watchers, 'watchers'),
+      renderStatCard(stats.openIssues, 'open issues'),
+      renderStatCard(stats.archived, 'archived repos')
+    ].join('');
+  }
+
+  if (githubPagesGrid) {
+    const pages = Array.isArray(payload.pages) ? payload.pages : [];
+    const knownPages = pages.filter(item => item && item.html_url);
+    if (knownPages.length) {
+      githubPagesGrid.innerHTML = knownPages.map(item => `
+        <article class="pages-card">
+          <div class="repo-title">
+            <a href="${escapeHtml(item.html_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.repoName)}</a>
+          </div>
+          <div>
+            <span class="meta-chip">Branch: ${escapeHtml(item.source?.branch || 'Pages configured')}</span>
+            <span class="meta-chip">Status: ${escapeHtml(item.status || 'available')}</span>
+          </div>
+        </article>
+      `).join('');
+    } else {
+      githubPagesGrid.innerHTML = `
+        <article class="pages-card">
+          <div class="repo-title">GitHub Pages scan complete</div>
+          <div class="small-muted">No public Pages metadata was returned in the checked repo window, but repo cards still link to homepage fields when present.</div>
+        </article>
+      `;
+    }
+  }
+
+  if (newest) {
+    const refreshed = document.getElementById('contentRefreshValue');
+    if (refreshed) refreshed.textContent = `${formatDate(newest.pushed_at || newest.updated_at)} from GitHub API`;
+  }
+
+  renderGitHubProfile(payload.user || {}, repos, sourceLabel);
+
+  return { stats, recent, newest, oldest };
+}
+
+function renderRepos(payload, sourceLabel) {
+  if (!repoGrid) return;
+  const repos = payload.repos || payload.items || [];
+  if (!repos.length) {
+    setRepoGridMessage('No repo data found', 'The public GitHub API returned no repositories for this profile.');
+    return;
+  }
+
+  const config = parseJsonScript('repoTargetsData', {});
+  const maxRecentRepos = Number(config.maxRecentRepos || 16);
+  const newestPushTime = Math.max(...repos.map(repo => new Date(repo.pushed_at || repo.updated_at || repo.created_at || 0).getTime()).filter(Number.isFinite));
+  const featured = new Set((config.featuredRepos || []).map(String));
+  const pagesByRepo = new Map((payload.pages || []).map(page => [page.repoName, page]));
+  const languageTotals = payload.languageTotals || {};
+
+  const sorted = repos
+    .slice()
+    .sort((a, b) => {
+      const aFeatured = featured.has(a.name) ? 1 : 0;
+      const bFeatured = featured.has(b.name) ? 1 : 0;
+      if (aFeatured !== bFeatured) return bFeatured - aFeatured;
+      return new Date(b.pushed_at || b.updated_at || 0) - new Date(a.pushed_at || a.updated_at || 0);
+    })
+    .slice(0, maxRecentRepos);
+
+  renderGitHubSummary(payload, sourceLabel);
+  renderBestEffortCounts(payload, sourceLabel);
+
+  repoGrid.innerHTML = sorted.map((repo, index) => {
+    const pageInfo = pagesByRepo.get(repo.name);
+    const pushedDays = daysSince(repo.pushed_at);
+    const width = activityWidth(repo, newestPushTime);
+    const topics = Array.isArray(repo.topics) ? repo.topics.slice(0, 6) : [];
+    const languageBreakdown = languageTotals[repo.name] || null;
+    const topLanguageBytes = languageBreakdown ? Object.entries(languageBreakdown).sort((a, b) => b[1] - a[1]).slice(0, 3) : [];
+    const homepage = repo.homepage || (pageInfo && pageInfo.html_url) || '';
+    const repoFreshness = pushedDays === null ? 'Unknown activity age' : pushedDays === 0 ? 'Pushed today' : `Pushed ${pushedDays} day${pushedDays === 1 ? '' : 's'} ago`;
+
+    return `
+      <article class="repo-card">
+        <div class="repo-title">
+          <a href="${escapeHtml(repo.html_url || '#')}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.full_name || repo.name || 'Repository')}</a>
+        </div>
+        <div class="repo-desc body-copy">${escapeHtml(repo.description || 'No description provided.')}</div>
+        <div class="repo-progress-bar" aria-label="Recent activity strength">
+          <span class="repo-progress-fill" style="--repo-activity-width:${escapeHtml(String(width))}%;"></span>
+        </div>
+        <div>
+          <span class="meta-chip">Rank: #${escapeHtml(String(index + 1))}</span>
+          <span class="meta-chip">${escapeHtml(repoFreshness)}</span>
+          <span class="meta-chip">Language: ${escapeHtml(repo.language || 'N/A')}</span>
+          <span class="meta-chip">Size: ${escapeHtml(numberWithCommas(repo.size || 0))} KB</span>
+        </div>
+        <div>
+          <span class="meta-chip">Stars: ${escapeHtml(numberWithCommas(repo.stargazers_count ?? 0))}</span>
+          <span class="meta-chip">Forks: ${escapeHtml(numberWithCommas(repo.forks_count ?? 0))}</span>
+          <span class="meta-chip">Watchers: ${escapeHtml(numberWithCommas(repo.watchers_count ?? 0))}</span>
+          <span class="meta-chip">Open issues: ${escapeHtml(numberWithCommas(repo.open_issues_count ?? 0))}</span>
+        </div>
+        <div>
+          <span class="meta-chip">Default branch: ${escapeHtml(repo.default_branch || 'main')}</span>
+          <span class="meta-chip">Created: ${escapeHtml(formatDate(repo.created_at))}</span>
+          <span class="meta-chip">Updated: ${escapeHtml(formatDate(repo.updated_at))}</span>
+          <span class="meta-chip">Last push: ${escapeHtml(formatDate(repo.pushed_at))}</span>
+        </div>
+        ${topLanguageBytes.length ? `
+          <div class="repo-topic-row">
+            ${topLanguageBytes.map(([lang, bytes]) => `<span class="repo-topic">${escapeHtml(lang)} · ${escapeHtml(numberWithCommas(bytes))} bytes</span>`).join('')}
+          </div>
+        ` : ''}
+        ${topics.length ? `
+          <div class="repo-topic-row">
+            ${topics.map(topic => `<span class="repo-topic">${escapeHtml(topic)}</span>`).join('')}
+          </div>
+        ` : ''}
+        <div class="repo-link-row">
+          ${homepage ? `<a class="mini-btn" href="${escapeHtml(homepage)}" target="_blank" rel="noopener noreferrer">Live page</a>` : ''}
+          ${pageInfo?.html_url ? `<a class="mini-btn" href="${escapeHtml(pageInfo.html_url)}" target="_blank" rel="noopener noreferrer">GitHub Pages</a>` : ''}
+          <a class="mini-btn" href="${escapeHtml((repo.html_url || '#') + '/commits/' + (repo.default_branch || 'main'))}" target="_blank" rel="noopener noreferrer">Recent commits</a>
+          <a class="mini-btn" href="${escapeHtml((repo.html_url || '#') + '/issues')}" target="_blank" rel="noopener noreferrer">Issues</a>
+        </div>
+        <div>
+          <span class="meta-chip">Visibility: ${escapeHtml(repo.visibility || (repo.private ? 'private' : 'public'))}</span>
+          <span class="meta-chip">Fork: ${escapeHtml(repo.fork ? 'yes' : 'no')}</span>
+          <span class="meta-chip">Archived: ${escapeHtml(repo.archived ? 'yes' : 'no')}</span>
+          <span class="meta-chip">Source: ${escapeHtml(sourceLabel)}</span>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+function readGitHubCache() {
+  try {
+    const raw = localStorage.getItem(GITHUB_CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || !Array.isArray(parsed.repos) || !parsed.timestamp) return null;
+    if (Date.now() - parsed.timestamp > GITHUB_CACHE_TTL_MS) return null;
+    return parsed;
+  } catch (error) {
+    console.warn('GitHub cache read failed', error);
+    return null;
+  }
+}
+
+function writeGitHubCache(payload) {
+  try {
+    localStorage.setItem(GITHUB_CACHE_KEY, JSON.stringify({
+      timestamp: Date.now(),
+      ...payload
+    }));
+  } catch (error) {
+    console.warn('GitHub cache write failed', error);
+  }
+}
+
+async function githubFetch(url) {
+  const response = await fetch(url, {
+    headers: {
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    },
+    cache: 'no-store'
+  });
+
+  if (!response.ok) {
+    throw new Error(`GitHub API responded with ${response.status} for ${url}`);
+  }
+
+  return response.json();
+}
+
+async function fetchGitHubUser(owner) {
+  return githubFetch(`https://api.github.com/users/${encodeURIComponent(owner)}`);
+}
+
+async function fetchAllPublicRepos(owner, includeForks = true, includeArchived = true) {
+  const allRepos = [];
+  for (let page = 1; page <= 10; page += 1) {
+    const url = `https://api.github.com/users/${encodeURIComponent(owner)}/repos?type=owner&sort=pushed&direction=desc&per_page=100&page=${page}`;
+    const repos = await githubFetch(url);
+    if (!Array.isArray(repos) || !repos.length) break;
+    allRepos.push(...repos);
+    if (repos.length < 100) break;
+  }
+
+  return allRepos.filter(repo => {
+    if (!includeForks && repo.fork) return false;
+    if (!includeArchived && repo.archived) return false;
+    return true;
+  });
+}
+
+async function fetchRepoPages(owner, repoName) {
+  try {
+    const data = await githubFetch(`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repoName)}/pages`);
+    return { repoName, ...data };
+  } catch (error) {
+    return null;
+  }
+}
+
+async function fetchRepoLanguages(owner, repoName) {
+  try {
+    const data = await githubFetch(`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repoName)}/languages`);
+    return { repoName, languages: data };
+  } catch (error) {
+    return { repoName, languages: null };
+  }
+}
+
+async function loadGitHubRepos(forceRefresh = false) {
+  const config = parseJsonScript('repoTargetsData', { username: 'Blairyfairy' });
+  const owner = config.username || 'Blairyfairy';
+  const includeForks = config.includeForks !== false;
+  const includeArchived = config.includeArchived !== false;
+  const maxPagesChecks = Math.max(0, Number(config.maxPagesChecks || 24));
+  const maxLanguageChecks = Math.max(0, Number(config.maxLanguageChecks || 16));
+
+  if (!forceRefresh) {
+    const cached = readGitHubCache();
+    if (cached) {
+      renderRepos(cached, 'local cache');
+      return;
+    }
+  }
+
+  setRepoGridMessage('Refreshing full GitHub signals…', 'Fetching public profile, public repositories, recent pushes, repo counts, Pages metadata, languages, stars, forks, watchers, and issue totals.');
+  renderBestEffortCountsMessage('Loading…', 'public GitHub counts + local page counter');
+  try {
+    const [user, repos] = await Promise.all([
+      fetchGitHubUser(owner),
+      fetchAllPublicRepos(owner, includeForks, includeArchived)
+    ]);
+
+    const recentRepos = repos
+      .slice()
+      .sort((a, b) => new Date(b.pushed_at || b.updated_at || 0) - new Date(a.pushed_at || a.updated_at || 0));
+
+    const pagesCheckedRepos = recentRepos
+      .filter(repo => repo.has_pages || repo.homepage || repo.name.toLowerCase().includes('page') || repo.name.toLowerCase().includes('portfolio'))
+      .slice(0, maxPagesChecks);
+
+    const languageCheckedRepos = recentRepos.slice(0, maxLanguageChecks);
+
+    const [pagesResults, languageResults] = await Promise.all([
+      Promise.all(pagesCheckedRepos.map(repo => fetchRepoPages(owner, repo.name))),
+      Promise.all(languageCheckedRepos.map(repo => fetchRepoLanguages(owner, repo.name)))
+    ]);
+
+    const languageTotals = {};
+    languageResults.forEach(item => {
+      if (item && item.languages) languageTotals[item.repoName] = item.languages;
+    });
+
+    const payload = {
+      timestamp: Date.now(),
+      user,
+      repos,
+      pages: pagesResults.filter(Boolean),
+      languageTotals
+    };
+
+    writeGitHubCache(payload);
+    renderRepos(payload, 'public GitHub API');
+  } catch (error) {
+    console.warn(error);
+    const cached = readGitHubCache();
+    if (cached) {
+      renderRepos(cached, 'stale local cache');
+      return;
+    }
+    setRepoGridMessage('GitHub repo fetch failed', 'The page could not load public GitHub metadata right now. This can happen because of network conditions, CORS blockers, or unauthenticated GitHub API rate limits.');
+    renderBestEffortCountsMessage('Public API blocked', 'local page counter still works in this browser');
+  }
+}
+
+function bindGitHubButtons() {
+  if (refreshGitHubBtn) {
+    refreshGitHubBtn.addEventListener('click', () => {
+      loadGitHubRepos(true);
+    });
+  }
+
+  if (clearGitHubCacheBtn) {
+    clearGitHubCacheBtn.addEventListener('click', () => {
+      try {
+        localStorage.removeItem(GITHUB_CACHE_KEY);
+      } catch (error) {
+        console.warn('Could not clear GitHub cache', error);
+      }
+      setRepoGridMessage('Cache cleared', 'Click refresh repo data to request fresh public GitHub metadata.');
+    });
+  }
+}
+
+
+/* =========================================================
+   BEST-EFFORT NO-KEY COUNTING UPGRADE
+   Overrides earlier counter helpers without deleting any lines.
+   Uses: public GitHub REST API, local browser counters, optional
+   no-key public hit badge image, cache fallback, and static fallback.
+   ========================================================= */
+const BEST_EFFORT_DAY_KEY = 'blair-linux-lordi-local-view-days-v2';
+const BEST_EFFORT_TOTAL_UNIQUE_DAYS_KEY = 'blair-linux-lordi-unique-day-count-v2';
+const BEST_EFFORT_LOAD_ID = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+const BEST_EFFORT_STATIC_REPOS = [
+  { name: 'BlairPage', full_name: 'Blairyfairy/BlairPage', html_url: 'https://github.com/Blairyfairy/BlairPage', homepage: 'https://blairyfairy.github.io/BlairPage/', description: 'Primary Blair Page GitHub Pages portfolio.', stargazers_count: 0, forks_count: 0, watchers_count: 0, open_issues_count: 0, has_pages: true, language: 'HTML', pushed_at: null, updated_at: null, created_at: null, default_branch: 'main', visibility: 'public', fork: false, archived: false, size: 0, topics: ['github-pages','portfolio','html'] },
+  { name: 'portfolio-card', full_name: 'Blairyfairy/portfolio-card', html_url: 'https://github.com/Blairyfairy/portfolio-card', homepage: 'https://blairyfairy.github.io/portfolio-card/', description: 'Public portfolio card page.', stargazers_count: 0, forks_count: 0, watchers_count: 0, open_issues_count: 0, has_pages: true, language: 'HTML', pushed_at: null, updated_at: null, created_at: null, default_branch: 'main', visibility: 'public', fork: false, archived: false, size: 0, topics: ['portfolio','github-pages'] },
+  { name: 'QuakeTracker', full_name: 'Blairyfairy/QuakeTracker', html_url: 'https://github.com/Blairyfairy/QuakeTracker', homepage: '', description: 'Public project fallback entry.', stargazers_count: 0, forks_count: 0, watchers_count: 0, open_issues_count: 0, has_pages: false, language: null, pushed_at: null, updated_at: null, created_at: null, default_branch: 'main', visibility: 'public', fork: false, archived: false, size: 0, topics: [] },
+  { name: 'WeatherWaypoint', full_name: 'Blairyfairy/WeatherWaypoint', html_url: 'https://github.com/Blairyfairy/WeatherWaypoint', homepage: '', description: 'Public project fallback entry.', stargazers_count: 0, forks_count: 0, watchers_count: 0, open_issues_count: 0, has_pages: false, language: null, pushed_at: null, updated_at: null, created_at: null, default_branch: 'main', visibility: 'public', fork: false, archived: false, size: 0, topics: [] }
+];
+let bestEffortLocalViewsSnapshot = null;
+
+function safeStorageGet(storage, key, fallback = null) {
+  try { return storage.getItem(key) ?? fallback; } catch (error) { return fallback; }
+}
+
+function safeStorageSet(storage, key, value) {
+  try { storage.setItem(key, value); return true; } catch (error) { return false; }
+}
+
+function updateBestEffortLocalViews() {
+  if (bestEffortLocalViewsSnapshot) return bestEffortLocalViewsSnapshot;
+
+  const now = new Date();
+  const todayKey = now.toISOString().slice(0, 10);
+  let totalViews = 1;
+  let firstSeen = now.toISOString();
+  let sessionSeen = 'new tab session';
+  let uniqueDays = 1;
+  let pathViews = 1;
+
+  const storedViews = Number(safeStorageGet(localStorage, BEST_EFFORT_VIEW_KEY, '0') || 0);
+  totalViews = storedViews + 1;
+  safeStorageSet(localStorage, BEST_EFFORT_VIEW_KEY, String(totalViews));
+
+  const pathKey = `${BEST_EFFORT_VIEW_KEY}:${location.pathname || 'page'}`;
+  pathViews = Number(safeStorageGet(localStorage, pathKey, '0') || 0) + 1;
+  safeStorageSet(localStorage, pathKey, String(pathViews));
+
+  const storedFirstSeen = safeStorageGet(localStorage, BEST_EFFORT_FIRST_SEEN_KEY, null);
+  if (storedFirstSeen) firstSeen = storedFirstSeen;
+  else safeStorageSet(localStorage, BEST_EFFORT_FIRST_SEEN_KEY, firstSeen);
+
+  const storedDays = safeStorageGet(localStorage, BEST_EFFORT_DAY_KEY, '[]');
+  let days = [];
+  try { days = JSON.parse(storedDays); } catch (error) { days = []; }
+  if (!Array.isArray(days)) days = [];
+  if (!days.includes(todayKey)) days.push(todayKey);
+  uniqueDays = days.length;
+  safeStorageSet(localStorage, BEST_EFFORT_DAY_KEY, JSON.stringify(days.slice(-366)));
+  safeStorageSet(localStorage, BEST_EFFORT_TOTAL_UNIQUE_DAYS_KEY, String(uniqueDays));
+
+  if (safeStorageGet(sessionStorage, BEST_EFFORT_SESSION_KEY, null)) {
+    sessionSeen = 'already counted this tab';
+  } else {
+    safeStorageSet(sessionStorage, BEST_EFFORT_SESSION_KEY, BEST_EFFORT_LOAD_ID);
+  }
+
+  bestEffortLocalViewsSnapshot = {
+    totalViews,
+    pathViews,
+    firstSeen,
+    sessionSeen,
+    uniqueDays,
+    firstSeenDays: daysSince(firstSeen)
+  };
+  return bestEffortLocalViewsSnapshot;
+}
+
+function currentPageHitBadgeUrl() {
+  const host = (location.hostname && location.hostname !== 'localhost') ? location.hostname : 'blairyfairy.github.io';
+  const path = location.pathname && location.pathname !== '/' ? location.pathname : '/BlairPage/linux_lordi_github_page.html';
+  const badgePath = `${host}${path}`.replace(/^https?:\/\//, '').replace(/[^a-zA-Z0-9._~:/?#\[\]@!$&'()*+,;=%-]/g, '-');
+  return `https://hits.sh/${badgePath}.svg?style=for-the-badge&label=public%20page%20hits&color=9e829c&labelColor=291528`;
+}
+
+function ensurePublicHitBadge() {
+  if (!bestEffortCountMeta || document.getElementById('bestEffortPublicHitBadge')) return;
+  const wrap = document.createElement('span');
+  wrap.className = 'meta-chip';
+  wrap.style.padding = '0';
+  wrap.style.overflow = 'hidden';
+  wrap.innerHTML = `<img id="bestEffortPublicHitBadge" src="${escapeHtml(currentPageHitBadgeUrl())}" alt="public no-key page hit badge" loading="lazy" style="display:block;height:24px;max-width:100%;border:0;">`;
+  bestEffortCountMeta.appendChild(wrap);
+}
+
+function renderBestEffortCounts(payload, sourceLabel) {
+  if (!bestEffortCountGrid) return;
+
+  const repos = payload && Array.isArray(payload.repos) ? payload.repos : [];
+  const stats = calculateRepoStats(repos);
+  const localViews = updateBestEffortLocalViews();
+  const user = payload && payload.user ? payload.user : {};
+  const blairPageRepo = repos.find(repo => String(repo.name || '').toLowerCase() === 'blairpage');
+  const pagesRepos = repos.filter(repo => repo.has_pages || repo.homepage).length;
+  const pushedRepos = repos.filter(repo => repo.pushed_at).length;
+  const ownRepos = repos.filter(repo => !repo.fork).length;
+  const forkRepos = repos.filter(repo => repo.fork).length;
+
+  bestEffortCountGrid.innerHTML = [
+    renderBestEffortCountCard(localViews.totalViews, 'local all-page loads'),
+    renderBestEffortCountCard(localViews.pathViews, 'local this-page loads'),
+    renderBestEffortCountCard(localViews.uniqueDays, 'local active days'),
+    renderBestEffortCountCard(user.public_repos ?? stats.total, 'GitHub public repos'),
+    renderBestEffortCountCard(stats.total, 'repos pulled/listed'),
+    renderBestEffortCountCard(ownRepos, 'source repos'),
+    renderBestEffortCountCard(forkRepos, 'fork repos'),
+    renderBestEffortCountCard(stats.stars, 'public stars'),
+    renderBestEffortCountCard(stats.forks, 'public forks'),
+    renderBestEffortCountCard(stats.watchers, 'public watchers'),
+    renderBestEffortCountCard(stats.openIssues, 'open issues'),
+    renderBestEffortCountCard(pagesRepos, 'pages/homepage repos'),
+    renderBestEffortCountCard(pushedRepos, 'repos with push dates'),
+    renderBestEffortCountCard(blairPageRepo ? (blairPageRepo.stargazers_count || 0) : 0, 'BlairPage stars'),
+    renderBestEffortCountCard(blairPageRepo ? (blairPageRepo.forks_count || 0) : 0, 'BlairPage forks'),
+    renderBestEffortCountCard(localViews.firstSeenDays ?? 0, 'days since first local view')
+  ].join('');
+
+  if (bestEffortCountMeta) {
+    bestEffortCountMeta.innerHTML = `
+      <span class="meta-chip">Source: ${escapeHtml(sourceLabel || 'public GitHub API')}</span>
+      <span class="meta-chip">No API key</span>
+      <span class="meta-chip">No private traffic endpoint</span>
+      <span class="meta-chip">Local counter: ${escapeHtml(localViews.sessionSeen)}</span>
+      <span class="meta-chip">First local view: ${escapeHtml(formatDate(localViews.firstSeen))}</span>
+      <span class="meta-chip">Public profile count: ${escapeHtml(numberWithCommas(user.public_repos ?? stats.total))}</span>
+    `;
+    ensurePublicHitBadge();
+  }
+}
+
+function renderBestEffortCountsMessage(title, message) {
+  if (!bestEffortCountGrid) return;
+  const localViews = updateBestEffortLocalViews();
+  bestEffortCountGrid.innerHTML = [
+    renderBestEffortCountCard(localViews.totalViews, 'local all-page loads'),
+    renderBestEffortCountCard(localViews.pathViews, 'local this-page loads'),
+    renderBestEffortCountCard(localViews.uniqueDays, 'local active days'),
+    `<div class="best-effort-count-card"><span class="best-effort-count-number">${escapeHtml(title)}</span><span class="best-effort-count-label">${escapeHtml(message)}</span></div>`
+  ].join('');
+  if (bestEffortCountMeta) {
+    bestEffortCountMeta.innerHTML = `
+      <span class="meta-chip">No API key</span>
+      <span class="meta-chip">Local browser count is active</span>
+      <span class="meta-chip">Public GitHub API will retry on refresh/cache</span>
+    `;
+    ensurePublicHitBadge();
+  }
+}
+
+async function githubFetchWithHeaders(url) {
+  const response = await fetch(url, {
+    headers: {
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    },
+    cache: 'no-store'
+  });
+
+  if (!response.ok) {
+    throw new Error(`GitHub API responded with ${response.status} for ${url}`);
+  }
+
+  const data = await response.json();
+  return { data, headers: response.headers };
+}
+
+async function fetchAllPublicRepos(owner, includeForks = true, includeArchived = true) {
+  const allRepos = [];
+  for (let page = 1; page <= 10; page += 1) {
+    const url = `https://api.github.com/users/${encodeURIComponent(owner)}/repos?type=owner&sort=pushed&direction=desc&per_page=100&page=${page}`;
+    const repos = await githubFetch(url);
+    if (!Array.isArray(repos) || !repos.length) break;
+    allRepos.push(...repos);
+    if (repos.length < 100) break;
+  }
+
+  const filtered = allRepos.filter(repo => {
+    if (!includeForks && repo.fork) return false;
+    if (!includeArchived && repo.archived) return false;
+    return true;
+  });
+
+  return filtered.length ? filtered : BEST_EFFORT_STATIC_REPOS;
+}
+
+async function loadGitHubRepos(forceRefresh = false) {
+  const config = parseJsonScript('repoTargetsData', { username: 'Blairyfairy' });
+  const owner = config.username || 'Blairyfairy';
+  const includeForks = config.includeForks !== false;
+  const includeArchived = config.includeArchived !== false;
+  const maxPagesChecks = Math.max(0, Number(config.maxPagesChecks || 24));
+  const maxLanguageChecks = Math.max(0, Number(config.maxLanguageChecks || 16));
+
+  if (!forceRefresh) {
+    const cached = readGitHubCache();
+    if (cached) {
+      renderRepos(cached, 'local cache');
+      return;
+    }
+  }
+
+  setRepoGridMessage('Refreshing best-effort GitHub signals…', 'Fetching no-key public profile, public repos, Pages/homepage hints, languages, stars, forks, watchers, open issues, and local page counts.');
+  renderBestEffortCountsMessage('Loading…', 'public GitHub counts + local page counter');
+
+  try {
+    const [user, repos] = await Promise.all([
+      fetchGitHubUser(owner),
+      fetchAllPublicRepos(owner, includeForks, includeArchived)
+    ]);
+
+    const recentRepos = repos
+      .slice()
+      .sort((a, b) => new Date(b.pushed_at || b.updated_at || 0) - new Date(a.pushed_at || a.updated_at || 0));
+
+    const pagesCheckedRepos = recentRepos
+      .filter(repo => repo.has_pages || repo.homepage || String(repo.name || '').toLowerCase().includes('page') || String(repo.name || '').toLowerCase().includes('portfolio'))
+      .slice(0, maxPagesChecks);
+
+    const languageCheckedRepos = recentRepos.slice(0, maxLanguageChecks);
+
+    const [pagesResults, languageResults] = await Promise.all([
+      Promise.all(pagesCheckedRepos.map(repo => fetchRepoPages(owner, repo.name))),
+      Promise.all(languageCheckedRepos.map(repo => fetchRepoLanguages(owner, repo.name)))
+    ]);
+
+    const languageTotals = {};
+    languageResults.forEach(item => {
+      if (item && item.languages) languageTotals[item.repoName] = item.languages;
+    });
+
+    const payload = {
+      timestamp: Date.now(),
+      user,
+      repos,
+      pages: pagesResults.filter(Boolean),
+      languageTotals
+    };
+
+    writeGitHubCache(payload);
+    renderRepos(payload, 'public GitHub API, no key');
+  } catch (error) {
+    console.warn(error);
+    const cached = readGitHubCache();
+    if (cached) {
+      renderRepos(cached, 'stale local cache fallback');
+      return;
+    }
+
+    const fallbackPayload = {
+      timestamp: Date.now(),
+      user: {
+        login: owner,
+        name: owner,
+        html_url: `https://github.com/${encodeURIComponent(owner)}`,
+        public_repos: BEST_EFFORT_STATIC_REPOS.length,
+        bio: 'Static fallback shown because the public GitHub API is blocked or rate-limited in this browser.'
+      },
+      repos: BEST_EFFORT_STATIC_REPOS,
+      pages: [],
+      languageTotals: {}
+    };
+    writeGitHubCache(fallbackPayload);
+    renderRepos(fallbackPayload, 'static no-key fallback after API block');
+  }
+}
+
+/* =========================================================
+   WHOLE GITHUB PAGES PAGE COUNTER — STRONGEST STATIC NO-KEY VERSION
+   Adds a real public hits.sh counter badge for the exact page URL,
+   plus local/session/unique-day fallback counts and full public repo totals.
+   ========================================================= */
+const GITHUB_PAGES_COUNTER_BADGE_ID = 'githubPagesWholePageHitCounterBadge';
+const GITHUB_PAGES_COUNTER_STATUS_ID = 'githubPagesWholePageCounterStatus';
+const GITHUB_PAGES_COUNTER_CANONICAL_PATH = '/BlairPage/linux_lordi_github_page.html';
+
+function githubPagesCounterUrlParts() {
+  const canonicalEl = document.querySelector('link[rel="canonical"]');
+  const canonicalHref = canonicalEl ? canonicalEl.getAttribute('href') : '';
+  const liveHost = location.hostname && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1'
+    ? location.hostname
+    : 'blairyfairy.github.io';
+  let livePath = location.pathname && location.pathname !== '/' ? location.pathname : GITHUB_PAGES_COUNTER_CANONICAL_PATH;
+
+  if ((!location.pathname || location.pathname === '/' || location.protocol === 'file:') && canonicalHref) {
+    livePath = canonicalHref.startsWith('/') ? canonicalHref : `/BlairPage/${canonicalHref.replace(/^\.\//, '')}`;
+  }
+
+  if (!livePath.startsWith('/')) livePath = `/${livePath}`;
+  return { host: liveHost, path: livePath, fullUrl: `https://${liveHost}${livePath}` };
+}
+
+function githubPagesHitsShBadgeUrl(label = 'linux%20lordi%20page%20hits') {
+  const parts = githubPagesCounterUrlParts();
+  const badgeKey = `${parts.host}${parts.path}`
+    .replace(/^https?:\/\//, '')
+    .replace(/\/+/g, '/')
+    .replace(/[^a-zA-Z0-9._~:/?#\[\]@!$&'()*+,;=%-]/g, '-');
+  return `https://hits.sh/${badgeKey}.svg?style=for-the-badge&label=${label}&color=9e829c&labelColor=291528`;
+}
+
+function githubRepoHitsShBadgeUrl() {
+  return 'https://hits.sh/github.com/Blairyfairy/BlairPage.svg?style=for-the-badge&label=repo%20hits&color=9e829c&labelColor=291528';
+}
+
+function renderGitHubPagesCounterBadgeCard() {
+  const parts = githubPagesCounterUrlParts();
+  return `
+    <div class="best-effort-count-card github-pages-public-counter-card">
+      <span class="best-effort-count-number" id="linuxLordiPageHitsLabel">Live</span>
+      <span class="best-effort-count-label">Linux Lordi Page Hits</span>
+      <span class="github-pages-hit-badge-wrap">
+        <img id="${GITHUB_PAGES_COUNTER_BADGE_ID}" src="${escapeHtml(githubPagesHitsShBadgeUrl())}" alt="Linux Lordi page hit counter for ${escapeHtml(parts.fullUrl)}" loading="eager" referrerpolicy="no-referrer-when-downgrade">
+      </span>
+      <span id="${GITHUB_PAGES_COUNTER_STATUS_ID}" class="best-effort-count-label"><span class="counter-health-dot warn"></span>loading Linux Lordi page counter for ${escapeHtml(parts.path)}</span>
+    </div>
+  `;
+}
+
+function renderGitHubRepoCounterBadgeCard() {
+  return `
+    <div class="best-effort-count-card github-pages-public-counter-card">
+      <span class="best-effort-count-label">public repo hit badge</span>
+      <span class="github-pages-hit-badge-wrap">
+        <img src="${escapeHtml(githubRepoHitsShBadgeUrl())}" alt="Public repo hit counter badge" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </span>
+      <span class="best-effort-count-label">no key · public badge · external counter</span>
+    </div>
+  `;
+}
+
+function bindGitHubPagesCounterBadgeHealth() {
+  const img = document.getElementById(GITHUB_PAGES_COUNTER_BADGE_ID);
+  const status = document.getElementById(GITHUB_PAGES_COUNTER_STATUS_ID);
+  if (!img || !status) return;
+
+  const markOk = () => {
+    status.innerHTML = '<span class="counter-health-dot ok"></span>Linux Lordi page counter loaded';
+  };
+  const markWarn = () => {
+    status.innerHTML = '<span class="counter-health-dot warn"></span>public badge blocked; local fallback still active';
+  };
+
+  if (img.complete && img.naturalWidth > 0) markOk();
+  img.addEventListener('load', markOk, { once: true });
+  img.addEventListener('error', markWarn, { once: true });
+}
+
+function ensurePublicHitBadge() {
+  /* Intentionally no-op now: the whole-page counter card renders exactly one
+     main counting badge, which avoids accidental duplicate hit increments. */
+}
+
+function renderBestEffortCounts(payload, sourceLabel) {
+  if (!bestEffortCountGrid) return;
+
+  const repos = payload && Array.isArray(payload.repos) ? payload.repos : [];
+  const stats = calculateRepoStats(repos);
+  const localViews = updateBestEffortLocalViews();
+  const user = payload && payload.user ? payload.user : {};
+  const blairPageRepo = repos.find(repo => String(repo.name || '').toLowerCase() === 'blairpage');
+  const pagesRepos = repos.filter(repo => repo.has_pages || repo.homepage).length;
+  const pushedRepos = repos.filter(repo => repo.pushed_at).length;
+  const ownRepos = repos.filter(repo => !repo.fork).length;
+  const forkRepos = repos.filter(repo => repo.fork).length;
+  const totalRepoSizeKb = repos.reduce((sum, repo) => sum + Number(repo.size || 0), 0);
+  const languages = new Set(repos.map(repo => repo.language).filter(Boolean));
+
+  bestEffortCountGrid.innerHTML = [
+    renderGitHubPagesCounterBadgeCard(),
+    renderGitHubRepoCounterBadgeCard(),
+    renderBestEffortCountCard(localViews.totalViews, 'local all-page loads'),
+    renderBestEffortCountCard(localViews.pathViews, 'local this-page loads'),
+    renderBestEffortCountCard(localViews.uniqueDays, 'local active days'),
+    renderBestEffortCountCard(user.public_repos ?? stats.total, 'GitHub public repo total'),
+    renderBestEffortCountCard(stats.total, 'repos pulled/listed'),
+    renderBestEffortCountCard(ownRepos, 'source repos'),
+    renderBestEffortCountCard(forkRepos, 'fork repos'),
+    renderBestEffortCountCard(stats.stars, 'public stars'),
+    renderBestEffortCountCard(stats.forks, 'public forks'),
+    renderBestEffortCountCard(stats.watchers, 'public watchers'),
+    renderBestEffortCountCard(stats.openIssues, 'open issues'),
+    renderBestEffortCountCard(pagesRepos, 'pages/homepage repos'),
+    renderBestEffortCountCard(pushedRepos, 'repos with push dates'),
+    renderBestEffortCountCard(languages.size, 'languages detected'),
+    renderBestEffortCountCard(numberWithCommas(totalRepoSizeKb), 'repo size KB listed'),
+    renderBestEffortCountCard(blairPageRepo ? (blairPageRepo.stargazers_count || 0) : 0, 'BlairPage stars'),
+    renderBestEffortCountCard(blairPageRepo ? (blairPageRepo.forks_count || 0) : 0, 'BlairPage forks'),
+    renderBestEffortCountCard(localViews.firstSeenDays ?? 0, 'days since first local view')
+  ].join('');
+
+  if (bestEffortCountMeta) {
+    const parts = githubPagesCounterUrlParts();
+    bestEffortCountMeta.innerHTML = `
+      <span class="meta-chip">Linux Lordi page counter: hits.sh public SVG</span>
+      <span class="meta-chip">Counter URL: ${escapeHtml(parts.host + parts.path)}</span>
+      <span class="meta-chip">Source: ${escapeHtml(sourceLabel || 'public GitHub API')}</span>
+      <span class="meta-chip">No API key</span>
+      <span class="meta-chip">No private GitHub Traffic endpoint</span>
+      <span class="meta-chip">Local fallback: ${escapeHtml(localViews.sessionSeen)}</span>
+      <span class="meta-chip">First local view: ${escapeHtml(formatDate(localViews.firstSeen))}</span>
+      <span class="meta-chip">GitHub public profile count: ${escapeHtml(numberWithCommas(user.public_repos ?? stats.total))}</span>
+    `;
+  }
+  bindGitHubPagesCounterBadgeHealth();
+}
+
+function renderBestEffortCountsMessage(title, message) {
+  if (!bestEffortCountGrid) return;
+  const localViews = updateBestEffortLocalViews();
+  bestEffortCountGrid.innerHTML = [
+    renderGitHubPagesCounterBadgeCard(),
+    renderGitHubRepoCounterBadgeCard(),
+    renderBestEffortCountCard(localViews.totalViews, 'local all-page loads'),
+    renderBestEffortCountCard(localViews.pathViews, 'local this-page loads'),
+    renderBestEffortCountCard(localViews.uniqueDays, 'local active days'),
+    `<div class="best-effort-count-card"><span class="best-effort-count-number">${escapeHtml(title)}</span><span class="best-effort-count-label">${escapeHtml(message)}</span></div>`
+  ].join('');
+  if (bestEffortCountMeta) {
+    const parts = githubPagesCounterUrlParts();
+    bestEffortCountMeta.innerHTML = `
+      <span class="meta-chip">Linux Lordi page counter: hits.sh public SVG</span>
+      <span class="meta-chip">Counter URL: ${escapeHtml(parts.host + parts.path)}</span>
+      <span class="meta-chip">No API key</span>
+      <span class="meta-chip">Local browser fallback active</span>
+      <span class="meta-chip">Public GitHub API will retry on refresh/cache</span>
+    `;
+  }
+  bindGitHubPagesCounterBadgeHealth();
+}
+/* =========================================================
+   END WHOLE GITHUB PAGES PAGE COUNTER
+   ========================================================= */
+
+/* =========================================================
+   END BEST-EFFORT NO-KEY COUNTING UPGRADE
+   ========================================================= */
+
+function init() {
+  applySavedTheme();
+  bindThemeToggle();
+  bindScrollTop();
+  renderTimeline();
+  bindTrackButtons();
+  bindGarbage007Buttons();
+  bindGitHubButtons();
+  loadGitHubRepos(false);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+} else {
+  init();
+}
+</script>
+
+<script>
+(function () {
+  const id = 'forced-scrollbar-style';
+  if (document.getElementById(id)) return;
+
+  const style = document.createElement('style');
+  style.id = id;
+
+  style.textContent = `
+  ::-webkit-scrollbar {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.35) !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba(158,130,156,0.85),
+      rgba(58,62,59,0.85)
+    ) !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(240,239,244,0.2) !important;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(240,239,244,0.9),
+      rgba(158,130,156,0.9)
+    ) !important;
+  }
+
+  html, body {
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(158,130,156,0.9) rgba(0,0,0,0.35) !important;
+  }
+
+  body.dark ::-webkit-scrollbar-track {
+    background: rgba(5,7,10,0.6) !important;
+  }
+
+  body.dark ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba(158,130,156,0.9),
+      rgba(20,24,36,0.9)
+    ) !important;
+  }
+  `;
+
+  document.head.appendChild(style);
+})();
+</script>
+<script id="force-youtube-fallback">
+(function () {
+  const player = document.getElementById('lordiPlayer');
+  if (!player) return;
+
+  const fallbackVideo = "https://www.youtube-nocookie.com/embed/muWsZLwu7Qg?autoplay=1&mute=1&rel=0&loop=1";
+
+  let failed = false;
+
+  function forceCheck() {
+    try {
+      const src = player.src || "";
+
+      // if still on blocked video after load → force replace
+      if (!failed && src.includes("uGe8qID9gSs")) {
+        failed = true;
+
+        console.warn("Primary video blocked → forcing fallback");
+
+        player.src = fallbackVideo;
+
+        const nowSelected = document.getElementById('nowSelected');
+        if (nowSelected) {
+          nowSelected.textContent = "Fallback: Who's Your Daddy";
+        }
+      }
+    } catch (e) {
+      console.warn("Fallback check error", e);
+    }
+  }
+
+  // run multiple times to overpower embed delay
+  setTimeout(forceCheck, 1200);
+  setTimeout(forceCheck, 2500);
+  setTimeout(forceCheck, 4000);
+
+})();
+
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>006 // 666 Bitwise Video Player</title>
+  <style>
+    :root {
+      --void: #050008;
+      --black: #09000f;
+      --blood: #b00020;
+      --blood-hot: #ff003c;
+      --ember: #ff3b00;
+      --gold: #ffcc66;
+      --purple: #6b00ff;
+      --violet: #b100ff;
+      --text: #f5e8e8;
+      --muted: #bfa7b8;
+      --glass: rgba(18, 0, 28, 0.72);
+      --line: rgba(255, 0, 60, 0.45);
+      --glow: 0 0 18px rgba(255, 0, 60, 0.85), 0 0 44px rgba(107, 0, 255, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--void);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 50% 10%, rgba(255, 0, 60, 0.24), transparent 28rem),
+        radial-gradient(circle at 12% 88%, rgba(107, 0, 255, 0.28), transparent 30rem),
+        radial-gradient(circle at 90% 70%, rgba(255, 59, 0, 0.18), transparent 24rem),
+        linear-gradient(135deg, #020004 0%, #09000f 48%, #180014 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      opacity: 0.23;
+      background-image:
+        linear-gradient(rgba(255, 0, 60, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(177, 0, 255, 0.12) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle at center, black, transparent 78%);
+      animation: gridDrift 16s linear infinite;
+    }
+
+    body::after {
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.025) 0px,
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 2px,
+          transparent 5px
+        );
+      mix-blend-mode: screen;
+      opacity: 0.33;
+    }
+
+    @keyframes gridDrift {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(32px, 32px, 0); }
+    }
+
+    .sigil-ring {
+      position: fixed;
+      width: min(72vw, 760px);
+      aspect-ratio: 1;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(255, 0, 60, 0.22);
+      border-radius: 50%;
+      box-shadow: inset 0 0 60px rgba(255, 0, 60, 0.10), 0 0 80px rgba(107, 0, 255, 0.15);
+      z-index: 0;
+      opacity: 0.65;
+      animation: slowSpin 66s linear infinite;
+    }
+
+    .sigil-ring::before,
+    .sigil-ring::after {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border: 1px dashed rgba(255, 204, 102, 0.18);
+      border-radius: 50%;
+    }
+
+    .sigil-ring::after {
+      inset: 20%;
+      border-style: solid;
+      border-color: rgba(177, 0, 255, 0.20);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 56%, 79% 91%, 50% 70%, 21% 91%, 32% 56%, 2% 35%, 39% 35%);
+      border-radius: 0;
+    }
+
+    @keyframes slowSpin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      padding: 42px 0;
+    }
+
+    .player-shell {
+      position: relative;
+      border: 1px solid rgba(255, 0, 60, 0.42);
+      border-radius: 28px;
+      padding: clamp(18px, 3vw, 34px);
+      background:
+        linear-gradient(135deg, rgba(255, 0, 60, 0.10), transparent 32%),
+        linear-gradient(315deg, rgba(107, 0, 255, 0.16), transparent 42%),
+        var(--glass);
+      box-shadow:
+        0 0 0 1px rgba(255, 204, 102, 0.08) inset,
+        0 24px 90px rgba(0, 0, 0, 0.62),
+        var(--glow);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .player-shell::before {
+      content: "0110 0110 0110  //  006  //  666";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: clamp(2.6rem, 9vw, 8.4rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: rgba(255, 0, 60, 0.055);
+      transform: rotate(-8deg);
+      white-space: nowrap;
+      z-index: -1;
+    }
+
+    .player-shell::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: conic-gradient(from 0deg, transparent, rgba(255, 0, 60, 0.62), rgba(177, 0, 255, 0.58), transparent, rgba(255, 204, 102, 0.38), transparent);
+      filter: blur(22px);
+      opacity: 0.38;
+      z-index: -2;
+      animation: aura 10s linear infinite;
+    }
+
+    @keyframes aura {
+      to { transform: rotate(360deg); }
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mark {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 204, 102, 0.38);
+      background:
+        radial-gradient(circle at 50% 45%, rgba(255, 0, 60, 0.52), transparent 58%),
+        linear-gradient(135deg, rgba(107, 0, 255, 0.75), rgba(10, 0, 15, 0.9));
+      box-shadow: 0 0 26px rgba(255, 0, 60, 0.46);
+      font-size: 1.4rem;
+      font-weight: 950;
+      color: #fff4e8;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 4.25rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(255, 0, 60, 0.72);
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.88rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 13px;
+      border: 1px solid rgba(255, 0, 60, 0.38);
+      border-radius: 999px;
+      color: #ffe4e4;
+      background: rgba(0, 0, 0, 0.28);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.78rem;
+      box-shadow: inset 0 0 18px rgba(255, 0, 60, 0.12);
+    }
+
+    .pulse {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--blood-hot);
+      box-shadow: 0 0 16px var(--blood-hot);
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.82); opacity: 0.55; }
+      50% { transform: scale(1.18); opacity: 1; }
+    }
+
+    .video-frame {
+      position: relative;
+      padding: 10px;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(255, 204, 102, 0.28), transparent 22%, rgba(255, 0, 60, 0.25) 55%, rgba(107, 0, 255, 0.32)),
+        #050008;
+      border: 1px solid rgba(255, 204, 102, 0.24);
+      box-shadow: 0 0 44px rgba(255, 0, 60, 0.28);
+    }
+
+    .video-frame::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 0, 60, 0.55);
+      clip-path: polygon(0 0, 22% 0, 22% 4px, 78% 4px, 78% 0, 100% 0, 100% 100%, 78% 100%, 78% calc(100% - 4px), 22% calc(100% - 4px), 22% 100%, 0 100%);
+      pointer-events: none;
+    }
+
+    .video-aspect {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #000;
+    }
+
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .runes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .rune-card {
+      min-height: 92px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(177, 0, 255, 0.34);
+      background: rgba(0, 0, 0, 0.28);
+      box-shadow: inset 0 0 22px rgba(107, 0, 255, 0.12);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .rune-card::after {
+      content: attr(data-code);
+      position: absolute;
+      right: 12px;
+      bottom: -8px;
+      font-size: 3.5rem;
+      font-weight: 950;
+      color: rgba(255, 0, 60, 0.09);
+      letter-spacing: -0.1em;
+    }
+
+    .rune-card strong {
+      display: block;
+      color: #fff1d6;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .rune-card span {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .footer-strip {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 0, 60, 0.24);
+      color: rgba(245, 232, 232, 0.74);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .hex {
+      color: var(--gold);
+      text-shadow: 0 0 12px rgba(255, 204, 102, 0.5);
+    }
+
+    .glitch {
+      position: relative;
+      display: inline-block;
+      color: #fff;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.68;
+    }
+
+    .glitch::before {
+      color: var(--blood-hot);
+      transform: translate(2px, 0);
+      clip-path: inset(0 0 58% 0);
+      animation: glitchOne 2.4s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      color: var(--violet);
+      transform: translate(-2px, 0);
+      clip-path: inset(52% 0 0 0);
+      animation: glitchTwo 2.1s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitchOne {
+      0%, 84%, 100% { transform: translate(2px, 0); }
+      85% { transform: translate(6px, -2px); }
+      90% { transform: translate(-3px, 1px); }
+    }
+
+    @keyframes glitchTwo {
+      0%, 78%, 100% { transform: translate(-2px, 0); }
+      80% { transform: translate(-7px, 2px); }
+      86% { transform: translate(3px, -1px); }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(100% - 22px, 1180px);
+        padding: 24px 0;
+      }
+
+      .player-shell {
+        border-radius: 22px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .brand {
+        align-items: flex-start;
+      }
+
+      .mark {
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        font-size: 1.08rem;
+      }
+
+      .runes {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-strip {
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  
+/* =========================================================
+   BEST-EFFORT NO-KEY GITHUB + PAGE VIEW COUNTS
+   Public GitHub API + local browser-only view count
+   ========================================================= */
+.best-effort-count-panel{
+  margin:1rem 0 !important;
+  padding:1rem !important;
+  border-radius:16px !important;
+  background:rgba(255,255,255,.05) !important;
+  border:1px solid rgba(240,239,244,0.14) !important;
+  box-shadow:var(--shadow-soft) !important;
+}
+
+.best-effort-count-panel .source-note{
+  margin:.75rem 0 0 0 !important;
+}
+
+.best-effort-count-grid{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:.75rem !important;
+  margin:.85rem 0 .75rem !important;
+}
+
+.best-effort-count-card{
+  padding:.85rem .9rem !important;
+  border-radius:14px !important;
+  background:var(--panel-dark) !important;
+  border:1px solid rgba(240,239,244,0.1) !important;
+  box-shadow:var(--shadow-soft) !important;
+}
+
+.best-effort-count-number{
+  display:block !important;
+  font-size:clamp(1.2rem,3vw,2rem) !important;
+  font-weight:800 !important;
+  color:var(--ghost-white) !important;
+  line-height:1.1 !important;
+}
+
+.best-effort-count-label{
+  display:block !important;
+  margin-top:.22rem !important;
+  color:rgba(240,239,244,.76) !important;
+  font-size:.76rem !important;
+  text-transform:uppercase !important;
+  letter-spacing:.08em !important;
+}
+
+.best-effort-count-meta{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:.35rem !important;
+  align-items:center !important;
+}
+
+@media(max-width:900px){
+  .best-effort-count-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+
+@media(max-width:520px){
+  .best-effort-count-grid{
+    grid-template-columns:1fr !important;
+  }
+}
+/* =========================================================
+   END BEST-EFFORT NO-KEY COUNTS
+   ========================================================= */
+</style>
+</head>
+<body>
+  <div class="sigil-ring" aria-hidden="true"></div>
+
+  <main class="page">
+    <section class="player-shell" aria-label="006 666 Bitwise YouTube Video Player">
+      <header class="topbar">
+        <div class="brand">
+          <div class="mark">006</div>
+          <div>
+            <h1><span class="glitch" data-text="Bitwise 666">Bitwise 666</span></h1>
+            <p class="subtitle">YouTube Player // infernal signal decoder // hex ritual mode</p>
+          </div>
+        </div>
+        <div class="status"><span class="pulse"></span> STREAM_LOCK: 0x29A // 666</div>
+      </header>
+
+      <div class="video-frame">
+        <div class="video-aspect">
+          <iframe
+            src="https://www.youtube.com/embed/IWTXBxpubwU?si=n_yp0z8R8xo3GqNK&rel=0&modestbranding=1"
+            title="006 666 Bitwise YouTube Player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <section class="runes" aria-label="Player theme details">
+        <div class="rune-card" data-code="006">
+          <strong>006 Kernel</strong>
+          <span>Dark glass UI, binary signal texture, crimson/violet glow, responsive 16:9 video frame.</span>
+        </div>
+        <div class="rune-card" data-code="666">
+          <strong>666 Overlay</strong>
+          <span>Animated sigil ring, glitch headline, infernal red scanline texture, high-contrast occult styling.</span>
+        </div>
+        <div class="rune-card" data-code="0x29A">
+          <strong>Bitwise Hex</strong>
+          <span>666 decimal equals <span class="hex">0x29A</span> in hex, styled as the stream lock signature.</span>
+        </div>
+      </section>
+
+      <footer class="footer-strip">
+        <span>binary: 1010011010</span>
+        <span>decimal: 666</span>
+        <span>hex: <span class="hex">0x29A</span></span>
+        <span>mode: 006</span>
+      </footer>
+    </section>
+  </main>
+<!-- =========================================================
+     MOBILE ANTI-GLITCH / NO-BLANK / NO-SPIN OVERRIDE LAYER
+     Forced append only — keeps all original code intact
+     Append directly before </body>
+     ========================================================= -->
+
+<style id="mobileAntiGlitchOverride">
+
+/* -----------------------------------------
+   GLOBAL HARD STABILITY LAYER
+----------------------------------------- */
+
+html{
+  overflow-x:hidden !important;
+  width:100% !important;
+  max-width:100% !important;
+
+  -webkit-text-size-adjust:100% !important;
+
+  background:#0b0b10 !important;
+}
+
+body{
+  overflow-x:hidden !important;
+  width:100% !important;
+  max-width:100% !important;
+
+  min-height:100vh !important;
+  min-height:100dvh !important;
+
+  position:relative !important;
+
+  isolation:isolate !important;
+
+  overscroll-behavior-y:none !important;
+
+  background-attachment:scroll !important;
+
+  transform:none !important;
+}
+
+/* stop random viewport explosions */
+*,
+*::before,
+*::after{
+  box-sizing:border-box !important;
+}
+
+/* -----------------------------------------
+   HERO / BACKGROUND STABILIZATION
+----------------------------------------- */
+
+.hero,
+.hero::before,
+.hero::after{
+  transform:none !important;
+  animation:none !important;
+
+  will-change:auto !important;
+
+  backface-visibility:hidden !important;
+
+  contain:paint layout style !important;
+}
+
+/* -----------------------------------------
+   GLASS / BLUR FALLBACKS
+----------------------------------------- */
+
+.page-card,
+.player-panel,
+.timeline-panel,
+.info-panel,
+.status-panel,
+.reference-panel,
+.github-panel,
+.player-frame-wrap{
+  transform:translateZ(0) !important;
+
+  backface-visibility:hidden !important;
+
+  contain:layout paint style !important;
+
+  overflow:hidden !important;
+}
+
+/* mobile browsers hate heavy blur stacks */
+@media (max-width:900px){
+
+  .page-card,
+  .player-panel,
+  .timeline-panel,
+  .info-panel,
+  .status-panel,
+  .reference-panel,
+  .github-panel,
+  .player-frame-wrap{
+
+    backdrop-filter:blur(6px) !important;
+    -webkit-backdrop-filter:blur(6px) !important;
+  }
+}
+
+/* -----------------------------------------
+   YOUTUBE PLAYER HARD STABILIZATION
+----------------------------------------- */
+
+.player-frame-wrap{
+  position:relative !important;
+
+  width:100% !important;
+  max-width:100% !important;
+
+  overflow:hidden !important;
+
+  background:#000 !important;
+
+  isolation:isolate !important;
+}
+
+.player-frame-wrap iframe,
+.player-frame,
+#lordiPlayer{
+  position:absolute !important;
+  inset:0 !important;
+
+  width:100% !important;
+  height:100% !important;
+
+  display:block !important;
+
+  border:none !important;
+
+  background:#000 !important;
+
+  transform:translateZ(0) !important;
+
+  backface-visibility:hidden !important;
+
+  will-change:auto !important;
+}
+
+/* -----------------------------------------
+   FIX MOBILE SCROLL / WHITE FLASH BUGS
+----------------------------------------- */
+
+body::before{
+  content:"";
+
+  position:fixed;
+  inset:0;
+
+  pointer-events:none;
+
+  z-index:-1;
+
+  background:
+    linear-gradient(
+      135deg,
+      #050507 0%,
+      #11131b 50%,
+      #1a1d28 100%
+    );
+
+  transform:translateZ(0);
+}
+
+/* -----------------------------------------
+   STOP TRANSFORM CASCADE BUGS
+----------------------------------------- */
+
+.page-shell,
+.content-grid,
+.kv-grid,
+.repo-grid,
+.timeline-list{
+  transform:none !important;
+}
+
+/* -----------------------------------------
+   IMAGE / MEDIA STABILITY
+----------------------------------------- */
+
+img,
+iframe,
+video,
+canvas{
+  max-width:100% !important;
+
+  image-rendering:auto !important;
+
+  transform:translateZ(0);
+
+  backface-visibility:hidden;
+}
+
+/* -----------------------------------------
+   MOBILE SAFE AREA
+----------------------------------------- */
+
+@supports (padding:max(0px)){
+
+  body{
+    padding-left:env(safe-area-inset-left) !important;
+    padding-right:env(safe-area-inset-right) !important;
+  }
+}
+
+/* -----------------------------------------
+   MOBILE VIEWPORT HARD FIX
+----------------------------------------- */
+
+@media (max-width:900px){
+
+  html,
+  body{
+    width:100vw !important;
+    max-width:100vw !important;
+
+    overflow-x:hidden !important;
+  }
+
+  .page-shell{
+    width:100% !important;
+    max-width:100% !important;
+
+    overflow:hidden !important;
+  }
+
+  .content-grid{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+
+    width:100% !important;
+
+    overflow:hidden !important;
+  }
+
+  .player-frame-wrap{
+    width:100% !important;
+    max-width:100% !important;
+  }
+}
+
+/* -----------------------------------------
+   REDUCE GPU CHAOS ON SMALL DEVICES
+----------------------------------------- */
+
+@media (max-width:640px){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:0s !important;
+    transition-duration:0.18s !important;
+  }
+
+  .hero::after{
+    opacity:0.5 !important;
+  }
+
+  .page-card::before{
+    opacity:0.4 !important;
+  }
+}
+
+/* -----------------------------------------
+   FORCE PREVENT RANDOM BLANKING
+----------------------------------------- */
+
+body,
+main,
+section,
+div{
+  visibility:visible !important;
+  opacity:1 !important;
+}
+
+/* -----------------------------------------
+   IOS SAFARI iframe FIX
+----------------------------------------- */
+
+iframe{
+  -webkit-transform:translate3d(0,0,0) !important;
+}
+
+/* -----------------------------------------
+   FORCE COMPOSITING STABILITY
+----------------------------------------- */
+
+.page-card,
+.player-frame-wrap,
+.github-panel{
+  will-change:auto !important;
+}
+
+/* -----------------------------------------
+   REMOVE ACCIDENTAL HORIZONTAL DRIFT
+----------------------------------------- */
+
+.top-bar,
+.page-shell,
+.page-card,
+.content-grid{
+  left:auto !important;
+  right:auto !important;
+}
+
+/* -----------------------------------------
+   FINAL MOBILE HARD LOCK
+----------------------------------------- */
+
+@media (max-width:480px){
+
+  body{
+    font-size:16px !important;
+  }
+
+  .page-card{
+    border-radius:16px !important;
+  }
+
+  .player-frame-wrap{
+    border-radius:16px !important;
+  }
+
+  .player-frame-wrap iframe{
+    border-radius:16px !important;
+  }
+}
+
+</style>
+
+<script id="mobileAntiGlitchJS">
+(function(){
+
+  'use strict';
+
+  /* -----------------------------------------
+     FORCE SAFE RENDER LOOP
+  ----------------------------------------- */
+
+  function stabilizeViewport(){
+
+    document.documentElement.style.overflowX = 'hidden';
+    document.body.style.overflowX = 'hidden';
+
+    document.body.style.minHeight = window.innerHeight + 'px';
+  }
+
+  /* -----------------------------------------
+     PREVENT BLANK WHITE iframe STATES
+  ----------------------------------------- */
+
+  function stabilizeIframes(){
+
+    const frames = document.querySelectorAll('iframe');
+
+    frames.forEach((frame) => {
+
+      frame.setAttribute('loading','eager');
+
+      frame.style.visibility = 'visible';
+      frame.style.opacity = '1';
+
+      frame.addEventListener('error', () => {
+        frame.style.background = '#000';
+      });
+
+    });
+  }
+
+  /* -----------------------------------------
+     STOP RANDOM MOBILE TRANSFORM BUGS
+  ----------------------------------------- */
+
+  function removeBadTransforms(){
+
+    const badNodes = document.querySelectorAll(
+      '.content-grid,.page-shell,.page-card'
+    );
+
+    badNodes.forEach((el)=>{
+      el.style.transform = 'none';
+    });
+  }
+
+  /* -----------------------------------------
+     FORCE REPAINT WITHOUT FLASHING
+  ----------------------------------------- */
+
+  function safeRepaint(){
+
+    document.body.style.display='none';
+
+    requestAnimationFrame(()=>{
+      document.body.style.display='';
+    });
+  }
+
+  /* -----------------------------------------
+     MOBILE ORIENTATION FIX
+  ----------------------------------------- */
+
+  let resizeTimer;
+
+  function onResizeFix(){
+
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(()=>{
+
+      stabilizeViewport();
+      stabilizeIframes();
+      removeBadTransforms();
+
+    },120);
+  }
+
+  /* -----------------------------------------
+     INIT
+  ----------------------------------------- */
+
+  window.addEventListener('load', () => {
+
+    stabilizeViewport();
+    stabilizeIframes();
+    removeBadTransforms();
+
+    setTimeout(safeRepaint,80);
+
+  });
+
+  window.addEventListener(
+    'resize',
+    onResizeFix,
+    { passive:true }
+  );
+
+  window.addEventListener(
+    'orientationchange',
+    () => {
+      setTimeout(onResizeFix,160);
+    },
+    { passive:true }
+  );
+
+})();
+</script>
+<!-- ==========================================
+   FIXED LEFT FLOATING PLAYER
+   UPDATED DEFAULT VIDEO ID: Quf3-P3wNJU
+   METALOCALYPSE / U.N. / BEASTBLADE VERSION
+   STARTS CLOSED
+   EMBED-ONLY: DOES NOT OPEN YOUTUBE OFF PAGE
+   ========================================== -->
+<script>
+(function () {
+  var VIDEO_ID = 'Quf3-P3wNJU';
+
+  var PLAYER_ID = 'left-floating-player-2';
+  var BUTTON_ID = 'left-floating-button-2';
+  var STYLE_ID = 'left-floating-player-style-2';
+  var OPTIONS_ID = 'left-floating-video-options-2';
+
+  var VIDEO_OPTIONS = [
+    {
+      id: 'Quf3-P3wNJU',
+      label: 'Addressing the U.N. | Metalocalypse | Adult Swim'
+    },
+    {
+      id: 'JvtHeRyhMnM',
+      label: 'Beastblade'
+    },
+    {
+      id: 'f00mNL5sJ0s',
+      label: 'Liar (Murder Mix by Brendon Small / Adult Swim’s Metalocalypse)'
+    },
+    {
+      id: '3Hz3rv2pMgM',
+      label: 'Assistant Manager Training | Metalocalypse | Adult Swim'
+    },
+    {
+      id: 'gkjW9PZBRfk',
+      label: 'Emma Watson at the HeForShe Campaign 2014 - Official UN Video'
+    },
+    {
+      id: 'Oh4UBxPEEuk',
+      label: 'draco malfoy | boss bitch'
+    }
+  ];
+
+  var activeVideoId = VIDEO_ID;
+  var activeVideoTitle = 'Addressing the U.N. | Metalocalypse | Adult Swim';
+
+  var EMBED_BASE = 'https://www.youtube.com/embed/';
+
+  function buildSrc(muted) {
+    return EMBED_BASE + activeVideoId +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&playsinline=1' +
+      '&rel=0' +
+      '&modestbranding=1' +
+      '&enablejsapi=1';
+  }
+
+  function removeOld() {
+    var oldPlayer = document.getElementById(PLAYER_ID);
+    var oldButton = document.getElementById(BUTTON_ID);
+    var oldStyle = document.getElementById(STYLE_ID);
+    var oldOptions = document.getElementById(OPTIONS_ID);
+
+    if (oldPlayer) oldPlayer.parentNode.removeChild(oldPlayer);
+    if (oldButton) oldButton.parentNode.removeChild(oldButton);
+    if (oldStyle) oldStyle.parentNode.removeChild(oldStyle);
+    if (oldOptions) oldOptions.parentNode.removeChild(oldOptions);
+  }
+
+  function injectStyle() {
+    var style = document.createElement('style');
+    style.id = STYLE_ID;
+
+    style.innerHTML =
+      '#' + PLAYER_ID + '{' +
+        'position:fixed!important;' +
+        'left:20px!important;' +
+        'bottom:78px!important;' +
+        'width:260px!important;' +
+        'height:150px!important;' +
+        'z-index:2147483000!important;' +
+        'border-radius:12px!important;' +
+        'overflow:hidden!important;' +
+        'background:#000!important;' +
+        'box-shadow:0 10px 25px rgba(0,0,0,.6)!important;' +
+        'display:none!important;' +
+      '}' +
+
+      '#' + PLAYER_ID + '.open{' +
+        'display:block!important;' +
+      '}' +
+
+      '#' + OPTIONS_ID + '{' +
+        'position:fixed!important;' +
+        'left:20px!important;' +
+        'bottom:236px!important;' +
+        'width:260px!important;' +
+        'z-index:2147483002!important;' +
+        'display:none!important;' +
+        'grid-template-columns:1fr!important;' +
+        'gap:6px!important;' +
+        'padding:8px!important;' +
+        'border-radius:12px!important;' +
+        'background:rgba(23,14,32,.84)!important;' +
+        'border:1px solid rgba(240,239,244,.28)!important;' +
+        'box-shadow:0 10px 25px rgba(0,0,0,.50)!important;' +
+        'backdrop-filter:blur(10px)!important;' +
+        '-webkit-backdrop-filter:blur(10px)!important;' +
+        'box-sizing:border-box!important;' +
+        'max-height:44vh!important;' +
+        'overflow-y:auto!important;' +
+        'overscroll-behavior:contain!important;' +
+      '}' +
+
+      '#' + OPTIONS_ID + '.open{' +
+        'display:grid!important;' +
+      '}' +
+
+      '#' + OPTIONS_ID + ' button{' +
+        'width:100%!important;' +
+        'max-width:100%!important;' +
+        'min-width:0!important;' +
+        'box-sizing:border-box!important;' +
+        'border:1px solid rgba(255,255,255,.22)!important;' +
+        'border-radius:10px!important;' +
+        'padding:6px 7px!important;' +
+        'background:rgba(255,255,255,.12)!important;' +
+        'color:#fff!important;' +
+        'font:700 10.5px/1.18 Inter,system-ui,sans-serif!important;' +
+        'text-align:left!important;' +
+        'cursor:pointer!important;' +
+        'white-space:normal!important;' +
+        'overflow-wrap:anywhere!important;' +
+        'word-break:normal!important;' +
+        'box-shadow:none!important;' +
+      '}' +
+
+      '#' + OPTIONS_ID + ' button.active,' +
+      '#' + OPTIONS_ID + ' button:hover{' +
+        'background:rgba(158,130,156,.42)!important;' +
+      '}' +
+
+      '#' + PLAYER_ID + ' iframe{' +
+        'width:100%!important;' +
+        'height:100%!important;' +
+        'border:0!important;' +
+        'display:block!important;' +
+        'background:#000!important;' +
+      '}' +
+
+      '#' + BUTTON_ID + '{' +
+        'position:fixed!important;' +
+        'left:20px!important;' +
+        'bottom:20px!important;' +
+        'width:52px!important;' +
+        'height:52px!important;' +
+        'z-index:2147483001!important;' +
+        'border-radius:50%!important;' +
+        'border:1px solid rgba(240,239,244,.35)!important;' +
+        'background:rgba(58,62,59,.72)!important;' +
+        'color:#fff!important;' +
+        'cursor:pointer!important;' +
+        'font-size:1.15rem!important;' +
+        'font-weight:700!important;' +
+        'display:flex!important;' +
+        'align-items:center!important;' +
+        'justify-content:center!important;' +
+        'box-shadow:0 8px 20px rgba(0,0,0,.45)!important;' +
+        'backdrop-filter:blur(8px)!important;' +
+        '-webkit-backdrop-filter:blur(8px)!important;' +
+        'touch-action:manipulation!important;' +
+      '}' +
+
+      '#' + BUTTON_ID + ':hover{' +
+        'background:rgba(158,130,156,.34)!important;' +
+        'transform:translateY(-2px)!important;' +
+      '}' +
+
+      '@media(max-width:640px){' +
+        '#' + PLAYER_ID + '{' +
+          'left:12px!important;' +
+          'bottom:72px!important;' +
+          'width:calc(100vw - 24px)!important;' +
+          'height:calc((100vw - 24px) * .5625)!important;' +
+        '}' +
+        '#' + OPTIONS_ID + '{' +
+          'left:12px!important;' +
+          'bottom:calc(72px + ((100vw - 24px) * .5625) + 8px)!important;' +
+          'width:calc(100vw - 24px)!important;' +
+          'grid-template-columns:repeat(2,minmax(0,1fr))!important;' +
+          'gap:6px!important;' +
+          'padding:7px!important;' +
+          'max-height:38vh!important;' +
+        '}' +
+        '#' + OPTIONS_ID + ' button{' +
+          'font-size:9.5px!important;' +
+          'line-height:1.12!important;' +
+          'padding:6px!important;' +
+        '}' +
+        '#' + BUTTON_ID + '{' +
+          'left:12px!important;' +
+          'bottom:12px!important;' +
+        '}' +
+      '}';
+
+    document.head.appendChild(style);
+  }
+
+  function createPlayer() {
+    removeOld();
+    injectStyle();
+
+    var player = document.createElement('div');
+    player.id = PLAYER_ID;
+
+    var options = document.createElement('div');
+    options.id = OPTIONS_ID;
+
+    var button = document.createElement('button');
+    button.id = BUTTON_ID;
+    button.type = 'button';
+    button.setAttribute('aria-label', activeVideoTitle);
+    button.setAttribute('title', activeVideoTitle);
+    button.setAttribute('data-video-id', activeVideoId);
+    button.setAttribute('data-video-title', activeVideoTitle);
+    button.setAttribute('data-safe-video-query', activeVideoTitle);
+
+    var state = 'closed';
+
+    function setButton() {
+      if (state === 'closed') button.innerHTML = '▶';
+      if (state === 'muted') button.innerHTML = '🔊';
+      if (state === 'playing') button.innerHTML = '🔇';
+      if (state === 'stopped') button.innerHTML = '✕';
+      button.setAttribute('aria-label', activeVideoTitle);
+      button.setAttribute('title', activeVideoTitle);
+      button.setAttribute('data-video-id', activeVideoId);
+      button.setAttribute('data-video-title', activeVideoTitle);
+      button.setAttribute('data-safe-video-query', activeVideoTitle);
+    }
+
+    function pauseOtherYouTubeFrames() {
+      document.querySelectorAll('iframe[src*="youtube.com/embed/"], iframe[src*="youtube-nocookie.com/embed/"]').forEach(function (otherFrame) {
+        if (otherFrame.contentWindow) {
+          try {
+            otherFrame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+          } catch (e) {}
+        }
+      });
+    }
+
+    function loadIframe(muted) {
+      pauseOtherYouTubeFrames();
+
+      player.innerHTML =
+        '<iframe ' +
+          'src="' + buildSrc(muted) + '" ' +
+          'title="' + activeVideoTitle.replace(/"/g, '&quot;') + '" ' +
+          'allow="autoplay; encrypted-media; picture-in-picture; web-share" ' +
+          'allowfullscreen>' +
+        '</iframe>';
+    }
+
+    VIDEO_OPTIONS.forEach(function(item){
+      var optionButton = document.createElement('button');
+      optionButton.type = 'button';
+      optionButton.textContent = item.label;
+      optionButton.setAttribute('data-video-id', item.id);
+      optionButton.setAttribute('data-video-title', item.label);
+
+      if(item.id === activeVideoId) {
+        optionButton.className = 'active';
+      }
+
+      optionButton.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        activeVideoId = item.id;
+        activeVideoTitle = item.label;
+
+        options.querySelectorAll('button').forEach(function(btn){
+          btn.classList.remove('active');
+        });
+
+        optionButton.classList.add('active');
+
+        setButton();
+
+        if(state === 'closed') {
+          state = 'muted';
+          player.classList.add('open');
+          options.classList.add('open');
+          loadIframe(true);
+          setButton();
+          return;
+        }
+
+        if(state === 'muted') loadIframe(true);
+        if(state === 'playing') loadIframe(false);
+
+        if(state === 'stopped') {
+          state = 'muted';
+          player.classList.add('open');
+          options.classList.add('open');
+          loadIframe(true);
+          setButton();
+        }
+      });
+
+      options.appendChild(optionButton);
+    });
+
+    function openMuted() {
+      state = 'muted';
+      player.classList.add('open');
+      options.classList.add('open');
+      loadIframe(true);
+      setButton();
+    }
+
+    function openUnmuted() {
+      state = 'playing';
+      player.classList.add('open');
+      options.classList.add('open');
+      loadIframe(false);
+      setButton();
+    }
+
+    function stopOpen() {
+      state = 'stopped';
+      player.innerHTML = '';
+      player.classList.add('open');
+      options.classList.add('open');
+      setButton();
+    }
+
+    function closeAll() {
+      state = 'closed';
+      player.innerHTML = '';
+      player.classList.remove('open');
+      options.classList.remove('open');
+      setButton();
+    }
+
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (state === 'closed') {
+        openMuted();
+        return;
+      }
+
+      if (state === 'muted') {
+        openUnmuted();
+        return;
+      }
+
+      if (state === 'playing') {
+        stopOpen();
+        return;
+      }
+
+      if (state === 'stopped') {
+        closeAll();
+        return;
+      }
+    });
+
+    document.body.appendChild(player);
+    document.body.appendChild(options);
+    document.body.appendChild(button);
+
+    closeAll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createPlayer);
+  } else {
+    createPlayer();
+  }
+})();
+</script>
+<style>
+/* =========================================================
+   FORCE APPEND: NON-DESKTOP SCROLL + DESKTOP-LIKE SCALE FIX
+   For linux_lordi_github_page.html
+   Desktop stays untouched above 900px.
+========================================================= */
+
+@media(max-width:900px){
+
+  html,
+  body{
+    width:100% !important;
+    min-width:0 !important;
+    min-height:100% !important;
+    height:auto !important;
+
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+
+    position:relative !important;
+    overscroll-behavior-y:auto !important;
+    -webkit-overflow-scrolling:touch !important;
+
+    scroll-behavior:auto !important;
+    touch-action:pan-y !important;
+  }
+
+  body{
+    display:block !important;
+    contain:none !important;
+  }
+
+  .hero{
+    position:fixed !important;
+    inset:0 !important;
+    width:100vw !important;
+    height:100dvh !important;
+    min-height:100dvh !important;
+
+    z-index:-10 !important;
+    pointer-events:none !important;
+
+    transform:none !important;
+    will-change:auto !important;
+    contain:none !important;
+
+    background:var(--bg-light) !important;
+    background-image:var(--bg-light) !important;
+    background-size:cover !important;
+    background-position:center center !important;
+    background-repeat:no-repeat !important;
+  }
+
+  .hero::after{
+    position:absolute !important;
+    inset:0 !important;
+    transform:none !important;
+    will-change:auto !important;
+  }
+
+  .top-bar{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+
+    width:100% !important;
+    max-width:1280px !important;
+
+    margin:0 auto !important;
+    padding:12px 16px 4px !important;
+
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) auto !important;
+    grid-template-areas:
+      "cred toggle"
+      "nav nav" !important;
+
+    gap:4px 10px !important;
+
+    z-index:50 !important;
+  }
+
+  .credential-header{
+    max-width:100% !important;
+    font-size:.58rem !important;
+    line-height:1.1 !important;
+  }
+
+  #themeToggle{
+    grid-area:toggle !important;
+    position:relative !important;
+    justify-self:end !important;
+    align-self:start !important;
+  }
+
+  .site-nav{
+    grid-area:nav !important;
+
+    display:flex !important;
+    flex-wrap:wrap !important;
+    justify-content:flex-start !important;
+    align-items:center !important;
+
+    gap:6px 10px !important;
+    width:100% !important;
+
+    margin:2px 0 0 !important;
+    padding:0 !important;
+  }
+
+  .site-nav a{
+    margin:0 !important;
+    font-size:.72rem !important;
+    line-height:1.15 !important;
+    white-space:nowrap !important;
+  }
+
+  .logo-top-left{
+    position:absolute !important;
+    top:76px !important;
+    left:14px !important;
+
+    width:48px !important;
+    height:48px !important;
+
+    z-index:45 !important;
+    transform:none !important;
+  }
+
+  .page-shell{
+    width:min(100% - 20px,1280px) !important;
+    max-width:1280px !important;
+
+    margin:0 auto !important;
+    padding:26px 0 28px !important;
+
+    position:relative !important;
+    z-index:2 !important;
+
+    transform:none !important;
+    contain:none !important;
+  }
+
+  .page-card{
+    width:100% !important;
+    max-width:100% !important;
+
+    padding:clamp(1rem,3vw,1.3rem) !important;
+    border-radius:18px !important;
+
+    overflow:visible !important;
+    transform:none !important;
+    contain:none !important;
+  }
+
+  .page-title{
+    font-size:clamp(2rem,7vw,3.4rem) !important;
+    line-height:1.02 !important;
+  }
+
+  .page-subtitle{
+    font-size:clamp(.9rem,2.5vw,1rem) !important;
+    line-height:1.65 !important;
+    max-width:1040px !important;
+  }
+
+  .content-grid{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:1rem !important;
+    width:100% !important;
+  }
+
+  .info-panel,
+  .player-panel,
+  .reference-panel,
+  .timeline-panel,
+  .seo-panel,
+  .github-panel,
+  .status-panel,
+  .embed-panel{
+    width:100% !important;
+    max-width:100% !important;
+
+    padding:1rem !important;
+    border-radius:16px !important;
+
+    overflow:visible !important;
+    transform:none !important;
+    contain:none !important;
+  }
+
+  .player-panel{
+    overflow:visible !important;
+  }
+
+  .player-frame-wrap{
+    position:relative !important;
+    width:100% !important;
+    max-width:100% !important;
+
+    aspect-ratio:16 / 9 !important;
+    height:auto !important;
+    min-height:0 !important;
+
+    overflow:hidden !important;
+    border-radius:18px !important;
+
+    contain:none !important;
+    transform:none !important;
+    isolation:isolate !important;
+  }
+
+  .player-frame-wrap::before{
+    display:none !important;
+    content:none !important;
+  }
+
+  .player-frame,
+  #lordiPlayer,
+  .player-frame-wrap iframe{
+    position:relative !important;
+    inset:auto !important;
+
+    display:block !important;
+
+    width:100% !important;
+    height:auto !important;
+    min-height:0 !important;
+
+    aspect-ratio:16 / 9 !important;
+
+    border:0 !important;
+    border-radius:18px !important;
+
+    transform:none !important;
+    will-change:auto !important;
+    contain:none !important;
+    clip-path:none !important;
+  }
+
+  .track-controls,
+  .viewer-actions,
+  .mini-actions{
+    display:flex !important;
+    flex-wrap:wrap !important;
+    justify-content:center !important;
+    align-items:center !important;
+
+    gap:.65rem !important;
+    width:100% !important;
+  }
+
+  .action-btn,
+  .track-btn,
+  .mini-btn,
+  .theme-btn{
+    transform:none !important;
+    transition:none !important;
+  }
+
+  .track-btn{
+    flex:1 1 calc(50% - .65rem) !important;
+    min-width:0 !important;
+
+    white-space:normal !important;
+    text-align:center !important;
+
+    font-size:.8rem !important;
+    line-height:1.15 !important;
+    padding:.72rem .8rem !important;
+  }
+
+  .kv-grid,
+  .github-overview-grid,
+  .github-count-grid,
+  .github-pages-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:.75rem !important;
+  }
+
+  .github-profile-card{
+    display:grid !important;
+    grid-template-columns:auto minmax(0,1fr) !important;
+    text-align:left !important;
+  }
+
+  .egg-sw-badge{
+    max-width:100% !important;
+    padding:18px 26px !important;
+  }
+
+  .egg-sw-badge .label{
+    font-size:clamp(1.25rem,6vw,2.1rem) !important;
+  }
+
+  .egg-sw-badge .sub{
+    font-size:clamp(.82rem,4vw,1.3rem) !important;
+  }
+
+  .jag-seen-btn{
+    display:inline-flex !important;
+    max-width:100% !important;
+
+    white-space:normal !important;
+    text-align:center !important;
+
+    font-size:clamp(.78rem,3vw,1rem) !important;
+    line-height:1.25 !important;
+  }
+
+  img,
+  iframe,
+  video,
+  canvas,
+  svg{
+    max-width:100% !important;
+  }
+
+  *{
+    max-width:100% !important;
+  }
+}
+
+@media(max-width:520px){
+
+  .page-shell{
+    width:calc(100% - 18px) !important;
+    padding-top:22px !important;
+  }
+
+  .page-card{
+    padding:.95rem !important;
+  }
+
+  .logo-top-left{
+    top:82px !important;
+    width:44px !important;
+    height:44px !important;
+  }
+
+  .site-nav a{
+    font-size:.68rem !important;
+  }
+
+  .page-title{
+    font-size:clamp(1.8rem,9vw,2.4rem) !important;
+  }
+
+  .page-subtitle{
+    font-size:.88rem !important;
+    line-height:1.58 !important;
+  }
+
+  .track-btn,
+  .action-btn,
+  .mini-btn{
+    flex:1 1 100% !important;
+    width:100% !important;
+  }
+
+  .kv-grid,
+  .github-overview-grid,
+  .github-count-grid,
+  .github-pages-grid,
+  .github-profile-card{
+    grid-template-columns:1fr !important;
+  }
+
+  .github-profile-card{
+    text-align:center !important;
+  }
+
+  .github-avatar{
+    margin:0 auto !important;
+  }
+
+  .player-frame-wrap,
+  .player-frame,
+  #lordiPlayer,
+  .player-frame-wrap iframe{
+    border-radius:16px !important;
+  }
+}
+</style>
+  
+<style>
+/* =========================================================
+   FORCE APPEND REPLACEMENT:
+   NON-DESKTOP SCROLL + FLICKER + FOOTER BG GAP FIX
+   Replace the last blink/flicker block with this.
+========================================================= */
+
+@media(max-width:900px){
+
+  html{
+    min-height:100% !important;
+    height:auto !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    background:#050507 !important;
+  }
+
+  body{
+    min-height:100vh !important;
+    min-height:100svh !important;
+    height:auto !important;
+
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+
+    position:relative !important;
+
+    background:
+      linear-gradient(
+        135deg,
+        #050507 0%,
+        #0d0f16 28%,
+        #141824 58%,
+        #1c1f2b 78%,
+        #26212d 100%
+      ) !important;
+
+    background-repeat:no-repeat !important;
+    background-size:100% 100% !important;
+    background-attachment:scroll !important;
+  }
+
+  body::before{
+    content:"" !important;
+    position:absolute !important;
+    inset:0 !important;
+    min-height:100% !important;
+
+    z-index:-20 !important;
+    pointer-events:none !important;
+
+    background:
+      linear-gradient(
+        135deg,
+        #050507 0%,
+        #0d0f16 28%,
+        #141824 58%,
+        #1c1f2b 78%,
+        #26212d 100%
+      ) !important;
+
+    background-repeat:no-repeat !important;
+    background-size:100% 100% !important;
+  }
+
+  .hero{
+    position:absolute !important;
+    inset:0 !important;
+
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+
+    z-index:-10 !important;
+    pointer-events:none !important;
+
+    overflow:hidden !important;
+
+    background:
+      linear-gradient(
+        135deg,
+        #050507 0%,
+        #0d0f16 28%,
+        #141824 58%,
+        #1c1f2b 78%,
+        #26212d 100%
+      ) !important;
+
+    background-repeat:no-repeat !important;
+    background-size:100% 100% !important;
+    background-position:center top !important;
+
+    transform:none !important;
+    will-change:auto !important;
+  }
+
+  .hero::after{
+    content:"" !important;
+    position:absolute !important;
+    inset:0 !important;
+
+    background:
+      radial-gradient(circle at 20% 15%, rgba(240,239,244,0.075), transparent 22%),
+      radial-gradient(circle at 78% 28%, rgba(158,130,156,0.16), transparent 24%),
+      radial-gradient(circle at 62% 78%, rgba(240,239,244,0.06), transparent 18%),
+      linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.32)) !important;
+
+    transform:none !important;
+    will-change:auto !important;
+    pointer-events:none !important;
+  }
+
+  .page-shell{
+    position:relative !important;
+    z-index:2 !important;
+
+    min-height:calc(100svh - 1px) !important;
+    padding-bottom:42px !important;
+
+    transform:none !important;
+    will-change:auto !important;
+  }
+
+  .page-card{
+    position:relative !important;
+    z-index:2 !important;
+
+    overflow:visible !important;
+
+    background:rgba(8,10,14,.44) !important;
+    border:1px solid rgba(240,239,244,.14) !important;
+    box-shadow:0 14px 34px rgba(0,0,0,.42) !important;
+
+    transform:none !important;
+    will-change:auto !important;
+  }
+
+  .page-card::before{
+    display:block !important;
+    opacity:.55 !important;
+    transform:none !important;
+  }
+
+  .info-panel,
+  .player-panel,
+  .reference-panel,
+  .timeline-panel,
+  .seo-panel,
+  .github-panel,
+  .status-panel,
+  .embed-panel,
+  .timeline-item,
+  .status-item,
+  .repo-card,
+  .kv-card,
+  .github-stat-card,
+  .github-profile-card,
+  .pages-card{
+    background:rgba(255,255,255,.045) !important;
+    border-color:rgba(240,239,244,.13) !important;
+
+    transform:none !important;
+    will-change:auto !important;
+
+    animation:none !important;
+  }
+
+  .player-frame-wrap{
+    transform:none !important;
+    will-change:auto !important;
+
+    overflow:hidden !important;
+    isolation:isolate !important;
+
+    clip-path:none !important;
+    -webkit-mask-image:none !important;
+    mask-image:none !important;
+  }
+
+  .player-frame-wrap::after{
+    opacity:.35 !important;
+    pointer-events:none !important;
+  }
+
+  .player-frame,
+  #lordiPlayer,
+  .player-frame-wrap iframe{
+    transform:none !important;
+    will-change:auto !important;
+
+    clip-path:none !important;
+    -webkit-mask-image:none !important;
+    mask-image:none !important;
+  }
+
+  .top-bar,
+  .logo-top-left,
+  .page-scroll-top{
+    transform:none !important;
+    will-change:auto !important;
+  }
+
+  .theme-btn,
+  .action-btn,
+  .track-btn,
+  .mini-btn,
+  .jag-seen-btn,
+  .egg-sw-badge{
+    will-change:auto !important;
+  }
+
+  .theme-btn:hover,
+  .action-btn:hover,
+  .track-btn:hover,
+  .mini-btn:hover,
+  .jag-seen-btn:hover,
+  .egg-sw-badge:hover,
+  .logo-top-left:hover{
+    transform:none !important;
+  }
+
+  .page-scroll-top{
+    position:fixed !important;
+    right:18px !important;
+    bottom:18px !important;
+    z-index:10050 !important;
+  }
+}
+
+@media(max-width:520px){
+
+  body,
+  body::before,
+  .hero{
+    background-size:100% 100% !important;
+  }
+
+  .page-shell{
+    padding-bottom:56px !important;
+  }
+
+  .page-card{
+    background:rgba(8,10,14,.52) !important;
+  }
+
+  .info-panel,
+  .player-panel,
+  .reference-panel,
+  .timeline-panel,
+  .seo-panel,
+  .github-panel,
+  .status-panel,
+  .embed-panel{
+    background:rgba(255,255,255,.05) !important;
+  }
+}
+</style>
+<div class="footer-counter" style="margin-top:12px;text-align:center;">
+    <img
+        src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
+        alt="Portfolio Visitors"
+        style="border-radius:8px;opacity:.9;">
+</div>
+</body>
+</html>
+</body>
+</html>

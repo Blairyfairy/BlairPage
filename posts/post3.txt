@@ -1,0 +1,361 @@
+<article class="blog-post">
+
+<style>
+.blog-post {
+  padding: 1.5rem;
+  border-radius: 14px;
+}
+
+.blog-post p,
+.blog-post li {
+  margin-bottom: 0.7em;
+  font-size: 1.1rem;
+  line-height: 1.65;
+}
+
+.blog-post h1 {
+  margin-bottom: 0.4em;
+  font-weight: 600;
+}
+
+.blog-post h2 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  font-size: 1.35rem;
+  border-bottom: 1px solid;
+  padding-bottom: 0.3em;
+}
+
+.blog-post .post-meta {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  margin-bottom: 1em;
+}
+
+.blog-post .seo-intro {
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.blog-post table {
+  margin: 0.9em 0;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.blog-post table th,
+.blog-post table td {
+  padding: 0.85em 1em;
+  text-align: left;
+}
+
+.blog-post table thead th {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.blog-post table tbody tr {
+  border-top: 1px solid;
+}
+
+.blog-post table tbody tr:hover {
+}
+</style>
+
+<header>
+
+<h1>Magento on AWS Architecture for SMB E-Commerce: Multi-AZ Scaling, Redis Caching, and Elasticsearch Performance</h1>
+
+<p class="post-meta">
+Written by <strong>Blair Page</strong> • March 11, 2026
+</p>
+
+<p class="seo-intro">
+Magento (Adobe Commerce Open Source) is a powerful e-commerce platform built for businesses that require advanced catalog management, complex checkout workflows, and deep customization. However, that flexibility comes with higher infrastructure demands. For SMBs, the key to success is not just choosing Magento—it’s deploying it on a cloud architecture that delivers speed, reliability, and scalability. AWS provides the foundation to achieve this through distributed systems, managed services, and performance-focused infrastructure design. This article also includes practical deployment tips, code snippets, and architecture best practices for SMB developers.
+</p>
+
+</header>
+
+<section>
+
+<h2>Introduction: Why Magento Requires Strong Infrastructure</h2>
+
+<p>
+Magento is designed for high-volume product catalogs, complex pricing structures, and integrations with inventory, marketing, and logistics systems. These capabilities provide a competitive advantage—but also significantly increase infrastructure requirements compared to simpler platforms.
+</p>
+
+<p>
+Every page request can trigger multiple database queries, indexing operations, and dynamic rendering processes. Without proper optimization, this leads to slow load times, degraded search performance, and checkout friction—all of which directly impact conversion rates and revenue.
+</p>
+
+<p>
+A well-architected AWS environment separates responsibilities across services—application, database, caching, and search—allowing each layer to scale independently and perform efficiently under load.
+</p>
+
+<ul>
+<li>Deploy separate EC2 instances for web, application, and background tasks (cron, indexing).</li>
+<li>Use Virtual Private Cloud (VPC) for secure network isolation.</li>
+<li>Consider S3 for media storage with CloudFront CDN for fast global delivery.</li>
+</ul>
+
+</section>
+
+<section>
+
+<h2>Core Magento Infrastructure on AWS</h2>
+
+<p>
+A production-ready Magento deployment relies on a layered architecture designed for both performance and resilience:
+</p>
+
+<table class="info-table">
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+<th>Business Value</th>
+<th>Estimated Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EC2 Application Servers</td>
+<td>Hosts Magento application and web server stack</td>
+<td>Handles traffic, supports scaling, ensures responsiveness</td>
+<td>$100 – $200</td>
+</tr>
+<tr>
+<td>Amazon RDS (Multi-AZ)</td>
+<td>Managed database with failover capability</td>
+<td>Protects transactional data and ensures uptime</td>
+<td>$100 – $200</td>
+</tr>
+<tr>
+<td>Redis Caching Cluster</td>
+<td>In-memory caching for objects and sessions</td>
+<td>Improves performance and reduces database load</td>
+<td>$50 – $120</td>
+</tr>
+<tr>
+<td>OpenSearch / Elasticsearch</td>
+<td>Dedicated search and indexing engine</td>
+<td>Fast product discovery and filtering</td>
+<td>$50 – $120</td>
+</tr>
+<tr>
+<td>CloudFront CDN</td>
+<td>Global asset delivery network</td>
+<td>Faster load times and reduced origin load</td>
+<td>$10 – $50</td>
+</tr>
+<tr>
+<td>VPC & Security Groups</td>
+<td>Network isolation and firewalling</td>
+<td>Enhances security and compliance</td>
+<td>$0 – included</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+
+<section>
+
+<h2>Redis Caching and Persistent Cart Sessions</h2>
+
+<p>
+Magento benefits significantly from separating caching responsibilities across Redis instances. This ensures stability and consistent performance across sessions and page loads.
+</p>
+
+<p>
+Using separate Redis layers prevents conflicts between cached content and user session data, which is critical for maintaining persistent carts and a smooth checkout experience.
+</p>
+
+<table class="info-table">
+<thead>
+<tr>
+<th>Redis Layer</th>
+<th>Purpose</th>
+<th>Business Impact</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary Cache Node</td>
+<td>Object and full-page cache</td>
+<td>Reduces load times and server processing</td>
+<td>Handles most read-heavy operations</td>
+</tr>
+<tr>
+<td>Session Node</td>
+<td>User sessions and cart data</td>
+<td>Maintains cart persistence across devices</td>
+<td>Prevents cache eviction issues</td>
+</tr>
+<tr>
+<td>Replica Node</td>
+<td>Failover and redundancy</td>
+<td>Ensures uptime during failures</td>
+<td>Managed through ElastiCache</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>
+// Example: Connect Magento to Redis
+define('REDIS_SERVER', 'my-redis-endpoint');
+define('REDIS_PORT', 6379);
+$cache = new Redis();
+$cache->connect(REDIS_SERVER, REDIS_PORT);
+</code></pre>
+
+</section>
+
+<section>
+
+<h2>Improving Magento Search Performance with Elasticsearch</h2>
+
+<p>
+Search is one of the most critical components of the Magento user experience. Without optimization, search queries can overload the database and slow down the entire application.
+</p>
+
+<p>
+By offloading search to a dedicated Elasticsearch or OpenSearch cluster, Magento can deliver fast, accurate product results without impacting checkout or page rendering performance.
+</p>
+
+<table class="info-table">
+<thead>
+<tr>
+<th>Search Component</th>
+<th>Function</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search Cluster</td>
+<td>Indexes product catalog data</td>
+<td>Fast search results and filtering</td>
+</tr>
+<tr>
+<td>Dedicated Nodes</td>
+<td>Handles query load independently</td>
+<td>Prevents application slowdowns</td>
+</tr>
+<tr>
+<td>Replica Nodes</td>
+<td>Provides redundancy</td>
+<td>Ensures high availability</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>
+// Example: Configure Magento to use Elasticsearch
+bin/magento config:set catalog/search/engine elasticsearch7
+bin/magento cache:flush
+</code></pre>
+
+</section>
+
+<section>
+
+<h2>Estimated Infrastructure Costs for SMB Magento Stores</h2>
+
+<p>
+Magento infrastructure can be cost-efficient when designed correctly, allowing SMBs to scale without unnecessary overhead:
+</p>
+
+<table class="info-table">
+<thead>
+<tr>
+<th>Component</th>
+<th>Estimated Cost</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application Servers</td>
+<td>$100 – $200</td>
+<td>Handles storefront traffic and logic</td>
+</tr>
+<tr>
+<td>Database (Multi-AZ)</td>
+<td>$100 – $200</td>
+<td>Reliable and redundant storage</td>
+</tr>
+<tr>
+<td>Redis Cluster</td>
+<td>$50 – $120</td>
+<td>Performance optimization and session handling</td>
+</tr>
+<tr>
+<td>Search Cluster</td>
+<td>$50 – $120</td>
+<td>Fast catalog indexing and search</td>
+</tr>
+<tr>
+<td>CDN</td>
+<td>$10 – $50</td>
+<td>Global performance improvement</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>$250 – $500</strong></td>
+<td>Scalable, production-ready architecture</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>Enable auto-scaling on EC2 instances to match traffic patterns.</li>
+<li>Leverage CloudWatch to monitor Redis and Elasticsearch performance.</li>
+<li>Use S3 for media storage and CloudFront for caching static assets.</li>
+</ul>
+
+</section>
+
+<section>
+
+<h2>Scalability, Reliability, and Revenue Impact</h2>
+
+<p>
+A properly designed Magento architecture ensures that infrastructure scales with demand. Auto scaling and load balancing prevent downtime during traffic spikes, while caching and search optimization maintain consistent performance.
+</p>
+
+<p>
+From a business perspective, this directly impacts conversion rates, reduces cart abandonment, and improves customer satisfaction.
+</p>
+
+<p>
+<em>Diagram: Multi-AZ Magento Architecture with Redis and Elasticsearch (Placeholder)</em>
+</p>
+
+</section>
+
+<section>
+
+<h2>Conclusion: Building a High-Performance Magento Store on AWS</h2>
+
+<p>
+Magento offers unmatched flexibility for SMBs that require advanced e-commerce functionality, but success depends heavily on infrastructure design.
+</p>
+
+<p>
+By leveraging AWS services such as EC2, RDS Multi-AZ, Redis caching, and Elasticsearch, businesses can build a resilient, high-performance environment capable of supporting growth.
+</p>
+
+<p>
+When implemented correctly, Magento on AWS delivers enterprise-level performance while remaining cost-efficient—providing a strong foundation for long-term e-commerce success.
+</p>
+
+</section>
+
+</article>
