@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blair Page | AWS Exam Results PDF</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<style>
+:root {
+  --black: #000000ff;
+  --midnight-violet: #291528ff;
+  --charcoal-brown: #3a3e3bff;
+  --ghost-white: #f0eff4ff;
+  --dusty-mauve: #9e829cff;
+  --deep-blue: var(--midnight-violet);
+  --vibrant-orange: var(--dusty-mauve);
+  --text-light: var(--ghost-white);
+  --bg-light: linear-gradient(
+    135deg,
+    #000000ff 0%,
+    #291528ff 30%,
+    #3a3e3bff 60%,
+    #9e829cff 85%,
+    #f0eff4ff 100%
+  );
+  --glass-bg: rgba(58,62,59,0.15);
+  --glass-border: rgba(240,239,244,0.22);
+  --shadow-strong: 0 18px 40px rgba(0,0,0,.55);
+  --shadow-soft: 0 10px 26px rgba(0,0,0,.35);
+}
+
+body.dark {
+  --bg-light: linear-gradient(
+    135deg,
+    #050507 0%,
+    #0d0f16 25%,
+    #141824 55%,
+    #1c1f2b 78%,
+    #26212d 100%
+  );
+  --glass-bg: rgba(8,10,14,0.42);
+  --glass-border: rgba(240,239,244,0.14);
+  --text-light: var(--ghost-white);
+  --shadow-strong: 0 20px 42px rgba(0,0,0,.68);
+  --shadow-soft: 0 10px 22px rgba(0,0,0,.45);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.top-bar {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 100 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  grid-template-areas: "cred toggle" "nav toggle" !important;
+  align-items: start !important;
+  row-gap: 2px !important;
+  padding: 1rem 2rem !important;
+  font-size: .85rem !important;
+  letter-spacing: .6px !important;
+  text-align: left !important;
+}
+
+.credential-header {
+  grid-area: cred !important;
+  display: block !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  max-width: calc(100% - 92px) !important;
+  text-align: left !important;
+  line-height: 1.05 !important;
+  justify-self: start !important;
+  align-self: start !important;
+  z-index: 121 !important;
+}
+
+.credential-header, .credential-header * {
+  text-align: left !important;
+}
+
+.site-nav {
+  grid-area: nav !important;
+  display: flex !important;
+  position: relative !important;
+  justify-content: flex-start !important;
+  justify-self: start !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  margin: 2px 0 0 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  z-index: 121 !important;
+}
+
+.site-nav a {
+  margin: 0 1rem 0 0 !important;
+  color: var(--dusty-mauve);
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.2 !important;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  text-decoration: underline;
+  color: var(--text-light);
+}
+
+.theme-btn,
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: .45rem 1rem;
+  min-height: 34px;
+  font-size: .85rem;
+  line-height: 1;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: var(--text-light);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  outline: none;
+  transition: background 0.3s ease, transform 0.2s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-btn:hover,
+.action-btn:hover {
+  transform: translateY(-1px);
+}
+
+#themeToggle {
+  grid-area: toggle !important;
+  position: relative !important;
+  justify-self: end !important;
+  align-self: start !important;
+  min-width: 44px !important;
+}
+
+.hero {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -2;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+  pointer-events: none;
+  will-change: transform;
+  contain: paint;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(240,239,244,0.09), transparent 22%),
+    radial-gradient(circle at 78% 28%, rgba(158,130,156,0.20), transparent 24%),
+    radial-gradient(circle at 62% 78%, rgba(240,239,244,0.08), transparent 18%),
+    linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35));
+}
+
+.logo-top-left {
+  position: absolute;
+  top: 100px;
+  left: 16px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid rgba(240,239,244,.45);
+  box-shadow: 0 8px 20px rgba(0,0,0,.7);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.logo-top-left:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.logo-top-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-shell {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 19vh 2rem 2rem;
+  box-sizing: border-box;
+}
+
+.page-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 1.3rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
+  overflow: hidden;
+}
+
+.page-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.08));
+  pointer-events: none;
+}
+
+.page-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.page-title {
+  margin: 0 0 .55rem;
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  color: var(--text-light);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.page-subtitle {
+  max-width: 980px;
+  margin: 0 auto 1.25rem;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(240,239,244,0.92);
+}
+
+.viewer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  margin: 0 0 1rem;
+}
+
+.pdf-frame-wrap {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(240,239,244,0.14);
+  box-shadow: var(--shadow-strong);
+}
+
+.pdf-frame {
+  display: block;
+  width: 100%;
+  height: 78vh;
+  min-height: 720px;
+  border: 0;
+  background: #111;
+}
+
+.fallback-note {
+  margin-top: 1rem;
+  text-align: center;
+  line-height: 1.6;
+  color: rgba(240,239,244,0.88);
+}
+
+.fallback-note a,
+.viewer-actions a {
+  color: var(--dusty-mauve);
+  text-decoration: none;
+}
+
+.fallback-note a:hover,
+.viewer-actions a:hover {
+  color: var(--text-light);
+  text-decoration: underline;
+}
+
+.page-scroll-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10050;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-scroll-top.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+  html, body {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+    background-attachment: scroll !important;
+  }
+
+  .top-bar {
+    padding: 10px 16px 0 16px !important;
+    min-height: 52px !important;
+  }
+
+  .credential-header {
+    font-size: 0.425rem !important;
+  }
+
+  .hero {
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+  }
+
+  .logo-top-left {
+    top: 80px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .page-shell {
+    padding: 18vh 1rem 1.25rem;
+  }
+
+  .pdf-frame {
+    height: 72vh;
+    min-height: 560px;
+  }
+}
+
+/* mobile nav text only; do not change toggle shape */
+@media (max-width: 900px) {
+  .site-nav {
+    flex-wrap: wrap !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  .site-nav a {
+    margin: 0 0.7rem 0 0 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-nav a {
+    margin: 0 0.55rem 0 0 !important;
+    font-size: 0.74rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .page-card {
+    padding: 1rem;
+  }
+
+  .pdf-frame {
+    height: 68vh;
+    min-height: 460px;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-nav a {
+    margin: 0 0.45rem 0 0 !important;
+    font-size: 0.7rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .pdf-frame {
+    min-height: 400px;
+  }
+}
+
+/* ==========================================
+   FORCE BLOG-STYLE SINGLE TRIANGLE TOP BUTTON
+   ========================================== */
+#pageScrollTop.page-scroll-top,
+button#pageScrollTop.page-scroll-top {
+  position: fixed !important;
+  right: 18px !important;
+  bottom: 18px !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  color: #ffffff !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8) !important;
+  cursor: pointer !important;
+  z-index: 10050 !important;
+}
+
+#pageScrollTop.page-scroll-top span,
+button#pageScrollTop.page-scroll-top span {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  line-height: 1 !important;
+}
+
+#pageScrollTop.page-scroll-top:not(.show),
+button#pageScrollTop.page-scroll-top:not(.show) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#pageScrollTop.page-scroll-top.show,
+button#pageScrollTop.page-scroll-top.show {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+body > button:not(#pageScrollTop)[id*="scroll" i],
+body > button:not(#pageScrollTop)[class*="scroll" i],
+body > button:not(#pageScrollTop)[id*="back" i][id*="top" i],
+body > button:not(#pageScrollTop)[class*="back" i][class*="top" i],
+body > a:not(#pageScrollTop)[id*="scroll" i],
+body > a:not(#pageScrollTop)[class*="scroll" i],
+body > a:not(#pageScrollTop)[id*="back" i][id*="top" i],
+body > a:not(#pageScrollTop)[class*="back" i][class*="top" i] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="credential-header">
+    RHCE6 · AWS Certified
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a href="enterprise_clients_infographic.html">Enterprise Info</a>
+    <a href="cloud_providers_infographic.html">Cloud Info</a>
+    <a href="live_cloud_provider_signal_board.html">Live Info</a>
+  </nav>
+  <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+</header>
+
+<a href="index.html" class="logo-top-left" aria-label="Return to home">
+  <img src="BlairPageImages/blog.jpg" alt="Blair Page logo"> 
+</a>
+
+<div class="hero"></div>
+
+<main class="page-shell">
+  <section class="page-card">
+    <h1 class="page-title">AWS Exam Results PDF Cloud Practitioner active from Date issued: December 05, 2021 Expires: January 22, 2029</h1>
+  
+
+<style>
+/* CENTER */
+.egg-center-wrap{
+  width:100% !important;
+  display:flex !important;
+  justify-content:center !important;
+  margin-top:0.6rem !important;
+}
+
+/* BUTTON */
+.egg-sw-badge{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  padding:24px 52px !important; /* doubled */
+  border-radius:999px !important;
+
+  border:2px solid rgba(158,130,156,0.5) !important;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(158,130,156,0.24) 0%,
+    rgba(158,130,156,0.14) 45%,
+    rgba(158,130,156,0.06) 75%,
+    transparent 95%
+  ) !important;
+
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+
+  text-decoration:none !important;
+
+  transition: all 0.35s ease !important;
+}
+
+/* MAIN TEXT */
+.egg-sw-badge .label{
+  font-family:'Orbitron', sans-serif !important;
+  font-weight:800 !important;
+  font-size:2.1rem !important; /* doubled */
+  letter-spacing:0.18em !important;
+
+  color:#9e829c !important;
+
+  text-shadow:
+    0 0 14px rgba(158,130,156,0.7),
+    0 0 30px rgba(158,130,156,0.5),
+    0 0 50px rgba(158,130,156,0.35),
+    0 5px 14px rgba(0,0,0,0.8);
+}
+
+/* SUB TEXT */
+.egg-sw-badge .sub{
+  font-family:'Orbitron', sans-serif !important;
+  font-weight:700 !important;
+  font-size:1.3rem !important; /* doubled */
+  letter-spacing:0.28em !important;
+
+  color:#9e829c !important;
+  opacity:0.95 !important;
+
+  text-shadow:
+    0 0 10px rgba(158,130,156,0.6),
+    0 0 20px rgba(158,130,156,0.4);
+}
+
+/* 🔥 HOVER → WHITE GLOW */
+.egg-sw-badge:hover{
+  transform:translateY(-4px) scale(1.06) !important;
+
+  border-color:rgba(240,239,244,0.7) !important;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(158,130,156,0.4) 0%,
+    rgba(158,130,156,0.25) 45%,
+    rgba(158,130,156,0.12) 75%,
+    transparent 95%
+  ) !important;
+}
+
+.egg-sw-badge:hover .label,
+.egg-sw-badge:hover .sub{
+  color:#f0eff4 !important;
+
+  text-shadow:
+    0 0 18px rgba(240,239,244,0.95),
+    0 0 40px rgba(240,239,244,0.8),
+    0 0 70px rgba(240,239,244,0.6),
+    0 6px 18px rgba(0,0,0,0.9);
+}
+</style>
+    <section class="odds-666-block">
+  <style>
+    .odds-666-block {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1.6rem 2rem;
+      border-radius: 18px;
+      background: rgba(41,21,40,0.88);
+      border: 1px solid rgba(240,239,244,0.22);
+      color: #f0eff4;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.7;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+    }
+
+    .odds-666-block h2 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 1.8rem;
+      letter-spacing: .04em;
+    }
+
+    .odds-666-block ul {
+      margin: 1rem 0 1.2rem 1.2rem;
+    }
+
+    .odds-666-block li {
+      margin-bottom: .6rem;
+    }
+
+    .odds-666-block strong {
+      color: #ffffff;
+    }
+
+    .odds-666-block .highlight {
+      color: #9e829c;
+      font-weight: 700;
+    }
+
+    .odds-666-block .caveat {
+      margin-top: 1.4rem;
+      padding: 1rem;
+      border-left: 3px solid #9e829c;
+      background: rgba(255,255,255,0.04);
+      border-radius: 0 12px 12px 0;
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
+
+    .odds-666-block .sources {
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
+      opacity: 0.8;
+      text-align: center;
+    }
+
+    .odds-666-block a {
+      color: #9e829c;
+      text-decoration: none;
+    }
+
+    .odds-666-block a:hover {
+      text-decoration: underline;
+      color: #ffffff;
+    }
+
+    @media (max-width: 700px) {
+      .odds-666-block {
+        padding: 1.2rem 1.2rem;
+      }
+    }
+  </style>
+
+  <h2>Top-Line Odds (AWS “666” Scenario)</h2>
+  <ul>
+    <li>
+      <strong>Score = 666:</strong>
+      about <span class="highlight">1 in 901</span> = <span class="highlight">0.11099%</span>,
+      assuming equally likely scaled scores from 100–1000. Short answer: No — a 666 score is not realistically possible on the AWS Solutions Architect Associate exam.
+
+Here’s why:
+1) Official scoring range blocks it
+
+    AWS exams use a scaled score from 100 to 1000 (AWS Documentation)
+
+    Passing score is 720 (AWS Documentation)
+
+That means any valid score must fall within that scale and be generated by AWS’s scoring model.
+2) Scores are not raw numbers (this is the key)
+
+AWS does not give you a simple percentage → score mapping. Instead:
+
+    They use a scaled scoring + equating system across different exam versions (Amazon Web Services, Inc.)
+
+    The score is derived from weighted difficulty + statistical normalization, not just “X correct answers = Y score” (Amazon Web Services, Inc.)
+
+👉 Because of this, only certain score values actually occur in practice (they cluster).
+3) Real-world observed scores don’t hit “666”
+
+Looking at actual reported scores (e.g., 819, 750, 720, etc.), they tend to:
+
+    Move in bands / increments, not arbitrary numbers
+
+    Avoid oddly specific values like 666 (you almost always see rounded-ish clusters)
+
+4) Even theoretically…
+
+Could 666 exist mathematically inside 100–1000?
+✔️ Yes
+
+But in the actual AWS scoring system:
+
+    It would require the scaling algorithm to output that exact value
+
+    In practice, it doesn’t happen (or is extremely unlikely to ever appear)
+
+Bottom line
+
+    Technically conceivable: yes (within 100–1000 range)
+
+    Practically achievable today: no — AWS scoring doesn’t produce that kind of exact number
+
+If you're asking from a “666 AWS exam meme / meta” angle (which it kinda sounds like you are 😄), then yeah—it's more of a symbolic flex, not a real attainable score.
+
+If you want, I can break down what score ranges actually correspond to performance tiers (like what ~750 vs ~850 really means skill-wise).
+    </li>
+
+    <li>
+      <strong>ID contains “666”:</strong>
+      depends on format. If random:
+      <br>• 6-digit numeric → <span class="highlight">0.59850%</span>
+      <br>• 10-digit numeric → <span class="highlight">0.99551%</span>
+    </li>
+
+    <li>
+      <strong>Both together:</strong>
+      <br>• 6-digit ID → <span class="highlight">~0.000664%</span> (~1 in 150,542)
+      <br>• 10-digit ID → <span class="highlight">~0.001105%</span> (~1 in 90,506)
+    </li>
+  </ul>
+
+  <div class="caveat">
+    AWS uses <strong>scaled scoring</strong>, not raw points, so the “1 in 901” figure is a mathematical model—not an official distribution. Some scores may occur more frequently than others in practice.
+    <br><br>
+    The <strong>exam ID format is not publicly documented</strong>, so probabilities for “666” in the ID are based on assumed random numeric patterns—not AWS-confirmed data.
+  </div>
+
+  <div class="sources">
+    Sources:
+    <a href="https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03.html" target="_blank">AWS SAA-C03</a> ·
+    <a href="https://aws.amazon.com/blogs/training-and-certification/demystifying-your-aws-certification-exam-score/" target="_blank">AWS Scoring</a> ·
+    <a href="https://aws.amazon.com/certification/policies/general-information/" target="_blank">AWS Policies</a>
+  </div>
+</section>
+
+<!-- =========================================
+AWS EXAM RESULTS — AQUA TEEN FARGATE PLAYER
+Separate scoped player: does not replace or interfere with existing page/player code.
+Placement: top text area, above the standalone PDF subtitle/actions.
+========================================= -->
+
+<section class="athf-aws-player-card" id="athfAwsFargatePlayer" aria-label="Aqua Teen Hunger Force AWS Fargate video player">
+  <div class="athf-aws-player-copy">
+    <span class="athf-aws-kicker">AWS Fargate / Aqua Teen Signal</span>
+
+    <h2>Aqua Teen Hunger Force — Fargate Player</h2>
+
+    <p>
+      A responsive top-area video player styled in the same glassy mauve / ghost-white / midnight-violet
+      palette as the page, with the first button and default video set to the Aqua Teen Fargate clip.
+    </p>
+  </div>
+
+  <div class="athf-aws-player-grid">
+    <div class="athf-aws-screen">
+      <div class="athf-aws-frame-shell">
+        <iframe
+          id="athfAwsFrame"
+          src="https://www.youtube-nocookie.com/embed/0BPWtT3yNdM?rel=0&modestbranding=1&playsinline=1"
+          title="Aqua Teen Hunger Force — Fargate"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="athf-aws-now" id="athfAwsNow">
+        Now Loaded: Aqua Teen Hunger Force — Fargate
+      </div>
+
+      <a
+        class="athf-aws-open"
+        id="athfAwsOpen"
+        href="https://www.youtube.com/watch?v=0BPWtT3yNdM"
+        target="_blank"
+        rel="noopener noreferrer">
+        Open current video on YouTube ↗
+      </a>
+    </div>
+
+    <div class="athf-aws-playlist" role="list" aria-label="Aqua Teen playlist">
+
+      <button
+        class="athf-aws-video active"
+        type="button"
+        data-athf-id="0BPWtT3yNdM"
+        data-athf-title="Aqua Teen Hunger Force — Fargate">
+        <span class="athf-aws-mini">First / Default</span>
+        <strong>Aqua Teen Hunger Force — Fargate</strong>
+        <small>AWS Fargate wordplay anchor / Plutonians clip</small>
+      </button>
+
+      <button
+        class="athf-aws-video"
+        type="button"
+        data-athf-id="cpsGSdJmG-w"
+        data-athf-title="Aqua Teen Hunger Force — Broodwich">
+        <span class="athf-aws-mini">Second</span>
+        <strong>Aqua Teen Hunger Force — Broodwich</strong>
+        <small>Broodwich clip/context selection</small>
+      </button>
+
+      <button
+        class="athf-aws-video"
+        type="button"
+        data-athf-id="LLGj3OcuA9M"
+        data-athf-title="Aqua Teen Hunger Force — Chess Dragon">
+        <span class="athf-aws-mini">Third</span>
+        <strong>Aqua Teen Hunger Force — Chess Dragon</strong>
+        <small>Chess Dragon scene selection</small>
+      </button>
+
+      <button
+        class="athf-aws-video"
+        type="button"
+        data-athf-id="XwiLYcbVHbA"
+        data-athf-title="Aqua Teen Hunger Force — Ezekiel / Mini Shake">
+        <span class="athf-aws-mini">Fourth</span>
+        <strong>Aqua Teen Hunger Force — Ezekiel / Mini Shake</strong>
+        <small>Mini Shake / Ezekiel short selection</small>
+      </button>
+
+      <button
+        class="athf-aws-video"
+        type="button"
+        data-athf-id="1WO04CT9N0Y"
+        data-athf-title="ATHF — Quad Laser">
+        <span class="athf-aws-mini">Fifth</span>
+        <strong>ATHF — Quad Laser</strong>
+        <small>Mooninites Quad Laser clip selection</small>
+      </button>
+
+      <button
+        class="athf-aws-video"
+        type="button"
+        data-athf-id="up6BvPQNjQc"
+        data-athf-title="ATHF — The Mooninites Quad Laser Compilation">
+        <span class="athf-aws-mini">Sixth</span>
+        <strong>ATHF — The Mooninites Quad Laser Compilation</strong>
+        <small>Mooninites Quad Laser compilation selection</small>
+      </button>
+
+      <button
+        class="athf-aws-video"
+        type="button"
+        data-athf-id="0udqZsvrux0"
+        data-athf-title="Aqua Teen Hunger Force — Best of the Mooninites">
+        <span class="athf-aws-mini">Seventh</span>
+        <strong>Aqua Teen Hunger Force — Best of the Mooninites</strong>
+        <small>Best of the Mooninites playlist selection</small>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* =========================================
+   AWS EXAM RESULTS — AQUA TEEN FARGATE PLAYER
+   Fully scoped: athf-aws-* only.
+   ========================================= */
+
+.athf-aws-player-card{
+  position:relative !important;
+  width:min(100%, 980px) !important;
+  margin:1.45rem auto 1.4rem !important;
+  padding:1rem !important;
+  border-radius:22px !important;
+  overflow:hidden !important;
+
+  color:#f0eff4 !important;
+
+  background:
+    radial-gradient(circle at 12% 8%, rgba(158,130,156,0.30), transparent 32%),
+    radial-gradient(circle at 92% 18%, rgba(240,239,244,0.12), transparent 30%),
+    linear-gradient(135deg, rgba(0,0,0,0.55), rgba(41,21,40,0.76) 46%, rgba(58,62,59,0.46)) !important;
+
+  border:1px solid rgba(240,239,244,0.24) !important;
+
+  box-shadow:
+    0 22px 58px rgba(0,0,0,0.58),
+    0 0 34px rgba(158,130,156,0.20),
+    inset 0 0 0 1px rgba(255,255,255,0.055) !important;
+
+  backdrop-filter:blur(16px) saturate(1.16) !important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.16) !important;
+}
+
+.athf-aws-player-card::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  pointer-events:none !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.18)),
+    repeating-linear-gradient(
+      90deg,
+      rgba(240,239,244,0.035) 0,
+      rgba(240,239,244,0.035) 1px,
+      transparent 1px,
+      transparent 46px
+    ) !important;
+}
+
+.athf-aws-player-card > *{
+  position:relative !important;
+  z-index:2 !important;
+}
+
+.athf-aws-player-copy{
+  max-width:900px !important;
+  margin:0 auto 0.85rem !important;
+  text-align:center !important;
+}
+
+.athf-aws-kicker,
+.athf-aws-mini{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:max-content !important;
+  max-width:100% !important;
+  border-radius:999px !important;
+  text-transform:uppercase !important;
+  letter-spacing:0.12em !important;
+  font-weight:900 !important;
+}
+
+.athf-aws-kicker{
+  padding:0.42rem 0.72rem !important;
+  margin-bottom:0.58rem !important;
+  font-size:0.68rem !important;
+  color:#291528 !important;
+  background:rgba(240,239,244,0.80) !important;
+  border:1px solid rgba(240,239,244,0.34) !important;
+  box-shadow:0 0 22px rgba(240,239,244,0.18) !important;
+}
+
+.athf-aws-player-copy h2{
+  margin:0 0 0.45rem !important;
+  color:#f0eff4 !important;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  font-size:clamp(1.35rem, 3.2vw, 2.25rem) !important;
+  line-height:1.05 !important;
+  letter-spacing:0.015em !important;
+  text-shadow:
+    0 0 16px rgba(158,130,156,0.48),
+    0 3px 12px rgba(0,0,0,0.72) !important;
+}
+
+.athf-aws-player-copy p{
+  max-width:820px !important;
+  margin:0 auto !important;
+  color:rgba(240,239,244,0.86) !important;
+  font-size:0.94rem !important;
+  line-height:1.62 !important;
+}
+
+.athf-aws-player-grid{
+  display:grid !important;
+  grid-template-columns:minmax(0, 1.15fr) minmax(260px, .85fr) !important;
+  gap:0.85rem !important;
+  align-items:stretch !important;
+}
+
+.athf-aws-screen{
+  min-width:0 !important;
+  padding:0.76rem !important;
+  border-radius:20px !important;
+  background:rgba(5,5,7,0.66) !important;
+  border:1px solid rgba(240,239,244,0.18) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.055),
+    0 18px 44px rgba(0,0,0,0.42) !important;
+}
+
+.athf-aws-frame-shell{
+  position:relative !important;
+  width:100% !important;
+  aspect-ratio:16 / 9 !important;
+  overflow:hidden !important;
+  border-radius:16px !important;
+  background:#000 !important;
+  border:1px solid rgba(240,239,244,0.16) !important;
+}
+
+.athf-aws-frame-shell iframe{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  border:0 !important;
+  display:block !important;
+  background:#000 !important;
+}
+
+.athf-aws-now{
+  margin-top:0.68rem !important;
+  color:#f0eff4 !important;
+  font-size:0.88rem !important;
+  font-weight:900 !important;
+  line-height:1.38 !important;
+  text-shadow:0 2px 8px rgba(0,0,0,0.75) !important;
+}
+
+.athf-aws-open{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  margin-top:0.56rem !important;
+  padding:0.52rem 0.76rem !important;
+  border-radius:999px !important;
+
+  color:#f0eff4 !important;
+  text-decoration:none !important;
+  font-size:0.78rem !important;
+  font-weight:900 !important;
+
+  background:linear-gradient(135deg, rgba(158,130,156,0.38), rgba(41,21,40,0.80)) !important;
+  border:1px solid rgba(240,239,244,0.18) !important;
+  box-shadow:0 12px 26px rgba(0,0,0,0.28) !important;
+}
+
+.athf-aws-open:hover{
+  color:#ffffff !important;
+  text-decoration:none !important;
+  border-color:rgba(240,239,244,0.36) !important;
+  box-shadow:0 0 28px rgba(158,130,156,0.34) !important;
+}
+
+.athf-aws-playlist{
+  min-width:0 !important;
+  display:grid !important;
+  gap:0.48rem !important;
+  align-content:start !important;
+}
+
+.athf-aws-video{
+  width:100% !important;
+  min-width:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+  gap:0.18rem !important;
+
+  padding:0.68rem 0.78rem !important;
+  border-radius:16px !important;
+  cursor:pointer !important;
+
+  color:#f0eff4 !important;
+  text-align:left !important;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+
+  background:
+    linear-gradient(135deg, rgba(240,239,244,0.10), rgba(158,130,156,0.08) 48%, rgba(0,0,0,0.20)) !important;
+
+  border:1px solid rgba(240,239,244,0.18) !important;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.065),
+    0 10px 24px rgba(0,0,0,0.22) !important;
+
+  backdrop-filter:blur(9px) saturate(1.16) !important;
+  -webkit-backdrop-filter:blur(9px) saturate(1.16) !important;
+}
+
+.athf-aws-video:hover,
+.athf-aws-video.active{
+  transform:translateY(-1px) !important;
+  border-color:rgba(240,239,244,0.38) !important;
+  background:
+    linear-gradient(135deg, rgba(240,239,244,0.20), rgba(158,130,156,0.30) 52%, rgba(41,21,40,0.82)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.10),
+    0 0 24px rgba(158,130,156,0.32),
+    0 12px 28px rgba(0,0,0,0.28) !important;
+}
+
+.athf-aws-mini{
+  padding:0.22rem 0.46rem !important;
+  font-size:0.52rem !important;
+  line-height:1 !important;
+  color:#291528 !important;
+  background:rgba(240,239,244,0.78) !important;
+}
+
+.athf-aws-video strong{
+  display:block !important;
+  max-width:100% !important;
+  color:#f0eff4 !important;
+  font-size:0.88rem !important;
+  line-height:1.18 !important;
+  font-weight:950 !important;
+  letter-spacing:0.035em !important;
+  text-transform:uppercase !important;
+  overflow-wrap:anywhere !important;
+}
+
+.athf-aws-video small{
+  display:block !important;
+  max-width:100% !important;
+  color:rgba(240,239,244,0.80) !important;
+  font-size:0.72rem !important;
+  line-height:1.28 !important;
+  font-weight:700 !important;
+  overflow-wrap:anywhere !important;
+}
+
+@media (max-width:900px){
+  .athf-aws-player-card{
+    margin:1.15rem auto 1.2rem !important;
+    padding:0.82rem !important;
+    border-radius:20px !important;
+  }
+
+  .athf-aws-player-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .athf-aws-playlist{
+    grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+  }
+}
+
+@media (max-width:560px){
+  .athf-aws-player-card{
+    padding:0.72rem !important;
+  }
+
+  .athf-aws-player-copy h2{
+    font-size:1.32rem !important;
+  }
+
+  .athf-aws-player-copy p{
+    font-size:0.86rem !important;
+  }
+
+  .athf-aws-playlist{
+    grid-template-columns:1fr !important;
+  }
+
+  .athf-aws-video{
+    padding:0.64rem 0.68rem !important;
+  }
+}
+</style>
+
+<script>
+(function(){
+  const athfWidget = document.getElementById('athfAwsFargatePlayer');
+  if(!athfWidget) return;
+
+  const athfFrame = document.getElementById('athfAwsFrame');
+  const athfNow = document.getElementById('athfAwsNow');
+  const athfOpen = document.getElementById('athfAwsOpen');
+  const athfButtons = athfWidget.querySelectorAll('.athf-aws-video');
+
+  const ATHF_SAFE_VIDEO_MAP = {
+    'Aqua Teen Hunger Force — Fargate': '0BPWtT3yNdM',
+    'Aqua Teen Hunger Force — Broodwich': 'cpsGSdJmG-w',
+    'Aqua Teen Hunger Force — Chess Dragon': 'LLGj3OcuA9M',
+    'Aqua Teen Hunger Force — Ezekiel / Mini Shake': 'XwiLYcbVHbA',
+    'ATHF — Quad Laser': '1WO04CT9N0Y',
+    'ATHF — The Mooninites Quad Laser Compilation': 'up6BvPQNjQc',
+    'Aqua Teen Hunger Force — Best of the Mooninites': '0udqZsvrux0'
+  };
+
+  function athfEmbed(id, shouldAutoplay){
+    return 'https://www.youtube-nocookie.com/embed/' +
+      encodeURIComponent(id) +
+      '?rel=0&modestbranding=1&playsinline=1' +
+      (shouldAutoplay ? '&autoplay=1' : '');
+  }
+
+  function athfLoadVideo(button, shouldAutoplay){
+    const title = button.dataset.athfTitle || button.getAttribute('data-athf-title') || 'Aqua Teen Hunger Force';
+    const mappedId = ATHF_SAFE_VIDEO_MAP[title];
+    const id = mappedId || button.dataset.athfId || button.getAttribute('data-athf-id');
+
+    if(!id || !athfFrame) return;
+
+    button.dataset.athfId = id;
+
+    athfFrame.src = athfEmbed(id, shouldAutoplay);
+    athfFrame.title = title;
+
+    if(athfNow){
+      athfNow.textContent = (shouldAutoplay ? 'Now Playing: ' : 'Now Loaded: ') + title;
+    }
+
+    if(athfOpen){
+      athfOpen.href = 'https://www.youtube.com/watch?v=' + id;
+    }
+
+    athfButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+  }
+
+  athfButtons.forEach(button => {
+    button.addEventListener('click', function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      athfLoadVideo(this, true);
+    });
+  });
+
+  const firstAthfButton = athfButtons[0];
+  if(firstAthfButton){
+    athfLoadVideo(firstAthfButton, false);
+  }
+})();
+</script>
+
+    <p class="page-subtitle">
+      Standalone embedded PDF viewer page.
+    </p>
+
+    <div class="viewer-actions">
+      <a class="action-btn" href="AWS%20Certified%20Solutions%20Architect%20-%20Associate.pdf" target="_blank" rel="noopener noreferrer">Open PDF in new tab</a>
+    </div>
+
+
+
+    <!-- ===== AWS SCORE ALTERATION RESTITUTION MODEL — INSERTED BLOCK ===== -->
+    <section class="aws-score-restitution-block" id="aws-score-restitution">
+      <style>
+        .aws-score-restitution-block {
+          max-width: 980px;
+          margin: 2rem auto;
+          padding: 1.6rem 2rem;
+          border-radius: 20px;
+          background: linear-gradient(145deg, rgba(41,21,40,0.92), rgba(58,62,59,0.82));
+          border: 1px solid rgba(240,239,244,0.24);
+          color: #f0eff4;
+          font-family: 'Segoe UI', system-ui, sans-serif;
+          line-height: 1.65;
+          box-shadow: 0 22px 60px rgba(0,0,0,.58);
+        }
+
+        .aws-score-restitution-block h2,
+        .aws-score-restitution-block h3 {
+          text-align: center;
+          margin-top: 0;
+          color: #ffffff;
+          letter-spacing: .03em;
+        }
+
+        .aws-score-restitution-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 1rem;
+          margin: 1.4rem 0;
+        }
+
+        .aws-score-restitution-card {
+          padding: 1rem;
+          border-radius: 16px;
+          background: rgba(255,255,255,0.07);
+          border: 1px solid rgba(240,239,244,0.16);
+          text-align: center;
+        }
+
+        .aws-score-restitution-card small {
+          display: block;
+          opacity: .78;
+          text-transform: uppercase;
+          font-weight: 700;
+          letter-spacing: .08em;
+          font-size: .72rem;
+        }
+
+        .aws-score-restitution-card strong {
+          display: block;
+          margin-top: .4rem;
+          font-size: 1.35rem;
+          color: #ffffff;
+        }
+
+        .aws-score-restitution-card span {
+          display: block;
+          margin-top: .45rem;
+          font-size: .9rem;
+          opacity: .9;
+        }
+
+        .aws-score-restitution-note {
+          margin-top: 1rem;
+          padding: 1rem;
+          border-left: 4px solid #9e829c;
+          background: rgba(255,255,255,0.05);
+          border-radius: 0 14px 14px 0;
+        }
+
+        .aws-score-restitution-table-wrap {
+          overflow-x: auto;
+          margin-top: 1rem;
+        }
+
+        .aws-score-restitution-table {
+          width: 100%;
+          min-width: 760px;
+          border-collapse: collapse;
+        }
+
+        .aws-score-restitution-table th,
+        .aws-score-restitution-table td {
+          padding: .8rem;
+          border-bottom: 1px solid rgba(240,239,244,0.14);
+          text-align: left;
+          vertical-align: top;
+        }
+
+        .aws-score-restitution-table th {
+          color: #ffffff;
+          font-size: .78rem;
+          text-transform: uppercase;
+          letter-spacing: .08em;
+        }
+
+        .aws-score-restitution-highlight {
+          color: #ffffff;
+          font-weight: 800;
+        }
+
+        @media (max-width: 760px) {
+          .aws-score-restitution-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      </style>
+
+      <h2>AWS Exam Score Alteration Restitution Model</h2>
+
+      <p>
+        This section is a hypothetical restitution model for the party whose AWS exam
+        result was altered. It does not claim that alteration occurred. It estimates
+        what a clearance holder or trusted-access actor could potentially be on the
+        line for if an investigation, audit logs, exam-provider records, or court
+        finding proved that the candidate's AWS Solutions Architect result was
+        intentionally edited, suppressed, falsified, or misreported.
+      </p>
+
+      <div class="aws-score-restitution-grid">
+        <div class="aws-score-restitution-card">
+          <small>Direct exam restoration</small>
+          <strong>$150+</strong>
+          <span>AWS Solutions Architect Associate exam fee baseline, plus retake or verification costs.</span>
+        </div>
+
+        <div class="aws-score-restitution-card">
+          <small>Career-rate model</small>
+          <strong>$0.47/min</strong>
+          <span>Based on the existing gap-counter midpoint model.</span>
+        </div>
+
+        <div class="aws-score-restitution-card">
+          <small>Annual exposure range</small>
+          <strong>$152k–$248k</strong>
+          <span>Weighted role range from the AWS/OpenStack/Data Ops lane.</span>
+        </div>
+      </div>
+
+      <h3>Restitution Categories to the Affected Candidate</h3>
+
+      <div class="aws-score-restitution-table-wrap">
+        <table class="aws-score-restitution-table">
+          <thead>
+            <tr>
+              <th>Restitution Area</th>
+              <th>What It Could Cover</th>
+              <th>Estimated Exposure Basis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Official record correction</strong></td>
+              <td>Restoring the true score, pass/fail result, transcript, badge, and certification status.</td>
+              <td>Non-monetary restoration plus administrative costs.</td>
+            </tr>
+
+            <tr>
+              <td><strong>Exam cost reimbursement</strong></td>
+              <td>Exam fee, retake fee, proctoring cost, verification fee, study materials, and related expenses.</td>
+              <td><span class="aws-score-restitution-highlight">$150+</span> minimum baseline before added costs.</td>
+            </tr>
+
+            <tr>
+              <td><strong>Certification-window loss</strong></td>
+              <td>If the altered result blocked use of a valid AWS credential during its active period.</td>
+              <td>Up to a <span class="aws-score-restitution-highlight">3-year certification-value window</span>, depending on proof.</td>
+            </tr>
+
+            <tr>
+              <td><strong>Employment opportunity loss</strong></td>
+              <td>Lost interviews, lost job offers, delayed hiring, lower salary offers, denied promotions, or lost contracts.</td>
+              <td><span class="aws-score-restitution-highlight">$152,000–$248,000 per year</span> modeled range.</td>
+            </tr>
+
+            <tr>
+              <td><strong>Live time-based exposure</strong></td>
+              <td>Ongoing market-value loss while the inaccurate result remains uncorrected.</td>
+              <td><span class="aws-score-restitution-highlight">≈ $0.47 per minute</span> midpoint model.</td>
+            </tr>
+
+            <tr>
+              <td><strong>Reputation repair</strong></td>
+              <td>Written correction, employer clarification, removal of adverse records, and confirmation that the candidate was not responsible.</td>
+              <td>Non-monetary relief plus documented economic harm.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="aws-score-restitution-note">
+        <strong>Plain-English calculation:</strong>
+        If the alteration caused one full year of lost AWS/cloud career opportunity,
+        the modeled restitution exposure could be approximately
+        <strong>$152,000–$248,000</strong>, with a midpoint of
+        <strong>$200,000</strong>. If the harm continued across a full 3-year AWS
+        certification cycle, the modeled career-opportunity range could rise to
+        approximately <strong>$456,000–$744,000</strong>, before adding direct exam
+        costs, correction costs, reputation repair, attorney fees, interest, or other
+        legally recoverable damages.
+      </div>
+
+      <p>
+        <strong>Important limitation:</strong> Restitution usually depends on proof.
+        The strongest evidence would include AWS account records, exam-provider logs,
+        access logs, score-change history, identity records, employer reliance,
+        rejected applications, lost offers, and a clear connection between the altered
+        result and the candidate's financial or professional harm.
+      </p>
+    </section>
+    <!-- ===== END AWS SCORE ALTERATION RESTITUTION MODEL ===== -->
+
+    <div class="pdf-frame-wrap">
+      <iframe
+        class="pdf-frame"
+        src="AWS%20Certified%20Solutions%20Architect%20-%20Associate.pdf#view=FitH"
+        title="AWS Certified Solutions Architect - Associate PDF viewer"
+      ></iframe>
+    </div>
+
+    <p class="fallback-note">
+      If the embedded viewer does not load in your browser, use the link above to open the PDF directly.
+    </p>
+  </section>
+</main>
+
+<button id="pageScrollTop" class="page-scroll-top" aria-label="Back to top">▲</button>
+
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const pageScrollTop = document.getElementById('pageScrollTop');
+const STORAGE_KEY = 'blair-enterprise-theme';
+
+function applyThemeIcon() {
+  if (!themeToggle) return;
+  themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+}
+
+function applySavedTheme() {
+  try {
+    if (localStorage.getItem(STORAGE_KEY) === 'dark') {
+      document.body.classList.add('dark');
+    }
+  } catch (error) {
+    console.warn('Theme storage unavailable.', error);
+  }
+  applyThemeIcon();
+}
+
+function bindThemeToggle() {
+  if (!themeToggle) return;
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    applyThemeIcon();
+    try {
+      localStorage.setItem(STORAGE_KEY, document.body.classList.contains('dark') ? 'dark' : 'light');
+    } catch (error) {
+      console.warn('Theme storage unavailable.', error);
+    }
+  });
+}
+
+function bindScrollTop() {
+  window.addEventListener('scroll', () => {
+    if ((window.scrollY || document.documentElement.scrollTop) > 180) pageScrollTop.classList.add('show');
+    else pageScrollTop.classList.remove('show');
+  }, { passive: true });
+
+  pageScrollTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+function init() {
+  applySavedTheme();
+  bindThemeToggle();
+  bindScrollTop();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+} else {
+  init();
+}
+</script>
+<script>
+/* ==========================================
+   FORCE SCROLLBAR STYLE APPEND (NO CONFLICT)
+   ========================================== */
+(function () {
+  const id = 'forced-scrollbar-style';
+  if (document.getElementById(id)) return;
+
+  const style = document.createElement('style');
+  style.id = id;
+
+  style.textContent = `
+  /* Chrome / Edge / Safari */
+  ::-webkit-scrollbar {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.35) !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba(158,130,156,0.85),
+      rgba(58,62,59,0.85)
+    ) !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(240,239,244,0.2) !important;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(240,239,244,0.9),
+      rgba(158,130,156,0.9)
+    ) !important;
+  }
+
+  /* Firefox */
+  html, body {
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(158,130,156,0.9) rgba(0,0,0,0.35) !important;
+  }
+
+  /* Dark mode override */
+  body.dark ::-webkit-scrollbar-track {
+    background: rgba(5,7,10,0.6) !important;
+  }
+
+  body.dark ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba(158,130,156,0.9),
+      rgba(20,24,36,0.9)
+    ) !important;
+  }
+  `;
+
+  document.head.appendChild(style);
+})();
+</script>
+<script>
+/* ==========================================
+   FORCE EXACTLY ONE BLOG-STYLE SCROLL-TO-TOP BUTTON
+   ========================================== */
+(function () {
+  const CANONICAL_ID = 'pageScrollTop';
+  const CANONICAL_CLASS = 'page-scroll-top';
+
+  function isScrollTopLike(el) {
+    if (!el || el.id === CANONICAL_ID) return false;
+    const haystack = ((el.id || '') + ' ' + (el.className || '') + ' ' + (el.getAttribute('aria-label') || '') + ' ' + (el.getAttribute('title') || '')).toLowerCase();
+    return (
+      haystack.includes('scroll') ||
+      haystack.includes('back to top') ||
+      haystack.includes('page top') ||
+      haystack.includes('top button') ||
+      haystack.includes('scrolltop') ||
+      haystack.includes('scroll-top') ||
+      haystack.includes('to-top')
+    );
+  }
+
+  function normalizeScrollButton() {
+    let canonical = document.getElementById(CANONICAL_ID);
+
+    document.querySelectorAll('button, a, div').forEach(function (el) {
+      if (el.id === CANONICAL_ID && el !== canonical) {
+        el.remove();
+        return;
+      }
+      if (isScrollTopLike(el)) {
+        el.remove();
+      }
+    });
+
+    if (!canonical) {
+      canonical = document.createElement('button');
+      canonical.id = CANONICAL_ID;
+      document.body.appendChild(canonical);
+    }
+
+    canonical.type = 'button';
+    canonical.className = CANONICAL_CLASS;
+    canonical.setAttribute('aria-label', 'Back to top');
+    canonical.innerHTML = '<span>▲</span>';
+
+    canonical.onclick = function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const setVisibility = function () {
+      const y = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      canonical.classList.toggle('show', y > 180);
+    };
+
+    window.removeEventListener('scroll', window.__blairTopButtonVisibility || function () {});
+    window.__blairTopButtonVisibility = setVisibility;
+    window.addEventListener('scroll', setVisibility, { passive: true });
+    setVisibility();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', normalizeScrollButton, { once: true });
+  } else {
+    normalizeScrollButton();
+  }
+
+  window.addEventListener('load', normalizeScrollButton, { once: true });
+})();
+</script>
+<script>
+/* ==========================================
+   REPLACEMENT — LEFT SIDE FLOATING PLAYER
+   default video: 0abXCUvjkpU
+   second option video: NoYKBAajoyo
+   starts CLOSED / no autoplay until button click
+   button cycle:
+   ▶ open muted + play
+   🔊 unmute + play
+   🔇 mute + play
+   ✕ close completely / iframe removed
+   ========================================== */
+(function () {
+  const VIDEOS = [
+    {
+      id: '0abXCUvjkpU',
+      title: 'Bam Discovers HIM'
+    },
+    {
+      id: 'NoYKBAajoyo',
+      title: 'EVERGLOW (에버글로우) - DUN DUN'
+    },
+    {
+      id: '7a7-5WYOKxE',
+      title: 'Doom - E1M1 on eight floppy drives'
+    },
+    {
+      id: 'ZYk7vwdwtm8',
+      title: 'CKY - Escape From Hellview - Music Video (HD Remaster)'
+    },
+    {
+      id: 'pPzavPA-i_g',
+      title: 'Dope Stars Inc. - Right Here In My Arms [HIM Cover]'
+    },
+    {
+      id: 'w60xQkXqxA4',
+      title: 'Dope Stars Inc. - Terapunk'
+    },
+    {
+      id: 'bpXChQtGFIs',
+      title: 'Static-X - Tera-Fied'
+    }
+  ];
+
+  let activeVideo = VIDEOS[0];
+
+  const MOBILE_BP = 900;
+
+  const PLAYER_ID = 'forced-music-player';
+  const BUTTON_ID = 'forced-music-button';
+  const FRAME_ID = 'musicFrame';
+  const STYLE_ID = 'forced-music-player-style';
+  const SELECTOR_ID = 'forced-music-selector';
+
+  function buildSrc(videoId, muted) {
+    return (
+      'https://www.youtube.com/embed/' + encodeURIComponent(videoId) +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&loop=1' +
+      '&playlist=' + encodeURIComponent(videoId) +
+      '&playsinline=1'
+    );
+  }
+
+  function removeOld() {
+    document.getElementById(PLAYER_ID)?.remove();
+    document.getElementById(BUTTON_ID)?.remove();
+    document.getElementById(SELECTOR_ID)?.remove();
+    document.getElementById(STYLE_ID)?.remove();
+  }
+
+  function injectStyle() {
+    const style = document.createElement('style');
+    style.id = STYLE_ID;
+    style.textContent = `
+      #${PLAYER_ID} {
+        position: fixed !important;
+        left: 20px !important;
+        bottom: 70px !important;
+        width: 260px !important;
+        height: 150px !important;
+        z-index: 10000 !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.6) !important;
+        background: #000 !important;
+        touch-action: none !important;
+        display: none !important;
+      }
+
+      #${SELECTOR_ID} {
+        position: fixed !important;
+        left: 20px !important;
+        bottom: 228px !important;
+        width: 260px !important;
+        max-width: calc(100vw - 24px) !important;
+        z-index: 10002 !important;
+        display: none !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+      }
+
+      #${SELECTOR_ID} .forced-music-video-option {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 38px !important;
+        padding: 7px 8px !important;
+        border-radius: 12px !important;
+        border: 1px solid rgba(240,239,244,0.30) !important;
+        background: rgba(58,62,59,0.78) !important;
+        color: #f0eff4 !important;
+        cursor: pointer !important;
+        font-size: 0.68rem !important;
+        font-weight: 800 !important;
+        line-height: 1.12 !important;
+        text-align: center !important;
+        overflow-wrap: anywhere !important;
+        white-space: normal !important;
+        box-shadow: 0 8px 18px rgba(0,0,0,0.36) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+      }
+
+      #${SELECTOR_ID} .forced-music-video-option:hover,
+      #${SELECTOR_ID} .forced-music-video-option.active {
+        background: rgba(158,130,156,0.82) !important;
+        border-color: rgba(240,239,244,0.55) !important;
+        color: #ffffff !important;
+      }
+
+      #${BUTTON_ID} {
+        position: fixed !important;
+        left: 20px !important;
+        bottom: 20px !important;
+        width: 52px !important;
+        height: 52px !important;
+        z-index: 10001 !important;
+        border-radius: 50% !important;
+        border: 1px solid rgba(240,239,244,0.35) !important;
+        background: rgba(58,62,59,0.72) !important;
+        color: #fff !important;
+        cursor: pointer !important;
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.45) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+      }
+
+      @media (max-width: 900px) {
+        #${PLAYER_ID} {
+          left: 12px !important;
+          width: min(260px, calc(100vw - 24px)) !important;
+          max-width: calc(100vw - 24px) !important;
+        }
+
+        #${SELECTOR_ID} {
+          left: 12px !important;
+          width: min(260px, calc(100vw - 24px)) !important;
+          max-width: calc(100vw - 24px) !important;
+        }
+
+        #${BUTTON_ID} {
+          left: 12px !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function create() {
+    removeOld();
+    injectStyle();
+
+    const player = document.createElement('div');
+    player.id = PLAYER_ID;
+
+    const selector = document.createElement('div');
+    selector.id = SELECTOR_ID;
+    selector.setAttribute('aria-label', 'Choose floating YouTube video');
+
+    VIDEOS.forEach(function(video, index){
+      const option = document.createElement('button');
+      option.type = 'button';
+      option.className = 'forced-music-video-option' + (index === 0 ? ' active' : '');
+      option.textContent = video.title;
+      option.setAttribute('data-video-id', video.id);
+      option.setAttribute('data-video-title', video.title);
+      option.setAttribute('aria-label', 'Load ' + video.title);
+      selector.appendChild(option);
+    });
+
+    const button = document.createElement('button');
+    button.id = BUTTON_ID;
+    button.type = 'button';
+
+    let phase = 'closed';
+
+    function syncSelectorActive() {
+      selector.querySelectorAll('.forced-music-video-option').forEach(function(option){
+        option.classList.toggle('active', option.getAttribute('data-video-id') === activeVideo.id);
+      });
+    }
+
+    function updateButtonVisual() {
+      if (phase === 'closed') {
+        button.textContent = '▶';
+        button.setAttribute('aria-label', 'Open and play video');
+        button.setAttribute('title', 'Open and play video');
+      } else if (phase === 'muted') {
+        button.textContent = '🔊';
+        button.setAttribute('aria-label', 'Unmute video');
+        button.setAttribute('title', 'Unmute video');
+      } else if (phase === 'unmuted') {
+        button.textContent = '🔇';
+        button.setAttribute('aria-label', 'Mute video');
+        button.setAttribute('title', 'Mute video');
+      } else {
+        button.textContent = '✕';
+        button.setAttribute('aria-label', 'Close video');
+        button.setAttribute('title', 'Close video');
+      }
+    }
+
+    function renderIframe(muted) {
+      player.innerHTML = `
+        <iframe
+          id="${FRAME_ID}"
+          width="100%"
+          height="100%"
+          src="${buildSrc(activeVideo.id, muted)}"
+          title="${activeVideo.title}"
+          frameborder="0"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      `;
+    }
+
+    function openMuted() {
+      phase = 'muted';
+      player.style.setProperty('display', 'block', 'important');
+      selector.style.setProperty('display', 'grid', 'important');
+      renderIframe(true);
+      syncSelectorActive();
+      updateButtonVisual();
+    }
+
+    function unmute() {
+      phase = 'unmuted';
+      renderIframe(false);
+      updateButtonVisual();
+    }
+
+    function muteReadyClose() {
+      phase = 'muted-ready-close';
+      renderIframe(true);
+      updateButtonVisual();
+    }
+
+    function closeCompletely() {
+      phase = 'closed';
+      player.innerHTML = '';
+      player.style.setProperty('display', 'none', 'important');
+      selector.style.setProperty('display', 'none', 'important');
+      syncSelectorActive();
+      updateButtonVisual();
+    }
+
+    selector.addEventListener('click', function(e){
+      const option = e.target.closest('.forced-music-video-option');
+      if (!option) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      activeVideo = {
+        id: option.getAttribute('data-video-id'),
+        title: option.getAttribute('data-video-title')
+      };
+
+      syncSelectorActive();
+
+      if (phase === 'closed') {
+        openMuted();
+      } else if (phase === 'unmuted') {
+        renderIframe(false);
+      } else {
+        renderIframe(true);
+      }
+    });
+
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (phase === 'closed') return openMuted();
+      if (phase === 'muted') return unmute();
+      if (phase === 'unmuted') return muteReadyClose();
+      if (phase === 'muted-ready-close') return closeCompletely();
+    });
+
+    document.body.appendChild(player);
+    document.body.appendChild(selector);
+    document.body.appendChild(button);
+
+    closeCompletely();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', create);
+  } else {
+    create();
+  }
+})();
+</script>
+<div class="footer-counter" style="margin-top:12px;text-align:center;">
+    <img
+        src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
+        alt="Portfolio Visitors"
+        style="border-radius:8px;opacity:.9;">
+</div>
+</body>
+</html>

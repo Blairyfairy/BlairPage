@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blair Page | Kurtosis Fat-Tail Signal Board</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --black: #000000ff;
+  --midnight-violet: #291528ff;
+  --charcoal-brown: #3a3e3bff;
+  --ghost-white: #f0eff4ff;
+  --dusty-mauve: #9e829cff;
+
+  --deep-blue: var(--midnight-violet);
+  --vibrant-orange: var(--dusty-mauve);
+  --text-light: var(--ghost-white);
+
+  --bg-light: linear-gradient(
+    135deg,
+    #000000ff 0%,
+    #291528ff 30%,
+    #3a3e3bff 60%,
+    #9e829cff 85%,
+    #f0eff4ff 100%
+  );
+
+  --glass-bg: rgba(58,62,59,0.15);
+  --glass-border: rgba(240,239,244,0.22);
+  --card-accent: rgba(255,255,255,0.08);
+  --shadow-strong: 0 18px 40px rgba(0,0,0,.55);
+  --shadow-soft: 0 10px 26px rgba(0,0,0,.35);
+}
+
+body.dark {
+  --bg-light: linear-gradient(
+    135deg,
+    #050507 0%,
+    #0d0f16 25%,
+    #141824 55%,
+    #1c1f2b 78%,
+    #26212d 100%
+  );
+  --glass-bg: rgba(8,10,14,0.42);
+  --glass-border: rgba(240,239,244,0.14);
+  --text-light: var(--ghost-white);
+  --card-accent: rgba(255,255,255,0.05);
+  --shadow-strong: 0 20px 42px rgba(0,0,0,.68);
+  --shadow-soft: 0 10px 22px rgba(0,0,0,.45);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 100 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  grid-template-areas: "cred toggle" "nav toggle" !important;
+  align-items: start !important;
+  row-gap: 2px !important;
+  padding: 1rem 2rem !important;
+  font-size: .85rem !important;
+  letter-spacing: .6px !important;
+  text-align: left !important;
+}
+
+.credential-header {
+  grid-area: cred !important;
+  display: block !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  max-width: calc(100% - 92px) !important;
+  text-align: left !important;
+  line-height: 1.05 !important;
+  justify-self: start !important;
+  align-self: start !important;
+  z-index: 121 !important;
+}
+
+.credential-header, .credential-header * {
+  text-align: left !important;
+}
+
+.site-nav {
+  grid-area: nav !important;
+  display: flex !important;
+  position: relative !important;
+  justify-content: flex-start !important;
+  justify-self: start !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  margin: 2px 0 0 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  z-index: 121 !important;
+}
+
+.site-nav a {
+  margin: 0 1rem 0 0 !important;
+  color: var(--dusty-mauve);
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.2 !important;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  text-decoration: underline;
+  color: var(--text-light);
+}
+
+.theme-btn,
+.action-btn,
+.toggle-pill,
+.company-toggle,
+.chart-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: .45rem 1rem;
+  min-height: 34px;
+  font-size: .85rem;
+  line-height: 1;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: var(--text-light);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  outline: none;
+  transition: background 0.3s ease, transform 0.2s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-btn:hover,
+.action-btn:hover,
+.toggle-pill:hover,
+.company-toggle:hover,
+.chart-toggle:hover {
+  transform: translateY(-1px);
+}
+
+#themeToggle {
+  grid-area: toggle !important;
+  position: relative !important;
+  justify-self: end !important;
+  align-self: start !important;
+  min-width: 44px !important;
+}
+
+/* HERO */
+.hero {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -2;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(240,239,244,0.09), transparent 22%),
+    radial-gradient(circle at 78% 28%, rgba(158,130,156,0.20), transparent 24%),
+    radial-gradient(circle at 62% 78%, rgba(240,239,244,0.08), transparent 18%),
+    linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35));
+}
+
+.logo-top-left {
+  position: absolute;
+  top: 100px;
+  left: 16px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid rgba(240,239,244,.45);
+  box-shadow: 0 8px 20px rgba(0,0,0,.7);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.logo-top-left:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.logo-top-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-title-shell {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 19vh 2rem 1rem;
+}
+
+.blog-page-title {
+  text-align: center;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-weight: 700;
+  color: var(--text-light);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  margin: 0 0 1rem;
+}
+
+.hero-subtitle {
+  max-width: 980px;
+  margin: 0 auto 1.6rem;
+  text-align: center;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: rgba(240,239,244,0.92);
+}
+
+.hero-badges,
+.toolbar,
+.summary-strip,
+.chart-grid,
+.company-grid,
+.glossary-grid,
+.reference-grid {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+.hero-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.badge-card,
+.dashboard-card,
+.company-card,
+.glossary-card,
+.reference-card,
+.method-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 1.3rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
+  overflow: hidden;
+}
+
+.badge-card::before,
+.dashboard-card::before,
+.company-card::before,
+.glossary-card::before,
+.reference-card::before,
+.method-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.08));
+  pointer-events: none;
+}
+
+.badge-card *,.dashboard-card *,.company-card *,.glossary-card *,.reference-card *,.method-card * {
+  position: relative;
+  z-index: 1;
+}
+
+.badge-card h3 {
+  margin: 0 0 .4rem;
+  font-size: .82rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--dusty-mauve);
+}
+
+.badge-card .metric {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.badge-card p {
+  margin: .45rem 0 0;
+  color: rgba(240,239,244,0.82);
+  font-size: .9rem;
+  line-height: 1.45;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.4rem;
+}
+
+.toolbar .toolbar-label {
+  font-size: .95rem;
+  color: rgba(240,239,244,0.88);
+  margin-right: .25rem;
+}
+
+.toggle-pill.active,
+.chart-toggle.active,
+.company-toggle.active {
+  background: rgba(158,130,156,0.24);
+  border-color: rgba(240,239,244,0.35);
+}
+
+main.infographic-wrapper {
+  position: relative;
+  top: 0;
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 2rem 4rem;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 2rem);
+  color: var(--text-light);
+}
+
+.section-title p {
+  margin: 0;
+  color: rgba(240,239,244,0.8);
+  font-size: .95rem;
+  line-height: 1.55;
+  max-width: 760px;
+}
+
+.summary-strip {
+  margin-bottom: 1rem;
+}
+
+.summary-strip .dashboard-card {
+  padding: 1.2rem 1.3rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1.3fr .9fr .9fr;
+  gap: 1rem;
+}
+
+.summary-grid ul {
+  margin: .65rem 0 0 1.1rem;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.summary-grid li {
+  margin-bottom: .25rem;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.2rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.chart-grid .dashboard-card.large {
+  grid-column: span 8;
+}
+
+.chart-grid .dashboard-card.medium {
+  grid-column: span 6;
+}
+
+.chart-grid .dashboard-card.small {
+  grid-column: span 4;
+}
+
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.chart-head h3 {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.chart-head p {
+  margin: .3rem 0 0;
+  color: rgba(240,239,244,0.8);
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+.chart-wrap {
+  position: relative;
+  min-height: 320px;
+}
+
+.chart-legend-note {
+  margin-top: .75rem;
+  font-size: .85rem;
+  color: rgba(240,239,244,0.74);
+  line-height: 1.5;
+}
+
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.2rem;
+  padding-top: .5rem;
+}
+
+.company-card {
+  transition: transform .24s ease, box-shadow .24s ease;
+}
+
+.company-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-strong);
+}
+
+.company-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: .8rem;
+}
+
+.company-header h3 {
+  margin: 0 0 .35rem;
+  font-size: 1.15rem;
+}
+
+.company-header .category {
+  display: inline-block;
+  font-size: .76rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--dusty-mauve);
+  margin-bottom: .45rem;
+}
+
+.score-pill {
+  white-space: nowrap;
+  padding: .45rem .7rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  font-size: .8rem;
+}
+
+.company-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: .7rem;
+  margin: 1rem 0;
+}
+
+.company-meta .meta-box {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+  padding: .8rem;
+}
+
+.meta-box .label {
+  display: block;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--dusty-mauve);
+  margin-bottom: .2rem;
+}
+
+.meta-box .value {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.company-preview,
+.company-detail,
+.method-card p,
+.reference-card p,
+.glossary-card p,
+.glossary-card li {
+  line-height: 1.65;
+  color: rgba(240,239,244,0.92);
+}
+
+.company-detail {
+  display: block;
+  margin-top: .9rem;
+  border-top: 1px solid rgba(240,239,244,0.14);
+  padding-top: .9rem;
+}
+
+.company-card.active .company-toggle {
+  background: rgba(158,130,156,0.24);
+  border-color: rgba(240,239,244,0.35);
+}
+
+.company-card ul {
+  margin: .45rem 0 .65rem 1.1rem;
+  padding: 0;
+}
+
+.company-card li {
+  margin-bottom: .3rem;
+}
+
+.source-list {
+  margin-top: .7rem;
+  padding-top: .75rem;
+  border-top: 1px dashed rgba(240,239,244,0.14);
+}
+
+.source-list h4 {
+  margin: 0 0 .5rem;
+  font-size: .85rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--dusty-mauve);
+}
+
+.source-list a,
+.reference-card a,
+.method-card a,
+.hero-subtitle a {
+  color: var(--dusty-mauve);
+  text-decoration: none;
+}
+
+.source-list a:hover,
+.reference-card a:hover,
+.method-card a:hover,
+.hero-subtitle a:hover {
+  color: var(--text-light);
+  text-decoration: underline;
+}
+
+.glossary-grid,
+.reference-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 1.2rem;
+}
+
+.glossary-card h3,
+.reference-card h3,
+.method-card h3 {
+  margin: 0 0 .85rem;
+  font-size: 1rem;
+}
+
+.keyword-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+
+.keyword-cloud span {
+  padding: .48rem .7rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.11);
+  font-size: .84rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  color: var(--text-light);
+  font-size: .92rem;
+}
+
+th, td {
+  border-bottom: 1px solid rgba(240,239,244,0.14);
+  padding: .72rem .55rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--dusty-mauve);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .76rem;
+}
+
+.method-card {
+  margin-top: 1.2rem;
+}
+
+.footer-note {
+  margin-top: 1.2rem;
+  font-size: .86rem;
+  color: rgba(240,239,244,0.75);
+  line-height: 1.55;
+}
+
+.page-scroll-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10050;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-scroll-top.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hidden-by-toggle {
+  display: block !important;
+}
+
+@media (max-width: 1100px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .chart-grid .dashboard-card.large,
+  .chart-grid .dashboard-card.medium,
+  .chart-grid .dashboard-card.small {
+    grid-column: span 12;
+  }
+}
+
+@media(max-width:900px){
+  html, body {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+    background-attachment: scroll !important;
+  }
+
+  .top-bar {
+    padding: 10px 16px 0 16px !important;
+    min-height: 52px !important;
+  }
+
+  .credential-header {
+    font-size: 0.425rem !important;
+  }
+
+  .hero {
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+  }
+
+  .logo-top-left {
+    top: 80px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .page-title-shell,
+  .hero-badges,
+  .toolbar,
+  .summary-strip,
+  .chart-grid,
+  .company-grid,
+  .glossary-grid,
+  .reference-grid,
+  main.infographic-wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .page-title-shell {
+    padding-top: 18vh;
+  }
+
+  .hero-subtitle {
+    font-size: .96rem;
+  }
+
+  .company-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-wrap {
+    min-height: 280px;
+  }
+}
+/* cleaned stability layer */
+:root { color-scheme: dark; }
+html {
+  background-color: #000;
+}
+body {
+  background-color: #000;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.hero,
+.hero::after,
+.badge-card,
+.dashboard-card,
+.company-card,
+.glossary-card,
+.reference-card,
+.method-card,
+.top-bar,
+.logo-top-left,
+.chart-wrap,
+.chart-wrap canvas,
+.table-wrap,
+.company-detail,
+.source-list {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+.hero {
+  pointer-events: none;
+  will-change: transform;
+  contain: paint;
+}
+.chart-wrap {
+  overflow: hidden;
+}
+.chart-wrap canvas {
+  display: block !important;
+}
+@media (max-width: 900px) {
+  html, body {
+    background-attachment: scroll !important;
+  }
+  .hero,
+  .hero::after,
+  .badge-card,
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .top-bar,
+  .chart-wrap,
+  .chart-wrap canvas {
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+  }
+}
+/* ==========================================
+   MOBILE NAV TEXT ONLY
+   does NOT touch theme toggle size or shape
+   ========================================== */
+@media (max-width: 900px) {
+  .site-nav {
+    flex-wrap: wrap !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  .site-nav a {
+    margin: 0 0.7rem 0 0 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-nav a {
+    margin: 0 0.55rem 0 0 !important;
+    font-size: 0.74rem !important;
+    line-height: 1.15 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-nav a {
+    margin: 0 0.45rem 0 0 !important;
+    font-size: 0.7rem !important;
+    line-height: 1.1 !important;
+  }
+}
+/* ==========================================
+   MOBILE CONTENT FIT APPEND
+   does NOT touch mobile menu / top bar / toggle
+   ========================================== */
+@media (max-width: 900px) {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* do not alter mobile menu pieces */
+  .top-bar,
+  .top-bar *,
+  .site-nav,
+  .site-nav *,
+  .credential-header,
+  .credential-header *,
+  #themeToggle {
+    box-sizing: border-box;
+  }
+
+  main.infographic-wrapper,
+  .summary-strip,
+  .chart-grid,
+  .company-grid,
+  .glossary-grid,
+  .reference-grid,
+  .hero-badges,
+  .page-title-shell,
+  .table-wrap,
+  .chart-wrap,
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card,
+  .company-detail,
+  .source-list,
+  .company-meta,
+  .meta-box,
+  .keyword-cloud {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card {
+    overflow: hidden !important;
+  }
+
+  .chart-grid,
+  .company-grid,
+  .glossary-grid,
+  .reference-grid,
+  .hero-badges,
+  .summary-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .chart-grid .dashboard-card.large,
+  .chart-grid .dashboard-card.medium,
+  .chart-grid .dashboard-card.small {
+    grid-column: span 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .company-meta {
+    grid-template-columns: 1fr !important;
+  }
+
+  .table-wrap {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  table {
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+
+  th,
+  td {
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .keyword-cloud {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    max-width: 100% !important;
+  }
+
+  .keyword-cloud span {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+  }
+
+  .company-header,
+  .chart-head,
+  .section-title {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .company-header h3,
+  .chart-head h3,
+  .section-title h2,
+  .hero-subtitle,
+  .company-preview,
+  .company-detail p,
+  .glossary-card p,
+  .reference-card p,
+  .method-card p,
+  .footer-note {
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .source-list a,
+  .reference-card a,
+  .method-card a,
+  .hero-subtitle a {
+    overflow-wrap: anywhere !important;
+    word-break: break-all !important;
+  }
+
+  .logo-top-left img,
+  canvas,
+  img,
+  video {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .chart-wrap canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card {
+    padding: 1rem !important;
+  }
+
+  th,
+  td {
+    padding: 0.62rem 0.45rem !important;
+    font-size: 0.88rem !important;
+  }
+
+  .score-pill {
+    max-width: 100% !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card {
+    padding: 0.9rem !important;
+  }
+
+  .chart-wrap {
+    min-height: 240px !important;
+  }
+
+  th,
+  td {
+    font-size: 0.82rem !important;
+  }
+}
+
+/* ==========================================
+   HIGH-CONTRAST SWATCHABLE CHART PALETTE
+   clearer component frequencies + graph lines
+   ========================================== */
+:root {
+  --chart-blair: #ff5c8a;
+  --chart-marie: #ffd166;
+  --chart-burness: #06d6a0;
+  --chart-drake: #4cc9f0;
+  --chart-mccoy: #b517ff;
+  --chart-page: #ff7a00;
+  --chart-jennifer: #f72585;
+  --chart-smith: #90be6d;
+  --chart-parent: #00bbf9;
+  --chart-exact: #f15bb5;
+  --chart-profile: #fee440;
+  --chart-control: #9bffb7;
+}
+.swatch-grid { display: flex; flex-wrap: wrap; gap: .32rem; margin-top: .65rem; align-items: center; justify-content: flex-start; max-width: 100%; }
+.swatch-chip { display: inline-flex; align-items: center; gap: .32rem; padding: .28rem .48rem; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); font-size: .68rem; line-height: 1; white-space: nowrap; flex: 0 0 auto; }
+.swatch-dot { width: 10px; height: 10px; border-radius: 999px; flex: 0 0 10px; border: 1px solid rgba(255,255,255,.72); box-shadow: 0 0 0 1px rgba(0,0,0,.22); }
+.swatch-code { opacity: .82; font-size: .62rem; }
+@media (max-width: 640px) {
+  .swatch-grid { gap: .26rem; margin-top: .55rem; }
+  .swatch-chip { font-size: .62rem; padding: .24rem .38rem; gap: .25rem; }
+  .swatch-code { font-size: .56rem; }
+  .swatch-dot { width: 9px; height: 9px; flex-basis: 9px; }
+}
+
+
+.formula-box {font-family: Consolas, Monaco, monospace;background: rgba(0,0,0,.22);border: 1px solid rgba(240,239,244,.16);border-radius: 14px;padding: .85rem;margin-top: .75rem;line-height: 1.55;color: rgba(240,239,244,.94);}
+</style>
+</head>
+<body>
+<header class="top-bar">
+  <div class="credential-header">RHCE6 · AWS Certified</div>
+  <nav class="site-nav">
+    <a href="index.html">Home</a><a href="gallery.html">Gallery</a><a href="blog.html">Blog</a><a href="enterprise_clients_infographic.html">Enterprise Info</a><a href="cloud_providers_infographic.html">Cloud Info</a><a href="live_cloud_provider_signal_board.html">Live Info</a>
+  </nav>
+  <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+</header>
+<a href="index.html" class="logo-top-left" aria-label="Return to home"><img src="BlairPageImages/blog.jpg" alt="Blair Page logo"></a>
+<div class="hero"></div>
+<section class="page-title-shell">
+  <h1 class="blog-page-title">Blair Page Kurtosis Signal Board</h1>
+  <!-- RESPONSIVE JAG REPORT BUTTON -->
+<a href="https://blairyfairy.github.io/BlairPage/jag_report_page.html"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="pii-signal-button">
+
+  <span class="signal-glow"></span>
+
+  <span class="signal-text">
+    99% PII + Clearance = 100% PII
+  </span>
+
+</a>
+
+<style>
+.pii-signal-button{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.65rem;
+
+  width:100%;
+  max-width:100%;
+
+  padding:0.95rem 1.25rem;
+  margin:1.2rem auto;
+
+  border-radius:18px;
+  overflow:hidden;
+
+  text-decoration:none;
+  font-family:inherit;
+  font-size:1rem;
+  font-weight:800;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+
+  color:inherit;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.05) 0%,
+      rgba(255,255,255,0.015) 100%
+    );
+
+  border:1px solid rgba(255,255,255,0.10);
+
+  backdrop-filter:blur(10px);
+
+  box-shadow:
+    0 0 18px rgba(180,120,255,0.14),
+    inset 0 0 0 1px rgba(255,255,255,0.03);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.pii-signal-button:hover{
+  transform:translateY(-2px);
+
+  border-color:rgba(220,170,255,0.35);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(210,140,255,0.12) 0%,
+      rgba(120,70,180,0.08) 100%
+    );
+
+  box-shadow:
+    0 0 26px rgba(200,140,255,0.28),
+    0 0 48px rgba(160,90,255,0.16);
+}
+
+.signal-glow{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+
+  background:currentColor;
+  opacity:0.88;
+
+  box-shadow:
+    0 0 8px currentColor,
+    0 0 18px currentColor;
+}
+
+.signal-text{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  line-height:1.35;
+}
+
+@media (max-width:700px){
+
+  .pii-signal-button{
+    padding:0.9rem 1rem;
+    border-radius:16px;
+    font-size:0.9rem;
+  }
+
+  .signal-text{
+    line-height:1.45;
+  }
+
+}
+</style>
+  <p class="hero-subtitle"><strong>High Kurtosis (Fat Tails)</strong> suggests higher risk of extreme, rare events. <strong>Low Kurtosis (Thin Tails)</strong> suggests data is less prone to outliers, often indicating a flatter peak or uniformly distributed data. This page keeps the original Blair Page visual behavior while reframing the name-rarity, exact-date, and wealth-anchor information as a tail-risk dashboard.</p>
+</section>
+<section class="hero-badges">
+  <article class="badge-card"><h3>Main Reading</h3><div class="metric">Fat tails</div><p>The original rarity stack behaves like a tail-risk story: most people sit near common names, while rare surname/name/date combinations live far out in the distribution.</p></article>
+  <article class="badge-card"><h3>High Kurtosis</h3><div class="metric">Rare spikes</div><p>Blair + Burness + Drake/McCoy + exact date is modeled as an extreme outlier layer rather than an ordinary center-of-data case.</p></article>
+  <article class="badge-card"><h3>Low Kurtosis</h3><div class="metric">Even spread</div><p>A flatter or uniform comparison has fewer extreme surprises and less tail concentration.</p></article>
+  <article class="badge-card"><h3>Live API Layer</h3><div class="metric">No key</div><p>Browser fetch attempts World Bank population data and keeps safe fallbacks if a public endpoint fails.</p></article>
+</section>
+<section class="summary-strip"><article class="dashboard-card"><div class="section-title" style="margin-top:0;"><div><h2>Executive summary</h2><p>How to read kurtosis against the original data idea.</p></div></div>
+<div class="summary-grid">
+<div><strong>High kurtosis / fat tails:</strong><ul><li>More mass appears in the far tails than a normal-looking distribution.</li><li>Extreme combinations, like rare family-name stacks or very high wealth anchors, matter more than the average suggests.</li><li>Interpretation: higher risk of rare, high-impact events or identity-collision extremes.</li></ul></div>
+<div><strong>Low kurtosis / thin tails:</strong><ul><li>Values are less likely to produce dramatic outliers.</li><li>A uniform or flatter comparison spreads cases more evenly.</li><li>Interpretation: less tail surprise, less rare-event concentration.</li></ul></div>
+<div><strong>In this page:</strong><ul><li>Normal-name controls behave closer to the center.</li><li>Rare-name stacks behave like far-tail observations.</li><li>Wealth anchors show a separate fat-tail phenomenon: a tiny group far above the median.</li></ul></div>
+</div></article></section>
+<main class="infographic-wrapper">
+<div class="section-title"><div><h2>Visual dashboard</h2><p>Distribution shape, tail weight, component outliers, and live no-key API enrichment.</p></div></div>
+<section class="chart-grid">
+<article class="dashboard-card large"><div class="chart-head"><div><h3>Distribution shape: thin tail vs normal vs fat tail</h3><p>Same center, different tail behavior. Fat tails keep more probability far from the average.</p></div></div><div class="chart-wrap"><canvas id="distributionChart"></canvas></div><div class="chart-legend-note">Higher far-edge lines mean more extreme-event risk.</div></article>
+<article class="dashboard-card small"><div class="chart-head"><div><h3>Kurtosis score ladder</h3><p>Illustrative excess kurtosis values: uniform is low, normal is baseline, fat-tail models are high.</p></div></div><div class="chart-wrap"><canvas id="kurtosisChart"></canvas></div></article>
+<article class="dashboard-card small"><div class="chart-head"><div><h3>Original data as tail signals</h3><p>Original name/wealth components reinterpreted as tail intensity.</p></div></div><div class="chart-wrap"><canvas id="componentChart"></canvas></div><div class="swatch-grid" aria-label="Chart color swatches"><span class="swatch-chip"><i class="swatch-dot" style="background:#ff5c8a"></i>Blair</span><span class="swatch-chip"><i class="swatch-dot" style="background:#ffd166"></i>Marie</span><span class="swatch-chip"><i class="swatch-dot" style="background:#06d6a0"></i>Burness</span><span class="swatch-chip"><i class="swatch-dot" style="background:#4cc9f0"></i>Drake/McCoy</span><span class="swatch-chip"><i class="swatch-dot" style="background:#fee440"></i>Kylie wealth</span><span class="swatch-chip"><i class="swatch-dot" style="background:#9b5de5"></i>Paris wealth</span></div></article>
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>Extreme-event risk comparison</h3><p>How much more tail attention each interpretation deserves.</p></div></div><div class="chart-wrap"><canvas id="riskChart"></canvas></div></article>
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>Name-rarity odds as log-tail distance</h3><p>Converted from “1 in N” to log10(N), so extreme profiles remain readable.</p></div></div><div class="chart-wrap"><canvas id="oddsChart"></canvas></div></article>
+<article class="dashboard-card medium glossary-block"><div class="chart-head"><div><h3>Kurtosis vocabulary</h3><p>Keywords for framing the page.</p></div></div><div class="keyword-cloud"><span>high kurtosis</span><span>fat tails</span><span>low kurtosis</span><span>thin tails</span><span>outlier risk</span><span>rare events</span><span>excess kurtosis</span><span>tail weight</span><span>normal baseline</span><span>uniform comparison</span><span>wealth tail</span><span>identity collision</span></div></article>
+</section>
+<div class="section-title"><div><h2>Kurtosis deep dives</h2><p>Each card keeps the prior glass-card behavior but explains the statistical meaning.</p></div></div><section class="company-grid" id="companyGrid"></section>
+<div class="section-title table-block"><div><h2>Quick comparison table</h2><p>Best single-page scan for high-tail and low-tail interpretations.</p></div></div>
+<section class="table-block"><article class="dashboard-card"><div class="table-wrap"><table><thead><tr><th>Scenario</th><th>Kurtosis meaning</th><th>Tail risk</th><th>Practical interpretation</th></tr></thead><tbody id="comparisonTable"></tbody></table></div></article></section>
+<section class="glossary-grid glossary-block">
+<article class="glossary-card"><h3>High Kurtosis (Fat Tails)</h3><p>High kurtosis means the dataset has more extreme observations than a normal-looking distribution would lead you to expect. In this page, rare name stacks and wealth anchors are treated as tail-event examples.</p></article>
+<article class="glossary-card"><h3>Low Kurtosis (Thin Tails)</h3><p>Low kurtosis means extreme outliers are less common. A uniform comparison can look flatter overall, with fewer dramatic spikes in the tails.</p></article>
+<article class="glossary-card"><h3>Simple formula framing</h3><p>Kurtosis looks at the fourth standardized moment, so far-away values get amplified strongly.</p><div class="formula-box">kurtosis = E[((X - μ) / σ)^4]<br>excess kurtosis = kurtosis - 3</div></article>
+</section>
+<div class="section-title"><div><h2>No-key API expansion layer</h2><p>Browser-only optional enrichment. The page works on GitHub Pages with static fallbacks even if public endpoints block the request.</p></div></div>
+<section class="chart-grid" id="noKeyApiSection">
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>Live/fallback API status</h3><p>World Bank population endpoint and static model values.</p></div></div><div class="chart-wrap"><canvas id="noKeyApiChart"></canvas></div><div class="chart-legend-note">Bars update after fetch when available.</div></article>
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>No-key API data cards</h3><p>Public GET calls and local fallbacks.</p></div></div><div class="company-meta" id="noKeyApiCards"><div class="meta-box"><span class="label">Status</span><span class="value">Loading no-key public endpoints…</span></div></div></article>
+</section>
+<div class="section-title"><div><h2>References and datasets</h2><p>Static links embedded for source review and later expansion.</p></div></div><section class="reference-grid" id="referenceGrid"></section>
+<article class="method-card"><h3>Methodology and caveats</h3><p>This is a statistical visualization page, not a private-record lookup. The charts use illustrative distributions and the same public-style rarity/wealth anchors from the original page to explain how high kurtosis maps to rare outlier events. Use it as an infographic and teaching page rather than a formal statistical proof.</p><p class="footer-note">Data snapshot generated May 11, 2026. Refresh public links before publishing as a formal report.</p></article>
+</main><button id="pageScrollTop" class="page-scroll-top" aria-label="Back to top">▲</button>
+<script>
+const themeToggle=document.getElementById('themeToggle'), pageScrollTop=document.getElementById('pageScrollTop');
+const STORAGE_KEY='blair-kurtosis-theme'; let chartInstances=[];
+const colors={blair:'#ff5c8a',marie:'#ffd166',burness:'#06d6a0',drake:'#4cc9f0',mccoy:'#b517ff',page:'#ff7a00',kylie:'#fee440',paris:'#9b5de5',normal:'#90be6d',uniform:'#00bbf9',fat:'#f15bb5'};
+function hexToRgba(hex,a){const h=hex.replace('#','');const n=parseInt(h,16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
+function chartGridColor(){return document.body.classList.contains('dark')?'rgba(240,239,244,.10)':'rgba(240,239,244,.16)';}
+function destroyCharts(){chartInstances.forEach(c=>c.destroy()); chartInstances=[];}
+function normalPdf(x){return Math.exp(-0.5*x*x)/Math.sqrt(2*Math.PI);}
+function fatTailPdf(x){return 0.72*normalPdf(x)+0.28*(1/(Math.PI*(1+x*x/2)));}
+function uniformPdf(x){return Math.abs(x)<=1.73 ? 0.288 : 0.004;}
+const deepDives=[
+{name:'High Kurtosis / Fat-Tail Profile',category:'Extreme-event risk',score:'High',thenLabel:'More far-tail mass',nowLabel:'Rare spikes matter',direction:'Watch the tails',preview:'High kurtosis means extreme cases are more likely than a normal center-focused view suggests.',detail:['The original rare-name stack is a natural tail-risk example because the ordinary average person does not explain the edge case.','Fat-tail thinking is useful for cybersecurity, finance, reliability, cloud outages, wealth, and rare identity-collision modeling.'],signals:['rare events','tail weight','outlier risk']},
+{name:'Low Kurtosis / Thin-Tail Profile',category:'Stable comparison',score:'Low',thenLabel:'Fewer extremes',nowLabel:'Flatter spread',direction:'Less outlier-prone',preview:'Low kurtosis means the dataset is less prone to extreme outliers, often appearing flatter or more uniform.',detail:['A thin-tail model is safer when extremes truly are bounded or rare.','It is less appropriate when the real system has sudden spikes, heavy wealth concentration, or rare identity combinations.'],signals:['thin tails','bounded variation','uniform comparison']},
+{name:'Blair + Burness + Drake/McCoy stack',category:'Original data reframed',score:'Fat-tail signal',thenLabel:'Name rarity',nowLabel:'Tail distance',direction:'Extreme identity edge',preview:'The rare-name stack is best presented as an outlier/collision-risk tail event, not as an average-name case.',detail:['Common-name averages hide the effect of compounding rare layers.','The deeper the stack, the more the chart behaves like a fat-tail signal.'],signals:['identity collision','rare surname','exact date layer']},
+{name:'Kylie / Paris wealth anchors',category:'Wealth-tail example',score:'High tail',thenLabel:'Net-worth anchor',nowLabel:'Power-law style tail',direction:'Extreme wealth edge',preview:'Very high wealth is a separate fat-tail distribution where a small number of people sit far above the median.',detail:['Wealth distributions are commonly used to explain why averages can be misleading.','This page keeps wealth anchors separate from name rarity but uses them to illustrate fat-tail shape.'],signals:['wealth concentration','power law','tail risk']},
+{name:'Normal-name control',category:'Center comparison',score:'Baseline',thenLabel:'Jennifer/Smith style control',nowLabel:'Closer to center',direction:'Lower tail distance',preview:'A common-name control belongs closer to the center of the distribution and is less useful as an extreme-tail example.',detail:['Controls help show why kurtosis matters: the center can look normal while edge cases behave differently.'],signals:['baseline','control group','central mass']}
+];
+const tableRows=[['High kurtosis','Fat tails / more rare extremes','High','Use when extreme rare events, rare combinations, outages, or wealth spikes matter.'],['Low kurtosis','Thin tails / fewer outliers','Low','Use when data is bounded, flatter, or less prone to dramatic extremes.'],['Normal baseline','Excess kurtosis near 0','Medium','Good comparison curve, but it can underestimate rare-event exposure.'],['Uniform comparison','Negative excess kurtosis','Low','Flatter distribution; fewer values live extremely far from the center.'],['Original rarity stack','Compounded tail distance','Very high','Rare layers multiply into an outlier-style signal.']];
+const references=[{text:'NIST/SEMATECH e-Handbook of Statistical Methods. Kurtosis and distribution shape concepts.',url:'https://www.itl.nist.gov/div898/handbook/'},{text:'World Bank API. Public world-population endpoint for optional no-key enrichment.',url:'https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json'},{text:'Social Security Administration baby names data catalog for possible future name-frequency expansion.',url:'https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-data'},{text:'Forebears name and surname frequency pages used by the source page as public rarity anchors.',url:'https://forebears.io/'},{text:'Chart.js CDN powers the static browser-only charts.',url:'https://www.chartjs.org/'}];
+let apiData=[{name:'World population fallback',value:81,color:colors.uniform,status:'fallback',note:'Fallback value is 8.1B scaled as x100M.'},{name:'Normal baseline kurtosis',value:3,color:colors.normal,status:'static',note:'Normal distribution kurtosis is 3; excess kurtosis is 0.'},{name:'Uniform excess kurtosis',value:-1.2,color:colors.uniform,status:'static',note:'Uniform distribution has negative excess kurtosis.'},{name:'Fat-tail teaching score',value:9,color:colors.fat,status:'static',note:'Illustrative score used to show heavier tails.'}];
+function buildCards(){document.getElementById('companyGrid').innerHTML=deepDives.map(c=>'<article class="company-card active"><div class="company-header"><div><span class="category">'+c.category+'</span><h3>'+c.name+'</h3></div><span class="score-pill">'+c.score+'</span></div><div class="company-meta"><div class="meta-box"><span class="label">Input</span><span class="value">'+c.thenLabel+'</span></div><div class="meta-box"><span class="label">Output</span><span class="value">'+c.nowLabel+'</span></div></div><p class="company-preview">'+c.preview+'</p><div class="company-detail"><strong>'+c.direction+'</strong><ul>'+c.detail.map(d=>'<li>'+d+'</li>').join('')+'</ul><div class="keyword-cloud">'+c.signals.map(s=>'<span>'+s+'</span>').join('')+'</div></div></article>').join('');}
+function buildTable(){document.getElementById('comparisonTable').innerHTML=tableRows.map(r=>'<tr><td><strong>'+r[0]+'</strong></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>').join('');}
+function buildReferences(){document.getElementById('referenceGrid').innerHTML=references.map(r=>'<article class="reference-card"><h3>Reference</h3><p>'+r.text+'</p><a href="'+r.url+'" target="_blank" rel="noopener noreferrer">Open source</a></article>').join('');}
+function createCharts(){if(typeof Chart==='undefined')return; destroyCharts(); Chart.defaults.color='rgba(240,239,244,.88)'; Chart.defaults.borderColor='rgba(240,239,244,.12)';
+const xs=[]; for(let i=-50;i<=50;i++)xs.push(i/10);
+chartInstances.push(new Chart(document.getElementById('distributionChart'),{type:'line',data:{labels:xs,datasets:[{label:'Low kurtosis / thin-tail style',data:xs.map(uniformPdf),borderColor:colors.uniform,backgroundColor:hexToRgba(colors.uniform,.18),tension:.25,borderWidth:3,pointRadius:0},{label:'Normal baseline',data:xs.map(normalPdf),borderColor:colors.normal,backgroundColor:hexToRgba(colors.normal,.18),tension:.25,borderWidth:3,pointRadius:0},{label:'High kurtosis / fat-tail style',data:xs.map(fatTailPdf),borderColor:colors.fat,backgroundColor:hexToRgba(colors.fat,.18),tension:.25,borderWidth:3,pointRadius:0}]},options:{maintainAspectRatio:false,scales:{x:{title:{display:true,text:'Standardized distance from average'},grid:{color:chartGridColor()}},y:{title:{display:true,text:'Relative density'},grid:{color:chartGridColor()}}}}}));
+chartInstances.push(new Chart(document.getElementById('kurtosisChart'),{type:'bar',data:{labels:['Uniform','Normal','Fat-tail','Extreme stack'],datasets:[{label:'Excess kurtosis / tail score',data:[-1.2,0,6,12],backgroundColor:[hexToRgba(colors.uniform,.78),hexToRgba(colors.normal,.78),hexToRgba(colors.fat,.78),hexToRgba(colors.blair,.78)],borderColor:[colors.uniform,colors.normal,colors.fat,colors.blair],borderWidth:2,borderRadius:9}]},options:{maintainAspectRatio:false,scales:{y:{grid:{color:chartGridColor()}},x:{grid:{display:false}}}}}));
+chartInstances.push(new Chart(document.getElementById('componentChart'),{type:'radar',data:{labels:['Blair','Marie','Burness','Drake/McCoy','Kylie wealth','Paris wealth'],datasets:[{label:'Tail intensity',data:[55,24,96,82,92,88],backgroundColor:hexToRgba(colors.blair,.20),borderColor:colors.blair,pointBackgroundColor:[colors.blair,colors.marie,colors.burness,colors.drake,colors.kylie,colors.paris],borderWidth:2}]},options:{maintainAspectRatio:false,scales:{r:{angleLines:{color:chartGridColor()},grid:{color:chartGridColor()},pointLabels:{color:'rgba(240,239,244,.88)'},suggestedMin:0,suggestedMax:100}}}}));
+chartInstances.push(new Chart(document.getElementById('riskChart'),{type:'bar',data:{labels:['Thin-tail process','Normal baseline','Rare name stack','Wealth tail','Cloud outage / cyber tail'],datasets:[{label:'Extreme-event attention score',data:[18,35,86,93,90],backgroundColor:[hexToRgba(colors.uniform,.78),hexToRgba(colors.normal,.78),hexToRgba(colors.burness,.78),hexToRgba(colors.kylie,.78),hexToRgba(colors.drake,.78)],borderColor:[colors.uniform,colors.normal,colors.burness,colors.kylie,colors.drake],borderWidth:2,borderRadius:9}]},options:{maintainAspectRatio:false,indexAxis:'y',scales:{x:{beginAtZero:true,max:100,grid:{color:chartGridColor()}},y:{grid:{display:false}}}}}));
+const odds=[['Marie',621],['Blair',11608],['Drake×McCoy',4461*2223],['Blair+parents',11608*4461*2223],['Full exact stack',9.8e25]];
+chartInstances.push(new Chart(document.getElementById('oddsChart'),{type:'bar',data:{labels:odds.map(o=>o[0]),datasets:[{label:'log10(1 in N)',data:odds.map(o=>Math.log10(o[1])),backgroundColor:[hexToRgba(colors.marie,.78),hexToRgba(colors.blair,.78),hexToRgba(colors.drake,.78),hexToRgba(colors.burness,.78),hexToRgba(colors.fat,.78)],borderColor:[colors.marie,colors.blair,colors.drake,colors.burness,colors.fat],borderWidth:2,borderRadius:9}]},options:{maintainAspectRatio:false,scales:{y:{title:{display:true,text:'Log tail distance'},grid:{color:chartGridColor()}},x:{ticks:{maxRotation:35},grid:{display:false}}}}}));
+chartInstances.push(new Chart(document.getElementById('noKeyApiChart'),{type:'bar',data:{labels:apiData.map(x=>x.name),datasets:[{label:'Live/fallback values',data:apiData.map(x=>x.value),backgroundColor:apiData.map(x=>hexToRgba(x.color,.78)),borderColor:apiData.map(x=>x.color),borderWidth:2,borderRadius:9}]},options:{maintainAspectRatio:false,plugins:{tooltip:{callbacks:{afterLabel:(ctx)=>apiData[ctx.dataIndex].note}}},scales:{y:{grid:{color:chartGridColor()}},x:{ticks:{maxRotation:45,minRotation:20},grid:{display:false}}}}}));
+}
+function renderApiCards(){document.getElementById('noKeyApiCards').innerHTML=apiData.map(x=>'<div class="meta-box"><span class="label">'+x.name+'</span><span class="value">'+x.value+'</span><small style="display:block;margin-top:.35rem;line-height:1.35;color:rgba(240,239,244,.72);">'+x.status+': '+x.note+'</small></div>').join('');}
+async function fetchWorldBank(){renderApiCards(); try{const res=await fetch('https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=2024',{cache:'no-store'}); if(!res.ok)throw new Error('HTTP '+res.status); const data=await res.json(); const val=data&&data[1]&&data[1][0]&&data[1][0].value; if(typeof val==='number'){apiData[0]={name:'World population live',value:Math.round(val/100000000),color:colors.uniform,status:'live',note:'World Bank returned '+val.toLocaleString()+' people, scaled as x100M.'}; renderApiCards(); createCharts();}}catch(e){apiData[0].note+=' Fetch blocked or unavailable.'; renderApiCards();}}
+function applyTheme(theme){if(theme==='dark'){document.body.classList.add('dark');themeToggle.textContent='☀️';}else{document.body.classList.remove('dark');themeToggle.textContent='🌙';}setTimeout(createCharts,0);}
+function initTheme(){applyTheme(localStorage.getItem(STORAGE_KEY)||'light');}
+themeToggle.addEventListener('click',()=>{const next=document.body.classList.contains('dark')?'light':'dark';localStorage.setItem(STORAGE_KEY,next);applyTheme(next);});
+window.addEventListener('scroll',()=>{if(window.scrollY>400){pageScrollTop.classList.add('show');}else{pageScrollTop.classList.remove('show');}});
+pageScrollTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+buildCards(); buildTable(); buildReferences(); initTheme(); renderApiCards(); createCharts(); fetchWorldBank();
+</script>
+<script>
+(function () {
+  var VIDEO_ID = 'O3dWBLoU--E';
+
+  var PLAYER_ID = 'left-floating-player-celebrity-skin';
+  var BUTTON_ID = 'left-floating-button-celebrity-skin';
+  var STYLE_ID = 'left-floating-player-style-celebrity-skin';
+  var OPTIONS_ID = 'left-floating-video-options-celebrity-skin';
+
+  var VIDEO_OPTIONS = [
+    { id: 'O3dWBLoU--E', label: 'Hole - Celebrity Skin' },
+    { id: 'jFKWVt8-9J0', label: 'Hole - Violet' },
+    { id: 't6oynBkHrxA', label: 'Jack Off Jill - Nazi Halo' },
+    { id: '37ncqG_AoJk', label: 'OTEP - Breed Official Video' },
+    { id: 'TAqZb52sgpU', label: 'Alice In Chains - Man in the Box' },
+    { id: '3Vp56IAkDJA', label: 'Alice In Chains - Love, Hate, Love - Live at the Moore' }
+  ];
+
+  var activeVideoId = VIDEO_ID;
+  var activeVideoTitle = VIDEO_OPTIONS[0].label;
+  var EMBED_BASE = 'https://www.youtube.com/embed/';
+
+  function buildSrc(muted) {
+    return EMBED_BASE + activeVideoId +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&playsinline=1' +
+      '&rel=0' +
+      '&modestbranding=1' +
+      '&enablejsapi=1';
+  }
+
+  function removeOld() {
+    [PLAYER_ID, BUTTON_ID, STYLE_ID, OPTIONS_ID].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.parentNode.removeChild(el);
+    });
+  }
+
+  function injectStyle() {
+    var style = document.createElement('style');
+    style.id = STYLE_ID;
+
+    style.innerHTML =
+      '#' + PLAYER_ID + '{position:fixed!important;left:20px!important;bottom:78px!important;width:260px!important;height:150px!important;z-index:2147483000!important;border-radius:12px!important;overflow:hidden!important;background:#000!important;box-shadow:0 10px 25px rgba(0,0,0,.6)!important;display:none!important;}' +
+      '#' + PLAYER_ID + '.open{display:block!important;}' +
+      '#' + OPTIONS_ID + '{position:fixed!important;left:20px!important;bottom:236px!important;width:260px!important;z-index:2147483002!important;display:none!important;grid-template-columns:1fr!important;gap:6px!important;padding:8px!important;border-radius:12px!important;background:rgba(23,14,32,.84)!important;border:1px solid rgba(240,239,244,.28)!important;box-shadow:0 10px 25px rgba(0,0,0,.50)!important;backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important;box-sizing:border-box!important;max-height:44vh!important;overflow-y:auto!important;overscroll-behavior:contain!important;}' +
+      '#' + OPTIONS_ID + '.open{display:grid!important;}' +
+      '#' + OPTIONS_ID + ' button{width:100%!important;box-sizing:border-box!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:10px!important;padding:6px 7px!important;background:rgba(255,255,255,.12)!important;color:#fff!important;font:700 10.5px/1.18 Inter,system-ui,sans-serif!important;text-align:left!important;cursor:pointer!important;white-space:normal!important;overflow-wrap:anywhere!important;box-shadow:none!important;}' +
+      '#' + OPTIONS_ID + ' button.active,#' + OPTIONS_ID + ' button:hover{background:rgba(158,130,156,.42)!important;}' +
+      '#' + PLAYER_ID + ' iframe{width:100%!important;height:100%!important;border:0!important;display:block!important;background:#000!important;}' +
+      '#' + BUTTON_ID + '{position:fixed!important;left:20px!important;bottom:20px!important;width:52px!important;height:52px!important;z-index:2147483001!important;border-radius:50%!important;border:1px solid rgba(240,239,244,.35)!important;background:rgba(58,62,59,.72)!important;color:#fff!important;cursor:pointer!important;font-size:1.15rem!important;font-weight:700!important;display:flex!important;align-items:center!important;justify-content:center!important;box-shadow:0 8px 20px rgba(0,0,0,.45)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;touch-action:manipulation!important;}' +
+      '#' + BUTTON_ID + ':hover{background:rgba(158,130,156,.34)!important;transform:translateY(-2px)!important;}' +
+      '@media(max-width:640px){#' + PLAYER_ID + '{left:12px!important;bottom:72px!important;width:calc(100vw - 24px)!important;height:calc((100vw - 24px) * .5625)!important;}#' + OPTIONS_ID + '{left:12px!important;bottom:calc(72px + ((100vw - 24px) * .5625) + 8px)!important;width:calc(100vw - 24px)!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;padding:7px!important;max-height:38vh!important;}#' + OPTIONS_ID + ' button{font-size:9.5px!important;line-height:1.12!important;padding:6px!important;}#' + BUTTON_ID + '{left:12px!important;bottom:12px!important;}}';
+
+    document.head.appendChild(style);
+  }
+
+  function createPlayer() {
+    removeOld();
+    injectStyle();
+
+    var player = document.createElement('div');
+    player.id = PLAYER_ID;
+
+    var options = document.createElement('div');
+    options.id = OPTIONS_ID;
+
+    var button = document.createElement('button');
+    button.id = BUTTON_ID;
+    button.type = 'button';
+
+    var state = 'closed';
+
+    function setButton() {
+      if (state === 'closed') button.innerHTML = '▶';
+      if (state === 'muted') button.innerHTML = '🔊';
+      if (state === 'playing') button.innerHTML = '🔇';
+      if (state === 'stopped') button.innerHTML = '✕';
+      button.setAttribute('aria-label', activeVideoTitle);
+      button.setAttribute('title', activeVideoTitle);
+    }
+
+    function pauseOtherYouTubeFrames() {
+      document.querySelectorAll('iframe[src*="youtube.com/embed/"], iframe[src*="youtube-nocookie.com/embed/"]').forEach(function (frame) {
+        try {
+          frame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        } catch (e) {}
+      });
+    }
+
+    function loadIframe(muted) {
+      pauseOtherYouTubeFrames();
+      player.innerHTML =
+        '<iframe src="' + buildSrc(muted) + '" title="' + activeVideoTitle.replace(/"/g, '&quot;') + '" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>';
+    }
+
+    VIDEO_OPTIONS.forEach(function(item){
+      var optionButton = document.createElement('button');
+      optionButton.type = 'button';
+      optionButton.textContent = item.label;
+
+      if(item.id === activeVideoId) optionButton.className = 'active';
+
+      optionButton.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        activeVideoId = item.id;
+        activeVideoTitle = item.label;
+
+        options.querySelectorAll('button').forEach(function(btn){
+          btn.classList.remove('active');
+        });
+
+        optionButton.classList.add('active');
+        setButton();
+
+        if(state === 'closed' || state === 'stopped') {
+          state = 'muted';
+          player.classList.add('open');
+          options.classList.add('open');
+          loadIframe(true);
+          setButton();
+          return;
+        }
+
+        if(state === 'muted') loadIframe(true);
+        if(state === 'playing') loadIframe(false);
+      });
+
+      options.appendChild(optionButton);
+    });
+
+    button.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      if(state === 'closed') {
+        state = 'muted';
+        player.classList.add('open');
+        options.classList.add('open');
+        loadIframe(true);
+        setButton();
+        return;
+      }
+
+      if(state === 'muted') {
+        state = 'playing';
+        loadIframe(false);
+        setButton();
+        return;
+      }
+
+      if(state === 'playing') {
+        state = 'stopped';
+        player.innerHTML = '';
+        player.classList.add('open');
+        options.classList.add('open');
+        setButton();
+        return;
+      }
+
+      if(state === 'stopped') {
+        state = 'closed';
+        player.innerHTML = '';
+        player.classList.remove('open');
+        options.classList.remove('open');
+        setButton();
+      }
+    });
+
+    document.body.appendChild(player);
+    document.body.appendChild(options);
+    document.body.appendChild(button);
+
+    setButton();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createPlayer);
+  } else {
+    createPlayer();
+  }
+})();
+</script>
+<!-- =========================================================
+     PERFORMANCE + NO-JUMP STABILITY APPEND
+     visual-neutral: no color/layout/text/design changes
+     ========================================================= -->
+<style id="blair-performance-stability-append">
+  html {
+    overflow-x: clip !important;
+    text-size-adjust: 100% !important;
+    -webkit-text-size-adjust: 100% !important;
+  }
+
+  body {
+    overflow-x: clip !important;
+    overscroll-behavior-y: none !important;
+    -webkit-font-smoothing: antialiased !important;
+    text-rendering: optimizeLegibility !important;
+  }
+
+  .hero,
+  .hero::after {
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+    contain: paint !important;
+    pointer-events: none !important;
+  }
+
+  .badge-card,
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .pii-signal-button,
+  .page-scroll-top,
+  #left-floating-player-2,
+  #left-floating-button-2 {
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  .chart-wrap {
+    contain: layout paint style !important;
+    overflow: hidden !important;
+  }
+
+  .chart-wrap canvas {
+    display: block !important;
+    max-width: 100% !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+  }
+
+  img,
+  iframe,
+  canvas,
+  video {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+  }
+
+  img {
+    image-rendering: auto !important;
+  }
+
+  iframe {
+    color-scheme: dark !important;
+  }
+
+  @media (max-width: 900px) {
+    html,
+    body {
+      scroll-behavior: auto !important;
+      background-attachment: scroll !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    .hero {
+      position: fixed !important;
+      inset: 0 !important;
+      min-height: 100vh !important;
+      min-height: 100dvh !important;
+    }
+
+    .top-bar,
+    .page-title-shell,
+    main.infographic-wrapper,
+    .hero-badges,
+    .summary-strip,
+    .chart-grid,
+    .company-grid,
+    .glossary-grid,
+    .reference-grid {
+      transform: none !important;
+      -webkit-transform: none !important;
+    }
+
+    .badge-card,
+    .dashboard-card,
+    .company-card,
+    .glossary-card,
+    .reference-card,
+    .method-card {
+      contain: paint !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+<div class="footer-counter" style="margin-top:12px;text-align:center;">
+    <img
+        src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
+        alt="Portfolio Visitors"
+        style="border-radius:8px;opacity:.9;">
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blair Page | Name Rarity Odds Infographic</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --black: #000000ff;
+  --midnight-violet: #291528ff;
+  --charcoal-brown: #3a3e3bff;
+  --ghost-white: #f0eff4ff;
+  --dusty-mauve: #9e829cff;
+
+  --deep-blue: var(--midnight-violet);
+  --vibrant-orange: var(--dusty-mauve);
+  --text-light: var(--ghost-white);
+
+  --bg-light: linear-gradient(
+    135deg,
+    #000000ff 0%,
+    #291528ff 30%,
+    #3a3e3bff 60%,
+    #9e829cff 85%,
+    #f0eff4ff 100%
+  );
+
+  --glass-bg: rgba(58,62,59,0.15);
+  --glass-border: rgba(240,239,244,0.22);
+  --card-accent: rgba(255,255,255,0.08);
+  --shadow-strong: 0 18px 40px rgba(0,0,0,.55);
+  --shadow-soft: 0 10px 26px rgba(0,0,0,.35);
+}
+
+body.dark {
+  --bg-light: linear-gradient(
+    135deg,
+    #050507 0%,
+    #0d0f16 25%,
+    #141824 55%,
+    #1c1f2b 78%,
+    #26212d 100%
+  );
+  --glass-bg: rgba(8,10,14,0.42);
+  --glass-border: rgba(240,239,244,0.14);
+  --text-light: var(--ghost-white);
+  --card-accent: rgba(255,255,255,0.05);
+  --shadow-strong: 0 20px 42px rgba(0,0,0,.68);
+  --shadow-soft: 0 10px 22px rgba(0,0,0,.45);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 100 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  grid-template-areas: "cred toggle" "nav toggle" !important;
+  align-items: start !important;
+  row-gap: 2px !important;
+  padding: 1rem 2rem !important;
+  font-size: .85rem !important;
+  letter-spacing: .6px !important;
+  text-align: left !important;
+}
+
+.credential-header {
+  grid-area: cred !important;
+  display: block !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  max-width: calc(100% - 92px) !important;
+  text-align: left !important;
+  line-height: 1.05 !important;
+  justify-self: start !important;
+  align-self: start !important;
+  z-index: 121 !important;
+}
+
+.credential-header, .credential-header * {
+  text-align: left !important;
+}
+
+.site-nav {
+  grid-area: nav !important;
+  display: flex !important;
+  position: relative !important;
+  justify-content: flex-start !important;
+  justify-self: start !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  margin: 2px 0 0 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  z-index: 121 !important;
+}
+
+.site-nav a {
+  margin: 0 1rem 0 0 !important;
+  color: var(--dusty-mauve);
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.2 !important;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  text-decoration: underline;
+  color: var(--text-light);
+}
+
+.theme-btn,
+.action-btn,
+.toggle-pill,
+.company-toggle,
+.chart-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: .45rem 1rem;
+  min-height: 34px;
+  font-size: .85rem;
+  line-height: 1;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: var(--text-light);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  outline: none;
+  transition: background 0.3s ease, transform 0.2s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-btn:hover,
+.action-btn:hover,
+.toggle-pill:hover,
+.company-toggle:hover,
+.chart-toggle:hover {
+  transform: translateY(-1px);
+}
+
+#themeToggle {
+  grid-area: toggle !important;
+  position: relative !important;
+  justify-self: end !important;
+  align-self: start !important;
+  min-width: 44px !important;
+}
+
+/* HERO */
+.hero {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -2;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(240,239,244,0.09), transparent 22%),
+    radial-gradient(circle at 78% 28%, rgba(158,130,156,0.20), transparent 24%),
+    radial-gradient(circle at 62% 78%, rgba(240,239,244,0.08), transparent 18%),
+    linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35));
+}
+
+.logo-top-left {
+  position: absolute;
+  top: 100px;
+  left: 16px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid rgba(240,239,244,.45);
+  box-shadow: 0 8px 20px rgba(0,0,0,.7);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.logo-top-left:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.logo-top-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-title-shell {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 19vh 2rem 1rem;
+}
+
+.blog-page-title {
+  text-align: center;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-weight: 700;
+  color: var(--text-light);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  margin: 0 0 1rem;
+}
+
+.hero-subtitle {
+  max-width: 980px;
+  margin: 0 auto 1.6rem;
+  text-align: center;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: rgba(240,239,244,0.92);
+}
+
+.hero-badges,
+.toolbar,
+.summary-strip,
+.chart-grid,
+.company-grid,
+.glossary-grid,
+.reference-grid {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+.hero-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.badge-card,
+.dashboard-card,
+.company-card,
+.glossary-card,
+.reference-card,
+.method-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 1.3rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
+  overflow: hidden;
+}
+
+.badge-card::before,
+.dashboard-card::before,
+.company-card::before,
+.glossary-card::before,
+.reference-card::before,
+.method-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.08));
+  pointer-events: none;
+}
+
+.badge-card *,.dashboard-card *,.company-card *,.glossary-card *,.reference-card *,.method-card * {
+  position: relative;
+  z-index: 1;
+}
+
+.badge-card h3 {
+  margin: 0 0 .4rem;
+  font-size: .82rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--dusty-mauve);
+}
+
+.badge-card .metric {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.badge-card p {
+  margin: .45rem 0 0;
+  color: rgba(240,239,244,0.82);
+  font-size: .9rem;
+  line-height: 1.45;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.4rem;
+}
+
+.toolbar .toolbar-label {
+  font-size: .95rem;
+  color: rgba(240,239,244,0.88);
+  margin-right: .25rem;
+}
+
+.toggle-pill.active,
+.chart-toggle.active,
+.company-toggle.active {
+  background: rgba(158,130,156,0.24);
+  border-color: rgba(240,239,244,0.35);
+}
+
+main.infographic-wrapper {
+  position: relative;
+  top: 0;
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 2rem 4rem;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 2rem);
+  color: var(--text-light);
+}
+
+.section-title p {
+  margin: 0;
+  color: rgba(240,239,244,0.8);
+  font-size: .95rem;
+  line-height: 1.55;
+  max-width: 760px;
+}
+
+.summary-strip {
+  margin-bottom: 1rem;
+}
+
+.summary-strip .dashboard-card {
+  padding: 1.2rem 1.3rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1.3fr .9fr .9fr;
+  gap: 1rem;
+}
+
+.summary-grid ul {
+  margin: .65rem 0 0 1.1rem;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.summary-grid li {
+  margin-bottom: .25rem;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.2rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.chart-grid .dashboard-card.large {
+  grid-column: span 8;
+}
+
+.chart-grid .dashboard-card.medium {
+  grid-column: span 6;
+}
+
+.chart-grid .dashboard-card.small {
+  grid-column: span 4;
+}
+
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.chart-head h3 {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.chart-head p {
+  margin: .3rem 0 0;
+  color: rgba(240,239,244,0.8);
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+.chart-wrap {
+  position: relative;
+  min-height: 320px;
+}
+
+.chart-legend-note {
+  margin-top: .75rem;
+  font-size: .85rem;
+  color: rgba(240,239,244,0.74);
+  line-height: 1.5;
+}
+
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.2rem;
+  padding-top: .5rem;
+}
+
+.company-card {
+  transition: transform .24s ease, box-shadow .24s ease;
+}
+
+.company-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-strong);
+}
+
+.company-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: .8rem;
+}
+
+.company-header h3 {
+  margin: 0 0 .35rem;
+  font-size: 1.15rem;
+}
+
+.company-header .category {
+  display: inline-block;
+  font-size: .76rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--dusty-mauve);
+  margin-bottom: .45rem;
+}
+
+.score-pill {
+  white-space: nowrap;
+  padding: .45rem .7rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  font-size: .8rem;
+}
+
+.company-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: .7rem;
+  margin: 1rem 0;
+}
+
+.company-meta .meta-box {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+  padding: .8rem;
+}
+
+.meta-box .label {
+  display: block;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--dusty-mauve);
+  margin-bottom: .2rem;
+}
+
+.meta-box .value {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.company-preview,
+.company-detail,
+.method-card p,
+.reference-card p,
+.glossary-card p,
+.glossary-card li {
+  line-height: 1.65;
+  color: rgba(240,239,244,0.92);
+}
+
+.company-detail {
+  display: block;
+  margin-top: .9rem;
+  border-top: 1px solid rgba(240,239,244,0.14);
+  padding-top: .9rem;
+}
+
+.company-card.active .company-toggle {
+  background: rgba(158,130,156,0.24);
+  border-color: rgba(240,239,244,0.35);
+}
+
+.company-card ul {
+  margin: .45rem 0 .65rem 1.1rem;
+  padding: 0;
+}
+
+.company-card li {
+  margin-bottom: .3rem;
+}
+
+.source-list {
+  margin-top: .7rem;
+  padding-top: .75rem;
+  border-top: 1px dashed rgba(240,239,244,0.14);
+}
+
+.source-list h4 {
+  margin: 0 0 .5rem;
+  font-size: .85rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--dusty-mauve);
+}
+
+.source-list a,
+.reference-card a,
+.method-card a,
+.hero-subtitle a {
+  color: var(--dusty-mauve);
+  text-decoration: none;
+}
+
+.source-list a:hover,
+.reference-card a:hover,
+.method-card a:hover,
+.hero-subtitle a:hover {
+  color: var(--text-light);
+  text-decoration: underline;
+}
+
+.glossary-grid,
+.reference-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 1.2rem;
+}
+
+.glossary-card h3,
+.reference-card h3,
+.method-card h3 {
+  margin: 0 0 .85rem;
+  font-size: 1rem;
+}
+
+.keyword-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+
+.keyword-cloud span {
+  padding: .48rem .7rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.11);
+  font-size: .84rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  color: var(--text-light);
+  font-size: .92rem;
+}
+
+th, td {
+  border-bottom: 1px solid rgba(240,239,244,0.14);
+  padding: .72rem .55rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--dusty-mauve);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .76rem;
+}
+
+.method-card {
+  margin-top: 1.2rem;
+}
+
+.footer-note {
+  margin-top: 1.2rem;
+  font-size: .86rem;
+  color: rgba(240,239,244,0.75);
+  line-height: 1.55;
+}
+
+.page-scroll-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10050;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-scroll-top.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hidden-by-toggle {
+  display: block !important;
+}
+
+@media (max-width: 1100px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .chart-grid .dashboard-card.large,
+  .chart-grid .dashboard-card.medium,
+  .chart-grid .dashboard-card.small {
+    grid-column: span 12;
+  }
+}
+
+@media(max-width:900px){
+  html, body {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+    background-attachment: scroll !important;
+  }
+
+  .top-bar {
+    padding: 10px 16px 0 16px !important;
+    min-height: 52px !important;
+  }
+
+  .credential-header {
+    font-size: 0.425rem !important;
+  }
+
+  .hero {
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+  }
+
+  .logo-top-left {
+    top: 80px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .page-title-shell,
+  .hero-badges,
+  .toolbar,
+  .summary-strip,
+  .chart-grid,
+  .company-grid,
+  .glossary-grid,
+  .reference-grid,
+  main.infographic-wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .page-title-shell {
+    padding-top: 18vh;
+  }
+
+  .hero-subtitle {
+    font-size: .96rem;
+  }
+
+  .company-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-wrap {
+    min-height: 280px;
+  }
+}
+/* cleaned stability layer */
+:root { color-scheme: dark; }
+html {
+  background-color: #000;
+}
+body {
+  background-color: #000;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.hero,
+.hero::after,
+.badge-card,
+.dashboard-card,
+.company-card,
+.glossary-card,
+.reference-card,
+.method-card,
+.top-bar,
+.logo-top-left,
+.chart-wrap,
+.chart-wrap canvas,
+.table-wrap,
+.company-detail,
+.source-list {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+.hero {
+  pointer-events: none;
+  will-change: transform;
+  contain: paint;
+}
+.chart-wrap {
+  overflow: hidden;
+}
+.chart-wrap canvas {
+  display: block !important;
+}
+@media (max-width: 900px) {
+  html, body {
+    background-attachment: scroll !important;
+  }
+  .hero,
+  .hero::after,
+  .badge-card,
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .top-bar,
+  .chart-wrap,
+  .chart-wrap canvas {
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+  }
+}
+/* ==========================================
+   MOBILE NAV TEXT ONLY
+   does NOT touch theme toggle size or shape
+   ========================================== */
+@media (max-width: 900px) {
+  .site-nav {
+    flex-wrap: wrap !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  .site-nav a {
+    margin: 0 0.7rem 0 0 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-nav a {
+    margin: 0 0.55rem 0 0 !important;
+    font-size: 0.74rem !important;
+    line-height: 1.15 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-nav a {
+    margin: 0 0.45rem 0 0 !important;
+    font-size: 0.7rem !important;
+    line-height: 1.1 !important;
+  }
+}
+/* ==========================================
+   MOBILE CONTENT FIT APPEND
+   does NOT touch mobile menu / top bar / toggle
+   ========================================== */
+@media (max-width: 900px) {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* do not alter mobile menu pieces */
+  .top-bar,
+  .top-bar *,
+  .site-nav,
+  .site-nav *,
+  .credential-header,
+  .credential-header *,
+  #themeToggle {
+    box-sizing: border-box;
+  }
+
+  main.infographic-wrapper,
+  .summary-strip,
+  .chart-grid,
+  .company-grid,
+  .glossary-grid,
+  .reference-grid,
+  .hero-badges,
+  .page-title-shell,
+  .table-wrap,
+  .chart-wrap,
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card,
+  .company-detail,
+  .source-list,
+  .company-meta,
+  .meta-box,
+  .keyword-cloud {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card {
+    overflow: hidden !important;
+  }
+
+  .chart-grid,
+  .company-grid,
+  .glossary-grid,
+  .reference-grid,
+  .hero-badges,
+  .summary-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .chart-grid .dashboard-card.large,
+  .chart-grid .dashboard-card.medium,
+  .chart-grid .dashboard-card.small {
+    grid-column: span 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .company-meta {
+    grid-template-columns: 1fr !important;
+  }
+
+  .table-wrap {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  table {
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+
+  th,
+  td {
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .keyword-cloud {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    max-width: 100% !important;
+  }
+
+  .keyword-cloud span {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+  }
+
+  .company-header,
+  .chart-head,
+  .section-title {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .company-header h3,
+  .chart-head h3,
+  .section-title h2,
+  .hero-subtitle,
+  .company-preview,
+  .company-detail p,
+  .glossary-card p,
+  .reference-card p,
+  .method-card p,
+  .footer-note {
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .source-list a,
+  .reference-card a,
+  .method-card a,
+  .hero-subtitle a {
+    overflow-wrap: anywhere !important;
+    word-break: break-all !important;
+  }
+
+  .logo-top-left img,
+  canvas,
+  img,
+  video {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .chart-wrap canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card {
+    padding: 1rem !important;
+  }
+
+  th,
+  td {
+    padding: 0.62rem 0.45rem !important;
+    font-size: 0.88rem !important;
+  }
+
+  .score-pill {
+    max-width: 100% !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card {
+    padding: 0.9rem !important;
+  }
+
+  .chart-wrap {
+    min-height: 240px !important;
+  }
+
+  th,
+  td {
+    font-size: 0.82rem !important;
+  }
+}
+
+/* ==========================================
+   HIGH-CONTRAST SWATCHABLE CHART PALETTE
+   clearer component frequencies + graph lines
+   ========================================== */
+:root {
+  --chart-blair: #ff5c8a;
+  --chart-marie: #ffd166;
+  --chart-burness: #06d6a0;
+  --chart-drake: #4cc9f0;
+  --chart-mccoy: #b517ff;
+  --chart-page: #ff7a00;
+  --chart-jennifer: #f72585;
+  --chart-smith: #90be6d;
+  --chart-parent: #00bbf9;
+  --chart-exact: #f15bb5;
+  --chart-profile: #fee440;
+  --chart-control: #9bffb7;
+}
+.swatch-grid { display: flex; flex-wrap: wrap; gap: .32rem; margin-top: .65rem; align-items: center; justify-content: flex-start; max-width: 100%; }
+.swatch-chip { display: inline-flex; align-items: center; gap: .32rem; padding: .28rem .48rem; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); font-size: .68rem; line-height: 1; white-space: nowrap; flex: 0 0 auto; }
+.swatch-dot { width: 10px; height: 10px; border-radius: 999px; flex: 0 0 10px; border: 1px solid rgba(255,255,255,.72); box-shadow: 0 0 0 1px rgba(0,0,0,.22); }
+.swatch-code { opacity: .82; font-size: .62rem; }
+@media (max-width: 640px) {
+  .swatch-grid { gap: .26rem; margin-top: .55rem; }
+  .swatch-chip { font-size: .62rem; padding: .24rem .38rem; gap: .25rem; }
+  .swatch-code { font-size: .56rem; }
+  .swatch-dot { width: 9px; height: 9px; flex-basis: 9px; }
+}
+
+</style>
+
+</head>
+<body>
+<header class="top-bar">
+  <div class="credential-header">RHCE6 · AWS Certified</div>
+  <nav class="site-nav">
+    <a href="index.html">Home</a><a href="gallery.html">Gallery</a><a href="blog.html">Blog</a><a href="enterprise_clients_infographic.html">Enterprise Info</a><a href="cloud_providers_infographic.html">Cloud Info</a><a href="live_cloud_provider_signal_board.html">Live Info</a>
+  </nav>
+  <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+</header>
+<a href="index.html" class="logo-top-left" aria-label="Return to home"><img src="BlairPageImages/blog.jpg" alt="Blair Page logo"></a>
+<div class="hero"></div>
+<section class="page-title-shell">
+  <h1 class="blog-page-title">Blair Marie Burness: Drake × McCoy Name-Rarity Signal Board</h1>
+  <p class="hero-subtitle"><strong>Blair Marie Page Burness Drake McCoy 10/24/1987</strong> · total full-stack model: <strong>~1 in 98 septillion</strong> using Blair + Marie + Page + Burness + Drake father-line + McCoy mother-line + exact birth date.<a href="https://blairyfairy.github.io/BlairPage/san_metagaming_exploit_name_rarity.html" target="_blank" rel="noopener noreferrer">
+    San metagaming exploit name rarity board
+  </a> <a href="https://blairyfairy.github.io/BlairPage/jag_report_page.html"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="jag-seen-btn">
+  AS SEEN IN THE JAG REPORT
+</a>
+<a href="https://blairyfairy.github.io/BlairPage/blair_marie_page_burness_drake_mccoy.html"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="lineage-profile-btn">
+  Blair Marie Page Burness Drake McCoy<br>
+  <span>Lineage • Family History • Identity Analysis</span>
+</a>
+
+<style>
+.lineage-profile-btn{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  width:min(900px,100%);
+  margin:1rem auto;
+  padding:1.15rem 1.4rem;
+
+  text-decoration:none;
+  text-align:center;
+
+  border-radius:22px;
+
+  color:#f0eff4;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(158,130,156,.28),
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(41,21,40,.82),
+      rgba(58,62,59,.42)
+    );
+
+  border:1px solid rgba(240,239,244,.22);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 18px 48px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.06);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.lineage-profile-btn:hover{
+  transform:translateY(-3px);
+
+  border-color:rgba(240,239,244,.45);
+
+  box-shadow:
+    0 22px 60px rgba(0,0,0,.55),
+    0 0 30px rgba(158,130,156,.28);
+}
+
+.lineage-profile-btn{
+  font-size:1.15rem;
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.lineage-profile-btn span{
+  margin-top:.35rem;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.18em;
+  opacity:.9;
+}
+
+@media(max-width:768px){
+  .lineage-profile-btn{
+    padding:1rem;
+    font-size:.95rem;
+  }
+
+  .lineage-profile-btn span{
+    font-size:.68rem;
+    letter-spacing:.12em;
+  }
+}
+</style>
+<a href="https://blairyfairy.github.io/BlairPage/BlairPage_Kurtosis.html"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="kurtosis-mini-btn">
+  KURTOSIS SIGNAL BOARD
+</a>
+
+<style>
+.kurtosis-mini-btn {
+  display: inline-block;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: .92rem;
+  letter-spacing: 0.08em;
+  text-decoration: none !important;
+
+  color: #9e829c;
+
+  padding: 0.48rem 1rem;
+  margin: 0.35rem 0 0 0.35rem;
+
+  border-radius: 999px;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(158,130,156,0.16) 0%,
+    rgba(158,130,156,0.08) 45%,
+    transparent 82%
+  );
+
+  text-shadow:
+    0 0 6px rgba(158,130,156,0.42),
+    0 0 14px rgba(158,130,156,0.26),
+    0 2px 6px rgba(0,0,0,0.55);
+
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+  transition:
+    color .3s ease,
+    background .3s ease,
+    transform .25s ease,
+    text-shadow .3s ease;
+}
+
+.kurtosis-mini-btn:hover {
+  color: #f0eff4;
+  text-decoration: none !important;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(158,130,156,0.28) 0%,
+    rgba(158,130,156,0.16) 48%,
+    transparent 88%
+  );
+
+  text-shadow:
+    0 0 10px rgba(158,130,156,0.75),
+    0 0 22px rgba(158,130,156,0.48),
+    0 4px 12px rgba(0,0,0,0.68);
+
+  transform: translateY(-2px) scale(1.03);
+}
+
+.kurtosis-mini-btn:active {
+  transform: scale(0.97);
+}
+</style>
+<style>
+.jag-seen-btn {
+  display: inline-block;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+
+  color: #9e829c; /* dusty mauve */
+  
+  /* glow + fog */
+  text-shadow:
+    0 0 6px rgba(158,130,156,0.45),
+    0 0 14px rgba(158,130,156,0.35),
+    0 0 28px rgba(158,130,156,0.25),
+    0 2px 6px rgba(0,0,0,0.6);
+
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(158,130,156,0.18) 0%,
+    rgba(158,130,156,0.10) 35%,
+    rgba(158,130,156,0.04) 65%,
+    transparent 80%
+  );
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  transition: all 0.35s ease;
+}
+
+/* hover = brighter glow + lift */
+.jag-seen-btn:hover {
+  color: #f0eff4;
+
+  text-shadow:
+    0 0 10px rgba(158,130,156,0.8),
+    0 0 20px rgba(158,130,156,0.6),
+    0 0 40px rgba(158,130,156,0.4),
+    0 4px 12px rgba(0,0,0,0.7);
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(158,130,156,0.30) 0%,
+    rgba(158,130,156,0.18) 40%,
+    rgba(158,130,156,0.08) 70%,
+    transparent 90%
+  );
+
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* subtle press */
+.jag-seen-btn:active {
+  transform: scale(0.97);
+}
+</style>
+  </p>
+</section>
+<section class="hero-badges">
+  <article class="badge-card"><h3>Parent-Line Pair</h3><div class="metric">~1 in 9.9M</div><p>Dad-side Drake and mom-side McCoy, using U.S. surname frequencies and fixed parent order.</p></article>
+  <article class="badge-card"><h3>Blair + Parent Pair</h3><div class="metric">~1 in 115B</div><p>Blair first name stacked with Drake × McCoy parent-line condition.</p></article>
+  <article class="badge-card"><h3>Exact Date Layer</h3><div class="metric">×365</div><p>October 24, 1987 adds a same-year birthday filter across 365 calendar days.</p></article>
+  <article class="badge-card"><h3>With Burness Proxy</h3><div class="metric">Effectively unique</div><p>Burness is rare enough that the full stacked model drops far below one expected U.S. case.</p></article>
+</section>
+<section class="summary-strip"><article class="dashboard-card"><div class="section-title" style="margin-top:0;"><div><h2>Executive summary</h2><p>What the chart is actually measuring and how to read the odds.</p></div></div>
+<div class="summary-grid">
+<div><strong>Core identity model:</strong><ul><li><strong>Drake dad-line + McCoy mom-line</strong> is modeled as about <strong>1 in 9.9 million births</strong>.</li><li><strong>Either order</strong>, meaning Drake/McCoy parents regardless of side, is roughly <strong>1 in 5.0 million births</strong>.</li><li><strong>October 24, 1987</strong> multiplies a same-year profile by about <strong>365</strong>.</li></ul></div>
+<div><strong>Name-stack effect:</strong><ul><li><strong>Blair</strong> alone is uncommon as a U.S. forename, roughly <strong>1 in 11,608</strong>.</li><li><strong>Marie</strong> is common as a U.S. forename, around <strong>1 in 621</strong>, so it adds rarity but less than Blair or Burness.</li><li><strong>Burness</strong> is extremely rare as a U.S. surname proxy, about <strong>277 U.S. bearers in 2010</strong>.</li></ul></div>
+<div><strong>Reality check:</strong><ul><li>Multiplying name frequencies assumes statistical independence, which is never perfect.</li><li>Middle names are not published as cleanly as first names or surnames, so Burness is treated as a surname/family-name proxy.</li><li>The strongest safe claim is: <strong>this profile is statistically likely to be one-of-one in the U.S.</strong></li></ul></div>
+</div></article></section>
+<main class="infographic-wrapper">
+<div class="section-title"><div><h2>Visual dashboard</h2><p>Odds, expected counts, source-data components, and collision-risk views.</p></div></div>
+<section class="chart-grid">
+<article class="dashboard-card large"><div class="chart-head"><div><h3>Rarity ladder: individual components vs combined profiles</h3><p>Log-scale comparison so small and huge odds can be shown together.</p></div></div><div class="chart-wrap"><canvas id="rarityChart"></canvas></div><div class="chart-legend-note">Higher bars mean rarer. Values are modeled as “1 in N.”</div></article>
+<article class="dashboard-card small"><div class="chart-head"><div><h3>Source component frequencies</h3><p>The raw pieces used in the model, now using distinct swatch colors so every component is visibly separate.</p></div></div><div class="chart-wrap"><canvas id="componentChart"></canvas></div><div class="swatch-grid" aria-label="Chart color swatches"><span class="swatch-chip"><i class="swatch-dot" style="background:#ff5c8a"></i>Blair <em class="swatch-code">#ff5c8a</em></span><span class="swatch-chip"><i class="swatch-dot" style="background:#ffd166"></i>Marie <em class="swatch-code">#ffd166</em></span><span class="swatch-chip"><i class="swatch-dot" style="background:#06d6a0"></i>Burness <em class="swatch-code">#06d6a0</em></span><span class="swatch-chip"><i class="swatch-dot" style="background:#4cc9f0"></i>Drake <em class="swatch-code">#4cc9f0</em></span><span class="swatch-chip"><i class="swatch-dot" style="background:#b517ff"></i>McCoy <em class="swatch-code">#b517ff</em></span><span class="swatch-chip"><i class="swatch-dot" style="background:#ff7a00"></i>Page <em class="swatch-code">#ff7a00</em></span><span class="swatch-chip"><i class="swatch-dot" style="background:#f72585"></i>Jennifer <em class="swatch-code">#f72585</em></span><span class="swatch-chip"><i class="swatch-dot" style="background:#90be6d"></i>Smith <em class="swatch-code">#90be6d</em></span><span class="swatch-chip"><i class="swatch-dot" style="background:#00bbf9"></i>Drouin <em class="swatch-code">#00bbf9</em></span><span class="swatch-chip"><i class="swatch-dot" style="background:#fee440"></i>Kylie wealth <em class="swatch-code">#fee440</em></span><span class="swatch-chip"><i class="swatch-dot" style="background:#9b5de5"></i>Paris wealth <em class="swatch-code">#9b5de5</em></span></div></article>
+<article class="dashboard-card small"><div class="chart-head"><div><h3>Expected U.S. 1987 collisions</h3><p>Expected count among 3,809,394 U.S. births in 1987.</p></div></div><div class="chart-wrap"><canvas id="collisionChart"></canvas></div></article>
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>Projected name popularity signal</h3><p>Directional popularity index by decade; illustrative, not a live SSA API.</p></div></div><div class="chart-wrap"><canvas id="trendChart"></canvas></div></article>
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>Kylie Jenner vs Paris Hilton wealth anchors</h3><p>Wealth comparison only — not name rarity. Uses public net-worth/revenue snapshot values stored in-page with no API key.</p></div></div><div class="chart-wrap"><canvas id="wealthChart"></canvas></div><div class="chart-legend-note">Kylie shown from Forbes 2025 net-worth snapshot; Paris shown from 2026 public net-worth estimates.</div></article>
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>Kylie Jenner vs Paris Hilton wealth rarity odds</h3><p>Modeled as 1-in-how-many people worldwide at or above each wealth anchor, separate from name rarity.</p></div></div><div class="chart-wrap"><canvas id="wealthOddsChart"></canvas></div><div class="chart-legend-note">Kylie ≈ 1 in 1,491,713 people; Paris ≈ 1 in 721,925 people, using the static wealth-tail model documented below.</div></article>
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>Celebrity business-scale comparison</h3><p>Brand revenue / product empire anchors separate from personal-name rarity.</p></div></div><div class="chart-wrap"><canvas id="wealthBusinessChart"></canvas></div><div class="chart-legend-note">Paris fragrance/product revenue is an enterprise-scale anchor, not personal liquid wealth.</div></article>
+<article class="dashboard-card medium glossary-block"><div class="chart-head"><div><h3>Name-rarity vocabulary</h3><p>Keywords for framing the page.</p></div></div><div class="keyword-cloud"><span>identity collision</span><span>forename frequency</span><span>surname frequency</span><span>birth-cohort denominator</span><span>calendar-day filter</span><span>parent-line pairing</span><span>independence caveat</span><span>family-name proxy</span><span>expected count</span><span>rarity ladder</span><span>name popularity curve</span><span>post-marriage surname layer</span></div></article>
+</section>
+<div class="section-title"><div><h2>Rarity deep dives</h2><p>Each card shows the practical interpretation, estimated odds, and source stack.</p></div></div><section class="company-grid" id="companyGrid"></section>
+<div class="section-title table-block"><div><h2>Quick comparison table</h2><p>Best single-page scan for with-Marie, without-Marie, exact-date, 1987-only, and comparison-name profiles.</p></div></div>
+<section class="table-block"><article class="dashboard-card"><div class="table-wrap"><table><thead><tr><th>Scenario</th><th>Modeled odds</th><th>1987 U.S. expected count</th><th>Exact-date expected count</th><th>Interpretation</th></tr></thead><tbody id="comparisonTable"></tbody></table></div></article></section>
+<section class="glossary-grid glossary-block">
+<article class="glossary-card"><h3>How the model works</h3><p>The model multiplies each independent layer as a rough collision filter.</p><ul><li><strong>Parent-line pairing:</strong> Drake frequency × McCoy frequency, with optional factor of 2 if either parent order counts.</li><li><strong>Birth date:</strong> exact date inside 1987 is modeled as 1/365.</li><li><strong>Name layers:</strong> Blair, Marie, Burness, and Page are treated as separate filters when requested.</li></ul></article>
+<article class="glossary-card"><h3>Why Burness is special</h3><p>Burness is too rare to treat like Marie or Smith. Public data says only 277 people had the Burness surname in the 2010 U.S. Census-derived count, so using it as a middle/family-name proxy pushes the full profile into effectively unique territory.</p></article>
+<article class="glossary-card"><h3>Normal-name comparison</h3><p>Jennifer Smith is useful as a control because Jennifer is common and Smith is the most common U.S. surname. The model shows how fast rarity explodes when uncommon names and parent-line combinations are stacked.</p></article>
+</section>
+
+<div class="section-title"><div><h2>No-key live API expansion layer</h2><p>Browser-only optional enrichment calls. These use public endpoints with no API keys and safe fallbacks, so the infographic still works if a network request is blocked by CORS, rate limits, or GitHub Pages browser policy.</p></div></div>
+<section class="chart-grid" id="noKeyApiSection">
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>Live no-key API response strength</h3><p>Agify, Genderize, Nationalize, Nager.Date, and World Bank/API-style public datasets when available.</p></div></div><div class="chart-wrap"><canvas id="noKeyApiChart"></canvas></div><div class="chart-legend-note">Bars update in-browser after fetch. If an endpoint fails, its fallback remains visible instead of breaking the page.</div></article>
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>No-key API data cards</h3><p>Live response snippets added without removing any existing chart or dataset.</p></div></div><div class="company-meta" id="noKeyApiCards"><div class="meta-box"><span class="label">Status</span><span class="value">Loading no-key public endpoints…</span></div></div><div class="chart-legend-note">Endpoints are read-only public GET calls. No private identity lookup, no API key, no server required.</div></article>
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>Birth-date public-calendar enrichment</h3><p>October 24, 1987 checked against public holiday/calendar-style APIs where available.</p></div></div><div class="company-meta" id="calendarApiCards"><div class="meta-box"><span class="label">1987 date check</span><span class="value">Loading calendar enrichment…</span></div></div><div class="chart-legend-note">Nager.Date is used for public-holiday lookup; the page also stores the known weekday fallback: Saturday.</div></article>
+<article class="dashboard-card medium"><div class="chart-head"><div><h3>Public dataset expansion ideas included</h3><p>Extra no-key sources that can safely expand the model later without changing hosting.</p></div></div><div class="keyword-cloud"><span>SSA baby-name ZIP / text files</span><span>Data.gov SSA catalog</span><span>World Bank population API</span><span>Agify name-age estimate</span><span>Genderize name-gender estimate</span><span>Nationalize name-country estimate</span><span>Nager.Date holidays</span><span>REST Countries</span><span>GitHub Pages compatible fetch()</span></div></article>
+</section>
+<div class="section-title"><div><h2>APA-style references and no-key datasets</h2><p>Public links used to build this static dashboard. No API key is required; the page stores a transparent snapshot in JavaScript.</p></div></div><section class="reference-grid" id="referenceGrid"></section>
+<article class="method-card"><h3>Methodology and caveats</h3><p>This is an odds-estimation infographic. It does <strong>not</strong> identify a person, query private records, or prove uniqueness. It uses public name-distribution sources and U.S. 1987 birth totals to create a defensible statistical range. The stricter full-stack versions can become mathematically enormous; those numbers should be framed as <strong>collision-risk estimates</strong>, not literal proof that no other person exists.</p><p>For the cleanest public wording: <strong>“A Blair Burness / Blair Marie Burness born October 24, 1987, with a Drake father-line and McCoy mother-line is statistically likely to be one-of-one in the United States under a public-name-frequency model.”</strong></p><p class="footer-note">Data snapshot generated April 28, 2026. Refresh external name-frequency links before using the page as a live case-study or public post.</p></article>
+</main><button id="pageScrollTop" class="page-scroll-top" aria-label="Back to top">▲</button>
+<script>
+const US_BIRTHS_1987 = 3809394, DAYS_1987 = 365, DAY_BIRTHS_1987 = US_BIRTHS_1987 / DAYS_1987;
+const freq = {blair:11608, marie:621, burness:1114600, drake:4461, mccoy:2223, page:3369, jennifer:191, smith:126, drouin:2928};
+const parentFixed = freq.drake * freq.mccoy;
+const parentEither = parentFixed / 2;
+const fullStackCurrentExact = freq.blair * freq.marie * freq.page * freq.burness * parentFixed * DAYS_1987;
+const celebrityWealth = [
+  {name:'Kylie Jenner', netWorthM:670, anchor:'Forbes 2025 self-made women net-worth snapshot'},
+  {name:'Paris Hilton', netWorthM:400, anchor:'Public 2026 net-worth estimate'}
+];
+const celebrityBusiness = [
+  {name:'Kylie Cosmetics Coty stake sale', valueM:600, anchor:'51% stake sale value reported in 2019'},
+  {name:'Paris Hilton global product revenue', valueM:4000, anchor:'Reported global product empire revenue'},
+  {name:'Paris Hilton fragrance revenue', valueM:3000, anchor:'Reported fragrance-line revenue since 2004'}
+];
+const wealthOddsModel = [
+  {name:'Kylie Jenner wealth threshold', netWorthM:670, peopleAtOrAbove:5430, odds:1491713, color:'#fee440', note:'Modeled from a 3,110-billionaire global anchor using a Pareto-tail wealth curve; not a name-rarity stat.'},
+  {name:'Paris Hilton wealth threshold', netWorthM:400, peopleAtOrAbove:11220, odds:721925, color:'#9b5de5', note:'Modeled from the same global wealth-tail method; not a name-rarity stat.'}
+];
+function oddsLabel(n){ if(n>=1e21) return '1 in '+(n/1e21).toFixed(1)+' sextillion'; if(n>=1e18) return '1 in '+(n/1e18).toFixed(1)+' quintillion'; if(n>=1e15) return '1 in '+(n/1e15).toFixed(1)+' quadrillion'; if(n>=1e12) return '1 in '+(n/1e12).toFixed(1)+' trillion'; if(n>=1e9) return '1 in '+(n/1e9).toFixed(1)+' billion'; if(n>=1e6) return '1 in '+(n/1e6).toFixed(1)+' million'; return '1 in '+Math.round(n).toLocaleString(); }
+function expectedYear(n){ return US_BIRTHS_1987 / n; } function expectedDate(n){ return DAY_BIRTHS_1987 / n; }
+const scenarios = [
+{name:'Just Blair', odds:freq.blair, note:'Uncommon first-name layer only.'},
+{name:'Just Marie', odds:freq.marie, note:'Common name layer; as a middle name likely less rare than this proxy.'},
+{name:'Just Burness', odds:freq.burness, note:'Surname/family-name proxy using 277 U.S. bearers in 2010.'},
+{name:'Just Drake', odds:freq.drake, note:'U.S. surname frequency.'},
+{name:'Just McCoy', odds:freq.mccoy, note:'U.S. surname frequency.'},
+{name:'Just Page', odds:freq.page, note:'Separate post-marriage surname layer.'},
+{name:'Drake dad + McCoy mom', odds:parentFixed, note:'Fixed parent order.'},
+{name:'Drake/McCoy parents, either order', odds:parentEither, note:'Either parent can be Drake or McCoy.'},
+{name:'Blair + fixed Drake/McCoy parents', odds:freq.blair*parentFixed, note:'First-name plus parent-line pair.'},
+{name:'Blair + fixed parents + exact date', odds:freq.blair*parentFixed*DAYS_1987, note:'Adds October 24 inside 1987.'},
+{name:'Blair Burness + fixed parents', odds:freq.blair*freq.burness*parentFixed, note:'Without Marie; Burness as family-name proxy.'},
+{name:'Blair Burness + fixed parents + exact date', odds:freq.blair*freq.burness*parentFixed*DAYS_1987, note:'Strict without-Marie exact-date profile.'},
+{name:'Blair Marie Burness + fixed parents', odds:freq.blair*freq.marie*freq.burness*parentFixed, note:'With Marie included.'},
+{name:'Blair Marie Burness + fixed parents + exact date', odds:freq.blair*freq.marie*freq.burness*parentFixed*DAYS_1987, note:'Strict full name stack with exact date.'},
+{name:'Blair Marie Page Burness Drake/McCoy + exact date', odds:fullStackCurrentExact, note:'Adds Page as a separate current/post-marriage surname layer to the full exact-date model.'},
+{name:'Jennifer born in 1987, any day', odds:freq.jennifer, note:'Jennifer-only 1987 birth-cohort check: using the in-page Jennifer frequency proxy of 1:191, this estimates about 19,944 Jennifers across 3,809,394 U.S. births in 1987, or about 54.6 Jennifers on an average 1987 calendar day before adding any surname.'},
+{name:'Jennifer Drouin comparison (born 1989)', odds:freq.jennifer*freq.drouin, note:'Jennifer first-name layer plus Drouin surname proxy; Drouin uses Canada-heavy Forebears frequency because the surname clusters strongly in Quebec/Canada. Birth-year clarification: Jennifer Drouin is born in 1989.'},
+{name:'Jennifer Drouin born 1989 + exact date', odds:freq.jennifer*freq.drouin*DAYS_1987, note:'Jennifer Drouin with same exact calendar-day filter; birth-year clarification: Jennifer Drouin is born in 1989.'},
+{name:'Jennifer Smith comparison', odds:freq.jennifer*freq.smith, note:'Common control profile.'},
+{name:'Jennifer Smith + exact date', odds:freq.jennifer*freq.smith*DAYS_1987, note:'Common control with birthday layer.'}
+];
+const cards = [
+{name:'Parent-line pair: Drake × McCoy', category:'Parent names / ancestry', score:oddsLabel(parentFixed), thenLabel:'Drake 1:4,461', nowLabel:'McCoy 1:2,223', direction:'Fixed order = rarer; either order ≈ half', status:'Core family-line condition', preview:'A child with a Drake father-line and McCoy mother-line is modeled at roughly 1 in 9.9 million births.', detail:['If either parent order counts, the model becomes about 1 in 5.0 million births.','This is a simplified independence model; geography and family clustering can make real-world odds higher or lower.'], signals:['surname-pair collision','fixed parent order','either-order variant'], sources:['https://forebears.io/united-states/surnames','https://forebears.io/surnames/mccoy']},
+{name:'Blair first-name layer', category:'Forename rarity', score:'1:11,608', thenLabel:'U.S. incidence 31,231', nowLabel:'Frequency 1:11,608', direction:'Uncommon', status:'High-value rarity layer', preview:'Blair is uncommon enough to strongly reduce collision probability when stacked with parent-line surnames.', detail:['Forebears lists Blair as a U.S. forename with 31,231 bearers and frequency 1 in 11,608.','As a first name, Blair contributes much more rarity than Marie but much less than Burness.'], signals:['forename frequency','gender-neutral name','rarity multiplier'], sources:['https://forebears.io/forenames/blair']},
+{name:'Marie optional middle layer', category:'Optional name layer', score:'1:621', thenLabel:'U.S. incidence 584,257', nowLabel:'Frequency 1:621', direction:'Common', status:'Included and excluded variants shown', preview:'Marie is common as a forename and historically common as a middle name, so this page shows both with-Marie and without-Marie scenarios.', detail:['Public middle-name frequency data is not as clean as first-name data.','The page uses Marie as a conservative public forename proxy and separately shows the no-Marie profile.'], signals:['optional middle layer','common-name contrast','scenario split'], sources:['https://forebears.io/forenames/marie']},
+{name:'Burness family-name proxy', category:'Rare family-name layer', score:'~1:1.1M', thenLabel:'303 bearers in 2000', nowLabel:'277 bearers in 2010', direction:'Very rare', status:'Effectively unique when stacked', preview:'Burness is the strongest rarity layer in the model after the combined full stack.', detail:['23andMe’s Census-based page reports Burness decreased from 303 bearers in 2000 to 277 in 2010 and ranked 70,645th in 2010.','Because middle-name data is limited, Burness is treated as a surname/family-name proxy, not a guaranteed middle-name frequency.'], signals:['rare surname proxy','family name','collision collapse'], sources:['https://discover.23andme.com/last-name/Burness']},
+{name:'October 24, 1987', category:'Birth cohort / exact date', score:'×365', thenLabel:'3,809,394 U.S. births in 1987', nowLabel:'~10,437 births/day average', direction:'Exact-date filter', status:'Specific calendar-day layer', preview:'Adding the exact date multiplies any same-year profile by roughly 365 because 1987 was not a leap year.', detail:['The CDC/NCHS reports 3,809,394 U.S. births in 1987.','A simple average gives about 10,437 U.S. births per calendar day in 1987.'], signals:['birth cohort','calendar-day collision','date filter'], sources:['https://www.cdc.gov/nchs/data/vsus/nat87_1.pdf']},
+{name:'Page after marriage', category:'Separate surname layer', score:'1:3,369', thenLabel:'107,598 U.S. bearers', nowLabel:'Frequency 1:3,369', direction:'Separate post-marriage name', status:'Not part of birth profile', preview:'Page is shown at the end as a separate after-marriage surname layer, not mixed into the birth-name odds unless intentionally added.', detail:['Forebears lists Page as most frequent in the United States, with 107,598 U.S. bearers and frequency 1 in 3,369.','If used as a current legal-name layer, it can be modeled separately from the birth identity stack.'], signals:['post-marriage surname','separate current-name layer','portfolio identity'], sources:['https://forebears.io/surnames/page']},
+{name:'Blair Marie Page Burness Drake/McCoy exact-date total', category:'Full-stack current-name total', score:'~1:98 septillion', thenLabel:'Birth-name stack + Page current surname', nowLabel:'Blair + Marie + Page + Burness + Drake/McCoy + 10/24/1987', direction:'Maximum stack shown', status:'Statistically one-of-one model', preview:'This is the top-line full-stack figure requested for Blair Marie Page Burness Drake McCoy with the exact 10/24/1987 birth date.', detail:['This model multiplies the public proxies for Blair, Marie, Page, Burness, fixed Drake father-line, fixed McCoy mother-line, and the 365-day exact-date layer.','The result is roughly 1 in 9.8 × 10^25, best written for readability as about 1 in 98 septillion under the model assumptions.'], signals:['full-stack total','current surname layer','exact date','one-of-one signal'], sources:['https://forebears.io/forenames/blair','https://forebears.io/forenames/marie','https://forebears.io/surnames/page','https://discover.23andme.com/last-name/Burness','https://forebears.io/united-states/surnames','https://www.cdc.gov/nchs/data/vsus/nat87_1.pdf']},
+{name:'Jennifer born in 1987, any day', category:'Birth-cohort normal-name control', score:'~1:191', thenLabel:'Jennifer 1:191', nowLabel:'1987 any-day cohort: ~19,944 expected U.S. births', direction:'Common 1987 comparison layer', status:'Added control profile', preview:'This card adds the requested odds of a Jennifer born in 1987 on any given day, without requiring Smith, Drouin, or a fixed birth date.', detail:['Using the in-page Jennifer frequency proxy of 1 in 191, the 3,809,394 U.S. births in 1987 imply about 19,944 Jennifers across the full year.','Dividing the 1987 birth cohort by 365 gives about 10,437 births per average day; applying the Jennifer proxy gives about 54.6 Jennifers born on an average 1987 calendar day.','This is a broad model-control estimate, not a legal identity lookup and not a direct SSA exact-count pull.'], signals:['Jennifer-only control','1987 birth cohort','any-day profile','average-day collision'], sources:['https://forebears.io/forenames/jennifer','https://www.cdc.gov/nchs/data/vsus/nat87_1.pdf']},
+{name:'Jennifer Drouin comparison (born 1989)', category:'Normal/rare-name comparison', score:'~1:559K', thenLabel:'Jennifer 1:191', nowLabel:'Born 1989 · Drouin proxy 1:2,928', direction:'Rarer than Jennifer Smith', status:'Comparison profile', preview:'Jennifer Drouin (born 1989) is included as a more distinctive comparison than Jennifer Smith because Drouin is much less common than Smith.', detail:['Birth-year clarification: Jennifer Drouin is born in 1989.','Forebears lists Drouin as heavily clustered in Canada, where it is held by about 1 in 2,928 people, especially in Quebec.','Stacking Jennifer with that Drouin frequency creates a rough comparison profile around 1 in 559,248 before adding any date layer.'], signals:['comparison profile','Drouin surname layer','born 1989','Canada/Quebec clustering caveat'], sources:['https://forebears.io/forenames/jennifer','https://forebears.io/surnames/drouin']},
+{name:'Kylie Jenner wealth anchor', category:'Wealth comparison, not name rarity', score:'~$670M', thenLabel:'Forbes 2025 net-worth snapshot', nowLabel:'Celebrity wealth benchmark', direction:'Very high wealth anchor', status:'Wealth chart only', preview:'Kylie Jenner is included as a wealth-comparison anchor, not a name-rarity comparison.', detail:['Forbes listed Kylie Jenner at $670 million in its 2025 America’s Richest Self-Made Women profile.','The file also charts the reported $600 million Coty transaction for 51% of Kylie Cosmetics as a business-scale anchor.'], signals:['wealth benchmark','cosmetics business','not name rarity'], sources:['https://www.forbes.com/profile/kylie-jenner/','https://www.celebritynetworth.com/richest-celebrities/models/kylie-jenner-net-worth/']},
+{name:'Paris Hilton wealth anchor', category:'Wealth comparison, not name rarity', score:'~$400M', thenLabel:'2026 public net-worth estimate', nowLabel:'Product/fragrance empire scale', direction:'Very high wealth anchor', status:'Wealth chart only', preview:'Paris Hilton is included as a wealth-comparison anchor, not a name-rarity comparison.', detail:['Public 2026 estimates place Paris Hilton around $400 million net worth.','Her brand/product empire is commonly reported at about $4 billion in global revenue, with fragrance revenue near $3 billion, so the chart separates personal wealth from enterprise-scale revenue.'], signals:['wealth benchmark','fragrance empire','product licensing','not name rarity'], sources:['https://parade.com/1243730/jessicasager/paris-hilton-net-worth/','https://www.celebritynetworth.com/richest-celebrities/models/paris-hilton-net-worth/']},
+{name:'Kylie Jenner wealth rarity odds', category:'Modeled wealth odds, not name rarity', score:'~1:1.49M', thenLabel:'Net-worth anchor: $670M', nowLabel:'Modeled people at/above: ~5,430 worldwide', direction:'Rarer than ordinary wealth; below billionaire threshold', status:'Added exact odds card', preview:'Kylie Jenner’s wealth anchor is converted into a modeled “1 in how many people” wealth rarity estimate.', detail:['Using the in-page $670 million Forbes wealth anchor and a global billionaire-count anchor of 3,110, the page models roughly 5,430 people worldwide at or above that wealth threshold.','Against an 8.1 billion world-population denominator, that becomes about 1 in 1,491,713 people.','This is a wealth-tail estimate, not a legal financial lookup and not a name-frequency estimate.'], signals:['wealth rarity','Pareto-tail model','global denominator','not name rarity'], sources:['https://www.forbes.com/profile/kylie-jenner/','https://www.theguardian.com/news/2026/apr/23/billionaires-super-rich-global-wealth-gap-economy']},
+{name:'Paris Hilton wealth rarity odds', category:'Modeled wealth odds, not name rarity', score:'~1:722K', thenLabel:'Net-worth anchor: $400M', nowLabel:'Modeled people at/above: ~11,220 worldwide', direction:'Extremely wealthy threshold', status:'Added exact odds card', preview:'Paris Hilton’s wealth anchor is converted into a modeled “1 in how many people” wealth rarity estimate.', detail:['Using the in-page $400 million public wealth anchor and the same global wealth-tail method, the page models roughly 11,220 people worldwide at or above that wealth threshold.','Against an 8.1 billion world-population denominator, that becomes about 1 in 721,925 people.','Because Paris’s public estimates vary between $300 million and $400 million, the page uses $400 million to match the wealth chart already included.'], signals:['wealth rarity','global denominator','celebrity business wealth','not name rarity'], sources:['https://parade.com/1243730/jessicasager/paris-hilton-net-worth/','https://www.theguardian.com/news/2026/apr/23/billionaires-super-rich-global-wealth-gap-economy']},
+
+{name:'Jennifer Smith control', category:'Normal-stat comparison', score:'~1:24K', thenLabel:'Jennifer 1:191', nowLabel:'Smith 1:126', direction:'Far more common', status:'Control profile', preview:'Jennifer Smith is included as a common-name baseline to show how much rarer the full Blair/Burness/Drake/McCoy stack becomes.', detail:['Jennifer appears as a common U.S. forename with a frequency of 1 in 191.','Smith is the most common U.S. surname in Forebears with frequency 1 in 126.'], signals:['common-name control','collision-prone baseline','contrast profile'], sources:['https://forebears.io/forenames/jennifer','https://forebears.io/surnames/smith']}
+];
+const references=[
+{text:'Forebears. Blair forename distribution. U.S. incidence 31,231; frequency 1:11,608.', url:'https://forebears.io/forenames/blair'},
+{text:'Forebears. Marie forename distribution. U.S. incidence 584,257; frequency 1:621.', url:'https://forebears.io/forenames/marie'},
+{text:'23andMe Discover. Burness surname popularity from U.S. Census-derived data; 277 bearers in 2010.', url:'https://discover.23andme.com/last-name/Burness'},
+{text:'Forebears. United States surnames table. Drake appears with frequency 1:4,461.', url:'https://forebears.io/united-states/surnames'},
+{text:'Forebears. McCoy surname distribution. U.S. frequency 1:2,223.', url:'https://forebears.io/surnames/mccoy'},
+{text:'Forebears. Page surname distribution. U.S. incidence 107,598; frequency 1:3,369.', url:'https://forebears.io/surnames/page'},
+{text:'CDC/NCHS. Vital Statistics of the United States, 1987. Reports 3,809,394 U.S. births in 1987.', url:'https://www.cdc.gov/nchs/data/vsus/nat87_1.pdf'},
+{text:'Forebears. Jennifer forename distribution. U.S. frequency 1:191.', url:'https://forebears.io/forenames/jennifer'},
+{text:'Forebears. Smith surname distribution. U.S. frequency 1:126.', url:'https://forebears.io/surnames/smith'},
+{text:'Forebears. Drouin surname distribution. Drouin is most common in Canada; Canada frequency 1:2,928 and Quebec concentration noted.', url:'https://forebears.io/surnames/drouin'},
+{text:'Forbes. Kylie Jenner profile. 2025 America’s Richest Self-Made Women net worth: $670M as of June 3, 2025.', url:'https://www.forbes.com/profile/kylie-jenner/'},
+{text:'Parade. Paris Hilton net worth 2026 estimate and product/fragrance revenue anchors.', url:'https://parade.com/1243730/jessicasager/paris-hilton-net-worth/'},
+{text:'Celebrity Net Worth. Kylie Jenner and Paris Hilton net-worth pages used as secondary comparison anchors.', url:'https://www.celebritynetworth.com/'},
+{text:'The Guardian / Knight Frank. 2026 reporting on global billionaire count: 3,110 current billionaires, used as the top-tail wealth-count anchor for the modeled wealth odds.', url:'https://www.theguardian.com/news/2026/apr/23/billionaires-super-rich-global-wealth-gap-economy'},
+{text:'Social Security Administration. Top names of 1987: Jessica, Ashley, Amanda, Jennifer among top female baby names.', url:'https://www.ssa.gov/oact/babynames/top5names.html'}
+,{text:'Agify.io documentation. Predict age from a name; no sign-up or API key is needed for limited free use.', url:'https://agify.io/documentation'}
+,{text:'Genderize.io public API. Optional no-key name-demographic enrichment endpoint.', url:'https://genderize.io/'}
+,{text:'Nationalize.io public API. Optional no-key name-nationality enrichment endpoint.', url:'https://nationalize.io/'}
+,{text:'Nager.Date API. Public holiday API for 100+ countries, CORS enabled and browser ready.', url:'https://date.nager.at/Api'}
+,{text:'World Bank API. Public world-population indicator endpoint used as an optional global-denominator enrichment source.', url:'https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json'}
+,{text:'Data.gov / SSA baby names catalog. National baby-name data from Social Security card applications from 1880 onward.', url:'https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-data'}
+];
+const companyGrid=document.getElementById('companyGrid'), comparisonTable=document.getElementById('comparisonTable'), referenceGrid=document.getElementById('referenceGrid'), themeToggle=document.getElementById('themeToggle'), pageScrollTop=document.getElementById('pageScrollTop');
+const STORAGE_KEY='blair-name-rarity-theme'; let chartInstances=[];
+const noKeyApiFallback = [
+  {name:'Agify Blair', value:34, color:'#ff5c8a', status:'fallback', note:'Estimated age-style enrichment for Blair; browser fetch updates when available.'},
+  {name:'Genderize Blair', value:86, color:'#ffd166', status:'fallback', note:'Confidence-style percent for Blair; browser fetch updates when available.'},
+  {name:'Nationalize Blair', value:31, color:'#06d6a0', status:'fallback', note:'Top-country probability percent for Blair; browser fetch updates when available.'},
+  {name:'Nager 10/24/1987', value:0, color:'#4cc9f0', status:'fallback', note:'Holiday count for the exact date in the U.S.; fallback assumes no public holiday.'},
+  {name:'World population', value:81, color:'#b517ff', status:'fallback', note:'World population denominator in hundreds of millions; browser fetch updates when available.'}
+];
+let noKeyApiData = noKeyApiFallback.map(x=>Object.assign({},x));
+
+function buildCompanyCards(){cards.forEach(c=>{const card=document.createElement('article');card.className='company-card';card.innerHTML=`<div class="company-header"><div><span class="category">${c.category}</span><h3>${c.name}</h3></div><span class="score-pill">${c.score}</span></div><p class="company-preview">${c.preview}</p><div class="company-meta"><div class="meta-box"><span class="label">Anchor A</span><span class="value">${c.thenLabel}</span></div><div class="meta-box"><span class="label">Anchor B</span><span class="value">${c.nowLabel}</span></div><div class="meta-box"><span class="label">Direction</span><span class="value">${c.direction}</span></div><div class="meta-box"><span class="label">Status</span><span class="value">${c.status}</span></div></div><div class="company-detail">${c.detail.map(p=>`<p>${p}</p>`).join('')}<p><strong>Signals:</strong></p><ul>${c.signals.map(s=>`<li>${s}</li>`).join('')}</ul><div class="source-list source-block"><h4>Source stack</h4>${c.sources.map(s=>`<p><a href="${s}" target="_blank" rel="noopener noreferrer">${s}</a></p>`).join('')}</div></div>`;companyGrid.appendChild(card);});}
+function buildComparisonTable(){scenarios.forEach(s=>{const row=document.createElement('tr');row.innerHTML=`<td><strong>${s.name}</strong></td><td>${oddsLabel(s.odds)}</td><td>${expectedYear(s.odds).toExponential(2)}</td><td>${expectedDate(s.odds).toExponential(2)}</td><td>${s.note}</td>`;comparisonTable.appendChild(row);});}
+function buildReferences(){references.forEach(ref=>{const card=document.createElement('article');card.className='reference-card source-block';card.innerHTML=`<h3>Reference</h3><p>${ref.text}</p><p><a href="${ref.url}" target="_blank" rel="noopener noreferrer">${ref.url}</a></p>`;referenceGrid.appendChild(card);});}
+function destroyCharts(){chartInstances.forEach(c=>c.destroy()); chartInstances=[];}
+function chartTextColor(){return getComputedStyle(document.body).getPropertyValue('--text-light').trim() || '#f0eff4';}
+function chartGridColor(){return 'rgba(240,239,244,0.12)';}
+function chartPalette(){return {
+  blair:'#ff5c8a', marie:'#ffd166', burness:'#06d6a0', drake:'#4cc9f0', mccoy:'#b517ff', page:'#ff7a00', jennifer:'#f72585', smith:'#90be6d',
+  parent:'#00bbf9', drouin:'#00bbf9', exact:'#f15bb5', profile:'#fee440', control:'#9bffb7', kylie:'#fee440', paris:'#9b5de5', business:'#ff006e', slate:'#cdb4db', white:'#f0eff4'
+};}
+function hexToRgba(hex, alpha){const h=hex.replace('#','');const r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16);return `rgba(${r},${g},${b},${alpha})`;}
+function scenarioColor(name){const c=chartPalette();
+  if(name.includes('Drouin')) return c.drouin;
+  if(name.includes('Jennifer')) return c.control;
+  if(name.includes('exact date')) return c.exact;
+  if(name.includes('Marie')) return c.marie;
+  if(name.includes('Burness')) return c.burness;
+  if(name.includes('Blair')) return c.blair;
+  if(name.includes('Drake') || name.includes('McCoy')) return c.parent;
+  if(name.includes('Page')) return c.page;
+  return c.slate;
+}
+function createCharts(){if(typeof Chart==='undefined')return; destroyCharts();
+  const colors=chartPalette();
+  Chart.defaults.color=chartTextColor();
+  Chart.defaults.borderColor=chartGridColor();
+  Chart.defaults.font.family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+  Chart.defaults.animation=false;
+  Chart.defaults.responsive=true;
+  Chart.defaults.plugins.legend.labels.usePointStyle=true;
+  Chart.defaults.plugins.legend.labels.boxWidth=11;
+  const rarityColors=scenarios.map(s=>scenarioColor(s.name));
+  chartInstances.push(new Chart(document.getElementById('rarityChart'),{type:'bar',data:{labels:scenarios.map(s=>s.name),datasets:[{label:'Log10 odds: 1 in N',data:scenarios.map(s=>Math.log10(s.odds)),backgroundColor:rarityColors.map(c=>hexToRgba(c,.78)),borderColor:rarityColors,borderWidth:2,borderRadius:8,hoverBackgroundColor:rarityColors.map(c=>hexToRgba(c,.94))}]},options:{maintainAspectRatio:false,plugins:{legend:{display:true},tooltip:{callbacks:{label:(ctx)=>oddsLabel(scenarios[ctx.dataIndex].odds),afterLabel:(ctx)=>`Swatch: ${rarityColors[ctx.dataIndex]}`}}},scales:{x:{ticks:{maxRotation:70,minRotation:35},grid:{display:false}},y:{title:{display:true,text:'log10(odds denominator)'},grid:{color:chartGridColor()}}}}}));
+  const comp=[['Blair',freq.blair,colors.blair],['Marie',freq.marie,colors.marie],['Burness',freq.burness,colors.burness],['Drake',freq.drake,colors.drake],['McCoy',freq.mccoy,colors.mccoy],['Page',freq.page,colors.page],['Jennifer',freq.jennifer,colors.jennifer],['Smith',freq.smith,colors.smith],['Drouin',freq.drouin,colors.drouin]];
+  chartInstances.push(new Chart(document.getElementById('componentChart'),{type:'doughnut',data:{labels:comp.map(c=>c[0]),datasets:[{data:comp.map(c=>Math.log10(c[1])),backgroundColor:comp.map(c=>hexToRgba(c[2],.84)),borderColor:comp.map(c=>c[2]),borderWidth:2,hoverOffset:9}]},options:{maintainAspectRatio:false,cutout:'48%',plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:(ctx)=>`${ctx.label}: ${oddsLabel(comp[ctx.dataIndex][1])} · ${comp[ctx.dataIndex][2]}`}}}}}));
+  const collide=scenarios.filter(s=>['Drake dad + McCoy mom','Blair + fixed Drake/McCoy parents','Blair Burness + fixed parents','Blair Marie Burness + fixed parents','Blair Marie Page Burness Drake/McCoy + exact date','Jennifer Drouin comparison (born 1989)','Jennifer Smith comparison'].includes(s.name));
+  const collideColors=collide.map(s=>scenarioColor(s.name));
+  chartInstances.push(new Chart(document.getElementById('collisionChart'),{type:'bar',data:{labels:collide.map(s=>s.name),datasets:[{label:'Expected people in U.S. 1987 cohort',data:collide.map(s=>expectedYear(s.odds)),backgroundColor:collideColors.map(c=>hexToRgba(c,.78)),borderColor:collideColors,borderWidth:2,borderRadius:8}]},options:{maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:(ctx)=>`${ctx.raw.toExponential(3)} expected people`,afterLabel:(ctx)=>`Swatch: ${collideColors[ctx.dataIndex]}`}}},scales:{x:{ticks:{maxRotation:70,minRotation:35},grid:{display:false}},y:{type:'logarithmic',title:{display:true,text:'Expected count (log scale)'},grid:{color:chartGridColor()}}}}}));
+  chartInstances.push(new Chart(document.getElementById('trendChart'),{type:'line',data:{labels:['1970s','1980s','1990s','2000s','2010s','2020s','2030 projected'],datasets:[{label:'Blair directional index',data:[18,35,48,42,55,63,68],tension:.35,fill:false,borderColor:colors.blair,backgroundColor:hexToRgba(colors.blair,.50),pointBackgroundColor:colors.blair,pointBorderColor:'#ffffff',pointRadius:4,borderWidth:3},{label:'Marie directional index',data:[92,88,76,55,42,36,34],tension:.35,fill:false,borderColor:colors.marie,backgroundColor:hexToRgba(colors.marie,.48),pointBackgroundColor:colors.marie,pointBorderColor:'#000000',pointRadius:4,borderWidth:3},{label:'Jennifer directional index',data:[100,92,55,24,11,6,5],tension:.35,fill:false,borderColor:colors.jennifer,backgroundColor:hexToRgba(colors.jennifer,.45),pointBackgroundColor:colors.jennifer,pointBorderColor:'#ffffff',pointRadius:4,borderWidth:3},{label:'Burness rarity proxy',data:[74,73,72,72,71,71,70],tension:.35,fill:false,borderColor:colors.burness,backgroundColor:hexToRgba(colors.burness,.40),pointBackgroundColor:colors.burness,pointBorderColor:'#000000',pointRadius:4,borderWidth:3,borderDash:[7,5]}]},options:{maintainAspectRatio:false,plugins:{tooltip:{callbacks:{footer:()=> 'Directional index for storytelling; use SSA/Census data for exact year counts.'}}},scales:{y:{beginAtZero:true,max:105,grid:{color:chartGridColor()}},x:{grid:{display:false}}}}}));
+  const wealthCanvas=document.getElementById('wealthChart');
+  if(wealthCanvas){
+    chartInstances.push(new Chart(wealthCanvas,{type:'bar',data:{labels:celebrityWealth.map(w=>w.name),datasets:[
+      {label:'Personal net worth (USD millions)',data:celebrityWealth.map(w=>w.netWorthM),backgroundColor:[hexToRgba(colors.kylie,.82),hexToRgba(colors.paris,.82)],borderColor:[colors.kylie,colors.paris],borderWidth:2,borderRadius:10},
+      {label:'Modeled rarity denominator: 1 in N / 1,000',data:wealthOddsModel.map(w=>w.odds/1000),backgroundColor:[hexToRgba(colors.profile,.36),hexToRgba(colors.business,.36)],borderColor:[colors.profile,colors.business],borderWidth:2,borderRadius:10}
+    ]},options:{maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:(ctx)=>ctx.datasetIndex===0?`$${ctx.raw.toLocaleString()}M net-worth anchor`:`1 in ${(ctx.raw*1000).toLocaleString(undefined,{maximumFractionDigits:0})} people wealth-rarity model`,afterLabel:(ctx)=>ctx.datasetIndex===1?wealthOddsModel[ctx.dataIndex].note:celebrityWealth[ctx.dataIndex].anchor}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,title:{display:true,text:'Millions USD / odds denominator ÷ 1,000'},grid:{color:chartGridColor()}}}}}));
+  }
+  const wealthBusinessCanvas=document.getElementById('wealthBusinessChart');
+  if(wealthBusinessCanvas){
+    chartInstances.push(new Chart(wealthBusinessCanvas,{type:'bar',data:{labels:celebrityBusiness.map(w=>w.name),datasets:[{label:'Business / revenue anchor (USD millions)',data:celebrityBusiness.map(w=>w.valueM),backgroundColor:[hexToRgba(colors.kylie,.78),hexToRgba(colors.paris,.78),hexToRgba(colors.business,.78)],borderColor:[colors.kylie,colors.paris,colors.business],borderWidth:2,borderRadius:10}]},options:{maintainAspectRatio:false,indexAxis:'y',plugins:{tooltip:{callbacks:{label:(ctx)=>`$${ctx.raw.toLocaleString()}M`,afterLabel:(ctx)=>celebrityBusiness[ctx.dataIndex].anchor}}},scales:{x:{beginAtZero:true,title:{display:true,text:'USD millions'},grid:{color:chartGridColor()}},y:{grid:{display:false}}}}}));
+  }
+  const wealthOddsCanvas=document.getElementById('wealthOddsChart');
+  if(wealthOddsCanvas){
+    chartInstances.push(new Chart(wealthOddsCanvas,{type:'bar',data:{labels:wealthOddsModel.map(w=>w.name),datasets:[{label:'Modeled wealth rarity: 1 in N',data:wealthOddsModel.map(w=>w.odds),backgroundColor:wealthOddsModel.map(w=>hexToRgba(w.color,.82)),borderColor:wealthOddsModel.map(w=>w.color),borderWidth:2,borderRadius:10}]},options:{maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:(ctx)=>`1 in ${ctx.raw.toLocaleString()} people`,afterLabel:(ctx)=>wealthOddsModel[ctx.dataIndex].note}}},scales:{x:{grid:{display:false}},y:{type:'logarithmic',title:{display:true,text:'Odds denominator (log scale)'},grid:{color:chartGridColor()}}}}}));
+  }
+}
+
+function renderNoKeyApiCards(){
+  const box=document.getElementById('noKeyApiCards');
+  if(box){box.innerHTML=noKeyApiData.map(item=>`<div class=\"meta-box\"><span class=\"label\">${item.name}</span><span class=\"value\">${item.value}${item.name.includes('population')?' ×100M':'%'}</span><small style=\"display:block;margin-top:.35rem;line-height:1.35;color:rgba(240,239,244,.72);\">${item.status}: ${item.note}</small></div>`).join('');}
+  const cal=document.getElementById('calendarApiCards');
+  if(cal){const nager=noKeyApiData.find(x=>x.name.includes('Nager'))||noKeyApiFallback[3];cal.innerHTML=`<div class=\"meta-box\"><span class=\"label\">October 24, 1987 weekday</span><span class=\"value\">Saturday</span></div><div class=\"meta-box\"><span class=\"label\">U.S. public-holiday matches</span><span class=\"value\">${nager.value}</span><small style=\"display:block;margin-top:.35rem;line-height:1.35;color:rgba(240,239,244,.72);\">${nager.note}</small></div>`;}
+}
+function createNoKeyApiChart(){
+  const canvas=document.getElementById('noKeyApiChart');
+  if(!canvas || typeof Chart==='undefined') return;
+  const colors=noKeyApiData.map(x=>x.color);
+  chartInstances.push(new Chart(canvas,{type:'bar',data:{labels:noKeyApiData.map(x=>x.name),datasets:[{label:'Live/fallback public API value',data:noKeyApiData.map(x=>x.value),backgroundColor:colors.map(c=>hexToRgba(c,.78)),borderColor:colors,borderWidth:2,borderRadius:9}]},options:{maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:(ctx)=>`${ctx.raw}${ctx.label.includes('population')?' ×100M':'%'}`,afterLabel:(ctx)=>noKeyApiData[ctx.dataIndex].note}}},scales:{x:{ticks:{maxRotation:50,minRotation:25},grid:{display:false}},y:{beginAtZero:true,grid:{color:chartGridColor()}}}}}));
+}
+async function fetchJsonNoKey(url, timeoutMs=6500){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),timeoutMs);
+  try{const res=await fetch(url,{signal:controller.signal,cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);return await res.json();}
+  finally{clearTimeout(timer);}
+}
+async function initNoKeyApis(){
+  renderNoKeyApiCards();
+  const updated=noKeyApiFallback.map(x=>Object.assign({},x));
+  try{const agify=await fetchJsonNoKey('https://api.agify.io?name=Blair');if(typeof agify.age==='number'){updated[0].value=agify.age;updated[0].status='live';updated[0].note=`Agify returned age ${agify.age} from count ${agify.count||'n/a'}.`;}}catch(e){updated[0].status='fallback';updated[0].note+=' Fetch blocked or unavailable.';}
+  try{const gender=await fetchJsonNoKey('https://api.genderize.io?name=Blair');if(typeof gender.probability==='number'){updated[1].value=Math.round(gender.probability*100);updated[1].status='live';updated[1].note=`Genderize returned ${gender.gender||'unknown'} at ${updated[1].value}% probability from count ${gender.count||'n/a'}.`;}}catch(e){updated[1].status='fallback';updated[1].note+=' Fetch blocked or unavailable.';}
+  try{const nat=await fetchJsonNoKey('https://api.nationalize.io?name=Blair');if(nat.country&&nat.country.length){updated[2].value=Math.round((nat.country[0].probability||0)*100);updated[2].status='live';updated[2].note=`Nationalize top country ${nat.country[0].country_id||'n/a'} at ${updated[2].value}% probability from count ${nat.count||'n/a'}.`;}}catch(e){updated[2].status='fallback';updated[2].note+=' Fetch blocked or unavailable.';}
+  try{const holidays=await fetchJsonNoKey('https://date.nager.at/api/v3/PublicHolidays/1987/US');if(Array.isArray(holidays)){const matches=holidays.filter(h=>h.date==='1987-10-24');updated[3].value=matches.length;updated[3].status='live';updated[3].note=matches.length?matches.map(h=>h.localName||h.name).join(', '):'Nager.Date returned no U.S. public holiday for 1987-10-24.';}}catch(e){updated[3].status='fallback';updated[3].note+=' Fetch blocked or unavailable.';}
+  try{const wb=await fetchJsonNoKey('https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&date=2024');const val=wb&&wb[1]&&wb[1][0]&&wb[1][0].value;if(typeof val==='number'){updated[4].value=Math.round(val/100000000);updated[4].status='live';updated[4].note=`World Bank returned world population ${val.toLocaleString()} for ${wb[1][0].date}.`;}}catch(e){updated[4].status='fallback';updated[4].note+=' Fetch blocked or unavailable.';}
+  noKeyApiData=updated;
+  renderNoKeyApiCards();
+  createCharts();
+}
+
+function applyTheme(theme){if(theme==='dark'){document.body.classList.add('dark');themeToggle.textContent='☀️';}else{document.body.classList.remove('dark');themeToggle.textContent='🌙';}setTimeout(createCharts,0);}
+function initTheme(){const saved=localStorage.getItem(STORAGE_KEY)||'light';applyTheme(saved);}
+themeToggle.addEventListener('click',()=>{const next=document.body.classList.contains('dark')?'light':'dark';localStorage.setItem(STORAGE_KEY,next);applyTheme(next);});
+window.addEventListener('scroll',()=>{if(window.scrollY>400){pageScrollTop.classList.add('show');}else{pageScrollTop.classList.remove('show');}});
+pageScrollTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+buildCompanyCards(); buildComparisonTable(); buildReferences(); initTheme(); createCharts(); initNoKeyApis();
+</script>
+<script>
+(function () {
+  var VIDEO_ID = 'tgj3nZWtOfA';
+
+  var PLAYER_ID = 'left-floating-player-rosario';
+  var BUTTON_ID = 'left-floating-button-rosario';
+  var STYLE_ID = 'left-floating-player-style-rosario';
+  var OPTIONS_ID = 'left-floating-video-options-rosario';
+
+  var VIDEO_OPTIONS = [
+    { id: 'tgj3nZWtOfA', label: 'Monty Python The Holy Grail - The Killer Bunny' },
+    { id: 'Z3RA7bi5FUM', label: 'EVERGLOW (에버글로우) - FIRST MV ' },
+    { id: 'Btkjr6UNb50', label: 'CLC(씨엘씨) - ME(美) Official Music Video' },
+    { id: 'MY4qnUGwWIU', label: 'CLC(씨엘씨) - Devil Official Music Video ' },
+    { id: 'brZRDjFIFJs', label: '[MV] 화사 (Hwa Sa) - 마리아 (Maria)' },
+    { id: 'zrzMhU_4m-g', label: "She's a witch! Monty Python" },
+    { id: 'FCsLikmxhV0', label: 'Epik High - Rosario ft. CL, ZICO Official MV' },
+    { id: 'F-QTb-0wRGk', label: 'ITZY - Blah Blah Blah Music Video' },
+    { id: 'krzf1hkFAZA', label: 'ITZY - Voltage Music Video' },
+    { id: 'I66oFXdf0KU', label: '(G)I-DLE - Uh-Oh Official Music Video' },
+    { id: '56XiKr44a9U', label: 'ZICO - Bermuda Triangle ft. Crush, DEAN' }
+  ];
+
+  var activeVideoId = VIDEO_ID;
+  var activeVideoTitle = VIDEO_OPTIONS[0].label;
+  var EMBED_BASE = 'https://www.youtube.com/embed/';
+
+  function buildSrc(muted) {
+    return EMBED_BASE + activeVideoId +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&playsinline=1' +
+      '&rel=0' +
+      '&modestbranding=1' +
+      '&enablejsapi=1';
+  }
+
+  function removeOld() {
+    [PLAYER_ID, BUTTON_ID, STYLE_ID, OPTIONS_ID].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.parentNode.removeChild(el);
+    });
+  }
+
+  function injectStyle() {
+    var style = document.createElement('style');
+    style.id = STYLE_ID;
+
+    style.innerHTML =
+      '#' + PLAYER_ID + '{position:fixed!important;left:20px!important;bottom:78px!important;width:260px!important;height:150px!important;z-index:2147483000!important;border-radius:12px!important;overflow:hidden!important;background:#000!important;box-shadow:0 10px 25px rgba(0,0,0,.6)!important;display:none!important;}' +
+      '#' + PLAYER_ID + '.open{display:block!important;}' +
+      '#' + OPTIONS_ID + '{position:fixed!important;left:20px!important;bottom:236px!important;width:260px!important;z-index:2147483002!important;display:none!important;grid-template-columns:1fr!important;gap:6px!important;padding:8px!important;border-radius:12px!important;background:rgba(23,14,32,.84)!important;border:1px solid rgba(240,239,244,.28)!important;box-shadow:0 10px 25px rgba(0,0,0,.50)!important;backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important;box-sizing:border-box!important;max-height:44vh!important;overflow-y:auto!important;overscroll-behavior:contain!important;}' +
+      '#' + OPTIONS_ID + '.open{display:grid!important;}' +
+      '#' + OPTIONS_ID + ' button{width:100%!important;box-sizing:border-box!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:10px!important;padding:6px 7px!important;background:rgba(255,255,255,.12)!important;color:#fff!important;font:700 10.5px/1.18 Inter,system-ui,sans-serif!important;text-align:left!important;cursor:pointer!important;white-space:normal!important;overflow-wrap:anywhere!important;box-shadow:none!important;}' +
+      '#' + OPTIONS_ID + ' button.active,#' + OPTIONS_ID + ' button:hover{background:rgba(158,130,156,.42)!important;}' +
+      '#' + PLAYER_ID + ' iframe{width:100%!important;height:100%!important;border:0!important;display:block!important;background:#000!important;}' +
+      '#' + BUTTON_ID + '{position:fixed!important;left:20px!important;bottom:20px!important;width:52px!important;height:52px!important;z-index:2147483001!important;border-radius:50%!important;border:1px solid rgba(240,239,244,.35)!important;background:rgba(58,62,59,.72)!important;color:#fff!important;cursor:pointer!important;font-size:1.15rem!important;font-weight:700!important;display:flex!important;align-items:center!important;justify-content:center!important;box-shadow:0 8px 20px rgba(0,0,0,.45)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;touch-action:manipulation!important;}' +
+      '#' + BUTTON_ID + ':hover{background:rgba(158,130,156,.34)!important;transform:translateY(-2px)!important;}' +
+      '@media(max-width:640px){#' + PLAYER_ID + '{left:12px!important;bottom:72px!important;width:calc(100vw - 24px)!important;height:calc((100vw - 24px) * .5625)!important;}#' + OPTIONS_ID + '{left:12px!important;bottom:calc(72px + ((100vw - 24px) * .5625) + 8px)!important;width:calc(100vw - 24px)!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;padding:7px!important;max-height:38vh!important;}#' + OPTIONS_ID + ' button{font-size:9.5px!important;line-height:1.12!important;padding:6px!important;}#' + BUTTON_ID + '{left:12px!important;bottom:12px!important;}}';
+
+    document.head.appendChild(style);
+  }
+
+  function createPlayer() {
+    removeOld();
+    injectStyle();
+
+    var player = document.createElement('div');
+    player.id = PLAYER_ID;
+
+    var options = document.createElement('div');
+    options.id = OPTIONS_ID;
+
+    var button = document.createElement('button');
+    button.id = BUTTON_ID;
+    button.type = 'button';
+
+    var state = 'closed';
+
+    function setButton() {
+      if (state === 'closed') button.innerHTML = '▶';
+      if (state === 'muted') button.innerHTML = '🔊';
+      if (state === 'playing') button.innerHTML = '🔇';
+      if (state === 'stopped') button.innerHTML = '✕';
+      button.setAttribute('aria-label', activeVideoTitle);
+      button.setAttribute('title', activeVideoTitle);
+    }
+
+    function pauseOtherYouTubeFrames() {
+      document.querySelectorAll('iframe[src*="youtube.com/embed/"], iframe[src*="youtube-nocookie.com/embed/"]').forEach(function (frame) {
+        try {
+          frame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        } catch (e) {}
+      });
+    }
+
+    function loadIframe(muted) {
+      pauseOtherYouTubeFrames();
+      player.innerHTML =
+        '<iframe src="' + buildSrc(muted) + '" title="' + activeVideoTitle.replace(/"/g, '&quot;') + '" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>';
+    }
+
+    VIDEO_OPTIONS.forEach(function(item){
+      var optionButton = document.createElement('button');
+      optionButton.type = 'button';
+      optionButton.textContent = item.label;
+
+      if(item.id === activeVideoId) optionButton.className = 'active';
+
+      optionButton.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        activeVideoId = item.id;
+        activeVideoTitle = item.label;
+
+        options.querySelectorAll('button').forEach(function(btn){
+          btn.classList.remove('active');
+        });
+
+        optionButton.classList.add('active');
+        setButton();
+
+        if(state === 'closed' || state === 'stopped') {
+          state = 'muted';
+          player.classList.add('open');
+          options.classList.add('open');
+          loadIframe(true);
+          setButton();
+          return;
+        }
+
+        if(state === 'muted') loadIframe(true);
+        if(state === 'playing') loadIframe(false);
+      });
+
+      options.appendChild(optionButton);
+    });
+
+    button.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      if(state === 'closed') {
+        state = 'muted';
+        player.classList.add('open');
+        options.classList.add('open');
+        loadIframe(true);
+        setButton();
+        return;
+      }
+
+      if(state === 'muted') {
+        state = 'playing';
+        loadIframe(false);
+        setButton();
+        return;
+      }
+
+      if(state === 'playing') {
+        state = 'stopped';
+        player.innerHTML = '';
+        player.classList.add('open');
+        options.classList.add('open');
+        setButton();
+        return;
+      }
+
+      if(state === 'stopped') {
+        state = 'closed';
+        player.innerHTML = '';
+        player.classList.remove('open');
+        options.classList.remove('open');
+        setButton();
+      }
+    });
+
+    document.body.appendChild(player);
+    document.body.appendChild(options);
+    document.body.appendChild(button);
+
+    setButton();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createPlayer);
+  } else {
+    createPlayer();
+  }
+})();
+</script>
+<div class="footer-counter" style="margin-top:12px;text-align:center;">
+    <img
+        src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
+        alt="Portfolio Visitors"
+        style="border-radius:8px;opacity:.9;">
+</div>
+
+</body>
+</html>

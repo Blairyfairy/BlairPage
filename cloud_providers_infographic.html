@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blair Page | Cloud Providers InfographicY</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --black: #000000ff;
+  --midnight-violet: #291528ff;
+  --charcoal-brown: #3a3e3bff;
+  --ghost-white: #f0eff4ff;
+  --dusty-mauve: #9e829cff;
+  --deep-blue: var(--midnight-violet);
+  --vibrant-orange: var(--dusty-mauve);
+  --text-light: var(--ghost-white);
+  --bg-light: linear-gradient(135deg,#000000ff 0%,#291528ff 30%,#3a3e3bff 60%,#9e829cff 85%,#f0eff4ff 100%);
+  --glass-bg: rgba(58,62,59,0.15);
+  --glass-border: rgba(240,239,244,0.22);
+  --shadow-strong: 0 18px 40px rgba(0,0,0,.55);
+  --shadow-soft: 0 10px 26px rgba(0,0,0,.35);
+}
+body.dark {
+  --bg-light: linear-gradient(135deg,#050507 0%,#0d0f16 25%,#141824 55%,#1c1f2b 78%,#26212d 100%);
+  --glass-bg: rgba(8,10,14,0.42);
+  --glass-border: rgba(240,239,244,0.14);
+  --text-light: var(--ghost-white);
+  --shadow-strong: 0 20px 42px rgba(0,0,0,.68);
+  --shadow-soft: 0 10px 22px rgba(0,0,0,.45);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+body {
+  position: relative;
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+.top-bar {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 100 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  grid-template-areas: "cred toggle" "nav toggle" !important;
+  align-items: start !important;
+  row-gap: 2px !important;
+  padding: 1rem 2rem !important;
+  font-size: .85rem !important;
+  letter-spacing: .6px !important;
+  text-align: left !important;
+}
+.credential-header {
+  grid-area: cred !important;
+  display: block !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  max-width: calc(100% - 92px) !important;
+  text-align: left !important;
+  line-height: 1.05 !important;
+  justify-self: start !important;
+  align-self: start !important;
+  z-index: 121 !important;
+}
+.credential-header, .credential-header * { text-align: left !important; }
+.site-nav {
+  grid-area: nav !important;
+  display: flex !important;
+  position: relative !important;
+  justify-content: flex-start !important;
+  justify-self: start !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  margin: 2px 0 0 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  z-index: 121 !important;
+}
+.site-nav a {
+  margin: 0 1rem 0 0 !important;
+  color: var(--dusty-mauve);
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.2 !important;
+}
+.site-nav a:hover, .site-nav a.active {
+  text-decoration: underline;
+  color: var(--text-light);
+}
+.theme-btn, .company-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: .45rem 1rem;
+  min-height: 34px;
+  font-size: .85rem;
+  line-height: 1;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: var(--text-light);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  outline: none;
+  transition: background 0.3s ease, transform 0.2s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.theme-btn:hover, .company-toggle:hover { transform: translateY(-1px); }
+#themeToggle {
+  grid-area: toggle !important;
+  position: relative !important;
+  justify-self: end !important;
+  align-self: start !important;
+  min-width: 44px !important;
+}
+.hero {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -2;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+  transform: translateZ(0);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(240,239,244,0.09), transparent 22%),
+    radial-gradient(circle at 78% 28%, rgba(158,130,156,0.20), transparent 24%),
+    radial-gradient(circle at 62% 78%, rgba(240,239,244,0.08), transparent 18%),
+    linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35));
+}
+.logo-top-left {
+  position: absolute;
+  top: 100px;
+  left: 16px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid rgba(240,239,244,.45);
+  box-shadow: 0 8px 20px rgba(0,0,0,.7);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.logo-top-left:hover { transform: translateY(-2px) scale(1.02); }
+.logo-top-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.page-title-shell {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 19vh 2rem 1rem;
+}
+.blog-page-title {
+  text-align: center;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-weight: 700;
+  color: var(--text-light);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  margin: 0 0 1rem;
+}
+.hero-subtitle {
+  max-width: 1040px;
+  margin: 0 auto 1.6rem;
+  text-align: center;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: rgba(240,239,244,0.92);
+}
+.hero-badges,
+.summary-strip,
+.chart-grid,
+.company-grid,
+.glossary-grid,
+.reference-grid {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+.hero-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.badge-card,
+.dashboard-card,
+.company-card,
+.glossary-card,
+.reference-card,
+.method-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 1.3rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
+  overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+.badge-card::before,
+.dashboard-card::before,
+.company-card::before,
+.glossary-card::before,
+.reference-card::before,
+.method-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.08));
+  pointer-events: none;
+}
+.badge-card *, .dashboard-card *, .company-card *, .glossary-card *, .reference-card *, .method-card * {
+  position: relative;
+  z-index: 1;
+}
+.badge-card h3 {
+  margin: 0 0 .4rem;
+  font-size: .82rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--dusty-mauve);
+}
+.badge-card .metric {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+.badge-card p {
+  margin: .45rem 0 0;
+  color: rgba(240,239,244,0.82);
+  font-size: .9rem;
+  line-height: 1.45;
+}
+main.infographic-wrapper {
+  position: relative;
+  top: 0;
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 2rem 4rem;
+  z-index: 2;
+  box-sizing: border-box;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+}
+.section-title h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 2rem);
+  color: var(--text-light);
+}
+.section-title p {
+  margin: 0;
+  color: rgba(240,239,244,0.8);
+  font-size: .95rem;
+  line-height: 1.55;
+  max-width: 780px;
+}
+.summary-strip { margin-bottom: 1rem; }
+.summary-strip .dashboard-card { padding: 1.2rem 1.3rem; }
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1.3fr .9fr .9fr;
+  gap: 1rem;
+}
+.summary-grid ul {
+  margin: .65rem 0 0 1.1rem;
+  padding: 0;
+  line-height: 1.6;
+}
+.summary-grid li { margin-bottom: .25rem; }
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.2rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+.chart-grid .dashboard-card.large { grid-column: span 8; }
+.chart-grid .dashboard-card.medium { grid-column: span 6; }
+.chart-grid .dashboard-card.small { grid-column: span 4; }
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.chart-head h3 {
+  margin: 0;
+  font-size: 1.02rem;
+}
+.chart-head p {
+  margin: .3rem 0 0;
+  color: rgba(240,239,244,0.8);
+  font-size: .9rem;
+  line-height: 1.5;
+}
+.chart-wrap {
+  position: relative;
+  min-height: 320px;
+  overflow-x: auto;
+}
+.chart-legend-note {
+  margin-top: .75rem;
+  font-size: .85rem;
+  color: rgba(240,239,244,0.74);
+  line-height: 1.5;
+}
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.2rem;
+  padding-top: .5rem;
+}
+.company-card { transition: transform .24s ease, box-shadow .24s ease; }
+.company-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-strong);
+}
+.company-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: .8rem;
+}
+.company-header h3 {
+  margin: 0 0 .35rem;
+  font-size: 1.15rem;
+}
+.company-header .category {
+  display: inline-block;
+  font-size: .76rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--dusty-mauve);
+  margin-bottom: .45rem;
+}
+.score-pill {
+  white-space: nowrap;
+  padding: .45rem .7rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  font-size: .8rem;
+}
+.company-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: .7rem;
+  margin: 1rem 0;
+}
+.company-meta .meta-box {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+  padding: .8rem;
+}
+.meta-box .label {
+  display: block;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--dusty-mauve);
+  margin-bottom: .2rem;
+}
+.meta-box .value {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.company-preview,
+.company-detail,
+.method-card p,
+.reference-card p,
+.glossary-card p,
+.glossary-card li {
+  line-height: 1.65;
+  color: rgba(240,239,244,0.92);
+}
+.company-detail {
+  display: none;
+  margin-top: .9rem;
+  border-top: 1px solid rgba(240,239,244,0.14);
+  padding-top: .9rem;
+}
+.company-card.active .company-detail { display: block; }
+.company-card.active .company-toggle {
+  background: rgba(158,130,156,0.24);
+  border-color: rgba(240,239,244,0.35);
+}
+.company-card ul {
+  margin: .45rem 0 .65rem 1.1rem;
+  padding: 0;
+}
+.company-card li { margin-bottom: .3rem; }
+.source-list {
+  margin-top: .7rem;
+  padding-top: .75rem;
+  border-top: 1px dashed rgba(240,239,244,0.14);
+}
+.source-list h4 {
+  margin: 0 0 .5rem;
+  font-size: .85rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--dusty-mauve);
+}
+.source-list a,
+.reference-card a,
+.method-card a,
+.hero-subtitle a {
+  color: var(--dusty-mauve);
+  text-decoration: none;
+}
+.source-list a:hover,
+.reference-card a:hover,
+.method-card a:hover,
+.hero-subtitle a:hover {
+  color: var(--text-light);
+  text-decoration: underline;
+}
+.glossary-grid,
+.reference-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 1.2rem;
+}
+.glossary-card h3,
+.reference-card h3,
+.method-card h3 {
+  margin: 0 0 .85rem;
+  font-size: 1rem;
+}
+.keyword-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+.keyword-cloud span {
+  padding: .48rem .7rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.11);
+  font-size: .84rem;
+}
+.table-wrap { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  color: var(--text-light);
+  font-size: .92rem;
+}
+th, td {
+  border-bottom: 1px solid rgba(240,239,244,0.14);
+  padding: .72rem .55rem;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  color: var(--dusty-mauve);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .76rem;
+}
+.method-card { margin-top: 1.2rem; }
+.footer-note {
+  margin-top: 1.2rem;
+  font-size: .86rem;
+  color: rgba(240,239,244,0.75);
+  line-height: 1.55;
+}
+.page-scroll-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10050;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.page-scroll-top.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+@media (max-width: 1100px) {
+  .summary-grid { grid-template-columns: 1fr; }
+  .chart-grid .dashboard-card.large,
+  .chart-grid .dashboard-card.medium,
+  .chart-grid .dashboard-card.small { grid-column: span 12; }
+}
+@media(max-width:900px){
+  html, body {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+    background-attachment: scroll !important;
+  }
+  .top-bar {
+    padding: 10px 16px 0 16px !important;
+    min-height: 52px !important;
+  }
+  .credential-header { font-size: 0.425rem !important; }
+  .hero {
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+  }
+  .logo-top-left {
+    top: 80px;
+    width: 50px;
+    height: 50px;
+  }
+  .page-title-shell,
+  .hero-badges,
+  .summary-strip,
+  .chart-grid,
+  .company-grid,
+  .glossary-grid,
+  .reference-grid,
+  main.infographic-wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .page-title-shell { padding-top: 18vh; }
+  .hero-subtitle { font-size: .96rem; }
+  .company-meta { grid-template-columns: 1fr; }
+  .chart-wrap { min-height: 280px; }
+  .company-header { display: block; }
+  .score-pill { display: inline-flex; margin-top: .55rem; white-space: normal; }
+}
+/* ==========================================
+   MOBILE MENU + TOGGLE SAFE APPEND
+   matches enterprise mobile nav behavior
+   while preserving theme toggle clickability
+   ========================================== */
+
+@media (max-width: 900px) {
+  .top-bar {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "cred toggle"
+      "nav  toggle" !important;
+    column-gap: 10px !important;
+    align-items: start !important;
+  }
+
+  .credential-header {
+    max-width: calc(100% - 64px) !important;
+  }
+
+  .site-nav {
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    overflow: visible !important;
+  }
+
+  .site-nav a {
+    margin: 0 0.7rem 0 0 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+  }
+
+  #themeToggle {
+    position: relative !important;
+    z-index: 1002 !important;
+    pointer-events: auto !important;
+    justify-self: end !important;
+    align-self: start !important;
+    min-width: 44px !important;
+    min-height: 34px !important;
+    touch-action: manipulation !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-nav {
+    padding-right: 0.2rem !important;
+  }
+
+  .site-nav a {
+    margin: 0 0.55rem 0 0 !important;
+    font-size: 0.74rem !important;
+    line-height: 1.15 !important;
+  }
+
+  #themeToggle {
+    min-width: 44px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .credential-header {
+    max-width: calc(100% - 58px) !important;
+  }
+
+  .site-nav a {
+    margin: 0 0.45rem 0 0 !important;
+    font-size: 0.7rem !important;
+    line-height: 1.1 !important;
+  }
+}
+</style>
+</head>
+<body>
+<header class="top-bar">
+  <div class="credential-header">
+    RHCE6 · AWS Certified
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a href="enterprise_clients_infographic.html">Enterprise Info</a>
+    <a href="cloud_providers_infographic.html">Cloud Info</a>
+    <a href="live_cloud_provider_signal_board.html">Live Info</a>
+  </nav>
+  <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+</header>
+
+<a href="index.html" class="logo-top-left" aria-label="Return to home">
+  <img src="BlairPageImages/blog.jpg" alt="Blair Page logo">
+</a>
+
+<div class="hero"></div>
+
+<section class="page-title-shell">
+  <h1 class="blog-page-title">Top Cloud Providers: Market Leaders, Private Cloud Options & Gartner-Style Positioning</h1>
+  <p class="hero-subtitle">
+    This version compares twelve cloud options with a bias toward real operator choices instead of only hyperscaler marketing: <strong>AWS, Microsoft Azure, Google Cloud, Oracle Cloud Infrastructure, Alibaba Cloud, IBM Cloud / Red Hat OpenShift, Cloudflare, DigitalOcean, Rackspace Technology, Kinsta, OpenStack, and Mirantis</strong>.
+    It blends public-company proxies, official cloud revenue, market-share context, growth rates, managed-service posture, open-source/private-cloud relevance, and an <strong>illustrative Gartner-style provider matrix</strong> built from sourced public signals rather than proprietary Gartner placement.
+  </p>
+</section>
+
+<section class="hero-badges">
+  <article class="badge-card">
+    <h3>Largest public-cloud share</h3>
+    <div class="metric">AWS 33%</div>
+    <p>Synergy market-share reporting for Q4 2025 still puts AWS in the lead, even as Azure and Google narrow the gap.</p>
+  </article>
+  <article class="badge-card">
+    <h3>Fastest cited growth</h3>
+    <div class="metric">GCP +48%</div>
+    <p>Google Cloud posted the fastest cited quarterly growth among the big three in early 2026 coverage.</p>
+  </article>
+  <article class="badge-card">
+    <h3>Best open option</h3>
+    <div class="metric">OpenStack</div>
+    <p>OpenInfra reported 55 million documented cores in production and a resurgence tied to post-VMware migration demand.</p>
+  </article>
+  <article class="badge-card">
+    <h3>Private-cloud Kubernetes</h3>
+    <div class="metric">Mirantis</div>
+    <p>Mirantis adds an operator-backed Kubernetes and OpenStack path for private, sovereign, AI-ready, and migration-heavy environments.</p>
+  </article>
+  <article class="badge-card">
+    <h3>Managed / hybrid angle</h3>
+    <div class="metric">Rackspace</div>
+    <p>Rackspace remains relevant when the decision is not only “which cloud,” but “who operates, migrates, or supports it.”</p>
+  </article>
+  <article class="badge-card">
+    <h3>Managed WordPress angle</h3>
+    <div class="metric">Kinsta</div>
+    <p>Kinsta adds a managed WordPress, application, database, and static-site hosting path for teams that want cloud-backed performance without running the platform themselves.</p>
+  </article>
+</section>
+
+<section class="summary-strip">
+  <article class="dashboard-card">
+    <div class="section-title" style="margin-top:0;">
+      <div>
+        <h2>Executive summary</h2>
+        <p>What matters most when comparing cloud providers in a portfolio, consulting, or architecture-decision context.</p>
+      </div>
+    </div>
+    <div class="summary-grid">
+      <div>
+        <strong>Hyperscaler reality:</strong>
+        <ul>
+          <li><strong>AWS</strong> still leads share and absolute scale.</li>
+          <li><strong>Azure</strong> combines enterprise account control, Microsoft software gravity, and strong growth.</li>
+          <li><strong>Google Cloud</strong> now has the sharpest AI-led narrative acceleration in current reporting.</li>
+          <li><strong>Oracle</strong> is using AI infrastructure demand and distributed cloud positioning to move up-market fast.</li>
+        </ul>
+      </div>
+      <div>
+        <strong>Operator / architecture reality:</strong>
+        <ul>
+          <li><strong>OpenStack</strong> belongs in the shortlist when sovereignty, private cloud, or VMware exit paths matter.</li>
+          <li><strong>Rackspace</strong> is not a hyperscaler substitute, but it remains a real managed-cloud and hybrid operating option.</li>
+          <li><strong>Kinsta</strong> belongs in the managed-platform discussion when WordPress, app hosting, database hosting, static sites, and performance operations matter more than owning the underlying cloud layer.</li>
+          <li><strong>Cloudflare</strong> and <strong>DigitalOcean</strong> matter when developer simplicity, edge reach, or lower-complexity adoption matters more than owning every enterprise stack layer.</li>
+        </ul>
+      </div>
+      <div>
+        <strong>Strategy framing:</strong>
+        <ul>
+          <li><strong>Execution</strong> = scale, revenue durability, and delivery breadth.</li>
+          <li><strong>Vision</strong> = AI platform story, cloud-native posture, and ecosystem momentum.</li>
+          <li><strong>Lock-in</strong>, <strong>migration cost</strong>, <strong>sovereignty</strong>, and <strong>operator burden</strong> often matter more than sticker pricing.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</section>
+
+<main class="infographic-wrapper">
+  <div class="section-title">
+    <div>
+      <h2>Cloud dashboard</h2>
+      <p>These charts compare providers by public signals. Some rows use revenue, some use market-share context, and some use operator metrics or open-source adoption because not every provider has the same reporting model.</p>
+    </div>
+  </div>
+
+  <section class="chart-grid">
+    <article class="dashboard-card large">
+      <div class="chart-head">
+        <div>
+          <h3>Provider scale index</h3>
+          <p>A normalized score built from reported cloud revenue, market-share context, or documented production footprint so public and private-style options can coexist on one page.</p>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="scaleChart"></canvas></div>
+      <div class="chart-legend-note">
+        Scale index is an infographic convenience score, not audited revenue. It lets hyperscalers, open-source platforms, and managed providers sit on one comparison axis.
+      </div>
+    </article>
+
+    <article class="dashboard-card small">
+      <div class="chart-head">
+        <div>
+          <h3>Provider model mix</h3>
+          <p>Public hyperscale, public specialty cloud, managed / hybrid operator, or open-source private-cloud option.</p>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="modelMixChart"></canvas></div>
+    </article>
+
+    <article class="dashboard-card medium">
+      <div class="chart-head">
+        <div>
+          <h3>Latest cited growth</h3>
+          <p>Where current public reporting shows clear year-over-year acceleration or deceleration in cloud revenue or adjacent cloud business.</p>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="growthChart"></canvas></div>
+    </article>
+
+    <article class="dashboard-card medium">
+      <div class="chart-head">
+        <div>
+          <h3>Gartner-style provider matrix</h3>
+          <p>Illustrative positioning built from public signals for execution and vision. This is not a reproduction of a Gartner Magic Quadrant; it is a sourced strategic interpretation.</p>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="quadrantChart"></canvas></div>
+      <div class="chart-legend-note">
+        Right = broader AI / platform / product vision. Up = more visible scale and execution. The axes are editorial scoring based on cited public evidence, not Gartner-owned coordinates.
+      </div>
+    </article>
+
+    <article class="dashboard-card medium">
+      <div class="chart-head">
+        <div>
+          <h3>Decision keywords</h3>
+          <p>Vocabulary that fits cloud strategy, consulting, and operator decision-making.</p>
+        </div>
+      </div>
+      <div class="keyword-cloud">
+        <span>multi-cloud gravity</span>
+        <span>sovereign cloud</span>
+        <span>AI inference economics</span>
+        <span>operator burden</span>
+        <span>cloud repatriation</span>
+        <span>migration friction</span>
+        <span>platform lock-in</span>
+        <span>managed service premium</span>
+        <span>private cloud resurgence</span>
+        <span>developer simplicity</span>
+        <span>distributed cloud</span>
+        <span>cloud-native execution</span>
+        <span>enterprise account control</span>
+        <span>edge compute</span>
+        <span>GPU capacity</span>
+        <span>observability stack</span>
+        <span>managed WordPress platform</span>
+        <span>control plane maturity</span>
+        <span>hybrid architecture</span>
+      </div>
+    </article>
+  </section>
+
+  <div class="section-title">
+    <div>
+      <h2>Provider deep dives</h2>
+      <p>Each card opens into a longer assessment covering scale, status, ideal fit, strategic signal, and cited public sources.</p>
+    </div>
+  </div>
+
+  <section class="company-grid" id="companyGrid"></section>
+
+  <div class="section-title">
+    <div>
+      <h2>Quick comparison table</h2>
+      <p>Best one-screen scan for public/private status, scale anchor, latest growth, best fit, and operator signal.</p>
+    </div>
+  </div>
+
+  <section>
+    <article class="dashboard-card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>Ownership / type</th>
+              <th>Scale anchor</th>
+              <th>Latest growth signal</th>
+              <th>Best fit</th>
+            </tr>
+          </thead>
+          <tbody id="comparisonTable"></tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+
+  <div class="section-title">
+    <div>
+      <h2>Cloud strategy language</h2>
+      <p>Useful wording for architecture decisions, summaries, consulting decks, or portfolio storytelling.</p>
+    </div>
+  </div>
+
+  <section class="glossary-grid">
+    <article class="glossary-card">
+      <h3>Hyperscaler framing</h3>
+      <p><strong>Scale moat</strong> means the provider can fund regions, chips, network fabric, and AI capacity faster than smaller peers. <strong>Enterprise gravity</strong> describes how existing contracts and product bundling pull workloads toward the same vendor. <strong>Platform breadth</strong> matters when the decision is not just compute and storage, but also databases, analytics, security, AI, and industry tooling.</p>
+    </article>
+    <article class="glossary-card">
+      <h3>Private-cloud / hybrid framing</h3>
+      <p><strong>Control-plane ownership</strong> matters when regulatory, sovereignty, or latency constraints block full public-cloud adoption. <strong>Operator burden</strong> is the hidden cost of running your own cloud stack. <strong>VMware-exit leverage</strong> describes the bargaining and migration value of credible alternatives such as OpenStack and Red Hat-backed hybrid models.</p>
+    </article>
+    <article class="glossary-card">
+      <h3>Cost + migration framing</h3>
+      <p><strong>Migration friction</strong> includes retraining, architecture refactoring, and data movement. <strong>Managed-service premium</strong> is what a team pays to outsource cloud operations to a provider such as Rackspace. <strong>Developer simplicity premium</strong> explains why teams still choose DigitalOcean or Cloudflare even when the hyperscalers offer more total services.</p>
+    </article>
+  </section>
+
+  <div class="section-title">
+    <div>
+      <h2>References</h2>
+      <p>Compact APA-style references used to build this page. These are placed at the bottom on purpose so the page reads like an infographic first and a source stack second.</p>
+    </div>
+  </div>
+
+  <section class="reference-grid" id="referenceGrid"></section>
+
+  <article class="method-card">
+    <h3>Methodology and caveats</h3>
+    <p>
+      This page intentionally compares different kinds of cloud options: public hyperscalers, public specialty-cloud companies, a managed/hybrid operator, and an open-source private-cloud ecosystem.
+      Because those categories report differently, the file uses the most defensible public anchor for each row: market share, cloud revenue, annual run-rate, ARR, parent-company market cap, or documented production footprint.
+    </p>
+    <p>
+      The Gartner-style matrix is editorial and illustrative. It is based on publicly visible signals such as market share, official revenue, AI and distributed-cloud momentum, open-source adoption, and operator relevance.
+      It is not a reproduction of Gartner's copyrighted research, and the coordinates should be read as a strategic interpretation layer rather than a vendor-certified ranking.
+    </p>
+    <p class="footer-note">
+      Data locked for file generation date: <strong>April 14, 2026</strong>. No-key dependency used in the file: <strong>Chart.js via jsDelivr CDN</strong>. That keeps the page one-file, portable, and GitHub-friendly.
+    </p>
+  </article>
+</main>
+
+<button id="pageScrollTop" class="page-scroll-top" aria-label="Back to top">▲</button>
+
+<script>
+const providerData = [
+  {
+    name: "AWS",
+    category: "Public hyperscaler",
+    score: "Market-share leader",
+    scaleIndex: 100,
+    growth: 24,
+    model: "Hyperscaler",
+    ownership: "Amazon / public parent",
+    scaleAnchor: "33% global cloud-infrastructure share in Q4 2025; AWS 2025 revenue $128.7B; 2026 run-rate about $142B",
+    growthAnchor: "AWS revenue up 20% in 2025; latest cited cloud growth 24%",
+    fit: "Enterprise-wide cloud, AI infrastructure, developer breadth, global region scale",
+    vision: 9.0,
+    execution: 9.8,
+    preview: "AWS is still the default benchmark for public cloud scale. It remains first in share, first in breadth, and first in operator mindshare for most generalized enterprise cloud decisions.",
+    detail: [
+      "Synergy Research data reported by CRN put AWS at 33% of the global cloud-infrastructure market in Q4 2025, still ahead of Azure and Google Cloud.",
+      "Amazon reported AWS segment sales of $128.7 billion for 2025, and Reuters later said the AWS revenue run-rate was about $142 billion.",
+      "AWS was also highlighted by AWS as a Leader in the 2025 Gartner Magic Quadrant for Strategic Cloud Platform Services, with the highest position on ability to execute."
+    ],
+    signals: ["Deepest service catalog", "Highest visible execution", "Strong AI infrastructure position", "Best fit for broad enterprise standardization"],
+    sources: [
+      {label: "CRN / Synergy — Q4 2025 share data", url: "https://www.crn.com/news/cloud/2026/global-cloud-market-share-q4-2025-google-grows-aws-lead-narrows"},
+      {label: "Amazon investor relations — 2025 AWS sales", url: "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/"},
+      {label: "Reuters — AWS run-rate and AI disclosure", url: "https://www.reuters.com/business/retail-consumer/amazon-says-annual-revenue-run-rate-chips-business-now-over-20-billion-2026-04-09/"},
+      {label: "AWS — 2025 Gartner SCPS leader", url: "https://aws.amazon.com/resources/analyst-reports/gartner/magic-quadrant-for-strategic-cloud-platform-services-mq/"}
+    ]
+  },
+  {
+    name: "Microsoft Azure",
+    category: "Public hyperscaler",
+    score: "Enterprise gravity leader",
+    scaleIndex: 90,
+    growth: 39,
+    model: "Hyperscaler",
+    ownership: "Microsoft / public parent",
+    scaleAnchor: "23% global cloud-infrastructure share in Q4 2025; Microsoft market cap about $3.59T",
+    growthAnchor: "Azure growth around 39% in latest cited quarter",
+    fit: "Microsoft-stack enterprises, hybrid governance, enterprise procurement leverage, AI copilot ecosystems",
+    vision: 8.9,
+    execution: 9.4,
+    preview: "Azure wins when Microsoft account control, enterprise software gravity, and hybrid-policy alignment matter as much as raw cloud features.",
+    detail: [
+      "Synergy market-share reporting for Q4 2025 put Azure at 23%, making it the clear number-two cloud platform globally.",
+      "Reuters reported Azure growth of 39% in the latest cited quarter and said Microsoft guided for 37% to 38% growth for the following period.",
+      "Azure does not disclose a neat standalone annual revenue figure the way AWS or Google Cloud do, so this page relies on market share, growth, and Microsoft parent scale."
+    ],
+    signals: ["Best enterprise bundling leverage", "Strong hybrid credibility", "High AI adoption pull through Microsoft stack", "Less transparent standalone revenue than AWS or GCP"],
+    sources: [
+      {label: "CRN / Synergy — Q4 2025 share data", url: "https://www.crn.com/news/cloud/2026/global-cloud-market-share-q4-2025-google-grows-aws-lead-narrows"},
+      {label: "Reuters — Azure growth and capex", url: "https://www.reuters.com/business/autos-transportation/investors-punish-big-tech-ai-spending-that-delivers-slower-growth-2026-01-29/"},
+      {label: "Microsoft market cap snapshot", url: "https://www.reuters.com/markets/companies/MSFT.O/"}
+    ]
+  },
+  {
+    name: "Google Cloud",
+    category: "Public hyperscaler",
+    score: "Fastest momentum",
+    scaleIndex: 76,
+    growth: 48,
+    model: "Hyperscaler",
+    ownership: "Alphabet / public parent",
+    scaleAnchor: "12% global cloud-infrastructure share in Q4 2025; Q4 2025 revenue $17.7B",
+    growthAnchor: "Google Cloud revenue up 48% in Q4 2025",
+    fit: "AI-first builds, data / analytics, Kubernetes-native teams, cloud-native modernization",
+    vision: 9.4,
+    execution: 8.8,
+    preview: "Google Cloud now carries the sharpest AI-growth narrative among the big three and is especially strong where data, containers, and modern AI tooling matter.",
+    detail: [
+      "CRN / Synergy coverage of Q4 2025 cloud market share put Google Cloud at 12%, still far smaller than AWS and Azure but growing quickly.",
+      "Alphabet reported Google Cloud revenue of $17.7 billion in Q4 2025, up 48% year over year.",
+      "Google has also publicly highlighted that it was named a Leader in the 2025 Gartner Magic Quadrant for Strategic Cloud Platform Services and described itself as highest on completeness of vision."
+    ],
+    signals: ["Fastest cited growth among big three", "Strong AI and cloud-native posture", "Excellent data platform reputation", "Still smaller than AWS and Azure in absolute scale"],
+    sources: [
+      {label: "CRN / Synergy — Q4 2025 share data", url: "https://www.crn.com/news/cloud/2026/global-cloud-market-share-q4-2025-google-grows-aws-lead-narrows"},
+      {label: "Alphabet — Q4 2025 earnings", url: "https://abc.xyz/investor/news/news-details/2026/Alphabet-Announces-Fourth-Quarter-2025-and-Fiscal-Year-Results-2026-KEvZIMKBLS/default.aspx"},
+      {label: "Reuters — big tech cloud growth comparison", url: "https://www.reuters.com/business/retail-consumer/big-techs-quarter-four-charts-ai-splurge-cloud-growth-2026-02-06/"},
+      {label: "Google Cloud — 2025 Gartner SCPS leader", url: "https://cloud.google.com/blog/products/compute/google-is-a-leader-in-gartner-magic-quadrant-for-scps"}
+    ]
+  },
+  {
+    name: "Oracle Cloud Infrastructure",
+    category: "Public hyperscaler challenger",
+    score: "Fast-rising AI challenger",
+    scaleIndex: 58,
+    growth: 44,
+    model: "Hyperscaler",
+    ownership: "Oracle / public company",
+    scaleAnchor: "Oracle market cap about $420B; Q3 FY26 cloud revenue $8.9B",
+    growthAnchor: "Cloud revenue up 44% in Q3 FY26; Oracle projects much higher revenue by FY2027",
+    fit: "Database-heavy estates, distributed cloud, sovereign / regulated environments, AI supercluster demand",
+    vision: 8.5,
+    execution: 7.9,
+    preview: "OCI has moved from edge consideration to serious shortlist status for teams that care about database economics, distributed cloud, and AI capacity.",
+    detail: [
+      "Oracle reported cloud revenue of $8.9 billion in Q3 FY26, up 44% year over year.",
+      "Reuters said Oracle's AI data-center strategy had led it to raise fiscal 2027 revenue guidance to $90 billion, which has materially changed its cloud narrative.",
+      "Oracle also said it was recognized as a Leader in the 2025 Gartner Magic Quadrant for Strategic Cloud Platform Services."
+    ],
+    signals: ["Oracle database gravity", "Distributed and sovereign-cloud differentiation", "AI-led momentum", "Challenger still smaller than big three"],
+    sources: [
+      {label: "Oracle Q3 FY26 earnings release", url: "https://www.oracle.com/news/announcement/q3fy26-earnings-release-2026-03-10/"},
+      {label: "Reuters — Oracle AI cloud outlook", url: "https://www.reuters.com/technology/oracle-beats-quarterly-revenue-estimates-2026-03-10/"},
+      {label: "Reuters — Oracle market cap snapshot", url: "https://www.reuters.com/markets/companies/ORCL.N/key-metrics/"},
+      {label: "Oracle — 2025 Gartner SCPS leader", url: "https://www.oracle.com/news/announcement/oracle-recognized-as-a-leader-in-the-2025-gartner-magic-quadrant-for-strategic-cloud-platform-services-2025-08-08/"}
+    ]
+  },
+  {
+    name: "Alibaba Cloud",
+    category: "Public hyperscaler challenger",
+    score: "Asia-scale leader",
+    scaleIndex: 52,
+    growth: 36,
+    model: "Hyperscaler",
+    ownership: "Alibaba / public parent",
+    scaleAnchor: "Cloud Intelligence Group revenue $6.19B in quarter ended Dec. 31, 2025; Alibaba market cap about $306B",
+    growthAnchor: "Cloud Intelligence Group up 36% year over year",
+    fit: "Asia footprint, China-linked ecosystems, public-cloud and AI workloads in Alibaba-centric markets",
+    vision: 7.8,
+    execution: 7.2,
+    preview: "Alibaba Cloud belongs in any serious global cloud comparison, especially where Asia reach and China-linked ecosystem requirements matter.",
+    detail: [
+      "Alibaba reported Cloud Intelligence Group revenue of RMB43.284 billion, or about US$6.19 billion, for the quarter ended December 31, 2025.",
+      "That represented 36% year-over-year growth, largely driven by public-cloud and AI-related demand.",
+      "Alibaba Cloud also publicized Gartner recognition in other cloud categories, though the cleanest current public evidence for this page is operational cloud growth and parent-company scale."
+    ],
+    signals: ["Strong regional relevance", "AI cloud growth engine", "Important outside U.S.-centric cloud conversations", "Geopolitical and ecosystem constraints for some buyers"],
+    sources: [
+      {label: "Alibaba Group December quarter 2025 results", url: "https://www.alibabagroup.com/document-1971445322303406080"},
+      {label: "BusinessWire mirror of results", url: "https://www.businesswire.com/news/home/20260318501558/en/Alibaba-Group-Announces-December-Quarter-2025-Results"},
+      {label: "Reuters — Alibaba market cap snapshot", url: "https://www.reuters.com/markets/companies/BABA.N/"},
+      {label: "Alibaba Cloud Gartner DBMS leader page", url: "https://www.alibabacloud.com/en/press-room/alibaba-cloud-named-a-leader-in-gartner-magic?_p_lc=1"}
+    ]
+  },
+  {
+    name: "IBM Cloud / Red Hat OpenShift",
+    category: "Public hybrid cloud platform",
+    score: "Hybrid enterprise incumbent",
+    scaleIndex: 47,
+    growth: 10,
+    model: "Hybrid / enterprise platform",
+    ownership: "IBM / public company",
+    scaleAnchor: "IBM market cap about $259.9B; Hybrid Cloud (Red Hat) up 10% in Q4 2025",
+    growthAnchor: "Hybrid Cloud (Red Hat) up 10% in Q4 2025; IBM generative AI book of business > $12.5B",
+    fit: "Hybrid estates, regulated enterprises, OpenShift-led modernization, large enterprise transformation",
+    vision: 7.4,
+    execution: 7.4,
+    preview: "IBM Cloud matters less as a pure hyperscaler and more as a hybrid platform and large-enterprise transformation story, especially through Red Hat OpenShift.",
+    detail: [
+      "IBM's Q4 2025 results said Hybrid Cloud, led by Red Hat, grew 10%.",
+      "IBM also said its generative AI book of business exceeded $12.5 billion, which supports a stronger cloud-plus-AI modernization narrative.",
+      "This makes IBM more relevant in hybrid architecture decisions than in pure public-cloud market-share battles."
+    ],
+    signals: ["Strong hybrid credibility", "OpenShift ecosystem strength", "Enterprise services and modernization depth", "Less dominant as general-purpose public cloud"],
+    sources: [
+      {label: "IBM Q4 2025 results", url: "https://newsroom.ibm.com/2026-01-28-IBM-RELEASES-FOURTH-QUARTER-RESULTS"},
+      {label: "IBM market cap snapshot", url: "https://www.reuters.com/markets/companies/IBM.N/"}
+    ]
+  },
+  {
+    name: "Cloudflare",
+    category: "Public edge / developer cloud",
+    score: "Edge-native disruptor",
+    scaleIndex: 34,
+    growth: 34,
+    model: "Edge / developer cloud",
+    ownership: "Cloudflare / public company",
+    scaleAnchor: "Cloudflare market cap about $74.8B; FY2025 revenue $2.168B",
+    growthAnchor: "Q4 2025 revenue up 33.6%; FY2025 revenue up 30%",
+    fit: "Edge compute, global application delivery, developer platforms, zero trust, AI-adjacent internet workloads",
+    vision: 8.2,
+    execution: 6.8,
+    preview: "Cloudflare is not trying to become AWS. It matters because it compresses edge, security, network, and developer-platform value into a simpler global operating model.",
+    detail: [
+      "Cloudflare reported fiscal-year 2025 revenue of $2.1679 billion and fourth-quarter revenue growth of 33.6%.",
+      "Current coverage has emphasized how Cloudflare is repositioning around AI agents, enterprise contracts, and developer adoption through Workers.",
+      "For many teams, Cloudflare is the right cloud discussion when the real problem is edge, networking, performance, or secure internet delivery rather than full hyperscaler replacement."
+    ],
+    signals: ["Edge-native differentiation", "Strong developer story", "Good AI-adjacent internet positioning", "Not a full hyperscaler substitute"],
+    sources: [
+      {label: "Cloudflare FY2025 results", url: "https://www.cloudflare.com/press/press-releases/2026/cloudflare-announces-fourth-quarter-and-fiscal-year-2025-financial-results/"},
+      {label: "Reuters — Cloudflare demand from AI cloud services", url: "https://www.reuters.com/business/cloudflare-forecasts-annual-sales-above-estimates-ai-drives-cloud-demand-2026-02-10/"},
+      {label: "Cloudflare market cap snapshot", url: "https://www.reuters.com/markets/companies/NET.N/"}
+    ]
+  },
+  {
+    name: "DigitalOcean",
+    category: "Public developer cloud",
+    score: "Simplicity specialist",
+    scaleIndex: 23,
+    growth: 18,
+    model: "Developer cloud",
+    ownership: "DigitalOcean / public company",
+    scaleAnchor: "Market cap about $3.11B; ARR ended 2025 at $970M",
+    growthAnchor: "Q4 2025 revenue up 18%; ARR up 18%",
+    fit: "SMB, startups, straightforward Linux / Kubernetes adoption, low-friction developer onboarding",
+    vision: 6.8,
+    execution: 5.9,
+    preview: "DigitalOcean wins when the customer wants low-friction cloud adoption, not the deepest enterprise feature matrix.",
+    detail: [
+      "DigitalOcean reported Q4 2025 revenue of $242 million and said ARR ended the quarter at $970 million, both up 18% year over year.",
+      "The company remains far smaller than the hyperscalers, but that is part of its appeal for teams that value simplicity and speed over platform sprawl.",
+      "It fits best in cost-aware developer and startup contexts rather than large sovereign or highly customized enterprise estates."
+    ],
+    signals: ["Simple onboarding", "Developer-friendly positioning", "Smaller scale but clean focus", "Less suitable for very complex enterprise-cloud requirements"],
+    sources: [
+      {label: "DigitalOcean FY2025 results", url: "https://investors.digitalocean.com/news/news-details/2026/DigitalOcean-Announces-Fourth-Quarter-and-Fiscal-Year-2025-Financial-Results/"},
+      {label: "DigitalOcean market cap snapshot", url: "https://www.reuters.com/markets/companies/DOCN.N/"}
+    ]
+  },
+  {
+    name: "Rackspace Technology",
+    category: "Public managed / hybrid operator",
+    score: "Managed-cloud operator",
+    scaleIndex: 18,
+    growth: -2,
+    model: "Managed / hybrid operator",
+    ownership: "Rackspace / public company",
+    scaleAnchor: "Market cap about $337.5M; FY2025 revenue $2.686B",
+    growthAnchor: "2025 total revenue down 2%; public cloud up 6% in Q4 2025; private cloud down 6% for FY2025",
+    fit: "Managed operations, migration support, hybrid cloud, teams that need an operator more than a native hyperscaler",
+    vision: 5.4,
+    execution: 4.8,
+    preview: "Rackspace is not a scale leader, but it is still relevant when the buying question is who will operate the cloud estate, support migration, or run a hybrid footprint.",
+    detail: [
+      "Rackspace reported full-year 2025 revenue of $2.686 billion, down 2% year over year.",
+      "Within that result, public-cloud revenue was up 6% in Q4 2025 while private-cloud revenue was down 6% for the full year, showing the portfolio tension inside the business.",
+      "This makes Rackspace more of an operating and managed-services option than a direct platform-scale rival to AWS, Azure, or Google Cloud."
+    ],
+    signals: ["Managed services value", "Hybrid and migration support relevance", "Smaller scale and weaker growth profile", "Still useful in operator-heavy environments"],
+    sources: [
+      {label: "Rackspace FY2025 results", url: "https://ir.rackspace.com/news-releases/news-release-details/rackspace-technology-reports-fourth-quarter-and-full-year-2025/"},
+      {label: "Reuters — Rackspace financial profile", url: "https://www.reuters.com/markets/companies/RXT.O/profile/"},
+      {label: "Rackspace market cap snapshot", url: "https://www.reuters.com/markets/companies/RXT.O/"}
+    ]
+  },
+  {
+    name: "Kinsta",
+    category: "Managed WordPress / application platform",
+    score: "Managed-platform specialist",
+    scaleIndex: 16,
+    growth: 15,
+    model: "Managed / hybrid operator",
+    ownership: "Kinsta / private company",
+    scaleAnchor: "Private managed-hosting platform built around premium WordPress hosting, application hosting, database hosting, and static-site hosting on top of larger cloud and edge infrastructure",
+    growthAnchor: "No public standalone revenue disclosure; strategic growth signal comes from managed WordPress, app hosting, database hosting, edge delivery, and performance-focused platform expansion",
+    fit: "WordPress-heavy businesses, agencies, ecommerce sites, content teams, small technical teams, managed app hosting, database hosting, and static-site projects that need cloud-backed performance without hyperscaler operations overhead",
+    vision: 6.5,
+    execution: 5.8,
+    preview: "Kinsta is not a hyperscaler, but it matters as a managed platform layer for teams that want premium WordPress, app, database, and static-site hosting without directly operating AWS, Azure, GCP, or private cloud infrastructure.",
+    detail: [
+      "Kinsta fits the comparison as a managed-platform specialist rather than a raw infrastructure provider. Its value is packaging hosting operations, performance tuning, security posture, CDN/edge delivery, and support into a simpler buying decision.",
+      "The strongest use case is not broad enterprise cloud replacement; it is reducing operator burden for WordPress, agency, ecommerce, content, and smaller application workloads that still need serious performance and reliability.",
+      "Strategically, Kinsta belongs near Rackspace, DigitalOcean, and Cloudflare in the conversation: it represents the managed experience layer that sits above hyperscaler and edge infrastructure when the customer wants outcomes instead of low-level cloud assembly."
+    ],
+    signals: ["Managed WordPress specialization", "App, database, and static-site hosting expansion", "Lower operator burden", "Best fit for web-platform outcomes rather than raw cloud control"],
+    sources: [
+      {label: "Kinsta — Managed WordPress Hosting", url: "https://kinsta.com/wordpress-hosting/"},
+      {label: "Kinsta — Application Hosting", url: "https://kinsta.com/application-hosting/"},
+      {label: "Kinsta — Database Hosting", url: "https://kinsta.com/database-hosting/"},
+      {label: "Kinsta — Static Site Hosting", url: "https://kinsta.com/static-site-hosting/"}
+    ]
+  },
+  {
+    name: "OpenStack Ecosystem",
+    category: "Open-source private cloud",
+    score: "Best private-cloud alternative",
+    scaleIndex: 40,
+    growth: 22,
+    model: "Open-source private cloud",
+    ownership: "Open-source / foundation ecosystem",
+    scaleAnchor: "55M documented cores in production; VMware migration demand surge",
+    growthAnchor: "Resurgence signaled by 80%+ of members receiving migration requests; 60%+ completed migrations",
+    fit: "Private cloud, sovereignty, VMware exit, operator-controlled infrastructure, large custom environments",
+    vision: 7.7,
+    execution: 6.9,
+    preview: "OpenStack is not a company, but it is one of the most important cloud options when the real requirement is private-cloud control rather than hyperscaler outsourcing.",
+    detail: [
+      "OpenInfra's 2025 annual report said OpenStack documented more than 55 million cores in production, which is a meaningful operating-footprint signal.",
+      "OpenInfra also said more than 80% of members had received requests from companies looking to migrate from VMware to OpenStack, and more than 60% had already completed a migration.",
+      "That makes OpenStack one of the strongest shortlist options in a post-VMware, sovereignty, or operator-control discussion."
+    ],
+    signals: ["Strong private-cloud relevance", "Open-source control", "Resurgent enterprise interest", "Higher operator burden than managed public cloud"],
+    sources: [
+      {label: "OpenInfra 2025 annual report", url: "https://openinfra.org/annual-report/2025/"},
+      {label: "OpenInfra / Superuser — VMware to OpenStack migration signals", url: "https://superuser.openinfra.org/articles/from-vmware-to-openstack-why-open-source-is-winning-the-virtualization-battle/"}
+    ]
+  },
+  {
+    name: "Mirantis",
+    category: "Private cloud / Kubernetes platform",
+    score: "OpenStack + Kubernetes operator",
+    scaleIndex: 36,
+    growth: 20,
+    model: "Private cloud / Kubernetes platform",
+    ownership: "Mirantis / private company",
+    scaleAnchor: "Enterprise Kubernetes, k0s, k0rdent, Mirantis Kubernetes Engine, and Mirantis OpenStack for Kubernetes",
+    growthAnchor: "Private and sovereign-cloud demand tied to Kubernetes, AI infrastructure, OpenStack modernization, and VMware-exit migration patterns",
+    fit: "Private cloud, sovereign cloud, Kubernetes operations, OpenStack modernization, AI-ready infrastructure, and teams needing vendor-backed open infrastructure",
+    vision: 7.8,
+    execution: 6.6,
+    preview: "Mirantis fits beside OpenStack because it packages open infrastructure into an enterprise-supported Kubernetes and OpenStack operating model.",
+    detail: [
+      "Mirantis OpenStack for Kubernetes positions OpenStack on a Kubernetes foundation for private, sovereign, resilient, and AI-ready cloud environments.",
+      "Mirantis also supports enterprise Kubernetes through k0s, Mirantis Kubernetes Engine, k0rdent, and cloud-native operations tooling.",
+      "Strategically, Mirantis belongs in the comparison when the decision is not just public cloud selection, but whether an organization wants an operator-backed private-cloud path using Kubernetes and OpenStack."
+    ],
+    signals: ["Vendor-backed OpenStack path", "Kubernetes-first private cloud", "Useful for sovereign and AI-ready infrastructure", "Stronger fit for operators than simple SMB cloud use"],
+    sources: [
+      {label: "Mirantis — OpenStack for Kubernetes", url: "https://www.mirantis.com/software/mirantis-openstack-for-kubernetes/"},
+      {label: "Mirantis — Build AI Infrastructure Your Way, Anywhere", url: "https://www.mirantis.com/"},
+      {label: "Mirantis — k0s certified Kubernetes distribution", url: "https://www.mirantis.com/software/k0s/"},
+      {label: "Mirantis — OpenStack for Kubernetes 25.2 private cloud update", url: "https://www.mirantis.com/blog/from-ai-clouds-to-air-gapped-data-centersmirantis-openstack-for-kubernetes-25-2-powers-the-future-of-private-cloud-/"}
+    ]
+  }
+];
+
+const references = [
+  {text: "Alibaba Group. (2026, March 19). Alibaba Group announces December quarter 2025 results.", url: "https://www.alibabagroup.com/document-1971445322303406080"},
+  {text: "Alphabet Inc. (2026, February 4). Alphabet announces fourth quarter 2025 and fiscal year results.", url: "https://abc.xyz/investor/news/news-details/2026/Alphabet-Announces-Fourth-Quarter-2025-and-Fiscal-Year-Results-2026-KEvZIMKBLS/default.aspx"},
+  {text: "Amazon.com, Inc. (2026, February 5). Amazon.com announces fourth quarter results.", url: "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/"},
+  {text: "Amazon Web Services. (2025). Gartner Magic Quadrant for Strategic Cloud Platform Services.", url: "https://aws.amazon.com/resources/analyst-reports/gartner/magic-quadrant-for-strategic-cloud-platform-services-mq/"},
+  {text: "Cloudflare. (2026, February 10). Cloudflare announces fourth quarter and fiscal year 2025 financial results.", url: "https://www.cloudflare.com/press/press-releases/2026/cloudflare-announces-fourth-quarter-and-fiscal-year-2025-financial-results/"},
+  {text: "CRN. (2026, February 11). Global cloud market share Q4 2025: Google grows, AWS lead narrows.", url: "https://www.crn.com/news/cloud/2026/global-cloud-market-share-q4-2025-google-grows-aws-lead-narrows"},
+  {text: "DigitalOcean. (2026, February 24). DigitalOcean announces fourth quarter and fiscal year 2025 financial results.", url: "https://investors.digitalocean.com/news/news-details/2026/DigitalOcean-Announces-Fourth-Quarter-and-Fiscal-Year-2025-Financial-Results/"},
+  {text: "Google Cloud. (2025). Google is a leader in Gartner Magic Quadrant for Strategic Cloud Platform Services.", url: "https://cloud.google.com/blog/products/compute/google-is-a-leader-in-gartner-magic-quadrant-for-scps"},
+  {text: "IBM. (2026, January 28). IBM releases fourth-quarter results.", url: "https://newsroom.ibm.com/2026-01-28-IBM-RELEASES-FOURTH-QUARTER-RESULTS"},
+  {text: "Mirantis. (2025, September 23). Introducing Mirantis OpenStack for Kubernetes 25.2.", url: "https://www.mirantis.com/blog/from-ai-clouds-to-air-gapped-data-centersmirantis-openstack-for-kubernetes-25-2-powers-the-future-of-private-cloud-/"},
+  {text: "Mirantis. (n.d.). Mirantis OpenStack for Kubernetes.", url: "https://www.mirantis.com/software/mirantis-openstack-for-kubernetes/"},
+  {text: "Mirantis. (n.d.). k0s certified Kubernetes distribution.", url: "https://www.mirantis.com/software/k0s/"},
+  {text: "Kinsta. (n.d.). Managed WordPress Hosting.", url: "https://kinsta.com/wordpress-hosting/"},
+  {text: "Kinsta. (n.d.). Application Hosting.", url: "https://kinsta.com/application-hosting/"},
+  {text: "Kinsta. (n.d.). Database Hosting.", url: "https://kinsta.com/database-hosting/"},
+  {text: "Kinsta. (n.d.). Static Site Hosting.", url: "https://kinsta.com/static-site-hosting/"},
+  {text: "OpenInfra Foundation. (2025). 2025 annual report.", url: "https://openinfra.org/annual-report/2025/"},
+  {text: "OpenInfra Foundation. (2025, March 10). From VMware to OpenStack: Why open source is winning the virtualization battle.", url: "https://superuser.openinfra.org/articles/from-vmware-to-openstack-why-open-source-is-winning-the-virtualization-battle/"},
+  {text: "Oracle. (2026, March 10). Oracle announces fiscal year 2026 third quarter financial results.", url: "https://www.oracle.com/news/announcement/q3fy26-earnings-release-2026-03-10/"},
+  {text: "Oracle. (2025, August 8). Oracle recognized as a leader in the 2025 Gartner Magic Quadrant for Strategic Cloud Platform Services.", url: "https://www.oracle.com/news/announcement/oracle-recognized-as-a-leader-in-the-2025-gartner-magic-quadrant-for-strategic-cloud-platform-services-2025-08-08/"},
+  {text: "Rackspace Technology. (2026, February 26). Rackspace Technology reports fourth quarter and full year 2025 results.", url: "https://ir.rackspace.com/news-releases/news-release-details/rackspace-technology-reports-fourth-quarter-and-full-year-2025/"},
+  {text: "Reuters. (2026, January 29). Microsoft capital spending jumps, cloud revenue fails to impress, shares drop after hours.", url: "https://www.reuters.com/business/retail-consumer/microsoft-edges-past-cloud-growth-expectations-2026-01-28/"},
+  {text: "Reuters. (2026, February 6). Big Tech's quarter in four charts: AI splurge and cloud growth.", url: "https://www.reuters.com/business/retail-consumer/big-techs-quarter-four-charts-ai-splurge-cloud-growth-2026-02-06/"},
+  {text: "Reuters. (2026, February 10). Cloudflare forecasts annual sales above estimates as AI drives cloud demand.", url: "https://www.reuters.com/business/cloudflare-forecasts-annual-sales-above-estimates-ai-drives-cloud-demand-2026-02-10/"},
+  {text: "Reuters. (2026, March 10). Oracle beats quarterly revenue estimates.", url: "https://www.reuters.com/technology/oracle-beats-quarterly-revenue-estimates-2026-03-10/"},
+  {text: "Reuters. (2026, April 9). Amazon says annual revenue run-rate of chips business now over $20 billion.", url: "https://www.reuters.com/business/retail-consumer/amazon-says-annual-revenue-run-rate-chips-business-now-over-20-billion-2026-04-09/"},
+  {text: "Reuters market snapshots. (2026, April 14). AMZN, MSFT, GOOGL, IBM, NET, DOCN, RXT, ORCL, and BABA company pages.", url: "https://www.reuters.com/markets/"}
+];
+
+const companyGrid = document.getElementById('companyGrid');
+const comparisonTable = document.getElementById('comparisonTable');
+const referenceGrid = document.getElementById('referenceGrid');
+
+function buildProviderCards() {
+  providerData.forEach((provider) => {
+    const card = document.createElement('article');
+    card.className = 'company-card';
+    card.innerHTML = `
+      <div class="company-header">
+        <div>
+          <span class="category">${provider.category}</span>
+          <h3>${provider.name}</h3>
+        </div>
+        <span class="score-pill">${provider.score}</span>
+      </div>
+      <p class="company-preview">${provider.preview}</p>
+      <div class="company-meta">
+        <div class="meta-box">
+          <span class="label">Ownership / type</span>
+          <span class="value">${provider.ownership}</span>
+        </div>
+        <div class="meta-box">
+          <span class="label">Scale anchor</span>
+          <span class="value">${provider.scaleAnchor}</span>
+        </div>
+        <div class="meta-box">
+          <span class="label">Latest growth signal</span>
+          <span class="value">${provider.growthAnchor}</span>
+        </div>
+        <div class="meta-box">
+          <span class="label">Best fit</span>
+          <span class="value">${provider.fit}</span>
+        </div>
+      </div>
+      <button class="company-toggle">Open analysis</button>
+      <div class="company-detail">
+        ${provider.detail.map(p => `<p>${p}</p>`).join('')}
+        <p><strong>Strategic signals:</strong></p>
+        <ul>${provider.signals.map(item => `<li>${item}</li>`).join('')}</ul>
+        <div class="source-list">
+          <h4>Source stack</h4>
+          ${provider.sources.map(s => `<p><a href="${s.url}" target="_blank" rel="noopener noreferrer">${s.label}</a></p>`).join('')}
+        </div>
+      </div>
+    `;
+    companyGrid.appendChild(card);
+
+    const toggle = card.querySelector('.company-toggle');
+    toggle.addEventListener('click', () => {
+      card.classList.toggle('active');
+      toggle.textContent = card.classList.contains('active') ? 'Close analysis' : 'Open analysis';
+    });
+  });
+}
+
+function buildComparisonTable() {
+  providerData.forEach(provider => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td><strong>${provider.name}</strong></td>
+      <td>${provider.ownership}</td>
+      <td>${provider.scaleAnchor}</td>
+      <td>${provider.growthAnchor}</td>
+      <td>${provider.fit}</td>
+    `;
+    comparisonTable.appendChild(row);
+  });
+}
+
+function buildReferences() {
+  references.forEach(ref => {
+    const card = document.createElement('article');
+    card.className = 'reference-card';
+    card.innerHTML = `<h3>Reference</h3><p>${ref.text}</p><p><a href="${ref.url}" target="_blank" rel="noopener noreferrer">${ref.url}</a></p>`;
+    referenceGrid.appendChild(card);
+  });
+}
+
+const chartTextColor = () => getComputedStyle(document.body).getPropertyValue('--text-light').trim() || '#f0eff4';
+const chartGridColor = () => 'rgba(240,239,244,0.12)';
+let chartInstances = [];
+
+function destroyCharts() {
+  chartInstances.forEach(chart => chart.destroy());
+  chartInstances = [];
+}
+
+const quadrantGuides = {
+  id: 'quadrantGuides',
+  afterDraw(chart) {
+    if (chart.canvas.id !== 'quadrantChart') return;
+    const {ctx, chartArea: {left, right, top, bottom}, scales: {x, y}} = chart;
+    const midX = x.getPixelForValue(5);
+    const midY = y.getPixelForValue(5);
+    ctx.save();
+    ctx.strokeStyle = 'rgba(240,239,244,0.18)';
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath();
+    ctx.moveTo(midX, top); ctx.lineTo(midX, bottom);
+    ctx.moveTo(left, midY); ctx.lineTo(right, midY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(240,239,244,0.72)';
+    ctx.font = '12px Segoe UI';
+    ctx.fillText('Challengers', left + 10, top + 18);
+    ctx.fillText('Visionaries', midX + 10, top + 18);
+    ctx.fillText('Focused specialists', left + 10, midY + 18);
+    ctx.fillText('Leaders', midX + 10, midY + 18);
+    ctx.restore();
+  }
+};
+
+function createCharts() {
+  destroyCharts();
+  Chart.defaults.color = chartTextColor();
+  Chart.defaults.borderColor = chartGridColor();
+  Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+
+  const labels = providerData.map(p => p.name);
+
+  const scaleChart = new Chart(document.getElementById('scaleChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Scale index',
+        data: providerData.map(p => p.scaleIndex),
+        backgroundColor: 'rgba(158,130,156,0.70)',
+        borderColor: 'rgba(240,239,244,0.35)',
+        borderWidth: 1,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { maxRotation: 45, minRotation: 45 } },
+        y: { beginAtZero: true, max: 100, title: { display: true, text: 'Normalized scale index' } }
+      }
+    }
+  });
+
+  const modelCounts = {"Hyperscaler": 5, "Hybrid / enterprise platform": 1, "Edge / developer cloud": 1, "Developer cloud": 1, "Managed / hybrid operator": 2, "Open-source private cloud": 1, "Private cloud / Kubernetes platform": 1};
+  const modelMixChart = new Chart(document.getElementById('modelMixChart'), {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(modelCounts),
+      datasets: [{
+        data: Object.values(modelCounts),
+        backgroundColor: [
+          'rgba(158,130,156,0.78)',
+          'rgba(240,239,244,0.50)',
+          'rgba(240,239,244,0.25)',
+          'rgba(158,130,156,0.55)',
+          'rgba(255,255,255,0.18)',
+          'rgba(158,130,156,0.28)'
+        ],
+        borderColor: 'rgba(240,239,244,0.24)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+
+  const growthChart = new Chart(document.getElementById('growthChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Latest cited growth %',
+        data: providerData.map(p => p.growth),
+        backgroundColor: providerData.map(p => p.growth >= 0 ? 'rgba(240,239,244,0.30)' : 'rgba(255,255,255,0.12)'),
+        borderColor: 'rgba(240,239,244,0.35)',
+        borderWidth: 1,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { maxRotation: 45, minRotation: 45 } },
+        y: { beginAtZero: true, title: { display: true, text: 'Percent growth (latest cited public signal)' } }
+      }
+    }
+  });
+
+  const quadrantChart = new Chart(document.getElementById('quadrantChart'), {
+    type: 'scatter',
+    data: {
+      datasets: [{
+        label: 'Provider positioning',
+        data: providerData.map(p => ({ x: p.vision, y: p.execution, label: p.name })),
+        backgroundColor: 'rgba(158,130,156,0.78)',
+        borderColor: 'rgba(240,239,244,0.55)',
+        borderWidth: 1.2,
+        pointRadius: 6,
+        pointHoverRadius: 8
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        x: { min: 0, max: 10, title: { display: true, text: 'Completeness of vision (editorial score)' } },
+        y: { min: 0, max: 10, title: { display: true, text: 'Ability to execute (editorial score)' } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `${ctx.raw.label}: vision ${ctx.raw.x}, execution ${ctx.raw.y}`
+          }
+        }
+      }
+    },
+    plugins: [quadrantGuides]
+  });
+
+  chartInstances.push(scaleChart, modelMixChart, growthChart, quadrantChart);
+}
+
+function applyThemeIcon() {
+  const themeToggle = document.getElementById("themeToggle");
+  if (themeToggle) themeToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+}
+
+document.getElementById("themeToggle").addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  applyThemeIcon();
+  setTimeout(createCharts, 0);
+});
+
+applyThemeIcon();
+buildProviderCards();
+buildComparisonTable();
+buildReferences();
+createCharts();
+
+const pageScrollTop = document.getElementById("pageScrollTop");
+window.addEventListener("scroll", () => {
+  if ((window.scrollY || document.documentElement.scrollTop) > 180) pageScrollTop.classList.add("show");
+  else pageScrollTop.classList.remove("show");
+});
+pageScrollTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+</script>
+<script>
+(function () {
+  var VIDEO_ID = 'B7iIS91fMAc';
+
+  var PLAYER_ID = 'left-floating-player-metal';
+  var BUTTON_ID = 'left-floating-button-metal';
+  var STYLE_ID = 'left-floating-player-style-metal';
+  var OPTIONS_ID = 'left-floating-video-options-metal';
+
+  var VIDEO_OPTIONS = [
+    { id: 'B7iIS91fMAc', label: 'In Flames - Cloud Connected (Official Music Video)' },
+    { id: 'FWvPMVWJ_GM', label: 'Tyr - Hel Hath No Fury' },
+    { id: 'goO-EJM7psA', label: 'Tyr - I (Black Sabbath Cover)' },
+    { id: 'tcvEF7rSWMk', label: 'Skold - Better the Devil - Official Video' },
+    { id: 'as_sN0D2nYA', label: 'Skold - Small World (Official Music Video)' },
+    { id: 'wzG7mj96JW0', label: 'Cemetery Gates (Bonus Track)' }
+  ];
+
+  var activeVideoId = VIDEO_ID;
+  var activeVideoTitle = VIDEO_OPTIONS[0].label;
+  var EMBED_BASE = 'https://www.youtube.com/embed/';
+
+  function buildSrc(muted) {
+    return EMBED_BASE + activeVideoId +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&playsinline=1' +
+      '&rel=0' +
+      '&modestbranding=1' +
+      '&enablejsapi=1';
+  }
+
+  function removeOld() {
+    [PLAYER_ID, BUTTON_ID, STYLE_ID, OPTIONS_ID].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.parentNode.removeChild(el);
+    });
+  }
+
+  function injectStyle() {
+    var style = document.createElement('style');
+    style.id = STYLE_ID;
+
+    style.innerHTML =
+      '#' + PLAYER_ID + '{position:fixed!important;left:20px!important;bottom:78px!important;width:260px!important;height:150px!important;z-index:2147483000!important;border-radius:12px!important;overflow:hidden!important;background:#000!important;box-shadow:0 10px 25px rgba(0,0,0,.6)!important;display:none!important;}' +
+      '#' + PLAYER_ID + '.open{display:block!important;}' +
+      '#' + OPTIONS_ID + '{position:fixed!important;left:20px!important;bottom:236px!important;width:260px!important;z-index:2147483002!important;display:none!important;grid-template-columns:1fr!important;gap:6px!important;padding:8px!important;border-radius:12px!important;background:rgba(23,14,32,.84)!important;border:1px solid rgba(240,239,244,.28)!important;box-shadow:0 10px 25px rgba(0,0,0,.50)!important;backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important;box-sizing:border-box!important;max-height:44vh!important;overflow-y:auto!important;overscroll-behavior:contain!important;}' +
+      '#' + OPTIONS_ID + '.open{display:grid!important;}' +
+      '#' + OPTIONS_ID + ' button{width:100%!important;box-sizing:border-box!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:10px!important;padding:6px 7px!important;background:rgba(255,255,255,.12)!important;color:#fff!important;font:700 10.5px/1.18 Inter,system-ui,sans-serif!important;text-align:left!important;cursor:pointer!important;white-space:normal!important;overflow-wrap:anywhere!important;box-shadow:none!important;}' +
+      '#' + OPTIONS_ID + ' button.active,#' + OPTIONS_ID + ' button:hover{background:rgba(158,130,156,.42)!important;}' +
+      '#' + PLAYER_ID + ' iframe{width:100%!important;height:100%!important;border:0!important;display:block!important;background:#000!important;}' +
+      '#' + BUTTON_ID + '{position:fixed!important;left:20px!important;bottom:20px!important;width:52px!important;height:52px!important;z-index:2147483001!important;border-radius:50%!important;border:1px solid rgba(240,239,244,.35)!important;background:rgba(58,62,59,.72)!important;color:#fff!important;cursor:pointer!important;font-size:1.15rem!important;font-weight:700!important;display:flex!important;align-items:center!important;justify-content:center!important;box-shadow:0 8px 20px rgba(0,0,0,.45)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;touch-action:manipulation!important;}' +
+      '#' + BUTTON_ID + ':hover{background:rgba(158,130,156,.34)!important;transform:translateY(-2px)!important;}' +
+      '@media(max-width:640px){#' + PLAYER_ID + '{left:12px!important;bottom:72px!important;width:calc(100vw - 24px)!important;height:calc((100vw - 24px) * .5625)!important;}#' + OPTIONS_ID + '{left:12px!important;bottom:calc(72px + ((100vw - 24px) * .5625) + 8px)!important;width:calc(100vw - 24px)!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;padding:7px!important;max-height:38vh!important;}#' + OPTIONS_ID + ' button{font-size:9.5px!important;line-height:1.12!important;padding:6px!important;}#' + BUTTON_ID + '{left:12px!important;bottom:12px!important;}}';
+
+    document.head.appendChild(style);
+  }
+
+  function createPlayer() {
+    removeOld();
+    injectStyle();
+
+    var player = document.createElement('div');
+    player.id = PLAYER_ID;
+
+    var options = document.createElement('div');
+    options.id = OPTIONS_ID;
+
+    var button = document.createElement('button');
+    button.id = BUTTON_ID;
+    button.type = 'button';
+
+    var state = 'closed';
+
+    function setButton() {
+      if (state === 'closed') button.innerHTML = '▶';
+      if (state === 'muted') button.innerHTML = '🔊';
+      if (state === 'playing') button.innerHTML = '🔇';
+      if (state === 'stopped') button.innerHTML = '✕';
+      button.setAttribute('aria-label', activeVideoTitle);
+      button.setAttribute('title', activeVideoTitle);
+    }
+
+    function pauseOtherYouTubeFrames() {
+      document.querySelectorAll('iframe[src*="youtube.com/embed/"], iframe[src*="youtube-nocookie.com/embed/"]').forEach(function (frame) {
+        try {
+          frame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        } catch (e) {}
+      });
+    }
+
+    function loadIframe(muted) {
+      pauseOtherYouTubeFrames();
+      player.innerHTML =
+        '<iframe src="' + buildSrc(muted) + '" title="' + activeVideoTitle.replace(/"/g, '&quot;') + '" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>';
+    }
+
+    VIDEO_OPTIONS.forEach(function(item){
+      var optionButton = document.createElement('button');
+      optionButton.type = 'button';
+      optionButton.textContent = item.label;
+
+      if(item.id === activeVideoId) optionButton.className = 'active';
+
+      optionButton.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        activeVideoId = item.id;
+        activeVideoTitle = item.label;
+
+        options.querySelectorAll('button').forEach(function(btn){
+          btn.classList.remove('active');
+        });
+
+        optionButton.classList.add('active');
+        setButton();
+
+        if(state === 'closed' || state === 'stopped') {
+          state = 'muted';
+          player.classList.add('open');
+          options.classList.add('open');
+          loadIframe(true);
+          setButton();
+          return;
+        }
+
+        if(state === 'muted') loadIframe(true);
+        if(state === 'playing') loadIframe(false);
+      });
+
+      options.appendChild(optionButton);
+    });
+
+    button.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      if(state === 'closed') {
+        state = 'muted';
+        player.classList.add('open');
+        options.classList.add('open');
+        loadIframe(true);
+        setButton();
+        return;
+      }
+
+      if(state === 'muted') {
+        state = 'playing';
+        loadIframe(false);
+        setButton();
+        return;
+      }
+
+      if(state === 'playing') {
+        state = 'stopped';
+        player.innerHTML = '';
+        player.classList.add('open');
+        options.classList.add('open');
+        setButton();
+        return;
+      }
+
+      if(state === 'stopped') {
+        state = 'closed';
+        player.innerHTML = '';
+        player.classList.remove('open');
+        options.classList.remove('open');
+        setButton();
+      }
+    });
+
+    document.body.appendChild(player);
+    document.body.appendChild(options);
+    document.body.appendChild(button);
+
+    setButton();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createPlayer);
+  } else {
+    createPlayer();
+  }
+})();
+</script>
+<div class="footer-counter" style="margin-top:12px;text-align:center;">
+    <img
+        src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
+        alt="Portfolio Visitors"
+        style="border-radius:8px;opacity:.9;">
+</div>
+
+
+
+
+</body>
+</html>

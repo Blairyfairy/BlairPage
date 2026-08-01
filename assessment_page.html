@@ -1,0 +1,2897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blair Page | Assessment Profile</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --deep-plum: #291528;
+      --plum-black: #160d18;
+      --dusty-mauve: #9e829c;
+      --soft-mauve: #b79ab4;
+      --ghost-white: #f0eff4;
+      --glass-border: rgba(240,239,244,0.16);
+      --glass-bg: rgba(255,255,255,0.055);
+      --glass-bg-strong: rgba(255,255,255,0.085);
+      --shadow: rgba(0,0,0,0.38);
+      --text-muted: rgba(240,239,244,0.72);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--deep-plum);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ghost-white);
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        radial-gradient(circle at 20% 12%, rgba(158,130,156,0.22), transparent 28%),
+        radial-gradient(circle at 82% 20%, rgba(183,154,180,0.14), transparent 26%),
+        linear-gradient(145deg, #160d18 0%, #291528 46%, #0d0710 100%);
+      overflow-x: hidden;
+    }
+
+    body.light-theme {
+      --deep-plum: #f7f3f7;
+      --plum-black: #f0e9ef;
+      --ghost-white: #291528;
+      --text-muted: rgba(41,21,40,0.78);
+      --glass-border: rgba(41,21,40,0.18);
+      --glass-bg: rgba(255,255,255,0.74);
+      --glass-bg-strong: rgba(255,255,255,0.88);
+      --shadow: rgba(41,21,40,0.14);
+      background:
+        radial-gradient(circle at 18% 10%, rgba(158,130,156,0.24), transparent 29%),
+        radial-gradient(circle at 82% 18%, rgba(41,21,40,0.10), transparent 24%),
+        linear-gradient(145deg, #f7f3f7 0%, #eee5ee 46%, #fff 100%);
+    }
+
+    a {
+      color: var(--dusty-mauve);
+      text-decoration: none;
+      transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--ghost-white);
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      padding: 0.72rem 1rem;
+      border-bottom: 1px solid var(--glass-border);
+      background: rgba(22,13,24,0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.22);
+    }
+
+    body.light-theme .top-bar {
+      background: rgba(247,243,247,0.84);
+    }
+
+    .credential-header {
+      color: var(--dusty-mauve);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .site-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 0.38rem 0.68rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: var(--ghost-white);
+      font-size: 0.86rem;
+      font-weight: 650;
+      opacity: 0.86;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      border-color: var(--glass-border);
+      background: rgba(158,130,156,0.18);
+      color: var(--ghost-white);
+      opacity: 1;
+      box-shadow: 0 0 18px rgba(158,130,156,0.14);
+    }
+
+    .theme-btn {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ghost-white);
+      cursor: pointer;
+      box-shadow: none;
+      backdrop-filter: blur(10px);
+    }
+
+    .blog-page-shell {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2.25rem 0 4rem;
+    }
+
+    .blog-hero {
+      position: relative;
+      overflow: hidden;
+      margin: 1rem 0 1.25rem;
+      padding: clamp(1.2rem, 3vw, 2.4rem);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.025)),
+        rgba(255,255,255,0.04);
+      box-shadow: 0 24px 60px var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .blog-hero::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 28% 35%, rgba(158,130,156,0.28), transparent 22%),
+        radial-gradient(circle at 73% 58%, rgba(240,239,244,0.08), transparent 20%);
+      pointer-events: none;
+    }
+
+    .blog-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 0.9rem;
+      padding: 0.28rem 0.7rem;
+      border: 1px solid rgba(158,130,156,0.45);
+      border-radius: 999px;
+      color: var(--dusty-mauve);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(158,130,156,0.12);
+    }
+
+    .blog-hero h1 {
+      margin: 0 0 0.6rem;
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .blog-hero p {
+      max-width: 880px;
+      margin: 0.55rem 0 0;
+      color: var(--text-muted);
+      font-size: clamp(1rem, 2.2vw, 1.22rem);
+      line-height: 1.68;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1.2rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.38rem 0.65rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.045);
+      color: var(--ghost-white);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .blog-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 1.15rem;
+      align-items: start;
+    }
+
+    .blog-feed {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .blog-card,
+    .sidebar-card {
+      border: 1px solid var(--glass-border);
+      border-radius: 22px;
+      background: var(--glass-bg);
+      box-shadow: 0 18px 46px var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow: hidden;
+    }
+
+    .blog-card {
+      padding: clamp(1rem, 2vw, 1.55rem);
+    }
+
+    .post-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.8rem;
+      color: var(--dusty-mauve);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .blog-card h2 {
+      margin: 0 0 0.65rem;
+      color: var(--ghost-white);
+      font-size: clamp(1.35rem, 2.6vw, 2rem);
+      letter-spacing: -0.02em;
+    }
+
+    .blog-card h3 {
+      margin: 1.1rem 0 0.4rem;
+      color: var(--soft-mauve);
+      font-size: 1.05rem;
+    }
+
+    .blog-card p {
+      color: var(--text-muted);
+      line-height: 1.72;
+      margin: 0.55rem 0;
+    }
+
+    .blog-card ul {
+      margin: 0.65rem 0 0;
+      padding-left: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.68;
+    }
+
+    .blog-card li {
+      margin: 0.34rem 0;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+      margin-top: 1rem;
+    }
+
+    .score-tile {
+      padding: 0.95rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.045);
+    }
+
+    .score-tile .big {
+      display: block;
+      margin-bottom: 0.2rem;
+      color: var(--ghost-white);
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .score-tile .small {
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .bar-list {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .bar-row {
+      display: grid;
+      gap: 0.32rem;
+    }
+
+    .bar-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--ghost-white);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .bar-track {
+      height: 10px;
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(158,130,156,0.72), rgba(240,239,244,0.82));
+      box-shadow: 0 0 18px rgba(158,130,156,0.38);
+    }
+
+    .clifton-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 1rem;
+    }
+
+    .strength-pill {
+      padding: 0.5rem 0.72rem;
+      border: 1px solid rgba(158,130,156,0.38);
+      border-radius: 999px;
+      background: rgba(158,130,156,0.13);
+      color: var(--ghost-white);
+      font-size: 0.86rem;
+      font-weight: 750;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 0.9rem;
+    }
+
+    .assessment-toggle {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.035);
+      color: var(--ghost-white);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .assessment-toggle:hover {
+      background: rgba(158,130,156,0.14);
+    }
+
+    .assessment-panel {
+      display: none;
+      padding: 0.2rem 1rem 0.85rem;
+    }
+
+    .accordion-item.open .assessment-panel {
+      display: block;
+    }
+
+    .accordion-item.open .plus {
+      transform: rotate(45deg);
+    }
+
+    .plus {
+      transition: transform 0.2s ease;
+      color: var(--dusty-mauve);
+      font-size: 1.2rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 5.5rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+    }
+
+    .sidebar-card h3 {
+      margin: 0 0 0.75rem;
+      color: var(--ghost-white);
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .toc-links {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .toc-links a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.55rem 0.65rem;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .toc-links a:hover {
+      border-color: var(--glass-border);
+      background: rgba(158,130,156,0.12);
+      color: var(--ghost-white);
+      transform: translateX(2px);
+    }
+
+    .mini-profile {
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .mini-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid rgba(240,239,244,0.1);
+      color: var(--text-muted);
+      font-size: 0.86rem;
+    }
+
+    .mini-line strong {
+      color: var(--ghost-white);
+    }
+
+    .notice {
+      margin-top: 0.8rem;
+      padding: 0.8rem;
+      border: 1px solid rgba(158,130,156,0.3);
+      border-radius: 14px;
+      background: rgba(158,130,156,0.1);
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      padding: 1.2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    #toTop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 100;
+      width: auto;
+      height: auto;
+      padding: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: #fff;
+      font-size: 1.65rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.8);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    #toTop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #toTop:hover {
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 900px) {
+      .top-bar {
+        grid-template-columns: 1fr auto;
+        gap: 0.65rem;
+      }
+
+      .credential-header {
+        grid-column: 1 / -1;
+        text-align: center;
+      }
+
+      .site-nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 0.2rem;
+        scrollbar-width: thin;
+      }
+
+      .site-nav a {
+        white-space: nowrap;
+      }
+
+      .blog-page-shell {
+        width: min(100% - 1rem, 760px);
+        padding-top: 1rem;
+      }
+
+      .blog-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        order: -1;
+      }
+
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .top-bar {
+        padding: 0.6rem 0.55rem;
+      }
+
+      .blog-hero,
+      .blog-card,
+      .sidebar-card {
+        border-radius: 18px;
+      }
+
+      .blog-hero {
+        padding: 1rem;
+      }
+
+      .post-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .blog-card {
+        padding: 1rem;
+      }
+    }
+
+
+    /* ==========================================
+       BLOG.HTML EXACT TOP AREA + TRIANGLE MATCH
+       Keeps assessment content intact; only fixes header/nav/mobile/top arrow.
+       ========================================== */
+    .top-bar {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      z-index: 100 !important;
+      box-sizing: border-box !important;
+      display: grid !important;
+      grid-template-columns: minmax(0,1fr) auto !important;
+      grid-template-areas: "cred toggle" "nav toggle" !important;
+      align-items: start !important;
+      row-gap: 2px !important;
+      padding: 1rem 2rem !important;
+      font-size: .85rem !important;
+      letter-spacing: .6px !important;
+      text-align: left !important;
+      background: transparent !important;
+      border-bottom: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .credential-header {
+      grid-area: cred !important;
+      display: block !important;
+      position: relative !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: auto !important;
+      max-width: calc(100% - 92px) !important;
+      text-align: left !important;
+      line-height: 1.05 !important;
+      justify-self: start !important;
+      align-self: start !important;
+      z-index: 121 !important;
+      color: #ffffff !important;
+      font-size: .85rem !important;
+      font-weight: 600 !important;
+      letter-spacing: .6px !important;
+      text-transform: none !important;
+      white-space: normal !important;
+    }
+
+    .credential-header,
+    .credential-header * {
+      text-align: left !important;
+    }
+
+    .site-nav {
+      grid-area: nav !important;
+      display: flex !important;
+      position: relative !important;
+      justify-content: flex-start !important;
+      justify-self: start !important;
+      align-items: center !important;
+      flex-wrap: nowrap !important;
+      margin: 2px 0 0 0 !important;
+      padding: 0 !important;
+      width: auto !important;
+      z-index: 121 !important;
+      gap: 0 !important;
+      overflow: visible !important;
+    }
+
+    .site-nav a {
+      display: inline-block !important;
+      margin: 0 1rem 0 0 !important;
+      padding: 0 !important;
+      min-height: 0 !important;
+      border: none !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      color: var(--dusty-mauve) !important;
+      text-decoration: none !important;
+      font-weight: 600 !important;
+      font-size: .85rem !important;
+      line-height: 1.2 !important;
+      opacity: 1 !important;
+      white-space: nowrap !important;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      text-decoration: underline !important;
+      color: var(--ghost-white) !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    .theme-btn,
+    #themeToggle {
+      grid-area: toggle !important;
+      position: relative !important;
+      justify-self: end !important;
+      align-self: start !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background: var(--glass-bg) !important;
+      border: 1px solid var(--glass-border) !important;
+      border-radius: 20px !important;
+      padding: .4rem 1rem !important;
+      min-width: 44px !important;
+      width: auto !important;
+      min-height: 34px !important;
+      height: auto !important;
+      font-size: .85rem !important;
+      font-weight: 400 !important;
+      line-height: 1 !important;
+      letter-spacing: 0 !important;
+      box-sizing: border-box !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+      color: var(--ghost-white) !important;
+      cursor: pointer !important;
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+      outline: none !important;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      z-index: 122 !important;
+    }
+
+    .hero {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100vh !important;
+      overflow: hidden !important;
+      z-index: -2 !important;
+      background: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+      background-image: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+    }
+
+    .logo-top-left {
+      position: absolute !important;
+      top: 100px !important;
+      left: 16px !important;
+      z-index: 1000 !important;
+      width: 60px !important;
+      height: 60px !important;
+      border-radius: 50% !important;
+      overflow: hidden !important;
+      cursor: pointer !important;
+      border: 3px solid rgba(240,239,244,.45) !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,.7) !important;
+      transition: transform .3s ease, box-shadow .3s ease !important;
+      background: transparent !important;
+    }
+
+    .logo-top-left img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+    }
+
+    .blog-page-shell {
+      padding-top: 7.25rem !important;
+    }
+
+    #toTop,
+    .page-scroll-top,
+    .article-scroll-top {
+      position: fixed !important;
+      right: 18px !important;
+      bottom: 18px !important;
+      width: 28px !important;
+      height: 28px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+      color: #ffffff !important;
+      font-size: 18px !important;
+      line-height: 1 !important;
+      cursor: pointer !important;
+      z-index: 10050 !important;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      transition: none !important;
+    }
+
+    #toTop.show,
+    .page-scroll-top.show,
+    .article-scroll-top.show {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+
+    #toTop:hover {
+      transform: none !important;
+    }
+
+    #toTop span,
+    .page-scroll-top span,
+    .article-scroll-top span {
+      display: block !important;
+      line-height: 1 !important;
+      transform: translateY(-1px) !important;
+    }
+
+    @media (max-width: 900px) {
+      html,
+      body {
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+        height: auto !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        overscroll-behavior-y: auto !important;
+        touch-action: pan-y !important;
+        background: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+        background-image: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+        background-attachment: scroll !important;
+      }
+
+      body::before {
+        content: "" !important;
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: -3 !important;
+        pointer-events: none !important;
+        background: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+        background-image: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+      }
+
+      .top-bar {
+        padding: 10px 16px 0 16px !important;
+        min-height: 52px !important;
+      }
+
+      .credential-header {
+        grid-column: auto !important;
+        max-width: calc(100% - 92px) !important;
+        text-align: left !important;
+        font-size: 0.425rem !important;
+        line-height: 1.05 !important;
+        justify-self: start !important;
+      }
+
+      .site-nav {
+        flex-wrap: wrap !important;
+        width: auto !important;
+        min-width: 0 !important;
+        margin: 2px 0 0 0 !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        overflow: visible !important;
+        align-content: flex-start !important;
+        justify-content: flex-start !important;
+      }
+
+      .site-nav a {
+        margin: 0 0.7rem 0 0 !important;
+        font-size: 0.78rem !important;
+        line-height: 1.2 !important;
+        white-space: nowrap !important;
+        display: inline-block !important;
+        text-align: left !important;
+      }
+
+      .theme-btn,
+      #themeToggle {
+        grid-area: toggle !important;
+        position: relative !important;
+        justify-self: end !important;
+        align-self: start !important;
+        padding: .4rem 1rem !important;
+        min-width: 44px !important;
+        min-height: 34px !important;
+        font-size: .85rem !important;
+        line-height: 1 !important;
+        background: var(--glass-bg) !important;
+        border: 1px solid var(--glass-border) !important;
+        color: var(--ghost-white) !important;
+        box-shadow: none !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+      }
+
+      .hero {
+        height: 100vh !important;
+        height: 100dvh !important;
+        background: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+        background-image: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+      }
+
+      .logo-top-left {
+        top: 80px !important;
+        width: 50px !important;
+        height: 50px !important;
+      }
+
+      .blog-page-shell {
+        padding-top: 6.75rem !important;
+      }
+
+      #toTop,
+      .page-scroll-top,
+      .article-scroll-top {
+        right: 14px !important;
+        bottom: 14px !important;
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 17px !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-nav a {
+        margin: 0 0.55rem 0 0 !important;
+        font-size: 0.74rem !important;
+        line-height: 1.15 !important;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .credential-header {
+        max-width: calc(100% - 58px) !important;
+      }
+
+      .site-nav a {
+        margin: 0 0.45rem 0 0 !important;
+        font-size: 0.7rem !important;
+        line-height: 1.1 !important;
+      }
+    }
+
+
+    /* ==========================================
+       FINAL FORCED STABILITY PATCH
+       Keeps all original content/lines intact while preventing mobile blanking,
+       keeping top credential white, keeping links mauve, and matching the small blog chevron.
+       ========================================== */
+    html,
+    body {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      animation: none !important;
+      filter: none !important;
+      backface-visibility: visible !important;
+      -webkit-backface-visibility: visible !important;
+      contain: none !important;
+    }
+
+    body,
+    body.light-theme {
+      color: #ffffff !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      -webkit-text-size-adjust: 100% !important;
+      text-rendering: optimizeLegibility !important;
+    }
+
+    body.light-theme {
+      --ghost-white: #ffffff !important;
+      --text-muted: rgba(255,255,255,0.86) !important;
+      --glass-border: rgba(255,255,255,0.18) !important;
+      --glass-bg: rgba(41,21,40,0.24) !important;
+      --glass-bg-strong: rgba(41,21,40,0.34) !important;
+      color: #ffffff !important;
+    }
+
+    .credential-header,
+    .credential-header *,
+    body.light-theme .credential-header,
+    body.light-theme .credential-header * {
+      color: #ffffff !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    a,
+    a:link,
+    a:visited,
+    .site-nav a,
+    .toc-links a {
+      color: var(--dusty-mauve) !important;
+    }
+
+    a:hover,
+    a:focus,
+    .site-nav a:hover,
+    .site-nav a.active,
+    .toc-links a:hover {
+      color: #ffffff !important;
+    }
+
+    body.light-theme .blog-card,
+    body.light-theme .sidebar-card,
+    body.light-theme .blog-hero,
+    body.light-theme .score-tile,
+    body.light-theme .assessment-toggle,
+    body.light-theme .tag,
+    body.light-theme .strength-pill {
+      color: #ffffff !important;
+      background-color: rgba(41,21,40,0.26) !important;
+    }
+
+    body.light-theme h1,
+    body.light-theme h2,
+    body.light-theme h3,
+    body.light-theme p,
+    body.light-theme li,
+    body.light-theme span,
+    body.light-theme strong,
+    body.light-theme .mini-line,
+    body.light-theme .mini-line strong,
+    body.light-theme .bar-top,
+    body.light-theme .keyword-block,
+    body.light-theme .notice,
+    body.light-theme .footer,
+    body.light-theme .assessment-toggle,
+    body.light-theme .assessment-panel {
+      color: #ffffff !important;
+    }
+
+    body.light-theme .eyebrow,
+    body.light-theme .post-meta,
+    body.light-theme .plus,
+    body.light-theme .blog-card h3 {
+      color: var(--soft-mauve) !important;
+    }
+
+    #toTop,
+    .page-scroll-top,
+    .article-scroll-top {
+      width: 18px !important;
+      height: 18px !important;
+      min-width: 18px !important;
+      min-height: 18px !important;
+      max-width: 18px !important;
+      max-height: 18px !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.45) !important;
+      font-size: 14px !important;
+      line-height: 18px !important;
+      color: #ffffff !important;
+    }
+
+    #toTop span,
+    .page-scroll-top span,
+    .article-scroll-top span {
+      display: block !important;
+      width: 18px !important;
+      height: 18px !important;
+      line-height: 18px !important;
+      font-size: 14px !important;
+      transform: none !important;
+    }
+
+    @media (max-width: 900px) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0s !important;
+        scroll-behavior: auto !important;
+      }
+
+      html,
+      body {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
+        height: auto !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        position: static !important;
+      }
+
+      body {
+        position: relative !important;
+        isolation: isolate !important;
+        color: #ffffff !important;
+        background-color: #291528 !important;
+      }
+
+      body.light-theme {
+        color: #ffffff !important;
+      }
+
+      .top-bar,
+      .credential-header,
+      .site-nav,
+      .theme-btn,
+      #themeToggle,
+      .blog-page-shell,
+      main,
+      section,
+      article,
+      aside,
+      footer {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        filter: none !important;
+      }
+
+      .hero {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: none !important;
+      }
+
+      .blog-page-shell {
+        display: block !important;
+        position: relative !important;
+        z-index: 1 !important;
+        width: min(100% - 1rem, 760px) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      .blog-layout,
+      .blog-feed,
+      .sidebar {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      .blog-card,
+      .sidebar-card,
+      .blog-hero {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+      }
+
+      .credential-header {
+        color: #ffffff !important;
+        font-size: 0.72rem !important;
+        max-width: calc(100vw - 88px) !important;
+      }
+
+      .site-nav a {
+        color: var(--dusty-mauve) !important;
+      }
+
+      #toTop,
+      .page-scroll-top,
+      .article-scroll-top {
+        right: 12px !important;
+        bottom: 12px !important;
+        width: 18px !important;
+        height: 18px !important;
+        font-size: 14px !important;
+        line-height: 18px !important;
+      }
+    }
+
+
+
+    /* ==========================================
+       MOBILE HARD-STOP STABILITY PATCH
+       Purpose: keep the exact visible content/colors, but prevent mobile WebView/Safari
+       blanking, spinning, fixed-layer flicker, broken theme toggles, and oversized arrow UI.
+       ========================================== */
+    html,
+    body {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-height: 100% !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      filter: none !important;
+      overflow-x: hidden !important;
+      background-color: #291528 !important;
+      text-rendering: optimizeLegibility !important;
+      -webkit-text-size-adjust: 100% !important;
+    }
+
+    body,
+    body.light-theme {
+      --deep-plum: #291528 !important;
+      --plum-black: #160d18 !important;
+      --dusty-mauve: #9e829c !important;
+      --soft-mauve: #b79ab4 !important;
+      --ghost-white: #f0eff4 !important;
+      --glass-border: rgba(240,239,244,0.16) !important;
+      --glass-bg: rgba(255,255,255,0.055) !important;
+      --glass-bg-strong: rgba(255,255,255,0.085) !important;
+      --shadow: rgba(0,0,0,0.38) !important;
+      --text-muted: rgba(240,239,244,0.72) !important;
+      color: #f0eff4 !important;
+      background:
+        radial-gradient(circle at 20% 12%, rgba(158,130,156,0.22), transparent 28%),
+        radial-gradient(circle at 82% 20%, rgba(183,154,180,0.14), transparent 26%),
+        linear-gradient(145deg, #160d18 0%, #291528 46%, #0d0710 100%) !important;
+    }
+
+    .credential-header,
+    .credential-header * {
+      color: #f0eff4 !important;
+    }
+
+    a,
+    .site-nav a,
+    .toc-links a {
+      color: #9e829c !important;
+    }
+
+    a:hover,
+    .site-nav a:hover,
+    .site-nav a.active,
+    .toc-links a:hover {
+      color: #f0eff4 !important;
+    }
+
+    .blog-hero,
+    .blog-card,
+    .sidebar-card,
+    .footer,
+    .assessment-panel,
+    .accordion-item,
+    main,
+    section,
+    article,
+    aside {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    #toTop,
+    .page-scroll-top,
+    .article-scroll-top {
+      width: 22px !important;
+      height: 22px !important;
+      min-width: 22px !important;
+      min-height: 22px !important;
+      max-width: 22px !important;
+      max-height: 22px !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      color: #ffffff !important;
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      line-height: 1 !important;
+      box-shadow: none !important;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.65) !important;
+    }
+
+    #toTop span,
+    .page-scroll-top span,
+    .article-scroll-top span {
+      display: block !important;
+      width: 1em !important;
+      height: 1em !important;
+      line-height: 1 !important;
+      transform: translateY(-1px) !important;
+    }
+
+    @media (max-width: 900px) {
+      html,
+      body {
+        height: auto !important;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        overscroll-behavior-x: none !important;
+        overscroll-behavior-y: contain !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
+        perspective: none !important;
+        backface-visibility: visible !important;
+        -webkit-backface-visibility: visible !important;
+        contain: none !important;
+      }
+
+      *,
+      *::before,
+      *::after {
+        max-width: 100%;
+        animation-name: none !important;
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+
+      body::before,
+      body::after {
+        content: none !important;
+        display: none !important;
+      }
+
+      .hero {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: auto !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 100% !important;
+        max-height: none !important;
+        z-index: -1 !important;
+        overflow: hidden !important;
+        transform: none !important;
+        filter: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: none !important;
+        will-change: auto !important;
+        background:
+          radial-gradient(circle at 20% 12%, rgba(158,130,156,0.22), transparent 28%),
+          radial-gradient(circle at 82% 20%, rgba(183,154,180,0.14), transparent 26%),
+          linear-gradient(145deg, #160d18 0%, #291528 46%, #0d0710 100%) !important;
+      }
+
+      .top-bar {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        z-index: 1000 !important;
+        transform: none !important;
+        contain: none !important;
+      }
+
+      .blog-page-shell {
+        position: relative !important;
+        z-index: 2 !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        padding-top: 1rem !important;
+      }
+
+      .blog-layout,
+      .blog-feed,
+      .sidebar,
+      .blog-hero,
+      .blog-card,
+      .sidebar-card {
+        display: grid !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        will-change: auto !important;
+      }
+
+      .blog-hero,
+      .blog-card,
+      .sidebar-card {
+        display: block !important;
+      }
+
+      .site-nav {
+        overflow: visible !important;
+        -webkit-overflow-scrolling: auto !important;
+      }
+
+      .theme-btn,
+      #themeToggle {
+        pointer-events: auto !important;
+        touch-action: manipulation !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        color: #f0eff4 !important;
+        background: rgba(255,255,255,0.055) !important;
+        border-color: rgba(240,239,244,0.16) !important;
+      }
+
+      #toTop,
+      .page-scroll-top,
+      .article-scroll-top {
+        right: 12px !important;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+        width: 20px !important;
+        height: 20px !important;
+        min-width: 20px !important;
+        min-height: 20px !important;
+        max-width: 20px !important;
+        max-height: 20px !important;
+        font-size: 14px !important;
+      }
+    }
+/* ==========================================
+   CLEAN PAGE SCROLL TOP BUTTON — MATCH REFERENCE FILE
+   Keeps the literal ▲ glyph, no pseudo-element, no glow, no extra box.
+   ========================================== */
+
+#pageScrollTop.page-scroll-top {
+  position: fixed !important;
+  right: 18px !important;
+  bottom: 18px !important;
+  width: 28px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  color: #ffffff !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  cursor: pointer !important;
+  z-index: 10050 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+#pageScrollTop.page-scroll-top.show {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+#pageScrollTop.page-scroll-top::before,
+#pageScrollTop.page-scroll-top::after {
+  content: none !important;
+  display: none !important;
+}
+
+#pageScrollTop.page-scroll-top:hover,
+#pageScrollTop.page-scroll-top:focus,
+#pageScrollTop.page-scroll-top:active {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  color: #ffffff !important;
+  transform: none !important;
+}
+
+@media (max-width: 900px) {
+  #pageScrollTop.page-scroll-top {
+    right: 14px !important;
+    bottom: 14px !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+}
+  /* =========================================================
+   SMOOTH CARD SHADING / REMOVE BOXY POINTED EDGES
+   Append at very bottom of <style>
+   ========================================================= */
+
+.blog-hero,
+.blog-card,
+.sidebar-card,
+.score-tile,
+.assessment-toggle,
+.notice,
+.tag,
+.strength-pill,
+.bar-track,
+.mini-line {
+  overflow: hidden !important;
+  background-clip: padding-box !important;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,0.24) !important;
+}
+
+/* soften inner glare layers */
+.blog-hero::before,
+.blog-card::before,
+.sidebar-card::before,
+.score-tile::before {
+  border-radius: inherit !important;
+  clip-path: inset(0 round inherit) !important;
+  filter: blur(10px) !important;
+  opacity: 0.45 !important;
+}
+
+/* prevent square blur artifacts */
+.blog-hero,
+.blog-card,
+.sidebar-card {
+  backdrop-filter: blur(10px) saturate(115%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(115%) !important;
+}
+
+/* smoother card surfaces */
+.blog-card,
+.sidebar-card,
+.blog-hero {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.07),
+      rgba(255,255,255,0.025)
+    ) !important;
+  border-color: rgba(240,239,244,0.13) !important;
+}
+
+/* remove harsh square hover/side shadows */
+.toc-links a:hover,
+.assessment-toggle:hover,
+.site-nav a:hover,
+.site-nav a.active {
+  box-shadow: none !important;
+}
+
+/* keep mobile from rendering blocky glass edges */
+@media (max-width: 900px) {
+  .blog-hero,
+  .blog-card,
+  .sidebar-card,
+  .score-tile,
+  .assessment-toggle,
+  .notice {
+    box-shadow:
+      0 10px 24px rgba(0,0,0,0.22) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+}
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+<style id="assessment-hyuna-blair-name-button-style">
+  #assessment-hyuna-player {
+    position: fixed !important;
+    left: 20px !important;
+    bottom: 78px !important;
+    width: min(560px, calc(100vw - 40px)) !important;
+    z-index: 10000 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: rgba(41,21,40,0.96) !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,.6) !important;
+    border: 1px solid rgba(240,239,244,.18) !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    display: none !important;
+  }
+
+  #assessment-hyuna-player.open {
+    display: block !important;
+  }
+
+  #assessment-hyuna-options {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: .45rem !important;
+    width: 100% !important;
+    margin: 0 0 .6rem 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+  }
+
+  #assessment-hyuna-options button {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 50px !important;
+    padding: .45rem .32rem !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(240,239,244,.24) !important;
+    background: rgba(255,255,255,.07) !important;
+    color: #f0eff4 !important;
+    cursor: pointer !important;
+    font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: clamp(.56rem, 1.45vw, .78rem) !important;
+    font-weight: 750 !important;
+    line-height: 1.12 !important;
+    text-align: center !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    box-shadow: none !important;
+  }
+
+  #assessment-hyuna-options button:hover,
+  #assessment-hyuna-options button.active {
+    background: rgba(158,130,156,.34) !important;
+    color: #ffffff !important;
+    border-color: rgba(240,239,244,.38) !important;
+  }
+
+  #assessment-hyuna-frame-wrap {
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: #000 !important;
+  }
+
+  #assessment-hyuna-frame-wrap iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: 0 !important;
+    display: block !important;
+    background: #000 !important;
+  }
+
+  /* Blair Name Rarity button style / icon set */
+  #assessment-hyuna-button {
+    position: fixed !important;
+    left: 20px !important;
+    bottom: 20px !important;
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
+    max-width: 52px !important;
+    max-height: 52px !important;
+    z-index: 10001 !important;
+    border-radius: 50% !important;
+    border: 1px solid rgba(240,239,244,.35) !important;
+    background: rgba(58,62,59,.72) !important;
+    color: #fff !important;
+    cursor: pointer !important;
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,.45) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    text-align: center !important;
+    outline: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    overflow: hidden !important;
+  }
+
+  #assessment-hyuna-button:hover {
+    background: rgba(158,130,156,.34) !important;
+    transform: translateY(-2px) !important;
+  }
+
+  @media(max-width:640px) {
+    #assessment-hyuna-player {
+      left: 12px !important;
+      bottom: 72px !important;
+      width: calc(100vw - 24px) !important;
+      padding: 8px !important;
+    }
+
+    #assessment-hyuna-button {
+      left: 12px !important;
+      bottom: 12px !important;
+      width: 52px !important;
+      height: 52px !important;
+      min-width: 52px !important;
+      min-height: 52px !important;
+      max-width: 52px !important;
+      max-height: 52px !important;
+    }
+
+    #assessment-hyuna-options {
+      gap: .32rem !important;
+    }
+
+    #assessment-hyuna-options button {
+      min-height: 56px !important;
+      font-size: .53rem !important;
+      padding: .36rem .18rem !important;
+      border-radius: 10px !important;
+    }
+  }
+</style>
+
+
+<!-- ==========================================
+     FINAL MOBILE SCROLL RESTORE PATCH
+     Keeps all existing lines intact; only forces real document scrolling on mobile.
+     ========================================== -->
+<style id="final-mobile-scroll-restore-patch">
+  @media (max-width: 900px) {
+    html {
+      height: auto !important;
+      min-height: 100% !important;
+      max-height: none !important;
+      overflow-x: hidden !important;
+      overflow-y: scroll !important;
+      -webkit-overflow-scrolling: touch !important;
+      overscroll-behavior-y: auto !important;
+      touch-action: auto !important;
+      position: static !important;
+    }
+
+    body {
+      height: auto !important;
+      min-height: 100vh !important;
+      min-height: 100svh !important;
+      max-height: none !important;
+      overflow-x: hidden !important;
+      overflow-y: visible !important;
+      -webkit-overflow-scrolling: touch !important;
+      overscroll-behavior-y: auto !important;
+      touch-action: auto !important;
+      position: relative !important;
+      inset: auto !important;
+      display: block !important;
+    }
+
+    .blog-page-shell,
+    main.blog-page-shell {
+      height: auto !important;
+      min-height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+      touch-action: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px)) !important;
+    }
+
+    .blog-layout,
+    .blog-feed,
+    .sidebar,
+    .blog-hero,
+    .blog-card,
+    .sidebar-card,
+    article,
+    section,
+    aside,
+    footer {
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      overflow: visible !important;
+      touch-action: auto !important;
+    }
+
+    .hero {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      height: 100svh !important;
+      min-height: 100vh !important;
+      min-height: 100svh !important;
+      max-height: none !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+      z-index: -10 !important;
+    }
+
+    #assessment-hyuna-button,
+    #assessment-hyuna-player,
+    #pageScrollTop.page-scroll-top,
+    #toTop,
+    .page-scroll-top,
+    .article-scroll-top {
+      position: fixed !important;
+      touch-action: manipulation !important;
+      -webkit-overflow-scrolling: auto !important;
+    }
+  }
+</style>
+
+<script id="final-mobile-scroll-restore-script">
+(function () {
+  function restoreMobileScroll() {
+    var isMobileWidth = window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
+    if (!isMobileWidth) return;
+
+    var html = document.documentElement;
+    var body = document.body;
+
+    if (html) {
+      html.style.setProperty("height", "auto", "important");
+      html.style.setProperty("min-height", "100%", "important");
+      html.style.setProperty("max-height", "none", "important");
+      html.style.setProperty("overflow-x", "hidden", "important");
+      html.style.setProperty("overflow-y", "scroll", "important");
+      html.style.setProperty("-webkit-overflow-scrolling", "touch", "important");
+      html.style.setProperty("position", "static", "important");
+      html.style.setProperty("touch-action", "auto", "important");
+    }
+
+    if (body) {
+      body.style.setProperty("height", "auto", "important");
+      body.style.setProperty("min-height", "100vh", "important");
+      body.style.setProperty("max-height", "none", "important");
+      body.style.setProperty("overflow-x", "hidden", "important");
+      body.style.setProperty("overflow-y", "visible", "important");
+      body.style.setProperty("-webkit-overflow-scrolling", "touch", "important");
+      body.style.setProperty("position", "relative", "important");
+      body.style.setProperty("touch-action", "auto", "important");
+    }
+
+    document.querySelectorAll(".blog-page-shell, .blog-layout, .blog-feed, .sidebar, .blog-hero, .blog-card, .sidebar-card, article, section, aside, footer").forEach(function (el) {
+      el.style.setProperty("height", "auto", "important");
+      el.style.setProperty("max-height", "none", "important");
+      el.style.setProperty("overflow", "visible", "important");
+      el.style.setProperty("touch-action", "auto", "important");
+    });
+  }
+
+  restoreMobileScroll();
+  document.addEventListener("DOMContentLoaded", restoreMobileScroll, { passive: true });
+  window.addEventListener("load", restoreMobileScroll, { passive: true });
+  window.addEventListener("resize", restoreMobileScroll, { passive: true });
+  window.addEventListener("orientationchange", restoreMobileScroll, { passive: true });
+})();
+</script>
+
+
+
+<style id="assessment-blog-theme-match-final">
+/* BLOG.HTML THEME COLORS + TOGGLE MATCH ONLY — assessment content preserved */
+:root {
+  --black: #000000ff !important;
+  --midnight-violet: #291528ff !important;
+  --charcoal-brown: #3a3e3bff !important;
+  --ghost-white: #f0eff4ff !important;
+  --dusty-mauve: #9e829cff !important;
+  --deep-blue: var(--midnight-violet) !important;
+  --vibrant-orange: var(--dusty-mauve) !important;
+  --text-light: var(--ghost-white) !important;
+  --soft-mauve: #b79ab4 !important;
+  --deep-plum: var(--midnight-violet) !important;
+  --plum-black: var(--black) !important;
+  --text-muted: rgba(240,239,244,0.72) !important;
+  --shadow: rgba(0,0,0,0.38) !important;
+  --bg-light: linear-gradient(
+    135deg,
+    #000000ff 0%,
+    #291528ff 30%,
+    #3a3e3bff 60%,
+    #9e829cff 85%,
+    #f0eff4ff 100%
+  ) !important;
+  --glass-bg: rgba(58,62,59,0.15) !important;
+  --glass-border: rgba(240,239,244,0.22) !important;
+  --glass-bg-strong: rgba(58,62,59,0.24) !important;
+}
+
+body.dark {
+  --bg-light: linear-gradient(
+    135deg,
+    #050507 0%,
+    #0d0f16 25%,
+    #141824 55%,
+    #1c1f2b 78%,
+    #26212d 100%
+  ) !important;
+  --glass-bg: rgba(8,10,14,0.42) !important;
+  --glass-border: rgba(240,239,244,0.14) !important;
+  --glass-bg-strong: rgba(8,10,14,0.52) !important;
+  --text-light: var(--ghost-white) !important;
+  --ghost-white: #f0eff4ff !important;
+  --text-muted: rgba(240,239,244,0.72) !important;
+  --shadow: rgba(0,0,0,0.38) !important;
+}
+
+html,
+body,
+body.light-theme,
+body.dark {
+  color: var(--text-light) !important;
+  background: var(--bg-light) !important;
+  background-image: var(--bg-light) !important;
+  overflow-x: hidden !important;
+}
+
+body.light-theme {
+  --ghost-white: #f0eff4ff !important;
+  --text-light: var(--ghost-white) !important;
+  --text-muted: rgba(240,239,244,0.72) !important;
+  --glass-bg: rgba(58,62,59,0.15) !important;
+  --glass-border: rgba(240,239,244,0.22) !important;
+  --glass-bg-strong: rgba(58,62,59,0.24) !important;
+  color: var(--text-light) !important;
+}
+
+.hero,
+body::before {
+  background: var(--bg-light) !important;
+  background-image: var(--bg-light) !important;
+}
+
+.top-bar {
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.credential-header,
+.credential-header *,
+.blog-hero h1,
+.blog-card h2,
+.sidebar-card h3,
+.score-tile .big,
+.bar-top,
+.assessment-toggle,
+.strength-pill,
+.tag,
+.mini-line strong,
+.footer,
+body.light-theme .credential-header,
+body.light-theme .credential-header *,
+body.light-theme h1,
+body.light-theme h2,
+body.light-theme h3,
+body.light-theme p,
+body.light-theme li,
+body.light-theme span,
+body.light-theme strong,
+body.light-theme .mini-line,
+body.light-theme .mini-line strong,
+body.light-theme .bar-top,
+body.light-theme .keyword-block,
+body.light-theme .notice,
+body.light-theme .footer,
+body.light-theme .assessment-toggle,
+body.light-theme .assessment-panel {
+  color: var(--text-light) !important;
+}
+
+.blog-card p,
+.blog-card ul,
+.blog-card li,
+.blog-hero p,
+.mini-line,
+.notice,
+.footer,
+.toc-links a,
+.score-tile .small,
+.assessment-panel {
+  color: var(--text-muted) !important;
+}
+
+a,
+a:link,
+a:visited,
+.site-nav a,
+.toc-links a,
+.eyebrow,
+.post-meta,
+.plus,
+.blog-card h3,
+body.light-theme .eyebrow,
+body.light-theme .post-meta,
+body.light-theme .plus,
+body.light-theme .blog-card h3 {
+  color: var(--dusty-mauve) !important;
+}
+
+a:hover,
+a:focus,
+.site-nav a:hover,
+.site-nav a.active,
+.toc-links a:hover {
+  color: var(--text-light) !important;
+}
+
+.blog-hero,
+.blog-card,
+.sidebar-card,
+.score-tile,
+.assessment-toggle,
+.tag,
+.strength-pill,
+.notice,
+body.light-theme .blog-card,
+body.light-theme .sidebar-card,
+body.light-theme .blog-hero,
+body.light-theme .score-tile,
+body.light-theme .assessment-toggle,
+body.light-theme .tag,
+body.light-theme .strength-pill {
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+  color: var(--text-light) !important;
+}
+
+.theme-btn,
+#themeToggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 20px !important;
+  padding: .4rem 1rem !important;
+  min-width: 44px !important;
+  width: auto !important;
+  min-height: 34px !important;
+  height: auto !important;
+  font-size: .85rem !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  box-shadow: none !important;
+  color: var(--text-light) !important;
+  cursor: pointer !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  outline: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+body.dark .theme-btn,
+body.dark #themeToggle {
+  background: rgba(8,10,14,0.42) !important;
+  border-color: rgba(240,239,244,0.14) !important;
+  color: #f0eff4 !important;
+}
+
+@media (max-width: 900px) {
+  html,
+  body,
+  body.light-theme,
+  body.dark,
+  .hero {
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+    background-attachment: scroll !important;
+  }
+
+  body::before {
+    content: "" !important;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: -3 !important;
+    pointer-events: none !important;
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+  }
+
+  .theme-btn,
+  #themeToggle {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--text-light) !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+  }
+}
+</style>
+</head>
+
+<body>
+  <header class="top-bar">
+    <div class="credential-header">
+      RHCE6 · AWS Certified
+    </div>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="blog.html">Blog</a>
+      <a href="enterprise_clients_infographic.html">Enterprise Info</a>
+      <a href="cloud_providers_infographic.html">Cloud Info</a>
+      <a href="live_cloud_provider_signal_board.html">Live Info</a>
+    </nav>
+    <button id="themeToggle" class="theme-btn" type="button" aria-label="Toggle theme">🌙</button>
+  </header>
+
+  <a href="index.html" class="logo-top-left" aria-label="Return to home">
+    <img src="BlairPageImages/blog.jpg" alt="Blair Page logo">
+  </a>
+
+  <div class="hero" aria-hidden="true"></div>
+
+  <main class="blog-page-shell">
+    <section class="blog-hero" id="top">
+      <span class="eyebrow">Assessment Results</span>
+      <h1>INTJ · High D / High I DISC · CliftonStrengths Keyword Alignment</h1>
+      <p>
+        Combined assessment results focused on the actual profile points: Myers-Briggs INTJ, DISC High Dominance / High Influence,
+        and a CliftonStrengths-style keyword alignment drawn from the same documented work pattern. The wording stays focused on
+        assessment meaning, leadership signals, role fit, strengths, development risks, and measurable professional behaviors.
+      </p>
+
+      <div class="hero-tags" aria-label="Assessment summary tags">
+        <span class="tag">🧠 INTJ</span>
+        <span class="tag">⚡ High D / High I</span>
+        <span class="tag">🛠 Restorative</span>
+        <span class="tag">🚀 Achiever / Activator</span>
+        <span class="tag">🧩 Strategic / Analytical</span>
+      </div>
+    </section>
+
+    <div class="blog-layout">
+      <section class="blog-feed" aria-label="Assessment results content">
+
+        <article class="blog-card" id="overview">
+          <div class="post-meta">
+            <span>Combined Assessment</span>
+            <span>Result Summary</span>
+          </div>
+          <h2>Executive Assessment Result Summary</h2>
+          <p>
+            The combined profile shows a strategic, independent, high-ownership technical leader with a strong execution drive.
+            The Myers-Briggs result is <strong>INTJ</strong>, indicating a strategic architect pattern: systems thinking, future planning,
+            independent judgment, direct problem solving, and a preference for efficient structures over unnecessary noise.
+          </p>
+          <p>
+            The DISC result is <strong>High D / High I</strong>, meaning Dominance and Influence are the strongest visible operating modes.
+            The documented DISC profile describes urgency, initiative, adaptability, strong communication, forward momentum,
+            ownership, escalation handling, technical execution, and decisive problem solving under pressure.
+          </p>
+          <p>
+            The CliftonStrengths-style keyword alignment clusters around <strong>Strategic, Restorative, Learner, Achiever, Command,
+            Activator, Analytical, Ideation, Self-Assurance, Competition, Focus, Responsibility, Individualization, Communication,
+            Significance, Futuristic, Input, Arranger, Maximizer, and Adaptability</strong>. These keywords are presented as a
+            professional strengths mapping based on the supplied assessment points and career evidence, not as a replacement for
+            an official Gallup score report unless that formal report is supplied.
+          </p>
+
+          <div class="score-grid">
+            <div class="score-tile">
+              <span class="big">INTJ</span>
+              <span class="small">Strategic architect · independent planner · systems optimizer · long-range thinker.</span>
+            </div>
+            <div class="score-tile">
+              <span class="big">High D/I</span>
+              <span class="small">Decisive action · ownership · influence · client-facing escalation communication.</span>
+            </div>
+            <div class="score-tile">
+              <span class="big">Top Themes</span>
+              <span class="small">Strategic · Restorative · Learner · Achiever · Command · Activator · Analytical.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card" id="intj">
+          <div class="post-meta">
+            <span>Myers-Briggs Type Indicator</span>
+            <span>INTJ</span>
+          </div>
+          <h2>Myers-Briggs Result: INTJ</h2>
+          <p>
+            <strong>INTJ</strong> is the strategist / architect pattern. It emphasizes independent analysis, future-oriented planning,
+            systems design, logical prioritization, and a strong need for competence, structure, and progress. In technical work,
+            this result points toward architecture, root-cause analysis, performance improvement, and scalable operating models.
+          </p>
+
+          <h3>INTJ Assessment Points</h3>
+          <ul>
+            <li><strong>Introversion:</strong> Strong internal processing, independent work rhythm, selective collaboration, and preference for meaningful technical depth.</li>
+            <li><strong>Intuition:</strong> Pattern recognition, systems mapping, architecture thinking, and the ability to see how separate technical layers connect.</li>
+            <li><strong>Thinking:</strong> Evidence-based decisions, logical prioritization, measurable outcomes, root cause analysis, and performance-focused judgment.</li>
+            <li><strong>Judging:</strong> Closure orientation, structured execution, defined priorities, ownership, planning, and preference for decisions that move work forward.</li>
+          </ul>
+
+          <h3>INTJ Professional Keywords</h3>
+          <div class="clifton-cloud" aria-label="INTJ keywords">
+            <span class="strength-pill">Strategic</span><span class="strength-pill">Architectural</span><span class="strength-pill">Independent</span>
+            <span class="strength-pill">Systems-Oriented</span><span class="strength-pill">Analytical</span><span class="strength-pill">Future-Focused</span>
+            <span class="strength-pill">Efficient</span><span class="strength-pill">Decisive</span><span class="strength-pill">Root-Cause Driven</span>
+            <span class="strength-pill">High Standards</span><span class="strength-pill">Long-Range Planning</span><span class="strength-pill">Optimization</span>
+          </div>
+        </article>
+
+        <article class="blog-card" id="disc">
+          <div class="post-meta">
+            <span>DISC Assessment</span>
+            <span>High Dominance / High Influence</span>
+          </div>
+          <h2>DISC Result: High D / High I</h2>
+          <p>
+            The DISC result is a high-output profile combining <strong>Dominance</strong> and <strong>Influence</strong>. The strongest signals are
+            urgency, ownership, initiative, communication, adaptability, technical leadership, and visible momentum. This pattern
+            fits escalation-heavy technical environments where accountability, speed, customer communication, and measurable outcomes matter.
+          </p>
+
+          <div class="bar-list" aria-label="DISC intensity bars">
+            <div class="bar-row">
+              <div class="bar-top"><span>Dominance</span><span>Very High</span></div>
+              <div class="bar-track"><span class="bar-fill" style="width:94%"></span></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-top"><span>Influence</span><span>High</span></div>
+              <div class="bar-track"><span class="bar-fill" style="width:86%"></span></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-top"><span>Steadiness</span><span>Lower / Adaptive</span></div>
+              <div class="bar-track"><span class="bar-fill" style="width:42%"></span></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-top"><span>Compliance</span><span>Selective / Outcome-Based</span></div>
+              <div class="bar-track"><span class="bar-fill" style="width:48%"></span></div>
+            </div>
+          </div>
+
+          <h3>Dominance Points</h3>
+          <ul>
+            <li>Highly decisive and action-oriented under pressure.</li>
+            <li>Comfortable taking ownership of critical systems and operational outcomes.</li>
+            <li>Strong urgency around execution, uptime, stability, and problem resolution.</li>
+            <li>Naturally competitive with personal performance and operational standards.</li>
+            <li>Prefers autonomy, accountability, and direct communication.</li>
+            <li>Focused on measurable outcomes, efficiency, scalability, and performance improvements.</li>
+          </ul>
+
+          <h3>Influence Points</h3>
+          <ul>
+            <li>Strong verbal communication and relationship-building ability.</li>
+            <li>Able to explain highly technical concepts clearly to clients, stakeholders, and cross-functional teams.</li>
+            <li>Persuasive and solutions-oriented during customer interactions and escalation handling.</li>
+            <li>Maintains energy and momentum across collaborative environments.</li>
+            <li>Comfortable interfacing with enterprise clients, leadership teams, and customer-facing operations roles.</li>
+          </ul>
+
+          <h3>Lower S / Lower C Operating Notes</h3>
+          <ul>
+            <li><strong>Lower Steadiness:</strong> Prefers fast-moving, adaptive, execution-focused environments over repetitive or static workflows.</li>
+            <li><strong>Lower Steadiness:</strong> Comfortable with shifting priorities, operational urgency, and dynamic infrastructure demands.</li>
+            <li><strong>Lower Compliance:</strong> Uses structure and documentation when they improve reliability, scalability, and outcomes.</li>
+            <li><strong>Lower Compliance:</strong> Less motivated by process for process’ sake and more motivated by practical execution.</li>
+          </ul>
+        </article>
+
+        <article class="blog-card" id="strengthsfinder">
+          <div class="post-meta">
+            <span>CliftonStrengths / StrengthsFinder</span>
+            <span>Keyword Alignment</span>
+          </div>
+          <h2>StrengthsFinder Keyword Alignment</h2>
+          <p>
+            The strongest CliftonStrengths-style pattern is a blend of <strong>Strategic Thinking</strong>, <strong>Executing</strong>, and
+            <strong>Influencing</strong>. The following section is written as a professional keyword alignment to the supplied results and
+            work history. It avoids inventing a formal Gallup rank order, but it preserves the realistic strengths themes that match
+            the assessment points given.
+          </p>
+
+          <h3>Most Likely Primary Clifton Themes</h3>
+          <div class="clifton-cloud" aria-label="Primary CliftonStrengths themes">
+            <span class="strength-pill">Strategic</span>
+            <span class="strength-pill">Restorative</span>
+            <span class="strength-pill">Learner</span>
+            <span class="strength-pill">Achiever</span>
+            <span class="strength-pill">Command</span>
+            <span class="strength-pill">Activator</span>
+            <span class="strength-pill">Analytical</span>
+            <span class="strength-pill">Ideation</span>
+            <span class="strength-pill">Self-Assurance</span>
+            <span class="strength-pill">Competition</span>
+          </div>
+
+          <h3>Full StrengthsFinder Keyword Matrix</h3>
+          <div class="accordion">
+            <div class="accordion-item open">
+              <button class="assessment-toggle" type="button" aria-expanded="true">
+                <span>Strategic Thinking Themes</span><span class="plus">＋</span>
+              </button>
+              <div class="assessment-panel">
+                <ul>
+                  <li><strong>Strategic:</strong> pattern recognition, path selection, systems options, architecture judgment, scenario mapping, route finding.</li>
+                  <li><strong>Analytical:</strong> evidence, root cause, metrics, diagnostics, proof, technical logic, performance data, incident correlation.</li>
+                  <li><strong>Learner:</strong> continuous upskilling, certification drive, platform range, technical curiosity, fast adaptation, knowledge expansion.</li>
+                  <li><strong>Input:</strong> collecting references, tools, commands, examples, documentation, technical patterns, reusable knowledge.</li>
+                  <li><strong>Intellection:</strong> deep thinking, independent processing, complex problem framing, theoretical models, technical reasoning.</li>
+                  <li><strong>Futuristic:</strong> long-range infrastructure direction, future platform design, scalability planning, emerging technology awareness.</li>
+                  <li><strong>Ideation:</strong> concept generation, unusual solutions, creative technical combinations, web/product ideas, system redesign.</li>
+                  <li><strong>Context:</strong> uses past systems, legacy hosting, early web, game servers, and prior incidents to understand current patterns.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="assessment-toggle" type="button" aria-expanded="false">
+                <span>Executing Themes</span><span class="plus">＋</span>
+              </button>
+              <div class="assessment-panel">
+                <ul>
+                  <li><strong>Achiever:</strong> high output, visible progress, project completion, productivity, urgency, measurable delivery.</li>
+                  <li><strong>Restorative:</strong> troubleshooting, repair, debugging, outage recovery, database tuning, infrastructure stabilization.</li>
+                  <li><strong>Responsibility:</strong> ownership, follow-through, operational accountability, customer impact awareness, production reliability.</li>
+                  <li><strong>Focus:</strong> goal direction, prioritization, closure, ticket resolution, incident completion, execution discipline.</li>
+                  <li><strong>Arranger:</strong> coordinating systems, tools, APIs, services, workflows, migrations, and moving technical parts.</li>
+                  <li><strong>Belief:</strong> standards, technical integrity, doing work correctly, protecting systems, value-driven execution.</li>
+                  <li><strong>Discipline:</strong> structure when useful, repeatable processes, technical checklists, backups, recovery paths, deployment order.</li>
+                  <li><strong>Consistency:</strong> reliable service expectations, uptime, repeatability, platform stability, operational fairness.</li>
+                  <li><strong>Deliberative:</strong> risk analysis, rollback thinking, careful production changes, security awareness, avoiding preventable failure.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="assessment-toggle" type="button" aria-expanded="false">
+                <span>Influencing Themes</span><span class="plus">＋</span>
+              </button>
+              <div class="assessment-panel">
+                <ul>
+                  <li><strong>Command:</strong> directness, ownership, escalation confidence, decisive leadership, willingness to address hard problems.</li>
+                  <li><strong>Activator:</strong> starts quickly, moves ideas into action, reduces delay, pushes work toward the next concrete step.</li>
+                  <li><strong>Self-Assurance:</strong> confidence under pressure, independent judgment, technical conviction, comfort making decisions.</li>
+                  <li><strong>Competition:</strong> performance standards, personal benchmarks, high expectations, improvement drive, outcome comparison.</li>
+                  <li><strong>Communication:</strong> explains complex systems, translates technical issues, customer-facing clarity, stakeholder updates.</li>
+                  <li><strong>Significance:</strong> desire for meaningful impact, visible outcomes, serious work, high-value technical contribution.</li>
+                  <li><strong>Maximizer:</strong> optimization, performance tuning, polishing strengths, improving systems from good to better.</li>
+                  <li><strong>Woo:</strong> selective social influence, relationship opening, client confidence, public-facing technical presence.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="assessment-toggle" type="button" aria-expanded="false">
+                <span>Relationship Building Themes</span><span class="plus">＋</span>
+              </button>
+              <div class="assessment-panel">
+                <ul>
+                  <li><strong>Individualization:</strong> recognizes different user, client, and team needs; adjusts communication to the situation.</li>
+                  <li><strong>Adaptability:</strong> handles shifting priorities, changing technical stacks, urgent tickets, and ambiguous live systems.</li>
+                  <li><strong>Connectedness:</strong> sees relationships between platforms, teams, customer outcomes, infrastructure, and business impact.</li>
+                  <li><strong>Developer:</strong> helps others understand systems, learn workflows, and move from confusion to capability.</li>
+                  <li><strong>Empathy:</strong> reads frustration in support situations and understands the pressure customers feel during incidents.</li>
+                  <li><strong>Harmony:</strong> useful when alignment is needed, but less dominant than direct execution and problem solving.</li>
+                  <li><strong>Includer:</strong> makes technical information accessible to non-specialists when communication clarity matters.</li>
+                  <li><strong>Positivity:</strong> momentum, visible energy, and forward motion during stressful technical work.</li>
+                  <li><strong>Relator:</strong> stronger in trusted technical relationships than broad superficial networking.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card" id="full-keywords">
+          <div class="post-meta">
+            <span>StrengthsFinder Keywords</span>
+            <span>Complete Professional Keyword Set</span>
+          </div>
+          <h2>Whole StrengthsFinder Keyword Set</h2>
+          <p>
+            The following keywords can be used for resume, portfolio, interview, LinkedIn, Upwork, and technical leadership positioning.
+            They are grouped by the assessment themes most consistent with INTJ + High D/I DISC + cloud/database operations work.
+          </p>
+
+          <h3>Strategic Thinking Keywords</h3>
+          <p class="keyword-block">
+            strategic planning · systems thinking · architecture · root-cause analysis · diagnostic reasoning · technical strategy ·
+            platform vision · scalable design · future-state planning · infrastructure roadmap · pattern recognition · scenario planning ·
+            problem framing · decision logic · analytical review · evidence-based troubleshooting · data-informed judgment · complex systems ·
+            technical abstraction · long-range optimization · cloud architecture · OpenStack architecture · AWS architecture · database architecture ·
+            performance modeling · operational insight · architectural tradeoffs · systems mapping · technical foresight · infrastructure modernization
+          </p>
+
+          <h3>Executing Keywords</h3>
+          <p class="keyword-block">
+            execution · ownership · accountability · follow-through · high output · production reliability · incident resolution · escalation handling ·
+            uptime · stability · performance tuning · optimization · restoration · troubleshooting · repair · delivery · deployment · migration ·
+            rollback planning · backup strategy · disaster recovery · process improvement · operational efficiency · SLA focus · ticket resolution ·
+            prioritization · closure · measurable outcomes · productivity · implementation · system hardening · service continuity · database tuning ·
+            infrastructure stabilization · technical operations · platform maintenance · production-safe changes
+          </p>
+
+          <h3>Influencing Keywords</h3>
+          <p class="keyword-block">
+            command · initiative · urgency · direct communication · stakeholder communication · customer communication · persuasion · leadership presence ·
+            decisive action · escalation leadership · technical consulting · client confidence · enterprise support · executive communication ·
+            incident updates · cross-functional alignment · solution framing · momentum · confidence under pressure · ownership language ·
+            business impact translation · high-pressure communication · customer-facing engineering · technical credibility · influence without authority ·
+            visible outcomes · professional assertiveness · strategic communication · expectation management
+          </p>
+
+          <h3>Relationship / Client Keywords</h3>
+          <p class="keyword-block">
+            relationship building · client trust · enterprise clients · user empathy · support clarity · technical translation · individualization ·
+            adaptive communication · collaboration · team alignment · mentorship · knowledge sharing · documentation · customer success ·
+            service recovery · expectation setting · business empathy · practical guidance · solution education · calm escalation handling ·
+            customer retention · stakeholder trust · support professionalism · accessible explanation · client-centered operations
+          </p>
+
+          <h3>Technical Role Keywords</h3>
+          <p class="keyword-block">
+            AWS · OpenStack · hybrid cloud · Linux · RHCE · DBA · MySQL · MariaDB · Percona · MongoDB · PostgreSQL · Redis · Varnish ·
+            Elasticsearch · Solr · RabbitMQ · Galera · Percona XtraDB Cluster · ProxySQL · HAProxy · Nginx · Apache · PHP-FPM · WordPress ·
+            WooCommerce · Magento · API integrations · REST APIs · SOAP APIs · DNS · SSL/TLS · CDN · CloudFront · S3 · RDS · DynamoDB ·
+            EC2 · DevOps · SRE · monitoring · SIEM · Nagios · ELK · automation · Terraform · Puppet · Ansible · Docker · Kubernetes ·
+            high availability · replication · failover · load balancing · security hardening · production troubleshooting
+          </p>
+        </article>
+
+        <article class="blog-card" id="roles">
+          <div class="post-meta">
+            <span>Role Alignment</span>
+            <span>Assessment-Based Fit</span>
+          </div>
+          <h2>Best Role Alignment</h2>
+          <ul>
+            <li><strong>AWS Cloud Engineer:</strong> strategic infrastructure thinking, ownership, cloud deployment, cost/performance optimization.</li>
+            <li><strong>OpenStack / Hybrid Cloud Engineer:</strong> systems architecture, incident recovery, Linux operations, virtualization-aware troubleshooting.</li>
+            <li><strong>DBA / Database Performance Engineer:</strong> Restorative + Analytical strengths applied to query tuning, replication, locking, HA, and reliability.</li>
+            <li><strong>Enterprise Technical Support Engineer:</strong> High D/I escalation confidence with technical explanation and client-facing clarity.</li>
+            <li><strong>DevOps / SRE:</strong> uptime, automation, observability, production safety, disaster recovery, and high-pressure execution.</li>
+            <li><strong>Full-Stack Infrastructure Leadership:</strong> connects frontend, backend, database, cache, cloud, customer impact, and business outcomes.</li>
+          </ul>
+        </article>
+
+        <article class="blog-card" id="blindspots">
+          <div class="post-meta">
+            <span>Development Notes</span>
+            <span>Blind Spots</span>
+          </div>
+          <h2>Potential Blind Spots from the Results</h2>
+          <ul>
+            <li>High urgency can unintentionally overwhelm slower-moving teams.</li>
+            <li>Fast execution can move ahead of onboarding, alignment, or documentation needs.</li>
+            <li>Direct communication may need softer pacing when teams are stressed or less technical.</li>
+            <li>Lower steadiness may make repetitive, static, or heavily bureaucratic workflows feel draining.</li>
+            <li>Lower compliance may resist process unless the process clearly improves reliability, scalability, or outcomes.</li>
+            <li>INTJ independence can read as intensity unless paired with proactive stakeholder visibility.</li>
+          </ul>
+        </article>
+      </section>
+
+      <aside class="sidebar" aria-label="Assessment navigation sidebar">
+        <section class="sidebar-card">
+          <h3>Assessment Navigation</h3>
+          <nav class="toc-links">
+            <a href="#overview">Overview <span>→</span></a>
+            <a href="#intj">INTJ <span>→</span></a>
+            <a href="#disc">DISC <span>→</span></a>
+            <a href="#strengthsfinder">StrengthsFinder <span>→</span></a>
+            <a href="#full-keywords">Full Keywords <span>→</span></a>
+            <a href="#roles">Role Fit <span>→</span></a>
+            <a href="#blindspots">Blind Spots <span>→</span></a>
+          </nav>
+        </section>
+
+        <section class="sidebar-card">
+          <h3>Result Snapshot</h3>
+          <div class="mini-profile">
+            <div class="mini-line"><span>MBTI</span><strong>INTJ</strong></div>
+            <div class="mini-line"><span>DISC</span><strong>High D / High I</strong></div>
+            <div class="mini-line"><span>DISC Core</span><strong>Ownership + Influence</strong></div>
+            <div class="mini-line"><span>Primary Themes</span><strong>Strategic · Restorative</strong></div>
+            <div class="mini-line"><span>Execution</span><strong>Achiever · Activator</strong></div>
+            <div class="mini-line"><span>Leadership</span><strong>Command · Self-Assurance</strong></div>
+          </div>
+
+          <div class="notice">
+            CliftonStrengths keywords are written as a professional strengths alignment from the supplied profile. Replace the order
+            with the official Gallup Top 5 or Top 10 if those exact results are later provided.
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      INTJ · High D / High I DISC · StrengthsFinder Keyword Alignment
+    </footer>
+  </main>
+
+  <button id="pageScrollTop" class="page-scroll-top" aria-label="Back to top">▲</button>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const storageKey = "blairpage-theme";
+      const root = document.documentElement;
+      const body = document.body;
+      const themeToggle = document.getElementById("themeToggle");
+      const toTop = document.getElementById("pageScrollTop");
+
+      function forceVisible() {
+        root.style.opacity = "1";
+        root.style.visibility = "visible";
+        root.style.transform = "none";
+        body.style.opacity = "1";
+        body.style.visibility = "visible";
+        body.style.transform = "none";
+        body.style.overflowX = "hidden";
+        body.style.overflowY = "auto";
+        const main = document.querySelector(".blog-page-shell");
+        if (main) {
+          main.style.opacity = "1";
+          main.style.visibility = "visible";
+          main.style.transform = "none";
+          main.style.display = "block";
+        }
+      }
+
+      function safeGetTheme() {
+        try {
+          return window.localStorage ? localStorage.getItem(storageKey) : null;
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function safeSetTheme(value) {
+        try {
+          if (window.localStorage) localStorage.setItem(storageKey, value);
+        } catch (error) {
+          /* Mobile private/webview storage can fail; theme still works for this page view. */
+        }
+      }
+
+      function setImp(el, prop, value) {
+        if (!el) return;
+        el.style.setProperty(prop, value, "important");
+      }
+
+      function applyToggleColors() {
+        if (!themeToggle) return;
+        const isDark = body.classList.contains("dark");
+        if (isDark) {
+          setImp(themeToggle, "background", "rgba(8,10,14,0.42)");
+          setImp(themeToggle, "border", "1px solid rgba(240,239,244,0.14)");
+          setImp(themeToggle, "color", "#f0eff4");
+        } else {
+          setImp(themeToggle, "background", "rgba(58,62,59,0.15)");
+          setImp(themeToggle, "border", "1px solid rgba(240,239,244,0.22)");
+          setImp(themeToggle, "color", "#f0eff4");
+        }
+        setImp(themeToggle, "box-shadow", "none");
+        setImp(themeToggle, "backdrop-filter", "blur(10px)");
+        setImp(themeToggle, "-webkit-backdrop-filter", "blur(10px)");
+      }
+
+      function stabilizeMobileBackground() {
+        var hero = document.querySelector(".hero");
+        if (window.innerWidth <= 900) {
+          root.style.setProperty("background", "var(--bg-light)", "important");
+          root.style.setProperty("background-image", "var(--bg-light)", "important");
+          root.style.setProperty("background-attachment", "scroll", "important");
+          body.style.setProperty("background", "var(--bg-light)", "important");
+          body.style.setProperty("background-image", "var(--bg-light)", "important");
+          body.style.setProperty("background-attachment", "scroll", "important");
+          body.style.setProperty("touch-action", "pan-y", "important");
+          if (hero) {
+            hero.style.setProperty("background", "var(--bg-light)", "important");
+            hero.style.setProperty("background-image", "var(--bg-light)", "important");
+            hero.style.setProperty("height", "100dvh", "important");
+          }
+        } else {
+          root.style.removeProperty("background");
+          root.style.removeProperty("background-image");
+          root.style.removeProperty("background-attachment");
+          body.style.removeProperty("background");
+          body.style.removeProperty("background-image");
+          body.style.removeProperty("background-attachment");
+          body.style.removeProperty("touch-action");
+          if (hero) {
+            hero.style.removeProperty("background");
+            hero.style.removeProperty("background-image");
+            hero.style.removeProperty("height");
+          }
+        }
+      }
+
+      function applyTheme(isDark) {
+        body.classList.remove("light-theme");
+        body.classList.toggle("dark", !!isDark);
+        if (themeToggle) {
+          themeToggle.textContent = isDark ? "☀️" : "🌙";
+          themeToggle.setAttribute("aria-pressed", String(!!isDark));
+          themeToggle.setAttribute("title", isDark ? "Switch to light theme" : "Switch to dark theme");
+          applyToggleColors();
+        }
+        stabilizeMobileBackground();
+        forceVisible();
+      }
+
+      applyTheme(safeGetTheme() === "dark");
+
+      if (themeToggle) {
+        themeToggle.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          const isDark = !body.classList.contains("dark");
+          applyTheme(isDark);
+          safeSetTheme(isDark ? "dark" : "light");
+          setTimeout(applyToggleColors, 0);
+          setTimeout(applyToggleColors, 80);
+          setTimeout(applyToggleColors, 160);
+        }, { passive: false });
+      }
+
+      document.querySelectorAll(".assessment-toggle").forEach(function (button) {
+        button.addEventListener("click", function () {
+          const item = button.closest(".accordion-item");
+          if (!item) return;
+          const expanded = button.getAttribute("aria-expanded") === "true";
+          button.setAttribute("aria-expanded", String(!expanded));
+          item.classList.toggle("open", !expanded);
+          forceVisible();
+        });
+      });
+
+      function updateToTop() {
+        if (!toTop) return;
+        if (window.scrollY > 350) {
+          toTop.classList.add("show");
+        } else {
+          toTop.classList.remove("show");
+        }
+      }
+
+      window.addEventListener("scroll", updateToTop, { passive: true });
+      window.addEventListener("resize", forceVisible, { passive: true });
+      window.addEventListener("orientationchange", function () {
+        forceVisible();
+        setTimeout(forceVisible, 60);
+        setTimeout(forceVisible, 250);
+      }, { passive: true });
+      window.addEventListener("pageshow", forceVisible, { passive: true });
+      document.addEventListener("visibilitychange", forceVisible, { passive: true });
+      window.addEventListener("error", forceVisible, true);
+      window.addEventListener("unhandledrejection", forceVisible, true);
+
+      if (toTop) {
+        toTop.addEventListener("click", function (event) {
+          event.preventDefault();
+          forceVisible();
+          try {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } catch (error) {
+            window.scrollTo(0, 0);
+          }
+        });
+      }
+
+      forceVisible();
+      updateToTop();
+      setTimeout(forceVisible, 0);
+      setTimeout(forceVisible, 80);
+      setTimeout(forceVisible, 350);
+    })();
+  </script>
+
+
+
+<script id="assessment-hyuna-blair-name-button-script">
+(function () {
+  var VIDEOS = [
+    {
+      id: 'y882AFjrSOM',
+      title: "HyunA(현아) - '어때? (How's this?)'"
+    },
+    {
+      id: 'ib_1ATfr8wM',
+      title: "HYUNA(현아) - '잘나가서 그래 (Feat. 정일훈 Of BTOB)' (Roll Deep)"
+    },
+    {
+      id: 'wcLNteez3c4',
+      title: "PSY (ft. HYUNA) - 오빤 딱 내 스타일"
+    }
+  ];
+
+  var PLAYER_ID = 'assessment-hyuna-player';
+  var BUTTON_ID = 'assessment-hyuna-button';
+  var OPTIONS_ID = 'assessment-hyuna-options';
+  var WRAP_ID = 'assessment-hyuna-frame-wrap';
+
+  var state = 'closed';
+  var currentIndex = 0;
+  var player;
+  var button;
+  var options;
+  var frameWrap;
+
+  function buildSrc(videoId, muted) {
+    return 'https://www.youtube.com/embed/' + videoId +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&playsinline=1' +
+      '&rel=0' +
+      '&modestbranding=1';
+  }
+
+  function removeOld() {
+    var oldPlayer = document.getElementById(PLAYER_ID);
+    var oldButton = document.getElementById(BUTTON_ID);
+
+    if (oldPlayer) oldPlayer.parentNode.removeChild(oldPlayer);
+    if (oldButton) oldButton.parentNode.removeChild(oldButton);
+  }
+
+  function setButton() {
+    if (state === 'closed') button.innerHTML = '▶';
+    if (state === 'muted') button.innerHTML = '🔊';
+    if (state === 'playing') button.innerHTML = '🔇';
+    if (state === 'stopped') button.innerHTML = '✕';
+  }
+
+  function syncButtons() {
+    if (!options) return;
+    var btns = options.querySelectorAll('button[data-video-index]');
+    btns.forEach(function (btn, index) {
+      btn.classList.toggle('active', index === currentIndex);
+      btn.setAttribute('aria-pressed', index === currentIndex ? 'true' : 'false');
+    });
+  }
+
+  function renderIframe(muted) {
+    var video = VIDEOS[currentIndex];
+
+    frameWrap.innerHTML =
+      '<iframe ' +
+        'title="' + video.title.replace(/"/g, '&quot;') + '" ' +
+        'src="' + buildSrc(video.id, muted) + '" ' +
+        'allow="autoplay; encrypted-media; picture-in-picture; web-share" ' +
+        'referrerpolicy="strict-origin-when-cross-origin" ' +
+        'allowfullscreen>' +
+      '</iframe>';
+
+    syncButtons();
+  }
+
+  function showPlayer() {
+    player.classList.add('open');
+  }
+
+  function hidePlayer() {
+    player.classList.remove('open');
+  }
+
+  function openMuted() {
+    state = 'muted';
+    showPlayer();
+    renderIframe(true);
+    setButton();
+  }
+
+  function openUnmuted() {
+    state = 'playing';
+    showPlayer();
+    renderIframe(false);
+    setButton();
+  }
+
+  function stopOpen() {
+    state = 'stopped';
+    frameWrap.innerHTML = '';
+    showPlayer();
+    syncButtons();
+    setButton();
+  }
+
+  function closeAll() {
+    state = 'closed';
+    frameWrap.innerHTML = '';
+    hidePlayer();
+    setButton();
+  }
+
+  function createPlayer() {
+    removeOld();
+
+    player = document.createElement('div');
+    player.id = PLAYER_ID;
+
+    options = document.createElement('div');
+    options.id = OPTIONS_ID;
+
+    VIDEOS.forEach(function (video, index) {
+      var opt = document.createElement('button');
+      opt.type = 'button';
+      opt.textContent = video.title;
+      opt.setAttribute('data-video-id', video.id);
+      opt.setAttribute('data-video-index', String(index));
+      opt.setAttribute('aria-label', video.title);
+      opt.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        currentIndex = index;
+
+        if (state === 'playing') {
+          renderIframe(false);
+        } else {
+          state = 'muted';
+          showPlayer();
+          renderIframe(true);
+          setButton();
+        }
+      });
+      options.appendChild(opt);
+    });
+
+    frameWrap = document.createElement('div');
+    frameWrap.id = WRAP_ID;
+
+    player.appendChild(options);
+    player.appendChild(frameWrap);
+
+    button = document.createElement('button');
+    button.id = BUTTON_ID;
+    button.type = 'button';
+    button.setAttribute('aria-label', 'Open HyunA 3 video player');
+
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (state === 'closed') {
+        openMuted();
+        return;
+      }
+
+      if (state === 'muted') {
+        openUnmuted();
+        return;
+      }
+
+      if (state === 'playing') {
+        stopOpen();
+        return;
+      }
+
+      if (state === 'stopped') {
+        closeAll();
+        return;
+      }
+    });
+
+    document.body.appendChild(player);
+    document.body.appendChild(button);
+
+    syncButtons();
+    closeAll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createPlayer);
+  } else {
+    createPlayer();
+  }
+})();
+</script>
+<div class="footer-counter" style="margin-top:12px;text-align:center;">
+    <img
+        src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
+        alt="Portfolio Visitors"
+        style="border-radius:8px;opacity:.9;">
+</div>
+</body>
+</html>

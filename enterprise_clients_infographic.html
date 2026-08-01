@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blair Page | Enterprise Clients Infographic</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --black: #000000ff;
+  --midnight-violet: #291528ff;
+  --charcoal-brown: #3a3e3bff;
+  --ghost-white: #f0eff4ff;
+  --dusty-mauve: #9e829cff;
+
+  --deep-blue: var(--midnight-violet);
+  --vibrant-orange: var(--dusty-mauve);
+  --text-light: var(--ghost-white);
+
+  --bg-light: linear-gradient(
+    135deg,
+    #000000ff 0%,
+    #291528ff 30%,
+    #3a3e3bff 60%,
+    #9e829cff 85%,
+    #f0eff4ff 100%
+  );
+
+  --glass-bg: rgba(58,62,59,0.15);
+  --glass-border: rgba(240,239,244,0.22);
+  --card-accent: rgba(255,255,255,0.08);
+  --shadow-strong: 0 18px 40px rgba(0,0,0,.55);
+  --shadow-soft: 0 10px 26px rgba(0,0,0,.35);
+}
+
+body.dark {
+  --bg-light: linear-gradient(
+    135deg,
+    #050507 0%,
+    #0d0f16 25%,
+    #141824 55%,
+    #1c1f2b 78%,
+    #26212d 100%
+  );
+  --glass-bg: rgba(8,10,14,0.42);
+  --glass-border: rgba(240,239,244,0.14);
+  --text-light: var(--ghost-white);
+  --card-accent: rgba(255,255,255,0.05);
+  --shadow-strong: 0 20px 42px rgba(0,0,0,.68);
+  --shadow-soft: 0 10px 22px rgba(0,0,0,.45);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 100 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  grid-template-areas: "cred toggle" "nav toggle" !important;
+  align-items: start !important;
+  row-gap: 2px !important;
+  padding: 1rem 2rem !important;
+  font-size: .85rem !important;
+  letter-spacing: .6px !important;
+  text-align: left !important;
+}
+
+.credential-header {
+  grid-area: cred !important;
+  display: block !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  max-width: calc(100% - 92px) !important;
+  text-align: left !important;
+  line-height: 1.05 !important;
+  justify-self: start !important;
+  align-self: start !important;
+  z-index: 121 !important;
+}
+
+.credential-header, .credential-header * {
+  text-align: left !important;
+}
+
+.site-nav {
+  grid-area: nav !important;
+  display: flex !important;
+  position: relative !important;
+  justify-content: flex-start !important;
+  justify-self: start !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  margin: 2px 0 0 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  z-index: 121 !important;
+}
+
+.site-nav a {
+  margin: 0 1rem 0 0 !important;
+  color: var(--dusty-mauve);
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.2 !important;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  text-decoration: underline;
+  color: var(--text-light);
+}
+
+.theme-btn,
+.action-btn,
+.toggle-pill,
+.company-toggle,
+.chart-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: .45rem 1rem;
+  min-height: 34px;
+  font-size: .85rem;
+  line-height: 1;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: var(--text-light);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  outline: none;
+  transition: background 0.3s ease, transform 0.2s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-btn:hover,
+.action-btn:hover,
+.toggle-pill:hover,
+.company-toggle:hover,
+.chart-toggle:hover {
+  transform: translateY(-1px);
+}
+
+#themeToggle {
+  grid-area: toggle !important;
+  position: relative !important;
+  justify-self: end !important;
+  align-self: start !important;
+  min-width: 44px !important;
+}
+
+/* HERO */
+.hero {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -2;
+  background: var(--bg-light);
+  background-image: var(--bg-light);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(240,239,244,0.09), transparent 22%),
+    radial-gradient(circle at 78% 28%, rgba(158,130,156,0.20), transparent 24%),
+    radial-gradient(circle at 62% 78%, rgba(240,239,244,0.08), transparent 18%),
+    linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35));
+}
+
+.logo-top-left {
+  position: absolute;
+  top: 100px;
+  left: 16px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid rgba(240,239,244,.45);
+  box-shadow: 0 8px 20px rgba(0,0,0,.7);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.logo-top-left:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.logo-top-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-title-shell {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 19vh 2rem 1rem;
+}
+
+.blog-page-title {
+  text-align: center;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-weight: 700;
+  color: var(--text-light);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  margin: 0 0 1rem;
+}
+
+.hero-subtitle {
+  max-width: 980px;
+  margin: 0 auto 1.6rem;
+  text-align: center;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: rgba(240,239,244,0.92);
+}
+
+.hero-badges,
+.toolbar,
+.summary-strip,
+.chart-grid,
+.company-grid,
+.glossary-grid,
+.reference-grid {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+.hero-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.badge-card,
+.dashboard-card,
+.company-card,
+.glossary-card,
+.reference-card,
+.method-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 1.3rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
+  overflow: hidden;
+}
+
+.badge-card::before,
+.dashboard-card::before,
+.company-card::before,
+.glossary-card::before,
+.reference-card::before,
+.method-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.08));
+  pointer-events: none;
+}
+
+.badge-card *,.dashboard-card *,.company-card *,.glossary-card *,.reference-card *,.method-card * {
+  position: relative;
+  z-index: 1;
+}
+
+.badge-card h3 {
+  margin: 0 0 .4rem;
+  font-size: .82rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--dusty-mauve);
+}
+
+.badge-card .metric {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.badge-card p {
+  margin: .45rem 0 0;
+  color: rgba(240,239,244,0.82);
+  font-size: .9rem;
+  line-height: 1.45;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.4rem;
+}
+
+.toolbar .toolbar-label {
+  font-size: .95rem;
+  color: rgba(240,239,244,0.88);
+  margin-right: .25rem;
+}
+
+.toggle-pill.active,
+.chart-toggle.active,
+.company-toggle.active {
+  background: rgba(158,130,156,0.24);
+  border-color: rgba(240,239,244,0.35);
+}
+
+main.infographic-wrapper {
+  position: relative;
+  top: 0;
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 2rem 4rem;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 2rem);
+  color: var(--text-light);
+}
+
+.section-title p {
+  margin: 0;
+  color: rgba(240,239,244,0.8);
+  font-size: .95rem;
+  line-height: 1.55;
+  max-width: 760px;
+}
+
+.summary-strip {
+  margin-bottom: 1rem;
+}
+
+.summary-strip .dashboard-card {
+  padding: 1.2rem 1.3rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1.3fr .9fr .9fr;
+  gap: 1rem;
+}
+
+.summary-grid ul {
+  margin: .65rem 0 0 1.1rem;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.summary-grid li {
+  margin-bottom: .25rem;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.2rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.chart-grid .dashboard-card.large {
+  grid-column: span 8;
+}
+
+.chart-grid .dashboard-card.medium {
+  grid-column: span 6;
+}
+
+.chart-grid .dashboard-card.small {
+  grid-column: span 4;
+}
+
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.chart-head h3 {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.chart-head p {
+  margin: .3rem 0 0;
+  color: rgba(240,239,244,0.8);
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+.chart-wrap {
+  position: relative;
+  min-height: 320px;
+}
+
+.chart-legend-note {
+  margin-top: .75rem;
+  font-size: .85rem;
+  color: rgba(240,239,244,0.74);
+  line-height: 1.5;
+}
+
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.2rem;
+  padding-top: .5rem;
+}
+
+.company-card {
+  transition: transform .24s ease, box-shadow .24s ease;
+}
+
+.company-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-strong);
+}
+
+.company-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: .8rem;
+}
+
+.company-header h3 {
+  margin: 0 0 .35rem;
+  font-size: 1.15rem;
+}
+
+.company-header .category {
+  display: inline-block;
+  font-size: .76rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--dusty-mauve);
+  margin-bottom: .45rem;
+}
+
+.score-pill {
+  white-space: nowrap;
+  padding: .45rem .7rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  font-size: .8rem;
+}
+
+.company-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: .7rem;
+  margin: 1rem 0;
+}
+
+.company-meta .meta-box {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+  padding: .8rem;
+}
+
+.meta-box .label {
+  display: block;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--dusty-mauve);
+  margin-bottom: .2rem;
+}
+
+.meta-box .value {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.company-preview,
+.company-detail,
+.method-card p,
+.reference-card p,
+.glossary-card p,
+.glossary-card li {
+  line-height: 1.65;
+  color: rgba(240,239,244,0.92);
+}
+
+.company-detail {
+  display: block;
+  margin-top: .9rem;
+  border-top: 1px solid rgba(240,239,244,0.14);
+  padding-top: .9rem;
+}
+
+.company-card.active .company-toggle {
+  background: rgba(158,130,156,0.24);
+  border-color: rgba(240,239,244,0.35);
+}
+
+.company-card ul {
+  margin: .45rem 0 .65rem 1.1rem;
+  padding: 0;
+}
+
+.company-card li {
+  margin-bottom: .3rem;
+}
+
+.source-list {
+  margin-top: .7rem;
+  padding-top: .75rem;
+  border-top: 1px dashed rgba(240,239,244,0.14);
+}
+
+.source-list h4 {
+  margin: 0 0 .5rem;
+  font-size: .85rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--dusty-mauve);
+}
+
+.source-list a,
+.reference-card a,
+.method-card a,
+.hero-subtitle a {
+  color: var(--dusty-mauve);
+  text-decoration: none;
+}
+
+.source-list a:hover,
+.reference-card a:hover,
+.method-card a:hover,
+.hero-subtitle a:hover {
+  color: var(--text-light);
+  text-decoration: underline;
+}
+
+.glossary-grid,
+.reference-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 1.2rem;
+}
+
+.glossary-card h3,
+.reference-card h3,
+.method-card h3 {
+  margin: 0 0 .85rem;
+  font-size: 1rem;
+}
+
+.keyword-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+
+.keyword-cloud span {
+  padding: .48rem .7rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.11);
+  font-size: .84rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  color: var(--text-light);
+  font-size: .92rem;
+}
+
+th, td {
+  border-bottom: 1px solid rgba(240,239,244,0.14);
+  padding: .72rem .55rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--dusty-mauve);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .76rem;
+}
+
+.method-card {
+  margin-top: 1.2rem;
+}
+
+.footer-note {
+  margin-top: 1.2rem;
+  font-size: .86rem;
+  color: rgba(240,239,244,0.75);
+  line-height: 1.55;
+}
+
+.page-scroll-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10050;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-scroll-top.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hidden-by-toggle {
+  display: block !important;
+}
+
+@media (max-width: 1100px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .chart-grid .dashboard-card.large,
+  .chart-grid .dashboard-card.medium,
+  .chart-grid .dashboard-card.small {
+    grid-column: span 12;
+  }
+}
+
+@media(max-width:900px){
+  html, body {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+    background-attachment: scroll !important;
+  }
+
+  .top-bar {
+    padding: 10px 16px 0 16px !important;
+    min-height: 52px !important;
+  }
+
+  .credential-header {
+    font-size: 0.425rem !important;
+  }
+
+  .hero {
+    background: var(--bg-light) !important;
+    background-image: var(--bg-light) !important;
+  }
+
+  .logo-top-left {
+    top: 80px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .page-title-shell,
+  .hero-badges,
+  .toolbar,
+  .summary-strip,
+  .chart-grid,
+  .company-grid,
+  .glossary-grid,
+  .reference-grid,
+  main.infographic-wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .page-title-shell {
+    padding-top: 18vh;
+  }
+
+  .hero-subtitle {
+    font-size: .96rem;
+  }
+
+  .company-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-wrap {
+    min-height: 280px;
+  }
+}
+/* cleaned stability layer */
+:root { color-scheme: dark; }
+html {
+  background-color: #000;
+}
+body {
+  background-color: #000;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.hero,
+.hero::after,
+.badge-card,
+.dashboard-card,
+.company-card,
+.glossary-card,
+.reference-card,
+.method-card,
+.top-bar,
+.logo-top-left,
+.chart-wrap,
+.chart-wrap canvas,
+.table-wrap,
+.company-detail,
+.source-list {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+.hero {
+  pointer-events: none;
+  will-change: transform;
+  contain: paint;
+}
+.chart-wrap {
+  overflow: hidden;
+}
+.chart-wrap canvas {
+  display: block !important;
+}
+@media (max-width: 900px) {
+  html, body {
+    background-attachment: scroll !important;
+  }
+  .hero,
+  .hero::after,
+  .badge-card,
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .top-bar,
+  .chart-wrap,
+  .chart-wrap canvas {
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+  }
+}
+/* ==========================================
+   MOBILE NAV TEXT ONLY
+   does NOT touch theme toggle size or shape
+   ========================================== */
+@media (max-width: 900px) {
+  .site-nav {
+    flex-wrap: wrap !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  .site-nav a {
+    margin: 0 0.7rem 0 0 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-nav a {
+    margin: 0 0.55rem 0 0 !important;
+    font-size: 0.74rem !important;
+    line-height: 1.15 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-nav a {
+    margin: 0 0.45rem 0 0 !important;
+    font-size: 0.7rem !important;
+    line-height: 1.1 !important;
+  }
+}
+/* ==========================================
+   MOBILE CONTENT FIT APPEND
+   does NOT touch mobile menu / top bar / toggle
+   ========================================== */
+@media (max-width: 900px) {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* do not alter mobile menu pieces */
+  .top-bar,
+  .top-bar *,
+  .site-nav,
+  .site-nav *,
+  .credential-header,
+  .credential-header *,
+  #themeToggle {
+    box-sizing: border-box;
+  }
+
+  main.infographic-wrapper,
+  .summary-strip,
+  .chart-grid,
+  .company-grid,
+  .glossary-grid,
+  .reference-grid,
+  .hero-badges,
+  .page-title-shell,
+  .table-wrap,
+  .chart-wrap,
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card,
+  .company-detail,
+  .source-list,
+  .company-meta,
+  .meta-box,
+  .keyword-cloud {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card {
+    overflow: hidden !important;
+  }
+
+  .chart-grid,
+  .company-grid,
+  .glossary-grid,
+  .reference-grid,
+  .hero-badges,
+  .summary-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .chart-grid .dashboard-card.large,
+  .chart-grid .dashboard-card.medium,
+  .chart-grid .dashboard-card.small {
+    grid-column: span 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .company-meta {
+    grid-template-columns: 1fr !important;
+  }
+
+  .table-wrap {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  table {
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+
+  th,
+  td {
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .keyword-cloud {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    max-width: 100% !important;
+  }
+
+  .keyword-cloud span {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+  }
+
+  .company-header,
+  .chart-head,
+  .section-title {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .company-header h3,
+  .chart-head h3,
+  .section-title h2,
+  .hero-subtitle,
+  .company-preview,
+  .company-detail p,
+  .glossary-card p,
+  .reference-card p,
+  .method-card p,
+  .footer-note {
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .source-list a,
+  .reference-card a,
+  .method-card a,
+  .hero-subtitle a {
+    overflow-wrap: anywhere !important;
+    word-break: break-all !important;
+  }
+
+  .logo-top-left img,
+  canvas,
+  img,
+  video {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .chart-wrap canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card {
+    padding: 1rem !important;
+  }
+
+  th,
+  td {
+    padding: 0.62rem 0.45rem !important;
+    font-size: 0.88rem !important;
+  }
+
+  .score-pill {
+    max-width: 100% !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .dashboard-card,
+  .company-card,
+  .glossary-card,
+  .reference-card,
+  .method-card,
+  .badge-card {
+    padding: 0.9rem !important;
+  }
+
+  .chart-wrap {
+    min-height: 240px !important;
+  }
+
+  th,
+  td {
+    font-size: 0.82rem !important;
+  }
+}
+</style>
+
+</head>
+
+<body>
+<header class="top-bar">
+  <div class="credential-header">
+    RHCE6 · AWS Certified
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a href="enterprise_clients_infographic.html">Enterprise Info</a>
+    <a href="cloud_providers_infographic.html">Cloud Info</a>
+    <a href="live_cloud_provider_signal_board.html">Live Info</a>
+  </nav>
+  <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+</header>
+
+<a href="index.html" class="logo-top-left" aria-label="Return to home">
+  <img src="BlairPageImages/blog.jpg" alt="Blair Page logo">
+</a>
+
+<div class="hero"></div>
+
+<section class="page-title-shell">
+  <h1 class="blog-page-title">Enterprise Clients: Value, Closures, Layoffs & Brand Signals</h1>
+  <p class="hero-subtitle">
+    This dashboard compares <strong>GiveWP, GameCrazy, Airbnb, Fitbit, Membean, Kate Spade, Rent the Runway, Vimeo, and Pizza Hut</strong> using the best available value anchors from 2014 to April 14, 2026:
+    market cap, acquisition value, startup valuation, or parent-company proxy when a brand is not separately traded.
+  </p>
+</section>
+
+<section class="hero-badges">
+  <article class="badge-card">
+    <h3>Largest Current Value</h3>
+    <div class="metric">$75.45B</div>
+    <p>Airbnb holds the highest current public market value in this group.</p>
+  </article>
+  <article class="badge-card">
+    <h3>Steepest Decline</h3>
+    <div class="metric">−99%+</div>
+    <p>Rent the Runway has fallen from 2014/2021 funding-era highs to micro-cap territory.</p>
+  </article>
+  <article class="badge-card">
+    <h3>Defunct Before 2014</h3>
+    <div class="metric">GameCrazy</div>
+    <p>GameCrazy had already collapsed by 2010, making 2014-to-today value effectively zero.</p>
+  </article>
+</section>
+  
+<section class="summary-strip">
+  <article class="dashboard-card">
+    <div class="section-title" style="margin-top:0;">
+      <div>
+        <h2>Executive summary</h2>
+        <p>What matters most from a portfolio, strategy, and digital-branding lens.</p>
+      </div>
+    </div>
+    <div class="summary-grid">
+      <div>
+        <strong>Winner on scale:</strong>
+        <ul>
+          <li><strong>Airbnb</strong> grew from a reported <strong>$10B 2014 private valuation</strong> to roughly <strong>$75.45B</strong> in current public market cap.</li>
+          <li><strong>Yum! Brands</strong>, used here as the public proxy for <strong>Pizza Hut</strong>, rose from roughly <strong>$31.9B</strong> at the end of 2014 to about <strong>$42.18B</strong> today.</li>
+          <li><strong>Tapestry</strong>, the public parent of <strong>Kate Spade</strong>, now sits near <strong>$26.87B</strong>, while Coach bought Kate Spade for <strong>$2.4B</strong> in 2017.</li>
+        </ul>
+      </div>
+      <div>
+        <strong>Biggest destruction stories:</strong>
+        <ul>
+          <li><strong>Rent the Runway</strong> went from about <strong>$520M</strong> in 2014 and <strong>$1.7B</strong> at IPO in 2021 to about <strong>$16.7M</strong>.</li>
+          <li><strong>Vimeo</strong> moved from a <strong>$5.2B–$5.7B</strong> 2021 funding anchor to roughly <strong>$1.29B</strong> today.</li>
+        </ul>
+      </div>
+      <div>
+        <strong>Brand takeaways:</strong>
+        <ul>
+          <li><strong>Platform durability</strong> beats <strong>inventory risk</strong>.</li>
+          <li><strong>Spin-off premium</strong> can compress fast when growth cools.</li>
+          <li><strong>Brand equity</strong> does not shield against <strong>debt load</strong>.</li>
+          <li><strong>Store rationalization</strong> and <strong>workforce resizing</strong> are recurring signals of margin pressure.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</section>
+
+<main class="infographic-wrapper">
+  <div class="section-title">
+    <div>
+      <h2>Visual dashboard</h2>
+      <p>These charts use comparable anchors where possible. For brands that are not standalone public companies, the page uses the most credible available proxy and labels the caveat in each card.</p>
+    </div>
+  </div>
+
+  <section class="chart-grid">
+    <article class="dashboard-card large">
+      <div class="chart-head">
+        <div>
+          <h3>Value anchors: then vs now</h3>
+          <p>Uses 2014 value when available; otherwise the earliest defensible public anchor after 2014, such as IPO valuation, acquisition value, or parent-company benchmark.</p>
+        </div>
+      </div>
+      <div class="chart-wrap" id="valueChartCard">
+        <canvas id="valueChart"></canvas>
+      </div>
+      <div class="chart-legend-note">
+        Public market values update continuously; this file locks current values to April 14, 2026. Private-company rows such as GiveWP and Membean are marked as unavailable when no reliable public valuation was found.
+      </div>
+    </article>
+
+    <article class="dashboard-card small">
+      <div class="chart-head">
+        <div>
+          <h3>Status mix</h3>
+          <p>Current portfolio condition across the ten names.</p>
+        </div>
+      </div>
+      <div class="chart-wrap" id="statusChartCard">
+        <canvas id="statusChart"></canvas>
+      </div>
+    </article>
+
+    <article class="dashboard-card small">
+      <div class="chart-head">
+        <div>
+          <h3>Restructuring pressure score</h3>
+          <p>Higher score = stronger evidence of closures, layoffs, bankruptcy, or severe valuation compression.</p>
+        </div>
+      </div>
+      <div class="chart-wrap" id="pressureChartCard">
+        <canvas id="pressureChart"></canvas>
+      </div>
+    </article>
+
+    <article class="dashboard-card medium">
+      <div class="chart-head">
+        <div>
+          <h3>Brand strength vs financial strain</h3>
+          <p>Illustrative strategic positioning using the evidence in this dashboard.</p>
+        </div>
+      </div>
+      <div class="chart-wrap" id="matrixChartCard">
+        <canvas id="matrixChart"></canvas>
+      </div>
+    </article>
+
+    <article class="dashboard-card medium glossary-block">
+      <div class="chart-head">
+        <div>
+          <h3>Digital branding + strategy vocabulary</h3>
+          <p>Keywords / digital-brand / portfolio-analysis narrative.</p>
+        </div>
+      </div>
+      <div class="keyword-cloud" id="keywordCloudCard">
+        <span>brand equity</span>
+        <span>customer lifetime value</span>
+        <span>unit economics</span>
+        <span>operating leverage</span>
+        <span>store rationalization</span>
+        <span>portfolio durability</span>
+        <span>capital efficiency</span>
+        <span>omnichannel</span>
+        <span>platform moat</span>
+        <span>growth premium compression</span>
+        <span>debt overhang</span>
+        <span>margin resilience</span>
+        <span>consumer demand elasticity</span>
+        <span>enterprise narrative</span>
+        <span>reputational insulation</span>
+        <span>category leadership</span>
+        <span>turnaround signal</span>
+        <span>restructuring risk</span>
+      </div>
+    </article>
+  </section>
+
+  <div class="section-title">
+    <div>
+      <h2>Company deep dives</h2>
+      <p>Click any card to open the full summary, operational signal, and source stack.</p>
+    </div>
+  </div>
+
+  <section class="company-grid" id="companyGrid"></section>
+
+  <div class="section-title table-block">
+    <div>
+      <h2>Quick comparison table</h2>
+      <p>Best single-page scan for worth more vs less, change narrative, and restructuring signal.</p>
+    </div>
+  </div>
+
+  <section class="table-block">
+    <article class="dashboard-card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Company / Brand</th>
+              <th>2014 Anchor</th>
+              <th>Current / Latest Anchor</th>
+              <th>Direction</th>
+              <th>Operational Signal</th>
+            </tr>
+          </thead>
+          <tbody id="comparisonTable"></tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+
+  <section class="glossary-grid glossary-block">
+    <article class="glossary-card">
+      <h3>Brand strategy terms</h3>
+      <p>Use these when framing premium brands, category fit, and customer perception.</p>
+      <ul>
+        <li><strong>Brand equity:</strong> the commercial value produced by recognition, trust, and premium perception.</li>
+        <li><strong>Luxury signal preservation:</strong> maintaining pricing power and desirability while reducing promotional dependence.</li>
+        <li><strong>Omnichannel conversion:</strong> aligning digital and physical sales touchpoints into one buying journey.</li>
+        <li><strong>Narrative continuity:</strong> keeping the customer story consistent across product, investor, and public channels.</li>
+      </ul>
+    </article>
+    <article class="glossary-card">
+      <h3>Finance + operations terms</h3>
+      <p>Useful for value-comparison commentary.</p>
+      <ul>
+        <li><strong>Valuation anchor:</strong> the reference point used when exact apples-to-apples comparisons are not possible.</li>
+        <li><strong>Store rationalization:</strong> a deliberate reduction in store footprint to preserve profitability.</li>
+        <li><strong>Debt overhang:</strong> debt obligations that constrain strategic flexibility and investor confidence.</li>
+        <li><strong>Multiple compression:</strong> a falling valuation multiple as growth or sentiment weakens.</li>
+      </ul>
+    </article>
+    <article class="glossary-card">
+      <h3>Digital-product and platform terms</h3>
+      <p>Useful for Airbnb, Vimeo, GiveWP, Membean, and Fitbit.</p>
+      <ul>
+        <li><strong>Platform durability:</strong> staying valuable because the network effect or ecosystem remains sticky.</li>
+        <li><strong>Feature-to-platform migration:</strong> the move from a narrow product to a broader ecosystem position.</li>
+        <li><strong>Subscription resilience:</strong> the ability to retain recurring revenue through macro volatility.</li>
+        <li><strong>User-intent density:</strong> how efficiently a product captures meaningful customer action.</li>
+      </ul>
+    </article>
+  </section>
+
+  <div class="section-title">
+    <div>
+      <h2>APA-style references</h2>
+      <p>These are the public links used to build this infographic. Format is compact APA-inspired web reference styling for practical portfolio use.</p>
+    </div>
+  </div>
+
+  <section class="reference-grid" id="referenceGrid"></section>
+
+  <article class="method-card">
+    <h3>Methodology and caveats</h3>
+    <p>
+      This page compares different kinds of value anchors because not every brand in the list has a continuously traded standalone equity. When a brand is not independently public,
+      the dashboard uses the most defensible alternative: acquisition price, private valuation, or parent-company public market cap. That means <strong>Pizza Hut</strong> is represented through
+      <strong>Yum! Brands</strong>, and <strong>Kate Spade</strong> is partly contextualized through <strong>Tapestry</strong> plus its 2017 sale.
+      Values for <strong>GiveWP</strong> and <strong>Membean</strong> are intentionally labeled unavailable when no reliable public valuation was found.
+    </p>
+    <p>
+      The dashboard is designed to be visually persuasive and professionally useful rather than pretending every datapoint is perfectly apples-to-apples. That tradeoff is often the right one in executive communications, consulting decks, and portfolio storytelling.
+    </p>
+    <p class="footer-note">
+      Data locked for the file generation date: <strong>April 14, 2026</strong>. Public market caps cited in this file were taken from current market data snapshots on that date. Always refresh values before using the page in a live interview, client presentation, or public case-study post.
+    </p>
+  </article>
+</main>
+
+<button id="pageScrollTop" class="page-scroll-top" aria-label="Back to top">▲</button>
+
+<script>
+const companyData = [
+  {
+    name: "Airbnb",
+    category: "Public platform",
+    score: "Momentum winner",
+    thenValue: 10.0,
+    nowValue: 75.45,
+    thenLabel: "$10.0B private valuation (2014)",
+    nowLabel: "$75.45B market cap (Apr 14, 2026)",
+    direction: "Higher",
+    status: "Public / scaled",
+    pressure: 2,
+    brandStrength: 9.5,
+    financialStress: 2.0,
+    preview: "Airbnb is the clearest scale winner in the group. It was reported at a $10B private valuation in 2014 and now trades at roughly $75.45B.",
+    detail: [
+      "Airbnb closed a funding round around a $10 billion valuation in April 2014, making it one of the highest-profile startup valuation stories of the decade.",
+      "Its current public market cap is roughly $75.45 billion, placing it far above every other directly comparable name in this client list.",
+      "The firm still had a major cost-reset moment, laying off about 25% of its workforce in 2020 and later trimming recruiting in 2023, but those cuts look more like a macro reset than a collapse in strategic relevance."
+    ],
+    signals: ["Platform durability", "Network effect", "Global brand recognition", "Recovered from pandemic shock"],
+    sources: [
+      {label: "TechCrunch — Airbnb closes funding at $10B valuation (2014)", url: "https://techcrunch.com/2014/04/18/airbnb-has-closed-its-500m-round-of-funding-at-a-10b-valuation-led-by-tpg/"},
+      {label: "Market data snapshot — Airbnb market cap", url: "https://www.reuters.com/markets/companies/ABNB.O/"},
+      {label: "Reuters — Airbnb forecast / current business context (2026)", url: "https://www.reuters.com/business/airbnb-forecast-revenue-above-estimates-premium-rentals-demand-2026-02-12/"}
+    ]
+  },
+  {
+    name: "Pizza Hut",
+    category: "Brand inside public parent",
+    score: "Stable parent, stressed brand",
+    thenValue: 31.87,
+    nowValue: 42.18,
+    thenLabel: "$31.87B Yum! Brands market cap proxy (Dec 31, 2014)",
+    nowLabel: "$42.18B Yum! Brands market cap proxy (Apr 14, 2026)",
+    direction: "Higher via parent",
+    status: "Open / rationalizing footprint",
+    pressure: 5,
+    brandStrength: 7.0,
+    financialStress: 5.5,
+    preview: "Pizza Hut is not separately traded, so the page uses Yum! Brands as its public value proxy. The parent is worth more now than in 2014, even though Pizza Hut itself has been under pressure.",
+    detail: [
+      "Yum! Brands ended 2014 with a market cap around $31.87 billion and stands near $42.18 billion now.",
+      "That does not mean Pizza Hut itself is thriving. Reuters reported in late 2025 that Yum was exploring options for Pizza Hut after multiple quarters of falling sales.",
+      "Additional 2026 coverage pointed to plans to close about 250 underperforming U.S. Pizza Hut locations, underscoring store rationalization even while the broader parent remains valuable."
+    ],
+    signals: ["Parent-company resilience", "Brand-level weakness", "Store rationalization", "Sales pressure"],
+    sources: [
+      {label: "StockAnalysis — Yum! Brands historical market cap", url: "https://stockanalysis.com/stocks/yum/market-cap/"},
+      {label: "Market data snapshot — Yum! Brands market cap", url: "https://www.reuters.com/markets/companies/YUM.N/"},
+      {label: "Reuters — Yum begins strategic review for Pizza Hut (2025)", url: "https://www.reuters.com/business/yum-brands-begins-strategic-review-struggling-pizza-hut-chain-2025-11-04/"},
+      {label: "Business Insider — 2026 store closure roundup citing Pizza Hut", url: "https://www.businessinsider.com/stores-closing-in-2026-list"}
+    ]
+  },
+  {
+    name: "Kate Spade",
+    category: "Acquired brand / parent proxy",
+    score: "Brand survives inside parent",
+    thenValue: 2.4,
+    nowValue: 26.87,
+    thenLabel: "$2.4B acquisition price (2017 sale anchor)",
+    nowLabel: "$26.87B Tapestry market cap context (Apr 14, 2026)",
+    direction: "Mixed / non-comparable",
+    status: "Active brand inside Tapestry",
+    pressure: 4,
+    brandStrength: 7.4,
+    financialStress: 3.8,
+    preview: "Kate Spade is still commercially relevant, but no longer as a standalone public company. The cleanest value anchor is Coach/Tapestry's $2.4B acquisition in 2017.",
+    detail: [
+      "Kate Spade is hard to compare directly from 2014 to now because it no longer trades independently.",
+      "Reuters reported in 2023 that Tapestry bought Kate Spade for $2.4 billion in 2017. Tapestry's current public market cap is about $26.87 billion.",
+      "Operationally, the brand had already undergone portfolio tightening earlier, including the wind-down of Kate Spade Saturday and closures in 2015."
+    ],
+    signals: ["Brand portfolio integration", "Luxury signal preservation", "Parent-supported scale", "No standalone public valuation"],
+    sources: [
+      {label: "Reuters — Tapestry / Kate Spade acquisition context", url: "https://www.reuters.com/markets/deals/coach-parent-tapestry-talks-buy-michael-kors-owner-wsj-2023-08-10/"},
+      {label: "Market data snapshot — Tapestry market cap", url: "https://www.reuters.com/markets/companies/TPR.N/"},
+      {label: "Reuters — Kate Spade winds down lower-margin businesses (2015)", url: "https://www.reuters.com/article/world/kate-spade-same-store-sales-growth-beats-on-demand-for-handbags-idUSKCN0QA2CL/"},
+      {label: "MarketWatch — Kate Spade Saturday closures", url: "https://www.marketwatch.com/story/kate-spade-to-close-saturday-jack-spade-stores-2015-01-29"}
+    ]
+  },
+  {
+    name: "Fitbit",
+    category: "Acquired hardware brand",
+    score: "Exited via strategic sale",
+    thenValue: 4.1,
+    nowValue: 2.1,
+    thenLabel: "$4.1B IPO valuation (2015 anchor)",
+    nowLabel: "$2.1B Google acquisition (closed 2021)",
+    direction: "Lower",
+    status: "Absorbed into Google",
+    pressure: 6,
+    brandStrength: 7.2,
+    financialStress: 5.0,
+    preview: "Fitbit does not provide a clean 2014 public benchmark, so the dashboard uses its 2015 IPO valuation and 2021 Google acquisition value.",
+    detail: [
+      "Reuters reported Fitbit's 2015 IPO valued the company at about $4.1 billion.",
+      "Google's acquisition, completed in 2021, closed at $2.1 billion.",
+      "That implies a lower exit value than the IPO-era benchmark and illustrates how wearable enthusiasm compressed as platform giants consolidated the category."
+    ],
+    signals: ["Strategic acquisition", "Category consolidation", "Hardware margin pressure", "Brand folded into ecosystem"],
+    sources: [
+      {label: "Reuters — Fitbit IPO valued at about $4.1B (2015)", url: "https://www.reuters.com/article/business/wearable-fitness-tracker-fitbit-ipo-priced-at-20-per-share-idUSL1N0Z332P/"},
+      {label: "Reuters — Google closes $2.1B Fitbit deal (2021)", url: "https://www.reuters.com/business/google-closes-fitbit-deal-us-australia-probes-continue-2021-01-14/"},
+      {label: "Google blog — Fitbit acquisition completed", url: "https://blog.google/products-and-platforms/devices/fitbit-acquisition/"}
+    ]
+  },
+  {
+    name: "Rent the Runway",
+    category: "Public fashion platform",
+    score: "Severe valuation compression",
+    thenValue: 0.52,
+    nowValue: 0.0167,
+    thenLabel: "$520M valuation (2014)",
+    nowLabel: "$16.7M market cap (Apr 14, 2026)",
+    direction: "Far lower",
+    status: "Public / deeply compressed",
+    pressure: 9,
+    brandStrength: 5.8,
+    financialStress: 8.9,
+    preview: "Rent the Runway is one of the sharpest destruction stories in the set, dropping from hundreds of millions in private value to a very small current market cap.",
+    detail: [
+      "Funding-era reports placed Rent the Runway around a $520 million valuation in 2014.",
+      "Reuters reported its public debut in 2021 implied a roughly $1.7 billion valuation, but today's market cap is only about $16.7 million.",
+      "The company also laid off retail workers in 2020 and cut about 10% of corporate jobs in 2024, reinforcing the financial-stress narrative."
+    ],
+    signals: ["Multiple compression", "Operational reset", "Demand model pressure", "Micro-cap risk"],
+    sources: [
+      {label: "Global Venturing — 2014 valuation reference", url: "https://globalventuring.com/corporate/rent-the-runway-lands-357m-in-ipo/"},
+      {label: "Reuters — Rent the Runway IPO at $1.7B valuation", url: "https://www.reuters.com/business/retail-consumer/fashion-firm-rent-runway-struts-into-wall-st-with-17-billion-valuation-2021-10-27/"},
+      {label: "Market data snapshot — Rent the Runway market cap", url: "https://www.reuters.com/markets/companies/RENT.O/"},
+      {label: "Reuters — layoffs amid coronavirus outbreak (2020)", url: "https://www.reuters.com/article/business/clothing-rental-service-rent-the-runway-lays-off-workers-amid-coronavirus-outbre-idUSKBN21G01H/"},
+      {label: "Forbes — 10% corporate workforce cut (2024)", url: "https://www.forbes.com/sites/walterloeb/2024/01/11/rent-the-runway-cuts-10-of-corporate-workforce-as-coo-exits/"}
+    ]
+  },
+  {
+    name: "Vimeo",
+    category: "Public video platform",
+    score: "Post-spin premium faded",
+    thenValue: 6.0,
+    nowValue: 1.29,
+    thenLabel: "$6.0B 2021 funding valuation anchor",
+    nowLabel: "$1.29B market cap (Apr 14, 2026)",
+    direction: "Lower",
+    status: "Public / smaller than spin era",
+    pressure: 7,
+    brandStrength: 6.4,
+    financialStress: 6.5,
+    preview: "Vimeo's post-pandemic growth premium compressed sharply. The current market cap is far below its 2021 private valuation anchor.",
+    detail: [
+      "IAC and Reuters reported Vimeo raised $300 million in 2021 at a valuation of about $5.2 billion to $5.7 billion; this page rounds that to a simple $6.0 billion visual anchor.",
+      "The company now sits around a $1.29 billion market cap.",
+      "This makes Vimeo a clean example of how spin-off or growth-era enthusiasm can compress when investor expectations normalize."
+    ],
+    signals: ["Growth premium compression", "Spin-off repricing", "Subscription narrative reset", "Still viable, but much smaller"],
+    sources: [
+      {label: "IAC investor relations — Vimeo raises equity at $5.2B/$5.7B valuation", url: "https://ir.iac.com/news-releases/news-release-details/vimeo-raises-300-million-equity"},
+      {label: "Reuters — Vimeo raises $300M, valuation hits $6B", url: "https://www.reuters.com/business/media-telecom/vimeo-raises-300-million-equity-valuation-hits-6-bln-2021-01-25/"},
+      {label: "Market data snapshot — Vimeo market cap", url: "https://www.reuters.com/markets/companies/VMEO.O/"}
+    ]
+  },
+  {
+    name: "GiveWP",
+    category: "Private software / WordPress",
+    score: "Healthy niche product, no public valuation",
+    thenValue: null,
+    nowValue: null,
+    thenLabel: "Not founded until 2015",
+    nowLabel: "Private / valuation not publicly disclosed",
+    direction: "N/A",
+    status: "Operating under StellarWP",
+    pressure: 3,
+    brandStrength: 6.1,
+    financialStress: 3.1,
+    preview: "GiveWP did not exist in 2014, so a 2014 comparison is not possible. It remains a private software asset inside the Liquid Web / StellarWP ecosystem.",
+    detail: [
+      "StellarWP states that GiveWP was founded in 2015.",
+      "Liquid Web acquired GiveWP in 2021, but no official public transaction value was disclosed in the primary announcement.",
+      "Strategically, GiveWP reads like a stable niche SaaS / plugin asset rather than a public valuation story."
+    ],
+    signals: ["Niche market leadership", "Acquired growth asset", "No clean public price", "Plugin ecosystem relevance"],
+    sources: [
+      {label: "StellarWP — GiveWP founded in 2015, acquired in 2021", url: "https://stellarwp.com/brands/givewp/"},
+      {label: "Liquid Web press release — acquisition announcement", url: "https://www.liquidweb.com/press-releases/liquid-web-acquires-givewp/"},
+      {label: "GiveWP blog — joins Liquid Web family", url: "https://givewp.com/givewp-joins-liquidweb/"}
+    ]
+  },
+  {
+    name: "Membean",
+    category: "Private edtech",
+    score: "Small private operator",
+    thenValue: null,
+    nowValue: null,
+    thenLabel: "Private / no reliable public 2014 valuation found",
+    nowLabel: "Private / no reliable public current valuation found",
+    direction: "N/A",
+    status: "Operating privately",
+    pressure: 2,
+    brandStrength: 4.8,
+    financialStress: 2.8,
+    preview: "Membean appears to be a small, still-operating private company, but there is no reliable public valuation anchor for a then-vs-now value comparison.",
+    detail: [
+      "Membean's official site describes a small distributed team based in Portland, Oregon.",
+      "No public acquisition, IPO, bankruptcy, or large layoff record surfaced in the sources reviewed for this page.",
+      "That makes Membean qualitatively different from the market-facing public or heavily reported consumer brands in the same list."
+    ],
+    signals: ["Small private team", "No public value anchor", "Steady operating presence", "Low visibility, low headline risk"],
+    sources: [
+      {label: "Membean — company about page", url: "https://membean.com/about"},
+      {label: "LinkedIn company profile — Membean founded 2009, 11–50 employees", url: "https://www.linkedin.com/company/membean"}
+    ]
+  },
+  {
+    name: "GameCrazy",
+    category: "Defunct retail chain",
+    score: "Zeroed out",
+    thenValue: 0.0,
+    nowValue: 0.0,
+    thenLabel: "Already defunct by 2010",
+    nowLabel: "Defunct",
+    direction: "Zero / gone",
+    status: "Closed before 2014",
+    pressure: 10,
+    brandStrength: 1.5,
+    financialStress: 10.0,
+    preview: "GameCrazy had already effectively failed before the 2014 starting line, so the 2014-to-today value track is simply zero to zero as a defunct chain.",
+    detail: [
+      "GameCrazy was a video game retail chain tied to Hollywood Video / Movie Gallery.",
+      "Reports in 2010 said the remaining locations were shutting as the parent company failed.",
+      "Because the business was already gone by the requested 2014 start, it functions in this infographic as a historical collapse reference point rather than a live comparable."
+    ],
+    signals: ["Legacy chain failure", "Physical retail collapse", "No surviving brand value", "Historical cautionary tale"],
+    sources: [
+      {label: "GameSpot — GameCrazy closing down completely (2010)", url: "https://www.gamespot.com/articles/game-crazy-closing-down-completely/1100-6260944/"},
+      {label: "Yahoo Finance — parent bankruptcy leaves 250 stores initially (2010)", url: "https://finance.yahoo.com/news/2010-02-03-game-crazy-parent-files-for-chapter-11-250-stores-to-remain.html"}
+    ]
+  }
+];
+
+const references = [
+  {text: "GiveWP. (2021, May 11). GiveWP joins the Liquid Web family of brands.", url: "https://givewp.com/givewp-joins-liquidweb/"},
+  {text: "IAC. (2021, January 25). Vimeo raises $300 million of equity.", url: "https://ir.iac.com/news-releases/news-release-details/vimeo-raises-300-million-equity"},
+  {text: "Liquid Web. (2021, May 11). Liquid Web acquires GiveWP.", url: "https://www.liquidweb.com/press-releases/liquid-web-acquires-givewp/"},
+  {text: "Membean. (n.d.). About us.", url: "https://membean.com/about"},
+  {text: "Reuters. (2015, June 17). Wearable fitness tracker Fitbit IPO priced at $20 per share.", url: "https://www.reuters.com/article/business/wearable-fitness-tracker-fitbit-ipo-priced-at-20-per-share-idUSL1N0Z332P/"},
+  {text: "Reuters. (2015, August 5). Kate Spade same-store sales growth beats on demand for handbags.", url: "https://www.reuters.com/article/world/kate-spade-same-store-sales-growth-beats-on-demand-for-handbags-idUSKCN0QA2CL/"},
+  {text: "Reuters. (2020, March 28). Clothing rental service Rent the Runway lays off workers amid coronavirus outbreak.", url: "https://www.reuters.com/article/business/clothing-rental-service-rent-the-runway-lays-off-workers-amid-coronavirus-outbre-idUSKBN21G01H/"},
+  {text: "Reuters. (2021, January 14). Google closes Fitbit deal as U.S., Australia probes continue.", url: "https://www.reuters.com/business/google-closes-fitbit-deal-us-australia-probes-continue-2021-01-14/"},
+  {text: "Reuters. (2021, January 25). Vimeo raises $300 million equity, valuation hits $6 bln.", url: "https://www.reuters.com/business/media-telecom/vimeo-raises-300-million-equity-valuation-hits-6-bln-2021-01-25/"},
+  {text: "Reuters. (2021, October 27). Fashion firm Rent the Runway struts into Wall St with $1.7 billion valuation.", url: "https://www.reuters.com/business/retail-consumer/fashion-firm-rent-runway-struts-into-wall-st-with-17-billion-valuation-2021-10-27/"},
+  {text: "Reuters. (2023, August 10). Coach parent Tapestry talks to buy Michael Kors owner.", url: "https://www.reuters.com/markets/deals/coach-parent-tapestry-talks-buy-michael-kors-owner-wsj-2023-08-10/"},
+  {text: "Reuters. (2026, February 12). Airbnb forecast revenue above estimates on premium rentals demand.", url: "https://www.reuters.com/business/airbnb-forecast-revenue-above-estimates-premium-rentals-demand-2026-02-12/"},
+  {text: "Reuters. (2025, November 4). Yum Brands begins strategic review for struggling Pizza Hut chain.", url: "https://www.reuters.com/business/yum-brands-begins-strategic-review-struggling-pizza-hut-chain-2025-11-04/"},
+  {text: "StellarWP. (n.d.). GiveWP.", url: "https://stellarwp.com/brands/givewp/"},
+  {text: "StockAnalysis. (2026). Yum! Brands market cap history.", url: "https://stockanalysis.com/stocks/yum/market-cap/"},
+  {text: "TechCrunch. (2014, April 18). Airbnb has closed its $500M round of funding at a $10B valuation.", url: "https://techcrunch.com/2014/04/18/airbnb-has-closed-its-500m-round-of-funding-at-a-10b-valuation-led-by-tpg/"},
+  {text: "Global Venturing. (2021, October 29). Rent the Runway lands $357m in IPO.", url: "https://globalventuring.com/corporate/rent-the-runway-lands-357m-in-ipo/"},
+  {text: "GameSpot. (2010, May 3). Game Crazy closing down completely.", url: "https://www.gamespot.com/articles/game-crazy-closing-down-completely/1100-6260944/"},
+  {text: "Yahoo Finance. (2010, February 4). Game Crazy parent files for Chapter 11, 250 stores to remain.", url: "https://finance.yahoo.com/news/2010-02-03-game-crazy-parent-files-for-chapter-11-250-stores-to-remain.html"},
+  {text: "Forbes. (2024, January 11). Rent The Runway cuts 10% of corporate workforce as COO exits.", url: "https://www.forbes.com/sites/walterloeb/2024/01/11/rent-the-runway-cuts-10-of-corporate-workforce-as-coo-exits/"}
+];
+
+const companyGrid = document.getElementById('companyGrid');
+const comparisonTable = document.getElementById('comparisonTable');
+const referenceGrid = document.getElementById('referenceGrid');
+const themeToggle = document.getElementById('themeToggle');
+const pageScrollTop = document.getElementById('pageScrollTop');
+const STORAGE_KEY = 'blair-enterprise-theme';
+let chartInstances = [];
+
+function moneyFormat(value) {
+  if (value === null || Number.isNaN(value)) return 'N/A';
+  if (value >= 1) return `$${value.toFixed(2)}B`;
+  if (value === 0) return '$0';
+  return `$${(value * 1000).toFixed(1)}M`;
+}
+
+function buildCompanyCards() {
+  companyData.forEach((company) => {
+    const card = document.createElement('article');
+    card.className = 'company-card';
+    card.innerHTML = `
+      <div class="company-header">
+        <div>
+          <span class="category">${company.category}</span>
+          <h3>${company.name}</h3>
+        </div>
+        <span class="score-pill">${company.score}</span>
+      </div>
+      <p class="company-preview">${company.preview}</p>
+      <div class="company-meta">
+        <div class="meta-box">
+          <span class="label">Then anchor</span>
+          <span class="value">${company.thenLabel}</span>
+        </div>
+        <div class="meta-box">
+          <span class="label">Now / latest anchor</span>
+          <span class="value">${company.nowLabel}</span>
+        </div>
+        <div class="meta-box">
+          <span class="label">Direction</span>
+          <span class="value">${company.direction}</span>
+        </div>
+        <div class="meta-box">
+          <span class="label">Status</span>
+          <span class="value">${company.status}</span>
+        </div>
+      </div>
+      <div class="company-detail">
+        ${company.detail.map((p) => `<p>${p}</p>`).join('')}
+        <p><strong>Strategic signals:</strong></p>
+        <ul>${company.signals.map((item) => `<li>${item}</li>`).join('')}</ul>
+        <div class="source-list source-block">
+          <h4>Source stack</h4>
+          ${company.sources.map((s) => `<p><a href="${s.url}" target="_blank" rel="noopener noreferrer">${s.label}</a></p>`).join('')}
+        </div>
+      </div>
+    `;
+    companyGrid.appendChild(card);
+  });
+}
+
+function buildComparisonTable() {
+  companyData.forEach((company) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td><strong>${company.name}</strong></td>
+      <td>${company.thenLabel}</td>
+      <td>${company.nowLabel}</td>
+      <td>${company.direction}</td>
+      <td>${company.status}</td>
+    `;
+    comparisonTable.appendChild(row);
+  });
+}
+
+function buildReferences() {
+  references.forEach((ref) => {
+    const card = document.createElement('article');
+    card.className = 'reference-card source-block';
+    card.innerHTML = `<h3>Reference</h3><p>${ref.text}</p><p><a href="${ref.url}" target="_blank" rel="noopener noreferrer">${ref.url}</a></p>`;
+    referenceGrid.appendChild(card);
+  });
+}
+
+function destroyCharts() {
+  chartInstances.forEach((chart) => chart.destroy());
+  chartInstances = [];
+}
+
+function chartTextColor() {
+  return getComputedStyle(document.body).getPropertyValue('--text-light').trim() || '#f0eff4';
+}
+
+function chartGridColor() {
+  return 'rgba(240,239,244,0.12)';
+}
+
+function chartAccent() {
+  return '#9e829c';
+}
+
+function createCharts() {
+  if (typeof Chart === 'undefined') return;
+  destroyCharts();
+
+  const labels = companyData.map((c) => c.name);
+  const thenData = companyData.map((c) => c.thenValue);
+  const nowData = companyData.map((c) => c.nowValue);
+  const pressureData = companyData.map((c) => c.pressure);
+
+  Chart.defaults.color = chartTextColor();
+  Chart.defaults.borderColor = chartGridColor();
+  Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+  Chart.defaults.animation = false;
+  Chart.defaults.responsive = true;
+
+  const valueChart = new Chart(document.getElementById('valueChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Then anchor (B USD)',
+          data: thenData,
+          backgroundColor: 'rgba(158,130,156,0.70)',
+          borderColor: 'rgba(240,239,244,0.35)',
+          borderWidth: 1,
+          borderRadius: 8
+        },
+        {
+          label: 'Now / latest anchor (B USD)',
+          data: nowData,
+          backgroundColor: 'rgba(240,239,244,0.30)',
+          borderColor: 'rgba(240,239,244,0.38)',
+          borderWidth: 1,
+          borderRadius: 8
+        }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      animation: false,
+      scales: {
+        x: { ticks: { maxRotation: 45, minRotation: 45 } },
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'USD billions (proxy where noted)' }
+        }
+      },
+      plugins: {
+        legend: { labels: { boxWidth: 14 } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `${ctx.dataset.label}: ${moneyFormat(ctx.raw)}`
+          }
+        }
+      }
+    }
+  });
+
+  const statusCounts = {
+    'Public / scaled': 1,
+    'Parent proxy / operating brand': 0,
+    'Acquired / inside larger parent': 3,
+    'Private / no public valuation': 2,
+    'Distressed or defunct': 4
+  };
+
+  companyData.forEach((c) => {
+    if (c.status.includes('Chapter 11') || c.status.includes('Closed') || c.status.includes('defunct')) statusCounts['Distressed or defunct'] += 1;
+    else if (c.status.includes('Operating privately')) statusCounts['Private / no public valuation'] += 1;
+    else if (c.status.includes('StellarWP')) statusCounts['Private / no public valuation'] += 1;
+    else if (c.status.includes('Google') || c.status.includes('Tapestry') || c.status.includes('parent')) statusCounts['Acquired / inside larger parent'] += 1;
+    else if (c.status.includes('rationalizing')) statusCounts['Parent proxy / operating brand'] += 1;
+  });
+
+  const statusChart = new Chart(document.getElementById('statusChart'), {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(statusCounts),
+      datasets: [{
+        data: Object.values(statusCounts),
+        backgroundColor: [
+          'rgba(240,239,244,0.55)',
+          'rgba(158,130,156,0.78)',
+          'rgba(240,239,244,0.22)',
+          'rgba(158,130,156,0.45)',
+          'rgba(255,255,255,0.12)'
+        ],
+        borderColor: 'rgba(240,239,244,0.24)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      animation: false,
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+
+  const pressureChart = new Chart(document.getElementById('pressureChart'), {
+    type: 'radar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Pressure score',
+        data: pressureData,
+        backgroundColor: 'rgba(158,130,156,0.18)',
+        borderColor: chartAccent(),
+        pointBackgroundColor: 'rgba(240,239,244,0.85)',
+        pointBorderColor: chartAccent(),
+        pointRadius: 3
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      animation: false,
+      scales: {
+        r: {
+          suggestedMin: 0,
+          suggestedMax: 10,
+          angleLines: { color: chartGridColor() },
+          grid: { color: chartGridColor() },
+          pointLabels: { color: chartTextColor() },
+          ticks: { display: false, stepSize: 2 }
+        }
+      }
+    }
+  });
+
+  const matrixChart = new Chart(document.getElementById('matrixChart'), {
+    type: 'scatter',
+    data: {
+      datasets: [{
+        label: 'Brand vs financial strain',
+        data: companyData.map((c) => ({ x: c.brandStrength, y: c.financialStress, label: c.name })),
+        backgroundColor: 'rgba(158,130,156,0.78)',
+        borderColor: 'rgba(240,239,244,0.55)',
+        borderWidth: 1.2,
+        pointRadius: 6,
+        pointHoverRadius: 8
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      animation: false,
+      scales: {
+        x: { min: 0, max: 10, title: { display: true, text: 'Brand / customer strength' } },
+        y: { min: 0, max: 10, title: { display: true, text: 'Financial stress / restructuring strain' } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const d = ctx.raw;
+              return `${d.label}: brand ${d.x}, strain ${d.y}`;
+            }
+          }
+        }
+      }
+    }
+  });
+
+  chartInstances.push(valueChart, statusChart, pressureChart, matrixChart);
+}
+
+function applyThemeIcon() {
+  if (!themeToggle) return;
+  themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+}
+
+function applySavedTheme() {
+  try {
+    if (localStorage.getItem(STORAGE_KEY) === 'dark') {
+      document.body.classList.add('dark');
+    }
+  } catch (error) {
+    console.warn('Theme storage unavailable.', error);
+  }
+  applyThemeIcon();
+}
+
+function bindThemeToggle() {
+  if (!themeToggle) return;
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    applyThemeIcon();
+    try {
+      localStorage.setItem(STORAGE_KEY, document.body.classList.contains('dark') ? 'dark' : 'light');
+    } catch (error) {
+      console.warn('Theme storage unavailable.', error);
+    }
+    requestAnimationFrame(createCharts);
+  });
+}
+
+function bindScrollTop() {
+  window.addEventListener('scroll', () => {
+    if ((window.scrollY || document.documentElement.scrollTop) > 180) pageScrollTop.classList.add('show');
+    else pageScrollTop.classList.remove('show');
+  }, { passive: true });
+
+  pageScrollTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+
+function init() {
+  applySavedTheme();
+  buildCompanyCards();
+  buildComparisonTable();
+  buildReferences();
+  bindThemeToggle();
+  bindScrollTop();
+  createCharts();
+
+  window.addEventListener('resize', () => {
+    window.clearTimeout(window.__blairEnterpriseResizeTimer);
+    window.__blairEnterpriseResizeTimer = window.setTimeout(createCharts, 120);
+  }, { passive: true });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+} else {
+  init();
+}
+</script>
+<script>
+/* ==========================================
+   VALLEY GIRL PLAYER (MOON ZAPPA)
+   SAME BUTTON / SAME VIDEO
+   STARTS CLOSED — NO VIDEO LOAD UNTIL CLICK
+   CYCLE:
+   ▶ closed
+   🔊 open muted + playing
+   🔇 unmuted + playing
+   ■ stopped but open
+   ✕ close back to closed
+   ========================================== */
+(function () {
+  const PLAYER_ID = 'valley-girl-player';
+  const BUTTON_ID = 'valley-girl-button';
+  const FRAME_ID = 'valleyGirlFrame';
+
+  /* SAME EXACT VIDEO */
+  const VIDEO_ID = 'K1naxrgRUbc';
+
+  /* REMOVE EXISTING IF RE-APPENDED */
+  const oldPlayer = document.getElementById(PLAYER_ID);
+  const oldBtn = document.getElementById(BUTTON_ID);
+  if (oldPlayer) oldPlayer.remove();
+  if (oldBtn) oldBtn.remove();
+
+  function buildSrc(muted) {
+    return (
+      'https://www.youtube.com/embed/' + VIDEO_ID +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&loop=1' +
+      '&playlist=' + VIDEO_ID +
+      '&playsinline=1'
+    );
+  }
+
+  /* PLAYER CONTAINER — STARTS CLOSED */
+  const container = document.createElement('div');
+  container.id = PLAYER_ID;
+  container.style.position = 'fixed';
+  container.style.bottom = '70px';
+  container.style.left = '20px';
+  container.style.width = '260px';
+  container.style.height = '150px';
+  container.style.zIndex = '10000';
+  container.style.borderRadius = '12px';
+  container.style.overflow = 'hidden';
+  container.style.boxShadow = '0 10px 25px rgba(0,0,0,0.6)';
+  container.style.background = 'black';
+  container.style.display = 'none';
+
+  /* CONTROL BUTTON — SAME STYLE */
+  const btn = document.createElement('button');
+  btn.id = BUTTON_ID;
+  btn.type = 'button';
+
+  btn.style.position = 'fixed';
+  btn.style.bottom = '20px';
+  btn.style.left = '20px';
+  btn.style.width = '52px';
+  btn.style.height = '52px';
+  btn.style.borderRadius = '50%';
+  btn.style.border = '1px solid rgba(240,239,244,0.35)';
+  btn.style.background = 'rgba(58,62,59,0.72)';
+  btn.style.color = '#fff';
+  btn.style.cursor = 'pointer';
+  btn.style.zIndex = '10001';
+  btn.style.fontSize = '1.15rem';
+  btn.style.fontWeight = '700';
+  btn.style.display = 'flex';
+  btn.style.alignItems = 'center';
+  btn.style.justifyContent = 'center';
+  btn.style.boxShadow = '0 8px 20px rgba(0,0,0,0.45)';
+  btn.style.backdropFilter = 'blur(8px)';
+
+  /*
+    STATES:
+    closed  = no iframe loaded
+    muted   = open, video playing muted
+    playing = open, video playing unmuted
+    stopped = open, iframe removed, black box remains
+  */
+  let state = 'closed';
+
+  function setButton() {
+    if (state === 'closed') btn.textContent = '▶';
+    if (state === 'muted') btn.textContent = '🔊';
+    if (state === 'playing') btn.textContent = '🔇';
+    if (state === 'stopped') btn.textContent = '✕';
+  }
+
+  function loadIframe(muted) {
+    container.innerHTML = `
+      <iframe
+        id="${FRAME_ID}"
+        width="100%"
+        height="100%"
+        src="${buildSrc(muted)}"
+        frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    `;
+  }
+
+  function openMutedPlaying() {
+    state = 'muted';
+    container.style.display = 'block';
+    loadIframe(true);
+    setButton();
+  }
+
+  function unmutePlaying() {
+    state = 'playing';
+    container.style.display = 'block';
+    loadIframe(false);
+    setButton();
+  }
+
+  function stopButKeepOpen() {
+    state = 'stopped';
+    container.innerHTML = '';
+    container.style.display = 'block';
+    setButton();
+  }
+
+  function closeCompletely() {
+    state = 'closed';
+    container.innerHTML = '';
+    container.style.display = 'none';
+    setButton();
+  }
+
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+
+    if (state === 'closed') {
+      openMutedPlaying();
+      return;
+    }
+
+    if (state === 'muted') {
+      unmutePlaying();
+      return;
+    }
+
+    if (state === 'playing') {
+      stopButKeepOpen();
+      return;
+    }
+
+    if (state === 'stopped') {
+      closeCompletely();
+      return;
+    }
+  });
+
+  document.body.appendChild(container);
+  document.body.appendChild(btn);
+
+  /* INITIAL STATE — CLOSED, NO AUTOPLAY, NO IFRAME */
+  setButton();
+})();
+</script>
+<div class="footer-counter" style="margin-top:12px;text-align:center;">
+    <img
+        src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
+        alt="Portfolio Visitors"
+        style="border-radius:8px;opacity:.9;">
+</div>
+</body>
+</html>
