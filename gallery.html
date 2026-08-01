@@ -119,6 +119,12 @@ body.dark{
   z-index:-1 !important;
   margin:0 !important;
   padding:0 !important;
+  background:none !important;
+  background-color:transparent !important;
+  background-image:none !important;
+  border:none !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
 }
 
 .hero video{
@@ -137,6 +143,41 @@ body.dark{
   cursor:pointer;
   display:block;
   background:transparent;
+}
+
+/* Page-scoped, higher-specificity guard: overrides any .hero rule
+   from the shared style.css (e.g. an index-page "hero" banner) that
+   could otherwise paint an opaque box over this page's video. */
+body#gallery-page .hero{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  height:100dvh !important;
+  overflow:hidden !important;
+  z-index:-1 !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:none !important;
+  background-color:transparent !important;
+  background-image:none !important;
+  border:none !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+
+body#gallery-page .hero video{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  min-width:100% !important;
+  min-height:100% !important;
+  object-fit:cover !important;
+  object-position:center !important;
+  display:block;
+  background:transparent !important;
+  z-index:-1 !important;
 }
 
 body.dark .hero video{
