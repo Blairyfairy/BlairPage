@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blair Page | Nellis UFO / UAP Threshold Board</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --deep-plum: #291528;
+      --plum-black: #160d18;
+      --dusty-mauve: #9e829c;
+      --soft-mauve: #b79ab4;
+      --ghost-white: #f0eff4;
+      --glass-border: rgba(240,239,244,0.16);
+      --glass-bg: rgba(255,255,255,0.055);
+      --glass-bg-strong: rgba(255,255,255,0.085);
+      --shadow: rgba(0,0,0,0.38);
+      --text-muted: rgba(240,239,244,0.72);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--deep-plum);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ghost-white);
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        radial-gradient(circle at 20% 12%, rgba(158,130,156,0.22), transparent 28%),
+        radial-gradient(circle at 82% 20%, rgba(183,154,180,0.14), transparent 26%),
+        linear-gradient(145deg, #160d18 0%, #291528 46%, #0d0710 100%);
+      overflow-x: hidden;
+    }
+
+    body.light-theme {
+      --deep-plum: #f7f3f7;
+      --plum-black: #f0e9ef;
+      --ghost-white: #291528;
+      --text-muted: rgba(41,21,40,0.78);
+      --glass-border: rgba(41,21,40,0.18);
+      --glass-bg: rgba(255,255,255,0.74);
+      --glass-bg-strong: rgba(255,255,255,0.88);
+      --shadow: rgba(41,21,40,0.14);
+      background:
+        radial-gradient(circle at 18% 10%, rgba(158,130,156,0.24), transparent 29%),
+        radial-gradient(circle at 82% 18%, rgba(41,21,40,0.10), transparent 24%),
+        linear-gradient(145deg, #f7f3f7 0%, #eee5ee 46%, #fff 100%);
+    }
+
+    a {
+      color: var(--dusty-mauve);
+      text-decoration: none;
+      transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--ghost-white);
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      padding: 0.72rem 1rem;
+      border-bottom: 1px solid var(--glass-border);
+      background: rgba(22,13,24,0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.22);
+    }
+
+    body.light-theme .top-bar {
+      background: rgba(247,243,247,0.84);
+    }
+
+    .credential-header {
+      color: var(--dusty-mauve);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .site-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 0.38rem 0.68rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: var(--ghost-white);
+      font-size: 0.86rem;
+      font-weight: 650;
+      opacity: 0.86;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      border-color: var(--glass-border);
+      background: rgba(158,130,156,0.18);
+      color: var(--ghost-white);
+      opacity: 1;
+      box-shadow: 0 0 18px rgba(158,130,156,0.14);
+    }
+
+    .theme-btn {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ghost-white);
+      cursor: pointer;
+      box-shadow: none;
+      backdrop-filter: blur(10px);
+    }
+
+    .blog-page-shell {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2.25rem 0 4rem;
+    }
+
+    .blog-hero {
+      position: relative;
+      overflow: hidden;
+      margin: 1rem 0 1.25rem;
+      padding: clamp(1.2rem, 3vw, 2.4rem);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.025)),
+        rgba(255,255,255,0.04);
+      box-shadow: 0 24px 60px var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .blog-hero::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 28% 35%, rgba(158,130,156,0.28), transparent 22%),
+        radial-gradient(circle at 73% 58%, rgba(240,239,244,0.08), transparent 20%);
+      pointer-events: none;
+    }
+
+    .blog-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 0.9rem;
+      padding: 0.28rem 0.7rem;
+      border: 1px solid rgba(158,130,156,0.45);
+      border-radius: 999px;
+      color: var(--dusty-mauve);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(158,130,156,0.12);
+    }
+
+    .blog-hero h1 {
+      margin: 0 0 0.6rem;
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .blog-hero p {
+      max-width: 880px;
+      margin: 0.55rem 0 0;
+      color: var(--text-muted);
+      font-size: clamp(1rem, 2.2vw, 1.22rem);
+      line-height: 1.68;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1.2rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.38rem 0.65rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.045);
+      color: var(--ghost-white);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .blog-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 1.15rem;
+      align-items: start;
+    }
+
+    .blog-feed {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .blog-card,
+    .sidebar-card {
+      border: 1px solid var(--glass-border);
+      border-radius: 22px;
+      background: var(--glass-bg);
+      box-shadow: 0 18px 46px var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow: hidden;
+    }
+
+    .blog-card {
+      padding: clamp(1rem, 2vw, 1.55rem);
+    }
+
+    .post-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.8rem;
+      color: var(--dusty-mauve);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .blog-card h2 {
+      margin: 0 0 0.65rem;
+      color: var(--ghost-white);
+      font-size: clamp(1.35rem, 2.6vw, 2rem);
+      letter-spacing: -0.02em;
+    }
+
+    .blog-card h3 {
+      margin: 1.1rem 0 0.4rem;
+      color: var(--soft-mauve);
+      font-size: 1.05rem;
+    }
+
+    .blog-card p {
+      color: var(--text-muted);
+      line-height: 1.72;
+      margin: 0.55rem 0;
+    }
+
+    .blog-card ul {
+      margin: 0.65rem 0 0;
+      padding-left: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.68;
+    }
+
+    .blog-card li {
+      margin: 0.34rem 0;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+      margin-top: 1rem;
+    }
+
+    .score-tile {
+      padding: 0.95rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.045);
+    }
+
+    .score-tile .big {
+      display: block;
+      margin-bottom: 0.2rem;
+      color: var(--ghost-white);
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .score-tile .small {
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .bar-list {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .bar-row {
+      display: grid;
+      gap: 0.32rem;
+    }
+
+    .bar-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--ghost-white);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .bar-track {
+      height: 10px;
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(158,130,156,0.72), rgba(240,239,244,0.82));
+      box-shadow: 0 0 18px rgba(158,130,156,0.38);
+    }
+
+    .clifton-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 1rem;
+    }
+
+    .strength-pill {
+      padding: 0.5rem 0.72rem;
+      border: 1px solid rgba(158,130,156,0.38);
+      border-radius: 999px;
+      background: rgba(158,130,156,0.13);
+      color: var(--ghost-white);
+      font-size: 0.86rem;
+      font-weight: 750;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 0.9rem;
+    }
+
+    .assessment-toggle {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.035);
+      color: var(--ghost-white);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .assessment-toggle:hover {
+      background: rgba(158,130,156,0.14);
+    }
+
+    .assessment-panel {
+      display: none;
+      padding: 0.2rem 1rem 0.85rem;
+    }
+
+    .accordion-item.open .assessment-panel {
+      display: block;
+    }
+
+    .accordion-item.open .plus {
+      transform: rotate(45deg);
+    }
+
+    .plus {
+      transition: transform 0.2s ease;
+      color: var(--dusty-mauve);
+      font-size: 1.2rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 5.5rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+    }
+
+    .sidebar-card h3 {
+      margin: 0 0 0.75rem;
+      color: var(--ghost-white);
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .toc-links {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .toc-links a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.55rem 0.65rem;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .toc-links a:hover {
+      border-color: var(--glass-border);
+      background: rgba(158,130,156,0.12);
+      color: var(--ghost-white);
+      transform: translateX(2px);
+    }
+
+    .mini-profile {
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .mini-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid rgba(240,239,244,0.1);
+      color: var(--text-muted);
+      font-size: 0.86rem;
+    }
+
+    .mini-line strong {
+      color: var(--ghost-white);
+    }
+
+    .notice {
+      margin-top: 0.8rem;
+      padding: 0.8rem;
+      border: 1px solid rgba(158,130,156,0.3);
+      border-radius: 14px;
+      background: rgba(158,130,156,0.1);
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      padding: 1.2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    #toTop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 100;
+      width: auto;
+      height: auto;
+      padding: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: #fff;
+      font-size: 1.65rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.8);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    #toTop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #toTop:hover {
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 900px) {
+      .top-bar {
+        grid-template-columns: 1fr auto;
+        gap: 0.65rem;
+      }
+
+      .credential-header {
+        grid-column: 1 / -1;
+        text-align: center;
+      }
+
+      .site-nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 0.2rem;
+        scrollbar-width: thin;
+      }
+
+      .site-nav a {
+        white-space: nowrap;
+      }
+
+      .blog-page-shell {
+        width: min(100% - 1rem, 760px);
+        padding-top: 1rem;
+      }
+
+      .blog-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        order: -1;
+      }
+
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .top-bar {
+        padding: 0.6rem 0.55rem;
+      }
+
+      .blog-hero,
+      .blog-card,
+      .sidebar-card {
+        border-radius: 18px;
+      }
+
+      .blog-hero {
+        padding: 1rem;
+      }
+
+      .post-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .blog-card {
+        padding: 1rem;
+      }
+    }
+
+
+    /* ==========================================
+       BLOG.HTML EXACT TOP AREA + TRIANGLE MATCH
+       Keeps assessment content intact; only fixes header/nav/mobile/top arrow.
+       ========================================== */
+    .top-bar {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      z-index: 100 !important;
+      box-sizing: border-box !important;
+      display: grid !important;
+      grid-template-columns: minmax(0,1fr) auto !important;
+      grid-template-areas: "cred toggle" "nav toggle" !important;
+      align-items: start !important;
+      row-gap: 2px !important;
+      padding: 1rem 2rem !important;
+      font-size: .85rem !important;
+      letter-spacing: .6px !important;
+      text-align: left !important;
+      background: transparent !important;
+      border-bottom: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .credential-header {
+      grid-area: cred !important;
+      display: block !important;
+      position: relative !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: auto !important;
+      max-width: calc(100% - 92px) !important;
+      text-align: left !important;
+      line-height: 1.05 !important;
+      justify-self: start !important;
+      align-self: start !important;
+      z-index: 121 !important;
+      color: #ffffff !important;
+      font-size: .85rem !important;
+      font-weight: 600 !important;
+      letter-spacing: .6px !important;
+      text-transform: none !important;
+      white-space: normal !important;
+    }
+
+    .credential-header,
+    .credential-header * {
+      text-align: left !important;
+    }
+
+    .site-nav {
+      grid-area: nav !important;
+      display: flex !important;
+      position: relative !important;
+      justify-content: flex-start !important;
+      justify-self: start !important;
+      align-items: center !important;
+      flex-wrap: nowrap !important;
+      margin: 2px 0 0 0 !important;
+      padding: 0 !important;
+      width: auto !important;
+      z-index: 121 !important;
+      gap: 0 !important;
+      overflow: visible !important;
+    }
+
+    .site-nav a {
+      display: inline-block !important;
+      margin: 0 1rem 0 0 !important;
+      padding: 0 !important;
+      min-height: 0 !important;
+      border: none !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      color: var(--dusty-mauve) !important;
+      text-decoration: none !important;
+      font-weight: 600 !important;
+      font-size: .85rem !important;
+      line-height: 1.2 !important;
+      opacity: 1 !important;
+      white-space: nowrap !important;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      text-decoration: underline !important;
+      color: var(--ghost-white) !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    .theme-btn,
+    #themeToggle {
+      grid-area: toggle !important;
+      position: relative !important;
+      justify-self: end !important;
+      align-self: start !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background: var(--glass-bg) !important;
+      border: 1px solid var(--glass-border) !important;
+      border-radius: 20px !important;
+      padding: .4rem 1rem !important;
+      min-width: 44px !important;
+      width: auto !important;
+      min-height: 34px !important;
+      height: auto !important;
+      font-size: .85rem !important;
+      font-weight: 400 !important;
+      line-height: 1 !important;
+      letter-spacing: 0 !important;
+      box-sizing: border-box !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+      color: var(--ghost-white) !important;
+      cursor: pointer !important;
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+      outline: none !important;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      z-index: 122 !important;
+    }
+
+    .hero {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100vh !important;
+      overflow: hidden !important;
+      z-index: -2 !important;
+      background: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+      background-image: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+    }
+
+    .logo-top-left {
+      position: absolute !important;
+      top: 100px !important;
+      left: 16px !important;
+      z-index: 1000 !important;
+      width: 60px !important;
+      height: 60px !important;
+      border-radius: 50% !important;
+      overflow: hidden !important;
+      cursor: pointer !important;
+      border: 3px solid rgba(240,239,244,.45) !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,.7) !important;
+      transition: transform .3s ease, box-shadow .3s ease !important;
+      background: transparent !important;
+    }
+
+    .logo-top-left img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+    }
+
+    .blog-page-shell {
+      padding-top: 7.25rem !important;
+    }
+
+    #toTop,
+    .page-scroll-top,
+    .article-scroll-top {
+      position: fixed !important;
+      right: 18px !important;
+      bottom: 18px !important;
+      width: 28px !important;
+      height: 28px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+      color: #ffffff !important;
+      font-size: 18px !important;
+      line-height: 1 !important;
+      cursor: pointer !important;
+      z-index: 10050 !important;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      transition: none !important;
+    }
+
+    #toTop.show,
+    .page-scroll-top.show,
+    .article-scroll-top.show {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+
+    #toTop:hover {
+      transform: none !important;
+    }
+
+    #toTop span,
+    .page-scroll-top span,
+    .article-scroll-top span {
+      display: block !important;
+      line-height: 1 !important;
+      transform: translateY(-1px) !important;
+    }
+
+    @media (max-width: 900px) {
+      html,
+      body {
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+        height: auto !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        overscroll-behavior-y: auto !important;
+        touch-action: pan-y !important;
+        background: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+        background-image: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+        background-attachment: scroll !important;
+      }
+
+      body::before {
+        content: "" !important;
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: -3 !important;
+        pointer-events: none !important;
+        background: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+        background-image: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+      }
+
+      .top-bar {
+        padding: 10px 16px 0 16px !important;
+        min-height: 52px !important;
+      }
+
+      .credential-header {
+        grid-column: auto !important;
+        max-width: calc(100% - 92px) !important;
+        text-align: left !important;
+        font-size: 0.425rem !important;
+        line-height: 1.05 !important;
+        justify-self: start !important;
+      }
+
+      .site-nav {
+        flex-wrap: wrap !important;
+        width: auto !important;
+        min-width: 0 !important;
+        margin: 2px 0 0 0 !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        overflow: visible !important;
+        align-content: flex-start !important;
+        justify-content: flex-start !important;
+      }
+
+      .site-nav a {
+        margin: 0 0.7rem 0 0 !important;
+        font-size: 0.78rem !important;
+        line-height: 1.2 !important;
+        white-space: nowrap !important;
+        display: inline-block !important;
+        text-align: left !important;
+      }
+
+      .theme-btn,
+      #themeToggle {
+        grid-area: toggle !important;
+        position: relative !important;
+        justify-self: end !important;
+        align-self: start !important;
+        padding: .4rem 1rem !important;
+        min-width: 44px !important;
+        min-height: 34px !important;
+        font-size: .85rem !important;
+        line-height: 1 !important;
+        background: var(--glass-bg) !important;
+        border: 1px solid var(--glass-border) !important;
+        color: var(--ghost-white) !important;
+        box-shadow: none !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+      }
+
+      .hero {
+        height: 100vh !important;
+        height: 100dvh !important;
+        background: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+        background-image: var(--bg-light, linear-gradient(135deg,#000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%)) !important;
+      }
+
+      .logo-top-left {
+        top: 80px !important;
+        width: 50px !important;
+        height: 50px !important;
+      }
+
+      .blog-page-shell {
+        padding-top: 6.75rem !important;
+      }
+
+      #toTop,
+      .page-scroll-top,
+      .article-scroll-top {
+        right: 14px !important;
+        bottom: 14px !important;
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 17px !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-nav a {
+        margin: 0 0.55rem 0 0 !important;
+        font-size: 0.74rem !important;
+        line-height: 1.15 !important;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .credential-header {
+        max-width: calc(100% - 58px) !important;
+      }
+
+      .site-nav a {
+        margin: 0 0.45rem 0 0 !important;
+        font-size: 0.7rem !important;
+        line-height: 1.1 !important;
+      }
+    }
+
+
+    /* ==========================================
+       FINAL FORCED STABILITY PATCH
+       Keeps all original content/lines intact while preventing mobile blanking,
+       keeping top credential white, keeping links mauve, and matching the small blog chevron.
+       ========================================== */
+    html,
+    body {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      animation: none !important;
+      filter: none !important;
+      backface-visibility: visible !important;
+      -webkit-backface-visibility: visible !important;
+      contain: none !important;
+    }
+
+    body,
+    body.light-theme {
+      color: #ffffff !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      -webkit-text-size-adjust: 100% !important;
+      text-rendering: optimizeLegibility !important;
+    }
+
+    body.light-theme {
+      --ghost-white: #ffffff !important;
+      --text-muted: rgba(255,255,255,0.86) !important;
+      --glass-border: rgba(255,255,255,0.18) !important;
+      --glass-bg: rgba(41,21,40,0.24) !important;
+      --glass-bg-strong: rgba(41,21,40,0.34) !important;
+      color: #ffffff !important;
+    }
+
+    .credential-header,
+    .credential-header *,
+    body.light-theme .credential-header,
+    body.light-theme .credential-header * {
+      color: #ffffff !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    a,
+    a:link,
+    a:visited,
+    .site-nav a,
+    .toc-links a {
+      color: var(--dusty-mauve) !important;
+    }
+
+    a:hover,
+    a:focus,
+    .site-nav a:hover,
+    .site-nav a.active,
+    .toc-links a:hover {
+      color: #ffffff !important;
+    }
+
+    body.light-theme .blog-card,
+    body.light-theme .sidebar-card,
+    body.light-theme .blog-hero,
+    body.light-theme .score-tile,
+    body.light-theme .assessment-toggle,
+    body.light-theme .tag,
+    body.light-theme .strength-pill {
+      color: #ffffff !important;
+      background-color: rgba(41,21,40,0.26) !important;
+    }
+
+    body.light-theme h1,
+    body.light-theme h2,
+    body.light-theme h3,
+    body.light-theme p,
+    body.light-theme li,
+    body.light-theme span,
+    body.light-theme strong,
+    body.light-theme .mini-line,
+    body.light-theme .mini-line strong,
+    body.light-theme .bar-top,
+    body.light-theme .keyword-block,
+    body.light-theme .notice,
+    body.light-theme .footer,
+    body.light-theme .assessment-toggle,
+    body.light-theme .assessment-panel {
+      color: #ffffff !important;
+    }
+
+    body.light-theme .eyebrow,
+    body.light-theme .post-meta,
+    body.light-theme .plus,
+    body.light-theme .blog-card h3 {
+      color: var(--soft-mauve) !important;
+    }
+
+    #toTop,
+    .page-scroll-top,
+    .article-scroll-top {
+      width: 18px !important;
+      height: 18px !important;
+      min-width: 18px !important;
+      min-height: 18px !important;
+      max-width: 18px !important;
+      max-height: 18px !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.45) !important;
+      font-size: 14px !important;
+      line-height: 18px !important;
+      color: #ffffff !important;
+    }
+
+    #toTop span,
+    .page-scroll-top span,
+    .article-scroll-top span {
+      display: block !important;
+      width: 18px !important;
+      height: 18px !important;
+      line-height: 18px !important;
+      font-size: 14px !important;
+      transform: none !important;
+    }
+
+    @media (max-width: 900px) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0s !important;
+        scroll-behavior: auto !important;
+      }
+
+      html,
+      body {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
+        height: auto !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        position: static !important;
+      }
+
+      body {
+        position: relative !important;
+        isolation: isolate !important;
+        color: #ffffff !important;
+        background-color: #291528 !important;
+      }
+
+      body.light-theme {
+        color: #ffffff !important;
+      }
+
+      .top-bar,
+      .credential-header,
+      .site-nav,
+      .theme-btn,
+      #themeToggle,
+      .blog-page-shell,
+      main,
+      section,
+      article,
+      aside,
+      footer {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        filter: none !important;
+      }
+
+      .hero {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: none !important;
+      }
+
+      .blog-page-shell {
+        display: block !important;
+        position: relative !important;
+        z-index: 1 !important;
+        width: min(100% - 1rem, 760px) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      .blog-layout,
+      .blog-feed,
+      .sidebar {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      .blog-card,
+      .sidebar-card,
+      .blog-hero {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+      }
+
+      .credential-header {
+        color: #ffffff !important;
+        font-size: 0.72rem !important;
+        max-width: calc(100vw - 88px) !important;
+      }
+
+      .site-nav a {
+        color: var(--dusty-mauve) !important;
+      }
+
+      #toTop,
+      .page-scroll-top,
+      .article-scroll-top {
+        right: 12px !important;
+        bottom: 12px !important;
+        width: 18px !important;
+        height: 18px !important;
+        font-size: 14px !important;
+        line-height: 18px !important;
+      }
+    }
+
+
+
+    /* ==========================================
+       MOBILE HARD-STOP STABILITY PATCH
+       Purpose: keep the exact visible content/colors, but prevent mobile WebView/Safari
+       blanking, spinning, fixed-layer flicker, broken theme toggles, and oversized arrow UI.
+       ========================================== */
+    html,
+    body {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-height: 100% !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      filter: none !important;
+      overflow-x: hidden !important;
+      background-color: #291528 !important;
+      text-rendering: optimizeLegibility !important;
+      -webkit-text-size-adjust: 100% !important;
+    }
+
+    body,
+    body.light-theme {
+      --deep-plum: #291528 !important;
+      --plum-black: #160d18 !important;
+      --dusty-mauve: #9e829c !important;
+      --soft-mauve: #b79ab4 !important;
+      --ghost-white: #f0eff4 !important;
+      --glass-border: rgba(240,239,244,0.16) !important;
+      --glass-bg: rgba(255,255,255,0.055) !important;
+      --glass-bg-strong: rgba(255,255,255,0.085) !important;
+      --shadow: rgba(0,0,0,0.38) !important;
+      --text-muted: rgba(240,239,244,0.72) !important;
+      color: #f0eff4 !important;
+      background:
+        radial-gradient(circle at 20% 12%, rgba(158,130,156,0.22), transparent 28%),
+        radial-gradient(circle at 82% 20%, rgba(183,154,180,0.14), transparent 26%),
+        linear-gradient(145deg, #160d18 0%, #291528 46%, #0d0710 100%) !important;
+    }
+
+    .credential-header,
+    .credential-header * {
+      color: #f0eff4 !important;
+    }
+
+    a,
+    .site-nav a,
+    .toc-links a {
+      color: #9e829c !important;
+    }
+
+    a:hover,
+    .site-nav a:hover,
+    .site-nav a.active,
+    .toc-links a:hover {
+      color: #f0eff4 !important;
+    }
+
+    .blog-hero,
+    .blog-card,
+    .sidebar-card,
+    .footer,
+    .assessment-panel,
+    .accordion-item,
+    main,
+    section,
+    article,
+    aside {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    #toTop,
+    .page-scroll-top,
+    .article-scroll-top {
+      width: 22px !important;
+      height: 22px !important;
+      min-width: 22px !important;
+      min-height: 22px !important;
+      max-width: 22px !important;
+      max-height: 22px !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      color: #ffffff !important;
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      line-height: 1 !important;
+      box-shadow: none !important;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.65) !important;
+    }
+
+    #toTop span,
+    .page-scroll-top span,
+    .article-scroll-top span {
+      display: block !important;
+      width: 1em !important;
+      height: 1em !important;
+      line-height: 1 !important;
+      transform: translateY(-1px) !important;
+    }
+
+    @media (max-width: 900px) {
+      html,
+      body {
+        height: auto !important;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        overscroll-behavior-x: none !important;
+        overscroll-behavior-y: contain !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
+        perspective: none !important;
+        backface-visibility: visible !important;
+        -webkit-backface-visibility: visible !important;
+        contain: none !important;
+      }
+
+      *,
+      *::before,
+      *::after {
+        max-width: 100%;
+        animation-name: none !important;
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+
+      body::before,
+      body::after {
+        content: none !important;
+        display: none !important;
+      }
+
+      .hero {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: auto !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 100% !important;
+        max-height: none !important;
+        z-index: -1 !important;
+        overflow: hidden !important;
+        transform: none !important;
+        filter: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: none !important;
+        will-change: auto !important;
+        background:
+          radial-gradient(circle at 20% 12%, rgba(158,130,156,0.22), transparent 28%),
+          radial-gradient(circle at 82% 20%, rgba(183,154,180,0.14), transparent 26%),
+          linear-gradient(145deg, #160d18 0%, #291528 46%, #0d0710 100%) !important;
+      }
+
+      .top-bar {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        z-index: 1000 !important;
+        transform: none !important;
+        contain: none !important;
+      }
+
+      .blog-page-shell {
+        position: relative !important;
+        z-index: 2 !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        padding-top: 1rem !important;
+      }
+
+      .blog-layout,
+      .blog-feed,
+      .sidebar,
+      .blog-hero,
+      .blog-card,
+      .sidebar-card {
+        display: grid !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        will-change: auto !important;
+      }
+
+      .blog-hero,
+      .blog-card,
+      .sidebar-card {
+        display: block !important;
+      }
+
+      .site-nav {
+        overflow: visible !important;
+        -webkit-overflow-scrolling: auto !important;
+      }
+
+      .theme-btn,
+      #themeToggle {
+        pointer-events: auto !important;
+        touch-action: manipulation !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        color: #f0eff4 !important;
+        background: rgba(255,255,255,0.055) !important;
+        border-color: rgba(240,239,244,0.16) !important;
+      }
+
+      #toTop,
+      .page-scroll-top,
+      .article-scroll-top {
+        right: 12px !important;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+        width: 20px !important;
+        height: 20px !important;
+        min-width: 20px !important;
+        min-height: 20px !important;
+        max-width: 20px !important;
+        max-height: 20px !important;
+        font-size: 14px !important;
+      }
+    }
+/* ==========================================
+   CLEAN PAGE SCROLL TOP BUTTON — MATCH REFERENCE FILE
+   Keeps the literal ▲ glyph, no pseudo-element, no glow, no extra box.
+   ========================================== */
+
+#pageScrollTop.page-scroll-top {
+  position: fixed !important;
+  right: 18px !important;
+  bottom: 18px !important;
+  width: 28px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  color: #ffffff !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  cursor: pointer !important;
+  z-index: 10050 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+#pageScrollTop.page-scroll-top.show {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+#pageScrollTop.page-scroll-top::before,
+#pageScrollTop.page-scroll-top::after {
+  content: none !important;
+  display: none !important;
+}
+
+#pageScrollTop.page-scroll-top:hover,
+#pageScrollTop.page-scroll-top:focus,
+#pageScrollTop.page-scroll-top:active {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  color: #ffffff !important;
+  transform: none !important;
+}
+
+@media (max-width: 900px) {
+  #pageScrollTop.page-scroll-top {
+    right: 14px !important;
+    bottom: 14px !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+}
+  /* =========================================================
+   SMOOTH CARD SHADING / REMOVE BOXY POINTED EDGES
+   Append at very bottom of <style>
+   ========================================================= */
+
+.blog-hero,
+.blog-card,
+.sidebar-card,
+.score-tile,
+.assessment-toggle,
+.notice,
+.tag,
+.strength-pill,
+.bar-track,
+.mini-line {
+  overflow: hidden !important;
+  background-clip: padding-box !important;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,0.24) !important;
+}
+
+/* soften inner glare layers */
+.blog-hero::before,
+.blog-card::before,
+.sidebar-card::before,
+.score-tile::before {
+  border-radius: inherit !important;
+  clip-path: inset(0 round inherit) !important;
+  filter: blur(10px) !important;
+  opacity: 0.45 !important;
+}
+
+/* prevent square blur artifacts */
+.blog-hero,
+.blog-card,
+.sidebar-card {
+  backdrop-filter: blur(10px) saturate(115%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(115%) !important;
+}
+
+/* smoother card surfaces */
+.blog-card,
+.sidebar-card,
+.blog-hero {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.07),
+      rgba(255,255,255,0.025)
+    ) !important;
+  border-color: rgba(240,239,244,0.13) !important;
+}
+
+/* remove harsh square hover/side shadows */
+.toc-links a:hover,
+.assessment-toggle:hover,
+.site-nav a:hover,
+.site-nav a.active {
+  box-shadow: none !important;
+}
+
+/* keep mobile from rendering blocky glass edges */
+@media (max-width: 900px) {
+  .blog-hero,
+  .blog-card,
+  .sidebar-card,
+  .score-tile,
+  .assessment-toggle,
+  .notice {
+    box-shadow:
+      0 10px 24px rgba(0,0,0,0.22) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+}
+  </style>
+  <style>
+    .uap-data-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    .uap-data-box {
+      padding: 0.9rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.045);
+      color: var(--text-muted);
+      line-height: 1.58;
+      min-height: 118px;
+    }
+    .uap-data-box strong {
+      display:block;
+      color: var(--ghost-white);
+      margin-bottom: 0.35rem;
+    }
+    .threshold-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    .threshold-table th,
+    .threshold-table td {
+      border: 1px solid var(--glass-border);
+      padding: 0.72rem;
+      vertical-align: top;
+      line-height: 1.48;
+    }
+    .threshold-table th {
+      color: var(--ghost-white);
+      background: rgba(158,130,156,0.16);
+      text-align: left;
+    }
+    .status-pill {
+      display:inline-flex;
+      padding:0.2rem 0.5rem;
+      border-radius:999px;
+      border:1px solid rgba(158,130,156,0.42);
+      color:var(--ghost-white);
+      background:rgba(158,130,156,0.14);
+      font-size:0.76rem;
+      font-weight:800;
+      white-space:nowrap;
+    }
+    .api-output {
+      margin-top: 0.6rem;
+      padding: 0.75rem;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      background: rgba(0,0,0,0.16);
+      color: var(--text-muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      overflow-wrap:anywhere;
+      max-height: 260px;
+      overflow: auto;
+    }
+    .source-list a {
+      display:block;
+      margin: 0.35rem 0;
+    }
+    .mini-button {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin:0.25rem 0.25rem 0.25rem 0;
+      padding:0.45rem 0.7rem;
+      border-radius:999px;
+      border:1px solid var(--glass-border);
+      background:rgba(255,255,255,0.055);
+      color:var(--ghost-white) !important;
+      font-weight:750;
+      font-size:0.82rem;
+      cursor:pointer;
+    }
+    @media (max-width: 900px) {
+      .uap-data-grid { grid-template-columns: 1fr; }
+      .threshold-table { font-size: 0.84rem; }
+      .threshold-table th, .threshold-table td { padding: 0.55rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero" aria-hidden="true"></div>
+  <header class="top-bar">
+    <div class="credential-header">Blair Page · Nellis / Area 51 UFO-UAP Threshold Board</div>
+    <nav class="site-nav" aria-label="Site navigation">
+      <a href="index.html">Home</a>
+      <a href="blog.html">Blog</a>
+      <a href="gallery2.html">Gallery</a>
+      <a href="assessment_page.html">Assessment</a>
+      <a href="#threshold" class="active">UAP Threshold</a>
+    </nav>
+    <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle theme">☾</button>
+  </header>
+
+  <main class="blog-page-shell">
+    <section class="blog-hero" id="top">
+      <span class="eyebrow">Nellis · NTTR · Area 51 · UAP</span>
+      <h1>Nellis UFO / Alien Topic Threshold Board</h1>
+      <p>
+        A themed research page for UFO and alien topics associated with Nellis Air Force Base,
+        the Nevada Test and Training Range, Groom Lake / Area 51, JANET aircraft, the 1994 Nellis
+        infrared video, military UAP reporting, and the line between documented facts,
+        plausible classified aviation activity, unresolved sightings, and alien speculation.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">No-key public API widgets</span>
+        <span class="tag">Official-source links</span>
+        <span class="tag">Speculation threshold matrix</span>
+        <span class="tag">Las Vegas / Nellis context</span>
+      </div>
+    </section>
+
+    <div class="blog-layout">
+      <section class="blog-feed">
+        <article class="blog-card" id="threshold">
+          <div class="post-meta"><span>Evidence Threshold</span><span>Updated July 5, 2026</span></div>
+          <h2>What counts as “came out of Nellis”?</h2>
+          <p>
+            For this page, “comes out of Nellis” means the story is tied to Nellis Air Force Base,
+            the Nellis Air Force Base Complex, the Nevada Test and Training Range, Groom Lake /
+            Area 51, Tonopah Test Range, Creech AFB support activity, or Las Vegas aircraft
+            movements that people commonly associate with secret aviation or UFO/UAP stories.
+          </p>
+          <table class="threshold-table">
+            <thead>
+              <tr>
+                <th>Threshold</th>
+                <th>What belongs here</th>
+                <th>How to treat it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="status-pill">Documented</span></td>
+                <td>Official base, range, aircraft-testing, training, and public UAP-reporting records.</td>
+                <td>Safe to present as factual with links to Air Force, DoD/AARO, NASA, CIA, or aviation data sources.</td>
+              </tr>
+              <tr>
+                <td><span class="status-pill">Plausible</span></td>
+                <td>Misidentified aircraft, drones, balloons, satellites, Red Flag activity, classified test flights, and restricted-range operations.</td>
+                <td>Reasonable explanation category, especially near Nellis/NTTR, but not proof of any one case without sensor/location data.</td>
+              </tr>
+              <tr>
+                <td><span class="status-pill">Unresolved</span></td>
+                <td>Events with incomplete sensor data, unusual witness reports, or ambiguous videos such as the 1994 Nellis footage.</td>
+                <td>Can be discussed as unidentified; “unidentified” does not automatically mean extraterrestrial.</td>
+              </tr>
+              <tr>
+                <td><span class="status-pill">Speculative</span></td>
+                <td>Alien bodies, recovered saucers, underground alien bases, reverse-engineered off-world craft, S-4 claims.</td>
+                <td>Present as claims or folklore unless public evidence meets a much higher standard.</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="blog-card" id="occurrences">
+          <div class="post-meta"><span>Occurrences & Topics</span><span>Nellis-Area Map of Claims</span></div>
+          <h2>Main UFO/UAP topics tied to Nellis and southern Nevada</h2>
+          <h3>1. Area 51 / Groom Lake</h3>
+          <p>
+            Groom Lake is the most famous Nevada UFO topic because the public secrecy around
+            military aircraft testing created a natural space for alien theories. The strongest
+            evidence supports classified aviation work, not confirmed alien storage.
+          </p>
+          <h3>2. Nevada Test and Training Range</h3>
+          <p>
+            The NTTR is where realistic air combat training, electronic warfare, weapons testing,
+            remote instrumentation, and restricted airspace activity can create unusual lights,
+            shapes, flight paths, and radar stories.
+          </p>
+          <h3>3. The 1994 Nellis UFO infrared video</h3>
+          <p>
+            Often described as a military-range tracking or infrared video, this is one of the
+            most discussed Nellis-associated UFO clips. It remains a popular unresolved case in
+            UFO circles, but there is no public official conclusion proving extraterrestrial origin.
+          </p>
+          <h3>4. JANET flights from Las Vegas</h3>
+          <p>
+            White aircraft with red striping flying from the Las Vegas area to restricted facilities
+            became part of Area 51 folklore. Their existence is not exotic by itself; the secrecy of
+            the destinations is what feeds the UFO association.
+          </p>
+          <h3>5. Bob Lazar / S-4 claims</h3>
+          <p>
+            Lazar’s claims are historically important to UFO culture because they helped push
+            Area 51 into mainstream alien lore. They remain disputed and should be treated as
+            claims unless independently verified.
+          </p>
+          <h3>6. Modern UAP reporting</h3>
+          <p>
+            The modern government term is UAP: unidentified anomalous phenomena. AARO, NASA,
+            and military reporting focus on data quality, sensor reliability, flight safety, and
+            national-security concerns rather than automatically framing unidentified events as aliens.
+          </p>
+        </article>
+
+        <article class="blog-card" id="apis">
+          <div class="post-meta"><span>No-Key Data Calls</span><span>Runs in browser when allowed by CORS</span></div>
+          <h2>Live public data calls / API blocks</h2>
+          <p>
+            These calls use public endpoints that generally do not require private API keys.
+            Some may be blocked by browser CORS or rate limits; the page still includes direct
+            links so the data can be opened manually.
+          </p>
+          <div>
+            <button class="mini-button" onclick="loadWikiSummaries()">Load Wiki summaries</button>
+            <button class="mini-button" onclick="loadMetar()">Load Nellis / Vegas METAR</button>
+            <button class="mini-button" onclick="loadOpenSky()">Load OpenSky aircraft bbox</button>
+            <button class="mini-button" onclick="loadArxiv()">Load UAP arXiv feed</button>
+          </div>
+          <div class="uap-data-grid">
+            <div class="uap-data-box">
+              <strong>Wikipedia REST summaries</strong>
+              <div id="wikiOutput" class="api-output">Click to load summaries for Nellis AFB, Area 51, NTTR, and AARO.</div>
+            </div>
+            <div class="uap-data-box">
+              <strong>Aviation Weather Center METAR</strong>
+              <div id="metarOutput" class="api-output">Click to load recent aviation weather for KLSV / KLAS if available.</div>
+            </div>
+            <div class="uap-data-box">
+              <strong>OpenSky network aircraft states</strong>
+              <div id="skyOutput" class="api-output">Click to request aircraft states near southern Nevada. Availability varies.</div>
+            </div>
+            <div class="uap-data-box">
+              <strong>arXiv UAP search feed</strong>
+              <div id="arxivOutput" class="api-output">Click to load recent scholarly/preprint records matching UAP terms.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card" id="links">
+          <div class="post-meta"><span>Source Links</span><span>Official-first</span></div>
+          <h2>Research links for the page</h2>
+          <div class="source-list">
+            <a href="https://www.nellis.af.mil/" target="_blank" rel="noopener">Nellis Air Force Base official site</a>
+            <a href="https://www.nellis.af.mil/Units/NTTR/" target="_blank" rel="noopener">Nevada Test and Training Range official unit page</a>
+            <a href="https://www.aaro.mil/" target="_blank" rel="noopener">All-domain Anomaly Resolution Office (AARO)</a>
+            <a href="https://www.aaro.mil/Portals/136/PDFs/AARO_Historical_Record_Report_Vol_1_2024.pdf" target="_blank" rel="noopener">AARO Historical Record Report, Volume 1 PDF</a>
+            <a href="https://science.nasa.gov/uap/" target="_blank" rel="noopener">NASA UAP Independent Study / UAP resources</a>
+            <a href="https://www.cia.gov/readingroom/collection/ufos-fact-or-fiction" target="_blank" rel="noopener">CIA Reading Room: UFOs Fact or Fiction collection</a>
+            <a href="https://www.cia.gov/stories/story/area-51-and-the-accidental-test-flight/" target="_blank" rel="noopener">CIA: Area 51 and aircraft-testing history</a>
+            <a href="https://aviationweather.gov/data/api/" target="_blank" rel="noopener">Aviation Weather Center data API</a>
+            <a href="https://opensky-network.org/apidoc/rest.html" target="_blank" rel="noopener">OpenSky Network REST API documentation</a>
+            <a href="https://export.arxiv.org/api/query?search_query=all:unidentified%20anomalous%20phenomena&start=0&max_results=5" target="_blank" rel="noopener">arXiv no-key UAP search feed</a>
+            <a href="https://www.wikidata.org/wiki/Wikidata:Data_access" target="_blank" rel="noopener">Wikidata public data access</a>
+          </div>
+        </article>
+
+        <article class="blog-card" id="use">
+          <div class="post-meta"><span>Use Case</span><span>Best-effort framework</span></div>
+          <h2>How to read a new Nellis-area UFO claim</h2>
+          <ul>
+            <li><strong>Ask where:</strong> Nellis proper, NTTR, Groom Lake, Tonopah, Creech, Las Vegas sky, or social-media repost?</li>
+            <li><strong>Ask when:</strong> exact date/time matters because Red Flag, night training, launches, satellites, and weather can explain many sightings.</li>
+            <li><strong>Ask what data:</strong> visual only, video, infrared, radar, ADS-B, ATC audio, METAR, witness count, or official statement?</li>
+            <li><strong>Ask what threshold:</strong> documented, plausible, unresolved, or speculative.</li>
+            <li><strong>Keep alien claims separate:</strong> “unknown object” is not the same as “non-human technology.”</li>
+          </ul>
+        </article>
+      </section>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3>On-page Menu</h3>
+          <div class="toc-links">
+            <a href="#threshold">Evidence threshold <span>↴</span></a>
+            <a href="#occurrences">Occurrences <span>↴</span></a>
+            <a href="#apis">No-key APIs <span>↴</span></a>
+            <a href="#links">Source links <span>↴</span></a>
+            <a href="#use">Claim checklist <span>↴</span></a>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <h3>Quick Classification</h3>
+          <div class="mini-profile">
+            <div class="mini-line"><span>Area 51 exists</span><strong>Documented</strong></div>
+            <div class="mini-line"><span>Classified aircraft testing</span><strong>Documented</strong></div>
+            <div class="mini-line"><span>1994 Nellis video</span><strong>Unresolved</strong></div>
+            <div class="mini-line"><span>Aliens at Nellis</span><strong>Unproven</strong></div>
+            <div class="mini-line"><span>Reverse-engineered saucers</span><strong>Speculative</strong></div>
+          </div>
+          <div class="notice">
+            This page does not claim aliens are proven. It organizes the Nellis/Area 51 topic by
+            evidence threshold so mystery, military secrecy, and extraterrestrial claims do not get blended together.
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      Blair Page · Nellis UFO / UAP Threshold Board · public links + no-key API calls where available
+      <div class="footer-counter" style="margin-top:12px;text-align:center;">
+        <img src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors" alt="Portfolio Visitors" style="border-radius:8px;opacity:.9;">
+      </div>
+    </footer>
+  </main>
+
+  <button id="pageScrollTop" class="page-scroll-top" type="button" aria-label="Back to top">▲</button>
+
+  <script>
+    (function () {
+      const btn = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('blair-uap-theme');
+      if (saved === 'light') document.body.classList.add('light-theme');
+      if (btn) btn.textContent = document.body.classList.contains('light-theme') ? '☀' : '☾';
+      if (btn) btn.addEventListener('click', function () {
+        document.body.classList.toggle('light-theme');
+        const isLight = document.body.classList.contains('light-theme');
+        localStorage.setItem('blair-uap-theme', isLight ? 'light' : 'dark');
+        btn.textContent = isLight ? '☀' : '☾';
+      });
+
+      const topBtn = document.getElementById('pageScrollTop');
+      function syncTop() {
+        if (!topBtn) return;
+        topBtn.classList.toggle('show', window.scrollY > 320);
+      }
+      window.addEventListener('scroll', syncTop, { passive: true });
+      syncTop();
+      if (topBtn) topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    })();
+
+    async function safeFetchText(url) {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+      return await res.text();
+    }
+
+    async function safeFetchJson(url) {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+      return await res.json();
+    }
+
+    async function loadWikiSummaries() {
+      const out = document.getElementById('wikiOutput');
+      out.textContent = 'Loading Wikipedia REST summaries...';
+      const pages = ['Nellis_Air_Force_Base','Area_51','Nevada_Test_and_Training_Range','All-domain_Anomaly_Resolution_Office'];
+      try {
+        const data = await Promise.all(pages.map(async title => {
+          const j = await safeFetchJson('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title));
+          return '• ' + (j.title || title.replaceAll('_',' ')) + ': ' + (j.extract || '').slice(0, 360);
+        }));
+        out.textContent = data.join('\n\n');
+      } catch (err) {
+        out.textContent = 'Browser fetch failed: ' + err.message + '\nOpen manually: https://en.wikipedia.org/api/rest_v1/page/summary/Area_51';
+      }
+    }
+
+    async function loadMetar() {
+      const out = document.getElementById('metarOutput');
+      out.textContent = 'Loading Aviation Weather Center METAR text...';
+      const url = 'https://aviationweather.gov/api/data/metar?ids=KLSV,KLAS&format=raw&taf=false';
+      try {
+        const txt = await safeFetchText(url);
+        out.textContent = txt.trim() || 'No recent METAR returned. Direct URL: ' + url;
+      } catch (err) {
+        out.textContent = 'Browser fetch failed: ' + err.message + '\nDirect URL: ' + url;
+      }
+    }
+
+    async function loadOpenSky() {
+      const out = document.getElementById('skyOutput');
+      out.textContent = 'Loading OpenSky states for southern Nevada bbox...';
+      const url = 'https://opensky-network.org/api/states/all?lamin=35.6&lomin=-116.3&lamax=37.6&lomax=-113.8';
+      try {
+        const j = await safeFetchJson(url);
+        const states = j.states || [];
+        const sample = states.slice(0, 12).map(s => {
+          return [s[1] || 'unknown', s[5], s[6], s[7], s[8] ? 'ground' : 'air'].join(' | ');
+        });
+        out.textContent = 'Aircraft states returned: ' + states.length + '\nFormat: callsign | longitude | latitude | altitude | status\n' + sample.join('\n');
+      } catch (err) {
+        out.textContent = 'Browser fetch failed or rate-limited: ' + err.message + '\nDirect URL: ' + url;
+      }
+    }
+
+    async function loadArxiv() {
+      const out = document.getElementById('arxivOutput');
+      out.textContent = 'Loading arXiv Atom feed...';
+      const url = 'https://export.arxiv.org/api/query?search_query=all:unidentified%20anomalous%20phenomena&start=0&max_results=5&sortBy=submittedDate&sortOrder=descending';
+      try {
+        const txt = await safeFetchText(url);
+        const titles = Array.from(txt.matchAll(/<title>([^<]+)<\/title>/g)).slice(1).map(m => '• ' + m[1].replace(/\s+/g, ' ').trim());
+        out.textContent = titles.length ? titles.join('\n') : txt.slice(0, 1200);
+      } catch (err) {
+        out.textContent = 'Browser fetch failed: ' + err.message + '\nDirect URL: ' + url;
+      }
+    }
+  </script>
+</body>
+</html>

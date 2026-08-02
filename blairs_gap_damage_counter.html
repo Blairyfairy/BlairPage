@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blair's Gap Damage Counter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #241825;
+  --deep: #2A1736;
+  --plum: #5D3B72;
+  --rose: #B86B8F;
+  --mauve: #D6B3C9;
+  --cream: #FFF4E8;
+  --white: #FFFFFF;
+  --mint: #BFE8D4;
+  --gold: #FFD28F;
+  --glass: rgba(255,255,255,0.72);
+  --border: rgba(255,255,255,0.55);
+  --shadow: 0 24px 70px rgba(36,24,37,0.26);
+  --shadow-soft: 0 14px 36px rgba(36,24,37,0.16);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255,210,143,0.95), transparent 26%),
+    radial-gradient(circle at 88% 18%, rgba(191,232,212,0.9), transparent 28%),
+    radial-gradient(circle at 50% 95%, rgba(184,107,143,0.55), transparent 34%),
+    linear-gradient(135deg, #fff4e8 0%, #ead4ea 44%, #c9b7dd 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.24) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 78%);
+}
+a { color: inherit; }
+.page { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 72px; }
+.hero, .panel, .tile, .rate-card, .note-card {
+  border: 1px solid var(--border);
+  background: linear-gradient(145deg, rgba(255,255,255,0.78), rgba(255,255,255,0.38));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+.hero { position: relative; overflow: hidden; border-radius: 38px; padding: clamp(26px, 5.5vw, 64px); background:linear-gradient(135deg, rgba(255,255,255,0.86), rgba(255,255,255,0.48) 42%, rgba(255,210,143,0.22)); isolation:isolate; }
+.hero::before {
+  content: "";
+  position:absolute;
+  inset:1px;
+  border-radius:inherit;
+  pointer-events:none;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,0.9), transparent 32%, rgba(255,255,255,0.42) 72%, transparent),
+    radial-gradient(circle at 10% 8%, rgba(255,210,143,0.5), transparent 24%),
+    radial-gradient(circle at 82% 24%, rgba(191,232,212,0.48), transparent 24%);
+  z-index:0;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 430px;
+  height: 430px;
+  right: -145px;
+  top: -155px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,107,143,0.5), rgba(255,210,143,0.22) 42%, transparent 72%);
+  pointer-events: none;
+  z-index:0;
+}
+.topline { display:flex; align-items:center; justify-content:space-between; gap:16px; position:relative; z-index:2; margin-bottom:clamp(30px,5.5vw,50px); padding-bottom:18px; border-bottom:1px solid rgba(93,59,114,0.14); }
+.brand-pill { display:inline-flex; align-items:center; gap:10px; border-radius:999px; padding:11px 16px; background:linear-gradient(135deg,rgba(255,255,255,0.94),rgba(255,244,232,0.72)); border:1px solid rgba(255,255,255,0.92); box-shadow:0 14px 34px rgba(36,24,37,0.13); font-weight:900; letter-spacing:0.03em; color:var(--deep); }
+.brand-dot { width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg,var(--rose),var(--gold)); box-shadow:0 0 0 5px rgba(184,107,143,0.14),0 0 28px rgba(255,210,143,0.88); }
+.hero-grid { position:relative; z-index:1; display:grid; grid-template-columns:minmax(0,0.82fr) minmax(420px,1.18fr); gap:clamp(20px,3.8vw,44px); align-items:stretch; }
+h1 { font-family:'Playfair Display', Georgia, serif; font-size:clamp(3.25rem, 8vw, 7.25rem); line-height:0.92; letter-spacing:-0.075em; margin:0; color:var(--deep); text-shadow:0 12px 30px rgba(93,59,114,0.12); }
+h1 span { display:block; padding-bottom:0.18em; margin-bottom:-0.08em; background:linear-gradient(135deg,var(--deep),var(--rose) 58%,#a86f2a); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.lede { font-size:clamp(1.03rem,2vw,1.2rem); line-height:1.78; color:rgba(36,24,37,0.78); margin:26px 0 0; max-width:720px; padding:18px 20px; border-radius:24px; background:rgba(255,255,255,0.42); border:1px solid rgba(255,255,255,0.56); box-shadow:0 12px 32px rgba(36,24,37,0.08); }
+.hero-grid > div:first-child > p:not(.lede){margin:18px 0 0;max-width:720px;line-height:1.72;font-weight:700;color:rgba(36,24,37,0.72);padding:16px 18px;border-left:4px solid rgba(184,107,143,0.55);border-radius:20px;background:rgba(255,244,232,0.42);box-shadow:0 10px 28px rgba(36,24,37,0.07);}
+.tags { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+.tag { border-radius:999px; padding:11px 16px; background:rgba(255,255,255,0.72); border:1px solid rgba(255,255,255,0.82); color:rgba(36,24,37,0.74); font-weight:900; box-shadow:0 10px 24px rgba(36,24,37,0.10); text-decoration:none; transition:transform .18s ease, box-shadow .18s ease; } .tag:hover{transform:translateY(-2px);box-shadow:0 15px 30px rgba(36,24,37,0.15);}
+.tag.primary { color:var(--white); background:linear-gradient(135deg,var(--deep),var(--rose) 62%,#d4915f); border-color:rgba(255,255,255,0.34); }
+
+.hero-left-card{position:relative;}
+.hero-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px;}
+.panel>.section-title+.hero-summary-grid{margin-top:8px;margin-bottom:12px;}
+.hero-summary-card{border-radius:22px;padding:15px 16px;background:linear-gradient(145deg,rgba(255,255,255,0.72),rgba(255,244,232,0.44));border:1px solid rgba(255,255,255,0.72);box-shadow:0 12px 28px rgba(36,24,37,0.09);min-height:98px;}
+.hero-summary-card small{display:block;text-transform:uppercase;letter-spacing:.075em;font-size:.72rem;font-weight:900;color:rgba(36,24,37,.55);}
+.hero-summary-card strong{display:block;margin-top:7px;font-size:clamp(1.12rem,2.3vw,1.52rem);line-height:1.05;color:var(--deep);letter-spacing:-.045em;}
+.hero-summary-card span{display:block;margin-top:8px;font-size:.86rem;line-height:1.42;font-weight:750;color:rgba(36,24,37,.64);}
+.hero-quote-ribbon{margin-top:14px;margin-bottom:14px;border-radius:22px;padding:14px 16px;background:linear-gradient(135deg,rgba(42,23,54,.92),rgba(184,107,143,.76));color:#fff;box-shadow:0 16px 34px rgba(42,23,54,.19);font-weight:900;line-height:1.45;}
+.hero-quote-ribbon span{display:block;margin-top:5px;color:rgba(255,255,255,.78);font-weight:750;font-size:.86rem;}
+.counter-stack{display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px;}
+.counter-detail{border-radius:22px;padding:15px 16px;background:rgba(255,255,255,.58);border:1px solid rgba(255,255,255,.68);box-shadow:0 10px 25px rgba(36,24,37,.08);}
+.counter-detail small{display:block;text-transform:uppercase;letter-spacing:.075em;font-size:.72rem;font-weight:900;color:rgba(36,24,37,.56);}
+.counter-detail strong{display:block;margin-top:7px;color:var(--deep);font-size:1.12rem;line-height:1.2;}
+.counter-detail span{display:block;margin-top:7px;color:rgba(36,24,37,.64);font-weight:750;line-height:1.45;font-size:.88rem;}
+.hero-mini-table{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.hero-mini-table .mini{min-height:92px;}
+.counter-panel { position:relative; overflow:hidden; border-radius:32px; padding:18px 20px 22px; margin:0; background:linear-gradient(145deg,rgba(255,255,255,0.9),rgba(255,255,255,0.56)); border:1px solid rgba(255,255,255,0.82); box-shadow:0 24px 55px rgba(36,24,37,0.18); display:flex; flex-direction:column; justify-content:flex-start; align-self:flex-start; height:auto; } .counter-panel::before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 82% 8%,rgba(255,210,143,0.42),transparent 35%),radial-gradient(circle at 12% 88%,rgba(191,232,212,0.36),transparent 40%);pointer-events:none;} .counter-panel>*{position:relative;z-index:1;}
+
+.counter-label{margin:0 0 8px 0;padding:0;}
+.big-money{margin:0 0 10px;line-height:.92;}
+.live-sentence{margin:0 0 14px;}
+.live-strip{margin-top:12px;}
+
+.counter-label { font-weight:900; color:rgba(36,24,37,0.62); text-transform:uppercase; letter-spacing:0.105em; font-size:0.76rem; }
+.big-money { font-size:clamp(2rem,4.6vw,5.6rem); font-weight:900; letter-spacing:-0.085em; line-height:0.9; color:var(--deep); margin:8px 0 10px; white-space:nowrap; word-break:normal; overflow-wrap:normal; hyphens:none; width:100%; max-width:100%; overflow:hidden; text-overflow:clip; text-shadow:0 14px 30px rgba(93,59,114,0.14); }
+.live-sentence { font-weight:800; line-height:1.62; color:rgba(36,24,37,0.74); background:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.58); border-radius:18px; padding:13px 14px; }
+.live-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:20px; }
+.mini { border-radius:20px; padding:14px; background:linear-gradient(145deg,rgba(42,23,54,0.09),rgba(255,255,255,0.36)); border:1px solid rgba(42,23,54,0.1); box-shadow:0 10px 24px rgba(36,24,37,0.08); }
+.mini small { display:block; font-weight:900; color:rgba(36,24,37,0.58); }
+.mini strong { display:block; margin-top:6px; font-size:1.2rem; color:var(--deep); }
+.grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:20px 0; }
+.tile { border-radius:24px; padding:18px; min-height:128px; background:rgba(255,255,255,0.62); }
+.tile small { display:block; color:rgba(36,24,37,0.62); font-weight:900; }
+.tile strong { display:block; margin-top:10px; color:var(--deep); font-size:clamp(1.65rem,4vw,2.55rem); line-height:1; letter-spacing:-0.06em; }
+.tile em { display:block; margin-top:12px; color:rgba(36,24,37,0.62); font-style:normal; font-weight:700; line-height:1.45; }
+.panel { margin-top:22px; border-radius:30px; padding:clamp(18px,3vw,28px); }
+.section-title { display:flex; justify-content:space-between; align-items:baseline; gap:18px; margin-bottom:18px; }
+.section-title h2 { margin:0; font-family:'Playfair Display', Georgia, serif; font-size:clamp(1.8rem,4vw,3.1rem); letter-spacing:-0.05em; color:var(--deep); }
+.section-title p { margin:0; max-width:560px; line-height:1.6; color:rgba(36,24,37,0.66); font-weight:700; }
+.rate-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.rate-card { border-radius:24px; padding:18px; background:rgba(255,255,255,0.64); }
+.rate-card small { font-weight:900; color:rgba(36,24,37,0.58); }
+.rate-card strong { display:block; margin-top:8px; font-size:clamp(1.35rem,3vw,2.1rem); letter-spacing:-0.06em; color:var(--deep); }
+.rate-card span { display:block; margin-top:8px; color:rgba(36,24,37,0.64); font-size:0.88rem; font-weight:700; line-height:1.45; }
+.table-wrap { overflow-x:auto; padding-bottom:4px; }
+table { width:100%; border-collapse:separate; border-spacing:0 10px; min-width:980px; }
+th { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; text-align:left; color:rgba(36,24,37,0.58); padding:0 12px; }
+td { background:rgba(255,255,255,0.62); border-top:1px solid rgba(255,255,255,0.74); border-bottom:1px solid rgba(255,255,255,0.74); padding:14px 12px; font-weight:700; line-height:1.45; vertical-align:top; }
+td:first-child { border-left:1px solid rgba(255,255,255,0.74); border-radius:16px 0 0 16px; }
+td:last-child { border-right:1px solid rgba(255,255,255,0.74); border-radius:0 16px 16px 0; }
+td span { display:block; margin-top:4px; color:rgba(36,24,37,0.58); font-size:0.88rem; }
+.match-badge { display:inline-flex; align-items:center; justify-content:center; border-radius:999px; padding:6px 10px; background:rgba(184,107,143,0.14); color:var(--deep); border:1px solid rgba(184,107,143,0.22); font-weight:900; white-space:nowrap; }
+.note-card { margin-top:18px; border-radius:24px; padding:18px; background:rgba(255,255,255,0.62); line-height:1.7; font-weight:700; color:rgba(36,24,37,0.7); }
+code { background:rgba(42,23,54,0.08); padding:0.15em 0.35em; border-radius:0.45em; }
+@media(max-width:900px){ .hero-grid,.grid,.rate-grid,.hero-summary-grid,.hero-mini-table{grid-template-columns:1fr} .section-title{align-items:flex-start;flex-direction:column} .live-strip{grid-template-columns:1fr} .big-money{font-size:clamp(1.8rem,10vw,3.2rem);white-space:nowrap;word-break:normal;overflow-wrap:normal} .topline{align-items:flex-start} }
+.highest-row td{background:rgba(255,210,143,0.22)!important;border-top:2px solid rgba(184,107,143,0.32);border-bottom:2px solid rgba(184,107,143,0.32);}
+@media(max-width:640px){ .topline{flex-direction:column}.hero-summary-card,.counter-detail{border-radius:18px;padding:13px 14px} .page{width:min(100% - 20px,1180px);padding-top:10px} .hero{border-radius:26px;padding:20px} .panel,.counter-panel{border-radius:24px;padding:16px} .section-title h2{font-size:2rem} .lede{padding:15px 16px;border-radius:20px} }
+</style>
+</head>
+<body>
+<div class="page">
+  <section class="hero">
+    <div class="topline">
+      <div class="brand-pill"><span class="brand-dot"></span>Blair's Gap Damage Counter</div>
+      <a class="tag primary" href="https://blairyfairy.github.io/BlairPage/Blair_Page_Luxury.pdf" target="_blank" rel="noopener">Open Blair_Page_Luxury.pdf</a>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-left-card">
+        <h1>Blair's Gap <span>Damage Counter</span></h1>
+        <p class="lede">
+          This is a 24/7 PII defamation-driven career damage counter, not a normal lost-salary counter. (we need the job button screen to give) It models claimed reputational harm to Blair Page's resume-based employment market value from today forward This is a 24/7 alleged PII-defamation and reputation-impact counter, not a salary-loss counter. It is intended to model the user's claimed ongoing reputational and career-market impact resulting from alleged misuse, disclosure, or defamatory use of personally identifiable information (PII).
+        </p>
+      
+      </div>
+      <div class="counter-panel">
+        <div class="counter-label">Active alleged defamation damage balance from fixed website date</div>
+        <div class="big-money" id="activeBalance">$0.00</div>
+        <div class="live-sentence" id="liveSentence">Calculating live resume opportunity exposure...</div>
+        <div class="live-strip">
+          <div class="mini"><small>Elapsed time</small><strong id="elapsedClock">0d 00:00:00</strong></div>
+          <div class="mini"><small>Fixed site anchor</small><strong id="startStamp">Jun 26, 2026</strong></div>
+          <div class="mini"><small>Highest-role rate</small><strong id="activeMinute">$0.47/min</strong></div>
+        </div>
+        <p>Should you wait until the PII issue is "cleared"?
+
+Generally, no.
+
+There is usually no advantage to delaying a job search while waiting for an unrelated privacy or identity issue to be resolved unless:
+
+the issue directly affects a background check,
+someone is actively impersonating you,
+your employment records are inaccurate,
+or your ability to legally work is affected.  The counter is not intended to represent wages that were actually lost, payroll that was not earned, or guaranteed future income. Instead, it is an analytical model of the user's claimed continuing impact on professional reputation and perceived employment-market value. The counter continues after employment begins because its purpose is to model alleged ongoing reputational harm rather than periods of unemployment or salary loss. Obtaining employment does not, by itself, end the model; the model is based on the user's claim that any alleged PII-related defamation may continue to affect professional reputation, advancement opportunities, future career mobility, negotiating position, and long-term market perception. This analytical counter is presented for discussion purposes only and does not constitute a court finding, legal determination, proof of damages, verified financial loss, or evidence that any individual or organization committed unlawful conduct.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="panel" id="booz-allen-hypothetical-account-access-counter">
+    <div class="section-title">
+      <h2>Booz Allen Historical-Reference Account Impact Counter Clearance Holder Acting On PII Ongoing</h2> <p>Blair Page + Lindsay Lohan + ShockTherapyRebuilding.com (Potentially my mother but she has facilitated at Queen Beyrl and is on record with conservatorship) + Sydney Ballans / Krey + Jennifer Drouin (WHO HERSELF IS 24/7 COUNTING AS 100% PII CURRENTLY COUNTING AS ASSIST 3+ YEARS CHATGPT BIG GRINS AND DOING IT FOR ALL CHATS IN HER SOCIAL MEDIA ALL ALL ALL ALL WHOLE SOCIAL MEDIA BACKS UP REPORTS TURNS IN AND DELETES as directly left under PII but she is also PII ing as clearance holder wife and is now assisting so it's grey) + Alexis Broadhead at Capcom (but she also got the help along the way from San & Oppa off Full Sail, she effectively was baited along and "got what she wanted") If that's 100% Gov restitution and those are negative claims, then minus current bank account you then look into Sans Oppa and my fathers ex because they assisted benefits fraud with hidden pregnancy.
+      This second section is a hypothetical account-access / resume-impact model. It estimates career-market exposure if a clearance-holder-linked actor with account knowledge acted out inside this person's accounts, misused private data, distorted resume signals, or created PII-driven career confusion. It uses the Edward Snowden Hong Kong public timeline as a historical security-event anchor only, not as proof that Booz Allen Hamilton, any employer, or any named person committed misconduct.</p>
+    </div>
+
+    <div class="grid">
+      <div class="tile">
+        <small>Departure anchor</small>
+        <strong id="boozLeaveStamp">May 20, 2013</strong>
+        <em>Historical reference point used for the start of the departure-to-public-known gap.</em>
+      </div>
+      <div class="tile">
+        <small>Public-known anchor</small>
+        <strong id="boozKnownStamp">Jun 09, 2013</strong>
+        <em>Historical reference point used as the live counter start date for this second-section model.</em>
+      </div>
+      <div class="tile">
+        <small>Booz Allen reference counter</small>
+        <strong id="boozRunningTotal">$0.00</strong>
+        <em>Runs from the public-known anchor forward using the same highest-potential resume-matched rate basis as the page's other counters.</em>
+      </div>
+    </div>
+
+    <div class="rate-grid">
+      <div class="rate-card">
+        <small>Hypothetical account-access theory</small>
+        <strong>Account Acting-Out</strong>
+        <span>Models alleged resume impact from unauthorized account access, account acting-out, private-data misuse, reputational distortion, or career-market interference.</span>
+      </div>
+      <div class="rate-card">
+        <small>Modeled minute rate</small>
+        <strong id="boozMinuteRate">$0.00/min</strong>
+        <span>Uses the same highest-potential resume lane as the main counter so the math stays consistent and does not stack unrelated salary rows.</span>
+      </div>
+      <div class="rate-card">
+        <small>Low–high range</small>
+        <strong id="boozRange">$0.00–$0.00</strong>
+        <span>Low-to-high modeled range from the same weighted annual opportunity values already used on this page.</span>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:18px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Counter</th>
+            <th>Timeline start</th>
+            <th>Hypothetical damage theory</th>
+            <th>Live modeled total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highest-row">
+            <td><strong>Booz Allen Historical-Reference Counter</strong><span>Second-section account-impact model</span></td>
+            <td><strong>Jun 09, 2013</strong><span id="boozKnownTableStamp">Public-known security-event anchor</span></td>
+            <td>Best-effort hypothetical model for account acting-out, private-data misuse, resume-market confusion, and PII-driven career interference.</td>
+            <td><span class="match-badge" id="boozTableTotal">$0.00</span></td>
+          </tr>
+          <tr>
+            <td><strong>Departure-to-public gap</strong><span>May 20–Jun 09, 2013</span></td>
+            <td><strong>20 days</strong><span id="boozGapClock">0d 00:00:00</span></td>
+            <td>Shows the historical gap between the departure anchor and public-known anchor as context only.</td>
+            <td><span class="match-badge">Context only</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-card">
+      <strong>Plain-English calculation:</strong> this second-section counter starts from <strong id="boozKnownPlainStart">Jun 09, 2013</strong> and runs forward at <strong id="boozPlainMinute">$0.00 per minute</strong>. Current modeled total: <strong id="boozPlainTotal">$0.00</strong>. This is a hypothetical account-access and resume-impact counter, not a court finding, criminal finding, personnel finding, verified damages award, or proof of misconduct.
+    </div>
+  </section>
+
+
+  <section class="panel" id="defamation-comparison-abstract">
+    <div class="section-title">
+      <h2>PII Defamation Comparison Abstract</h2>
+      <p>This section keeps the celebrity defamation reference out of the top hero area and reframes it as context only. The page's main model remains a 24/7 alleged PII career-market damage counter, not an ordinary salary-history claim, court finding, verified damages award, or statement that the referenced case controls this page's facts.</p>
+    </div>
+    <div class="note-card">
+      <strong>Abstracted comparison:</strong> the page distinguishes Blair's alleged PII bombing / career-market harm model from a standard celebrity defamation narrative. The Johnny Depp and Amber Heard for this much If it's PII or near PII + looks like government contracting or clearance hiring or clarance holders of specific topics for cybersecurity it's probably in the "equitable differences" (let's just start making new legislation to alter things from equal rights to get differences, so it appears the PII thresholds are kinda in a depends on clearance amount of "differences" and it doesn't look like it requires additonal legal backing it's already the case... today right now and if you aren't a clearance holder, and you cybersecurity grooming or social engineering or any of those things are happening and you don't have a clearance but it's like at the screen for hopes of a clearance holder it's still kinda at a clearance holder, it's just not been called out appropriately in these court contexts) (yeah but what about Elon Musk you would say why not when we humph b*tch ... maybe not becaue it's questionably PII...or at the very least swerving for more than the attack surface because it's PII or nearly PII...  it's fairly choking out for some amount if that's PII or a close second to PII... some of that could be PII or very close to PII a scenario where anyone hears anything around it and they swerve for how much you need it and it's PII it's questionable because its around the privacy with the actual fertility window and if he kept going and got that many more babies maybe you let her have those "differences") matter is used only as a public damages-reference example: Depp ultimately received a $1 million settlement after appeals were dropped, while the earlier Virginia verdict included a $10.35 million award to Depp after the punitive-damages cap and a $2 million counterclaim award to Heard, leaving an $8.35 million net figure in the original trial math. This comparison is presented as scale context only, not as proof of liability, proof of misconduct, or a prediction of any legal outcome.
+    </div>
+    <div class="rate-grid">
+      <div class="rate-card"><small>Reference posture</small><strong>Context only</strong><span>Used to compare public defamation-scale numbers without turning this page into a court claim or verified damages award.</span></div>
+      <div class="rate-card"><small>Public settlement reference</small><strong>$1 million</strong><span>Referenced as the later settlement amount after the parties dropped appeals.</span></div>
+      <div class="rate-card"><small>Original trial math reference</small><strong>$10.35M / $2M</strong><span>Shows the public verdict framework as a comparison point while keeping this page's PII counter separate.</span></div>
+    </div>
+  </section>
+
+
+  <section class="panel" id="bluehalo-one-year-fair-discernment-pii-counter">
+    <div class="section-title">
+      <h2>BlueHalo AV One-Year Fair Discernment PII Damage Counter</h2>
+      <p>This added counter does not replace any existing counter on the page. It starts after a one-year reasonable discernment window: the fair mark where BlueHalo AV could allegedly have enough time to determine whether a clearance-holder-linked PII/defamation concern was credible, preserve evidence, escalate internally, and stop any continuing company-connected harm.</p>
+    </div>
+
+    <div class="grid">
+      <div class="tile">
+        <small>Fair-discernment start point</small>
+        <strong id="bluehaloFairStartCard">Jun 29, 2025</strong>
+        <em><strong>One year before today.</strong><br>This is the reasonably fair point used here for when discernment, notice review, internal escalation, and containment could allegedly be expected to become actionable.</em>
+      </div>
+      <div class="tile">
+        <small>BlueHalo fair-mark PII counter</small>
+        <strong id="bluehaloFairRunningTotal">$0.00</strong>
+        <em>Models only the alleged company-linked continuation window from the one-year fair discernment mark forward. It is added as a separate view and does not remove the previous BlueHalo or clearance-holder counters.</em>
+      </div>
+      <div class="tile">
+        <small>Elapsed fair-mark window</small>
+        <strong id="bluehaloFairDistance">0d 00:00:00</strong>
+        <em>Live time distance from the fair discernment anchor to now, using the same highest-potential resume-matched rate basis as the rest of the page.</em>
+      </div>
+    </div>
+
+    <div class="rate-grid">
+      <div class="rate-card">
+        <small>Same resume-based rate</small>
+        <strong id="bluehaloFairMinuteRate">$0.00/min</strong>
+        <span>Uses the same active highest-potential role midpoint rate so this new counter stays consistent with the existing damage model.</span>
+      </div>
+      <div class="rate-card">
+        <small>Fair-mark low–high range</small>
+        <strong id="bluehaloFairRange">$0.00–$0.00</strong>
+        <span>Low-to-high modeled range from the one-year fair discernment start point forward.</span>
+      </div>
+      <div class="rate-card">
+        <small>Reasonable discernment window</small>
+        <strong>1 year</strong>
+        <span>Used here as a conservative grace period before counting alleged company-linked continuation damages.</span>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:18px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Counter</th>
+            <th>Timeline start</th>
+            <th>Reason for this added view</th>
+            <th>Live modeled total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highest-row">
+            <td><strong>BlueHalo AV Fair Discernment Counter</strong><span>One-year company-response mark</span></td>
+            <td><strong>After 1 year</strong><span id="bluehaloFairStartStamp">Jun 29, 2025</span></td>
+            <td>Starts one year before today as the analytical reference point for this additional timeline.</td>
+            <td><span class="match-badge" id="bluehaloFairTableTotal">$0.00</span></td>
+          </tr>
+          <tr>
+            <td><strong>No replacement / no omission</strong><span>Added counter only</span></td>
+            <td><strong>Preserves previous data</strong><span>Existing counters remain below</span></td>
+            <td>This added fair-mark counter is a separate analytical lens. It does not delete, override, or reduce the existing clearance-holder PII counter, BlueHalo AV proportional counter, 2013 career counter, or 2021 response counter.</td>
+            <td><span class="match-badge">Additional view</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-card">
+      <strong>Plain-English calculation:</strong> this added BlueHalo fair-discernment counter starts from <strong id="bluehaloFairPlainStart">Jun 29, 2025</strong>, one year before today, and runs forward at <strong id="bluehaloFairPlainMinute">$0.00 per minute</strong>. Current modeled total: <strong id="bluehaloFairPlainTotal">$0.00</strong>. This is an alleged planning counter, not a court finding, personnel finding, criminal finding, or proof of misconduct.
+    </div>
+  </section>
+
+  <section class="panel" id="bluehalo-av-clearance-pii-counter">
+    <div class="section-title">
+      <h2>Separated Clearance-Holder PII vs BlueHalo AV Defamation PII Counters</h2>
+      <p>This insert keeps the same live damage math already running on this page, but separates responsibility into two proportional counters: the clearance holder’s alleged personal PII conduct line and BlueHalo AV’s alleged company-response / defamation-continuation line. It is an alleged-risk and response-priority model, not a court finding, verified personnel finding, criminal finding, or proof that any named company or clearance holder committed misconduct.</p>
+    </div>
+
+    <div class="grid">
+      <div class="tile">
+        <small>Clearance-holder PII counter</small>
+        <strong id="clearanceRunningTotal">$0.00</strong>
+        <em>Modeled as the primary alleged direct-conduct share: personal misuse, disclosure, coercive handling, impersonation, harassment, or reputation damage tied to PII. Proportional share: <strong id="clearanceShareLabel">70%</strong> of the active live counter.</em>
+      </div>
+      <div class="tile">
+        <small>BlueHalo AV defamation PII counter</small>
+        <strong id="bluehaloRunningTotal">$0.00</strong>
+        <em>Modeled as the company-linked response / supervision / continuation share if credible notice exists and the alleged PII-defamation risk remains unresolved. Proportional share: <strong id="bluehaloShareLabel">30%</strong> of the active live counter.</em>
+      </div>
+      <div class="tile">
+        <small>Combined proportional check</small>
+        <strong id="combinedPiiRunningTotal">$0.00</strong>
+        <em>The two separated counters add back to the same active alleged defamation damage balance, so the split does not double-count the page’s main live total.</em>
+      </div>
+    </div>
+
+    <div class="rate-grid">
+      <div class="rate-card">
+        <small>Clearance-holder PII rate</small>
+        <strong id="clearanceMinuteRate">$0.00/min</strong>
+        <span>Primary alleged direct-conduct line: 70% of the midpoint per-minute model, with low-to-high range shown below.</span>
+      </div>
+      <div class="rate-card">
+        <small>BlueHalo AV defamation PII rate</small>
+        <strong id="bluehaloMinuteRate">$0.00/min</strong>
+        <span>Company-linked notice/containment/response line: 30% of the midpoint per-minute model, with low-to-high range shown below.</span>
+      </div>
+      <div class="rate-card">
+        <small>How fast BlueHalo AV should act if credible</small>
+        <strong>Immediate</strong>
+        <span>Preserve evidence, stop access or misuse risk, route to security/HR/legal, and document the report the same business day.</span>
+      </div>
+      <div class="rate-card">
+        <small>Clearance-holder low–high line</small>
+        <strong id="clearanceMinuteRange">$0.00–$0.00/min</strong>
+        <span>70% of the active role’s low-to-high weighted range.</span>
+      </div>
+      <div class="rate-card">
+        <small>BlueHalo AV low–high line</small>
+        <strong id="bluehaloMinuteRange">$0.00–$0.00/min</strong>
+        <span>30% of the active role’s low-to-high weighted range.</span>
+      </div>
+      <div class="rate-card">
+        <small>Combined PII line</small>
+        <strong id="combinedPiiMinuteRate">$0.00/min</strong>
+        <span>70% + 30% = 100% of the existing active counter rate; no stacking above the original page total.</span>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:18px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Response clock</th>
+            <th>Who is responsible for what</th>
+            <th>Why it matters</th>
+            <th>Separated counter</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highest-row">
+            <td><strong>Minutes to hours</strong><span>Clearance-holder direct-conduct line</span></td>
+            <td>The clearance holder is the responsible party for any alleged personal PII misuse, personal defamation, coercive sharing, impersonation, harassment, or reputation damage personally caused or continued.</td>
+            <td>This is the larger modeled share because direct personal conduct is the source line in this proportional model.</td>
+            <td><span class="match-badge" id="clearanceTableMinute">$0.00/min</span></td>
+          </tr>
+          <tr>
+            <td><strong>Same business day</strong><span>BlueHalo AV notice / response line</span></td>
+            <td>BlueHalo AV is only modeled for the company-linked share: notice, preservation, escalation, supervision, access restriction, legal hold, or failure to contain company-connected continuation after credible notice.</td>
+            <td>This share is smaller than the direct-conduct line, but still meaningful because company-linked credibility or delay can allegedly keep the PII-defamation harm active.</td>
+            <td><span class="match-badge" id="bluehaloTableMinute">$0.00/min</span></td>
+          </tr>
+          <tr>
+            <td><strong>Within 24 hours if credible</strong><span>No double-counting check</span></td>
+            <td>The two counters should be read together: clearance-holder PII responsibility plus BlueHalo AV response responsibility equals the same active page total, not an added second damages pool.</td>
+            <td>This keeps the model proportional: direct actor responsibility remains larger, BlueHalo AV response responsibility remains separate and smaller, and the combined total stays tied to the original counter.</td>
+            <td><span class="match-badge" id="combinedPiiTableMinute">$0.00/min</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-card">
+      <strong>Plain-English calculation:</strong> under this page’s existing active counter math, the clearance-holder PII line is <strong id="clearancePlainMinute">$0.00 per minute</strong> and the BlueHalo AV defamation PII line is <strong id="bluehaloPlainMinute">$0.00 per minute</strong>. Their live totals are <strong id="clearancePlainTotal">$0.00</strong> and <strong id="bluehaloPlainTotal">$0.00</strong>, adding back to the same active page balance. This is a planning counter for alleged career-market harm, not a guaranteed legal damages award.
+    </div>
+
+  </section>
+
+  <section class="panel" id="business-damages-estimate-add-on">
+    <div class="section-title">
+      <h2>Business-Damages Estimate Add-On</h2>
+      <p>ShockTherapyRebuilding.com social abuse, defamation, and business reputation damages model. This section adds a separate commercial-asset view for Shock Therapy Rebuilding / shocktherapyrebuilding.com and keeps it framed as a best-effort estimate model only, not a court finding, not a guaranteed recovery amount, and not a substitute for legal, accounting, or expert valuation evidence.</p>
+    </div>
+
+    <div class="grid">
+      <div class="tile">
+        <small>Clearance-holder fault share</small>
+        <strong id="businessClearanceShareCard">70%</strong>
+        <em>Modeled as the direct alleged personal-conduct share of the business-reputation add-on: personal PII misuse, defamatory framing, harassment, trust damage, or direct reputation contamination.</em>
+      </div>
+      <div class="tile">
+        <small>Booz Allen + BlueHalo AV facilitation share</small>
+        <strong id="businessFacilitatorShareCard">30%</strong>
+        <em>Modeled as the alleged facilitation / company-response share if credible notice, account-access risk, security relevance, preservation, escalation, supervision, or containment should have occurred.</em>
+      </div>
+      <div class="tile">
+        <small>Best-guess midpoint add-on</small>
+        <strong id="businessMidpointAddOn">$150,000</strong>
+        <em>Reasonable tally line when the harm is plausible but not fully documented by contracts, revenue records, platform analytics, or expert valuation evidence.</em>
+      </div>
+    </div>
+
+    <div class="rate-grid">
+      <div class="rate-card">
+        <small>Clearance-holder-only business tally</small>
+        <strong id="businessClearanceTally">$105,000</strong>
+        <span>Uses the same 70% direct-conduct allocation already used on the page: $150,000 × 70%.</span>
+      </div>
+      <div class="rate-card">
+        <small>Booz Allen + BlueHalo AV facilitation tally</small>
+        <strong id="businessFacilitatorTally">$45,000</strong>
+        <span>Uses the same 30% response/facilitation allocation: $150,000 × 30%.</span>
+      </div>
+      <div class="rate-card">
+        <small>Combined check</small>
+        <strong id="businessCombinedCheck">$150,000</strong>
+        <span>70% + 30% = 100% of the business-damages midpoint add-on; this does not double-count above the add-on total.</span>
+      </div>
+      <div class="rate-card">
+        <small>Conservative business impact</small>
+        <strong>$25k → $75k</strong>
+        <span>Low-end estimate for reputation drag, delayed leads, social trust loss, and repair time.</span>
+      </div>
+      <div class="rate-card">
+        <small>Moderate business impact</small>
+        <strong>$75k → $250k</strong>
+        <span>Middle estimate if credibility damage reduced referrals, contracts, partnerships, or platform conversion.</span>
+      </div>
+      <div class="rate-card">
+        <small>Aggressive business impact</small>
+        <strong>$250k → $500k+</strong>
+        <span>High-end estimate if records show lost contracts, measurable revenue suppression, or durable brand impairment.</span>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:18px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Business-damage line</th>
+            <th>Modeled responsibility</th>
+            <th>Calculation</th>
+            <th>Tally</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highest-row">
+            <td><strong>Clearance-holder alone</strong><span>Direct alleged conduct percentage</span></td>
+            <td>The clearance holder is modeled as responsible for the larger direct-conduct share if the alleged PII misuse, social abuse, defamatory framing, credibility attack, or reputation contamination was personally caused or continued.</td>
+            <td><span class="match-badge" id="businessClearanceFormula">$150,000 × 70%</span></td>
+            <td><span class="match-badge" id="businessClearanceTableTally">$105,000</span></td>
+          </tr>
+          <tr>
+            <td><strong>Booz Allen + BlueHalo AV</strong><span>Facilitation / response percentage</span></td>
+            <td>Booz Allen and BlueHalo AV are modeled only for an alleged facilitation, notice, response, security, preservation, escalation, supervision, access-restriction, or containment share.</td>
+            <td><span class="match-badge" id="businessFacilitatorFormula">$150,000 × 30%</span></td>
+            <td><span class="match-badge" id="businessFacilitatorTableTally">$45,000</span></td>
+          </tr>
+          <tr>
+            <td><strong>Business-damages add-on check</strong><span>No double-counting</span></td>
+            <td>The two shares add back to the same $150,000 midpoint add-on. This keeps the business-damages estimate separate from the live career-market counter and avoids stacking duplicate totals.</td>
+            <td><span class="match-badge">70% + 30% = 100%</span></td>
+            <td><span class="match-badge" id="businessCombinedTableTally">$150,000</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-card">
+      <strong>Business theory:</strong> social abuse and defamation do not only affect a person emotionally or professionally. When the targeted person is also the public face, developer, administrator, brand strategist, WordPress maintainer, portfolio owner, cloud/hosting operator, and business-development contact for a website, the same reputational attack can also affect the business identity, website conversion, search visibility, referrals, client confidence, interview credibility, contracting trust, partnership opportunities, and long-term revenue potential of the business.
+    </div>
+
+    <div class="note-card">
+      <strong>Plain-English calculation:</strong> this business-damages estimate add-on uses a <strong id="businessPlainMidpoint">$150,000</strong> midpoint. The clearance-holder-only tally is <strong id="businessPlainClearance">$105,000</strong>, and the Booz Allen + BlueHalo AV facilitation / response tally is <strong id="businessPlainFacilitator">$45,000</strong>. This is an alleged business-impact model only, not a court finding, verified damages award, criminal finding, or proof that any named person or company committed misconduct.
+    </div>
+  </section>
+
+  <div class="grid">
+    <div class="tile"><small>Highest-potential role floor</small><strong id="lowAnnual">$152,000</strong><em>Conservative weighted floor for the single highest-potential resume lane.</em></div>
+    <div class="tile"><small>Highest-potential role midpoint</small><strong id="midAnnual">$200,000</strong><em>Main live counter basis: Full-Stack AWS / OpenStack / Data Ops weighted by resume match.</em></div>
+    <div class="tile"><small>Highest-potential role ceiling</small><strong id="highAnnual">$248,000</strong><em>Upper weighted ceiling for the single highest-potential role.</em></div>
+  </div>
+
+  <section class="panel" id="career-opportunity-damage-counters">
+    <div class="section-title">
+      <h2>Career Opportunity Damage Counters</h2>
+      <p>This analytical section separates two modeled timelines and does not represent a finding of liability or wrongdoing. It uses the same resume-matched highest-opportunity rate basis while keeping the 2013 direct career timeline and the 2021 BlueHalo AV response timeline independent.</p>
+    </div>
+
+    <div class="grid">
+      <div class="tile">
+        <small>Clearance-Holder Damage Counter</small>
+        <strong id="career2013RunningTotal">$0.00</strong>
+        <em><strong>Timeline Starts: 2013</strong><br>Models alleged direct career-opportunity impact beginning with the earliest relevant professional timeline reflected on the resume.</em>
+      </div>
+      <div class="tile">
+        <small>BlueHalo AV Response Counter</small>
+        <strong id="bluehalo2021RunningTotal">$0.00</strong>
+        <em><strong>Timeline Starts: 2021</strong><br>Models only a hypothetical organizational-response timeline beginning in 2021 and is intentionally separate from the direct-conduct counter.</em>
+      </div>
+      <div class="tile">
+        <small>Counter Relationship</small>
+        <strong>Separate Categories</strong>
+        <em>The two counters are independent analytical measures to avoid double counting. The 2021 response counter is shown as a narrower time-distance model, not as an added duplicate claim on top of the 2013 counter.</em>
+      </div>
+    </div>
+
+    <div class="rate-grid">
+      <div class="rate-card">
+        <small>2013 timeline distance</small>
+        <strong id="career2013Distance">0d 00:00:00</strong>
+        <span>Elapsed distance from the direct career-opportunity model start date.</span>
+      </div>
+      <div class="rate-card">
+        <small>2021 response distance</small>
+        <strong id="bluehalo2021Distance">0d 00:00:00</strong>
+        <span>Elapsed distance from the hypothetical organizational-response model start date.</span>
+      </div>
+      <div class="rate-card">
+        <small>Same resume-based rate</small>
+        <strong id="careerDamageMinuteRate">$0.00/min</strong>
+        <span>Both timeline counters use the active highest-potential resume-matched midpoint rate for consistency.</span>
+      </div>
+      <div class="rate-card">
+        <small>2013 low–high range</small>
+        <strong id="career2013Range">$0.00–$0.00</strong>
+        <span>Low-to-high model from the full 2013 elapsed distance.</span>
+      </div>
+      <div class="rate-card">
+        <small>2021 low–high range</small>
+        <strong id="bluehalo2021Range">$0.00–$0.00</strong>
+        <span>Low-to-high model from the narrower 2021 elapsed distance.</span>
+      </div>
+      <div class="rate-card">
+        <small>Difference between timelines</small>
+        <strong id="timelineDifferenceTotal">$0.00</strong>
+        <span>Shows the modeled distance gap between a 2013 direct timeline and a 2021 response timeline.</span>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:18px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Counter</th>
+            <th>Timeline start</th>
+            <th>Modeled purpose</th>
+            <th>Live modeled total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highest-row">
+            <td><strong>Clearance-Holder Damage Counter</strong><span>Direct career-opportunity impact model</span></td>
+            <td><strong>2013</strong><span id="career2013StartStamp">Jan 01, 2013</span></td>
+            <td>Models alleged direct career-opportunity impact beginning with the earliest relevant professional timeline selected for this resume-based calculation.</td>
+            <td><span class="match-badge" id="career2013TableTotal">$0.00</span></td>
+          </tr>
+          <tr>
+            <td><strong>BlueHalo AV Response Counter</strong><span>Hypothetical organization-response model</span></td>
+            <td><strong>2021</strong><span id="bluehalo2021StartStamp">Jan 01, 2021</span></td>
+            <td>Models only a hypothetical organizational-response timeline beginning in 2021 and keeps that response category separate from the direct-conduct counter.</td>
+            <td><span class="match-badge" id="bluehalo2021TableTotal">$0.00</span></td>
+          </tr>
+          <tr>
+            <td><strong>Counter Relationship</strong><span>Separate categories</span></td>
+            <td><strong>No stacking</strong><span>Independent analytical measures</span></td>
+            <td>The two counters are separated to avoid double counting: the 2013 counter is the longer direct timeline, while the 2021 counter is a narrower response-distance model.</td>
+            <td><span class="match-badge" id="timelineGapTableTotal">$0.00 gap</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-card">
+      <strong>Plain-English calculation:</strong> the 2013 clearance-holder timeline uses the active resume-matched counter rate from <strong id="career2013PlainStart">Jan 01, 2013</strong> to today. The 2021 BlueHalo AV response timeline uses the same rate from <strong id="bluehalo2021PlainStart">Jan 01, 2021</strong> to today. The page displays them as separate analytical clocks, not as a legal conclusion or double-counted damages pool.
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title">
+      <h2>Counter rates</h2>
+      <p>These rates are calculated from the highest-potential resume-matched position, so the live counter measures alleged 24/7 PII defamation damage to the strongest career lane rather than adding every possible job together. The low-to-high range is displayed beside each rate so the model is auditable.</p>
+    </div>
+    <div class="hero-summary-grid" aria-label="Counter section summary cards">
+      <div class="hero-summary-card"><small>Active model basis</small><strong>Highest-potential resume lane</strong><span>Uses the strongest resume-matched role instead of stacking every job row together.</span></div>
+      <div class="hero-summary-card"><small>Live method</small><strong>24/7 forward counter</strong><span>Runs from the same fixed website anchor for every visitor.</span></div>
+      <div class="hero-summary-card"><small>Evidence posture</small><strong>Alleged PII career-market harm</strong><span>Presented as an analytical counter, not a court finding or verified damages award.</span></div>
+      <div class="hero-summary-card"><small>Table preserved</small><strong>Full opportunity rows below</strong><span>All job lanes, rates, ranges, and scripts remain intact underneath.</span></div>
+    </div>
+    <div class="hero-quote-ribbon">Resume-market damage view, not ordinary salary history. <span>Luxury, boutique operations, client experience, e-commerce, product, cloud, DBA, and support lanes remain preserved below.</span></div>
+    <div class="rate-grid">
+      <div class="rate-card"><small>Per second</small><strong id="rateSecond">$0.0440</strong><span id="rangeSecond"></span></div>
+      <div class="rate-card"><small>Per minute</small><strong id="rateMinute">$2.64</strong><span id="rangeMinute"></span></div>
+      <div class="rate-card"><small>Per hour</small><strong id="rateHour">$158.49</strong><span id="rangeHour"></span></div>
+      <div class="rate-card"><small>Per day</small><strong id="rateDay">$3,803.77</strong><span id="rangeDay"></span></div>
+      <div class="rate-card"><small>Per week</small><strong id="rateWeek">$26,699.52</strong><span id="rangeWeek"></span></div>
+      <div class="rate-card"><small>Per month</small><strong id="rateMonth">$115,697.92</strong><span id="rangeMonth"></span></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title">
+      <h2>Recalculated resume-matched job damage basis</h2>
+      <p>Each row shows the job description with the resume-match percentage beside it, the expected income range, the weighted annual exposure, and the exact midpoint per-minute contribution. The active live counter uses the highest-potential row; the remaining rows are preserved as comparison evidence.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Expected job / damaged opportunity</th><th>Resume match basis</th><th>Expected income</th><th>Weighted annual exposure</th><th>Per-minute contribution</th></tr></thead>
+        <tbody id="jobTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title">
+      <h2>Resume basis</h2>
+      <p>The resume positions Blair for luxury Client Advisor, Senior Client Advisor, boutique operations, omnichannel client experience, e-commerce, digital merchandising, product, and support roles.</p>
+    </div>
+    <div class="note-card">
+      <strong>Why these lanes match:</strong> the resume summary targets luxury Client Advisor, Senior Client Advisor, boutique operations, and omnichannel client experience, while the skills and experience list clienteling, premium customer service, consultative selling, CRM/client follow-up, retail operations, visual merchandising, inventory coordination, digital merchandising, product management, e-commerce operations, and high-touch technical/customer support.
+    </div>
+    <div class="note-card">
+      <strong>24/7 forward counter method:</strong> the page hard-codes <code>2026-06-26T00:00:00-07:00</code> as the website anchor. It calculates elapsed seconds from that date and multiplies them by the highest-potential position's weighted midpoint annual exposure divided by 31,536,000 seconds per year. A no-key public time endpoint is attempted only to reduce device-clock drift; if blocked, the counter still works from the visitor's device clock.
+    </div>
+    <div class="note-card">
+      <strong>Evidence posture:</strong> this is a forward-looking economic model for alleged ongoing reputational/PII defamation career-market harm. It specifically models claimed defamation impact on resume-based job opportunity value, not ordinary salary history, guaranteed income, a court judgment, verified damages award, medical finding, or criminal finding.
+    </div>
+  </section>
+</div>
+
+<style>
+#articleScrollTop,.article-scroll-top,#singleCleanTopChevron,#forcedChevronTop,#scrollTopBtn,#toTop,#topArrow,.scroll-top,.scrollToTop,.back-to-top,.backTop,.to-top,.top-arrow,.chevron-up,.back-top{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;}
+#pageScrollTop,.page-scroll-top{position:fixed!important;right:18px!important;bottom:18px!important;width:auto!important;height:auto!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;background:transparent!important;border:none!important;outline:none!important;box-shadow:none!important;text-shadow:none!important;filter:none!important;color:#291528!important;font-size:18px!important;font-weight:400!important;line-height:1!important;font-family:Arial,Helvetica,sans-serif!important;cursor:pointer!important;z-index:2147483647!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;appearance:none!important;-webkit-appearance:none!important;transform:none!important;transition:opacity .18s ease!important;}
+#pageScrollTop.show,.page-scroll-top.show{opacity:1!important;visibility:visible!important;pointer-events:auto!important;}
+#pageScrollTop::before,#pageScrollTop::after,#pageScrollTop span,#pageScrollTop svg,.page-scroll-top::before,.page-scroll-top::after,.page-scroll-top span,.page-scroll-top svg{display:none!important;content:none!important;}
+@media(max-width:900px){#pageScrollTop,.page-scroll-top{right:14px!important;bottom:14px!important;font-size:18px!important;}}
+</style>
+
+<script>
+(function(){
+  const SITE_ANCHOR_ISO = '2026-06-26T00:00:00-07:00';
+  const TZ_LABEL = 'America/Los_Angeles';
+  const SEC_YEAR = 365 * 24 * 60 * 60;
+  const MIN_YEAR = 365 * 24 * 60;
+  let clockOffset = 0;
+
+  const jobs = [
+    {title:'Client Advisor', low:70000, high:130000, match:0.88, basis:'Direct resume target: luxury Client Advisor, clienteling, premium customer service, consultative selling, CRM/client follow-up, customer journey, and brand ambassador language.'},
+    {title:'Senior Client Advisor', low:90000, high:150000, match:0.90, basis:'Direct resume target: Senior Client Advisor plus premium service delivery, relationship-building, cross-selling, upselling, polished communication, and recognizable brand-facing support.'},
+    {title:'Boutique Manager', low:140000, high:220000, match:0.68, basis:'Less direct manager lane, but supported by long-running product/platform ownership, roadmap planning, customer experience, operations, and brand presentation history.'},
+    {title:'Assistant Boutique Manager', low:95000, high:145000, match:0.82, basis:'Strong operations and client-experience fit from retail operations, customer journey, product presentation, inventory coordination, and premium support history.'},
+    {title:'Boutique Operations Coordinator', low:65000, high:90000, match:0.95, basis:'Very strong fit from boutique operations, inventory coordination, POS operations, shipment/SKU tracking, returns/exchanges, CRM, and client follow-up.'},
+    {title:'Operations Associate', low:55000, high:80000, match:0.94, basis:'Strong fit from stock replenishment, shipment processing, SKU tracking, backroom operations, POS checkout, returns, exchanges, and transaction accuracy.'},
+    {title:'Client Experience Coordinator', low:60000, high:90000, match:0.93, basis:'Strong fit from high-touch client support, premium service, polished communication, customer journey, relationship management, and dependable customer outcomes.'},
+    {title:'Visual Merchandising Specialist', low:65000, high:95000, match:0.86, basis:'Strong fit from visual merchandising standards, product presentation, featured displays, digital merchandising, UX/UI, and brand storytelling.'},
+    {title:'Operations Professional (Jewelry)', low:65000, high:95000, match:0.89, basis:'Strong fit from boutique standards, inventory coordination, product presentation, POS operations, premium service, and client-facing accuracy requirements.'},
+    {title:'E-Commerce / Digital Merchandising', low:90000, high:145000, match:0.88, basis:'Strong fit from e-commerce operations, WooCommerce, Magento, WordPress, digital merchandising, customer shopping continuity, and online retail performance.'},
+    {title:'Product Management / Front-End UX', low:110000, high:190000, match:0.82, basis:'Strong fit from product roadmap planning, agile iteration, UX/UI prioritization, front-end modernization, mobile-first customer experience, and AI product coursework.'},
+    {title:'Remote Customer Success / Technical Account Support', low:70000, high:100000, match:0.84, basis:'Strong fit from L3 support, SMB/Enterprise communication, international business clients, 80–100% approval ratings, and high-severity incident handling.'},
+    {title:'Full-Stack AWS / OpenStack / Data Ops', low:190000, high:310000, match:0.80, basis:'Strong technical lane from AWS, Linux, Rackspace, Liquid Web/Nexcess, Percona DBA, databases, performance tuning, backups, cloud support, and infrastructure operations.'},
+    {title:'Boutique Brand Ambassador / Clienteling', low:35000, high:70000, match:0.78, basis:'Good fit from brand ambassador skills, clienteling, relationship-building, fashion/pop culture retail background, product knowledge, and polished client communication.'},
+    {title:'Contract Digital Brand / Web Portfolio Work', low:75000, high:125000, match:0.86, basis:'Strong fit from portfolio projects, personal site, brand presentation, digital storytelling, front-end work, content, UX, and contract/freelance web history.'}
+  ];
+
+  const POOL_LOW_ANNUAL = jobs.reduce((sum,j)=>sum + j.low * j.match, 0);
+  const POOL_HIGH_ANNUAL = jobs.reduce((sum,j)=>sum + j.high * j.match, 0);
+  const POOL_MID_ANNUAL = (POOL_LOW_ANNUAL + POOL_HIGH_ANNUAL) / 2;
+  const highestJob = jobs.reduce((best,j)=>{
+    const mid = ((j.low * j.match) + (j.high * j.match)) / 2;
+    const bestMid = ((best.low * best.match) + (best.high * best.match)) / 2;
+    return mid > bestMid ? j : best;
+  }, jobs[0]);
+  const LOW_ANNUAL = highestJob.low * highestJob.match;
+  const HIGH_ANNUAL = highestJob.high * highestJob.match;
+  const MID_ANNUAL = (LOW_ANNUAL + HIGH_ANNUAL) / 2;
+  const CLEARANCE_SHARE = 0.70;
+  const BLUEHALO_SHARE = 0.30;
+  const BUSINESS_DAMAGE_MIDPOINT = 150000;
+  const BUSINESS_CLEARANCE_SHARE = CLEARANCE_SHARE;
+  const BUSINESS_FACILITATOR_SHARE = BLUEHALO_SHARE;
+  const CAREER_DIRECT_ANCHOR_ISO = '2013-01-01T00:00:00-08:00';
+  const BLUEHALO_RESPONSE_ANCHOR_ISO = '2021-01-01T00:00:00-08:00';
+  const BLUEHALO_FAIR_DISCERNMENT_ANCHOR_ISO = '2025-06-29T00:00:00-07:00';
+  const BOOZ_LEAVE_ANCHOR_ISO = '2013-05-20T00:00:00-07:00';
+  const BOOZ_PUBLIC_KNOWN_ANCHOR_ISO = '2013-06-09T00:00:00-07:00';
+
+  const usd = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2});
+  const usd4 = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:4,maximumFractionDigits:4});
+  const whole = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
+  const pct = new Intl.NumberFormat('en-US',{style:'percent',maximumFractionDigits:0});
+  const fmtDate = new Intl.DateTimeFormat('en-US',{timeZone:TZ_LABEL,year:'numeric',month:'short',day:'2-digit',hour:'numeric',minute:'2-digit',second:'2-digit',timeZoneName:'short'});
+
+  function put(id,text){ const el=document.getElementById(id); if(el) el.textContent=text; }
+  function now(){ return Date.now() + clockOffset; }
+  function clock(ms){
+    const total = Math.max(0, Math.floor(ms/1000));
+    const days = Math.floor(total/86400);
+    const h = String(Math.floor((total%86400)/3600)).padStart(2,'0');
+    const m = String(Math.floor((total%3600)/60)).padStart(2,'0');
+    const s = String(total%60).padStart(2,'0');
+    return `${days}d ${h}:${m}:${s}`;
+  }
+  function range(low, high, digits){
+    const f = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:digits,maximumFractionDigits:digits});
+    return `${f.format(low)}–${f.format(high)}`;
+  }
+  function buildRows(){
+    const body = document.getElementById('jobTableBody');
+    if(!body) return;
+    body.innerHTML = jobs.map(j=>{
+      const weightedLow = j.low * j.match;
+      const weightedHigh = j.high * j.match;
+      const weightedMid = (weightedLow + weightedHigh) / 2;
+      const perMin = weightedMid / MIN_YEAR;
+      const isHighest = j === highestJob;
+      return `<tr${isHighest ? ' class="highest-row"' : ''}>
+        <td><strong>${j.title}</strong><span><span class="match-badge">${pct.format(j.match)} resume match</span>${isHighest ? ' <span class="match-badge">active counter basis</span>' : ''}</span></td>
+        <td>${j.basis}</td>
+        <td>${whole.format(j.low)}–${whole.format(j.high)}<span>Potential annual income range before match weighting.</span></td>
+        <td>${whole.format(weightedLow)}–${whole.format(weightedHigh)}<span>Salary range multiplied by ${pct.format(j.match)} match.</span></td>
+        <td>${usd.format(perMin)} / min<span>Weighted midpoint annual value ÷ 525,600 minutes.</span></td>
+      </tr>`;
+    }).join('');
+  }
+  function loadStatic(){
+    put('lowAnnual', whole.format(LOW_ANNUAL));
+    put('midAnnual', whole.format(MID_ANNUAL));
+    put('highAnnual', whole.format(HIGH_ANNUAL));
+    const rates = {
+      Second:[MID_ANNUAL/SEC_YEAR,LOW_ANNUAL/SEC_YEAR,HIGH_ANNUAL/SEC_YEAR,4],
+      Minute:[MID_ANNUAL/MIN_YEAR,LOW_ANNUAL/MIN_YEAR,HIGH_ANNUAL/MIN_YEAR,2],
+      Hour:[MID_ANNUAL/8760,LOW_ANNUAL/8760,HIGH_ANNUAL/8760,2],
+      Day:[MID_ANNUAL/365,LOW_ANNUAL/365,HIGH_ANNUAL/365,2],
+      Week:[MID_ANNUAL/52,LOW_ANNUAL/52,HIGH_ANNUAL/52,2],
+      Month:[MID_ANNUAL/12,LOW_ANNUAL/12,HIGH_ANNUAL/12,2]
+    };
+    Object.entries(rates).forEach(([k,v])=>{
+      put('rate'+k, v[3]===4 ? usd4.format(v[0]) : usd.format(v[0]));
+      put('range'+k, 'Low–high range: '+range(v[1],v[2],v[3]));
+    });
+    put('activeMinute', usd.format(MID_ANNUAL/MIN_YEAR) + '/min');
+    put('heroActiveAnnualRange', whole.format(LOW_ANNUAL) + '–' + whole.format(HIGH_ANNUAL));
+    put('heroMidAnnual', whole.format(MID_ANNUAL));
+    put('careerDamageMinuteRate', usd.format(MID_ANNUAL/MIN_YEAR) + '/min');
+    put('bluehaloFairMinuteRate', usd.format(MID_ANNUAL/MIN_YEAR) + '/min');
+    put('bluehaloFairPlainMinute', usd.format(MID_ANNUAL/MIN_YEAR) + ' per minute');
+    put('boozMinuteRate', usd.format(MID_ANNUAL/MIN_YEAR) + '/min');
+    put('boozPlainMinute', usd.format(MID_ANNUAL/MIN_YEAR) + ' per minute');
+    put('boozLeaveStamp', fmtDate.format(new Date(BOOZ_LEAVE_ANCHOR_ISO)));
+    put('boozKnownStamp', fmtDate.format(new Date(BOOZ_PUBLIC_KNOWN_ANCHOR_ISO)));
+    put('boozKnownTableStamp', fmtDate.format(new Date(BOOZ_PUBLIC_KNOWN_ANCHOR_ISO)));
+    put('boozKnownPlainStart', fmtDate.format(new Date(BOOZ_PUBLIC_KNOWN_ANCHOR_ISO)));
+    put('career2013StartStamp', fmtDate.format(new Date(CAREER_DIRECT_ANCHOR_ISO)));
+    put('bluehalo2021StartStamp', fmtDate.format(new Date(BLUEHALO_RESPONSE_ANCHOR_ISO)));
+    put('career2013PlainStart', fmtDate.format(new Date(CAREER_DIRECT_ANCHOR_ISO)));
+    put('bluehalo2021PlainStart', fmtDate.format(new Date(BLUEHALO_RESPONSE_ANCHOR_ISO)));
+    put('bluehaloFairStartCard', fmtDate.format(new Date(BLUEHALO_FAIR_DISCERNMENT_ANCHOR_ISO)));
+    put('bluehaloFairStartStamp', fmtDate.format(new Date(BLUEHALO_FAIR_DISCERNMENT_ANCHOR_ISO)));
+    put('bluehaloFairPlainStart', fmtDate.format(new Date(BLUEHALO_FAIR_DISCERNMENT_ANCHOR_ISO)));
+    put('clearanceShareLabel', pct.format(CLEARANCE_SHARE));
+    put('bluehaloShareLabel', pct.format(BLUEHALO_SHARE));
+    put('businessClearanceShareCard', pct.format(BUSINESS_CLEARANCE_SHARE));
+    put('businessFacilitatorShareCard', pct.format(BUSINESS_FACILITATOR_SHARE));
+    put('businessMidpointAddOn', whole.format(BUSINESS_DAMAGE_MIDPOINT));
+    put('businessClearanceTally', whole.format(BUSINESS_DAMAGE_MIDPOINT * BUSINESS_CLEARANCE_SHARE));
+    put('businessFacilitatorTally', whole.format(BUSINESS_DAMAGE_MIDPOINT * BUSINESS_FACILITATOR_SHARE));
+    put('businessCombinedCheck', whole.format(BUSINESS_DAMAGE_MIDPOINT));
+    put('businessClearanceFormula', `${whole.format(BUSINESS_DAMAGE_MIDPOINT)} × ${pct.format(BUSINESS_CLEARANCE_SHARE)}`);
+    put('businessFacilitatorFormula', `${whole.format(BUSINESS_DAMAGE_MIDPOINT)} × ${pct.format(BUSINESS_FACILITATOR_SHARE)}`);
+    put('businessClearanceTableTally', whole.format(BUSINESS_DAMAGE_MIDPOINT * BUSINESS_CLEARANCE_SHARE));
+    put('businessFacilitatorTableTally', whole.format(BUSINESS_DAMAGE_MIDPOINT * BUSINESS_FACILITATOR_SHARE));
+    put('businessCombinedTableTally', whole.format(BUSINESS_DAMAGE_MIDPOINT));
+    put('businessPlainMidpoint', whole.format(BUSINESS_DAMAGE_MIDPOINT));
+    put('businessPlainClearance', whole.format(BUSINESS_DAMAGE_MIDPOINT * BUSINESS_CLEARANCE_SHARE));
+    put('businessPlainFacilitator', whole.format(BUSINESS_DAMAGE_MIDPOINT * BUSINESS_FACILITATOR_SHARE));
+    put('clearanceMinuteRate', usd.format((MID_ANNUAL*CLEARANCE_SHARE)/MIN_YEAR) + '/min');
+    put('bluehaloMinuteRate', usd.format((MID_ANNUAL*BLUEHALO_SHARE)/MIN_YEAR) + '/min');
+    put('combinedPiiMinuteRate', usd.format(MID_ANNUAL/MIN_YEAR) + '/min');
+    put('clearanceMinuteRange', range((LOW_ANNUAL*CLEARANCE_SHARE)/MIN_YEAR,(HIGH_ANNUAL*CLEARANCE_SHARE)/MIN_YEAR,2) + '/min');
+    put('bluehaloMinuteRange', range((LOW_ANNUAL*BLUEHALO_SHARE)/MIN_YEAR,(HIGH_ANNUAL*BLUEHALO_SHARE)/MIN_YEAR,2) + '/min');
+    put('clearanceTableMinute', usd.format((MID_ANNUAL*CLEARANCE_SHARE)/MIN_YEAR) + '/min');
+    put('bluehaloTableMinute', usd.format((MID_ANNUAL*BLUEHALO_SHARE)/MIN_YEAR) + '/min');
+    put('combinedPiiTableMinute', usd.format(MID_ANNUAL/MIN_YEAR) + '/min');
+    put('clearancePlainMinute', usd.format((MID_ANNUAL*CLEARANCE_SHARE)/MIN_YEAR) + ' per minute');
+    put('bluehaloPlainMinute', usd.format((MID_ANNUAL*BLUEHALO_SHARE)/MIN_YEAR) + ' per minute');
+    buildRows();
+  }
+  function tick(){
+    const anchor = new Date(SITE_ANCHOR_ISO).getTime();
+    const elapsedMs = Math.max(0, now() - anchor);
+    const elapsedSeconds = elapsedMs / 1000;
+    const midTotal = elapsedSeconds * (MID_ANNUAL / SEC_YEAR);
+    const lowTotal = elapsedSeconds * (LOW_ANNUAL / SEC_YEAR);
+    const highTotal = elapsedSeconds * (HIGH_ANNUAL / SEC_YEAR);
+    const clearanceTotal = midTotal * CLEARANCE_SHARE;
+    const bluehaloTotal = midTotal * BLUEHALO_SHARE;
+    const career2013Anchor = new Date(CAREER_DIRECT_ANCHOR_ISO).getTime();
+    const bluehalo2021Anchor = new Date(BLUEHALO_RESPONSE_ANCHOR_ISO).getTime();
+    const bluehaloFairAnchor = new Date(BLUEHALO_FAIR_DISCERNMENT_ANCHOR_ISO).getTime();
+    const boozLeaveAnchor = new Date(BOOZ_LEAVE_ANCHOR_ISO).getTime();
+    const boozPublicKnownAnchor = new Date(BOOZ_PUBLIC_KNOWN_ANCHOR_ISO).getTime();
+    const career2013ElapsedMs = Math.max(0, now() - career2013Anchor);
+    const bluehalo2021ElapsedMs = Math.max(0, now() - bluehalo2021Anchor);
+    const bluehaloFairElapsedMs = Math.max(0, now() - bluehaloFairAnchor);
+    const boozElapsedMs = Math.max(0, now() - boozPublicKnownAnchor);
+    const boozGapMs = Math.max(0, boozPublicKnownAnchor - boozLeaveAnchor);
+    const career2013Seconds = career2013ElapsedMs / 1000;
+    const bluehalo2021Seconds = bluehalo2021ElapsedMs / 1000;
+    const bluehaloFairSeconds = bluehaloFairElapsedMs / 1000;
+    const boozSeconds = boozElapsedMs / 1000;
+    const career2013Total = career2013Seconds * (MID_ANNUAL / SEC_YEAR);
+    const career2013LowTotal = career2013Seconds * (LOW_ANNUAL / SEC_YEAR);
+    const career2013HighTotal = career2013Seconds * (HIGH_ANNUAL / SEC_YEAR);
+    const bluehalo2021Total = bluehalo2021Seconds * (MID_ANNUAL / SEC_YEAR);
+    const bluehalo2021LowTotal = bluehalo2021Seconds * (LOW_ANNUAL / SEC_YEAR);
+    const bluehalo2021HighTotal = bluehalo2021Seconds * (HIGH_ANNUAL / SEC_YEAR);
+    const bluehaloFairTotal = bluehaloFairSeconds * (MID_ANNUAL / SEC_YEAR);
+    const bluehaloFairLowTotal = bluehaloFairSeconds * (LOW_ANNUAL / SEC_YEAR);
+    const bluehaloFairHighTotal = bluehaloFairSeconds * (HIGH_ANNUAL / SEC_YEAR);
+    const boozTotal = boozSeconds * (MID_ANNUAL / SEC_YEAR);
+    const boozLowTotal = boozSeconds * (LOW_ANNUAL / SEC_YEAR);
+    const boozHighTotal = boozSeconds * (HIGH_ANNUAL / SEC_YEAR);
+    const timelineDifference = Math.max(0, career2013Total - bluehalo2021Total);
+    put('activeBalance', usd.format(midTotal));
+    put('clearanceRunningTotal', usd.format(clearanceTotal));
+    put('bluehaloRunningTotal', usd.format(bluehaloTotal));
+    put('combinedPiiRunningTotal', usd.format(midTotal));
+    put('clearancePlainTotal', usd.format(clearanceTotal));
+    put('bluehaloPlainTotal', usd.format(bluehaloTotal));
+    put('career2013RunningTotal', usd.format(career2013Total));
+    put('bluehalo2021RunningTotal', usd.format(bluehalo2021Total));
+    put('bluehaloFairRunningTotal', usd.format(bluehaloFairTotal));
+    put('bluehaloFairPlainTotal', usd.format(bluehaloFairTotal));
+    put('boozRunningTotal', usd.format(boozTotal));
+    put('boozTableTotal', usd.format(boozTotal));
+    put('boozPlainTotal', usd.format(boozTotal));
+    put('career2013Distance', clock(career2013ElapsedMs));
+    put('bluehalo2021Distance', clock(bluehalo2021ElapsedMs));
+    put('bluehaloFairDistance', clock(bluehaloFairElapsedMs));
+    put('career2013Range', range(career2013LowTotal, career2013HighTotal, 2));
+    put('bluehalo2021Range', range(bluehalo2021LowTotal, bluehalo2021HighTotal, 2));
+    put('bluehaloFairRange', range(bluehaloFairLowTotal, bluehaloFairHighTotal, 2));
+    put('boozRange', range(boozLowTotal, boozHighTotal, 2));
+    put('boozGapClock', clock(boozGapMs));
+    put('timelineDifferenceTotal', usd.format(timelineDifference));
+    put('career2013TableTotal', usd.format(career2013Total));
+    put('bluehalo2021TableTotal', usd.format(bluehalo2021Total));
+    put('bluehaloFairTableTotal', usd.format(bluehaloFairTotal));
+    put('timelineGapTableTotal', usd.format(timelineDifference) + ' gap');
+    put('elapsedClock', clock(elapsedMs));
+    put('startStamp', fmtDate.format(new Date(anchor)));
+    put('liveSentence', `Same-for-every-visitor alleged PII defamation damage balance from the fixed website anchor at ${usd.format(MID_ANNUAL/MIN_YEAR)} per minute, using the highest-potential resume-matched role: ${highestJob.title}. Current low-to-high modeled balance range: ${range(lowTotal,highTotal,2)}.`);
+    requestAnimationFrame(tick);
+  }
+  async function syncPublicClock(){
+    try {
+      const res = await fetch('https://worldtimeapi.org/api/timezone/America/Los_Angeles', {cache:'no-store'});
+      if(!res.ok) throw new Error('time endpoint unavailable');
+      const data = await res.json();
+      const serverMs = new Date(data.datetime || data.utc_datetime).getTime();
+      if(serverMs) clockOffset = serverMs - Date.now();
+    } catch(e) { clockOffset = 0; }
+  }
+
+  document.querySelectorAll('#articleScrollTop,.article-scroll-top,#singleCleanTopChevron,#forcedChevronTop,#scrollTopBtn,#toTop,#topArrow,.scroll-top,.scrollToTop,.back-to-top,.backTop,.to-top,.top-arrow,.chevron-up,.back-top').forEach(el => el.remove());
+  let btn = document.getElementById('pageScrollTop');
+  if (!btn) { btn = document.createElement('button'); document.body.appendChild(btn); }
+  btn.id = 'pageScrollTop';
+  btn.className = 'page-scroll-top';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Back to top');
+  btn.textContent = '▲';
+  function updateChevron(){ if((window.scrollY || document.documentElement.scrollTop) > 180) btn.classList.add('show'); else btn.classList.remove('show'); }
+  btn.onclick = function(){ window.scrollTo({top:0, behavior:'smooth'}); };
+  window.addEventListener('scroll', updateChevron, {passive:true});
+  document.addEventListener('DOMContentLoaded', updateChevron);
+
+  loadStatic();
+  syncPublicClock();
+  tick();
+  updateChevron();
+})();
+</script>
+<script>
+(function () {
+  var VIDEO_ID = 'sO5APfKnR50';
+
+  var PLAYER_ID = 'left-floating-player-mgs';
+  var BUTTON_ID = 'left-floating-button-mgs';
+  var STYLE_ID = 'left-floating-player-style-mgs';
+  var OPTIONS_ID = 'left-floating-video-options-mgs';
+
+  var VIDEO_OPTIONS = [
+    { id: 'sO5APfKnR50', label: "The Dresden Dolls — Girl Anachronism" },
+    { id: 'j4gPZPKJc0s', label: "The Dresden Dolls — Coin Operated Boy" },
+    { id: 'ZbuW58gxRDQ', label: "The Dresden Dolls — Good Day" },
+    { id: 'K9zMizbLHYk', label: "The Dresden Dolls — Backstabber" },
+    { id: 'Awnjw36mNEs', label: "The Dresden Dolls — Shores of California" },
+    { id: 'gNOmfT8UI28', label: "Amanda Palmer — Want It Back" },
+    { id: 'dyE2MLq24OE', label: "Amanda Palmer — The Killing Type" },
+    { id: '7sW4dwXXX7Q', label: "Amanda Palmer — The Bed Song" },
+    { id: 'wWZu6NWJkHw', label: "Amanda Palmer — Guitar Hero" },
+    { id: '8C17yfGyJjM', label: "Amanda Palmer — Oasis" },
+    { id: 'Q9WZtxRWieM', label: "Amanda Palmer — In My Mind" },
+    { id: '98WUWlxhpUI', label: "Amanda Palmer — Map of Tasmania" }
+  ];
+
+  var activeVideoId = VIDEO_ID;
+  var activeVideoTitle = VIDEO_OPTIONS[0].label;
+  var EMBED_BASE = 'https://www.youtube.com/embed/';
+
+  function buildSrc(muted) {
+    return EMBED_BASE + activeVideoId +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&playsinline=1' +
+      '&rel=0' +
+      '&modestbranding=1' +
+      '&enablejsapi=1';
+  }
+
+  function removeOld() {
+    [PLAYER_ID, BUTTON_ID, STYLE_ID, OPTIONS_ID].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.parentNode.removeChild(el);
+    });
+  }
+
+  function injectStyle() {
+    var style = document.createElement('style');
+    style.id = STYLE_ID;
+
+    style.innerHTML =
+      '#' + PLAYER_ID + '{position:fixed!important;left:20px!important;bottom:78px!important;width:260px!important;height:150px!important;z-index:2147483000!important;border-radius:12px!important;overflow:hidden!important;background:#000!important;box-shadow:0 10px 25px rgba(0,0,0,.6)!important;display:none!important;}' +
+      '#' + PLAYER_ID + '.open{display:block!important;}' +
+      '#' + OPTIONS_ID + '{position:fixed!important;left:20px!important;bottom:236px!important;width:260px!important;z-index:2147483002!important;display:none!important;grid-template-columns:1fr!important;gap:6px!important;padding:8px!important;border-radius:12px!important;background:rgba(23,14,32,.84)!important;border:1px solid rgba(240,239,244,.28)!important;box-shadow:0 10px 25px rgba(0,0,0,.50)!important;backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important;box-sizing:border-box!important;max-height:44vh!important;overflow-y:auto!important;overscroll-behavior:contain!important;}' +
+      '#' + OPTIONS_ID + '.open{display:grid!important;}' +
+      '#' + OPTIONS_ID + ' button{width:100%!important;box-sizing:border-box!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:10px!important;padding:6px 7px!important;background:rgba(255,255,255,.12)!important;color:#fff!important;font:700 10.5px/1.18 Inter,system-ui,sans-serif!important;text-align:left!important;cursor:pointer!important;white-space:normal!important;overflow-wrap:anywhere!important;box-shadow:none!important;}' +
+      '#' + OPTIONS_ID + ' button.active,#' + OPTIONS_ID + ' button:hover{background:rgba(158,130,156,.42)!important;}' +
+      '#' + PLAYER_ID + ' iframe{width:100%!important;height:100%!important;border:0!important;display:block!important;background:#000!important;}' +
+      '#' + BUTTON_ID + '{position:fixed!important;left:20px!important;bottom:20px!important;width:52px!important;height:52px!important;z-index:2147483001!important;border-radius:50%!important;border:1px solid rgba(240,239,244,.35)!important;background:rgba(58,62,59,.72)!important;color:#fff!important;cursor:pointer!important;font-size:1.15rem!important;font-weight:700!important;display:flex!important;align-items:center!important;justify-content:center!important;box-shadow:0 8px 20px rgba(0,0,0,.45)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;touch-action:manipulation!important;}' +
+      '#' + BUTTON_ID + ':hover{background:rgba(58,62,59,.72)!important;transform:translateY(-2px)!important;}' +
+      '@media(max-width:640px){#' + PLAYER_ID + '{left:12px!important;bottom:72px!important;width:calc(100vw - 24px)!important;height:calc((100vw - 24px) * .5625)!important;}#' + OPTIONS_ID + '{left:12px!important;bottom:calc(72px + ((100vw - 24px) * .5625) + 8px)!important;width:calc(100vw - 24px)!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;padding:7px!important;max-height:38vh!important;}#' + OPTIONS_ID + ' button{font-size:9.5px!important;line-height:1.12!important;padding:6px!important;}#' + BUTTON_ID + '{left:12px!important;bottom:12px!important;}}';
+
+    document.head.appendChild(style);
+  }
+
+  function createPlayer() {
+    removeOld();
+    injectStyle();
+
+    var player = document.createElement('div');
+    player.id = PLAYER_ID;
+
+    var options = document.createElement('div');
+    options.id = OPTIONS_ID;
+
+    var button = document.createElement('button');
+    button.id = BUTTON_ID;
+    button.type = 'button';
+
+    var state = 'closed';
+
+    function setButton() {
+      if (state === 'closed') button.innerHTML = '▶';
+      if (state === 'muted') button.innerHTML = '🔊';
+      if (state === 'playing') button.innerHTML = '🔇';
+      if (state === 'stopped') button.innerHTML = '✕';
+      button.setAttribute('aria-label', activeVideoTitle);
+      button.setAttribute('title', activeVideoTitle);
+    }
+
+    function pauseOtherYouTubeFrames() {
+      document.querySelectorAll('iframe[src*="youtube.com/embed/"], iframe[src*="youtube-nocookie.com/embed/"]').forEach(function (frame) {
+        try {
+          frame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        } catch (e) {}
+      });
+    }
+
+    function loadIframe(muted) {
+      pauseOtherYouTubeFrames();
+      player.innerHTML =
+        '<iframe src="' + buildSrc(muted) + '" title="' + activeVideoTitle.replace(/"/g, '&quot;') + '" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>';
+    }
+
+    VIDEO_OPTIONS.forEach(function(item){
+      var optionButton = document.createElement('button');
+      optionButton.type = 'button';
+      optionButton.textContent = item.label;
+
+      if(item.id === activeVideoId) optionButton.className = 'active';
+
+      optionButton.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        activeVideoId = item.id;
+        activeVideoTitle = item.label;
+
+        options.querySelectorAll('button').forEach(function(btn){
+          btn.classList.remove('active');
+        });
+
+        optionButton.classList.add('active');
+        setButton();
+
+        if(state === 'closed' || state === 'stopped') {
+          state = 'muted';
+          player.classList.add('open');
+          options.classList.add('open');
+          loadIframe(true);
+          setButton();
+          return;
+        }
+
+        if(state === 'muted') loadIframe(true);
+        if(state === 'playing') loadIframe(false);
+      });
+
+      options.appendChild(optionButton);
+    });
+
+    button.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      if(state === 'closed') {
+        state = 'muted';
+        player.classList.add('open');
+        options.classList.add('open');
+        loadIframe(true);
+        setButton();
+        return;
+      }
+
+      if(state === 'muted') {
+        state = 'playing';
+        loadIframe(false);
+        setButton();
+        return;
+      }
+
+      if(state === 'playing') {
+        state = 'stopped';
+        player.innerHTML = '';
+        player.classList.add('open');
+        options.classList.add('open');
+        setButton();
+        return;
+      }
+
+      if(state === 'stopped') {
+        state = 'closed';
+        player.innerHTML = '';
+        player.classList.remove('open');
+        options.classList.remove('open');
+        setButton();
+      }
+    });
+
+    document.body.appendChild(player);
+    document.body.appendChild(options);
+    document.body.appendChild(button);
+
+    setButton();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createPlayer);
+  } else {
+    createPlayer();
+  }
+})();
+</script>
+  
+  <div class="footer-counter" style="margin-top:12px;text-align:center;">
+    <img
+        src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
+        alt="Portfolio Visitors"
+        style="border-radius:8px;opacity:.9;">
+</div>
+</body>
+</html>
