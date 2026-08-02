@@ -158,14 +158,15 @@ body.dark{
   color:#fff200;
   font-family:Arial, Helvetica, sans-serif;
   font-weight:800;
-  text-align:justify;
+  text-align:left;
   font-size:clamp(1.25rem, 3vw, 2.35rem);
   line-height:1.55;
   letter-spacing:.035em;
+  -webkit-text-stroke:0.4px rgba(0,0,0,.55);
   transform:translateX(-50%) rotateX(28deg) translateY(72vh);
   transform-origin:50% 0%;
   animation:starWarsCrawl 900s linear infinite;
-  text-shadow:0 0 6px rgba(255,242,0,.70),0 0 18px rgba(255,242,0,.38),0 0 30px rgba(255,242,0,.16);
+  text-shadow:0 0 2px rgba(0,0,0,.9),0 1px 3px rgba(0,0,0,.8),0 0 8px rgba(255,242,0,.75),0 0 18px rgba(255,242,0,.35);
 }
 
 .crawl-text h1{
@@ -245,7 +246,8 @@ body.dark{
   background:rgba(58,62,59,0.72);
   border:1px solid rgba(255,242,0,0.42);
   border-radius:999px;
-  padding:.42rem .72rem;
+  padding:.5rem 1.05rem;
+  white-space:nowrap;
   color:#fff200;
   font-weight:800;
   font-size:.68rem;
@@ -678,7 +680,8 @@ body::before{
 .karen-crawl-restart-btn{
   top:64px;
   right:8px;
-  padding:.4rem .62rem;
+  padding:.46rem .85rem;
+  white-space:nowrap;
   font-size:.62rem;
   z-index:1006;
 }
@@ -6179,7 +6182,7 @@ iframe{
   }
 
   function animationLoop(now){
-    const duration = window.innerWidth <= 900 ? 235000 : 215000;
+    const duration = window.innerWidth <= 900 ? 180000 : 165000;
     const delta = now - lastTime;
     lastTime = now;
 
@@ -6316,7 +6319,7 @@ iframe{
     const delta = Math.min(50, Math.max(0, now - lastTime));
     lastTime = now;
     if (!dragging) {
-      progress += delta / (window.innerWidth <= 900 ? 235000 : 215000);
+      progress += delta / (window.innerWidth <= 900 ? 180000 : 165000);
       if (progress >= 1) progress = 0;
     }
     paint();
@@ -6545,7 +6548,7 @@ iframe{
     lastAutoTime = now;
 
     if (!dragging) {
-      progress += delta / (window.innerWidth <= 900 ? 235000 : 215000);
+      progress += delta / (window.innerWidth <= 900 ? 180000 : 165000);
       if (progress >= 1) progress = 0;
     }
 
@@ -7403,7 +7406,6 @@ body#gallery-page #lightbox.lightbox:not(.show) .gallery-lightbox-close{
 })();
 </script>
 </body>
-
 
   
 </html>
