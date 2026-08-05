@@ -814,8 +814,9 @@ class GardenGallery {
     const closeBtn=document.getElementById("closeModal");
     const modalImg=document.getElementById("modalImg");
     const close=()=>{modal.classList.remove("active");modal.style.display="none";modalImg.src="";};
-    closeBtn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();close();},true);
-    modal.onclick=(e)=>{if(e.target===modal)close();};
+    closeBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();close();};
+    modal.onclick=close;
+    modalImg.onclick=close;
     document.addEventListener("keydown",(e)=>{if(e.key==="Escape")close();});
   }
 
