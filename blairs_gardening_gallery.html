@@ -795,14 +795,12 @@ class GardenGallery {
             this.updateStats();
           };
           img.onerror = () => {
-            item.className = 'gallery-item error';
-            item.innerHTML = `<div>Image not found</div>`;
+            item.remove();
             this.failed++;
             this.updateStats();
           };
         } else {
-          item.className = 'gallery-item error';
-          item.innerHTML = `<div>No valid format</div>`;
+          item.remove();
           this.failed++;
           this.updateStats();
         }
@@ -827,20 +825,21 @@ class GardenGallery {
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
     modalImg.src = src;
-    modal.classList.add('active');
+    modal.style.display='flex'; modal.classList.add('active');
   }
 
   setupModal() {
     const modal = document.getElementById('modal');
     const closeBtn = document.getElementById('closeModal');
     
-    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+    const close=()=>{modal.classList.remove('active');modal.style.display='none';document.getElementById('modalImg').src='';};
+    closeBtn.addEventListener('click',(e)=>{e.stopPropagation();close();});
     modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.classList.remove('active');
+      if (e.target === modal) close();
     });
     
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') modal.classList.remove('active');
+      if (e.key === 'Escape') close();
     });
   }
 
