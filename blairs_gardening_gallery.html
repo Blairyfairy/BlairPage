@@ -75,7 +75,7 @@ body.dark {
 
 .hero {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid var(--border);
   border-radius: 34px;
   background: linear-gradient(145deg, rgba(255,255,255,0.78), rgba(255,255,255,0.38));
@@ -310,7 +310,7 @@ body.dark .gallery-header p { color: rgba(240,253,244,0.7); }
 
 .gallery-item {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 24px;
   border: 1px solid rgba(255,255,255,0.72);
   background: rgba(255,255,255,0.6);
@@ -578,10 +578,10 @@ body.dark .stats-info {
   position: relative;
   max-width: 90vw;
   max-height: 90vh;
-  background: var(--white);
+  background: transparent;
   border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 40px 80px rgba(15,61,52,0.4);
+  overflow: visible;
+  box-shadow:none;
 }
 
 body.dark .modal-content {
@@ -589,39 +589,20 @@ body.dark .modal-content {
 }
 
 .modal-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  max-height: 85vh;
+  display:block;max-width:90vw;max-height:90vh;width:auto;height:auto;object-fit:contain;border-radius:20px;
 }
 
 .modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.9);
-  color: var(--forest);
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1001;
-  transition: all 0.2s ease;
+  position:absolute;top:-18px;right:-18px;width:48px;height:48px;border:none;border-radius:50%;background:rgba(0,0,0,.8);color:#fff;font-size:32px;cursor:pointer;z-index:99999;pointer-events:auto;display:flex;align-items:center;justify-content:center;
 }
 
 .modal-close:hover {
-  background: var(--white);
+  background: transparent;
   transform: scale(1.1);
 }
 
 body.dark .modal-close {
-  background: rgba(255,255,255,0.15);
-  color: #f0fdf4;
+  position:absolute;top:-18px;right:-18px;width:48px;height:48px;border:none;border-radius:50%;background:rgba(0,0,0,.8);color:#fff;font-size:32px;cursor:pointer;z-index:99999;pointer-events:auto;display:flex;align-items:center;justify-content:center;
 }
 
 </style>
@@ -795,12 +776,14 @@ class GardenGallery {
             this.updateStats();
           };
           img.onerror = () => {
-            item.remove();
+            item.className = 'gallery-item error';
+            item.innerHTML = `<div>Image not found</div>`;
             this.failed++;
             this.updateStats();
           };
         } else {
-          item.remove();
+          item.className = 'gallery-item error';
+          item.innerHTML = `<div>No valid format</div>`;
           this.failed++;
           this.updateStats();
         }
@@ -825,22 +808,17 @@ class GardenGallery {
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
     modalImg.src = src;
-    modal.style.display='flex'; modal.classList.add('active');
+    modal.classList.add('active');
   }
 
   setupModal() {
-    const modal = document.getElementById('modal');
-    const closeBtn = document.getElementById('closeModal');
-    
-    const close=()=>{modal.classList.remove('active');modal.style.display='none';document.getElementById('modalImg').src='';};
-    closeBtn.addEventListener('click',(e)=>{e.stopPropagation();close();});
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) close();
-    });
-    
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') close();
-    });
+    const modal=document.getElementById("modal");
+    const closeBtn=document.getElementById("closeModal");
+    const modalImg=document.getElementById("modalImg");
+    const close=()=>{modal.classList.remove("active");modal.style.display="none";modalImg.src="";};
+    closeBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();close();};
+    modal.onclick=(e)=>{if(e.target===modal)close();};
+    document.addEventListener("keydown",(e)=>{if(e.key==="Escape")close();});
   }
 
   setupTheme() {
