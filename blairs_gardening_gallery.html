@@ -692,9 +692,8 @@ class GardenGallery {
   async init() {
     await this.loadJSON();
     this.renderGallery();
-    try{this.setupTheme();}catch(e){}
-    
-    
+    this.setupTheme();
+    this.setupModal();
   }
 
   async loadJSON() {
@@ -716,7 +715,7 @@ class GardenGallery {
       
       // Ensure we have up to 300 images
       this.images = this.images.slice(0, 300);
-      
+      document.getElementById('totalCount').textContent = this.images.length;
     } catch (error) {
       console.error('Error loading JSON:', error);
       document.getElementById('galleryLoader').innerHTML = `<p style="color: #d32f2f;">Error loading images3.json from adjacent folder</p>`;
@@ -777,14 +776,12 @@ class GardenGallery {
             this.updateStats();
           };
           img.onerror = () => {
-            item.className = 'gallery-item error';
-            item.innerHTML = `<div>Image not found</div>`;
+            item.remove();
             this.failed++;
             this.updateStats();
           };
         } else {
-          item.className = 'gallery-item error';
-          item.innerHTML = `<div>No valid format</div>`;
+          item.remove();
           this.failed++;
           this.updateStats();
         }
@@ -793,8 +790,8 @@ class GardenGallery {
   }
 
   updateStats() {
-    
-    
+    document.getElementById('loadedCount').textContent = this.loaded;
+    document.getElementById('failedCount').textContent = this.failed;
     
     const statsInfo = document.getElementById('statsInfo');
     if (this.loaded + this.failed === this.images.length) {
@@ -809,7 +806,7 @@ class GardenGallery {
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
     modalImg.src = src;
-    modal.style.display='flex'; modal.classList.add('active');
+    modal.classList.add('active');
   }
 
   setupModal() {
@@ -817,13 +814,13 @@ class GardenGallery {
     const closeBtn=document.getElementById("closeModal");
     const modalImg=document.getElementById("modalImg");
     const close=()=>{modal.classList.remove("active");modal.style.display="none";modalImg.src="";};
-    closeBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();close();};
+    closeBtn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();close();},true);
     modal.onclick=(e)=>{if(e.target===modal)close();};
     document.addEventListener("keydown",(e)=>{if(e.key==="Escape")close();});
   }
 
   setupTheme() {
-    const themeToggle=document.getElementById('themeToggle'); if(!themeToggle)return;
+    const themeToggle = document.getElementById('themeToggle');
     const isDark = localStorage.getItem('theme') === 'dark';
     
     if (isDark) {
