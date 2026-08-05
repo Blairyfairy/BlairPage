@@ -412,6 +412,115 @@ body.dark .stats-info {
   color: #f0fdf4;
 }
 
+.hero-feature{
+    position:relative;
+    min-height:470px;
+    border-radius:30px;
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.75);
+
+    background:rgba(255,255,255,.18);
+
+    box-shadow:var(--shadow);
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+}
+
+.hero-feature img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .8s ease;
+}
+
+.hero-feature:hover img{
+    transform:scale(1.05);
+}
+
+.hero-feature::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            to top,
+            rgba(15,61,52,.82) 0%,
+            rgba(15,61,52,.35) 45%,
+            rgba(15,61,52,.05) 100%);
+}
+
+.hero-overlay{
+    position:absolute;
+    left:34px;
+    right:34px;
+    bottom:34px;
+    z-index:2;
+    color:#fff;
+}
+
+.hero-overlay small{
+    display:inline-block;
+    margin-bottom:12px;
+
+    font-weight:800;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.18);
+
+    border:1px solid rgba(255,255,255,.35);
+
+    backdrop-filter:blur(10px);
+}
+
+.hero-overlay h3{
+    margin:0 0 12px;
+
+    font-family:'Playfair Display',serif;
+
+    font-size:2.2rem;
+
+    line-height:1.1;
+
+    color:white;
+
+    text-shadow:0 4px 16px rgba(0,0,0,.45);
+}
+
+.hero-overlay p{
+    margin:0;
+
+    max-width:420px;
+
+    font-size:1.05rem;
+
+    line-height:1.65;
+
+    color:rgba(255,255,255,.92);
+
+    text-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+
+@media (max-width:768px){
+
+    .hero-feature{
+        min-height:340px;
+    }
+
+    .hero-overlay h3{
+        font-size:1.8rem;
+    }
+
+}
+  
 /* Responsive */
 @media (max-width: 768px) {
   .hero-grid {
@@ -528,17 +637,39 @@ body.dark .modal-close {
       </div>
     </div>
 
-    <div class="hero-grid">
-      <div>
+   <div class="hero-grid">
+
+    <div>
         <h1>Blair's <span>Garden</span> Gallery</h1>
+
         <div class="subtitle">
-          <span class="tag">🌿 Plants</span>
-          <span class="tag">🌸 Flowers</span>
-          <span class="tag">🍃 Nature</span>
+            <span class="tag">🌿 Plants</span>
+            <span class="tag">🌸 Flowers</span>
+            <span class="tag">🍃 Nature</span>
         </div>
-      </div>
     </div>
-  </div>
+
+    <div class="hero-feature">
+
+        <img src="../BlairsGardeningGallery/img1.jpg"
+             alt="Featured Garden">
+
+        <div class="hero-overlay">
+
+            <small>Featured Garden</small>
+
+            <h3>Growing Beauty,<br>One Season at a Time</h3>
+
+            <p>
+                A collection of flowers, plants and landscapes captured
+                throughout Blair's gardening journey.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
     
   <div class="gallery-container">
     <div class="gallery-header">
