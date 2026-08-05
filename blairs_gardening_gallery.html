@@ -674,8 +674,7 @@ body.dark .modal-close {
 
 <div id="modal" class="modal">
   <div class="modal-content">
-    <button class="modal-close" id="closeModal">&times;</button>
-    <img id="modalImg" class="modal-img" src="" alt="">
+        <img id="modalImg" class="modal-img" src="" alt="">
   </div>
 </div>
 
@@ -715,7 +714,7 @@ class GardenGallery {
       
       // Ensure we have up to 300 images
       this.images = this.images.slice(0, 300);
-      document.getElementById('totalCount').textContent = this.images.length;
+      
     } catch (error) {
       console.error('Error loading JSON:', error);
       document.getElementById('galleryLoader').innerHTML = `<p style="color: #d32f2f;">Error loading images3.json from adjacent folder</p>`;
@@ -790,8 +789,8 @@ class GardenGallery {
   }
 
   updateStats() {
-    document.getElementById('loadedCount').textContent = this.loaded;
-    document.getElementById('failedCount').textContent = this.failed;
+    
+    
     
     const statsInfo = document.getElementById('statsInfo');
     if (this.loaded + this.failed === this.images.length) {
@@ -811,17 +810,15 @@ class GardenGallery {
 
   setupModal() {
     const modal=document.getElementById("modal");
-    const closeBtn=document.getElementById("closeModal");
-    const modalImg=document.getElementById("modalImg");
+        const modalImg=document.getElementById("modalImg");
     const close=()=>{modal.classList.remove("active");modal.style.display="none";modalImg.src="";};
-    closeBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();close();};
     modal.onclick=close;
     modalImg.onclick=close;
     document.addEventListener("keydown",(e)=>{if(e.key==="Escape")close();});
   }
 
   setupTheme() {
-    const themeToggle = document.getElementById('themeToggle');
+    const themeToggle=document.getElementById('themeToggle'); if(!themeToggle)return;
     const isDark = localStorage.getItem('theme') === 'dark';
     
     if (isDark) {
