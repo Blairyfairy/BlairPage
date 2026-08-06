@@ -665,15 +665,12 @@ body.dark .modal-close {
     </div>
 
     <div id="galleryGrid" class="gallery-grid" style="display:none;"></div>
-
-    <div id="statsInfo" class="stats-info" style="display:none;">
-      <span id="statsText"></span>
-    </div>
   </div>
 </div>
 
 <div id="modal" class="modal">
   <div class="modal-content">
+        <button id="modalClose" class="modal-close" aria-label="Close">&times;</button>
         <img id="modalImg" class="modal-img" src="" alt="">
   </div>
 </div>
@@ -772,49 +769,42 @@ class GardenGallery {
             item.appendChild(img);
             item.addEventListener('click', () => this.openModal(url));
             this.loaded++;
-            this.updateStats();
           };
           img.onerror = () => {
             item.remove();
             this.failed++;
-            this.updateStats();
           };
         } else {
           item.remove();
           this.failed++;
-          this.updateStats();
         }
       });
     });
-  }
-
-  updateStats() {
-    
-    
-    
-    const statsInfo = document.getElementById('statsInfo');
-    if (this.loaded + this.failed === this.images.length) {
-      statsInfo.style.display = 'block';
-      const successRate = Math.round((this.loaded / this.images.length) * 100);
-      document.getElementById('statsText').textContent = 
-        `✓ Complete: ${this.loaded} loaded · ${this.failed} failed · ${successRate}% success rate`;
-    }
   }
 
   openModal(src) {
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
     modalImg.src = src;
+    modal.style.display = 'flex';
     modal.classList.add('active');
   }
 
   setupModal() {
-    const modal=document.getElementById("modal");
-        const modalImg=document.getElementById("modalImg");
-    const close=()=>{modal.classList.remove("active");modal.style.display="none";modalImg.src="";};
-    modal.onclick=close;
-    modalImg.onclick=close;
-    document.addEventListener("keydown",(e)=>{if(e.key==="Escape")close();});
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modalImg");
+    const modalClose = document.getElementById("modalClose");
+    const close = () => {
+      modal.classList.remove("active");
+      modal.style.display = "none";
+      modalImg.src = "";
+    };
+    modal.addEventListener("click", close);
+    modalImg.addEventListener("click", (e) => { e.stopPropagation(); close(); });
+    if (modalClose) {
+      modalClose.addEventListener("click", (e) => { e.stopPropagation(); close(); });
+    }
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
 
   setupTheme() {
