@@ -676,11 +676,13 @@ class GardenGallery {
     this.loaded = 0;
     this.failed = 0;
     this.imageFormats = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-    this.maxConcurrent = 12;
+    // Keep enough requests active to load the entire gallery quickly without
+    // creating hundreds of simultaneous JavaScript Image objects.
+    this.maxConcurrent = 24;
     this.activeLoads = 0;
     this.queue = [];
     this.pendingImages = new Map();
-    this.detectedFormat = null; // the gallery's real extension, once known
+    this.detectedFormat = null;
     this.init();
   }
 
@@ -693,27 +695,23 @@ class GardenGallery {
 
   async loadJSON() {
     try {
-      // Load from adjacent folder's images3.json
-      const response = await fetch('images3.json');
+      const response = await fetch('images3.json', { cache: 'default' });
       if (!response.ok) throw new Error('Failed to load images3.json');
       const data = await response.json();
-      
-      // Convert to array if needed, supports both array and object formats
+
       if (Array.isArray(data)) {
         this.images = data;
       } else if (data.images && Array.isArray(data.images)) {
         this.images = data.images;
       } else {
-        // Treat as object with image references
         this.images = Object.values(data).filter(v => typeof v === 'string' || typeof v === 'object');
       }
-      
-      // Ensure we have up to 300 images
+
       this.images = this.images.slice(0, 300);
-      
     } catch (error) {
       console.error('Error loading JSON:', error);
-      document.getElementById('galleryLoader').innerHTML = `<p style="color: #d32f2f;">Error loading images3.json from adjacent folder</p>`;
+      document.getElementById('galleryLoader').innerHTML =
+        '<p style="color:#d32f2f;">Error loading images3.json from adjacent folder</p>';
     }
   }
 
@@ -721,7 +719,7 @@ class GardenGallery {
     const grid = document.getElementById('galleryGrid');
     const loader = document.getElementById('galleryLoader');
 
-    if (this.images.length === 0) {
+    if (!this.images.length) {
       loader.innerHTML = '<p>No images found in images3.json</p>';
       return;
     }
@@ -729,8 +727,6 @@ class GardenGallery {
     loader.style.display = 'none';
     grid.style.display = 'grid';
 
-    // Create all fixed-size tiles first. This prevents layout shifts and
-    // keeps scrolling stable while images arrive asynchronously.
     const fragment = document.createDocumentFragment();
     this.items = [];
 
@@ -738,7 +734,7 @@ class GardenGallery {
       const item = document.createElement('div');
       item.className = 'gallery-item loading';
       item.id = `gallery-item-${index}`;
-      item.dataset.index = index;
+      item.dataset.index = String(index);
       item.setAttribute('role', 'button');
       item.setAttribute('tabindex', '0');
       item.setAttribute('aria-label', `Open garden image ${index + 1}`);
@@ -746,43 +742,15 @@ class GardenGallery {
       this.items.push(item);
     });
 
+    // Insert every tile in one operation so the page height is established
+    // before image decoding begins. This eliminates scroll jumping/blinking.
     grid.appendChild(fragment);
 
-    // Load only what is near the viewport. The browser gets to prioritize
-    // visible images without opening hundreds of simultaneous requests.
-    this.setupImageObserver();
-
-    // Make the first screen render immediately.
-    const initialCount = Math.min(8, this.items.length);
-    for (let i = 0; i < initialCount; i++) {
-      this.enqueueLoad(i, this.items[i], true);
-    }
-  }
-
-  setupImageObserver() {
-    if (this.imageObserver) this.imageObserver.disconnect();
-
-    if (!('IntersectionObserver' in window)) {
-      this.items.forEach((item, index) => this.enqueueLoad(index, item, index < 8));
-      return;
-    }
-
-    this.imageObserver = new IntersectionObserver((entries, observer) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-
-        const item = entry.target;
-        const index = Number(item.dataset.index);
-        observer.unobserve(item);
-        this.enqueueLoad(index, item, index < 8);
-      }
-    }, {
-      root: null,
-      rootMargin: '900px 0px',
-      threshold: 0.01
+    // Determine the real extension once. After that, every image uses its
+    // correct URL immediately instead of racing through formats individually.
+    this.detectFormat(0).finally(() => {
+      this.items.forEach((item, index) => this.enqueueLoad(index, item, index < 12));
     });
-
-    this.items.forEach(item => this.imageObserver.observe(item));
   }
 
   detectFormat(index) {
@@ -813,14 +781,12 @@ class GardenGallery {
       });
 
       this._formatProbes = probes;
-
-      // Never allow an unusual/missing first file to stall the gallery.
       setTimeout(() => {
         if (!settled) {
           settled = true;
           resolve();
         }
-      }, 3500);
+      }, 3000);
     });
   }
 
@@ -830,11 +796,8 @@ class GardenGallery {
     item.dataset.loading = 'true';
     const job = { index, item, priority };
 
-    if (priority) {
-      this.queue.unshift(job);
-    } else {
-      this.queue.push(job);
-    }
+    if (priority) this.queue.unshift(job);
+    else this.queue.push(job);
 
     this.processQueue();
   }
@@ -843,7 +806,6 @@ class GardenGallery {
     while (this.activeLoads < this.maxConcurrent && this.queue.length) {
       const job = this.queue.shift();
       this.activeLoads++;
-
       this.loadImageForItem(job.index, job.item, job.priority)
         .catch(() => {})
         .finally(() => {
@@ -859,21 +821,15 @@ class GardenGallery {
       const match = raw.match(/\.(jpg|jpeg|png|webp|gif)$/i);
       const baseName = match ? raw.slice(0, -match[0].length) : raw;
       const known = match ? match[1].toLowerCase() : this.detectedFormat;
-
-      const formats = known
-        ? [known, ...this.imageFormats.filter(f => f !== known)]
-        : this.imageFormats;
+      const formats = known ? [known, ...this.imageFormats.filter(f => f !== known)] : this.imageFormats;
 
       let formatIndex = 0;
-      const img = document.createElement('img');
-
+      const img = new Image();
       img.decoding = 'async';
-      img.loading = priority ? 'eager' : 'lazy';
-      img.fetchPriority = priority ? 'high' : 'low';
       img.alt = `Garden image ${index + 1}`;
-      img.width = 1;
-      img.height = 1;
-
+      img.width = 100;
+      img.height = 100;
+      img.fetchPriority = priority ? 'high' : 'auto';
       this.pendingImages.set(index, img);
 
       const cleanup = () => {
@@ -896,12 +852,10 @@ class GardenGallery {
           showError();
           return;
         }
-
         img.src = `${baseName}.${formats[formatIndex++]}`;
       };
 
       img.onload = () => {
-        // decode() prevents a visible decode flash when the image is first painted.
         const finish = () => {
           cleanup();
           item.classList.remove('loading');
@@ -921,6 +875,8 @@ class GardenGallery {
           resolve();
         };
 
+        // Decode before inserting into the tile so the user never sees a
+        // partially decoded/blank image flash during scrolling.
         if (typeof img.decode === 'function') {
           img.decode().then(finish, finish);
         } else {
@@ -942,31 +898,37 @@ class GardenGallery {
   }
 
   setupModal() {
-    const modal = document.getElementById("modal");
-    const modalImg = document.getElementById("modalImg");
-    const modalClose = document.getElementById("modalClose");
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalClose = document.getElementById('modalClose');
+
     const close = () => {
-      modal.classList.remove("active");
-      modal.style.display = "none";
-      modalImg.src = "";
+      modal.classList.remove('active');
+      modal.style.display = 'none';
+      modalImg.removeAttribute('src');
     };
-    modal.addEventListener("click", close);
-    modalImg.addEventListener("click", (e) => { e.stopPropagation(); close(); });
-    if (modalClose) {
-      modalClose.addEventListener("click", (e) => { e.stopPropagation(); close(); });
-    }
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+
+    modal.addEventListener('click', close);
+    modalImg.addEventListener('click', e => e.stopPropagation());
+    if (modalClose) modalClose.addEventListener('click', e => {
+      e.stopPropagation();
+      close();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') close();
+    });
   }
 
   setupTheme() {
-    const themeToggle=document.getElementById('themeToggle'); if(!themeToggle)return;
+    const themeToggle = document.getElementById('themeToggle');
+    if (!themeToggle) return;
+
     const isDark = localStorage.getItem('theme') === 'dark';
-    
     if (isDark) {
       document.body.classList.add('dark');
       themeToggle.textContent = '☀️ Light Mode';
     }
-    
+
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('dark');
       const isDarkNow = document.body.classList.contains('dark');
@@ -976,7 +938,6 @@ class GardenGallery {
   }
 }
 
-// Initialize gallery when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   window.__blairsGallery = new GardenGallery();
 });
