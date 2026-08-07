@@ -684,7 +684,7 @@ class GardenGallery {
     this.loaded = 0;
     this.failed = 0;
     this.imageFormats = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-    this.maxConcurrent = 6;
+    this.maxConcurrent = 12;
     this.activeLoads = 0;
     this.queue = [];
     this.init();
@@ -744,7 +744,7 @@ class GardenGallery {
           this.enqueueLoad(Number(entry.target.dataset.index), entry.target);
         }
       });
-    }, { rootMargin: '400px 0px', threshold: 0.01 });
+    }, { rootMargin: '800px 0px', threshold: 0.01 });
 
     this.images.forEach((imageName, index) => {
       const item = document.createElement('div');
@@ -773,12 +773,17 @@ class GardenGallery {
   }
 
   loadImageForItem(index, item) {
-    // Try each extension directly on an <img>, rather than probing with a
-    // separate HEAD request first — this halves the network requests per
-    // image, since the browser can use the same response it fetches to
-    // check existence as the one it renders.
+    // Prefer the extension already present in the JSON entry (the common
+    // case) so the first request usually succeeds. Only fall back to
+    // guessing other formats if that fails.
     return new Promise(resolve => {
-      const baseName = String(this.images[index]).replace(/\.(jpg|jpeg|png|webp|gif)$/i, '');
+      const raw = String(this.images[index]);
+      const match = raw.match(/\.(jpg|jpeg|png|webp|gif)$/i);
+      const baseName = match ? raw.slice(0, -match[0].length) : raw;
+      const formats = match
+        ? [match[1].toLowerCase(), ...this.imageFormats.filter(f => f !== match[1].toLowerCase())]
+        : this.imageFormats;
+
       let formatIndex = 0;
       const img = new Image();
       img.decoding = 'async';
@@ -786,13 +791,13 @@ class GardenGallery {
       img.alt = `Garden image ${index + 1}`;
 
       const tryNext = () => {
-        if (formatIndex >= this.imageFormats.length) {
+        if (formatIndex >= formats.length) {
           item.remove();
           this.failed++;
           resolve();
           return;
         }
-        img.src = `${baseName}.${this.imageFormats[formatIndex++]}`;
+        img.src = `${baseName}.${formats[formatIndex++]}`;
       };
 
       img.onload = () => {
