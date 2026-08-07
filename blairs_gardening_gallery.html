@@ -318,8 +318,6 @@ body.dark .gallery-header p { color: rgba(240,253,244,0.7); }
   aspect-ratio: 1;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
   cursor: pointer;
-  content-visibility: auto;
-  contain-intrinsic-size: 280px 280px;
 }
 
 body.dark .gallery-item {
@@ -684,10 +682,11 @@ class GardenGallery {
     this.loaded = 0;
     this.failed = 0;
     this.imageFormats = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-    this.maxConcurrent = 12;
+    this.maxConcurrent = 16;
     this.activeLoads = 0;
     this.queue = [];
     this.pendingImages = new Map();
+    this.detectedFormat = null; // the gallery's real extension, once known
     this.init();
   }
 
@@ -736,24 +735,51 @@ class GardenGallery {
     loader.style.display = 'none';
     grid.style.display = 'grid';
 
-    // Only start fetching an image once its placeholder is about to enter
-    // the viewport, instead of firing every request up front.
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          this.observer.unobserve(entry.target);
-          this.enqueueLoad(Number(entry.target.dataset.index), entry.target);
-        }
-      });
-    }, { rootMargin: '800px 0px', threshold: 0.01 });
-
     this.images.forEach((imageName, index) => {
       const item = document.createElement('div');
       item.className = 'gallery-item loading';
       item.id = `gallery-item-${index}`;
       item.dataset.index = index;
       grid.appendChild(item);
-      this.observer.observe(item);
+    });
+
+    // Most galleries export every photo in the same format. Race all
+    // format guesses for the first image in parallel (instead of guessing
+    // sequentially per image); whichever wins tells us the real extension,
+    // so every other image can skip straight to the right request instead
+    // of trying formats one at a time.
+    this.detectFormat(0).finally(() => {
+      this.images.forEach((imageName, index) => {
+        this.enqueueLoad(index, document.getElementById(`gallery-item-${index}`));
+      });
+    });
+  }
+
+  detectFormat(index) {
+    return new Promise(resolve => {
+      const raw = String(this.images[index]);
+      const match = raw.match(/\.(jpg|jpeg|png|webp|gif)$/i);
+      const baseName = match ? raw.slice(0, -match[0].length) : raw;
+      if (match) {
+        this.detectedFormat = match[1].toLowerCase();
+        resolve();
+        return;
+      }
+      let settled = false;
+      const probes = this.imageFormats.map(fmt => {
+        const img = new Image();
+        img.onload = () => {
+          if (!settled) { settled = true; this.detectedFormat = fmt; resolve(); }
+        };
+        img.onerror = () => {};
+        img.src = `${baseName}.${fmt}`;
+        return img;
+      });
+      // Hold strong references so these probe images can't be GC'd
+      // before they resolve — same reasoning as pendingImages below.
+      this._formatProbes = probes;
+      // Don't let a totally missing first image block the whole gallery.
+      setTimeout(() => { if (!settled) { settled = true; resolve(); } }, 4000);
     });
   }
 
@@ -774,15 +800,16 @@ class GardenGallery {
   }
 
   loadImageForItem(index, item) {
-    // Prefer the extension already present in the JSON entry (the common
-    // case) so the first request usually succeeds. Only fall back to
-    // guessing other formats if that fails.
+    // Prefer, in order: the extension already present in the JSON entry,
+    // then the format we detected from the first image, then the generic
+    // guess order — so nearly every image resolves on its first request.
     return new Promise(resolve => {
       const raw = String(this.images[index]);
       const match = raw.match(/\.(jpg|jpeg|png|webp|gif)$/i);
       const baseName = match ? raw.slice(0, -match[0].length) : raw;
-      const formats = match
-        ? [match[1].toLowerCase(), ...this.imageFormats.filter(f => f !== match[1].toLowerCase())]
+      const known = match ? match[1].toLowerCase() : this.detectedFormat;
+      const formats = known
+        ? [known, ...this.imageFormats.filter(f => f !== known)]
         : this.imageFormats;
 
       let formatIndex = 0;
