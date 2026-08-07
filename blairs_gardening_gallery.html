@@ -687,6 +687,7 @@ class GardenGallery {
     this.maxConcurrent = 12;
     this.activeLoads = 0;
     this.queue = [];
+    this.pendingImages = new Map();
     this.init();
   }
 
@@ -787,11 +788,19 @@ class GardenGallery {
       let formatIndex = 0;
       const img = new Image();
       img.decoding = 'async';
-      img.loading = 'lazy';
       img.alt = `Garden image ${index + 1}`;
+
+      // Hold a strong reference while the request is in flight — an
+      // unattached Image() with only self-referencing handlers can be
+      // garbage-collected before it finishes loading, especially when many
+      // are created in the same tick (e.g. a batch of tiles entering the
+      // viewport at once).
+      this.pendingImages.set(index, img);
+      const settle = () => this.pendingImages.delete(index);
 
       const tryNext = () => {
         if (formatIndex >= formats.length) {
+          settle();
           item.remove();
           this.failed++;
           resolve();
@@ -801,6 +810,7 @@ class GardenGallery {
       };
 
       img.onload = () => {
+        settle();
         item.className = 'gallery-item';
         item.innerHTML = '';
         item.appendChild(img);
@@ -859,7 +869,7 @@ class GardenGallery {
 
 // Initialize gallery when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  new GardenGallery();
+  window.__blairsGallery = new GardenGallery();
 });
 </script>
 
