@@ -349,19 +349,7 @@ body.dark .gallery-item {
 
 
 .gallery-item.error {
-  background: linear-gradient(135deg, rgba(168,212,52,0.15), rgba(123,229,214,0.1));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(15,61,52,0.5);
-  font-size: 0.9rem;
-  text-align: center;
-  padding: 20px;
-}
-
-body.dark .gallery-item.error {
-  background: linear-gradient(135deg, rgba(168,212,52,0.1), rgba(123,229,214,0.08));
-  color: rgba(240,253,244,0.5);
+  display: none;
 }
 
 /* Loading Animation */
@@ -839,10 +827,7 @@ class GardenGallery {
 
       const showError = () => {
         cleanup();
-        item.classList.remove('loading');
-        item.classList.add('error');
-        item.textContent = 'Image unavailable';
-        item.dataset.loaded = 'true';
+        item.remove();
         this.failed++;
         resolve();
       };
