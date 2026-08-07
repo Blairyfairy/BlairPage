@@ -1707,8 +1707,6 @@ In many versions of the game, Dominate has restrictions:
 <main class="gallery-page-shell">
   <div class="gallery-wrapper">
 
-    <button id="refreshPhotosBtn" class="refresh-photos-btn" type="button">Refresh Photos</button>
-
     <button class="arrow arrow-left">&#9664;</button>
 
     <div id="galleryCarousel" class="gallery-carousel"></div>
@@ -2254,13 +2252,6 @@ carousel.scrollBy({left:-220,behavior:'smooth'});
 
 document.querySelector(".arrow-right").addEventListener("click",()=>{
 carousel.scrollBy({left:220,behavior:'smooth'});
-});
-
-/* REFRESH PHOTOS */
-const refreshPhotosBtn=document.getElementById("refreshPhotosBtn");
-refreshPhotosBtn.addEventListener("click",()=>{
-if(!galleryImagesData.length) return;
-initializeGallery(galleryImagesData);
 });
 
 /* PAGE SCROLL TOP — FINAL HARD FIX */
@@ -2911,7 +2902,7 @@ setInterval(updatePageScrollButton,500);
     './EasterEggGallery/images2.json'
   ];
 
-  const FALLBACK_IMAGE_LIST = Array.from({ length: 39 }, (_, index) => `EasterEggGallery/img${index + 1}`);
+  const FALLBACK_IMAGE_LIST = [];
 
   const IMAGE_EXTENSIONS = [
     'jpg','jpeg','png','webp','gif','JPG','JPEG','PNG','WEBP','GIF',
@@ -3034,7 +3025,7 @@ setInterval(updatePageScrollButton,500);
       } catch (error) {}
     }
 
-    return FALLBACK_IMAGE_LIST;
+    return [];
   }
 
   function getCarousel() {
@@ -3111,10 +3102,8 @@ setInterval(updatePageScrollButton,500);
 
     const loadedCount = carousel.querySelectorAll('img[data-loaded="true"]').length;
 
-    if (!loadedCount && list !== FALLBACK_IMAGE_LIST) {
-      window.galleryImagesData = FALLBACK_IMAGE_LIST;
-      carousel.innerHTML = '';
-      setTimeout(rebuildGalleryImages, 100);
+    if (!loadedCount && list.length) {
+      console.warn('Gallery JSON loaded, but no image path resolved:', list);
     }
   }
 
@@ -3142,13 +3131,6 @@ setInterval(updatePageScrollButton,500);
   window.addEventListener('load', () => setTimeout(rebuildGalleryImages, 100));
   window.addEventListener('pageshow', () => setTimeout(rebuildGalleryImages, 100));
 
-  const refresh = document.getElementById('refreshPhotosBtn');
-  if (refresh) {
-    refresh.addEventListener('click', () => {
-      setTimeout(rebuildGalleryImages, 0);
-      setTimeout(rebuildGalleryImages, 350);
-    });
-  }
 })();
 </script>
 <style>
@@ -6571,6 +6553,22 @@ body#gallery-page #lightbox.lightbox:not(.show) .gallery-lightbox-close{
     },true);
   });
 })();
+</script>
+<!-- FINAL JSON AUTHORITATIVE GALLERY + MOBILE NAVIGATION -->
+<style id="gallery-json-mobile-navigation-fix">
+body#gallery-page .gallery-carousel img.gallery-json-final-image{display:block!important;visibility:visible!important;opacity:1!important;cursor:zoom-in!important}
+@media(max-width:900px){body#gallery-page .gallery-carousel{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:100%!important;max-width:100%!important;overflow:visible!important;padding:0 2px 40px!important;box-sizing:border-box!important;touch-action:pan-y!important;overscroll-behavior-y:auto!important}body#gallery-page .gallery-carousel img.gallery-json-final-image{width:100%!important;height:auto!important;aspect-ratio:1/1!important;object-fit:cover!important;margin:0!important}body#gallery-page .arrow{display:none!important}}
+#galleryLightboxPrevFinal,#galleryLightboxNextFinal{display:inline-flex!important;position:fixed!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483647!important;width:48px!important;height:48px!important;align-items:center!important;justify-content:center!important;border:1px solid rgba(255,255,255,.55)!important;border-radius:999px!important;background:rgba(0,0,0,.65)!important;color:#fff!important;font-size:24px!important;cursor:pointer!important;touch-action:manipulation!important}#galleryLightboxPrevFinal{left:18px!important}#galleryLightboxNextFinal{right:18px!important}
+@media(max-width:640px){#galleryLightboxPrevFinal,#galleryLightboxNextFinal{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important}#galleryLightboxPrevFinal{left:6px!important}#galleryLightboxNextFinal{right:6px!important}}
+</style>
+<script id="gallery-json-mobile-navigation-fix-script">
+(function(){if(window.__GALLERY_JSON_MOBILE_NAVIGATION_FIX__)return;window.__GALLERY_JSON_MOBILE_NAVIGATION_FIX__=true;const JSON_URL='images2.json',EXT=['jpg','jpeg','png','webp','gif','avif','bmp','svg','JPG','JPEG','PNG','WEBP','GIF','AVIF','BMP','SVG'];const clean=v=>String(v==null?'':v).trim().replace(/^['\"]|['\"]$/g,'').replace(/\\/g,'/');const uniq=a=>[...new Set(a.filter(Boolean))];
+function extract(d){let a=d;if(d&&!Array.isArray(d)&&typeof d==='object')a=d.images||d.photos||d.gallery||d.items||d.files||d.imagePaths||[];if(!Array.isArray(a))return[];return a.map(x=>typeof x==='string'?clean(x):x&&typeof x==='object'?clean(x.src||x.path||x.url||x.file||x.image||x.filename||''):'').filter(Boolean)}
+function candidates(raw){const s=clean(raw);if(!s)return[];if(/^(https?:)?\/\//i.test(s)||s.startsWith('data:'))return[s];const out=[s,s.startsWith('./')?s:'./'+s,encodeURI(s)],q=s.split(/[?#]/)[0],i=q.lastIndexOf('/'),d=i>=0?q.slice(0,i+1):'',f=i>=0?q.slice(i+1):q,has=/\.[^.]+$/.test(f),b=has?f.replace(/\.[^.]+$/,''):f;if(!has)EXT.forEach(e=>{out.push(d+b+'.'+e,'./'+d+b+'.'+e)});else out.push(d+f,'./'+d+f,encodeURI(d+f));return uniq(out)}
+function probe(s){return new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(s);i.onerror=no;i.src=s})}async function resolve(raw){for(const c of candidates(raw)){try{return await probe(c)}catch(e){}}return null}function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+async function load(){const car=document.getElementById('galleryCarousel');if(!car)return;let r;try{r=await fetch(JSON_URL+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status)}catch(e){console.error('Gallery JSON could not be loaded:',e);return}let d;try{d=await r.json()}catch(e){console.error('Gallery JSON is invalid:',e);return}const list=extract(d);if(!list.length){console.error('Gallery JSON contains no image paths.');return}const order=shuffle(list),frag=document.createDocumentFragment(),rec=[];order.forEach((raw,n)=>{const im=document.createElement('img');im.className='gallery-json-final-image';im.alt='Gallery image '+(n+1);im.dataset.originalSrc=raw;im.loading='eager';im.decoding='async';im.draggable=false;frag.appendChild(im);rec.push({im,raw})});car.replaceChildren(frag);window.galleryImagesData=list.slice();let cursor=0;const workers=Math.min(innerWidth<=900?12:8,rec.length);async function worker(){while(cursor<rec.length){const x=rec[cursor++],src=await resolve(x.raw);if(src){x.im.src=src;x.im.dataset.resolvedSrc=src;x.im.dataset.loaded='true'}else{x.im.remove();console.warn('Could not resolve JSON image:',x.raw)}}}await Promise.all(Array.from({length:workers},worker));nav(car)}
+function nav(car){const lb=document.getElementById('lightbox'),li=document.getElementById('lightboxImg');if(!lb||!li)return;let idx=-1,sx=0,sy=0;const imgs=()=>[...car.querySelectorAll('img.gallery-json-final-image')];function show(n){const a=imgs();if(!a.length)return;if(n<0)n=a.length-1;if(n>=a.length)n=0;idx=n;const im=a[idx],src=im.currentSrc||im.src;if(!src)return;li.classList.remove('zoomed');li.src=src;li.alt=im.alt;lb.classList.add('show');document.documentElement.style.setProperty('overflow','hidden','important');document.body.style.setProperty('overflow','hidden','important')}function close(){lb.classList.remove('show');li.classList.remove('zoomed');document.documentElement.style.removeProperty('overflow');document.body.style.removeProperty('overflow')}function add(id,label,ch,delta){let b=document.getElementById(id);if(!b){b=document.createElement('button');b.id=id;b.type='button';b.textContent=ch;b.setAttribute('aria-label',label);lb.appendChild(b)}b.onclick=e=>{e.preventDefault();e.stopPropagation();show(idx+delta)}}add('galleryLightboxPrevFinal','Previous image','‹',-1);add('galleryLightboxNextFinal','Next image','›',1);car.addEventListener('click',e=>{const im=e.target.closest&&e.target.closest('img.gallery-json-final-image');if(!im)return;const a=imgs(),n=a.indexOf(im);if(n>=0){e.preventDefault();e.stopPropagation();show(n)}},true);lb.addEventListener('touchstart',e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY},{passive:true});lb.addEventListener('touchend',e=>{const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)){e.preventDefault();show(idx+(dx<0?1:-1))}},{passive:false});document.addEventListener('keydown',e=>{if(!lb.classList.contains('show'))return;if(e.key==='ArrowRight')show(idx+1);if(e.key==='ArrowLeft')show(idx-1);if(e.key==='Escape')close()});lb.addEventListener('click',e=>{if(e.target===lb)close()},true)}
+function start(){setTimeout(load,2100)}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();window.addEventListener('pageshow',()=>setTimeout(load,2500))})();
 </script>
 </body>
 
