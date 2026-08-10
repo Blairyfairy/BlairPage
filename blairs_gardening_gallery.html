@@ -317,6 +317,8 @@ body.dark .gallery-header p { color: rgba(240,253,244,0.7); }
   aspect-ratio: 1;
   transition: transform 0.22s ease, box-shadow 0.22s ease;
   contain: layout paint;
+  content-visibility: auto;
+  contain-intrinsic-size: 280px 280px;
   cursor: pointer;
 }
 
@@ -336,11 +338,10 @@ body.dark .gallery-item {
   object-fit: cover;
   display: block;
   border-radius: inherit;
-  transform: translateZ(0);
 }
 
 .gallery-item:hover img {
-  transform: translateZ(0) scale(1.04);
+  transform: scale(1.04);
 }
 
 .gallery-item.loading {
@@ -664,9 +665,10 @@ class GardenGallery {
     this.loaded = 0;
     this.failed = 0;
     this.imageFormats = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-    // Keep enough requests active to load the entire gallery quickly without
-    // creating hundreds of simultaneous JavaScript Image objects.
-    this.maxConcurrent = 24;
+    // Every image still force-loads eagerly (nothing is deferred or lazy) —
+    // this only caps how many can decode at the exact same instant, which is
+    // what was overloading the tab and causing the freezes/white flashes.
+    this.maxConcurrent = 12;
     this.activeLoads = 0;
     this.queue = [];
     this.pendingImages = new Map();
@@ -734,11 +736,12 @@ class GardenGallery {
     // before image decoding begins. This eliminates scroll jumping/blinking.
     grid.appendChild(fragment);
 
-    // Determine the real extension once. After that, every image uses its
-    // correct URL immediately instead of racing through formats individually.
-    this.detectFormat(0).finally(() => {
-      this.items.forEach((item, index) => this.enqueueLoad(index, item, index < 12));
-    });
+    // Start every tile loading immediately instead of waiting on format
+    // detection first — each image already knows its own extension from its
+    // filename, or falls back through formats on its own. Detecting index 0's
+    // format here just gives later, extension-less filenames a head start.
+    this.items.forEach((item, index) => this.enqueueLoad(index, item, index < 12));
+    this.detectFormat(0);
   }
 
   detectFormat(index) {
@@ -827,7 +830,7 @@ class GardenGallery {
 
       const showError = () => {
         cleanup();
-        item.remove();
+        item.classList.add('error');
         this.failed++;
         resolve();
       };
