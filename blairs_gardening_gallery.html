@@ -927,6 +927,270 @@ document.addEventListener('DOMContentLoaded', () => {
   window.__blairsGallery = new GardenGallery();
 });
 </script>
+<!-- =========================================================
+     APPENDED FLOATING CONTROLS
+     1. Back-to-top chevron
+     2. Floating music player
+     Paste this entire block immediately before </body>
+     ========================================================= -->
 
+<style>
+/* =========================================================
+   1. BACK-TO-TOP CHEVRON
+   ========================================================= */
+
+#appendedPageScrollTop {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  margin: 0;
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 2147483000;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+#appendedPageScrollTop.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#appendedPageScrollTop:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   2. FLOATING MUSIC PLAYER BUTTON
+   ========================================================= */
+
+#appendedMusicPlayerButton {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+
+  width: 52px;
+  height: 52px;
+
+  z-index: 2147483001;
+
+  border-radius: 50%;
+  border: 1px solid rgba(240, 239, 244, 0.35);
+
+  background: rgba(58, 62, 59, 0.72);
+  color: #ffffff;
+
+  cursor: pointer;
+
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  touch-action: manipulation;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+#appendedMusicPlayerButton:hover {
+  background: rgba(158, 130, 156, 0.34);
+  transform: translateY(-2px);
+}
+
+#appendedMusicPlayerButton:active {
+  transform: scale(0.96);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  #appendedPageScrollTop {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  #appendedMusicPlayerButton {
+    left: 12px;
+    bottom: 12px;
+  }
+}
+</style>
+
+
+<!-- =========================================================
+     BACK-TO-TOP BUTTON
+     ========================================================= -->
+
+<button
+  id="appendedPageScrollTop"
+  type="button"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  ▲
+</button>
+
+
+<!-- =========================================================
+     MUSIC
+     Replace YOUR-MUSIC-FILE.mp3 with your audio file.
+     ========================================================= -->
+
+<audio
+  id="appendedSiteMusic"
+  preload="none"
+>
+  <source
+    src="YOUR-MUSIC-FILE.mp3"
+    type="audio/mpeg"
+  >
+</audio>
+
+
+<!-- =========================================================
+     MUSIC PLAYER BUTTON
+     ========================================================= -->
+
+<button
+  id="appendedMusicPlayerButton"
+  type="button"
+  aria-label="Music player"
+  title="Music player"
+>
+  ▶
+</button>
+
+
+<script>
+(function () {
+
+  /* =========================================================
+     BACK-TO-TOP
+     ========================================================= */
+
+  const scrollTopButton =
+    document.getElementById('appendedPageScrollTop');
+
+  function updateScrollTopButton() {
+    if (window.scrollY > 400) {
+      scrollTopButton.classList.add('show');
+    } else {
+      scrollTopButton.classList.remove('show');
+    }
+  }
+
+  window.addEventListener(
+    'scroll',
+    updateScrollTopButton,
+    { passive: true }
+  );
+
+  scrollTopButton.addEventListener('click', function () {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  updateScrollTopButton();
+
+
+  /* =========================================================
+     MUSIC PLAYER
+     ========================================================= */
+
+  const music =
+    document.getElementById('appendedSiteMusic');
+
+  const musicButton =
+    document.getElementById('appendedMusicPlayerButton');
+
+  musicButton.addEventListener('click', async function () {
+
+    try {
+
+      if (music.paused) {
+
+        await music.play();
+
+        /*
+         * Matches the original player's
+         * playing-state icon.
+         */
+        musicButton.textContent = '🔇';
+
+      } else {
+
+        music.pause();
+
+        /*
+         * Matches the original player's
+         * muted/paused-state icon.
+         */
+        musicButton.textContent = '🔊';
+      }
+
+    } catch (error) {
+
+      console.warn(
+        'Music could not be played:',
+        error
+      );
+
+    }
+
+  });
+
+
+  /*
+   * Keep the button synchronized if the
+   * audio is stopped elsewhere.
+   */
+  music.addEventListener('ended', function () {
+    musicButton.textContent = '▶';
+  });
+
+})();
+</script>
+
+<!-- ===== END APPENDED FLOATING CONTROLS ===== -->
 </body>
 </html>
