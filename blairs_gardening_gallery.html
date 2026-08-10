@@ -930,13 +930,16 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- =========================================================
      APPENDED FLOATING CONTROLS
      1. Back-to-top chevron
-     2. Floating music player
-     Paste this entire block immediately before </body>
+     2. YouTube floating music/video player
+     3. Exact original 11-video playlist
+     
+     PASTE THIS ENTIRE BLOCK IMMEDIATELY BEFORE </body>
      ========================================================= -->
 
 <style>
+
 /* =========================================================
-   1. BACK-TO-TOP CHEVRON
+   BACK-TO-TOP CHEVRON
    ========================================================= */
 
 #appendedPageScrollTop {
@@ -985,54 +988,186 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* =========================================================
-   2. FLOATING MUSIC PLAYER BUTTON
+   YOUTUBE PLAYER
    ========================================================= */
 
-#appendedMusicPlayerButton {
-  position: fixed;
-  left: 20px;
-  bottom: 20px;
+#appendedYouTubePlayer {
+  position: fixed !important;
 
-  width: 52px;
-  height: 52px;
+  left: 20px !important;
+  bottom: 78px !important;
 
-  z-index: 2147483001;
+  width: 260px !important;
+  height: 150px !important;
 
-  border-radius: 50%;
-  border: 1px solid rgba(240, 239, 244, 0.35);
+  z-index: 2147483000 !important;
 
-  background: rgba(58, 62, 59, 0.72);
-  color: #ffffff;
+  border-radius: 12px !important;
+  overflow: hidden !important;
 
-  cursor: pointer;
+  background: #000 !important;
 
-  font-size: 1.15rem;
-  font-weight: 700;
-  line-height: 1;
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.6) !important;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none !important;
+}
 
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+#appendedYouTubePlayer.open {
+  display: block !important;
+}
 
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+#appendedYouTubePlayer iframe {
+  width: 100% !important;
+  height: 100% !important;
 
-  touch-action: manipulation;
+  border: 0 !important;
+  display: block !important;
+
+  background: #000 !important;
+}
+
+
+/* =========================================================
+   VIDEO LIST
+   ========================================================= */
+
+#appendedYouTubeOptions {
+  position: fixed !important;
+
+  left: 20px !important;
+  bottom: 236px !important;
+
+  width: 260px !important;
+
+  z-index: 2147483002 !important;
+
+  display: none !important;
+
+  grid-template-columns: 1fr !important;
+  gap: 6px !important;
+
+  padding: 8px !important;
+
+  border-radius: 12px !important;
+
+  background: rgba(23,14,32,.84) !important;
+
+  border:
+    1px solid rgba(240,239,244,.28) !important;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.50) !important;
+
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+
+  box-sizing: border-box !important;
+
+  max-height: 44vh !important;
+
+  overflow-y: auto !important;
+
+  overscroll-behavior: contain !important;
+}
+
+#appendedYouTubeOptions.open {
+  display: grid !important;
+}
+
+#appendedYouTubeOptions button {
+  width: 100% !important;
+  box-sizing: border-box !important;
+
+  border:
+    1px solid rgba(255,255,255,.22) !important;
+
+  border-radius: 10px !important;
+
+  padding: 6px 7px !important;
+
+  background:
+    rgba(255,255,255,.12) !important;
+
+  color: #fff !important;
+
+  font:
+    700 10.5px/1.18
+    Inter,
+    system-ui,
+    sans-serif !important;
+
+  text-align: left !important;
+
+  cursor: pointer !important;
+
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+
+  box-shadow: none !important;
+}
+
+#appendedYouTubeOptions button.active,
+#appendedYouTubeOptions button:hover {
+  background:
+    rgba(158,130,156,.42) !important;
+}
+
+
+/* =========================================================
+   FLOATING MUSIC / YOUTUBE BUTTON
+   ========================================================= */
+
+#appendedYouTubeButton {
+  position: fixed !important;
+
+  left: 20px !important;
+  bottom: 20px !important;
+
+  width: 52px !important;
+  height: 52px !important;
+
+  z-index: 2147483001 !important;
+
+  border-radius: 50% !important;
+
+  border:
+    1px solid rgba(240,239,244,.35) !important;
+
+  background:
+    rgba(58,62,59,.72) !important;
+
+  color: #fff !important;
+
+  cursor: pointer !important;
+
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.45) !important;
+
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+
+  touch-action: manipulation !important;
 
   transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+    background .2s ease,
+    transform .2s ease !important;
 }
 
-#appendedMusicPlayerButton:hover {
-  background: rgba(158, 130, 156, 0.34);
-  transform: translateY(-2px);
-}
+#appendedYouTubeButton:hover {
+  background:
+    rgba(158,130,156,.34) !important;
 
-#appendedMusicPlayerButton:active {
-  transform: scale(0.96);
+  transform:
+    translateY(-2px) !important;
 }
 
 
@@ -1047,16 +1182,57 @@ document.addEventListener('DOMContentLoaded', () => {
     bottom: 12px;
   }
 
-  #appendedMusicPlayerButton {
-    left: 12px;
-    bottom: 12px;
+  #appendedYouTubePlayer {
+    left: 12px !important;
+    bottom: 72px !important;
+
+    width:
+      calc(100vw - 24px) !important;
+
+    height:
+      calc((100vw - 24px) * .5625) !important;
+  }
+
+  #appendedYouTubeOptions {
+    left: 12px !important;
+
+    bottom:
+      calc(
+        72px +
+        ((100vw - 24px) * .5625) +
+        8px
+      ) !important;
+
+    width:
+      calc(100vw - 24px) !important;
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr)) !important;
+
+    gap: 6px !important;
+
+    padding: 7px !important;
+
+    max-height: 38vh !important;
+  }
+
+  #appendedYouTubeOptions button {
+    font-size: 9.5px !important;
+    line-height: 1.12 !important;
+    padding: 6px !important;
+  }
+
+  #appendedYouTubeButton {
+    left: 12px !important;
+    bottom: 12px !important;
   }
 }
+
 </style>
 
 
 <!-- =========================================================
-     BACK-TO-TOP BUTTON
+     BACK-TO-TOP
      ========================================================= -->
 
 <button
@@ -1069,52 +1245,33 @@ document.addEventListener('DOMContentLoaded', () => {
 </button>
 
 
-<!-- =========================================================
-     MUSIC
-     Replace YOUR-MUSIC-FILE.mp3 with your audio file.
-     ========================================================= -->
-
-<audio
-  id="appendedSiteMusic"
-  preload="none"
->
-  <source
-    src="YOUR-MUSIC-FILE.mp3"
-    type="audio/mpeg"
-  >
-</audio>
-
-
-<!-- =========================================================
-     MUSIC PLAYER BUTTON
-     ========================================================= -->
-
-<button
-  id="appendedMusicPlayerButton"
-  type="button"
-  aria-label="Music player"
-  title="Music player"
->
-  ▶
-</button>
-
-
 <script>
 (function () {
 
+  'use strict';
+
+
   /* =========================================================
-     BACK-TO-TOP
+     BACK-TO-TOP CHEVRON
      ========================================================= */
 
-  const scrollTopButton =
-    document.getElementById('appendedPageScrollTop');
+  var scrollTopButton =
+    document.getElementById(
+      'appendedPageScrollTop'
+    );
 
   function updateScrollTopButton() {
+
     if (window.scrollY > 400) {
+
       scrollTopButton.classList.add('show');
+
     } else {
+
       scrollTopButton.classList.remove('show');
+
     }
+
   }
 
   window.addEventListener(
@@ -1123,74 +1280,596 @@ document.addEventListener('DOMContentLoaded', () => {
     { passive: true }
   );
 
-  scrollTopButton.addEventListener('click', function () {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
+  scrollTopButton.addEventListener(
+    'click',
+    function () {
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+    }
+  );
 
   updateScrollTopButton();
 
 
   /* =========================================================
-     MUSIC PLAYER
+     EXACT ORIGINAL VIDEO LIST
      ========================================================= */
 
-  const music =
-    document.getElementById('appendedSiteMusic');
+  var VIDEO_ID = 'tgj3nZWtOfA';
 
-  const musicButton =
-    document.getElementById('appendedMusicPlayerButton');
+  var VIDEO_OPTIONS = [
 
-  musicButton.addEventListener('click', async function () {
+    {
+      id: 'tgj3nZWtOfA',
+      label:
+        'Monty Python The Holy Grail - The Killer Bunny'
+    },
 
-    try {
+    {
+      id: 'Z3RA7bi5FUM',
+      label:
+        'EVERGLOW (에버글로우) - FIRST MV '
+    },
 
-      if (music.paused) {
+    {
+      id: 'Btkjr6UNb50',
+      label:
+        'CLC(씨엘씨) - ME(美) Official Music Video'
+    },
 
-        await music.play();
+    {
+      id: 'MY4qnUGwWIU',
+      label:
+        'CLC(씨엘씨) - Devil Official Music Video '
+    },
 
-        /*
-         * Matches the original player's
-         * playing-state icon.
-         */
-        musicButton.textContent = '🔇';
+    {
+      id: 'brZRDjFIFJs',
+      label:
+        '[MV] 화사 (Hwa Sa) - 마리아 (Maria)'
+    },
 
-      } else {
+    {
+      id: 'zrzMhU_4m-g',
+      label:
+        "She's a witch! Monty Python"
+    },
 
-        music.pause();
+    {
+      id: 'FCsLikmxhV0',
+      label:
+        'Epik High - Rosario ft. CL, ZICO Official MV'
+    },
 
-        /*
-         * Matches the original player's
-         * muted/paused-state icon.
-         */
-        musicButton.textContent = '🔊';
+    {
+      id: 'F-QTb-0wRGk',
+      label:
+        'ITZY - Blah Blah Blah Music Video'
+    },
+
+    {
+      id: 'krzf1hkFAZA',
+      label:
+        'ITZY - Voltage Music Video'
+    },
+
+    {
+      id: 'I66oFXdf0KU',
+      label:
+        '(G)I-DLE - Uh-Oh Official Music Video'
+    },
+
+    {
+      id: '56XiKr44a9U',
+      label:
+        'ZICO - Bermuda Triangle ft. Crush, DEAN'
+    }
+
+  ];
+
+
+  /* =========================================================
+     PLAYER ELEMENTS
+     ========================================================= */
+
+  var PLAYER_ID =
+    'appendedYouTubePlayer';
+
+  var BUTTON_ID =
+    'appendedYouTubeButton';
+
+  var OPTIONS_ID =
+    'appendedYouTubeOptions';
+
+
+  var activeVideoId =
+    VIDEO_ID;
+
+  var activeVideoTitle =
+    VIDEO_OPTIONS[0].label;
+
+  var EMBED_BASE =
+    'https://www.youtube.com/embed/';
+
+
+  /*
+   * Exact original YouTube embed parameters.
+   */
+
+  function buildSrc(muted) {
+
+    return EMBED_BASE +
+      activeVideoId +
+      '?autoplay=1' +
+      '&mute=' +
+      (muted ? '1' : '0') +
+      '&controls=1' +
+      '&playsinline=1' +
+      '&rel=0' +
+      '&modestbranding=1' +
+      '&enablejsapi=1';
+
+  }
+
+
+  /* =========================================================
+     STOP OTHER YOUTUBE IFRAMES
+     ========================================================= */
+
+  function pauseOtherYouTubeFrames() {
+
+    document
+      .querySelectorAll(
+        'iframe[src*="youtube.com/embed/"], ' +
+        'iframe[src*="youtube-nocookie.com/embed/"]'
+      )
+      .forEach(function (frame) {
+
+        try {
+
+          frame.contentWindow.postMessage(
+            '{"event":"command","func":"pauseVideo","args":""}',
+            '*'
+          );
+
+        } catch (e) {}
+
+      });
+
+  }
+
+
+  /* =========================================================
+     CREATE PLAYER
+     ========================================================= */
+
+  function createPlayer() {
+
+    /*
+     * Remove an older copy if this block was
+     * accidentally appended more than once.
+     */
+
+    [
+      PLAYER_ID,
+      BUTTON_ID,
+      OPTIONS_ID
+    ].forEach(function (id) {
+
+      var old =
+        document.getElementById(id);
+
+      if (old) {
+        old.remove();
       }
 
-    } catch (error) {
+    });
 
-      console.warn(
-        'Music could not be played:',
-        error
+
+    var player =
+      document.createElement('div');
+
+    player.id =
+      PLAYER_ID;
+
+
+    var options =
+      document.createElement('div');
+
+    options.id =
+      OPTIONS_ID;
+
+
+    var button =
+      document.createElement('button');
+
+    button.id =
+      BUTTON_ID;
+
+    button.type =
+      'button';
+
+
+    /*
+     * Original player states:
+     *
+     * closed  = ▶
+     * muted   = 🔊
+     * playing = 🔇
+     * stopped = ✕
+     */
+
+    var state =
+      'closed';
+
+
+    function setButton() {
+
+      if (state === 'closed') {
+        button.innerHTML = '▶';
+      }
+
+      if (state === 'muted') {
+        button.innerHTML = '🔊';
+      }
+
+      if (state === 'playing') {
+        button.innerHTML = '🔇';
+      }
+
+      if (state === 'stopped') {
+        button.innerHTML = '✕';
+      }
+
+      button.setAttribute(
+        'aria-label',
+        activeVideoTitle
+      );
+
+      button.setAttribute(
+        'title',
+        activeVideoTitle
       );
 
     }
 
-  });
+
+    /* =======================================================
+       LOAD YOUTUBE VIDEO
+       ======================================================= */
+
+    function loadIframe(muted) {
+
+      pauseOtherYouTubeFrames();
+
+      player.innerHTML =
+        '<iframe ' +
+        'src="' +
+        buildSrc(muted) +
+        '" ' +
+        'title="' +
+        activeVideoTitle
+          .replace(/"/g, '&quot;') +
+        '" ' +
+        'allow="' +
+        'autoplay; encrypted-media; ' +
+        'picture-in-picture; web-share" ' +
+        'allowfullscreen>' +
+        '</iframe>';
+
+    }
 
 
-  /*
-   * Keep the button synchronized if the
-   * audio is stopped elsewhere.
-   */
-  music.addEventListener('ended', function () {
-    musicButton.textContent = '▶';
-  });
+    /* =======================================================
+       BUILD EXACT VIDEO LIST
+       ======================================================= */
+
+    VIDEO_OPTIONS.forEach(
+      function (item) {
+
+        var optionButton =
+          document.createElement('button');
+
+        optionButton.type =
+          'button';
+
+        optionButton.textContent =
+          item.label;
+
+
+        if (
+          item.id === activeVideoId
+        ) {
+
+          optionButton.className =
+            'active';
+
+        }
+
+
+        optionButton.addEventListener(
+          'click',
+          function (e) {
+
+            e.preventDefault();
+            e.stopPropagation();
+
+
+            activeVideoId =
+              item.id;
+
+            activeVideoTitle =
+              item.label;
+
+
+            options
+              .querySelectorAll('button')
+              .forEach(function (btn) {
+
+                btn.classList.remove(
+                  'active'
+                );
+
+              });
+
+
+            optionButton.classList.add(
+              'active'
+            );
+
+
+            setButton();
+
+
+            /*
+             * Selecting a video while closed
+             * or stopped opens it muted.
+             */
+
+            if (
+              state === 'closed' ||
+              state === 'stopped'
+            ) {
+
+              state =
+                'muted';
+
+              player.classList.add(
+                'open'
+              );
+
+              options.classList.add(
+                'open'
+              );
+
+              loadIframe(true);
+
+              setButton();
+
+              return;
+
+            }
+
+
+            /*
+             * If currently muted, selecting
+             * another video keeps it muted.
+             */
+
+            if (
+              state === 'muted'
+            ) {
+
+              loadIframe(true);
+
+              return;
+
+            }
+
+
+            /*
+             * If currently playing, selecting
+             * another video keeps it playing.
+             */
+
+            if (
+              state === 'playing'
+            ) {
+
+              loadIframe(false);
+
+            }
+
+          }
+        );
+
+
+        options.appendChild(
+          optionButton
+        );
+
+      }
+    );
+
+
+    /* =======================================================
+       MAIN MUSIC BUTTON
+       ======================================================= */
+
+    button.addEventListener(
+      'click',
+      function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+
+        /*
+         * FIRST CLICK
+         *
+         * Opens the YouTube video popup.
+         */
+
+        if (
+          state === 'closed'
+        ) {
+
+          state =
+            'muted';
+
+          player.classList.add(
+            'open'
+          );
+
+          options.classList.add(
+            'open'
+          );
+
+          loadIframe(true);
+
+          setButton();
+
+          return;
+
+        }
+
+
+        /*
+         * SECOND CLICK
+         *
+         * Turns sound on / plays normally.
+         */
+
+        if (
+          state === 'muted'
+        ) {
+
+          state =
+            'playing';
+
+          loadIframe(false);
+
+          setButton();
+
+          return;
+
+        }
+
+
+        /*
+         * THIRD CLICK
+         *
+         * Stops the video but leaves
+         * the player/list visible.
+         */
+
+        if (
+          state === 'playing'
+        ) {
+
+          state =
+            'stopped';
+
+          player.innerHTML =
+            '';
+
+          player.classList.add(
+            'open'
+          );
+
+          options.classList.add(
+            'open'
+          );
+
+          setButton();
+
+          return;
+
+        }
+
+
+        /*
+         * FOURTH CLICK
+         *
+         * Fully closes the player.
+         */
+
+        if (
+          state === 'stopped'
+        ) {
+
+          state =
+            'closed';
+
+          player.innerHTML =
+            '';
+
+          player.classList.remove(
+            'open'
+          );
+
+          options.classList.remove(
+            'open'
+          );
+
+          setButton();
+
+        }
+
+      }
+    );
+
+
+    /*
+     * Append everything to BODY.
+     */
+
+    document.body.appendChild(
+      player
+    );
+
+    document.body.appendChild(
+      options
+    );
+
+    document.body.appendChild(
+      button
+    );
+
+
+    setButton();
+
+  }
+
+
+  /* =========================================================
+     INITIALIZE
+     ========================================================= */
+
+  if (
+    document.readyState === 'loading'
+  ) {
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      createPlayer
+    );
+
+  } else {
+
+    createPlayer();
+
+  }
 
 })();
 </script>
 
-<!-- ===== END APPENDED FLOATING CONTROLS ===== -->
+<!-- =========================================================
+     END OF APPENDED FLOATING CONTROLS
+     ========================================================= -->
 </body>
 </html>
