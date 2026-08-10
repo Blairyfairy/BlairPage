@@ -506,24 +506,17 @@ body::before{
 }
 
 .gallery-carousel{
-  flex-wrap:nowrap;
-  justify-content:flex-start;
-  overflow-x:auto;
-  overflow-y:hidden;
-  max-width:100%;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
-  padding:0 14vw 4px;
-  scroll-padding-left:14vw;
+  flex-wrap:wrap;
+  justify-content:center;
+  overflow:visible;
+  max-width:none;
 }
 
 .gallery-carousel img{
-  width:72vw;
+  width:45%;
   height:auto;
   aspect-ratio:1 / 1;
-  flex-shrink:0;
-  scroll-snap-align:center;
-  scroll-snap-stop:always;
+  margin-bottom:10px;
   display:none;
 }
 
@@ -693,27 +686,19 @@ body::before{
 
   #gallery-page .gallery-carousel{
     display:flex !important;
-    flex-wrap:nowrap !important;
-    justify-content:flex-start !important;
-    align-items:center !important;
+    flex-wrap:wrap !important;
+    justify-content:center !important;
+    align-items:flex-start !important;
     gap:12px !important;
-    overflow-x:auto !important;
-    overflow-y:hidden !important;
+    overflow:visible !important;
     width:100% !important;
     max-width:100% !important;
-    scroll-snap-type:x mandatory !important;
-    -webkit-overflow-scrolling:touch !important;
-    padding:0 14vw 4px !important;
-    scroll-padding-left:14vw !important;
   }
 
   #gallery-page .gallery-carousel img{
-    width:72vw !important;
+    width:45% !important;
     height:auto !important;
     aspect-ratio:1 / 1 !important;
-    flex-shrink:0 !important;
-    scroll-snap-align:center !important;
-    scroll-snap-stop:always !important;
   }
 }
 /* ==========================================
@@ -2832,7 +2817,7 @@ iframe{
   }
 
   .gallery-carousel img{
-    contain-intrinsic-size:72vw 72vw;
+    contain-intrinsic-size:45vw 45vw;
   }
 }
 
