@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Blair Page — Fastest-Path Remote Role Match</title>
+<style>
+  :root{
+    --black:#000000;
+    --violet:#291528;
+    --charcoal:#3a3e3b;
+    --ghost:#f0eff4;
+    --mauve:#9e829c;
+    --gold:#d4a24e;
+    --teal:#6ba3a0;
+    --mono:'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+    --sans:'Inter', system-ui, -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:linear-gradient(160deg, var(--black) 0%, var(--violet) 45%, var(--charcoal) 100%);
+    color:var(--ghost);
+    font-family:var(--sans);
+    padding:0 0 60px 0;
+  }
+  .wrap{max-width:1120px; margin:0 auto; padding:0 28px;}
+
+  /* ---- Hero / terminal signature ---- */
+  .hero{padding:56px 0 36px 0;}
+  .term{
+    background:rgba(240,239,244,0.05);
+    border:1px solid rgba(240,239,244,0.18);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  }
+  .term-bar{
+    display:flex; gap:7px; align-items:center;
+    padding:10px 14px;
+    background:rgba(0,0,0,0.35);
+    border-bottom:1px solid rgba(240,239,244,0.1);
+  }
+  .term-bar span{width:10px; height:10px; border-radius:50%; display:inline-block;}
+  .term-bar span:nth-child(1){background:#e0605a;}
+  .term-bar span:nth-child(2){background:var(--gold);}
+  .term-bar span:nth-child(3){background:var(--teal);}
+  .term-body{padding:26px 28px 30px 28px; font-family:var(--mono);}
+  .term-body .prompt{color:var(--teal); font-size:0.9rem;}
+  .term-body .cmd{color:var(--ghost); font-size:0.9rem;}
+  .term-body h1{
+    font-family:var(--mono);
+    font-size:clamp(1.6rem, 3.4vw, 2.5rem);
+    margin:14px 0 10px 0;
+    line-height:1.25;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  .term-body h1 .accent{color:var(--gold);}
+  .term-body p.sub{
+    font-family:var(--sans);
+    color:rgba(240,239,244,0.72);
+    font-size:0.98rem;
+    max-width:640px;
+    line-height:1.55;
+    margin-top:6px;
+  }
+  .stat-row{display:flex; gap:26px; margin-top:24px; flex-wrap:wrap;}
+  .stat{font-family:var(--mono);}
+  .stat .n{font-size:1.35rem; color:var(--gold); font-weight:700;}
+  .stat .l{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:rgba(240,239,244,0.55);}
+
+  /* ---- honest-framing note ---- */
+  .note{
+    margin-top:22px; padding:14px 16px;
+    border-left:3px solid var(--mauve);
+    background:rgba(158,130,156,0.08);
+    font-size:0.82rem; line-height:1.6;
+    color:rgba(240,239,244,0.75);
+    border-radius:0 6px 6px 0;
+  }
+
+  /* ---- section headers ---- */
+  .section-title{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin:52px 0 6px 0;
+    display:flex; align-items:center; gap:10px;
+  }
+  .section-title::after{content:""; flex:1; height:1px; background:rgba(240,239,244,0.15);}
+  .section-lead{color:rgba(240,239,244,0.6); font-size:0.92rem; margin-bottom:22px; max-width:680px;}
+
+  /* ---- track legend ---- */
+  .legend{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:8px;}
+  .legend-item{display:flex; align-items:center; gap:8px; font-size:0.78rem; color:rgba(240,239,244,0.65);}
+  .dot{width:9px; height:9px; border-radius:50%;}
+
+  /* ---- job cards ---- */
+  .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:22px;}
+  @media (max-width:860px){.grid{grid-template-columns:1fr;}}
+  .card{
+    background:rgba(240,239,244,0.045);
+    border:1px solid rgba(240,239,244,0.14);
+    border-radius:10px;
+    padding:20px 20px 18px 20px;
+    border-top:3px solid var(--track);
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .card .badge{
+    align-self:flex-start;
+    font-family:var(--mono); font-size:0.66rem; letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:3px 9px; border-radius:20px;
+    background:rgba(212,162,78,0.15); color:var(--gold);
+    border:1px solid rgba(212,162,78,0.35);
+  }
+  .card h3{font-size:1.02rem; line-height:1.35; font-weight:700;}
+  .card .why{font-size:0.83rem; color:rgba(240,239,244,0.65); line-height:1.5;}
+  .kw{display:flex; flex-wrap:wrap; gap:6px; margin-top:2px;}
+  .kw span{
+    font-family:var(--mono); font-size:0.68rem;
+    background:rgba(240,239,244,0.07);
+    border:1px solid rgba(240,239,244,0.14);
+    padding:3px 7px; border-radius:5px;
+    color:rgba(240,239,244,0.8);
+  }
+  .platforms{
+    display:flex; gap:8px; margin-top:auto; padding-top:10px;
+    border-top:1px dashed rgba(240,239,244,0.15);
+    font-size:0.72rem; font-family:var(--mono); color:var(--teal);
+  }
+
+  /* ---- platform strategy ---- */
+  .plat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:20px;}
+  @media (max-width:860px){.plat-grid{grid-template-columns:repeat(2,1fr);}}
+  .plat-card{
+    background:rgba(0,0,0,0.2);
+    border:1px solid rgba(240,239,244,0.14);
+    border-radius:10px; padding:18px;
+  }
+  .plat-card .pname{font-family:var(--mono); font-weight:700; color:var(--ghost); font-size:0.95rem;}
+  .plat-card .ptag{font-size:0.7rem; color:var(--gold); font-family:var(--mono); margin-bottom:10px; display:block;}
+  .plat-card ul{padding-left:16px; font-size:0.8rem; color:rgba(240,239,244,0.68); line-height:1.6;}
+
+  /* ---- checklist ---- */
+  .checklist{
+    margin-top:20px;
+    display:grid; grid-template-columns:repeat(2,1fr); gap:12px 28px;
+  }
+  @media (max-width:860px){.checklist{grid-template-columns:1fr;}}
+  .check-item{display:flex; gap:12px; align-items:flex-start; font-size:0.86rem; line-height:1.5; color:rgba(240,239,244,0.8);}
+  .check-item .num{
+    font-family:var(--mono); color:var(--gold); font-weight:700; font-size:0.85rem;
+    border:1px solid rgba(212,162,78,0.4); border-radius:5px;
+    width:24px; height:24px; display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+
+  /* ---- fastest path callout ---- */
+  .callout{
+    margin-top:56px;
+    background:linear-gradient(120deg, rgba(212,162,78,0.12), rgba(107,163,160,0.08));
+    border:1px solid rgba(212,162,78,0.3);
+    border-radius:12px;
+    padding:26px 28px;
+  }
+  .callout .eyebrow{font-family:var(--mono); font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold);}
+  .callout h2{font-size:1.3rem; margin:8px 0 10px 0;}
+  .callout p{font-size:0.9rem; color:rgba(240,239,244,0.75); line-height:1.6; max-width:760px;}
+
+  footer{margin-top:40px; font-size:0.72rem; color:rgba(240,239,244,0.4); text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="term">
+      <div class="term-bar"><span></span><span></span><span></span></div>
+      <div class="term-body">
+        <div class="prompt">blair@jobsearch:~$ <span class="cmd">match --status unemployed --priority fastest-remote-offer</span></div>
+        <h1>20 years in servers, 13 in cloud — <span class="accent">three tracks</span> to your next offer.</h1>
+        <p class="sub">Your resume already carries deep keyword density across cloud infrastructure, e-commerce full-stack, and technical support/DBA work. The fastest reemployment path isn't one title — it's applying in parallel across all three tracks below, each tuned to a different slice of your background.</p>
+        <div class="stat-row">
+          <div class="stat"><div class="n">20y</div><div class="l">Systems/Servers</div></div>
+          <div class="stat"><div class="n">13y</div><div class="l">Cloud (AWS/OpenStack)</div></div>
+          <div class="stat"><div class="n">3</div><div class="l">Viable role tracks</div></div>
+          <div class="stat"><div class="n">4</div><div class="l">Boards to run in parallel</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      A note on the "95%+ ATS score" ask: no one — not a recruiter, not a resume tool — can honestly guarantee a specific ATS percentage in advance, because every employer runs different parsing software with different weighting. What actually moves the needle is <strong>keyword overlap with the exact job posting</strong> and a clean, single-column format the parser can read. Below, each title is tagged by how strong that overlap already is with your listed experience, and the keyword sets to mirror for each posting.
+    </div>
+  </div>
+
+  <div class="section-title">Track 1 — Cloud &amp; Infrastructure</div>
+  <p class="section-lead">Your strongest keyword density: AWS, OpenStack, RHCE, hybrid cloud, database HA/clustering. This is your fastest-to-interview track on Dice and LinkedIn.</p>
+  <div class="grid">
+    <div class="card" style="--track:var(--teal)">
+      <span class="badge">Strong overlap</span>
+      <h3>Cloud Support / Systems Engineer (AWS)</h3>
+      <p class="why">Direct match to your L3 Linux Hosting Support, Technical Support (IaaS), and AWS Full Stack roles.</p>
+      <div class="kw"><span>AWS EC2/RDS</span><span>Linux</span><span>RHCE</span><span>Incident Response</span></div>
+      <div class="platforms">→ Dice, LinkedIn, Indeed</div>
+    </div>
+    <div class="card" style="--track:var(--teal)">
+      <span class="badge">Strong overlap</span>
+      <h3>Linux / RHEL Systems Administrator</h3>
+      <p class="why">Maps directly to your RHCE Linux Administrator / Cloud Ops / Infrastructure title.</p>
+      <div class="kw"><span>RHCE</span><span>Nagios</span><span>Bash</span><span>High Availability</span></div>
+      <div class="platforms">→ Dice, Monster</div>
+    </div>
+    <div class="card" style="--track:var(--teal)">
+      <span class="badge">Good overlap</span>
+      <h3>Junior DevOps / Cloud Ops Engineer</h3>
+      <p class="why">Backed by ProxySQL/HAProxy load balancing, Redis/CDN caching, and AWS Lambda work.</p>
+      <div class="kw"><span>CI/CD</span><span>OpenStack</span><span>Redis</span><span>PagerDuty</span></div>
+      <div class="platforms">→ LinkedIn, Dice</div>
+    </div>
+  </div>
+
+  <div class="section-title">Track 2 — Database &amp; Data Operations</div>
+  <p class="section-lead">Your DBA and hybrid-cloud data ops experience (PXC, Galera, replication, RDS/DynamoDB) is a narrower but high-value pool with less competition.</p>
+  <div class="grid">
+    <div class="card" style="--track:var(--gold)">
+      <span class="badge">Strong overlap</span>
+      <h3>Database Administrator (MySQL/PostgreSQL)</h3>
+      <p class="why">Direct match to Associate DBA Technical Services Engineer and Upwork DBA freelance work.</p>
+      <div class="kw"><span>MySQL</span><span>PostgreSQL</span><span>Replication</span><span>Query Tuning</span></div>
+      <div class="platforms">→ Dice, LinkedIn</div>
+    </div>
+    <div class="card" style="--track:var(--gold)">
+      <span class="badge">Good overlap</span>
+      <h3>Data Operations / Reliability Engineer</h3>
+      <p class="why">Covers your failover, clustering, and zero-downtime migration work across environments.</p>
+      <div class="kw"><span>Galera/PXC</span><span>DynamoDB</span><span>Zero-Downtime Migration</span></div>
+      <div class="platforms">→ Dice, Indeed</div>
+    </div>
+    <div class="card" style="--track:var(--gold)">
+      <span class="badge">Good overlap</span>
+      <h3>Remote Technical Support Engineer (Tier 2/3)</h3>
+      <p class="why">Matches Technical Support Engineer (IaaS) and L3 Managed Applications support roles almost title-for-title.</p>
+      <div class="kw"><span>Zendesk</span><span>SLA Management</span><span>Escalation</span><span>Splunk</span></div>
+      <div class="platforms">→ Indeed, Monster</div>
+    </div>
+  </div>
+
+  <div class="section-title">Track 3 — E-Commerce &amp; Full-Stack Web</div>
+  <p class="section-lead">Your Magento, WooCommerce, and WordPress product/dev history plus a Product Manager title gives you a second, higher-volume applicant pool on Indeed and Monster.</p>
+  <div class="grid">
+    <div class="card" style="--track:var(--mauve)">
+      <span class="badge">Strong overlap</span>
+      <h3>Magento / WooCommerce Full-Stack Developer</h3>
+      <p class="why">Direct title match to your AWS Magento and AWS WooCommerce WordPress Developer roles.</p>
+      <div class="kw"><span>Magento</span><span>WooCommerce</span><span>REST APIs</span><span>Checkout UX</span></div>
+      <div class="platforms">→ Indeed, LinkedIn</div>
+    </div>
+    <div class="card" style="--track:var(--mauve)">
+      <span class="badge">Good overlap</span>
+      <h3>WordPress Developer / Digital Branding</h3>
+      <p class="why">Backed by 99.9% uptime SLA, 50+ core/plugin updates, and measurable revenue-lift work.</p>
+      <div class="kw"><span>WordPress</span><span>SEO</span><span>Brand Systems</span><span>Uptime SLA</span></div>
+      <div class="platforms">→ Indeed, Monster</div>
+    </div>
+    <div class="card" style="--track:var(--mauve)">
+      <span class="badge">Moderate overlap</span>
+      <h3>Technical Product Manager (Front-End)</h3>
+      <p class="why">Matches your Product Manager · Front-End Modernization &amp; Rider Engagement title; strongest once paired with a portfolio link.</p>
+      <div class="kw"><span>Roadmap</span><span>Agile</span><span>UX Prioritization</span><span>Analytics</span></div>
+      <div class="platforms">→ LinkedIn</div>
+    </div>
+  </div>
+
+  <div class="section-title">Where to Post Each Track</div>
+  <p class="section-lead">Same resume, different emphasis per board — lead with the keyword cluster each platform's search actually rewards.</p>
+  <div class="plat-grid">
+    <div class="plat-card">
+      <span class="pname">Dice</span>
+      <span class="ptag">Best for Tracks 1 &amp; 2</span>
+      <ul>
+        <li>Tech recruiters search this first for AWS/Linux/DBA roles</li>
+        <li>Fill every skill chip: AWS, RHCE, MySQL, OpenStack</li>
+        <li>Set profile to "actively looking" for faster inbound</li>
+      </ul>
+    </div>
+    <div class="plat-card">
+      <span class="pname">LinkedIn</span>
+      <span class="ptag">Best across all 3 tracks</span>
+      <ul>
+        <li>Turn on "Open to Work" (recruiters-only mode)</li>
+        <li>Headline = top 2 titles, not just current role</li>
+        <li>Easy Apply for fastest volume + Dice/Indeed cross-post</li>
+      </ul>
+    </div>
+    <div class="plat-card">
+      <span class="pname">Indeed</span>
+      <span class="ptag">Best for Tracks 2 &amp; 3, highest volume</span>
+      <ul>
+        <li>Highest posting volume = fastest first responses</li>
+        <li>Use Indeed's built-in resume score checker per posting</li>
+        <li>Set up daily alerts for each of the 9 titles above</li>
+      </ul>
+    </div>
+    <div class="plat-card">
+      <span class="pname">Monster</span>
+      <span class="ptag">Secondary, Tracks 2 &amp; 3</span>
+      <ul>
+        <li>Smaller volume — use for support/WordPress roles</li>
+        <li>Good for direct-employer (non-agency) postings</li>
+        <li>Resume visibility boost is worth enabling here</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">ATS Optimization Checklist</div>
+  <p class="section-lead">The controllable half of "high ATS match" — applies to every title above, on every board.</p>
+  <div class="checklist">
+    <div class="check-item"><span class="num">1</span>Mirror the exact job title from the posting somewhere in your resume summary, even if your resume uses a different internal title.</div>
+    <div class="check-item"><span class="num">2</span>Use a single-column .docx or plain-text resume for ATS uploads — the visually-rich site is great for LinkedIn/portfolio links, not for parsing.</div>
+    <div class="check-item"><span class="num">3</span>Copy 4–6 exact skill keywords from each posting (e.g. "AWS RDS," "MySQL replication") into your resume's skills line.</div>
+    <div class="check-item"><span class="num">4</span>Spell out acronyms once each: "Red Hat Certified Engineer (RHCE)" so both keyword forms match.</div>
+    <div class="check-item"><span class="num">5</span>Quantify impact per bullet — you already have strong numbers (99.9% uptime, 57% revenue lift); keep leading with them.</div>
+    <div class="check-item"><span class="num">6</span>Apply to postings under 5 days old first — most ATS + recruiter attention concentrates in that window.</div>
+  </div>
+
+  <div class="callout">
+    <div class="eyebrow">Fastest path to an offer</div>
+    <h2>Run Track 1 and Track 2 simultaneously on Dice + LinkedIn.</h2>
+    <p>These two tracks have your strongest, most specific keyword overlap and the least applicant competition. Set daily alerts for "Remote Linux Systems Administrator," "Cloud Support Engineer AWS," and "Database Administrator MySQL" on both boards, apply within 48 hours of posting, and use Track 3 (Indeed/Monster e-commerce roles) as your volume backstop while those move through interview loops.</p>
+  </div>
+
+  <footer>Built from the skills and role history listed on your résumé site — not from the headshot photo, which has no bearing on job fit.</footer>
+</div>
+</body>
+</html>
