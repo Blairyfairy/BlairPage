@@ -3049,68 +3049,112 @@ setInterval(updatePageScrollButton,500);
     img.src = resolvedSrc;
   }
 
-  async function rebuildGalleryImages() {
-    const carousel = getCarousel();
-    if (!carousel) return;
+  function shuffleList(a) {
+    a = a.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
 
-    const list = await fetchGalleryList();
-    window.galleryImagesData = list;
+  let rebuildInFlight = null;
 
-    carousel.innerHTML = '';
+  function rebuildGalleryImages() {
+    /* Coalesce overlapping calls (e.g. an initial trigger firing at
+       nearly the same time as a pageshow trigger) into one run, so the
+       gallery isn't fetched and rebuilt more than once per visit. */
+    if (rebuildInFlight) return rebuildInFlight;
+    rebuildInFlight = (async () => {
+      const carousel = getCarousel();
+      if (!carousel) return;
 
-    const slots = list.map((src, index) => {
-      const img = document.createElement('img');
-      img.alt = `Gallery image ${index + 1}`;
-      img.loading = 'eager';
-      img.decoding = 'async';
-      img.dataset.originalSrc = src;
-      img.dataset.loading = 'true';
-      img.dataset.loaded = 'false';
-      img.style.setProperty('display', 'none', 'important');
-      carousel.appendChild(img);
-      return { img, src, index };
-    });
+      const list = await fetchGalleryList();
+      window.galleryImagesData = list;
 
-    let cursor = 0;
-    const concurrency = window.innerWidth <= 900 ? 10 : 8;
+      carousel.innerHTML = '';
 
-    async function worker() {
-      while (cursor < slots.length) {
-        const item = slots[cursor++];
+      /* Photos 1-10 always show first, in their original order.
+         Everything after that is shuffled into a fresh random order
+         every time the page loads. */
+      const first = list.slice(0, 10);
+      const rest = shuffleList(list.slice(10));
+      const order = first.concat(rest);
+
+      const slots = order.map((src, index) => {
+        const img = document.createElement('img');
+        img.className = 'gallery-json-final-image';
+        img.alt = 'Blair Page gallery photo';
+        img.loading = index < 10 ? 'eager' : 'lazy';
+        img.decoding = 'async';
+        img.draggable = false;
+        img.dataset.originalSrc = src;
+        img.dataset.loading = 'true';
+        img.dataset.loaded = 'false';
+        img.style.setProperty('display', 'block', 'important');
+        carousel.appendChild(img);
+        return { img, src, index };
+      });
+
+      async function resolveSlot(item) {
+        if (item.img.dataset.loaded === 'true') return;
         const resolved = await resolveFirstWorkingImage(item.src);
-
         if (!resolved) {
           item.img.dataset.loading = 'false';
           item.img.dataset.loaded = 'false';
-          item.img.style.setProperty('display', 'none', 'important');
-          continue;
+          item.img.remove();
+          return;
         }
-
         hardShowImage(item.img, resolved);
-
-        item.img.onclick = () => {
-          const parts = getLightboxParts();
-          if (parts.lightbox && parts.lightboxImg) {
-            parts.lightboxImg.src = resolved;
-            parts.lightbox.classList.add('show');
-          }
-        };
       }
-    }
 
-    await Promise.all(Array.from({ length: concurrency }, worker));
+      const priority = slots.slice(0, 10);
+      const remainder = slots.slice(10);
 
-    const loadedCount = carousel.querySelectorAll('img[data-loaded="true"]').length;
+      /* Load the first 10 right away, in order, with a small worker pool. */
+      let cursor = 0;
+      const workers = Math.min(6, priority.length);
+      async function priorityWorker() {
+        while (cursor < priority.length) {
+          await resolveSlot(priority[cursor++]);
+        }
+      }
+      await Promise.all(Array.from({ length: workers }, priorityWorker));
 
-    if (!loadedCount && list.length) {
-      console.warn('Gallery JSON loaded, but no image path resolved:', list);
-    }
+      /* Lazily resolve the rest only as they scroll near the viewport,
+         instead of loading every photo in the gallery at once. */
+      if ('IntersectionObserver' in window && remainder.length) {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const item = remainder.find(x => x.img === entry.target);
+            io.unobserve(entry.target);
+            if (item) resolveSlot(item);
+          });
+        }, { rootMargin: '800px 0px', threshold: 0.01 });
+        remainder.forEach(item => io.observe(item.img));
+      } else {
+        let c2 = 0;
+        const w2 = Math.min(8, remainder.length);
+        async function worker2() {
+          while (c2 < remainder.length) {
+            await resolveSlot(remainder[c2++]);
+          }
+        }
+        await Promise.all(Array.from({ length: w2 }, worker2));
+      }
+
+      const loadedCount = carousel.querySelectorAll('img[data-loaded="true"]').length;
+      if (!loadedCount && list.length) {
+        console.warn('Gallery JSON loaded, but no image path resolved:', list);
+      }
+    })().finally(() => { rebuildInFlight = null; });
+
+    return rebuildInFlight;
   }
 
   function runFinalPasses() {
     rebuildGalleryImages();
-    setTimeout(rebuildGalleryImages, 500);
-    setTimeout(rebuildGalleryImages, 1500);
   }
 
   const originalInitializeGallery = window.initializeGallery;
@@ -3118,7 +3162,7 @@ setInterval(updatePageScrollButton,500);
     if (Array.isArray(images) && images.length) {
       window.galleryImagesData = images;
     }
-    setTimeout(rebuildGalleryImages, 0);
+    rebuildGalleryImages();
     return originalInitializeGallery ? undefined : undefined;
   };
 
@@ -3128,8 +3172,8 @@ setInterval(updatePageScrollButton,500);
     runFinalPasses();
   }
 
-  window.addEventListener('load', () => setTimeout(rebuildGalleryImages, 100));
-  window.addEventListener('pageshow', () => setTimeout(rebuildGalleryImages, 100));
+  /* Refresh (and reshuffle) when returning to the page via back/forward cache. */
+  window.addEventListener('pageshow', e => { if (e.persisted) rebuildGalleryImages(); });
 
 })();
 </script>
@@ -6556,19 +6600,163 @@ body#gallery-page #lightbox.lightbox:not(.show) .gallery-lightbox-close{
 </script>
 <!-- FINAL JSON AUTHORITATIVE GALLERY + MOBILE NAVIGATION -->
 <style id="gallery-json-mobile-navigation-fix">
-body#gallery-page .gallery-carousel img.gallery-json-final-image{display:block!important;visibility:visible!important;opacity:1!important;cursor:zoom-in!important}
-@media(max-width:900px){body#gallery-page .gallery-carousel{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:100%!important;max-width:100%!important;overflow:visible!important;padding:0 2px 40px!important;box-sizing:border-box!important;touch-action:pan-y!important;overscroll-behavior-y:auto!important}body#gallery-page .gallery-carousel img.gallery-json-final-image{width:100%!important;height:auto!important;aspect-ratio:1/1!important;object-fit:cover!important;margin:0!important}body#gallery-page .arrow{display:none!important}}
+body#gallery-page .gallery-carousel img.gallery-json-final-image{
+  display:block!important;
+  visibility:visible!important;
+  cursor:zoom-in!important;
+  opacity:0!important;
+  transform:scale(.96)!important;
+  transition:opacity .45s ease, transform .45s ease!important;
+  will-change:opacity,transform;
+}
+body#gallery-page .gallery-carousel img.gallery-json-final-image[data-loaded="true"]{
+  opacity:1!important;
+  transform:scale(1)!important;
+}
+@media(max-width:900px){
+  body#gallery-page .gallery-carousel{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px!important;
+    width:100%!important;
+    max-width:100%!important;
+    overflow:visible!important;
+    padding:0 2px 40px!important;
+    box-sizing:border-box!important;
+    touch-action:pan-y!important;
+    overscroll-behavior-y:auto!important;
+    scroll-behavior:smooth!important;
+  }
+  body#gallery-page .gallery-carousel img.gallery-json-final-image{
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:1/1!important;
+    object-fit:cover!important;
+    margin:0!important;
+  }
+  body#gallery-page .arrow{display:none!important}
+}
+@media(max-width:480px){
+  body#gallery-page .gallery-carousel{gap:8px!important;}
+}
 #galleryLightboxPrevFinal,#galleryLightboxNextFinal{display:inline-flex!important;position:fixed!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483647!important;width:48px!important;height:48px!important;align-items:center!important;justify-content:center!important;border:1px solid rgba(255,255,255,.55)!important;border-radius:999px!important;background:rgba(0,0,0,.65)!important;color:#fff!important;font-size:24px!important;cursor:pointer!important;touch-action:manipulation!important}#galleryLightboxPrevFinal{left:18px!important}#galleryLightboxNextFinal{right:18px!important}
 @media(max-width:640px){#galleryLightboxPrevFinal,#galleryLightboxNextFinal{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important}#galleryLightboxPrevFinal{left:6px!important}#galleryLightboxNextFinal{right:6px!important}}
 </style>
 <script id="gallery-json-mobile-navigation-fix-script">
-(function(){if(window.__GALLERY_JSON_MOBILE_NAVIGATION_FIX__)return;window.__GALLERY_JSON_MOBILE_NAVIGATION_FIX__=true;const JSON_URL='images2.json',EXT=['jpg','jpeg','png','webp','gif','avif','bmp','svg','JPG','JPEG','PNG','WEBP','GIF','AVIF','BMP','SVG'];const clean=v=>String(v==null?'':v).trim().replace(/^['\"]|['\"]$/g,'').replace(/\\/g,'/');const uniq=a=>[...new Set(a.filter(Boolean))];
-function extract(d){let a=d;if(d&&!Array.isArray(d)&&typeof d==='object')a=d.images||d.photos||d.gallery||d.items||d.files||d.imagePaths||[];if(!Array.isArray(a))return[];return a.map(x=>typeof x==='string'?clean(x):x&&typeof x==='object'?clean(x.src||x.path||x.url||x.file||x.image||x.filename||''):'').filter(Boolean)}
-function candidates(raw){const s=clean(raw);if(!s)return[];if(/^(https?:)?\/\//i.test(s)||s.startsWith('data:'))return[s];const out=[s,s.startsWith('./')?s:'./'+s,encodeURI(s)],q=s.split(/[?#]/)[0],i=q.lastIndexOf('/'),d=i>=0?q.slice(0,i+1):'',f=i>=0?q.slice(i+1):q,has=/\.[^.]+$/.test(f),b=has?f.replace(/\.[^.]+$/,''):f;if(!has)EXT.forEach(e=>{out.push(d+b+'.'+e,'./'+d+b+'.'+e)});else out.push(d+f,'./'+d+f,encodeURI(d+f));return uniq(out)}
-function probe(s){return new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(s);i.onerror=no;i.src=s})}async function resolve(raw){for(const c of candidates(raw)){try{return await probe(c)}catch(e){}}return null}function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-async function load(){const car=document.getElementById('galleryCarousel');if(!car)return;let r;try{r=await fetch(JSON_URL+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status)}catch(e){console.error('Gallery JSON could not be loaded:',e);return}let d;try{d=await r.json()}catch(e){console.error('Gallery JSON is invalid:',e);return}const list=extract(d);if(!list.length){console.error('Gallery JSON contains no image paths.');return}const order=shuffle(list),frag=document.createDocumentFragment(),rec=[];order.forEach((raw,n)=>{const im=document.createElement('img');im.className='gallery-json-final-image';im.alt='Gallery image '+(n+1);im.dataset.originalSrc=raw;im.loading='eager';im.decoding='async';im.draggable=false;frag.appendChild(im);rec.push({im,raw})});car.replaceChildren(frag);window.galleryImagesData=list.slice();let cursor=0;const workers=Math.min(innerWidth<=900?12:8,rec.length);async function worker(){while(cursor<rec.length){const x=rec[cursor++],src=await resolve(x.raw);if(src){x.im.src=src;x.im.dataset.resolvedSrc=src;x.im.dataset.loaded='true'}else{x.im.remove();console.warn('Could not resolve JSON image:',x.raw)}}}await Promise.all(Array.from({length:workers},worker));nav(car)}
-function nav(car){const lb=document.getElementById('lightbox'),li=document.getElementById('lightboxImg');if(!lb||!li)return;let idx=-1,sx=0,sy=0;const imgs=()=>[...car.querySelectorAll('img.gallery-json-final-image')];function show(n){const a=imgs();if(!a.length)return;if(n<0)n=a.length-1;if(n>=a.length)n=0;idx=n;const im=a[idx],src=im.currentSrc||im.src;if(!src)return;li.classList.remove('zoomed');li.src=src;li.alt=im.alt;lb.classList.add('show');document.documentElement.style.setProperty('overflow','hidden','important');document.body.style.setProperty('overflow','hidden','important')}function close(){lb.classList.remove('show');li.classList.remove('zoomed');document.documentElement.style.removeProperty('overflow');document.body.style.removeProperty('overflow')}function add(id,label,ch,delta){let b=document.getElementById(id);if(!b){b=document.createElement('button');b.id=id;b.type='button';b.textContent=ch;b.setAttribute('aria-label',label);lb.appendChild(b)}b.onclick=e=>{e.preventDefault();e.stopPropagation();show(idx+delta)}}add('galleryLightboxPrevFinal','Previous image','‹',-1);add('galleryLightboxNextFinal','Next image','›',1);car.addEventListener('click',e=>{const im=e.target.closest&&e.target.closest('img.gallery-json-final-image');if(!im)return;const a=imgs(),n=a.indexOf(im);if(n>=0){e.preventDefault();e.stopPropagation();show(n)}},true);lb.addEventListener('touchstart',e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY},{passive:true});lb.addEventListener('touchend',e=>{const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)){e.preventDefault();show(idx+(dx<0?1:-1))}},{passive:false});document.addEventListener('keydown',e=>{if(!lb.classList.contains('show'))return;if(e.key==='ArrowRight')show(idx+1);if(e.key==='ArrowLeft')show(idx-1);if(e.key==='Escape')close()});lb.addEventListener('click',e=>{if(e.target===lb)close()},true)}
-function start(){setTimeout(load,2100)}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();window.addEventListener('pageshow',()=>setTimeout(load,2500))})();
+(function(){
+  if(window.__GALLERY_JSON_MOBILE_NAVIGATION_FIX__) return;
+  window.__GALLERY_JSON_MOBILE_NAVIGATION_FIX__ = true;
+
+  /* Image loading, ordering (1-10 in order, the rest reshuffled every
+     load) and lazy-loading are all handled by the gallery rebuild
+     script above. This script only wires up richer lightbox
+     navigation — prev/next buttons, swipe, and arrow keys — on top of
+     whatever photos are currently in the carousel. It re-queries the
+     carousel fresh each time, so it works no matter when photos are
+     added or how many have loaded so far. */
+
+  function nav(car){
+    const lb = document.getElementById('lightbox');
+    const li = document.getElementById('lightboxImg');
+    if(!lb || !li) return;
+
+    let idx = -1, sx = 0, sy = 0;
+    const imgs = () => [...car.querySelectorAll('img.gallery-json-final-image, img')].filter(im => im.tagName === 'IMG');
+
+    function show(n){
+      const a = imgs();
+      if(!a.length) return;
+      if(n < 0) n = a.length - 1;
+      if(n >= a.length) n = 0;
+      idx = n;
+      const im = a[idx];
+      const src = im.currentSrc || im.src;
+      if(!src) return;
+      li.classList.remove('zoomed');
+      li.src = src;
+      li.alt = im.alt;
+      lb.classList.add('show');
+      document.documentElement.style.setProperty('overflow', 'hidden', 'important');
+      document.body.style.setProperty('overflow', 'hidden', 'important');
+    }
+
+    function close(){
+      lb.classList.remove('show');
+      li.classList.remove('zoomed');
+      document.documentElement.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow');
+    }
+
+    function add(id, label, ch, delta){
+      let b = document.getElementById(id);
+      if(!b){
+        b = document.createElement('button');
+        b.id = id;
+        b.type = 'button';
+        b.textContent = ch;
+        b.setAttribute('aria-label', label);
+        lb.appendChild(b);
+      }
+      b.onclick = e => {
+        e.preventDefault();
+        e.stopPropagation();
+        show(idx + delta);
+      };
+    }
+    add('galleryLightboxPrevFinal', 'Previous image', '‹', -1);
+    add('galleryLightboxNextFinal', 'Next image', '›', 1);
+
+    car.addEventListener('click', e => {
+      const im = e.target.closest && e.target.closest('img');
+      if(!im || !car.contains(im)) return;
+      if(im.dataset && im.dataset.loaded === 'false') return;
+      const a = imgs();
+      const n = a.indexOf(im);
+      if(n >= 0){
+        e.preventDefault();
+        e.stopPropagation();
+        show(n);
+      }
+    }, true);
+
+    lb.addEventListener('touchstart', e => {
+      const t = e.touches[0];
+      sx = t.clientX; sy = t.clientY;
+    }, { passive: true });
+
+    lb.addEventListener('touchend', e => {
+      const t = e.changedTouches[0];
+      const dx = t.clientX - sx, dy = t.clientY - sy;
+      if(Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)){
+        e.preventDefault();
+        show(idx + (dx < 0 ? 1 : -1));
+      }
+    }, { passive: false });
+
+    document.addEventListener('keydown', e => {
+      if(!lb.classList.contains('show')) return;
+      if(e.key === 'ArrowRight') show(idx + 1);
+      if(e.key === 'ArrowLeft') show(idx - 1);
+      if(e.key === 'Escape') close();
+    });
+
+    lb.addEventListener('click', e => {
+      if(e.target === lb) close();
+    }, true);
+  }
+
+  function start(){
+    const car = document.getElementById('galleryCarousel');
+    if(!car) return;
+    nav(car);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', start, { once: true });
+  } else {
+    start();
+  }
+})();
 </script>
 </body>
 
