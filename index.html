@@ -3939,51 +3939,238 @@ Front-End Development & UX Design Intern Premium Technologies Private Limited ·
 </p>
 
 <h2 class="section-title">Courses</h2>
-    <div class="course-group">
-    <div class="course-grid">
-        <div class="job-logo">
-        <img src="BlairPageImages/lcclogo.jpg" alt="Lansing Community College" class="logo-img">
-        </div>
-        <div class="course-header">
-          <span class="course-title lcc">Lansing Community College</span>
-        </div>
-        <ul>
-          <li>Composition I (WRIT 121)</li>
-          <li>Principles of Economics – Micro (ECON 201)</li>
-          <li>Indoor Tennis @MSU</li>
-          <li>Tap & Lyrical/Ballet/Modern</li>
-        </ul>
+<div class="courses-container">
+  <div class="course-card">
+    <div class="course-card-header">
+      <div class="course-logo-wrapper">
+        <img src="BlairPageImages/lcclogo.jpg" alt="Lansing Community College" class="course-logo-img">
       </div>
-      <div class="course-group">
-          <div class="job-logo">
-          <img src="BlairPageImages/mongo1.png" alt="MongoDB" class="logo-img">
-          </div>
-        <div class="course-header">
-          <span class="course-title mongodb">MongoDB University</span>
-        </div>
-        <ul>
-          <li>MongoDB 102</li>
-          <li>MongoDB 202</li>
-        </ul>
-      </div>
-      <div class="course-group">
-          <div class="job-logo">
-          <img src="BlairPageImages/CloudURackspace.jpg" alt="Rackspace U" class="logo-img">
-          </div>
-        <div class="course-header">
-          <span class="course-title rackspace">Rackspace Cloud University</span>
-        </div>
-        <ul>
-          <li>Magento v1</li>
-          <li>Redis 100</li>
-          <li>Redis 200</li>
-          <li>Elasticsearch 200</li>
-        </ul>
-      </div>
-</div>
+      <h3 class="course-card-title lcc">Lansing Community College</h3>
+    </div>
+    <ul class="course-list">
+      <li>Composition I (WRIT 121)</li>
+      <li>Principles of Economics – Micro (ECON 201)</li>
+      <li>Indoor Tennis @MSU</li>
+      <li>Tap & Lyrical/Ballet/Modern</li>
+    </ul>
   </div>
-        </div>
+
+  <div class="course-card">
+    <div class="course-card-header">
+      <div class="course-logo-wrapper">
+        <img src="BlairPageImages/mongo1.png" alt="MongoDB" class="course-logo-img">
+      </div>
+      <h3 class="course-card-title mongodb">MongoDB University</h3>
+    </div>
+    <ul class="course-list">
+      <li>MongoDB 102</li>
+      <li>MongoDB 202</li>
+    </ul>
+  </div>
+
+  <div class="course-card">
+    <div class="course-card-header">
+      <div class="course-logo-wrapper">
+        <img src="BlairPageImages/CloudURackspace.jpg" alt="Rackspace U" class="course-logo-img">
+      </div>
+      <h3 class="course-card-title rackspace">Rackspace Cloud University</h3>
+    </div>
+    <ul class="course-list">
+      <li>Magento v1</li>
+      <li>Redis 100</li>
+      <li>Redis 200</li>
+      <li>Elasticsearch 200</li>
+    </ul>
+  </div>
+</div>
       <br>
+
+<style id="courses-unified-grid-spacing-final">
+/* ===================================
+   UNIFIED COURSES GRID — EVEN SPACING & SIZING
+   Fixed Layout for Logo, Title, and Descriptions
+   =================================== */
+
+.courses-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.course-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  
+  background: rgba(240, 239, 244, 0.06);
+  border: 1px solid rgba(240, 239, 244, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  min-height: 380px;
+}
+
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  border-color: rgba(240, 239, 244, 0.25);
+}
+
+/* ===== Logo & Title Header ===== */
+.course-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+.course-logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(240, 239, 244, 0.12);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.course-logo-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+}
+
+/* ===== Course Title ===== */
+.course-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin: 0;
+  line-height: 1.4;
+  word-break: break-word;
+  letter-spacing: 0.3px;
+}
+
+.course-card-title.lcc {
+  color: #e8d5ff;
+}
+
+.course-card-title.mongodb {
+  color: #82d946;
+}
+
+.course-card-title.rackspace {
+  color: #f39c12;
+}
+
+/* ===== Course List ===== */
+.course-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.course-list li {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(240, 239, 244, 0.9);
+  padding-left: 1.5rem;
+  position: relative;
+  letter-spacing: 0.2px;
+}
+
+.course-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--dusty-mauve);
+  font-weight: bold;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 1200px) {
+  .courses-container {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.8rem;
+  }
+  
+  .course-card {
+    padding: 1.3rem;
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .courses-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .course-card {
+    padding: 1.2rem;
+    min-height: auto;
+    min-height: 320px;
+  }
+  
+  .course-card-title {
+    font-size: 1.05rem;
+  }
+  
+  .course-list li {
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .courses-container {
+    gap: 1.2rem;
+  }
+  
+  .course-card {
+    padding: 1rem;
+    min-height: 300px;
+  }
+  
+  .course-logo-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .course-logo-img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .course-card-title {
+    font-size: 1rem;
+  }
+  
+  .course-list li {
+    font-size: 0.9rem;
+    padding-left: 1.3rem;
+  }
+}
+</style>
+
     <!-- Fashion / Luxury -->
     <article class="training-card certificates-card">
       <div class="training-card-header">
