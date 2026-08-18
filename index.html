@@ -4042,169 +4042,87 @@ Front-End Development & UX Design Intern Premium Technologies Private Limited ·
 </a>
 </p>
 <style>
+.course-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.course-item {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  flex: 0 0 auto;
+  gap: 6px;
+  padding: 5px 9px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 5px;
+  background: rgba(255,255,255,.035);
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.course-item strong {
+  font-size: 11px;
+  font-weight: 400;
+  color: #eeeeee;
+  line-height: 1.2;
+}
+
+.course-item span {
+  font-size: 9px;
+  font-weight: 400;
+  color: #b995a9;
+  line-height: 1.2;
+}
+
+.course-item:hover {
+  background: rgba(255,255,255,.07);
+  border-color: rgba(185,149,169,.4);
+}
+
+@media (max-width: 600px) {
   .course-list {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+    gap: 4px;
   }
 
   .course-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    min-height: 46px;
-    padding: 9px 13px;
-    box-sizing: border-box;
-
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 9px;
-    background: rgba(255, 255, 255, 0.035);
-
-    transition:
-      background 0.2s ease,
-      border-color 0.2s ease,
-      transform 0.2s ease;
-  }
-
-  .course-item:hover {
-    background: rgba(255, 255, 255, 0.075);
-    border-color: rgba(255, 255, 255, 0.20);
-    transform: translateY(-1px);
+    padding: 4px 7px;
   }
 
   .course-item strong {
-    display: block;
-    margin: 0;
-    padding: 0;
-
-    font-size: 0.82rem;
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: 0.01em;
-    color: #eee;
+    font-size: 10px;
   }
 
   .course-item span {
-    flex-shrink: 0;
-
-    font-size: 0.70rem;
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: 0.04em;
-
-    color: #b995a9;
-    white-space: nowrap;
+    font-size: 8px;
   }
-
-  /* Tablet */
-  @media (max-width: 900px) {
-    .course-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  /* Mobile */
-  @media (max-width: 560px) {
-    .course-list {
-      grid-template-columns: 1fr;
-      gap: 8px;
-    }
-
-    .course-item {
-      min-height: 42px;
-      padding: 8px 11px;
-    }
-
-    .course-item strong {
-      font-size: 0.78rem;
-    }
-
-    .course-item span {
-      font-size: 0.67rem;
-    }
-  }
+}
 </style>
 
 <div class="course-list">
 
-  <div class="course-item">
-    <strong>E-Commerce</strong>
-    <span>BUS 2202</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Business and Society</strong>
-    <span>BUS 3306</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Leadership</strong>
-    <span>BUS 4405</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Entrepreneurship 2</strong>
-    <span>BUS 4401</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Entrepreneurship 1</strong>
-    <span>BUS 3303</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Multinational Management</strong>
-    <span>BUS 2207</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Virtual Internship I</strong>
-    <span>UNIV 2902</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Principles of Marketing</strong>
-    <span>BUS 2201</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Principles of Finance</strong>
-    <span>BUS 4404</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Introduction to Virtual Internship</strong>
-    <span>UNIV 2901</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Introduction to Global Ethics</strong>
-    <span>PHIL 1404</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Financial Accounting</strong>
-    <span>BUS 3301</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Applied Economics: Theory and Practice</strong>
-    <span>ECON 1580</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Introduction to Health Psychology</strong>
-    <span>PSYC 1111</span>
-  </div>
-
-  <div class="course-item">
-    <strong>Online Education Strategies</strong>
-    <span>UNIV 1001</span>
-  </div>
+  <div class="course-item"><strong>E-Commerce</strong><span>BUS 2202</span></div>
+  <div class="course-item"><strong>Business and Society</strong><span>BUS 3306</span></div>
+  <div class="course-item"><strong>Leadership</strong><span>BUS 4405</span></div>
+  <div class="course-item"><strong>Entrepreneurship 2</strong><span>BUS 4401</span></div>
+  <div class="course-item"><strong>Entrepreneurship 1</strong><span>BUS 3303</span></div>
+  <div class="course-item"><strong>Multinational Management</strong><span>BUS 2207</span></div>
+  <div class="course-item"><strong>Virtual Internship I</strong><span>UNIV 2902</span></div>
+  <div class="course-item"><strong>Principles of Marketing</strong><span>BUS 2201</span></div>
+  <div class="course-item"><strong>Principles of Finance</strong><span>BUS 4404</span></div>
+  <div class="course-item"><strong>Introduction to Virtual Internship</strong><span>UNIV 2901</span></div>
+  <div class="course-item"><strong>Introduction to Global Ethics</strong><span>PHIL 1404</span></div>
+  <div class="course-item"><strong>Financial Accounting</strong><span>BUS 3301</span></div>
+  <div class="course-item"><strong>Applied Economics: Theory and Practice</strong><span>ECON 1580</span></div>
+  <div class="course-item"><strong>Introduction to Health Psychology</strong><span>PSYC 1111</span></div>
+  <div class="course-item"><strong>Online Education Strategies</strong><span>UNIV 1001</span></div>
 
 </div>
 </div>
