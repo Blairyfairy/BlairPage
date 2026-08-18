@@ -4041,15 +4041,13 @@ Completed the following internship:
 Front-End Development & UX Design Intern Premium Technologies Private Limited · Internship
 </a>
 </p>
+
 <style>
 .course-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 6px;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, max-content);
+  justify-content: start;
+  gap: 6px 8px;
   margin: 0;
   padding: 0;
 }
@@ -4057,21 +4055,19 @@ Front-End Development & UX Design Intern Premium Technologies Private Limited ·
 .course-item {
   display: inline-flex;
   align-items: center;
-  width: auto;
-  flex: 0 0 auto;
   gap: 6px;
+  width: max-content;
   padding: 5px 9px;
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 5px;
   background: rgba(255,255,255,.035);
   white-space: nowrap;
-  box-sizing: border-box;
 }
 
 .course-item strong {
   font-size: 11px;
   font-weight: 400;
-  color: #eeeeee;
+  color: #eee;
   line-height: 1.2;
 }
 
@@ -4087,9 +4083,17 @@ Front-End Development & UX Design Intern Premium Technologies Private Limited ·
   border-color: rgba(185,149,169,.4);
 }
 
+/* Smaller screens */
+@media (max-width: 900px) {
+  .course-list {
+    grid-template-columns: repeat(3, max-content);
+  }
+}
+
 @media (max-width: 600px) {
   .course-list {
-    gap: 4px;
+    grid-template-columns: repeat(2, max-content);
+    gap: 4px 6px;
   }
 
   .course-item {
@@ -4113,11 +4117,13 @@ Front-End Development & UX Design Intern Premium Technologies Private Limited ·
   <div class="course-item"><strong>Leadership</strong><span>BUS 4405</span></div>
   <div class="course-item"><strong>Entrepreneurship 2</strong><span>BUS 4401</span></div>
   <div class="course-item"><strong>Entrepreneurship 1</strong><span>BUS 3303</span></div>
+
   <div class="course-item"><strong>Multinational Management</strong><span>BUS 2207</span></div>
   <div class="course-item"><strong>Virtual Internship I</strong><span>UNIV 2902</span></div>
   <div class="course-item"><strong>Principles of Marketing</strong><span>BUS 2201</span></div>
   <div class="course-item"><strong>Principles of Finance</strong><span>BUS 4404</span></div>
   <div class="course-item"><strong>Introduction to Virtual Internship</strong><span>UNIV 2901</span></div>
+
   <div class="course-item"><strong>Introduction to Global Ethics</strong><span>PHIL 1404</span></div>
   <div class="course-item"><strong>Financial Accounting</strong><span>BUS 3301</span></div>
   <div class="course-item"><strong>Applied Economics: Theory and Practice</strong><span>ECON 1580</span></div>
@@ -4125,8 +4131,6 @@ Front-End Development & UX Design Intern Premium Technologies Private Limited ·
   <div class="course-item"><strong>Online Education Strategies</strong><span>UNIV 1001</span></div>
 
 </div>
-</div>
-    
 <h2 class="section-title">Courses</h2>
 <div class="courses-container">
   <div class="course-card">
