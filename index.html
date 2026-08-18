@@ -4044,9 +4044,9 @@ Front-End Development & UX Design Intern Premium Technologies Private Limited ·
 
 <style>
 .course-list {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 6px;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -4055,71 +4055,45 @@ Front-End Development & UX Design Intern Premium Technologies Private Limited ·
 }
 
 .course-item {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 4px;
-  padding: 8px 10px;
+  gap: 3px;
+  padding: 4px 7px;
   border: 1px solid rgba(255,255,255,.12);
-  border-radius: 5px;
+  border-radius: 4px;
   background: rgba(255,255,255,.035);
-  white-space: normal;
-  text-align: center;
+  white-space: nowrap;
   box-sizing: border-box;
-  min-height: 60px;
-  transition: all 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: auto;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  flex-shrink: 0;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  cursor: default;
+  user-select: none;
 }
 
 .course-item strong {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 400;
   color: #eee;
   line-height: 1.2;
-  display: block;
 }
 
 .course-item span {
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 400;
   color: #b995a9;
   line-height: 1.2;
-  display: block;
 }
 
 .course-item:hover {
-  background: rgba(255,255,255,.07);
-  border-color: rgba(185,149,169,.4);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: rgba(255,255,255,.06);
+  border-color: rgba(185,149,169,.3);
 }
 
-.course-item:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-/* Tablet: 6 per row */
-@media (max-width: 1280px) {
-  .course-list {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
-/* Medium tablet: 4 per row */
 @media (max-width: 900px) {
-  .course-list {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 7px;
-  }
-
   .course-item {
-    min-height: 58px;
-    padding: 7px 9px;
+    padding: 3px 6px;
+    font-size: 0.9rem;
   }
 
   .course-item strong {
@@ -4131,42 +4105,14 @@ Front-End Development & UX Design Intern Premium Technologies Private Limited ·
   }
 }
 
-/* Small tablet: 3 per row */
-@media (max-width: 768px) {
-  .course-list {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-  }
-
+@media (max-width: 600px) {
   .course-item {
-    min-height: 56px;
-    padding: 6px 8px;
+    padding: 3px 5px;
+    gap: 2px;
   }
 
   .course-item strong {
     font-size: 8px;
-  }
-
-  .course-item span {
-    font-size: 7px;
-  }
-}
-
-/* Mobile: 2 per row */
-@media (max-width: 480px) {
-  .course-list {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 5px;
-  }
-
-  .course-item {
-    min-height: 54px;
-    padding: 5px 7px;
-    gap: 3px;
-  }
-
-  .course-item strong {
-    font-size: 7px;
   }
 
   .course-item span {
@@ -10566,31 +10512,27 @@ html.desktop-resize-lock body .education-wrapper .courses-card .course-group li,
 })();
 </script>
 
-<style id="global-smoothness-fix">
-/* Global smoothness and performance - no visual change */
-* {
-  -webkit-backface-visibility: hidden !important;
-  backface-visibility: hidden !important;
+<style id="performance-fix-minimal">
+/* Minimal performance optimization - removes scroll jank */
+html { 
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
-*:not(svg) {
-  -webkit-font-smoothing: antialiased !important;
-  -moz-osx-font-smoothing: grayscale !important;
-  text-rendering: optimizeLegibility !important;
+body { 
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: auto;
 }
 
-button, a, [role="button"], .course-item, .card-toggle, .job-toggle-row {
-  transform: translateZ(0) !important;
-  will-change: auto !important;
-  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+/* Only optimize interactive elements, not everything */
+button, a, input, [role="button"] {
+  -webkit-font-smoothing: antialiased;
 }
 
+/* Remove hover transforms on touch devices */
 @media (hover: none) and (pointer: coarse) {
-  button:hover, a:hover, [role="button"]:hover, .course-item:hover {
+  button:hover, a:hover, [role="button"]:hover {
     transform: none !important;
   }
 }
-
-html { scroll-behavior: smooth !important; }
-body { overscroll-behavior-y: auto !important; }
 </style>
