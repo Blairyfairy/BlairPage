@@ -4041,6 +4041,94 @@ Completed the following internship:
 Front-End Development & UX Design Intern Premium Technologies Private Limited · Internship
 </a>
 </p>
+<style>
+  .course-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .course-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 46px;
+    padding: 9px 13px;
+    box-sizing: border-box;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.035);
+
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .course-item:hover {
+    background: rgba(255, 255, 255, 0.075);
+    border-color: rgba(255, 255, 255, 0.20);
+    transform: translateY(-1px);
+  }
+
+  .course-item strong {
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    font-size: 0.82rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    color: #eee;
+  }
+
+  .course-item span {
+    flex-shrink: 0;
+
+    font-size: 0.70rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.04em;
+
+    color: #b995a9;
+    white-space: nowrap;
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .course-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 560px) {
+    .course-list {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .course-item {
+      min-height: 42px;
+      padding: 8px 11px;
+    }
+
+    .course-item strong {
+      font-size: 0.78rem;
+    }
+
+    .course-item span {
+      font-size: 0.67rem;
+    }
+  }
+</style>
+
 <div class="course-list">
 
   <div class="course-item">
@@ -4118,6 +4206,7 @@ Front-End Development & UX Design Intern Premium Technologies Private Limited ·
     <span>UNIV 1001</span>
   </div>
 
+</div>
 </div>
     
 <h2 class="section-title">Courses</h2>
