@@ -1654,6 +1654,110 @@ body::before{
 }
 </style>
 
+
+<style id="final-global-mauve-link-and-scroll-stability-fix">
+/* FINAL GLOBAL LINK COLOR + SCROLL STABILITY FIX
+   Appended only: all original HTML/CSS/JS lines remain intact. */
+:root{
+  --bp-link-mauve:#9e829c;
+  --bp-link-white:#f0eff4;
+}
+
+/* Every anchor stays dusty mauve by default, including visited/clicked. */
+a,
+a:link,
+a:visited,
+a:active,
+a:focus,
+a:focus-visible{
+  color:var(--bp-link-mauve) !important;
+  -webkit-text-fill-color:var(--bp-link-mauve) !important;
+  text-decoration-color:var(--bp-link-mauve) !important;
+  text-shadow:none !important;
+}
+
+/* Only hover creates the white light-up/glow effect. */
+a:hover{
+  color:var(--bp-link-white) !important;
+  -webkit-text-fill-color:var(--bp-link-white) !important;
+  text-decoration-color:var(--bp-link-white) !important;
+  text-shadow:0 0 5px rgba(240,239,244,0.30),0 0 14px rgba(240,239,244,0.42) !important;
+}
+
+a:visited:hover,
+a:active:hover{
+  color:var(--bp-link-white) !important;
+  -webkit-text-fill-color:var(--bp-link-white) !important;
+  text-decoration-color:var(--bp-link-white) !important;
+}
+
+a img,
+a svg{
+  -webkit-text-fill-color:initial !important;
+}
+
+.site-nav a,
+.site-nav a:link,
+.site-nav a:visited,
+.site-nav a:active,
+.site-nav a:focus,
+.site-nav a:focus-visible{
+  color:var(--bp-link-mauve) !important;
+  -webkit-text-fill-color:var(--bp-link-mauve) !important;
+  text-decoration-color:var(--bp-link-mauve) !important;
+  text-shadow:none !important;
+}
+
+.site-nav a:hover{
+  color:var(--bp-link-white) !important;
+  -webkit-text-fill-color:var(--bp-link-white) !important;
+  text-decoration-color:var(--bp-link-white) !important;
+  text-shadow:0 0 6px rgba(240,239,244,0.34),0 0 16px rgba(240,239,244,0.44) !important;
+}
+
+/* During active scrolling, remove only expensive backdrop sampling that can
+   cause blocky/blinking repaint artifacts. The glass effect returns at rest. */
+html.bp-scrolling .resume-shell,
+html.bp-scrolling .edu-card,
+html.bp-scrolling .courses-card,
+html.bp-scrolling .certs-card,
+html.bp-scrolling .cert-card,
+html.bp-scrolling .certification-card,
+html.bp-scrolling .volunteer-card,
+html.bp-scrolling .timeline-enhanced .timeline-item,
+html.bp-scrolling .matrix-card,
+html.bp-scrolling .theme-btn,
+html.bp-scrolling #themeToggle{
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+html.bp-scrolling .timeline-enhanced .timeline-item:hover,
+html.bp-scrolling .cert-card:hover,
+html.bp-scrolling .certification-card:hover,
+html.bp-scrolling .volunteer-card:hover,
+html.bp-scrolling .matrix-card:hover,
+html.bp-scrolling .project-list li a:hover,
+html.bp-scrolling .social-links a:hover,
+html.bp-scrolling .profile-action-row .karen-hero-btn:hover,
+html.bp-scrolling .profile-action-row .follow-btn:hover,
+html.bp-scrolling .theme-btn:hover,
+html.bp-scrolling #themeToggle:hover{
+  transform:none !important;
+}
+
+html,body{
+  overflow-x:hidden !important;
+  min-width:0 !important;
+}
+
+html.bp-scrolling,
+html.bp-scrolling body{
+  opacity:1 !important;
+  visibility:visible !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -8417,6 +8521,36 @@ html body
 }
 </style>
   <script src="script.js" defer></script>
+
+<script id="final-global-scroll-stability-runtime">
+/* Final scroll stability runtime — no content is hidden or removed. */
+(function () {
+  var root = document.documentElement;
+  var scrollFrame = 0;
+  var removeTimer = 0;
+
+  function markScrolling() {
+    root.classList.add('bp-scrolling');
+    if (removeTimer) clearTimeout(removeTimer);
+    removeTimer = setTimeout(function () {
+      root.classList.remove('bp-scrolling');
+    }, 120);
+  }
+
+  function onScroll() {
+    if (scrollFrame) return;
+    scrollFrame = window.requestAnimationFrame(function () {
+      scrollFrame = 0;
+      markScrolling();
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('wheel', markScrolling, { passive:true });
+  window.addEventListener('touchmove', markScrolling, { passive:true });
+})();
+</script>
+
 </body>
 </html>
 
