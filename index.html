@@ -10379,3 +10379,35 @@ html.desktop-resize-lock body .education-wrapper .courses-card .course-group li,
         alt="Portfolio Visitors"
         style="border-radius:8px;opacity:.9;">
 </div>
+
+<!-- =========================================================
+     KEYBOARD / SCROLL NAVIGATION FIX — 2026-08-18
+     Keeps ArrowUp / ArrowDown working naturally on the page.
+     Does not hijack arrows when the user is typing in a form field.
+     ========================================================= -->
+<style id="keyboard-scroll-navigation-fix">
+  html { scroll-behavior: smooth; }
+  body { overscroll-behavior-y: auto !important; }
+</style>
+<script id="keyboard-scroll-navigation-fix-script">
+(function () {
+  'use strict';
+  function isTypingTarget(el) {
+    if (!el) return false;
+    var tag = (el.tagName || '').toLowerCase();
+    return tag === 'input' || tag === 'textarea' || tag === 'select' || el.isContentEditable;
+  }
+  document.addEventListener('keydown', function (event) {
+    if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
+    if (isTypingTarget(event.target)) return;
+    var amount = Math.max(220, Math.floor(window.innerHeight * 0.72));
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      window.scrollBy({ top: amount, left: 0, behavior: 'smooth' });
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      window.scrollBy({ top: -amount, left: 0, behavior: 'smooth' });
+    }
+  }, { passive: false });
+})();
+</script>
