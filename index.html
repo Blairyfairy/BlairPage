@@ -1693,63 +1693,6 @@ a:active:hover{
 
 a img,
 a svg{
-<style id="credly-links-white-override">
-/* Override ALL Credly link colors to always be white - highest specificity */
-
-/* Target all Credly links in all states */
-a[href*="credly.com"]:link,
-a[href*="credly.com"]:visited,
-a[href*="credly.com"]:active,
-a[href*="credly.com"]:focus,
-a[href*="credly.com"]:focus-visible,
-a[href*="credly.com"]:hover,
-a[href*="credly.com"],
-.credly-badge-link,
-.credly-badge-link:link,
-.credly-badge-link:visited,
-.credly-badge-link:active,
-.credly-badge-link:focus,
-.credly-badge-link:focus-visible,
-.credly-badge-link:hover,
-.credly-badge,
-.credly-badge:link,
-.credly-badge:visited,
-.credly-badge:active,
-.credly-badge:focus,
-.credly-badge:focus-visible,
-.credly-badge:hover,
-[data-credly],
-[data-credly]:link,
-[data-credly]:visited,
-[data-credly]:active,
-[data-credly]:focus,
-[data-credly]:focus-visible,
-[data-credly]:hover,
-.credly-link,
-.credly-link:link,
-.credly-link:visited,
-.credly-link:active,
-.credly-link:focus,
-.credly-link:focus-visible,
-.credly-link:hover {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  text-decoration-color: #ffffff !important;
-  text-shadow: none !important;
-}
-
-/* Ensure no hover effects on Credly badges */
-a[href*="credly.com"]:hover,
-.credly-badge-link:hover,
-.credly-badge:hover,
-[data-credly]:hover,
-.credly-link:hover {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  text-decoration-color: #ffffff !important;
-  text-shadow: none !important;
-}
-</style>
   -webkit-text-fill-color:initial;
 }
 
@@ -1911,6 +1854,17 @@ html.bp-scrolling body{
   transform: translateY(-1px);
 }
 
+.profile-action-row .follow-btn {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 .profile-action-row .karen-hero-title,
 .profile-action-row .follow-btn .btn-text {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -1920,6 +1874,10 @@ html.bp-scrolling body{
   letter-spacing: 0.02em;
   color: var(--ghost-white);
   white-space: nowrap;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 @media (max-width: 390px) {
@@ -1938,6 +1896,52 @@ html.bp-scrolling body{
   .profile-action-row .karen-hero-title,
   .profile-action-row .follow-btn .btn-text {
     font-size: 0.72rem;
+  }
+}
+</style>
+
+<style id="button-text-rendering-fix">
+/* Reset button element default styling to match link styling */
+.profile-action-row .follow-btn {
+  font: inherit;
+  border: inherit;
+  background: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.35rem 0.55rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.profile-action-row .follow-btn .btn-text {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (max-width: 390px) {
+  .profile-action-row .follow-btn,
+  .profile-action-row .follow-btn .btn-text {
+    font-size: 0.72rem;
+  }
+}
+
+@media (min-width: 1281px) {
+  html.desktop-resize-lock .profile-action-row .follow-btn,
+  html.desktop-resize-lock .profile-action-row .follow-btn .btn-text {
+    font-size: 0.61rem;
   }
 }
 </style>
@@ -11305,7 +11309,48 @@ html.desktop-resize-lock body .education-wrapper .courses-card .course-group li,
   }
 }
 </style>
-<style id="smooth-scroll-and-performance-enhancements">
+<div class="footer-counter" style="margin-top:12px;text-align:center;">
+<style id="credly-links-white-override">
+/* Override ALL Credly link colors to always be white - highest specificity */
+a[href*="credly.com"]:link,
+a[href*="credly.com"]:visited,
+a[href*="credly.com"]:active,
+a[href*="credly.com"]:focus,
+a[href*="credly.com"]:focus-visible,
+a[href*="credly.com"]:hover,
+a[href*="credly.com"],
+.credly-badge-link:link,
+.credly-badge-link:visited,
+.credly-badge-link:active,
+.credly-badge-link:focus,
+.credly-badge-link:focus-visible,
+.credly-badge-link:hover,
+.credly-badge:link,
+.credly-badge:visited,
+.credly-badge:active,
+.credly-badge:focus,
+.credly-badge:focus-visible,
+.credly-badge:hover,
+[data-credly]:link,
+[data-credly]:visited,
+[data-credly]:active,
+[data-credly]:focus,
+[data-credly]:focus-visible,
+[data-credly]:hover,
+.credly-link:link,
+.credly-link:visited,
+.credly-link:active,
+.credly-link:focus,
+.credly-link:focus-visible,
+.credly-link:hover {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  text-decoration-color: #ffffff;
+  text-shadow: none;
+}
+</style>
+
+<style id="smooth-scroll-and-performance-final">
 /* Smooth scrolling throughout the page */
 html {
   scroll-behavior: smooth;
@@ -11330,9 +11375,9 @@ a, button, input, textarea, select, [role="button"] {
   }
   
   * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
   }
 }
 
@@ -11347,7 +11392,6 @@ a, button, input, textarea, select, [role="button"] {
 }
 </style>
 
-<div class="footer-counter" style="margin-top:12px;text-align:center;">
     <img
         src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
         alt="Portfolio Visitors"
