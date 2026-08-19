@@ -11266,14 +11266,14 @@ html.desktop-resize-lock body .education-wrapper .courses-card .course-group li,
 <div class="footer-counter" style="margin-top:12px;text-align:center;">
 
 <style id="credly-white-override">
-/* Credly badges: always white */
-a[href*="credly.com"]:link,
-a[href*="credly.com"]:visited,
-a[href*="credly.com"]:active,
-a[href*="credly.com"]:focus,
-a[href*="credly.com"]:focus-visible,
-a[href*="credly.com"]:hover,
-a[href*="credly.com"],
+/* Credly badges: always white (except credly-inline-link) */
+a[href*="credly.com"]:link:not(.credly-inline-link),
+a[href*="credly.com"]:visited:not(.credly-inline-link),
+a[href*="credly.com"]:active:not(.credly-inline-link),
+a[href*="credly.com"]:focus:not(.credly-inline-link),
+a[href*="credly.com"]:focus-visible:not(.credly-inline-link),
+a[href*="credly.com"]:hover:not(.credly-inline-link),
+a[href*="credly.com"]:not(.credly-inline-link),
 .credly-badge-link,
 .credly-badge,
 [data-credly],
@@ -11282,6 +11282,26 @@ a[href*="credly.com"],
   -webkit-text-fill-color: #ffffff !important;
   text-decoration-color: #ffffff !important;
   text-shadow: none !important;
+}
+
+/* Credly Sophia Classes inline link: purple mauve default, white on hover */
+.credly-inline-link,
+.credly-inline-link:link,
+.credly-inline-link:visited,
+.credly-inline-link:active,
+.credly-inline-link:focus,
+.credly-inline-link:focus-visible {
+  color: var(--bp-link-mauve) !important;
+  -webkit-text-fill-color: var(--bp-link-mauve) !important;
+  text-decoration-color: var(--bp-link-mauve) !important;
+  text-shadow: none !important;
+}
+
+.credly-inline-link:hover {
+  color: var(--bp-link-white) !important;
+  -webkit-text-fill-color: var(--bp-link-white) !important;
+  text-decoration-color: var(--bp-link-white) !important;
+  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
 }
 </style>
 
