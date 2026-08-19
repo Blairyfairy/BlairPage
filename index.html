@@ -1854,17 +1854,6 @@ html.bp-scrolling body{
   transform: translateY(-1px);
 }
 
-.profile-action-row .follow-btn {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  font-size: 0.76rem;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
 .profile-action-row .karen-hero-title,
 .profile-action-row .follow-btn .btn-text {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -1874,10 +1863,6 @@ html.bp-scrolling body{
   letter-spacing: 0.02em;
   color: var(--ghost-white);
   white-space: nowrap;
-  display: inline-block;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
 @media (max-width: 390px) {
@@ -1899,49 +1884,44 @@ html.bp-scrolling body{
   }
 }
 </style>
+<style id="karen-button-match-connect">
+/* Make Karen It button (anchor) render text exactly like Connect button */
 
-<style id="button-text-rendering-fix">
-/* Reset button element default styling to match link styling */
-.profile-action-row .follow-btn {
-  font: inherit;
-  border: inherit;
-  background: inherit;
-  color: inherit;
-  cursor: pointer;
-  padding: 0.35rem 0.55rem;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  font-size: 0.76rem;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.02em;
+/* Apply button-like text rendering to Karen It anchor button */
+.profile-action-row .karen-hero-btn {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums;
 }
 
-.profile-action-row .follow-btn .btn-text {
+/* Match Connect button's text span styling on Karen It text span */
+.profile-action-row .karen-hero-title {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   font-size: 0.76rem;
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.02em;
+  color: var(--ghost-white);
+  white-space: nowrap;
   display: inline-block;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums;
 }
 
+/* Mobile */
 @media (max-width: 390px) {
-  .profile-action-row .follow-btn,
-  .profile-action-row .follow-btn .btn-text {
+  .profile-action-row .karen-hero-title {
     font-size: 0.72rem;
   }
 }
 
+/* Desktop */
 @media (min-width: 1281px) {
-  html.desktop-resize-lock .profile-action-row .follow-btn,
-  html.desktop-resize-lock .profile-action-row .follow-btn .btn-text {
-    font-size: 0.61rem;
+  html.desktop-resize-lock .profile-action-row .karen-hero-title {
+    font-size: .61rem;
   }
 }
 </style>
@@ -11311,7 +11291,7 @@ html.desktop-resize-lock body .education-wrapper .courses-card .course-group li,
 </style>
 <div class="footer-counter" style="margin-top:12px;text-align:center;">
 <style id="credly-links-white-override">
-/* Override ALL Credly link colors to always be white - highest specificity */
+/* Override ALL Credly link colors to always be white */
 a[href*="credly.com"]:link,
 a[href*="credly.com"]:visited,
 a[href*="credly.com"]:active,
@@ -11350,7 +11330,7 @@ a[href*="credly.com"],
 }
 </style>
 
-<style id="smooth-scroll-and-performance-final">
+<style id="smooth-scroll-and-performance">
 /* Smooth scrolling throughout the page */
 html {
   scroll-behavior: smooth;
@@ -11381,7 +11361,7 @@ a, button, input, textarea, select, [role="button"] {
   }
 }
 
-/* Remove hover transforms on touch devices for better performance */
+/* Remove hover transforms on touch devices */
 @media (hover: none) and (pointer: coarse) {
   button:hover, 
   a:hover, 
