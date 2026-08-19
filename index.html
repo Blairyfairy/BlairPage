@@ -1715,6 +1715,22 @@ a svg{
   text-shadow:0 0 6px rgba(240,239,244,0.34),0 0 16px rgba(240,239,244,0.44);
 }
 
+/* KAREN IT BUTTON: Override link color to WHITE (not purple) */
+.profile-action-row .karen-hero-btn,
+.profile-action-row .karen-hero-btn:link,
+.profile-action-row .karen-hero-btn:visited,
+.profile-action-row .karen-hero-btn:active,
+.profile-action-row .karen-hero-btn:focus,
+.profile-action-row .karen-hero-btn:focus-visible,
+.profile-action-row .karen-hero-btn:hover,
+.profile-action-row .karen-hero-title {
+  color: var(--ghost-white);
+  -webkit-text-fill-color: var(--ghost-white);
+  text-decoration-color: var(--ghost-white);
+  text-shadow: none;
+}
+
+
 /* During active scrolling, remove only expensive backdrop sampling that can
    cause blocky/blinking repaint artifacts. The glass effect returns at rest. */
 html.bp-scrolling .resume-shell,
@@ -1881,47 +1897,6 @@ html.bp-scrolling body{
   .profile-action-row .karen-hero-title,
   .profile-action-row .follow-btn .btn-text {
     font-size: 0.72rem;
-  }
-}
-</style>
-<style id="karen-button-match-connect">
-/* Make Karen It button (anchor) render text exactly like Connect button */
-
-/* Apply button-like text rendering to Karen It anchor button */
-.profile-action-row .karen-hero-btn {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Match Connect button's text span styling on Karen It text span */
-.profile-action-row .karen-hero-title {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  font-size: 0.76rem;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  color: var(--ghost-white);
-  white-space: nowrap;
-  display: inline-block;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Mobile */
-@media (max-width: 390px) {
-  .profile-action-row .karen-hero-title {
-    font-size: 0.72rem;
-  }
-}
-
-/* Desktop */
-@media (min-width: 1281px) {
-  html.desktop-resize-lock .profile-action-row .karen-hero-title {
-    font-size: .61rem;
   }
 }
 </style>
@@ -11290,8 +11265,9 @@ html.desktop-resize-lock body .education-wrapper .courses-card .course-group li,
 }
 </style>
 <div class="footer-counter" style="margin-top:12px;text-align:center;">
+
 <style id="credly-links-white-override">
-/* Override ALL Credly link colors to always be white */
+/* Credly badges: always white */
 a[href*="credly.com"]:link,
 a[href*="credly.com"]:visited,
 a[href*="credly.com"]:active,
@@ -11331,7 +11307,7 @@ a[href*="credly.com"],
 </style>
 
 <style id="smooth-scroll-and-performance">
-/* Smooth scrolling throughout the page */
+/* Smooth scrolling and performance optimizations */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 1.5rem;
@@ -11343,12 +11319,12 @@ body {
   overscroll-behavior-y: auto;
 }
 
-/* Smooth transitions for interactive elements */
+/* Smooth transitions */
 a, button, input, textarea, select, [role="button"] {
   transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Respect user motion preferences */
+/* Respect motion preferences */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -11361,7 +11337,7 @@ a, button, input, textarea, select, [role="button"] {
   }
 }
 
-/* Remove hover transforms on touch devices */
+/* Optimize touch devices */
 @media (hover: none) and (pointer: coarse) {
   button:hover, 
   a:hover, 
