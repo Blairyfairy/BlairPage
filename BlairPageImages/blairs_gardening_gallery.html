@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gardening Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep-forest: #0F3D34;
+  --forest: #1B4D3E;
+  --sage: #4A7C6E;
+  --sage-light: #5A8B7F;
+  --mint: #6FD5C8;
+  --mint-light: #7BE5D6;
+  --lime: #A8D434;
+  --lime-light: #B8E03D;
+  --cream: #FFF4E8;
+  --white: #FFFFFF;
+  --glass: rgba(255,255,255,0.72);
+  --border: rgba(255,255,255,0.55);
+  --shadow: 0 24px 70px rgba(15,61,52,0.26);
+  --shadow-soft: 0 14px 36px rgba(15,61,52,0.16);
+  --text-dark: #0F3D34;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-dark);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(168,212,52,0.90), transparent 26%),
+    radial-gradient(circle at 88% 18%, rgba(123,229,214,0.85), transparent 28%),
+    radial-gradient(circle at 50% 95%, rgba(106,123,95,0.45), transparent 34%),
+    linear-gradient(135deg, #f0fdf4 0%, #e8f5e9 44%, #d4f1e8 100%);
+  background-attachment: scroll;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.24) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 78%);
+}
+
+body.dark {
+  color: #f0fdf4;
+  background:
+    radial-gradient(circle at 14% 10%, rgba(106,123,95,0.55), transparent 28%),
+    radial-gradient(circle at 85% 15%, rgba(168,212,52,0.28), transparent 30%),
+    radial-gradient(circle at 50% 98%, rgba(123,229,214,0.18), transparent 35%),
+    linear-gradient(135deg, #0F3D34 0%, #1B4D3E 48%, #4A7C6E 100%);
+}
+
+.page {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 72px;
+}
+
+.hero {
+  position: relative;
+  overflow: visible;
+  border: 1px solid var(--border);
+  border-radius: 34px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.78), rgba(255,255,255,0.38));
+  box-shadow: var(--shadow);
+  padding: clamp(22px, 5vw, 58px);
+}
+
+body.dark .hero {
+  background: linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.06));
+  border-color: rgba(255,255,255,0.2);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  right: -110px;
+  top: -120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(123,229,214,0.44), transparent 70%);
+  pointer-events: none;
+}
+
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+  margin-bottom: clamp(28px, 5vw, 46px);
+}
+
+.brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-soft);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--forest);
+}
+
+body.dark .brand-pill {
+  background: rgba(255,255,255,0.12);
+  color: #f0fdf4;
+  border-color: rgba(255,255,255,0.18);
+}
+
+.brand-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mint), var(--lime));
+  box-shadow: 0 0 0 5px rgba(123,229,214,0.14);
+}
+
+.mode-pill {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 900;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--forest), var(--sage));
+  box-shadow: 0 12px 26px rgba(15,61,52,0.26);
+  transition: all 0.3s ease;
+}
+
+.mode-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(15,61,52,0.35);
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: clamp(20px, 4vw, 42px);
+  align-items: start;
+}
+
+.hero-grid > div:first-child {
+  align-self: start;
+  padding-top: 70px;
+}
+
+h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3rem, 7.5vw, 6.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.07em;
+  margin: 0;
+  color: var(--forest);
+}
+
+body.dark h1 { color: #f0fdf4; }
+
+h1 span {
+  display: block;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.08em;
+  background: linear-gradient(135deg, var(--forest), var(--mint));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body.dark h1 span {
+  background: linear-gradient(135deg, #f0fdf4, var(--lime-light), var(--mint-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.subtitle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 28px 0 0;
+}
+
+.tag {
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.66);
+  border: 1px solid rgba(255,255,255,0.72);
+  color: rgba(15,61,52,0.74);
+  font-weight: 900;
+  box-shadow: 0 10px 24px rgba(15,61,52,0.10);
+}
+
+body.dark .tag { 
+  color: #f0fdf4; 
+  background: rgba(255,255,255,0.1); 
+  border-color: rgba(255,255,255,0.18); 
+}
+
+.stats-panel {
+  border-radius: 30px;
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.72);
+  box-shadow: var(--shadow-soft);
+  padding: clamp(18px, 3vw, 28px);
+}
+
+body.dark .stats-panel {
+  background: linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.06));
+  border-color: rgba(255,255,255,0.2);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.stat-tile {
+  border-radius: 24px;
+  padding: 18px;
+  min-height: 122px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.72);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body.dark .stat-tile {
+  background: rgba(255,255,255,0.08);
+}
+
+.stat-tile small {
+  color: rgba(15,61,52,0.62);
+  font-weight: 900;
+}
+
+body.dark .stat-tile small { color: rgba(240,253,244,0.72); }
+
+.stat-tile strong {
+  color: var(--forest);
+  font-size: clamp(1.7rem, 4vw, 2.45rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+body.dark .stat-tile strong { color: var(--cream); }
+
+/* Gallery Grid */
+.gallery-container {
+  margin-top: 48px;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.gallery-header h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: -0.05em;
+  color: var(--forest);
+  margin: 0 0 12px 0;
+}
+
+body.dark .gallery-header h2 { color: #f0fdf4; }
+
+.gallery-header p {
+  color: rgba(15,61,52,0.7);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+body.dark .gallery-header p { color: rgba(240,253,244,0.7); }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.72);
+  background: rgba(255,255,255,0.6);
+  box-shadow: var(--shadow-soft);
+  aspect-ratio: 1;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  contain: layout paint;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 280px;
+  cursor: pointer;
+}
+
+body.dark .gallery-item {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.gallery-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 32px 56px rgba(15,61,52,0.22);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+.gallery-item.loading {
+  background: rgba(255,255,255,0.42);
+}
+
+
+.gallery-item.error {
+  display: none;
+}
+
+/* Loading Animation */
+.gallery-loader {
+  text-align: center;
+  padding: 40px 20px;
+  color: rgba(15,61,52,0.7);
+}
+
+body.dark .gallery-loader { color: rgba(240,253,244,0.7); }
+
+.spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(15,61,52,0.2);
+  border-top-color: var(--mint);
+  border-right-color: var(--lime);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 16px;
+}
+
+body.dark .spinner { border-color: rgba(240,253,244,0.2); }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.stats-info {
+  border-radius: 20px;
+  background: rgba(168,212,52,0.1);
+  border: 1px solid rgba(168,212,52,0.3);
+  padding: 18px 24px;
+  text-align: center;
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-top: 24px;
+}
+
+body.dark .stats-info {
+  background: rgba(168,212,52,0.08);
+  border-color: rgba(168,212,52,0.25);
+  color: #f0fdf4;
+}
+
+.hero-feature{
+    position:relative;
+    min-height:470px;
+    border-radius:30px;
+    overflow:hidden;
+    isolation:isolate;
+
+    border:1px solid rgba(255,255,255,.75);
+
+    background:rgba(255,255,255,.18);
+
+    box-shadow:var(--shadow);
+
+  }
+
+.hero-feature img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    border-radius:inherit;
+    transform:translateZ(0);
+}
+
+.hero-feature:hover img{
+    transform:translateZ(0) scale(1.02);
+}
+
+.hero-feature::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            to top,
+            rgba(15,61,52,.82) 0%,
+            rgba(15,61,52,.35) 45%,
+            rgba(15,61,52,.05) 100%);
+}
+
+.hero-overlay{
+    position:absolute;
+    left:34px;
+    right:34px;
+    bottom:34px;
+    z-index:2;
+    color:#fff;
+}
+
+.hero-overlay small{
+    display:inline-block;
+    margin-bottom:12px;
+
+    font-weight:800;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.18);
+
+    border:1px solid rgba(255,255,255,.35);
+
+    backdrop-filter:blur(10px);
+}
+
+.hero-overlay h3{
+    margin:0 0 12px;
+
+    font-family:'Playfair Display',serif;
+
+    font-size:2.2rem;
+
+    line-height:1.1;
+
+    color:white;
+
+    text-shadow:0 4px 16px rgba(0,0,0,.45);
+}
+
+.hero-overlay p{
+    margin:0;
+
+    max-width:420px;
+
+    font-size:1.05rem;
+
+    line-height:1.65;
+
+    color:rgba(255,255,255,.92);
+
+    text-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+
+@media (max-width:768px){
+
+    .hero-feature{
+        min-height:340px;
+    }
+
+    .hero-overlay h3{
+        font-size:1.8rem;
+    }
+
+}
+  
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-grid > div:first-child {
+    padding-top: 0;
+  }
+  
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+  }
+}
+
+/* Modal for full image view */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,61,52,0.7);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  background: transparent;
+  border-radius: 24px;
+  overflow: visible;
+  box-shadow:none;
+}
+
+body.dark .modal-content {
+  background: var(--forest);
+}
+
+.modal-img {
+  display:block;max-width:90vw;max-height:90vh;width:auto;height:auto;object-fit:contain;border-radius:20px;
+}
+
+.modal-close {
+  position:absolute;top:-18px;right:-18px;width:48px;height:48px;border:none;border-radius:50%;background:rgba(0,0,0,.8);color:#fff;font-size:32px;cursor:pointer;z-index:99999;pointer-events:auto;display:flex;align-items:center;justify-content:center;
+}
+
+.modal-close:hover {
+  background: transparent;
+  transform: scale(1.1);
+}
+
+body.dark .modal-close {
+  position:absolute;top:-18px;right:-18px;width:48px;height:48px;border:none;border-radius:50%;background:rgba(0,0,0,.8);color:#fff;font-size:32px;cursor:pointer;z-index:99999;pointer-events:auto;display:flex;align-items:center;justify-content:center;
+}
+
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="hero">
+    <div class="topline">
+      <div class="brand-pill">
+        <div class="brand-dot"></div>
+        <span>Garden Gallery</span>
+      </div>
+    </div>
+
+   <div class="hero-grid">
+
+    <div>
+        <h1>Blair's <span>Garden</span> Gallery</h1>
+
+        <div class="subtitle">
+            <span class="tag">🌿 Plants</span>
+            <span class="tag">🌸 Flowers</span>
+            <span class="tag">🍃 Nature</span>
+        </div>
+    </div>
+
+    <div class="hero-feature">
+
+        <img src="BlairsGardeningGallery/img1.jpg"
+             alt="Featured Garden">
+
+        <div class="hero-overlay">
+
+            <small>Featured Garden</small>
+
+            <h3>Growing Beauty,<br>One Season at a Time</h3>
+
+            <p>
+                A collection of flowers, plants and landscapes captured
+                throughout Blair's gardening journey.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+  
+  <div class="gallery-container">
+    <div class="gallery-header">
+      <h2>Gallery</h2>
+      <p>Explore beautiful images from the adjacent folder</p>
+    </div>
+
+    <div id="galleryLoader" class="gallery-loader">
+      <div class="spinner"></div>
+      <p>Loading images from images3.json...</p>
+    </div>
+
+    <div id="galleryGrid" class="gallery-grid" style="display:none;"></div>
+  </div>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+        <button id="modalClose" class="modal-close" aria-label="Close">&times;</button>
+        <img id="modalImg" class="modal-img" src="" alt="">
+  </div>
+</div>
+
+<script>
+class GardenGallery {
+  constructor() {
+    this.images = [];
+    this.loaded = 0;
+    this.failed = 0;
+    this.imageFormats = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    // Every image still force-loads eagerly (nothing is deferred or lazy) —
+    // this only caps how many can decode at the exact same instant, which is
+    // what was overloading the tab and causing the freezes/white flashes.
+    this.maxConcurrent = 12;
+    this.activeLoads = 0;
+    this.queue = [];
+    this.pendingImages = new Map();
+    this.detectedFormat = null;
+    this.init();
+  }
+
+  async init() {
+    await this.loadJSON();
+    this.renderGallery();
+    this.setupTheme();
+    this.setupModal();
+  }
+
+  async loadJSON() {
+    try {
+      const response = await fetch('images3.json', { cache: 'default' });
+      if (!response.ok) throw new Error('Failed to load images3.json');
+      const data = await response.json();
+
+      if (Array.isArray(data)) {
+        this.images = data;
+      } else if (data.images && Array.isArray(data.images)) {
+        this.images = data.images;
+      } else {
+        this.images = Object.values(data).filter(v => typeof v === 'string' || typeof v === 'object');
+      }
+
+      this.images = this.images.slice(0, 300);
+    } catch (error) {
+      console.error('Error loading JSON:', error);
+      document.getElementById('galleryLoader').innerHTML =
+        '<p style="color:#d32f2f;">Error loading images3.json from adjacent folder</p>';
+    }
+  }
+
+  renderGallery() {
+    const grid = document.getElementById('galleryGrid');
+    const loader = document.getElementById('galleryLoader');
+
+    if (!this.images.length) {
+      loader.innerHTML = '<p>No images found in images3.json</p>';
+      return;
+    }
+
+    loader.style.display = 'none';
+    grid.style.display = 'grid';
+
+    const fragment = document.createDocumentFragment();
+    this.items = [];
+
+    this.images.forEach((imageName, index) => {
+      const item = document.createElement('div');
+      item.className = 'gallery-item loading';
+      item.id = `gallery-item-${index}`;
+      item.dataset.index = String(index);
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('aria-label', `Open garden image ${index + 1}`);
+      fragment.appendChild(item);
+      this.items.push(item);
+    });
+
+    // Insert every tile in one operation so the page height is established
+    // before image decoding begins. This eliminates scroll jumping/blinking.
+    grid.appendChild(fragment);
+
+    // Start every tile loading immediately instead of waiting on format
+    // detection first — each image already knows its own extension from its
+    // filename, or falls back through formats on its own. Detecting index 0's
+    // format here just gives later, extension-less filenames a head start.
+    this.items.forEach((item, index) => this.enqueueLoad(index, item, index < 12));
+    this.detectFormat(0);
+  }
+
+  detectFormat(index) {
+    return new Promise(resolve => {
+      const raw = String(this.images[index]);
+      const match = raw.match(/\.(jpg|jpeg|png|webp|gif)$/i);
+
+      if (match) {
+        this.detectedFormat = match[1].toLowerCase();
+        resolve();
+        return;
+      }
+
+      const baseName = raw;
+      let settled = false;
+      const probes = this.imageFormats.map(fmt => {
+        const img = new Image();
+        img.decoding = 'async';
+        img.onload = () => {
+          if (settled) return;
+          settled = true;
+          this.detectedFormat = fmt;
+          resolve();
+        };
+        img.onerror = () => {};
+        img.src = `${baseName}.${fmt}`;
+        return img;
+      });
+
+      this._formatProbes = probes;
+      setTimeout(() => {
+        if (!settled) {
+          settled = true;
+          resolve();
+        }
+      }, 3000);
+    });
+  }
+
+  enqueueLoad(index, item, priority = false) {
+    if (!item || item.dataset.loading === 'true' || item.dataset.loaded === 'true') return;
+
+    item.dataset.loading = 'true';
+    const job = { index, item, priority };
+
+    if (priority) this.queue.unshift(job);
+    else this.queue.push(job);
+
+    this.processQueue();
+  }
+
+  processQueue() {
+    while (this.activeLoads < this.maxConcurrent && this.queue.length) {
+      const job = this.queue.shift();
+      this.activeLoads++;
+      this.loadImageForItem(job.index, job.item, job.priority)
+        .catch(() => {})
+        .finally(() => {
+          this.activeLoads--;
+          this.processQueue();
+        });
+    }
+  }
+
+  loadImageForItem(index, item, priority = false) {
+    return new Promise(resolve => {
+      const raw = String(this.images[index]);
+      const match = raw.match(/\.(jpg|jpeg|png|webp|gif)$/i);
+      const baseName = match ? raw.slice(0, -match[0].length) : raw;
+      const known = match ? match[1].toLowerCase() : this.detectedFormat;
+      const formats = known ? [known, ...this.imageFormats.filter(f => f !== known)] : this.imageFormats;
+
+      let formatIndex = 0;
+      const img = new Image();
+      img.decoding = 'async';
+      img.alt = `Garden image ${index + 1}`;
+      img.width = 100;
+      img.height = 100;
+      img.fetchPriority = priority ? 'high' : 'auto';
+      this.pendingImages.set(index, img);
+
+      const cleanup = () => {
+        this.pendingImages.delete(index);
+        item.dataset.loading = 'false';
+      };
+
+      const showError = () => {
+        cleanup();
+        item.classList.add('error');
+        this.failed++;
+        resolve();
+      };
+
+      const tryNext = () => {
+        if (formatIndex >= formats.length) {
+          showError();
+          return;
+        }
+        img.src = `${baseName}.${formats[formatIndex++]}`;
+      };
+
+      img.onload = () => {
+        const finish = () => {
+          cleanup();
+          item.classList.remove('loading');
+          item.replaceChildren(img);
+          item.dataset.loaded = 'true';
+
+          const open = () => this.openModal(img.currentSrc || img.src);
+          item.addEventListener('click', open, { passive: true });
+          item.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              open();
+            }
+          });
+
+          this.loaded++;
+          resolve();
+        };
+
+        // Decode before inserting into the tile so the user never sees a
+        // partially decoded/blank image flash during scrolling.
+        if (typeof img.decode === 'function') {
+          img.decode().then(finish, finish);
+        } else {
+          finish();
+        }
+      };
+
+      img.onerror = tryNext;
+      tryNext();
+    });
+  }
+
+  openModal(src) {
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = src;
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+  }
+
+  setupModal() {
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalClose = document.getElementById('modalClose');
+
+    const close = () => {
+      modal.classList.remove('active');
+      modal.style.display = 'none';
+      modalImg.removeAttribute('src');
+    };
+
+    modal.addEventListener('click', close);
+    modalImg.addEventListener('click', e => e.stopPropagation());
+    if (modalClose) modalClose.addEventListener('click', e => {
+      e.stopPropagation();
+      close();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') close();
+    });
+  }
+
+  setupTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (!themeToggle) return;
+
+    const isDark = localStorage.getItem('theme') === 'dark';
+    if (isDark) {
+      document.body.classList.add('dark');
+      themeToggle.textContent = '☀️ Light Mode';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDarkNow = document.body.classList.contains('dark');
+      localStorage.setItem('theme', isDarkNow ? 'dark' : 'light');
+      themeToggle.textContent = isDarkNow ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.__blairsGallery = new GardenGallery();
+});
+</script>
+<!-- =========================================================
+     APPENDED FLOATING CONTROLS
+     1. Back-to-top chevron
+     2. YouTube floating music/video player
+     3. Exact original 11-video playlist
+     
+     PASTE THIS ENTIRE BLOCK IMMEDIATELY BEFORE </body>
+     ========================================================= -->
+
+<style>
+
+/* =========================================================
+   BACK-TO-TOP CHEVRON
+   ========================================================= */
+
+#appendedPageScrollTop {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  margin: 0;
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 2147483000;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+#appendedPageScrollTop.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#appendedPageScrollTop:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   YOUTUBE PLAYER
+   ========================================================= */
+
+#appendedYouTubePlayer {
+  position: fixed !important;
+
+  left: 20px !important;
+  bottom: 78px !important;
+
+  width: 260px !important;
+  height: 150px !important;
+
+  z-index: 2147483000 !important;
+
+  border-radius: 12px !important;
+  overflow: hidden !important;
+
+  background: #000 !important;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.6) !important;
+
+  display: none !important;
+}
+
+#appendedYouTubePlayer.open {
+  display: block !important;
+}
+
+#appendedYouTubePlayer iframe {
+  width: 100% !important;
+  height: 100% !important;
+
+  border: 0 !important;
+  display: block !important;
+
+  background: #000 !important;
+}
+
+
+/* =========================================================
+   VIDEO LIST
+   ========================================================= */
+
+#appendedYouTubeOptions {
+  position: fixed !important;
+
+  left: 20px !important;
+  bottom: 236px !important;
+
+  width: 260px !important;
+
+  z-index: 2147483002 !important;
+
+  display: none !important;
+
+  grid-template-columns: 1fr !important;
+  gap: 6px !important;
+
+  padding: 8px !important;
+
+  border-radius: 12px !important;
+
+  background: rgba(23,14,32,.84) !important;
+
+  border:
+    1px solid rgba(240,239,244,.28) !important;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.50) !important;
+
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+
+  box-sizing: border-box !important;
+
+  max-height: 44vh !important;
+
+  overflow-y: auto !important;
+
+  overscroll-behavior: contain !important;
+}
+
+#appendedYouTubeOptions.open {
+  display: grid !important;
+}
+
+#appendedYouTubeOptions button {
+  width: 100% !important;
+  box-sizing: border-box !important;
+
+  border:
+    1px solid rgba(255,255,255,.22) !important;
+
+  border-radius: 10px !important;
+
+  padding: 6px 7px !important;
+
+  background:
+    rgba(255,255,255,.12) !important;
+
+  color: #fff !important;
+
+  font:
+    700 10.5px/1.18
+    Inter,
+    system-ui,
+    sans-serif !important;
+
+  text-align: left !important;
+
+  cursor: pointer !important;
+
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+
+  box-shadow: none !important;
+}
+
+#appendedYouTubeOptions button.active,
+#appendedYouTubeOptions button:hover {
+  background:
+    rgba(158,130,156,.42) !important;
+}
+
+
+/* =========================================================
+   FLOATING MUSIC / YOUTUBE BUTTON
+   ========================================================= */
+
+#appendedYouTubeButton {
+  position: fixed !important;
+
+  left: 20px !important;
+  bottom: 20px !important;
+
+  width: 52px !important;
+  height: 52px !important;
+
+  z-index: 2147483001 !important;
+
+  border-radius: 50% !important;
+
+  border:
+    1px solid rgba(240,239,244,.35) !important;
+
+  background:
+    rgba(58,62,59,.72) !important;
+
+  color: #fff !important;
+
+  cursor: pointer !important;
+
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.45) !important;
+
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+
+  touch-action: manipulation !important;
+
+  transition:
+    background .2s ease,
+    transform .2s ease !important;
+}
+
+#appendedYouTubeButton:hover {
+  background:
+    rgba(158,130,156,.34) !important;
+
+  transform:
+    translateY(-2px) !important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  #appendedPageScrollTop {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  #appendedYouTubePlayer {
+    left: 12px !important;
+    bottom: 72px !important;
+
+    width:
+      calc(100vw - 24px) !important;
+
+    height:
+      calc((100vw - 24px) * .5625) !important;
+  }
+
+  #appendedYouTubeOptions {
+    left: 12px !important;
+
+    bottom:
+      calc(
+        72px +
+        ((100vw - 24px) * .5625) +
+        8px
+      ) !important;
+
+    width:
+      calc(100vw - 24px) !important;
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr)) !important;
+
+    gap: 6px !important;
+
+    padding: 7px !important;
+
+    max-height: 38vh !important;
+  }
+
+  #appendedYouTubeOptions button {
+    font-size: 9.5px !important;
+    line-height: 1.12 !important;
+    padding: 6px !important;
+  }
+
+  #appendedYouTubeButton {
+    left: 12px !important;
+    bottom: 12px !important;
+  }
+}
+
+</style>
+
+
+<!-- =========================================================
+     BACK-TO-TOP
+     ========================================================= -->
+
+<button
+  id="appendedPageScrollTop"
+  type="button"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  ▲
+</button>
+
+
+<script>
+(function () {
+
+  'use strict';
+
+
+  /* =========================================================
+     BACK-TO-TOP CHEVRON
+     ========================================================= */
+
+  var scrollTopButton =
+    document.getElementById(
+      'appendedPageScrollTop'
+    );
+
+  function updateScrollTopButton() {
+
+    if (window.scrollY > 400) {
+
+      scrollTopButton.classList.add('show');
+
+    } else {
+
+      scrollTopButton.classList.remove('show');
+
+    }
+
+  }
+
+  window.addEventListener(
+    'scroll',
+    updateScrollTopButton,
+    { passive: true }
+  );
+
+  scrollTopButton.addEventListener(
+    'click',
+    function () {
+
+      // Uses the same gentle, frame-by-frame easing as the arrow-key
+      // scrolling (defined further down the page) instead of the
+      // browser's native smooth-scroll, which was jumping past
+      // off-screen gallery tiles faster than they could render and
+      // showing their pale placeholder background as flashing white
+      // lines. Falls back to the native behavior if that scroll
+      // helper hasn't loaded for any reason.
+      if (typeof window.__gardenSmoothScrollTo === 'function') {
+        window.__gardenSmoothScrollTo(0);
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+
+    }
+  );
+
+  updateScrollTopButton();
+
+
+  /* =========================================================
+     EXACT ORIGINAL VIDEO LIST
+     ========================================================= */
+
+  var VIDEO_ID = '990kOZxIOKw';
+
+  var VIDEO_OPTIONS = [
+    {
+      id: '990kOZxIOKw',
+      label:
+        'Iron & Wine - Jezebel'
+    },
+     {
+      id: 'PEj4F55doKM',
+      label:
+        'Iron & Wine - Woman King'
+    },
+      {
+      id: 'KHw7gdJ14uQ',
+      label:
+        'Iron & Wine - Boy with a Coin'
+      },
+      {
+      id: 'j4gPZPKJc0s',
+      label:
+        'The Dresden Dolls - Coin Operated Boy'
+      },
+    {
+      id: '18l2RrVXfTo',
+      label:
+        'Amanda Palmer - Want It Back'
+      },
+      {
+      id: 'G1pi7Dn87mY',
+      label:
+        'Opeth - The Devils Orchard'
+      }
+    ];
+  /* =========================================================
+     PLAYER ELEMENTS
+     ========================================================= */
+
+  var PLAYER_ID =
+    'appendedYouTubePlayer';
+
+  var BUTTON_ID =
+    'appendedYouTubeButton';
+
+  var OPTIONS_ID =
+    'appendedYouTubeOptions';
+
+
+  var activeVideoId =
+    VIDEO_ID;
+
+  var activeVideoTitle =
+    VIDEO_OPTIONS[0].label;
+
+  var EMBED_BASE =
+    'https://www.youtube.com/embed/';
+
+
+  /*
+   * Exact original YouTube embed parameters.
+   */
+
+  function buildSrc(muted) {
+
+    return EMBED_BASE +
+      activeVideoId +
+      '?autoplay=1' +
+      '&mute=' +
+      (muted ? '1' : '0') +
+      '&controls=1' +
+      '&playsinline=1' +
+      '&rel=0' +
+      '&modestbranding=1' +
+      '&enablejsapi=1';
+
+  }
+
+
+  /* =========================================================
+     STOP OTHER YOUTUBE IFRAMES
+     ========================================================= */
+
+  function pauseOtherYouTubeFrames() {
+
+    document
+      .querySelectorAll(
+        'iframe[src*="youtube.com/embed/"], ' +
+        'iframe[src*="youtube-nocookie.com/embed/"]'
+      )
+      .forEach(function (frame) {
+
+        try {
+
+          frame.contentWindow.postMessage(
+            '{"event":"command","func":"pauseVideo","args":""}',
+            '*'
+          );
+
+        } catch (e) {}
+
+      });
+
+  }
+
+
+  /* =========================================================
+     CREATE PLAYER
+     ========================================================= */
+
+  function createPlayer() {
+
+    /*
+     * Remove an older copy if this block was
+     * accidentally appended more than once.
+     */
+
+    [
+      PLAYER_ID,
+      BUTTON_ID,
+      OPTIONS_ID
+    ].forEach(function (id) {
+
+      var old =
+        document.getElementById(id);
+
+      if (old) {
+        old.remove();
+      }
+
+    });
+
+
+    var player =
+      document.createElement('div');
+
+    player.id =
+      PLAYER_ID;
+
+
+    var options =
+      document.createElement('div');
+
+    options.id =
+      OPTIONS_ID;
+
+
+    var button =
+      document.createElement('button');
+
+    button.id =
+      BUTTON_ID;
+
+    button.type =
+      'button';
+
+
+    /*
+     * Original player states:
+     *
+     * closed  = ▶
+     * muted   = 🔊
+     * playing = 🔇
+     * stopped = ✕
+     */
+
+    var state =
+      'closed';
+
+
+    function setButton() {
+
+      if (state === 'closed') {
+        button.innerHTML = '▶';
+      }
+
+      if (state === 'muted') {
+        button.innerHTML = '🔊';
+      }
+
+      if (state === 'playing') {
+        button.innerHTML = '🔇';
+      }
+
+      if (state === 'stopped') {
+        button.innerHTML = '✕';
+      }
+
+      button.setAttribute(
+        'aria-label',
+        activeVideoTitle
+      );
+
+      button.setAttribute(
+        'title',
+        activeVideoTitle
+      );
+
+    }
+
+
+    /* =======================================================
+       LOAD YOUTUBE VIDEO
+       ======================================================= */
+
+    function loadIframe(muted) {
+
+      pauseOtherYouTubeFrames();
+
+      player.innerHTML =
+        '<iframe ' +
+        'src="' +
+        buildSrc(muted) +
+        '" ' +
+        'title="' +
+        activeVideoTitle
+          .replace(/"/g, '&quot;') +
+        '" ' +
+        'allow="' +
+        'autoplay; encrypted-media; ' +
+        'picture-in-picture; web-share" ' +
+        'allowfullscreen>' +
+        '</iframe>';
+
+    }
+
+
+    /* =======================================================
+       BUILD EXACT VIDEO LIST
+       ======================================================= */
+
+    VIDEO_OPTIONS.forEach(
+      function (item) {
+
+        var optionButton =
+          document.createElement('button');
+
+        optionButton.type =
+          'button';
+
+        optionButton.textContent =
+          item.label;
+
+
+        if (
+          item.id === activeVideoId
+        ) {
+
+          optionButton.className =
+            'active';
+
+        }
+
+
+        optionButton.addEventListener(
+          'click',
+          function (e) {
+
+            e.preventDefault();
+            e.stopPropagation();
+
+
+            activeVideoId =
+              item.id;
+
+            activeVideoTitle =
+              item.label;
+
+
+            options
+              .querySelectorAll('button')
+              .forEach(function (btn) {
+
+                btn.classList.remove(
+                  'active'
+                );
+
+              });
+
+
+            optionButton.classList.add(
+              'active'
+            );
+
+
+            setButton();
+
+
+            /*
+             * Selecting a video while closed
+             * or stopped opens it muted.
+             */
+
+            if (
+              state === 'closed' ||
+              state === 'stopped'
+            ) {
+
+              state =
+                'muted';
+
+              player.classList.add(
+                'open'
+              );
+
+              options.classList.add(
+                'open'
+              );
+
+              loadIframe(true);
+
+              setButton();
+
+              return;
+
+            }
+
+
+            /*
+             * If currently muted, selecting
+             * another video keeps it muted.
+             */
+
+            if (
+              state === 'muted'
+            ) {
+
+              loadIframe(true);
+
+              return;
+
+            }
+
+
+            /*
+             * If currently playing, selecting
+             * another video keeps it playing.
+             */
+
+            if (
+              state === 'playing'
+            ) {
+
+              loadIframe(false);
+
+            }
+
+          }
+        );
+
+
+        options.appendChild(
+          optionButton
+        );
+
+      }
+    );
+
+
+    /* =======================================================
+       MAIN MUSIC BUTTON
+       ======================================================= */
+
+    button.addEventListener(
+      'click',
+      function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+
+        /*
+         * FIRST CLICK
+         *
+         * Opens the YouTube video popup.
+         */
+
+        if (
+          state === 'closed'
+        ) {
+
+          state =
+            'muted';
+
+          player.classList.add(
+            'open'
+          );
+
+          options.classList.add(
+            'open'
+          );
+
+          loadIframe(true);
+
+          setButton();
+
+          return;
+
+        }
+
+
+        /*
+         * SECOND CLICK
+         *
+         * Turns sound on / plays normally.
+         */
+
+        if (
+          state === 'muted'
+        ) {
+
+          state =
+            'playing';
+
+          loadIframe(false);
+
+          setButton();
+
+          return;
+
+        }
+
+
+        /*
+         * THIRD CLICK
+         *
+         * Stops the video but leaves
+         * the player/list visible.
+         */
+
+        if (
+          state === 'playing'
+        ) {
+
+          state =
+            'stopped';
+
+          player.innerHTML =
+            '';
+
+          player.classList.add(
+            'open'
+          );
+
+          options.classList.add(
+            'open'
+          );
+
+          setButton();
+
+          return;
+
+        }
+
+
+        /*
+         * FOURTH CLICK
+         *
+         * Fully closes the player.
+         */
+
+        if (
+          state === 'stopped'
+        ) {
+
+          state =
+            'closed';
+
+          player.innerHTML =
+            '';
+
+          player.classList.remove(
+            'open'
+          );
+
+          options.classList.remove(
+            'open'
+          );
+
+          setButton();
+
+        }
+
+      }
+    );
+
+
+    /*
+     * Append everything to BODY.
+     */
+
+    document.body.appendChild(
+      player
+    );
+
+    document.body.appendChild(
+      options
+    );
+
+    document.body.appendChild(
+      button
+    );
+
+
+    setButton();
+
+  }
+
+
+  /* =========================================================
+     INITIALIZE
+     ========================================================= */
+
+  if (
+    document.readyState === 'loading'
+  ) {
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      createPlayer
+    );
+
+  } else {
+  createPlayer();
+
+  }
+
+})();
+</script>
+
+<!-- =========================================================
+     EASIER KEYBOARD SCROLLING (Up/Down arrows)
+     - Bigger, smooth steps instead of the browser's tiny
+       default arrow-key nudge.
+     - Uses a single ongoing requestAnimationFrame easing loop
+       (accumulating a target position) instead of repeated
+       scrollTo/scrollBy smooth calls, so holding the key down
+       doesn't restart/collide with itself and cause any
+       jitter or blink.
+     - Steps aside when focus is inside an already-scrollable
+       panel (like the video list) so that panel's own
+       scrolling still works normally.
+     ========================================================= -->
+<script>
+(function () {
+  'use strict';
+
+  var STEP = Math.round(window.innerHeight * 0.45);
+
+  // Slower, gentler easing than a hair-trigger jump. Slowing this down
+  // (vs. the browser's own native "smooth" scroll) is what stops the
+  // pale gallery-tile placeholder background from flashing through in
+  // bands as content-visibility:auto tiles race to render mid-scroll —
+  // this gives each frame enough time to actually paint what scrolled
+  // into view before moving on, instead of just jumping there.
+  var EASE = 0.10;
+  var target = null;
+  var rafId = null;
+
+  function maxScroll() {
+    return Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight
+    );
+  }
+
+  function isTypingTarget(el) {
+    return !!el && (
+      el.tagName === 'INPUT' ||
+      el.tagName === 'TEXTAREA' ||
+      el.isContentEditable
+    );
+  }
+
+  function findScrollableAncestor(el) {
+    while (el && el !== document.body && el !== document.documentElement) {
+      var style = window.getComputedStyle(el);
+      if (
+        (style.overflowY === 'auto' || style.overflowY === 'scroll') &&
+        el.scrollHeight > el.clientHeight
+      ) {
+        return el;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function step() {
+    var current = window.scrollY;
+    var diff = target - current;
+
+    if (Math.abs(diff) < 0.5) {
+      window.scrollTo(0, target);
+      rafId = null;
+      return;
+    }
+
+    window.scrollTo(0, current + diff * EASE);
+    rafId = requestAnimationFrame(step);
+  }
+
+  function animateTo(nextTarget) {
+    target = Math.max(0, Math.min(nextTarget, maxScroll()));
+    if (!rafId) {
+      rafId = requestAnimationFrame(step);
+    }
+  }
+
+  // Exposed so the back-to-top chevron can reuse this same gentle
+  // easing instead of the browser's native (faster, blinkier) smooth
+  // scroll, for the same white-line fix described above.
+  window.__gardenSmoothScrollTo = animateTo;
+
+  window.addEventListener('keydown', function (e) {
+
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (isTypingTarget(document.activeElement)) return;
+    if (findScrollableAncestor(document.activeElement)) return;
+
+    e.preventDefault();
+
+    var base = target === null ? window.scrollY : target;
+    var next = e.key === 'ArrowDown' ? base + STEP : base - STEP;
+    animateTo(next);
+
+  }, { passive: false });
+
+})();
+</script>
+
+<!-- =========================================================
+     END OF APPENDED FLOATING CONTROLS
+     ========================================================= -->
+</body>
+</html>
