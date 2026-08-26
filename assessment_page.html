@@ -3208,6 +3208,169 @@ body.dark #themeToggle {
 
   updateScrollTopButton();
 
+<script>
+(function () {
+  'use strict';
+
+  if (window.__gardenScrollControlsInstalled) return;
+  window.__gardenScrollControlsInstalled = true;
+
+  function jumpTo(y) {
+    window.scrollTo({
+      top: y,
+      left: 0,
+      behavior: 'instant'
+    });
+  }
+
+  /* ============================================================
+     BACK-TO-TOP CHEVRON
+     ============================================================ */
+
+  var existing =
+    document.getElementById('appendedPageScrollTop') ||
+    document.getElementById('pageScrollTop') ||
+    document.querySelector('.page-scroll-top') ||
+    document.getElementById('globalScrollTop');
+
+  var scrollTopButton;
+
+  if (existing) {
+    scrollTopButton = existing.cloneNode(true);
+    existing.parentNode.replaceChild(scrollTopButton, existing);
+  } else {
+    var style = document.createElement('style');
+
+    style.textContent =
+      '#globalScrollTop{' +
+        'position:fixed;right:18px;bottom:18px;width:28px;height:28px;' +
+        'display:flex;align-items:center;justify-content:center;' +
+        'padding:0;margin:0;background:transparent;border:none;outline:none;' +
+        'color:#ffffff;font-size:18px;line-height:1;cursor:pointer;' +
+        'z-index:2147483000;opacity:0;visibility:hidden;pointer-events:none;' +
+        'transition:opacity .2s ease;' +
+      '}' +
+      '#globalScrollTop.show{' +
+        'opacity:1;visibility:visible;pointer-events:auto;' +
+      '}' +
+      '#globalScrollTop:hover{' +
+        'transform:translateY(-2px);' +
+      '}';
+
+    document.head.appendChild(style);
+
+    scrollTopButton = document.createElement('button');
+    scrollTopButton.id = 'globalScrollTop';
+    scrollTopButton.type = 'button';
+    scrollTopButton.setAttribute('aria-label', 'Back to top');
+    scrollTopButton.title = 'Back to top';
+    scrollTopButton.textContent = '▲';
+
+    document.body.appendChild(scrollTopButton);
+  }
+
+  function updateScrollTopButton() {
+    /*
+     * Do not allow the button's position to participate in
+     * the page's scrolling. It remains fixed in one place.
+     */
+    if (window.scrollY > 400) {
+      scrollTopButton.classList.add('show');
+    } else {
+      scrollTopButton.classList.remove('show');
+    }
+  }
+
+  window.addEventListener(
+    'scroll',
+    updateScrollTopButton,
+    { passive: true }
+  );
+
+  /* ============================================================
+     SMOOTH BACK-TO-TOP
+     ============================================================ */
+
+  var scrollTopRafId = null;
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function scrollToTopSmoothly() {
+
+    /* Cancel any previous top animation */
+    if (scrollTopRafId) {
+      cancelAnimationFrame(scrollTopRafId);
+      scrollTopRafId = null;
+    }
+
+    /*
+     * IMPORTANT:
+     * Clear the keyboard-scrolling target so it cannot
+     * pull the page back down after we reach the top.
+     */
+    target = 0;
+
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
+    var startY = window.scrollY;
+
+    if (startY <= 0) {
+      jumpTo(0);
+      updateScrollTopButton();
+      return;
+    }
+
+    var startTime = null;
+    var duration = 650;
+
+    function frame(now) {
+
+      if (startTime === null) {
+        startTime = now;
+      }
+
+      var elapsed = now - startTime;
+      var t = Math.min(1, elapsed / duration);
+      var eased = easeOutCubic(t);
+
+      jumpTo(startY * (1 - eased));
+
+      if (t < 1) {
+        scrollTopRafId = requestAnimationFrame(frame);
+      } else {
+
+        /*
+         * Hard-lock the final position to the absolute top.
+         */
+        jumpTo(0);
+
+        /*
+         * Make absolutely sure the keyboard scroller
+         * cannot restore the old position.
+         */
+        target = 0;
+
+        scrollTopRafId = null;
+
+        updateScrollTopButton();
+      }
+    }
+
+    scrollTopRafId = requestAnimationFrame(frame);
+  }
+
+  scrollTopButton.addEventListener(
+    'click',
+    scrollToTopSmoothly
+  );
+
+  updateScrollTopButton();
+
   /* ============================================================
      KEYBOARD SCROLLING
      ============================================================ */
@@ -3311,6 +3474,5 @@ body.dark #themeToggle {
 
 })();
 </script>
-
 </body>
 </html>
