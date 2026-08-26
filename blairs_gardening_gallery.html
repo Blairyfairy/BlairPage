@@ -1832,6 +1832,96 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <!-- =========================================================
+     EASIER KEYBOARD SCROLLING (Up/Down arrows)
+     - Bigger, smooth steps instead of the browser's tiny
+       default arrow-key nudge.
+     - Uses a single ongoing requestAnimationFrame easing loop
+       (accumulating a target position) instead of repeated
+       scrollTo/scrollBy smooth calls, so holding the key down
+       doesn't restart/collide with itself and cause any
+       jitter or blink.
+     - Steps aside when focus is inside an already-scrollable
+       panel (like the video list) so that panel's own
+       scrolling still works normally.
+     ========================================================= -->
+<script>
+(function () {
+  'use strict';
+
+  var STEP = Math.round(window.innerHeight * 0.45);
+  var EASE = 0.18;
+  var target = null;
+  var rafId = null;
+
+  function maxScroll() {
+    return Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight
+    );
+  }
+
+  function isTypingTarget(el) {
+    return !!el && (
+      el.tagName === 'INPUT' ||
+      el.tagName === 'TEXTAREA' ||
+      el.isContentEditable
+    );
+  }
+
+  function findScrollableAncestor(el) {
+    while (el && el !== document.body && el !== document.documentElement) {
+      var style = window.getComputedStyle(el);
+      if (
+        (style.overflowY === 'auto' || style.overflowY === 'scroll') &&
+        el.scrollHeight > el.clientHeight
+      ) {
+        return el;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function step() {
+    var current = window.scrollY;
+    var diff = target - current;
+
+    if (Math.abs(diff) < 0.5) {
+      window.scrollTo(0, target);
+      rafId = null;
+      return;
+    }
+
+    window.scrollTo(0, current + diff * EASE);
+    rafId = requestAnimationFrame(step);
+  }
+
+  function animateTo(nextTarget) {
+    target = Math.max(0, Math.min(nextTarget, maxScroll()));
+    if (!rafId) {
+      rafId = requestAnimationFrame(step);
+    }
+  }
+
+  window.addEventListener('keydown', function (e) {
+
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (isTypingTarget(document.activeElement)) return;
+    if (findScrollableAncestor(document.activeElement)) return;
+
+    e.preventDefault();
+
+    var base = target === null ? window.scrollY : target;
+    var next = e.key === 'ArrowDown' ? base + STEP : base - STEP;
+    animateTo(next);
+
+  }, { passive: false });
+
+})();
+</script>
+
+<!-- =========================================================
      END OF APPENDED FLOATING CONTROLS
      ========================================================= -->
 </body>
