@@ -27,6 +27,21 @@ body#gallery-page{
   background-image:none !important;
 }
 
+/* PRE-VIDEO BACKDROP: html/body are fully transparent above (by
+   design, see comment above), which means the browser's default
+   white canvas shows through until the hero video has loaded and
+   painted. This sits at z-index:-2, one layer behind .hero
+   (z-index:-1), so it's invisible once the video is up, but fills
+   that gap with a dark, theme-matching color instead of white. */
+body#gallery-page::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:#0a0a0c;
+  z-index:-2;
+  pointer-events:none;
+}
+
 /* ===== MATCH BLOG GLASS VARIABLES ===== */
 
 :root{
