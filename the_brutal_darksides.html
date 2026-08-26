@@ -2015,5 +2015,244 @@ iframe {
         alt="Portfolio Visitors"
         style="border-radius:8px;opacity:.9;">
 </div>
+<!-- =========================================================
+     UNIVERSAL BACK-TO-TOP CHEVRON + SMOOTH ARROW-KEY SCROLLING
+     Paste this single block right before </body> on any page.
+
+     - If the page already has a back-to-top chevron (checked
+       under a few common ids/classes below), that EXACT SAME
+       element is reused — same markup, same styling, same
+       position — nothing new is added. Only its click behavior
+       is replaced with the smooth, no-blink version.
+     - If a page has no chevron yet, one is created (with its
+       own styling injected automatically) so this stays a
+       single drop-in block either way.
+     - Forces behavior:'instant' on every scroll step, so it
+       works correctly even on pages whose CSS sets
+       scroll-behavior:smooth on html/body — without that,
+       every animation frame would trigger its own competing
+       native smooth-scroll and the motion would break/stutter.
+     - Safe to include on every page: it checks a flag on
+       window first, so pasting it twice on one page by
+       accident won't install itself again.
+     ========================================================= -->
+<script>
+(function () {
+  'use strict';
+
+  if (window.__gardenScrollControlsInstalled) return;
+  window.__gardenScrollControlsInstalled = true;
+
+  // Always bypasses any page CSS scroll-behavior (e.g. "smooth")
+  // so our own easing is the only thing moving the page.
+  function jumpTo(y) {
+    window.scrollTo({ top: y, left: 0, behavior: 'instant' });
+  }
+
+  /* ============================================================
+     BACK-TO-TOP CHEVRON
+     ============================================================ */
+
+  // Checked in priority order — add more selectors here if a
+  // future page uses yet another id/class for its chevron.
+  var existing =
+    document.getElementById('appendedPageScrollTop') ||
+    document.getElementById('pageScrollTop') ||
+    document.querySelector('.page-scroll-top') ||
+    document.getElementById('globalScrollTop');
+
+  var scrollTopButton;
+
+  if (existing) {
+
+    // Clone + replace so any of the page's OWN old click
+    // listeners are stripped (a plain addEventListener would
+    // just run alongside them instead of overriding them) —
+    // but every attribute, class, and bit of styling on the
+    // button carries over untouched. Same one chevron, just
+    // with its behavior swapped out below.
+    scrollTopButton = existing.cloneNode(true);
+    existing.parentNode.replaceChild(scrollTopButton, existing);
+
+  } else {
+
+    // No chevron on this page yet — create one and give it
+    // matching styling so this stays a single paste-in block.
+    var style = document.createElement('style');
+    style.textContent =
+      '#globalScrollTop{' +
+        'position:fixed;right:18px;bottom:18px;width:28px;height:28px;' +
+        'display:flex;align-items:center;justify-content:center;' +
+        'padding:0;margin:0;background:transparent;border:none;outline:none;' +
+        'color:#ffffff;font-size:18px;line-height:1;cursor:pointer;' +
+        'z-index:2147483000;opacity:0;visibility:hidden;pointer-events:none;' +
+        'transition:opacity .2s ease, transform .2s ease;' +
+      '}' +
+      '#globalScrollTop.show{opacity:1;visibility:visible;pointer-events:auto;}' +
+      '#globalScrollTop:hover{transform:translateY(-2px);}';
+    document.head.appendChild(style);
+
+    scrollTopButton = document.createElement('button');
+    scrollTopButton.id = 'globalScrollTop';
+    scrollTopButton.type = 'button';
+    scrollTopButton.setAttribute('aria-label', 'Back to top');
+    scrollTopButton.title = 'Back to top';
+    scrollTopButton.textContent = '▲';
+    document.body.appendChild(scrollTopButton);
+
+  }
+
+  function updateScrollTopButton() {
+    if (window.scrollY > 400) {
+      scrollTopButton.classList.add('show');
+    } else {
+      scrollTopButton.classList.remove('show');
+    }
+  }
+
+  window.addEventListener('scroll', updateScrollTopButton, { passive: true });
+
+  /* ---------------------------------------------------------
+     Self-contained smooth scroll-to-top.
+     Time-based ease so it always finishes in a fixed ~650ms
+     regardless of page length, and paces the scroll frame-by-
+     frame instead of the browser's instant native "smooth"
+     jump — the instant jump is what causes any pale
+     placeholder background on off-screen content to flash by
+     as visible white lines/bands on long pages.
+     --------------------------------------------------------- */
+
+  var scrollTopRafId = null;
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function scrollToTopSmoothly() {
+
+    if (scrollTopRafId) {
+      cancelAnimationFrame(scrollTopRafId);
+      scrollTopRafId = null;
+    }
+
+    var startY = window.scrollY;
+    var startTime = null;
+    var duration = 650;
+
+    if (startY <= 0) return;
+
+    function frame(now) {
+
+      if (startTime === null) startTime = now;
+
+      var elapsed = now - startTime;
+      var t = Math.min(1, elapsed / duration);
+      var eased = easeOutCubic(t);
+
+      jumpTo(startY - (startY * eased));
+
+      if (t < 1) {
+        scrollTopRafId = requestAnimationFrame(frame);
+      } else {
+        jumpTo(0);
+        scrollTopRafId = null;
+      }
+
+    }
+
+    scrollTopRafId = requestAnimationFrame(frame);
+
+  }
+
+  scrollTopButton.addEventListener('click', scrollToTopSmoothly);
+  updateScrollTopButton();
+
+  /* ============================================================
+     EASIER KEYBOARD SCROLLING (Up/Down arrows)
+     - Bigger, smooth steps instead of the browser's tiny
+       default arrow-key nudge.
+     - Uses a single ongoing requestAnimationFrame easing loop
+       (accumulating a target position) instead of repeated
+       scrollTo/scrollBy smooth calls, so holding the key down
+       doesn't restart/collide with itself and cause any
+       jitter or blink.
+     - Steps aside when focus is inside an already-scrollable
+       panel (a dropdown, a scrollable sidebar, etc.) so that
+       panel's own scrolling still works normally.
+     ============================================================ */
+
+  var STEP = Math.round(window.innerHeight * 0.45);
+  var EASE = 0.10;
+  var target = null;
+  var rafId = null;
+
+  function maxScroll() {
+    return Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight
+    );
+  }
+
+  function isTypingTarget(el) {
+    return !!el && (
+      el.tagName === 'INPUT' ||
+      el.tagName === 'TEXTAREA' ||
+      el.isContentEditable
+    );
+  }
+
+  function findScrollableAncestor(el) {
+    while (el && el !== document.body && el !== document.documentElement) {
+      var style = window.getComputedStyle(el);
+      if (
+        (style.overflowY === 'auto' || style.overflowY === 'scroll') &&
+        el.scrollHeight > el.clientHeight
+      ) {
+        return el;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function step() {
+    var current = window.scrollY;
+    var diff = target - current;
+
+    if (Math.abs(diff) < 0.5) {
+      jumpTo(target);
+      rafId = null;
+      return;
+    }
+
+    jumpTo(current + diff * EASE);
+    rafId = requestAnimationFrame(step);
+  }
+
+  function animateTo(nextTarget) {
+    target = Math.max(0, Math.min(nextTarget, maxScroll()));
+    if (!rafId) {
+      rafId = requestAnimationFrame(step);
+    }
+  }
+
+  window.addEventListener('keydown', function (e) {
+
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (isTypingTarget(document.activeElement)) return;
+    if (findScrollableAncestor(document.activeElement)) return;
+
+    e.preventDefault();
+
+    var base = target === null ? window.scrollY : target;
+    var next = e.key === 'ArrowDown' ? base + STEP : base - STEP;
+    animateTo(next);
+
+  }, { passive: false });
+
+})();
+</script>
+
 </body>
 </html>
