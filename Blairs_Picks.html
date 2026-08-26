@@ -9074,11 +9074,13 @@ a:hover{
   window.__gardenScrollControlsInstalled = true;
 
   function jumpTo(y) {
-    window.scrollTo({
-      top: y,
-      left: 0,
-      behavior: 'instant'
-    });
+    /*
+     * Two-argument scrollTo is intentionally used here.
+     * It performs an immediate scroll and bypasses the page's
+     * CSS scroll-behavior:smooth, leaving only our RAF easing loop
+     * in control of the animation.
+     */
+    window.scrollTo(0, y);
   }
 
   /* ============================================================
@@ -9104,7 +9106,7 @@ a:hover{
         'position:fixed;right:18px;bottom:18px;width:28px;height:28px;' +
         'display:flex;align-items:center;justify-content:center;' +
         'padding:0;margin:0;background:transparent;border:none;outline:none;' +
-        'color:#ffffff;font-size:18px;line-height:1;cursor:pointer;' +
+        'color:#6D3B8E;font-size:18px;line-height:1;cursor:pointer;' +
         'z-index:2147483000;opacity:0;visibility:hidden;pointer-events:none;' +
         'transition:opacity .2s ease;' +
       '}' +
@@ -9112,7 +9114,7 @@ a:hover{
         'opacity:1;visibility:visible;pointer-events:auto;' +
       '}' +
       '#globalScrollTop:hover{' +
-        'transform:translateY(-2px);' +
+        'color:#6D3B8E;' +
       '}';
 
     document.head.appendChild(style);
@@ -9222,9 +9224,17 @@ a:hover{
     scrollTopRafId = requestAnimationFrame(frame);
   }
 
+  /*
+   * Remove any legacy onclick handler before installing the
+   * single optimized animation handler. This prevents two
+   * independent scroll animations from fighting each other.
+   */
+  scrollTopButton.onclick = null;
+
   scrollTopButton.addEventListener(
     'click',
-    scrollToTopSmoothly
+    scrollToTopSmoothly,
+    { passive: true }
   );
 
   updateScrollTopButton();
@@ -9378,7 +9388,7 @@ a:hover{
   text-shadow: none !important;
   filter: none !important;
 
-  color: #291528 !important; /* darkest purple swatch */
+  color: #6D3B8E !important; /* site purple / violet */
 
   font-size: 18px !important;
   font-weight: 400 !important;
@@ -11599,7 +11609,7 @@ a[aria-label*="NIN"]{
         'position:fixed;right:18px;bottom:18px;width:28px;height:28px;' +
         'display:flex;align-items:center;justify-content:center;' +
         'padding:0;margin:0;background:transparent;border:none;outline:none;' +
-        'color:#ffffff;font-size:18px;line-height:1;cursor:pointer;' +
+        'color:#6D3B8E;font-size:18px;line-height:1;cursor:pointer;' +
         'z-index:2147483000;opacity:0;visibility:hidden;pointer-events:none;' +
         'transition:opacity .2s ease;' +
       '}' +
@@ -11607,7 +11617,7 @@ a[aria-label*="NIN"]{
         'opacity:1;visibility:visible;pointer-events:auto;' +
       '}' +
       '#globalScrollTop:hover{' +
-        'transform:translateY(-2px);' +
+        'color:#6D3B8E;' +
       '}';
 
     document.head.appendChild(style);
