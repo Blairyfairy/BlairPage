@@ -318,7 +318,7 @@ body.dark .gallery-header p { color: rgba(240,253,244,0.7); }
   transition: transform 0.22s ease, box-shadow 0.22s ease;
   contain: layout paint;
   content-visibility: auto;
-  contain-intrinsic-size: 280px 280px;
+  contain-intrinsic-size: auto 280px;
   cursor: pointer;
 }
 
@@ -1283,16 +1283,61 @@ document.addEventListener('DOMContentLoaded', () => {
     { passive: true }
   );
 
-  scrollTopButton.addEventListener(
-    'click',
-    function () {
+  /* ---------------------------------------------------------
+     Self-contained smooth scroll-to-top.
+     Time-based ease (not dependent on any variable from another
+     script block further down the page), so it always finishes
+     in a fixed ~650ms regardless of how far down the page is,
+     and paces the scroll frame-by-frame — same fix as before for
+     the white-line flash — instead of the browser's instant
+     native "smooth" jump.
+     --------------------------------------------------------- */
 
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+  var scrollTopRafId = null;
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function scrollToTopSmoothly() {
+
+    if (scrollTopRafId) {
+      cancelAnimationFrame(scrollTopRafId);
+      scrollTopRafId = null;
+    }
+
+    var startY = window.scrollY;
+    var startTime = null;
+    var duration = 650;
+
+    if (startY <= 0) return;
+
+    function frame(now) {
+
+      if (startTime === null) startTime = now;
+
+      var elapsed = now - startTime;
+      var t = Math.min(1, elapsed / duration);
+      var eased = easeOutCubic(t);
+
+      window.scrollTo(0, startY - (startY * eased));
+
+      if (t < 1) {
+        scrollTopRafId = requestAnimationFrame(frame);
+      } else {
+        window.scrollTo(0, 0);
+        scrollTopRafId = null;
+      }
 
     }
+
+    scrollTopRafId = requestAnimationFrame(frame);
+
+  }
+
+  scrollTopButton.addEventListener(
+    'click',
+    scrollToTopSmoothly
   );
 
   updateScrollTopButton();
@@ -1849,7 +1894,14 @@ document.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
   var STEP = Math.round(window.innerHeight * 0.45);
-  var EASE = 0.18;
+
+  // Slower, gentler easing than a hair-trigger jump. Slowing this down
+  // (vs. the browser's own native "smooth" scroll) is what stops the
+  // pale gallery-tile placeholder background from flashing through in
+  // bands as content-visibility:auto tiles race to render mid-scroll —
+  // this gives each frame enough time to actually paint what scrolled
+  // into view before moving on, instead of just jumping there.
+  var EASE = 0.10;
   var target = null;
   var rafId = null;
 
@@ -1902,6 +1954,9 @@ document.addEventListener('DOMContentLoaded', () => {
       rafId = requestAnimationFrame(step);
     }
   }
+
+  // Exposed in case other controls want to reuse this easing.
+  window.__gardenSmoothScrollTo = animateTo;
 
   window.addEventListener('keydown', function (e) {
 
