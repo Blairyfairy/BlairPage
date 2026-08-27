@@ -1295,29 +1295,37 @@ html, body {
   );
 
   /* ---------------------------------------------------------
-     Instant scroll-to-top on chevron click.
-     Jumps to 0 immediately and briefly re-pins so it stays
-     there even if layout shifts try to nudge it. Manual
-     wheel/touch always wins and cancels the hold.
+     Instant scroll-to-top on chevron click — glued hard.
+     Forces scroll position to 0 every frame for several seconds
+     and also snaps back on any scroll event during the lock.
+     Manual wheel / touch / arrow keys always cancel the lock.
      --------------------------------------------------------- */
 
   var scrollTopRafId = null;
   var scrollTopHoldUntil = 0;
   var scrollTopInterrupted = false;
+  var scrollTopLockListener = null;
+
+  function forceScrollTop() {
+    // Hit every common scroll root so nothing can sit off-zero.
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
 
   function stopScrollToTop() {
-
     if (scrollTopRafId) {
       cancelAnimationFrame(scrollTopRafId);
       scrollTopRafId = null;
     }
-
     scrollTopHoldUntil = 0;
-
+    if (scrollTopLockListener) {
+      window.removeEventListener('scroll', scrollTopLockListener);
+      scrollTopLockListener = null;
+    }
   }
 
-  // A real scroll gesture from the person always wins — back off
-  // instead of yanking the page back to 0 underneath them.
+  // A real scroll gesture from the person always wins.
   function onManualScrollIntent() {
     if (scrollTopRafId || scrollTopHoldUntil) {
       scrollTopInterrupted = true;
@@ -1327,36 +1335,44 @@ html, body {
 
   window.addEventListener('wheel', onManualScrollIntent, { passive: true });
   window.addEventListener('touchstart', onManualScrollIntent, { passive: true });
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'PageDown' || e.key === 'PageUp' || e.key === 'Home' || e.key === 'End' || e.key === ' ') {
+      onManualScrollIntent();
+    }
+  }, { passive: true });
 
   function holdAtTop() {
-
     if (scrollTopInterrupted || performance.now() > scrollTopHoldUntil) {
-      scrollTopHoldUntil = 0;
-      scrollTopRafId = null;
+      stopScrollToTop();
       return;
     }
-
-    if (window.scrollY !== 0) {
-      window.scrollTo(0, 0);
-    }
-
+    forceScrollTop();
     scrollTopRafId = requestAnimationFrame(holdAtTop);
-
   }
 
-  function scrollToTopInstantly() {
+  function scrollToTopInstantly(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
     stopScrollToTop();
     scrollTopInterrupted = false;
 
-    if (window.scrollY <= 0) return;
+    forceScrollTop();
 
-    window.scrollTo(0, 0);
+    // Re-pin aggressively for a few seconds while images/layout settle.
+    scrollTopHoldUntil = performance.now() + 3000;
 
-    // Stay pinned to the top briefly so layout shifts don't tug it back.
-    scrollTopHoldUntil = performance.now() + 400;
+    // Any browser-driven scroll during the lock is snapped back immediately.
+    scrollTopLockListener = function () {
+      if (!scrollTopInterrupted && performance.now() <= scrollTopHoldUntil) {
+        forceScrollTop();
+      }
+    };
+    window.addEventListener('scroll', scrollTopLockListener, { passive: true });
+
     scrollTopRafId = requestAnimationFrame(holdAtTop);
-
   }
 
   scrollTopButton.addEventListener(
