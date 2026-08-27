@@ -1958,13 +1958,14 @@ pumpPrewarm();
 }
 
 function initializeGallery(images){
-const shuffled=shuffleArray(images);
+/* Keep JSON order (no shuffle) so gallery2 matches stable ordered display */
+const ordered=Array.isArray(images)?images.slice():[];
 const carousel=document.getElementById("galleryCarousel");
 carousel.innerHTML="";
 failedImageCache.clear();
 pendingResolutionCache.clear();
 
-const slots=shuffled.map((src,index)=>{
+const slots=ordered.map((src,index)=>{
 const img=document.createElement("img");
 img.src=placeholderImage;
 img.dataset.loading="true";
@@ -3147,24 +3148,22 @@ setInterval(updatePageScrollButton,500);
 
       carousel.innerHTML = '';
 
-      /* Photos 1-10 always show first, in their original order.
-         Everything after that is shuffled into a fresh random order
-         every time the page loads. */
-      const first = list.slice(0, 10);
-      const rest = shuffleList(list.slice(10));
-      const order = first.concat(rest);
+      /* Keep full JSON order (no shuffle). Load behavior matches gallery.html:
+         concurrent worker pool, higher concurrency on mobile, progressive
+         reveal as images resolve, first batch eager then near-viewport rest. */
+      const order = list.slice();
 
       const slots = order.map((src, index) => {
         const img = document.createElement('img');
         img.className = 'gallery-json-final-image';
         img.alt = 'Blair Page gallery photo';
-        img.loading = index < 10 ? 'eager' : 'lazy';
+        img.loading = index < (window.innerWidth <= 900 ? 10 : 18) ? 'eager' : 'lazy';
         img.decoding = 'async';
         img.draggable = false;
         img.dataset.originalSrc = src;
         img.dataset.loading = 'true';
         img.dataset.loaded = 'false';
-        img.style.setProperty('display', 'block', 'important');
+        img.style.setProperty('display', 'none', 'important');
         carousel.appendChild(img);
         return { img, src, index };
       });
@@ -3175,46 +3174,61 @@ setInterval(updatePageScrollButton,500);
         if (!resolved) {
           item.img.dataset.loading = 'false';
           item.img.dataset.loaded = 'false';
-          item.img.remove();
+          item.img.style.setProperty('display', 'none', 'important');
           return;
         }
         hardShowImage(item.img, resolved);
       }
 
-      const priority = slots.slice(0, 10);
-      const remainder = slots.slice(10);
+      /* Same concurrency pattern as gallery.html final rebuild:
+         mobile gets a larger pool so the 2-column grid fills faster. */
+      const isMobile = window.innerWidth <= 900;
+      const firstCount = isMobile ? 10 : 18;
+      const priority = slots.slice(0, firstCount);
+      const remainder = slots.slice(firstCount);
+      const concurrency = isMobile ? 10 : 8;
 
-      /* Load the first 10 right away, in order, with a small worker pool. */
       let cursor = 0;
-      const workers = Math.min(6, priority.length);
       async function priorityWorker() {
         while (cursor < priority.length) {
           await resolveSlot(priority[cursor++]);
         }
       }
-      await Promise.all(Array.from({ length: workers }, priorityWorker));
+      await Promise.all(Array.from({ length: Math.min(concurrency, priority.length || 1) }, priorityWorker));
 
-      /* Lazily resolve the rest only as they scroll near the viewport,
-         instead of loading every photo in the gallery at once. */
+      /* Rest: IntersectionObserver near-viewport (mobile-friendly), with
+         fallback concurrent pool matching gallery.html. */
       if ('IntersectionObserver' in window && remainder.length) {
+        const pending = new Set(remainder);
         const io = new IntersectionObserver(entries => {
+          const batch = [];
           entries.forEach(entry => {
             if (!entry.isIntersecting) return;
             const item = remainder.find(x => x.img === entry.target);
+            if (!item || !pending.has(item)) return;
+            pending.delete(item);
             io.unobserve(entry.target);
-            if (item) resolveSlot(item);
+            batch.push(item);
           });
+          batch.forEach(item => { resolveSlot(item); });
         }, { rootMargin: '800px 0px', threshold: 0.01 });
         remainder.forEach(item => io.observe(item.img));
+        setTimeout(() => {
+          const leftover = [...pending];
+          leftover.forEach(item => {
+            pending.delete(item);
+            try { io.unobserve(item.img); } catch (e) {}
+            resolveSlot(item);
+          });
+        }, isMobile ? 4000 : 2500);
       } else {
         let c2 = 0;
-        const w2 = Math.min(8, remainder.length);
         async function worker2() {
           while (c2 < remainder.length) {
             await resolveSlot(remainder[c2++]);
           }
         }
-        await Promise.all(Array.from({ length: w2 }, worker2));
+        await Promise.all(Array.from({ length: Math.min(concurrency, remainder.length || 1) }, worker2));
       }
 
       const loadedCount = carousel.querySelectorAll('img[data-loaded="true"]').length;
@@ -3245,7 +3259,7 @@ setInterval(updatePageScrollButton,500);
     runFinalPasses();
   }
 
-  /* Refresh (and reshuffle) when returning to the page via back/forward cache. */
+  /* Refresh when returning to the page via back/forward cache (order preserved). */
   window.addEventListener('pageshow', e => { if (e.persisted) rebuildGalleryImages(); });
 
 })();
@@ -6720,13 +6734,12 @@ body#gallery-page .gallery-carousel img.gallery-json-final-image[data-loaded="tr
   if(window.__GALLERY_JSON_MOBILE_NAVIGATION_FIX__) return;
   window.__GALLERY_JSON_MOBILE_NAVIGATION_FIX__ = true;
 
-  /* Image loading, ordering (1-10 in order, the rest reshuffled every
-     load) and lazy-loading are all handled by the gallery rebuild
-     script above. This script only wires up richer lightbox
-     navigation — prev/next buttons, swipe, and arrow keys — on top of
-     whatever photos are currently in the carousel. It re-queries the
-     carousel fresh each time, so it works no matter when photos are
-     added or how many have loaded so far. */
+  /* Image loading and full JSON order (no shuffle) are handled by the
+     gallery rebuild script above. This script only wires up richer
+     lightbox navigation — prev/next buttons, swipe, and arrow keys —
+     on top of whatever photos are currently in the carousel. It
+     re-queries the carousel fresh each time, so it works no matter
+     when photos are added or how many have loaded so far. */
 
   function nav(car){
     const lb = document.getElementById('lightbox');
