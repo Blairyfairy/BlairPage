@@ -3204,9 +3204,12 @@ setInterval(updatePageScrollButton,500);
     img.dataset.loaded = 'true';
     img.dataset.loading = 'false';
     img.classList.add('gallery-json-final-image');
+    // Only take layout space once actually loaded — no blank gaps
     img.style.setProperty('display', 'block', 'important');
     img.style.setProperty('visibility', 'visible', 'important');
     img.style.setProperty('opacity', '1', 'important');
+    img.style.removeProperty('width');
+    img.style.removeProperty('height');
     img.src = resolvedSrc;
     if (img.decode) {
       img.decode().catch(function () {});
@@ -3260,7 +3263,15 @@ setInterval(updatePageScrollButton,500);
         if (!resolved) {
           item.img.dataset.loading = 'false';
           item.img.dataset.loaded = 'false';
-          item.img.style.setProperty('opacity', '0', 'important');
+          // Omit entirely — do not leave a blank gap in the scroll
+          try { item.img.remove(); } catch (e) {
+            item.img.style.setProperty('display', 'none', 'important');
+            item.img.style.setProperty('width', '0', 'important');
+            item.img.style.setProperty('height', '0', 'important');
+            item.img.style.setProperty('margin', '0', 'important');
+            item.img.style.setProperty('padding', '0', 'important');
+            item.img.style.setProperty('border', '0', 'important');
+          }
           return false;
         }
         hardShowImage(item.img, resolved);
@@ -3315,10 +3326,10 @@ setInterval(updatePageScrollButton,500);
           img.dataset.originalSrc = src;
           img.dataset.loading = 'true';
           img.dataset.loaded = 'false';
-          // Keep layout box (opacity only) so mobile grid does not collapse
-          img.style.setProperty('opacity', '0.2', 'important');
-          img.style.setProperty('display', 'block', 'important');
-          img.style.setProperty('visibility', 'visible', 'important');
+          // Hidden until loaded — no blank spots in the scroll
+          img.style.setProperty('display', 'none', 'important');
+          img.style.setProperty('visibility', 'hidden', 'important');
+          img.style.setProperty('opacity', '0', 'important');
           if (index < (isMobile ? 12 : 20)) {
             img.loading = 'eager';
             try { img.fetchPriority = 'high'; } catch (e) {}
@@ -3326,11 +3337,8 @@ setInterval(updatePageScrollButton,500);
             img.loading = 'lazy';
             try { img.fetchPriority = 'low'; } catch (e) {}
           }
-          img.src =
-            'data:image/svg+xml;charset=UTF-8,' +
-            encodeURIComponent(
-              '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="rgba(240,239,244,0.06)"/></svg>'
-            );
+          // Minimal 1x1 transparent pixel so the browser can still fetch
+          img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
           carousel.appendChild(img);
           return { img: img, src: src, index: index };
         });
@@ -6830,17 +6838,36 @@ body#gallery-page #lightbox.lightbox:not(.show) .gallery-lightbox-close{
 <!-- FINAL JSON AUTHORITATIVE GALLERY + MOBILE NAVIGATION -->
 <style id="gallery-json-mobile-navigation-fix">
 body#gallery-page .gallery-carousel img.gallery-json-final-image{
-  display:block!important;
-  visibility:visible!important;
+  display:none!important;
+  visibility:hidden!important;
   cursor:zoom-in!important;
   opacity:0!important;
-  transform:scale(.96)!important;
-  transition:opacity .45s ease, transform .45s ease!important;
-  will-change:opacity,transform;
+  margin:0!important;
+  border:0!important;
+  width:0!important;
+  height:0!important;
+  max-width:0!important;
+  max-height:0!important;
+  aspect-ratio:auto!important;
+  pointer-events:none!important;
+  transform:none!important;
+  transition:opacity .28s ease, transform .28s ease!important;
 }
 body#gallery-page .gallery-carousel img.gallery-json-final-image[data-loaded="true"]{
+  display:block!important;
+  visibility:visible!important;
   opacity:1!important;
+  width:200px!important;
+  height:200px!important;
+  max-width:none!important;
+  max-height:none!important;
+  aspect-ratio:1/1!important;
+  margin:0!important;
+  border:1px solid rgba(240,239,244,0.18)!important;
+  border-radius:14px!important;
+  pointer-events:auto!important;
   transform:scale(1)!important;
+  object-fit:cover!important;
 }
 @media(max-width:900px){
   body#gallery-page .gallery-carousel{
@@ -6856,7 +6883,15 @@ body#gallery-page .gallery-carousel img.gallery-json-final-image[data-loaded="tr
     overscroll-behavior-y:auto!important;
     scroll-behavior:smooth!important;
   }
-  body#gallery-page .gallery-carousel img.gallery-json-final-image{
+  body#gallery-page .gallery-carousel img.gallery-json-final-image:not([data-loaded="true"]){
+    display:none!important;
+    width:0!important;
+    height:0!important;
+    margin:0!important;
+    aspect-ratio:auto!important;
+  }
+  body#gallery-page .gallery-carousel img.gallery-json-final-image[data-loaded="true"]{
+    display:block!important;
     width:100%!important;
     height:auto!important;
     aspect-ratio:1/1!important;
@@ -7652,5 +7687,200 @@ body#gallery-page .gallery-carousel img.gallery-json-final-image[data-loaded="tr
   setTimeout(startMaster, 800);
 })();
 </script>
+
+<!-- ==========================================
+     APPEND — NO BLANK GAPS + MOBILE READ/SCROLL UX
+     - unloaded images take zero space
+     - mobile: denser photo grid, more room for crawl text
+     - easier vertical scroll through images + text
+     ========================================== -->
+<style id="gallery2-no-gap-mobile-scroll-ux">
+/* Unloaded / failed: zero footprint */
+body#gallery-page #galleryCarousel.gallery-carousel img:not([data-loaded="true"]),
+body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="false"],
+body#gallery-page #galleryCarousel.gallery-carousel img[data-loading="true"]:not([data-loaded="true"]){
+  display:none !important;
+  visibility:hidden !important;
+  opacity:0 !important;
+  width:0 !important;
+  height:0 !important;
+  max-width:0 !important;
+  max-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  aspect-ratio:auto !important;
+  flex:0 0 0 !important;
+  position:absolute !important;
+  left:-9999px !important;
+  pointer-events:none !important;
+}
+
+/* Loaded only occupy grid/carousel cells */
+body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="true"]{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:relative !important;
+  left:auto !important;
+  pointer-events:auto !important;
+}
+
+@media (min-width:901px){
+  body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="true"]{
+    width:200px !important;
+    height:200px !important;
+    flex:0 0 auto !important;
+  }
+}
+
+@media (max-width:900px){
+  /* More viewport for the Star Wars crawl text before photos */
+  body#gallery-page .gallery-wrapper{
+    top:calc(100dvh - 120px) !important;
+    padding:0.5rem 0.6rem 56px !important;
+    width:100% !important;
+    box-sizing:border-box !important;
+  }
+
+  body#gallery-page .refresh-photos-btn{
+    max-width:220px !important;
+    padding:0.55rem 0.9rem !important;
+    margin-bottom:0.55rem !important;
+    font-size:0.8rem !important;
+  }
+
+  /* Dense 2-col grid — only loaded tiles; tight gaps; easy finger scroll */
+  body#gallery-page #galleryCarousel.gallery-carousel{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:8px !important;
+    width:100% !important;
+    max-width:100% !important;
+    overflow:visible !important;
+    padding:0 0 48px !important;
+    touch-action:pan-y !important;
+    -webkit-overflow-scrolling:touch !important;
+  }
+
+  body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="true"]{
+    width:100% !important;
+    height:auto !important;
+    max-width:none !important;
+    max-height:none !important;
+    aspect-ratio:1 / 1 !important;
+    object-fit:cover !important;
+    border-radius:10px !important;
+    margin:0 !important;
+    flex:unset !important;
+  }
+
+  /* Page scrolls freely so crawl + photos are both reachable */
+  html,
+  body#gallery-page{
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    -webkit-overflow-scrolling:touch !important;
+    overscroll-behavior-y:auto !important;
+  }
+
+  /* Crawl text a bit more readable / less cramped on phones */
+  body#gallery-page .hero.starwars-bg .crawl-text{
+    width:90% !important;
+    max-width:720px !important;
+    font-size:clamp(0.95rem, 4.2vw, 1.45rem) !important;
+    line-height:1.5 !important;
+  }
+
+  body#gallery-page .hero.starwars-bg .crawl-text h1{
+    font-size:clamp(1.7rem, 10vw, 3.4rem) !important;
+  }
+
+  body#gallery-page .hero.starwars-bg .crawl-text h2{
+    font-size:clamp(1.05rem, 6vw, 1.9rem) !important;
+  }
+
+  body#gallery-page .hero.starwars-bg .crawl-text p{
+    margin:0 0 1.35rem !important;
+  }
+
+  /* Keep interactive chrome above the crawl, photos scrollable */
+  body#gallery-page .gallery-page-shell,
+  body#gallery-page .gallery-wrapper,
+  body#gallery-page #galleryCarousel{
+    position:relative !important;
+    z-index:5 !important;
+  }
+
+  body#gallery-page .arrow,
+  body#gallery-page button.arrow{
+    display:none !important;
+  }
+}
+
+@media (max-width:420px){
+  body#gallery-page #galleryCarousel.gallery-carousel{
+    gap:6px !important;
+  }
+  body#gallery-page .gallery-wrapper{
+    top:calc(100dvh - 100px) !important;
+    padding:0.4rem 0.45rem 52px !important;
+  }
+}
+
+@media (max-width:900px) and (orientation:landscape){
+  body#gallery-page .gallery-wrapper{
+    top:calc(100dvh - 64px) !important;
+  }
+}
+</style>
+<script id="gallery2-no-gap-mobile-scroll-ux-script">
+(function () {
+  if (window.__GALLERY2_NO_GAP_MOBILE_UX__) return;
+  window.__GALLERY2_NO_GAP_MOBILE_UX__ = true;
+
+  function stripFailedAndPlaceholders() {
+    const car = document.getElementById('galleryCarousel');
+    if (!car) return;
+    [...car.querySelectorAll('img')].forEach(function (img) {
+      if (img.dataset.loaded === 'true' && img.complete && img.naturalWidth > 0) {
+        img.style.setProperty('display', 'block', 'important');
+        img.style.setProperty('visibility', 'visible', 'important');
+        img.style.setProperty('opacity', '1', 'important');
+        img.style.removeProperty('position');
+        img.style.removeProperty('left');
+        return;
+      }
+      // Not loaded yet or failed: take zero space
+      img.style.setProperty('display', 'none', 'important');
+      img.style.setProperty('visibility', 'hidden', 'important');
+      img.style.setProperty('opacity', '0', 'important');
+    });
+  }
+
+  function run() {
+    stripFailedAndPlaceholders();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run, { once: true });
+  } else {
+    run();
+  }
+  window.addEventListener('load', run);
+  [200, 600, 1500, 3000, 6000].forEach(function (ms) {
+    setTimeout(run, ms);
+  });
+
+  const car = document.getElementById('galleryCarousel');
+  if (car && typeof MutationObserver !== 'undefined') {
+    const mo = new MutationObserver(function () {
+      requestAnimationFrame(stripFailedAndPlaceholders);
+    });
+    mo.observe(car, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-loaded', 'src', 'style', 'class'] });
+  }
+})();
+</script>
+
 </body>
 </html>
