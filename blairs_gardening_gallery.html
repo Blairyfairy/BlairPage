@@ -942,6 +942,19 @@ document.addEventListener('DOMContentLoaded', () => {
 <style>
 
 /* =========================================================
+   SCROLL ANCHORING OFF
+   Stops the browser from silently shifting the scroll
+   position on its own (e.g. to compensate for gallery tiles
+   resizing as they finish loading) — that's what was fighting
+   the back-to-top animation below and dragging it back down
+   partway instead of letting it land on 0 and stay there.
+   ========================================================= */
+
+html, body {
+  overflow-anchor: none;
+}
+
+/* =========================================================
    BACK-TO-TOP CHEVRON
    ========================================================= */
 
@@ -1291,20 +1304,72 @@ document.addEventListener('DOMContentLoaded', () => {
      and paces the scroll frame-by-frame — same fix as before for
      the white-line flash — instead of the browser's instant
      native "smooth" jump.
+
+     HARDENED so it actually lands on 0 and stays there:
+     - overflow-anchor is off for the page (see the style block
+       above), so the browser can no longer quietly nudge the
+       scroll position mid-animation on its own.
+     - Once the eased animation reaches 0, a short "hold" phase
+       keeps re-pinning the scroll to 0 for a moment, in case
+       anything else still tries to tug it back down right as
+       it lands — that tug is what showed up as a bounce back
+       partway, needing another click to "try again".
+     - Both the animation and the hold immediately back off the
+       instant the person scrolls on their own (wheel or touch),
+       so this never fights a scroll they actually meant to do.
      --------------------------------------------------------- */
 
   var scrollTopRafId = null;
+  var scrollTopHoldUntil = 0;
+  var scrollTopInterrupted = false;
 
   function easeOutCubic(t) {
     return 1 - Math.pow(1 - t, 3);
   }
 
-  function scrollToTopSmoothly() {
+  function stopScrollToTop() {
 
     if (scrollTopRafId) {
       cancelAnimationFrame(scrollTopRafId);
       scrollTopRafId = null;
     }
+
+    scrollTopHoldUntil = 0;
+
+  }
+
+  // A real scroll gesture from the person always wins — back off
+  // instead of yanking the page back to 0 underneath them.
+  function onManualScrollIntent() {
+    if (scrollTopRafId || scrollTopHoldUntil) {
+      scrollTopInterrupted = true;
+      stopScrollToTop();
+    }
+  }
+
+  window.addEventListener('wheel', onManualScrollIntent, { passive: true });
+  window.addEventListener('touchstart', onManualScrollIntent, { passive: true });
+
+  function holdAtTop() {
+
+    if (scrollTopInterrupted || performance.now() > scrollTopHoldUntil) {
+      scrollTopHoldUntil = 0;
+      scrollTopRafId = null;
+      return;
+    }
+
+    if (window.scrollY !== 0) {
+      window.scrollTo(0, 0);
+    }
+
+    scrollTopRafId = requestAnimationFrame(holdAtTop);
+
+  }
+
+  function scrollToTopSmoothly() {
+
+    stopScrollToTop();
+    scrollTopInterrupted = false;
 
     var startY = window.scrollY;
     var startTime = null;
@@ -1313,6 +1378,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (startY <= 0) return;
 
     function frame(now) {
+
+      if (scrollTopInterrupted) return;
 
       if (startTime === null) startTime = now;
 
@@ -1326,7 +1393,11 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTopRafId = requestAnimationFrame(frame);
       } else {
         window.scrollTo(0, 0);
-        scrollTopRafId = null;
+
+        // Stay pinned to the top for a beat after arrival instead
+        // of walking away the instant it lands.
+        scrollTopHoldUntil = performance.now() + 400;
+        scrollTopRafId = requestAnimationFrame(holdAtTop);
       }
 
     }
