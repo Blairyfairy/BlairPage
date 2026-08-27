@@ -9065,179 +9065,98 @@ a:hover{
   pointer-events:none !important;
 }
 </style>
-</body>
-<script>
-(function () {
+
+<script id="single-authoritative-scroll-controls">
+(function(){
   'use strict';
 
-  if (window.__gardenScrollControlsInstalled) return;
-  window.__gardenScrollControlsInstalled = true;
+  if (window.__singleAuthoritativeScrollControlsInstalled) return;
+  window.__singleAuthoritativeScrollControlsInstalled = true;
 
-  function jumpTo(y) {
-    /*
-     * Two-argument scrollTo is intentionally used here.
-     * It performs an immediate scroll and bypasses the page's
-     * CSS scroll-behavior:smooth, leaving only our RAF easing loop
-     * in control of the animation.
-     */
-    window.scrollTo(0, y);
+  var DUPLICATE_SELECTORS = [
+    '#articleScrollTop',
+    '.article-scroll-top',
+    '#singleCleanTopChevron',
+    '#forcedChevronTop',
+    '#scrollTopBtn',
+    '#toTop',
+    '#topArrow',
+    '.scroll-top',
+    '.scrollToTop',
+    '.back-to-top',
+    '.backTop',
+    '.to-top',
+    '.top-arrow',
+    '.chevron-up',
+    '#globalScrollTop',
+    '#appendedPageScrollTop'
+  ];
+
+  function removeDuplicateChevrons() {
+    document.querySelectorAll(DUPLICATE_SELECTORS.join(',')).forEach(function(el){
+      el.remove();
+    });
+
+    var buttons = document.querySelectorAll('.page-scroll-top');
+    buttons.forEach(function(el){
+      if (el.id !== 'pageScrollTop') el.remove();
+    });
   }
 
-  /* ============================================================
-     BACK-TO-TOP CHEVRON
-     ============================================================ */
+  function ensureChevron(){
+    removeDuplicateChevrons();
 
-  var existing =
-    document.getElementById('appendedPageScrollTop') ||
-    document.getElementById('pageScrollTop') ||
-    document.querySelector('.page-scroll-top') ||
-    document.getElementById('globalScrollTop');
+    var btn = document.getElementById('pageScrollTop');
 
-  var scrollTopButton;
-
-  if (existing) {
-    scrollTopButton = existing.cloneNode(true);
-    existing.parentNode.replaceChild(scrollTopButton, existing);
-  } else {
-    var style = document.createElement('style');
-
-    style.textContent =
-      '#globalScrollTop{' +
-        'position:fixed;right:18px;bottom:18px;width:28px;height:28px;' +
-        'display:flex;align-items:center;justify-content:center;' +
-        'padding:0;margin:0;background:transparent;border:none;outline:none;' +
-        'color:#6D3B8E;font-size:18px;line-height:1;cursor:pointer;' +
-        'z-index:2147483000;opacity:0;visibility:hidden;pointer-events:none;' +
-        'transition:opacity .2s ease;' +
-      '}' +
-      '#globalScrollTop.show{' +
-        'opacity:1;visibility:visible;pointer-events:auto;' +
-      '}' +
-      '#globalScrollTop:hover{' +
-        'color:#6D3B8E;' +
-      '}';
-
-    document.head.appendChild(style);
-
-    scrollTopButton = document.createElement('button');
-    scrollTopButton.id = 'globalScrollTop';
-    scrollTopButton.type = 'button';
-    scrollTopButton.setAttribute('aria-label', 'Back to top');
-    scrollTopButton.title = 'Back to top';
-    scrollTopButton.textContent = '▲';
-
-    document.body.appendChild(scrollTopButton);
-  }
-
-  function updateScrollTopButton() {
-    /*
-     * Do not allow the button's position to participate in
-     * the page's scrolling. It remains fixed in one place.
-     */
-    if (window.scrollY > 400) {
-      scrollTopButton.classList.add('show');
+    if(!btn){
+      btn = document.createElement('button');
+      btn.id = 'pageScrollTop';
+      btn.className = 'page-scroll-top';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Back to top');
+      btn.title = 'Back to top';
+      btn.textContent = '▲';
+      document.body.appendChild(btn);
     } else {
-      scrollTopButton.classList.remove('show');
-    }
-  }
-
-  window.addEventListener(
-    'scroll',
-    updateScrollTopButton,
-    { passive: true }
-  );
-
-  /* ============================================================
-     SMOOTH BACK-TO-TOP
-     ============================================================ */
-
-  var scrollTopRafId = null;
-
-  function easeOutCubic(t) {
-    return 1 - Math.pow(1 - t, 3);
-  }
-
-  function scrollToTopSmoothly() {
-
-    /* Cancel any previous top animation */
-    if (scrollTopRafId) {
-      cancelAnimationFrame(scrollTopRafId);
-      scrollTopRafId = null;
+      btn.className = 'page-scroll-top';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Back to top');
+      btn.title = 'Back to top';
+      btn.textContent = '▲';
     }
 
-    /*
-     * IMPORTANT:
-     * Clear the keyboard-scrolling target so it cannot
-     * pull the page back down after we reach the top.
-     */
-    target = 0;
+    btn.onclick = function(e){
+      e.preventDefault();
 
-    if (rafId) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    }
-
-    var startY = window.scrollY;
-
-    if (startY <= 0) {
-      jumpTo(0);
-      updateScrollTopButton();
-      return;
-    }
-
-    var startTime = null;
-    var duration = 650;
-
-    function frame(now) {
-
-      if (startTime === null) {
-        startTime = now;
+      /* Stop the keyboard scroller so it cannot pull the page
+         back down while the native smooth scroll is running. */
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
       }
+      target = null;
 
-      var elapsed = now - startTime;
-      var t = Math.min(1, elapsed / duration);
-      var eased = easeOutCubic(t);
+      /* Use the exact native smooth-scroll behavior requested. */
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
 
-      jumpTo(startY * (1 - eased));
-
-      if (t < 1) {
-        scrollTopRafId = requestAnimationFrame(frame);
-      } else {
-
-        /*
-         * Hard-lock the final position to the absolute top.
-         */
-        jumpTo(0);
-
-        /*
-         * Make absolutely sure the keyboard scroller
-         * cannot restore the old position.
-         */
-        target = 0;
-
-        scrollTopRafId = null;
-
-        updateScrollTopButton();
-      }
-    }
-
-    scrollTopRafId = requestAnimationFrame(frame);
+    updateChevron();
   }
 
-  /*
-   * Remove any legacy onclick handler before installing the
-   * single optimized animation handler. This prevents two
-   * independent scroll animations from fighting each other.
-   */
-  scrollTopButton.onclick = null;
+  function updateChevron(){
+    var btn = document.getElementById('pageScrollTop');
+    if(!btn) return;
 
-  scrollTopButton.addEventListener(
-    'click',
-    scrollToTopSmoothly,
-    { passive: true }
-  );
+    var y = window.pageYOffset ||
+            document.documentElement.scrollTop ||
+            document.body.scrollTop ||
+            0;
 
-  updateScrollTopButton();
+    btn.classList.toggle('show', y > 120);
+  }
 
   /* ============================================================
      KEYBOARD SCROLLING
@@ -9248,14 +9167,19 @@ a:hover{
   var target = null;
   var rafId = null;
 
-  function maxScroll() {
+  function jumpTo(y){
+    /* Immediate scrolling lets this RAF easing control the speed. */
+    window.scrollTo(0, y);
+  }
+
+  function maxScroll(){
     return Math.max(
       0,
       document.documentElement.scrollHeight - window.innerHeight
     );
   }
 
-  function isTypingTarget(el) {
+  function isTypingTarget(el){
     return !!el && (
       el.tagName === 'INPUT' ||
       el.tagName === 'TEXTAREA' ||
@@ -9263,7 +9187,7 @@ a:hover{
     );
   }
 
-  function findScrollableAncestor(el) {
+  function findScrollableAncestor(el){
     while (
       el &&
       el !== document.body &&
@@ -9285,7 +9209,12 @@ a:hover{
     return null;
   }
 
-  function step() {
+  function step(){
+    if (target === null) {
+      rafId = null;
+      return;
+    }
+
     var current = window.scrollY;
     var diff = target - current;
 
@@ -9299,7 +9228,7 @@ a:hover{
     rafId = requestAnimationFrame(step);
   }
 
-  function animateTo(nextTarget) {
+  function animateTo(nextTarget){
     target = Math.max(
       0,
       Math.min(nextTarget, maxScroll())
@@ -9310,38 +9239,72 @@ a:hover{
     }
   }
 
-  window.addEventListener(
-    'keydown',
-    function (e) {
+  window.addEventListener('keydown', function(e){
+    if (
+      e.key !== 'ArrowDown' &&
+      e.key !== 'ArrowUp'
+    ) return;
 
-      if (
-        e.key !== 'ArrowDown' &&
-        e.key !== 'ArrowUp'
-      ) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (isTypingTarget(document.activeElement)) return;
+    if (findScrollableAncestor(document.activeElement)) return;
 
-      if (e.metaKey || e.ctrlKey || e.altKey) return;
-      if (isTypingTarget(document.activeElement)) return;
-      if (findScrollableAncestor(document.activeElement)) return;
+    e.preventDefault();
 
-      e.preventDefault();
+    var base =
+      target === null
+        ? window.scrollY
+        : target;
 
-      var base =
-        target === null
-          ? window.scrollY
-          : target;
+    var next =
+      e.key === 'ArrowDown'
+        ? base + STEP
+        : base - STEP;
 
-      var next =
-        e.key === 'ArrowDown'
-          ? base + STEP
-          : base - STEP;
+    animateTo(next);
+  }, { passive: false });
 
-      animateTo(next);
-    },
-    { passive: false }
-  );
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', ensureChevron);
+  } else {
+    ensureChevron();
+  }
 
+  window.addEventListener('load', ensureChevron, { passive: true });
+  window.addEventListener('scroll', updateChevron, { passive: true });
+  window.addEventListener('resize', function(){
+    STEP = Math.round(window.innerHeight * 0.45);
+    updateChevron();
+  }, { passive: true });
+
+  /* Clean up any duplicate button added by another legacy block. */
+  if (window.MutationObserver) {
+    var observer = new MutationObserver(function(){
+      var all = document.querySelectorAll(
+        '#globalScrollTop, #appendedPageScrollTop, ' +
+        '#articleScrollTop, .article-scroll-top, ' +
+        '#singleCleanTopChevron, #forcedChevronTop, ' +
+        '#scrollTopBtn, #toTop, #topArrow, ' +
+        '.scroll-top, .scrollToTop, .back-to-top, .backTop, ' +
+        '.to-top, .top-arrow, .chevron-up'
+      );
+
+      if (all.length) removeDuplicateChevrons();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  setTimeout(ensureChevron, 250);
+  setTimeout(ensureChevron, 1000);
 })();
 </script>
+
+</body>
+
 
 <style>
 /* REMOVE ALL OTHER TOP BUTTONS */
@@ -9441,77 +9404,7 @@ a:hover{
 }
 </style>
 
-<script>
-/* =========================================
-FORCED CLEAN SINGLE CHEVRON ▲
-========================================= */
-(function () {
 
-  /* REMOVE DUPLICATES */
-  const removeSelectors = [
-    '#articleScrollTop',
-    '.article-scroll-top',
-    '#singleCleanTopChevron',
-    '#forcedChevronTop',
-    '#scrollTopBtn',
-    '#toTop',
-    '#topArrow',
-    '.scroll-top',
-    '.scrollToTop',
-    '.back-to-top',
-    '.backTop',
-    '.to-top',
-    '.top-arrow',
-    '.chevron-up'
-  ];
-
-  document.querySelectorAll(removeSelectors.join(',')).forEach(el => {
-    el.remove();
-  });
-
-  /* CREATE / FORCE MAIN BUTTON */
-  let btn = document.getElementById('pageScrollTop');
-
-  if (!btn) {
-    btn = document.createElement('button');
-    document.body.appendChild(btn);
-  }
-
-  btn.id = 'pageScrollTop';
-  btn.className = 'page-scroll-top';
-  btn.type = 'button';
-  btn.setAttribute('aria-label', 'Back to top');
-
-  /* EXACT CLEAN CHEVRON */
-  btn.textContent = '▲';
-
-  /* SHOW / HIDE */
-  function updateChevron() {
-    if ((window.scrollY || document.documentElement.scrollTop) > 180) {
-      btn.classList.add('show');
-    } else {
-      btn.classList.remove('show');
-    }
-  }
-
-  /* SCROLL TO TOP */
-  btn.onclick = function () {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
-  window.addEventListener('scroll', updateChevron, {
-    passive: true
-  });
-
-  document.addEventListener('DOMContentLoaded', updateChevron);
-
-  updateChevron();
-
-})();
-</script>
 <!-- FORCE APPEND: instant image rendering + mobile stability + no layout jumping -->
 <style id="force-stable-images-mobile-final">
   html,
@@ -11571,272 +11464,7 @@ a[aria-label*="NIN"]{
   border-color:rgba(240,239,244,.35) !important;
 }
 </style>
-<script>
-(function () {
-  'use strict';
 
-  if (window.__gardenScrollControlsInstalled) return;
-  window.__gardenScrollControlsInstalled = true;
-
-  function jumpTo(y) {
-    window.scrollTo({
-      top: y,
-      left: 0,
-      behavior: 'instant'
-    });
-  }
-
-  /* ============================================================
-     BACK-TO-TOP CHEVRON
-     ============================================================ */
-
-  var existing =
-    document.getElementById('appendedPageScrollTop') ||
-    document.getElementById('pageScrollTop') ||
-    document.querySelector('.page-scroll-top') ||
-    document.getElementById('globalScrollTop');
-
-  var scrollTopButton;
-
-  if (existing) {
-    scrollTopButton = existing.cloneNode(true);
-    existing.parentNode.replaceChild(scrollTopButton, existing);
-  } else {
-    var style = document.createElement('style');
-
-    style.textContent =
-      '#globalScrollTop{' +
-        'position:fixed;right:18px;bottom:18px;width:28px;height:28px;' +
-        'display:flex;align-items:center;justify-content:center;' +
-        'padding:0;margin:0;background:transparent;border:none;outline:none;' +
-        'color:#6D3B8E;font-size:18px;line-height:1;cursor:pointer;' +
-        'z-index:2147483000;opacity:0;visibility:hidden;pointer-events:none;' +
-        'transition:opacity .2s ease;' +
-      '}' +
-      '#globalScrollTop.show{' +
-        'opacity:1;visibility:visible;pointer-events:auto;' +
-      '}' +
-      '#globalScrollTop:hover{' +
-        'color:#6D3B8E;' +
-      '}';
-
-    document.head.appendChild(style);
-
-    scrollTopButton = document.createElement('button');
-    scrollTopButton.id = 'globalScrollTop';
-    scrollTopButton.type = 'button';
-    scrollTopButton.setAttribute('aria-label', 'Back to top');
-    scrollTopButton.title = 'Back to top';
-    scrollTopButton.textContent = '▲';
-
-    document.body.appendChild(scrollTopButton);
-  }
-
-  function updateScrollTopButton() {
-    /*
-     * Do not allow the button's position to participate in
-     * the page's scrolling. It remains fixed in one place.
-     */
-    if (window.scrollY > 400) {
-      scrollTopButton.classList.add('show');
-    } else {
-      scrollTopButton.classList.remove('show');
-    }
-  }
-
-  window.addEventListener(
-    'scroll',
-    updateScrollTopButton,
-    { passive: true }
-  );
-
-  /* ============================================================
-     SMOOTH BACK-TO-TOP
-     ============================================================ */
-
-  var scrollTopRafId = null;
-
-  function easeOutCubic(t) {
-    return 1 - Math.pow(1 - t, 3);
-  }
-
-  function scrollToTopSmoothly() {
-
-    /* Cancel any previous top animation */
-    if (scrollTopRafId) {
-      cancelAnimationFrame(scrollTopRafId);
-      scrollTopRafId = null;
-    }
-
-    /*
-     * IMPORTANT:
-     * Clear the keyboard-scrolling target so it cannot
-     * pull the page back down after we reach the top.
-     */
-    target = 0;
-
-    if (rafId) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    }
-
-    var startY = window.scrollY;
-
-    if (startY <= 0) {
-      jumpTo(0);
-      updateScrollTopButton();
-      return;
-    }
-
-    var startTime = null;
-    var duration = 650;
-
-    function frame(now) {
-
-      if (startTime === null) {
-        startTime = now;
-      }
-
-      var elapsed = now - startTime;
-      var t = Math.min(1, elapsed / duration);
-      var eased = easeOutCubic(t);
-
-      jumpTo(startY * (1 - eased));
-
-      if (t < 1) {
-        scrollTopRafId = requestAnimationFrame(frame);
-      } else {
-
-        /*
-         * Hard-lock the final position to the absolute top.
-         */
-        jumpTo(0);
-
-        /*
-         * Make absolutely sure the keyboard scroller
-         * cannot restore the old position.
-         */
-        target = 0;
-
-        scrollTopRafId = null;
-
-        updateScrollTopButton();
-      }
-    }
-
-    scrollTopRafId = requestAnimationFrame(frame);
-  }
-
-  scrollTopButton.addEventListener(
-    'click',
-    scrollToTopSmoothly
-  );
-
-  updateScrollTopButton();
-
-  /* ============================================================
-     KEYBOARD SCROLLING
-     ============================================================ */
-
-  var STEP = Math.round(window.innerHeight * 0.45);
-  var EASE = 0.10;
-  var target = null;
-  var rafId = null;
-
-  function maxScroll() {
-    return Math.max(
-      0,
-      document.documentElement.scrollHeight - window.innerHeight
-    );
-  }
-
-  function isTypingTarget(el) {
-    return !!el && (
-      el.tagName === 'INPUT' ||
-      el.tagName === 'TEXTAREA' ||
-      el.isContentEditable
-    );
-  }
-
-  function findScrollableAncestor(el) {
-    while (
-      el &&
-      el !== document.body &&
-      el !== document.documentElement
-    ) {
-      var style = window.getComputedStyle(el);
-
-      if (
-        (style.overflowY === 'auto' ||
-         style.overflowY === 'scroll') &&
-        el.scrollHeight > el.clientHeight
-      ) {
-        return el;
-      }
-
-      el = el.parentElement;
-    }
-
-    return null;
-  }
-
-  function step() {
-    var current = window.scrollY;
-    var diff = target - current;
-
-    if (Math.abs(diff) < 0.5) {
-      jumpTo(target);
-      rafId = null;
-      return;
-    }
-
-    jumpTo(current + diff * EASE);
-    rafId = requestAnimationFrame(step);
-  }
-
-  function animateTo(nextTarget) {
-    target = Math.max(
-      0,
-      Math.min(nextTarget, maxScroll())
-    );
-
-    if (!rafId) {
-      rafId = requestAnimationFrame(step);
-    }
-  }
-
-  window.addEventListener(
-    'keydown',
-    function (e) {
-
-      if (
-        e.key !== 'ArrowDown' &&
-        e.key !== 'ArrowUp'
-      ) return;
-
-      if (e.metaKey || e.ctrlKey || e.altKey) return;
-      if (isTypingTarget(document.activeElement)) return;
-      if (findScrollableAncestor(document.activeElement)) return;
-
-      e.preventDefault();
-
-      var base =
-        target === null
-          ? window.scrollY
-          : target;
-
-      var next =
-        e.key === 'ArrowDown'
-          ? base + STEP
-          : base - STEP;
-
-      animateTo(next);
-    },
-    { passive: false }
-  );
-
-})();
-</script>
 
 </body>
 </html>
