@@ -11464,3 +11464,309 @@ button, a, input, [role="button"] {
   }
 }
 </style>
+<script id="final-back-to-top-chevron-visibility-script">
+(function(){
+  function ensureChevron(){
+    var btn=document.getElementById('pageScrollTop');
+    if(!btn){
+      btn=document.createElement('button');
+      btn.id='pageScrollTop';
+      btn.className='page-scroll-top';
+      btn.setAttribute('aria-label','Back to top');
+      btn.type='button';
+      document.body.appendChild(btn);
+    }
+    btn.textContent='▲';
+    btn.setAttribute('aria-label','Back to top');
+    btn.type='button';
+    btn.onclick=function(e){
+      e.preventDefault();
+      window.scrollTo({top:0,behavior:'smooth'});
+    };
+    updateChevron();
+  }
+  function updateChevron(){
+    var btn=document.getElementById('pageScrollTop');
+    if(!btn)return;
+    var shouldShow=(window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0)>120;
+    btn.classList.toggle('show',shouldShow);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',ensureChevron);
+  }else{
+    ensureChevron();
+  }
+  window.addEventListener('load',ensureChevron,{passive:true});
+  window.addEventListener('scroll',updateChevron,{passive:true});
+  window.addEventListener('resize',updateChevron,{passive:true});
+  setTimeout(ensureChevron,250);
+  setTimeout(ensureChevron,1000);
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+
+  if (window.__gardenScrollControlsInstalled) return;
+  window.__gardenScrollControlsInstalled = true;
+
+  function jumpTo(y) {
+    window.scrollTo({
+      top: y,
+      left: 0,
+      behavior: 'instant'
+    });
+  }
+
+  /* ============================================================
+     BACK-TO-TOP CHEVRON
+     ============================================================ */
+
+  var existing =
+    document.getElementById('appendedPageScrollTop') ||
+    document.getElementById('pageScrollTop') ||
+    document.querySelector('.page-scroll-top') ||
+    document.getElementById('globalScrollTop');
+
+  var scrollTopButton;
+
+  if (existing) {
+    scrollTopButton = existing.cloneNode(true);
+    existing.parentNode.replaceChild(scrollTopButton, existing);
+  } else {
+    var style = document.createElement('style');
+
+    style.textContent =
+      '#globalScrollTop{' +
+        'position:fixed;right:18px;bottom:18px;width:28px;height:28px;' +
+        'display:flex;align-items:center;justify-content:center;' +
+        'padding:0;margin:0;background:transparent;border:none;outline:none;' +
+        'color:#ffffff;font-size:18px;line-height:1;cursor:pointer;' +
+        'z-index:2147483000;opacity:0;visibility:hidden;pointer-events:none;' +
+        'transition:opacity .2s ease;' +
+      '}' +
+      '#globalScrollTop.show{' +
+        'opacity:1;visibility:visible;pointer-events:auto;' +
+      '}' +
+      '#globalScrollTop:hover{' +
+        'transform:translateY(-2px);' +
+      '}';
+
+    document.head.appendChild(style);
+
+    scrollTopButton = document.createElement('button');
+    scrollTopButton.id = 'globalScrollTop';
+    scrollTopButton.type = 'button';
+    scrollTopButton.setAttribute('aria-label', 'Back to top');
+    scrollTopButton.title = 'Back to top';
+    scrollTopButton.textContent = '▲';
+
+    document.body.appendChild(scrollTopButton);
+  }
+
+  function updateScrollTopButton() {
+    /*
+     * Do not allow the button's position to participate in
+     * the page's scrolling. It remains fixed in one place.
+     */
+    if (window.scrollY > 400) {
+      scrollTopButton.classList.add('show');
+    } else {
+      scrollTopButton.classList.remove('show');
+    }
+  }
+
+  window.addEventListener(
+    'scroll',
+    updateScrollTopButton,
+    { passive: true }
+  );
+
+  /* ============================================================
+     SMOOTH BACK-TO-TOP
+     ============================================================ */
+
+  var scrollTopRafId = null;
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function scrollToTopSmoothly() {
+
+    /* Cancel any previous top animation */
+    if (scrollTopRafId) {
+      cancelAnimationFrame(scrollTopRafId);
+      scrollTopRafId = null;
+    }
+
+    /*
+     * IMPORTANT:
+     * Clear the keyboard-scrolling target so it cannot
+     * pull the page back down after we reach the top.
+     */
+    target = 0;
+
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
+    var startY = window.scrollY;
+
+    if (startY <= 0) {
+      jumpTo(0);
+      updateScrollTopButton();
+      return;
+    }
+
+    var startTime = null;
+    var duration = 650;
+
+    function frame(now) {
+
+      if (startTime === null) {
+        startTime = now;
+      }
+
+      var elapsed = now - startTime;
+      var t = Math.min(1, elapsed / duration);
+      var eased = easeOutCubic(t);
+
+      jumpTo(startY * (1 - eased));
+
+      if (t < 1) {
+        scrollTopRafId = requestAnimationFrame(frame);
+      } else {
+
+        /*
+         * Hard-lock the final position to the absolute top.
+         */
+        jumpTo(0);
+
+        /*
+         * Make absolutely sure the keyboard scroller
+         * cannot restore the old position.
+         */
+        target = 0;
+
+        scrollTopRafId = null;
+
+        updateScrollTopButton();
+      }
+    }
+
+    scrollTopRafId = requestAnimationFrame(frame);
+  }
+
+  scrollTopButton.addEventListener(
+    'click',
+    scrollToTopSmoothly
+  );
+
+  updateScrollTopButton();
+
+  /* ============================================================
+     KEYBOARD SCROLLING
+     ============================================================ */
+
+  var STEP = Math.round(window.innerHeight * 0.45);
+  var EASE = 0.10;
+  var target = null;
+  var rafId = null;
+
+  function maxScroll() {
+    return Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight
+    );
+  }
+
+  function isTypingTarget(el) {
+    return !!el && (
+      el.tagName === 'INPUT' ||
+      el.tagName === 'TEXTAREA' ||
+      el.isContentEditable
+    );
+  }
+
+  function findScrollableAncestor(el) {
+    while (
+      el &&
+      el !== document.body &&
+      el !== document.documentElement
+    ) {
+      var style = window.getComputedStyle(el);
+
+      if (
+        (style.overflowY === 'auto' ||
+         style.overflowY === 'scroll') &&
+        el.scrollHeight > el.clientHeight
+      ) {
+        return el;
+      }
+
+      el = el.parentElement;
+    }
+
+    return null;
+  }
+
+  function step() {
+    var current = window.scrollY;
+    var diff = target - current;
+
+    if (Math.abs(diff) < 0.5) {
+      jumpTo(target);
+      rafId = null;
+      return;
+    }
+
+    jumpTo(current + diff * EASE);
+    rafId = requestAnimationFrame(step);
+  }
+
+  function animateTo(nextTarget) {
+    target = Math.max(
+      0,
+      Math.min(nextTarget, maxScroll())
+    );
+
+    if (!rafId) {
+      rafId = requestAnimationFrame(step);
+    }
+  }
+
+  window.addEventListener(
+    'keydown',
+    function (e) {
+
+      if (
+        e.key !== 'ArrowDown' &&
+        e.key !== 'ArrowUp'
+      ) return;
+
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (isTypingTarget(document.activeElement)) return;
+      if (findScrollableAncestor(document.activeElement)) return;
+
+      e.preventDefault();
+
+      var base =
+        target === null
+          ? window.scrollY
+          : target;
+
+      var next =
+        e.key === 'ArrowDown'
+          ? base + STEP
+          : base - STEP;
+
+      animateTo(next);
+    },
+    { passive: false }
+  );
+
+})();
+</script>
+</body>
