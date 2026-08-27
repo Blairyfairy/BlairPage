@@ -951,6 +951,75 @@ body::before{
   }
 }
 </style>
+
+<style id="gallery-mobile-video-photo-fix">
+@media (max-width:900px){
+  /* Mobile only: keep the hero video visibly behind the gallery content. */
+  #gallery-page .hero{
+    z-index:0 !important;
+    pointer-events:none !important;
+  }
+  #gallery-page .hero video{
+    z-index:0 !important;
+    pointer-events:none !important;
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+  }
+
+  /* Mobile gallery becomes a vertically swipeable photo area over the video. */
+  #gallery-page .gallery-page-shell{
+    position:relative !important;
+    z-index:2 !important;
+    background:transparent !important;
+    background-image:none !important;
+  }
+  #gallery-page .gallery-wrapper{
+    position:relative !important;
+    z-index:2 !important;
+    background:transparent !important;
+    background-image:none !important;
+    top:calc(100dvh - 190px) !important;
+  }
+  #gallery-page .gallery-carousel{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    flex-wrap:nowrap !important;
+    align-items:start !important;
+    justify-items:stretch !important;
+    width:100% !important;
+    max-width:100% !important;
+    max-height:calc(100dvh - 220px) !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    -webkit-overflow-scrolling:touch !important;
+    overscroll-behavior-y:contain !important;
+    touch-action:pan-y !important;
+    padding:4px !important;
+    box-sizing:border-box !important;
+    scrollbar-width:none !important;
+  }
+  #gallery-page .gallery-carousel::-webkit-scrollbar{display:none !important;}
+  #gallery-page .gallery-carousel img{
+    width:100% !important;
+    height:auto !important;
+    aspect-ratio:1 / 1 !important;
+    object-fit:cover !important;
+    margin:0 !important;
+    min-width:0 !important;
+    display:none !important;
+  }
+  #gallery-page .gallery-carousel img[data-loaded="true"]{
+    display:block !important;
+  }
+  #gallery-page .refresh-photos-btn,
+  #gallery-page .gallery-carousel,
+  #gallery-page .gallery-carousel img{
+    position:relative !important;
+    z-index:3 !important;
+  }
+}
+</style>
 </head>
 
 <body id="gallery-page">
@@ -3330,5 +3399,42 @@ iframe{
 })();
 </script>
 
+
+<script id="gallery-mobile-video-reliable-play">
+(function(){
+  'use strict';
+  function init(){
+    var video=document.getElementById('heroVideo');
+    if(!video) return;
+    function mobilePlay(){
+      if(window.innerWidth>900) return;
+      video.muted=true;
+      video.defaultMuted=true;
+      video.autoplay=true;
+      video.loop=true;
+      video.playsInline=true;
+      video.setAttribute('muted','');
+      video.setAttribute('autoplay','');
+      video.setAttribute('playsinline','');
+      video.setAttribute('webkit-playsinline','');
+      video.setAttribute('loop','');
+      video.play().catch(function(){});
+    }
+    ['loadedmetadata','loadeddata','canplay','canplaythrough'].forEach(function(ev){
+      video.addEventListener(ev,mobilePlay,{passive:true});
+    });
+    window.addEventListener('pageshow',mobilePlay,{passive:true});
+    document.addEventListener('visibilitychange',function(){
+      if(!document.hidden) setTimeout(mobilePlay,50);
+    },{passive:true});
+    window.addEventListener('touchstart',mobilePlay,{passive:true,once:true});
+    setTimeout(mobilePlay,0);
+    setTimeout(mobilePlay,250);
+    setTimeout(mobilePlay,1000);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
+</script>
 </body>
 </html>
