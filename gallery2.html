@@ -6827,7 +6827,275 @@ body#gallery-page .gallery-carousel img.gallery-json-final-image[data-loaded="tr
   }
 })();
 </script>
-</body>
 
-  
+<!-- ==========================================
+     APPEND ONLY — FASTER ORDERED IMAGE LOAD + MOBILE GALLERY UX
+     - keeps every original line above unchanged
+     - preserves display order of already-built slots
+     - loads images more efficiently (fewer wasted probes, smarter concurrency)
+     - mobile: grid layout, progressive reveal, easier scroll/tap
+     - desktop carousel behavior left as-is
+     ========================================== -->
+<style id="gallery-fast-load-mobile-ux-fix">
+  /* Faster first paint: hide unloaded placeholders, fade in when ready */
+  body#gallery-page #galleryCarousel.gallery-carousel img[data-loading="true"]:not([data-loaded="true"]){
+    opacity:0.35 !important;
+    filter:saturate(0.4) !important;
+  }
+  body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="true"]{
+    opacity:1 !important;
+    filter:none !important;
+    transition:opacity .28s ease, transform .28s ease, filter .28s ease !important;
+  }
+
+  /* Mobile: reliable 2-column grid, natural vertical scroll, larger tap targets */
+  @media (max-width:900px){
+    body#gallery-page .gallery-wrapper{
+      top:calc(100dvh - 190px) !important;
+      padding:0.75rem 0.75rem 48px !important;
+      width:100% !important;
+      box-sizing:border-box !important;
+    }
+    body#gallery-page #galleryCarousel.gallery-carousel{
+      display:grid !important;
+      grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+      gap:10px !important;
+      width:100% !important;
+      max-width:100% !important;
+      overflow:visible !important;
+      overflow-x:hidden !important;
+      flex-wrap:unset !important;
+      justify-content:stretch !important;
+      touch-action:pan-y !important;
+      -webkit-overflow-scrolling:touch !important;
+      padding:0 0 32px !important;
+      box-sizing:border-box !important;
+    }
+    body#gallery-page #galleryCarousel.gallery-carousel img,
+    body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="true"],
+    body#gallery-page #galleryCarousel.gallery-carousel img.gallery-json-final-image{
+      width:100% !important;
+      height:auto !important;
+      aspect-ratio:1 / 1 !important;
+      max-width:none !important;
+      max-height:none !important;
+      object-fit:cover !important;
+      margin:0 !important;
+      flex:unset !important;
+      border-radius:12px !important;
+      display:block !important;
+      pointer-events:auto !important;
+      cursor:zoom-in !important;
+    }
+    /* Hide horizontal arrows on mobile — vertical scroll is the navigation */
+    body#gallery-page .arrow,
+    body#gallery-page button.arrow,
+    body#gallery-page .arrow-left,
+    body#gallery-page .arrow-right{
+      display:none !important;
+      pointer-events:none !important;
+    }
+  }
+
+  @media (max-width:420px){
+    body#gallery-page #galleryCarousel.gallery-carousel{
+      gap:8px !important;
+    }
+  }
+</style>
+
+<script id="gallery-fast-load-mobile-ux-fix-script">
+(function(){
+  if (window.__GALLERY_FAST_LOAD_MOBILE_UX_FIX__) return;
+  window.__GALLERY_FAST_LOAD_MOBILE_UX_FIX__ = true;
+
+  const isMobile = () => window.innerWidth <= 900;
+
+  /* ---- Smarter, ordered image resolution (append-only override) ---- */
+  function optimizeExistingCarousel(){
+    const carousel = document.getElementById('galleryCarousel');
+    if (!carousel) return;
+
+    const imgs = [...carousel.querySelectorAll('img')];
+    if (!imgs.length) return;
+
+    // Keep visual order exactly as currently in the DOM (same order they load in).
+    // Cap concurrent network probes so mobile doesn't thrash.
+    const maxConcurrent = isMobile() ? 8 : 16;
+    let active = 0;
+    let cursor = 0;
+
+    // Prefer already-resolved src; otherwise retry only a short, high-probability list.
+    function quickCandidates(img){
+      const orig = img.dataset.originalSrc || img.getAttribute('data-original-src') || '';
+      const current = img.currentSrc || img.src || '';
+      const list = [];
+      if (current && !current.startsWith('data:')) list.push(current);
+      if (orig) {
+        list.push(orig);
+        // Common real paths used by this page
+        const base = orig.replace(/^(\.\/)?/, '');
+        const file = base.split('/').pop() || base;
+        const num = (file.match(/(\d+)/) || [])[1];
+        const stems = [file.replace(/\.[^.]+$/, ''), num ? ('img' + num) : null].filter(Boolean);
+        const dirs = ['BlairPageImages/', './BlairPageImages/', 'images/', './images/'];
+        const exts = ['jpg','jpeg','png','webp','JPG','JPEG','PNG','WEBP'];
+        stems.forEach(s => {
+          dirs.forEach(d => {
+            exts.forEach(ext => {
+              list.push(d + s + '.' + ext);
+            });
+          });
+        });
+      }
+      // de-dupe
+      return [...new Set(list)];
+    }
+
+    function markLoaded(img, src){
+      img.src = src;
+      img.dataset.loading = 'false';
+      img.dataset.loaded = 'true';
+      img.classList.add('gallery-json-final-image');
+      img.style.removeProperty('display');
+      img.decoding = 'async';
+      // decode when supported to reduce layout jank
+      if (img.decode) {
+        img.decode().catch(function(){});
+      }
+    }
+
+    function tryLoad(img){
+      return new Promise(function(resolve){
+        if (img.dataset.loaded === 'true' && img.complete && img.naturalWidth > 0) {
+          resolve(true);
+          return;
+        }
+        const cands = quickCandidates(img);
+        let i = 0;
+        function next(){
+          if (i >= cands.length) {
+            img.dataset.loading = 'false';
+            img.dataset.loaded = 'false';
+            resolve(false);
+            return;
+          }
+          const url = cands[i++];
+          const probe = new Image();
+          probe.decoding = 'async';
+          probe.onload = function(){
+            markLoaded(img, url);
+            resolve(true);
+          };
+          probe.onerror = function(){ next(); };
+          probe.src = url;
+        }
+        next();
+      });
+    }
+
+    function pump(){
+      while (active < maxConcurrent && cursor < imgs.length) {
+        const img = imgs[cursor++];
+        if (img.dataset.loaded === 'true' && img.complete && img.naturalWidth > 0) continue;
+        active++;
+        tryLoad(img).finally(function(){
+          active--;
+          pump();
+        });
+      }
+    }
+
+    // Prioritize images near the viewport first (order preserved within batches)
+    const ranked = imgs
+      .map(function(img, index){
+        const r = img.getBoundingClientRect();
+        const near = (r.top < window.innerHeight + 1200 && r.bottom > -400) ? 0 : 1;
+        return { img, index, near };
+      })
+      .sort(function(a, b){
+        if (a.near !== b.near) return a.near - b.near;
+        return a.index - b.index; // stable original order
+      })
+      .map(function(x){ return x.img; });
+
+    // Rebuild work list in priority order but keep DOM order unchanged
+    imgs.length = 0;
+    ranked.forEach(function(im){ imgs.push(im); });
+    cursor = 0;
+    pump();
+
+    // Re-run when more images appear or on scroll/resize (passive)
+    let scheduled = false;
+    function schedule(){
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(function(){
+        scheduled = false;
+        // only retry still-unloaded
+        const pending = [...carousel.querySelectorAll('img')].filter(function(im){
+          return im.dataset.loaded !== 'true' || !im.complete || im.naturalWidth === 0;
+        });
+        if (!pending.length) return;
+        pending.forEach(function(im){
+          if (imgs.indexOf(im) === -1) imgs.push(im);
+        });
+        pump();
+      });
+    }
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    carousel.addEventListener('scroll', schedule, { passive: true });
+    document.addEventListener('visibilitychange', function(){
+      if (!document.hidden) schedule();
+    });
+
+    // IntersectionObserver for near-viewport boost
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(function(entries){
+        let any = false;
+        entries.forEach(function(en){
+          if (en.isIntersecting) any = true;
+        });
+        if (any) schedule();
+      }, { rootMargin: '800px 0px', threshold: 0.01 });
+      imgs.forEach(function(im){ io.observe(im); });
+    }
+
+    // A few timed passes so late JSON / late appends still fill in
+    [200, 600, 1500, 3000, 6000].forEach(function(ms){
+      setTimeout(schedule, ms);
+    });
+  }
+
+  function run(){
+    optimizeExistingCarousel();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run, { once: true });
+  } else {
+    run();
+  }
+  window.addEventListener('load', run);
+  // After the page's own initializeGallery finishes
+  setTimeout(run, 80);
+  setTimeout(run, 400);
+  setTimeout(run, 1200);
+  setTimeout(run, 2500);
+
+  // Watch for carousel children being replaced by the original loader
+  const car = document.getElementById('galleryCarousel');
+  if (car && typeof MutationObserver !== 'undefined') {
+    let t = null;
+    const mo = new MutationObserver(function(){
+      clearTimeout(t);
+      t = setTimeout(run, 60);
+    });
+    mo.observe(car, { childList: true, subtree: true });
+  }
+})();
+</script>
+</body>
 </html>
