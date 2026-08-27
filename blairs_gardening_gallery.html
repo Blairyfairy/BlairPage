@@ -665,10 +665,8 @@ class GardenGallery {
     this.loaded = 0;
     this.failed = 0;
     this.imageFormats = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-    // Every image still force-loads eagerly (nothing is deferred or lazy) —
-    // this only caps how many can decode at the exact same instant, which is
-    // what was overloading the tab and causing the freezes/white flashes.
-    this.maxConcurrent = 12;
+    // Load every image at once for maximum speed — no concurrency cap.
+    this.maxConcurrent = Infinity;
     this.activeLoads = 0;
     this.queue = [];
     this.pendingImages = new Map();
@@ -736,11 +734,11 @@ class GardenGallery {
     // before image decoding begins. This eliminates scroll jumping/blinking.
     grid.appendChild(fragment);
 
-    // Start every tile loading immediately instead of waiting on format
-    // detection first — each image already knows its own extension from its
-    // filename, or falls back through formats on its own. Detecting index 0's
-    // format here just gives later, extension-less filenames a head start.
-    this.items.forEach((item, index) => this.enqueueLoad(index, item, index < 12));
+    // Start every tile loading immediately at full concurrency for fastest load.
+    // Each image already knows its own extension from its filename, or falls
+    // back through formats on its own. Detecting index 0's format here just
+    // gives later, extension-less filenames a head start.
+    this.items.forEach((item, index) => this.enqueueLoad(index, item, true));
     this.detectFormat(0);
   }
 
@@ -1297,35 +1295,15 @@ html, body {
   );
 
   /* ---------------------------------------------------------
-     Self-contained smooth scroll-to-top.
-     Time-based ease (not dependent on any variable from another
-     script block further down the page), so it always finishes
-     in a fixed ~650ms regardless of how far down the page is,
-     and paces the scroll frame-by-frame — same fix as before for
-     the white-line flash — instead of the browser's instant
-     native "smooth" jump.
-
-     HARDENED so it actually lands on 0 and stays there:
-     - overflow-anchor is off for the page (see the style block
-       above), so the browser can no longer quietly nudge the
-       scroll position mid-animation on its own.
-     - Once the eased animation reaches 0, a short "hold" phase
-       keeps re-pinning the scroll to 0 for a moment, in case
-       anything else still tries to tug it back down right as
-       it lands — that tug is what showed up as a bounce back
-       partway, needing another click to "try again".
-     - Both the animation and the hold immediately back off the
-       instant the person scrolls on their own (wheel or touch),
-       so this never fights a scroll they actually meant to do.
+     Instant scroll-to-top on chevron click.
+     Jumps to 0 immediately and briefly re-pins so it stays
+     there even if layout shifts try to nudge it. Manual
+     wheel/touch always wins and cancels the hold.
      --------------------------------------------------------- */
 
   var scrollTopRafId = null;
   var scrollTopHoldUntil = 0;
   var scrollTopInterrupted = false;
-
-  function easeOutCubic(t) {
-    return 1 - Math.pow(1 - t, 3);
-  }
 
   function stopScrollToTop() {
 
@@ -1366,49 +1344,24 @@ html, body {
 
   }
 
-  function scrollToTopSmoothly() {
+  function scrollToTopInstantly() {
 
     stopScrollToTop();
     scrollTopInterrupted = false;
 
-    var startY = window.scrollY;
-    var startTime = null;
-    var duration = 650;
+    if (window.scrollY <= 0) return;
 
-    if (startY <= 0) return;
+    window.scrollTo(0, 0);
 
-    function frame(now) {
-
-      if (scrollTopInterrupted) return;
-
-      if (startTime === null) startTime = now;
-
-      var elapsed = now - startTime;
-      var t = Math.min(1, elapsed / duration);
-      var eased = easeOutCubic(t);
-
-      window.scrollTo(0, startY - (startY * eased));
-
-      if (t < 1) {
-        scrollTopRafId = requestAnimationFrame(frame);
-      } else {
-        window.scrollTo(0, 0);
-
-        // Stay pinned to the top for a beat after arrival instead
-        // of walking away the instant it lands.
-        scrollTopHoldUntil = performance.now() + 400;
-        scrollTopRafId = requestAnimationFrame(holdAtTop);
-      }
-
-    }
-
-    scrollTopRafId = requestAnimationFrame(frame);
+    // Stay pinned to the top briefly so layout shifts don't tug it back.
+    scrollTopHoldUntil = performance.now() + 400;
+    scrollTopRafId = requestAnimationFrame(holdAtTop);
 
   }
 
   scrollTopButton.addEventListener(
     'click',
-    scrollToTopSmoothly
+    scrollToTopInstantly
   );
 
   updateScrollTopButton();
