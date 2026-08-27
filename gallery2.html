@@ -7097,5 +7097,388 @@ body#gallery-page .gallery-carousel img.gallery-json-final-image[data-loaded="tr
   }
 })();
 </script>
+
+<!-- =========================================================
+     APPEND ONLY — MASTER FAST GALLERY LOADER (HARDER TRY)
+     Keeps every original line above. Takes over image loading
+     with a lean pipeline: exact path first, tiny fallback list,
+     sane concurrency, ordered display, mobile-friendly grid.
+     ========================================================= -->
+<style id="master-fast-gallery-loader-css">
+  body#gallery-page #galleryCarousel.gallery-carousel img.master-fast-img{
+    background:rgba(240,239,244,0.06) !important;
+    opacity:0 !important;
+    transform:scale(0.98) !important;
+    transition:opacity .32s ease, transform .32s ease !important;
+    will-change:opacity,transform;
+  }
+  body#gallery-page #galleryCarousel.gallery-carousel img.master-fast-img[data-loaded="true"]{
+    opacity:1 !important;
+    transform:scale(1) !important;
+    display:block !important;
+  }
+  /* Desktop: keep horizontal carousel behavior from earlier restores */
+  @media (min-width:901px){
+    body#gallery-page #galleryCarousel.gallery-carousel{
+      display:flex !important;
+      flex-wrap:nowrap !important;
+      overflow-x:auto !important;
+      overflow-y:hidden !important;
+      gap:12px !important;
+      scroll-behavior:smooth !important;
+    }
+    body#gallery-page #galleryCarousel.gallery-carousel img.master-fast-img[data-loaded="true"]{
+      width:200px !important;
+      height:200px !important;
+      flex:0 0 auto !important;
+      object-fit:cover !important;
+    }
+  }
+  @media (max-width:900px){
+    body#gallery-page #galleryCarousel.gallery-carousel{
+      display:grid !important;
+      grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+      gap:10px !important;
+      width:100% !important;
+      max-width:100% !important;
+      overflow:visible !important;
+      padding:0 0 36px !important;
+      touch-action:pan-y !important;
+    }
+    body#gallery-page #galleryCarousel.gallery-carousel img.master-fast-img{
+      width:100% !important;
+      height:auto !important;
+      aspect-ratio:1/1 !important;
+      object-fit:cover !important;
+      border-radius:12px !important;
+      margin:0 !important;
+    }
+    body#gallery-page .arrow,
+    body#gallery-page button.arrow{ display:none !important; }
+  }
+</style>
+<script id="master-fast-gallery-loader-script">
+(function(){
+  if (window.__MASTER_FAST_GALLERY_LOADER__) return;
+  window.__MASTER_FAST_GALLERY_LOADER__ = true;
+
+  const PLACEHOLDER = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="transparent"/></svg>'
+  );
+
+  // Path cache survives reloads in the same tab
+  const PATH_CACHE_KEY = 'blairGalleryResolvedV1';
+  let pathCache = {};
+  try {
+    pathCache = JSON.parse(sessionStorage.getItem(PATH_CACHE_KEY) || '{}') || {};
+  } catch (e) { pathCache = {}; }
+
+  function saveCache(){
+    try { sessionStorage.setItem(PATH_CACHE_KEY, JSON.stringify(pathCache)); } catch (e) {}
+  }
+
+  function isMobile(){ return window.innerWidth <= 900; }
+
+  /** Tiny candidate list — exact path first, then a few realistic fallbacks only */
+  function candidatesFor(src){
+    if (!src) return [];
+    const out = [];
+    const push = (u) => { if (u && out.indexOf(u) === -1) out.push(u); };
+
+    push(src);
+    push(src.replace(/ /g, '%20'));
+    try { push(encodeURI(src)); } catch (e) {}
+
+    // If cached known-good URL for this logical src
+    if (pathCache[src]) push(pathCache[src]);
+
+    const slash = src.lastIndexOf('/');
+    const dir = slash > -1 ? src.slice(0, slash + 1) : '';
+    const file = slash > -1 ? src.slice(slash + 1) : src;
+    const base = file.replace(/\.[^.]+$/, '').replace(/\*$/, '');
+    const num = (file.match(/(\d+)/) || [])[1];
+
+    const stems = [base];
+    if (num) {
+      stems.push('img' + num, 'IMG' + num, 'Img' + num);
+    }
+
+    const dirs = dir
+      ? [dir, 'BlairPageImages/', './BlairPageImages/', 'images/', './images/']
+      : ['BlairPageImages/', './BlairPageImages/', 'images/', './images/'];
+    // Prefer jpg/png/webp only — the real formats this gallery uses
+    const exts = ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'JPEG', 'PNG', 'WEBP'];
+
+    for (let d = 0; d < dirs.length; d++) {
+      for (let s = 0; s < stems.length; s++) {
+        for (let e = 0; e < exts.length; e++) {
+          push(dirs[d] + stems[s] + '.' + exts[e]);
+        }
+      }
+    }
+    return out;
+  }
+
+  function probe(url){
+    return new Promise(function(resolve, reject){
+      const img = new Image();
+      img.decoding = 'async';
+      // Timeout so a hung request does not block the queue forever
+      const timer = setTimeout(function(){
+        img.onload = img.onerror = null;
+        try { img.src = ''; } catch (e) {}
+        reject(new Error('timeout'));
+      }, 8000);
+      img.onload = function(){
+        clearTimeout(timer);
+        resolve(url);
+      };
+      img.onerror = function(){
+        clearTimeout(timer);
+        reject(new Error('fail'));
+      };
+      img.src = url;
+    });
+  }
+
+  async function resolveSrc(src){
+    if (pathCache[src]) {
+      try {
+        await probe(pathCache[src]);
+        return pathCache[src];
+      } catch (e) {
+        delete pathCache[src];
+      }
+    }
+    const list = candidatesFor(src);
+    for (let i = 0; i < list.length; i++) {
+      try {
+        const ok = await probe(list[i]);
+        pathCache[src] = ok;
+        saveCache();
+        return ok;
+      } catch (e) {}
+    }
+    return null;
+  }
+
+  function openLightbox(src, alt){
+    const lb = document.getElementById('lightbox');
+    const li = document.getElementById('lightboxImg');
+    if (!lb || !li || !src) return;
+    li.classList.remove('zoomed');
+    li.src = src;
+    li.alt = alt || 'Expanded gallery image';
+    lb.classList.add('show');
+    document.documentElement.style.setProperty('overflow', 'hidden', 'important');
+    document.body.style.setProperty('overflow', 'hidden', 'important');
+  }
+
+  function buildSlot(src, index){
+    const img = document.createElement('img');
+    img.className = 'master-fast-img gallery-json-final-image';
+    img.src = PLACEHOLDER;
+    img.alt = 'Gallery image ' + (index + 1);
+    img.dataset.originalSrc = src;
+    img.dataset.loading = 'true';
+    img.dataset.loaded = 'false';
+    img.decoding = 'async';
+    // First batch: high priority + eager. Rest: lazy so the browser helps.
+    if (index < (isMobile() ? 8 : 16)) {
+      img.loading = 'eager';
+      img.fetchPriority = 'high';
+    } else {
+      img.loading = 'lazy';
+      img.fetchPriority = 'low';
+    }
+    img.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const real = img.currentSrc || img.src || img.dataset.resolvedSrc;
+      if (real && !real.startsWith('data:')) openLightbox(real, img.alt);
+    });
+    return img;
+  }
+
+  async function loadOne(img){
+    const src = img.dataset.originalSrc;
+    if (!src) return false;
+    if (img.dataset.loaded === 'true' && img.complete && img.naturalWidth > 0) return true;
+    img.dataset.loading = 'true';
+    const resolved = await resolveSrc(src);
+    if (!resolved) {
+      img.dataset.loading = 'false';
+      img.dataset.loaded = 'false';
+      return false;
+    }
+    return new Promise(function(resolve){
+      const onDone = function(ok){
+        img.onload = img.onerror = null;
+        if (ok) {
+          img.dataset.resolvedSrc = resolved;
+          img.dataset.loading = 'false';
+          img.dataset.loaded = 'true';
+          if (img.decode) img.decode().catch(function(){});
+          resolve(true);
+        } else {
+          img.dataset.loading = 'false';
+          img.dataset.loaded = 'false';
+          resolve(false);
+        }
+      };
+      img.onload = function(){ onDone(true); };
+      img.onerror = function(){ onDone(false); };
+      img.src = resolved;
+    });
+  }
+
+  function runPool(items, limit){
+    let i = 0;
+    let active = 0;
+    return new Promise(function(done){
+      function pump(){
+        while (active < limit && i < items.length) {
+          const item = items[i++];
+          active++;
+          loadOne(item).finally(function(){
+            active--;
+            if (i >= items.length && active === 0) done();
+            else pump();
+          });
+        }
+        if (items.length === 0) done();
+      }
+      pump();
+    });
+  }
+
+  function masterInitialize(images){
+    if (!Array.isArray(images) || !images.length) return;
+    const carousel = document.getElementById('galleryCarousel');
+    if (!carousel) return;
+
+    // Preserve order from JSON (no shuffle) for stable, predictable loading
+    const ordered = images.slice();
+    carousel.innerHTML = '';
+
+    const slots = ordered.map(function(src, index){
+      const img = buildSlot(src, index);
+      carousel.appendChild(img);
+      return img;
+    });
+
+    const firstCount = isMobile() ? 10 : 18;
+    const first = slots.slice(0, firstCount);
+    const rest = slots.slice(firstCount);
+    const limit = isMobile() ? 6 : 12;
+
+    // Phase 1: first visible batch as fast as possible
+    runPool(first, limit).then(function(){
+      // Phase 2: rest — prefer near-viewport via IntersectionObserver, else pool
+      if ('IntersectionObserver' in window) {
+        const pending = new Set(rest);
+        const io = new IntersectionObserver(function(entries){
+          const batch = [];
+          entries.forEach(function(en){
+            if (!en.isIntersecting) return;
+            const el = en.target;
+            if (!pending.has(el)) return;
+            pending.delete(el);
+            io.unobserve(el);
+            batch.push(el);
+          });
+          if (batch.length) runPool(batch, limit);
+        }, { root: null, rootMargin: '600px 0px', threshold: 0.01 });
+
+        rest.forEach(function(img){ io.observe(img); });
+
+        // Safety: after a short delay, force-load anything still waiting
+        setTimeout(function(){
+          const leftover = [...pending];
+          leftover.forEach(function(img){ io.unobserve(img); pending.delete(img); });
+          if (leftover.length) runPool(leftover, limit);
+        }, isMobile() ? 4000 : 2500);
+      } else {
+        runPool(rest, limit);
+      }
+    });
+
+    // Expose for other scripts that expect galleryImagesData
+    window.galleryImagesData = ordered;
+  }
+
+  // Take over after original fetch, and also re-fetch ourselves as a reliable path
+  function startMaster(){
+    // If original already populated galleryImagesData, use it immediately
+    if (Array.isArray(window.galleryImagesData) && window.galleryImagesData.length) {
+      masterInitialize(window.galleryImagesData);
+      return;
+    }
+
+    // Race: wait briefly for original fetch, else fetch ourselves
+    let used = false;
+    const apply = function(images){
+      if (used || !Array.isArray(images) || !images.length) return;
+      used = true;
+      window.galleryImagesData = images;
+      masterInitialize(images);
+    };
+
+    // Poll for original data a few times
+    let tries = 0;
+    const poll = setInterval(function(){
+      tries++;
+      if (Array.isArray(window.galleryImagesData) && window.galleryImagesData.length) {
+        clearInterval(poll);
+        apply(window.galleryImagesData);
+      } else if (tries > 40) {
+        clearInterval(poll);
+      }
+    }, 50);
+
+    // Independent fetch so we are not blocked by original pipeline
+    fetch('images2.json', { cache: 'force-cache' })
+      .then(function(r){ return r.json(); })
+      .then(function(images){ apply(images); })
+      .catch(function(){});
+  }
+
+  // Wrap original initializeGallery so any call uses the fast path
+  function wrapOriginal(){
+    if (typeof window.initializeGallery === 'function' && !window.initializeGallery.__masterWrapped) {
+      const orig = window.initializeGallery;
+      window.initializeGallery = function(images){
+        masterInitialize(images);
+      };
+      window.initializeGallery.__masterWrapped = true;
+      // keep reference in case something needs original
+      window.__originalInitializeGallery = orig;
+    }
+  }
+
+  wrapOriginal();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){
+      wrapOriginal();
+      startMaster();
+    }, { once: true });
+  } else {
+    startMaster();
+  }
+  window.addEventListener('load', function(){
+    wrapOriginal();
+    // If still empty, try once more
+    const car = document.getElementById('galleryCarousel');
+    if (car && !car.querySelector('img.master-fast-img[data-loaded="true"]')) {
+      startMaster();
+    }
+  });
+
+  // Re-wrap if scripts define initializeGallery later
+  setTimeout(wrapOriginal, 100);
+  setTimeout(wrapOriginal, 500);
+  setTimeout(startMaster, 800);
+})();
+</script>
 </body>
 </html>
