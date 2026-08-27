@@ -37611,52 +37611,54 @@ MATCH BLOG.HTML LOWER RIGHT CHEVRON
   </section>
  </section>
 
+
 <!-- =========================================================
-FINAL CHEVRON TOP-LOCK — keep at absolute top, no mid-page bounce
-Does not remove any prior code; overrides click behavior authoritatively.
+FINAL CHEVRON HARD TOP — absolute y=0 lock, no mid-page bounce
+Keeps every prior line of code; this block only overrides the arrow click.
 ========================================================= -->
 <style id="jag-chevron-top-lock-style">
+html.jag-force-top,
+html.jag-force-top body {
+  scroll-behavior: auto !important;
+}
 html body button#jagReportScrollTop.jag-report-scroll-top,
 html body #jagReportScrollTop {
   pointer-events: auto !important;
   touch-action: manipulation !important;
   -webkit-tap-highlight-color: transparent !important;
   z-index: 2147483647 !important;
+  cursor: pointer !important;
 }
 </style>
 <script id="jag-chevron-top-lock-script">
 (function () {
-  if (window.__jagChevronTopLockInstalled) return;
+  /* Re-install every time so this is always the strongest last word */
   window.__jagChevronTopLockInstalled = true;
 
   var lockUntil = 0;
   var rafId = null;
   var intervalId = null;
+  var origScrollTo = window.scrollTo;
+  var origScroll = window.scroll;
+  var origScrollBy = window.scrollBy;
 
   function getY() {
-    return (
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0
+    return Math.max(
+      window.pageYOffset || 0,
+      document.documentElement ? document.documentElement.scrollTop || 0 : 0,
+      document.body ? document.body.scrollTop || 0 : 0
     );
   }
 
-  function snapTop() {
+  function zeroAllScrollables() {
     try {
-      if (window.history && window.history.replaceState) {
-        var url = window.location.pathname + window.location.search;
-        if (window.location.hash) {
-          window.history.replaceState(null, "", url);
-        }
+      if (window.history && window.history.replaceState && window.location.hash) {
+        window.history.replaceState(
+          null,
+          "",
+          window.location.pathname + window.location.search
+        );
       }
-    } catch (e) {}
-
-    try {
-      window.scrollTo(0, 0);
-    } catch (e) {}
-    try {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     } catch (e) {}
 
     try {
@@ -37669,20 +37671,74 @@ html body #jagReportScrollTop {
     } catch (e) {}
 
     try {
-      var nodes = document.querySelectorAll("body, html, [data-scroll-container], .report-shell, .report-card, main, #main");
-      for (var i = 0; i < nodes.length; i++) {
-        var el = nodes[i];
-        if (el && typeof el.scrollTop === "number" && el.scrollTop > 0) {
-          el.scrollTop = 0;
-        }
-        if (el && typeof el.scrollLeft === "number" && el.scrollLeft > 0) {
-          el.scrollLeft = 0;
-        }
+      if (typeof origScrollTo === "function") {
+        origScrollTo.call(window, 0, 0);
+        try {
+          origScrollTo.call(window, { top: 0, left: 0, behavior: "auto" });
+        } catch (e2) {}
+      } else {
+        window.scrollTo(0, 0);
+      }
+    } catch (e) {}
+
+    try {
+      if (typeof origScroll === "function") {
+        origScroll.call(window, 0, 0);
+      }
+    } catch (e) {}
+
+    try {
+      var all = document.querySelectorAll("*");
+      for (var i = 0; i < all.length; i++) {
+        var el = all[i];
+        if (!el) continue;
+        try {
+          if (el.scrollTop && el.scrollTop > 0) el.scrollTop = 0;
+          if (el.scrollLeft && el.scrollLeft > 0) el.scrollLeft = 0;
+        } catch (err) {}
       }
     } catch (e) {}
   }
 
-  function stopLockLoops() {
+  function armScrollTrap() {
+    /* While locked, any programmatic scroll is forced back to 0 */
+    window.scrollTo = function () {
+      if (Date.now() <= lockUntil) {
+        try {
+          return origScrollTo.call(window, 0, 0);
+        } catch (e) {
+          return origScrollTo.apply(window, arguments);
+        }
+      }
+      return origScrollTo.apply(window, arguments);
+    };
+    window.scroll = function () {
+      if (Date.now() <= lockUntil) {
+        try {
+          return origScroll.call(window, 0, 0);
+        } catch (e) {
+          return origScroll.apply(window, arguments);
+        }
+      }
+      return origScroll.apply(window, arguments);
+    };
+    window.scrollBy = function () {
+      if (Date.now() <= lockUntil) {
+        return;
+      }
+      return origScrollBy.apply(window, arguments);
+    };
+  }
+
+  function disarmScrollTrap() {
+    try {
+      window.scrollTo = origScrollTo;
+      window.scroll = origScroll;
+      window.scrollBy = origScrollBy;
+    } catch (e) {}
+  }
+
+  function stopLoops() {
     if (rafId) {
       cancelAnimationFrame(rafId);
       rafId = null;
@@ -37693,18 +37749,28 @@ html body #jagReportScrollTop {
     }
   }
 
-  function holdTop() {
-    stopLockLoops();
-    lockUntil = Date.now() + 1600;
-    snapTop();
+  function holdVeryTop() {
+    stopLoops();
+    lockUntil = Date.now() + 2800;
+
+    try {
+      document.documentElement.classList.add("jag-force-top");
+    } catch (e) {}
+
+    armScrollTrap();
+    zeroAllScrollables();
 
     function tick() {
       if (Date.now() > lockUntil) {
         rafId = null;
+        try {
+          document.documentElement.classList.remove("jag-force-top");
+        } catch (e) {}
+        disarmScrollTrap();
         return;
       }
-      if (getY() > 1) {
-        snapTop();
+      if (getY() > 0) {
+        zeroAllScrollables();
       }
       rafId = requestAnimationFrame(tick);
     }
@@ -37714,46 +37780,75 @@ html body #jagReportScrollTop {
       if (Date.now() > lockUntil) {
         clearInterval(intervalId);
         intervalId = null;
+        try {
+          document.documentElement.classList.remove("jag-force-top");
+        } catch (e) {}
+        disarmScrollTrap();
         return;
       }
-      if (getY() > 1) {
-        snapTop();
+      if (getY() > 0) {
+        zeroAllScrollables();
       }
-    }, 40);
+    }, 16);
 
-    setTimeout(snapTop, 50);
-    setTimeout(snapTop, 120);
-    setTimeout(snapTop, 250);
-    setTimeout(snapTop, 500);
-    setTimeout(snapTop, 900);
-    setTimeout(snapTop, 1400);
+    var delays = [0, 16, 32, 48, 80, 120, 200, 320, 500, 750, 1000, 1400, 1800, 2200, 2600];
+    for (var i = 0; i < delays.length; i++) {
+      (function (ms) {
+        setTimeout(function () {
+          if (Date.now() <= lockUntil) zeroAllScrollables();
+        }, ms);
+      })(delays[i]);
+    }
   }
 
-  function isChevronTarget(target) {
-    if (!target || !target.closest) return false;
-    return !!target.closest("#jagReportScrollTop, button.jag-report-scroll-top, .jag-report-scroll-top");
-  }
-
-  function onChevronActivate(ev) {
-    if (!isChevronTarget(ev.target)) return;
-    try {
-      ev.preventDefault();
-      ev.stopPropagation();
-      if (typeof ev.stopImmediatePropagation === "function") {
-        ev.stopImmediatePropagation();
-      }
-    } catch (e) {}
-    holdTop();
+  function isChevron(el) {
+    if (!el) return false;
+    if (el.id === "jagReportScrollTop") return true;
+    if (el.classList && el.classList.contains("jag-report-scroll-top")) return true;
+    if (el.closest) {
+      return !!el.closest("#jagReportScrollTop, .jag-report-scroll-top, button.jag-report-scroll-top");
+    }
     return false;
   }
 
-  document.addEventListener("click", onChevronActivate, true);
-  document.addEventListener("pointerup", onChevronActivate, true);
-  document.addEventListener(
+  function onActivate(ev) {
+    if (!isChevron(ev.target)) return;
+    try {
+      ev.preventDefault();
+      ev.stopPropagation();
+      if (ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+    } catch (e) {}
+    holdVeryTop();
+    return false;
+  }
+
+  function blockUserScrollDuringLock(ev) {
+    if (Date.now() > lockUntil) return;
+    try {
+      ev.preventDefault();
+      ev.stopPropagation();
+    } catch (e) {}
+    zeroAllScrollables();
+    return false;
+  }
+
+  /* Window capture = earliest possible interception after our install */
+  window.addEventListener("click", onActivate, true);
+  window.addEventListener("pointerdown", onActivate, true);
+  window.addEventListener("pointerup", onActivate, true);
+  window.addEventListener(
+    "touchstart",
+    function (ev) {
+      if (!isChevron(ev.target)) return;
+      onActivate(ev);
+    },
+    { capture: true, passive: false }
+  );
+  window.addEventListener(
     "touchend",
     function (ev) {
-      if (!isChevronTarget(ev.target)) return;
-      onChevronActivate(ev);
+      if (!isChevron(ev.target)) return;
+      onActivate(ev);
     },
     { capture: true, passive: false }
   );
@@ -37761,21 +37856,39 @@ html body #jagReportScrollTop {
   window.addEventListener(
     "scroll",
     function () {
-      if (Date.now() <= lockUntil && getY() > 1) {
-        snapTop();
+      if (Date.now() <= lockUntil && getY() > 0) {
+        zeroAllScrollables();
       }
     },
-    { passive: true, capture: true }
+    { capture: true, passive: true }
   );
 
+  window.addEventListener("wheel", blockUserScrollDuringLock, {
+    capture: true,
+    passive: false,
+  });
+  window.addEventListener("touchmove", blockUserScrollDuringLock, {
+    capture: true,
+    passive: false,
+  });
+
   function wireButton() {
-    var buttons = document.querySelectorAll("#jagReportScrollTop");
-    var btn = buttons.length ? buttons[buttons.length - 1] : null;
-    if (!btn) return;
-    btn.onclick = function (ev) {
-      onChevronActivate(ev || window.event);
-      return false;
-    };
+    var list = document.querySelectorAll("#jagReportScrollTop, button.jag-report-scroll-top");
+    for (var i = 0; i < list.length; i++) {
+      (function (btn) {
+        btn.onclick = function (ev) {
+          onActivate(ev || window.event);
+          return false;
+        };
+        btn.addEventListener(
+          "click",
+          function (ev) {
+            onActivate(ev);
+          },
+          true
+        );
+      })(list[i]);
+    }
   }
 
   if (document.readyState === "loading") {
@@ -37784,9 +37897,10 @@ html body #jagReportScrollTop {
     wireButton();
   }
   window.addEventListener("load", wireButton);
-  setTimeout(wireButton, 200);
-  setTimeout(wireButton, 800);
-  setTimeout(wireButton, 1600);
+  setTimeout(wireButton, 100);
+  setTimeout(wireButton, 500);
+  setTimeout(wireButton, 1200);
+  setTimeout(wireButton, 2500);
 })();
 </script>
 
