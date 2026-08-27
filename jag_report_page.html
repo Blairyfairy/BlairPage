@@ -37610,4 +37610,184 @@ MATCH BLOG.HTML LOWER RIGHT CHEVRON
    </section>
   </section>
  </section>
+
+<!-- =========================================================
+FINAL CHEVRON TOP-LOCK — keep at absolute top, no mid-page bounce
+Does not remove any prior code; overrides click behavior authoritatively.
+========================================================= -->
+<style id="jag-chevron-top-lock-style">
+html body button#jagReportScrollTop.jag-report-scroll-top,
+html body #jagReportScrollTop {
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+  z-index: 2147483647 !important;
+}
+</style>
+<script id="jag-chevron-top-lock-script">
+(function () {
+  if (window.__jagChevronTopLockInstalled) return;
+  window.__jagChevronTopLockInstalled = true;
+
+  var lockUntil = 0;
+  var rafId = null;
+  var intervalId = null;
+
+  function getY() {
+    return (
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0
+    );
+  }
+
+  function snapTop() {
+    try {
+      if (window.history && window.history.replaceState) {
+        var url = window.location.pathname + window.location.search;
+        if (window.location.hash) {
+          window.history.replaceState(null, "", url);
+        }
+      }
+    } catch (e) {}
+
+    try {
+      window.scrollTo(0, 0);
+    } catch (e) {}
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    } catch (e) {}
+
+    try {
+      document.documentElement.scrollTop = 0;
+      document.documentElement.scrollLeft = 0;
+    } catch (e) {}
+    try {
+      document.body.scrollTop = 0;
+      document.body.scrollLeft = 0;
+    } catch (e) {}
+
+    try {
+      var nodes = document.querySelectorAll("body, html, [data-scroll-container], .report-shell, .report-card, main, #main");
+      for (var i = 0; i < nodes.length; i++) {
+        var el = nodes[i];
+        if (el && typeof el.scrollTop === "number" && el.scrollTop > 0) {
+          el.scrollTop = 0;
+        }
+        if (el && typeof el.scrollLeft === "number" && el.scrollLeft > 0) {
+          el.scrollLeft = 0;
+        }
+      }
+    } catch (e) {}
+  }
+
+  function stopLockLoops() {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  }
+
+  function holdTop() {
+    stopLockLoops();
+    lockUntil = Date.now() + 1600;
+    snapTop();
+
+    function tick() {
+      if (Date.now() > lockUntil) {
+        rafId = null;
+        return;
+      }
+      if (getY() > 1) {
+        snapTop();
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+
+    intervalId = setInterval(function () {
+      if (Date.now() > lockUntil) {
+        clearInterval(intervalId);
+        intervalId = null;
+        return;
+      }
+      if (getY() > 1) {
+        snapTop();
+      }
+    }, 40);
+
+    setTimeout(snapTop, 50);
+    setTimeout(snapTop, 120);
+    setTimeout(snapTop, 250);
+    setTimeout(snapTop, 500);
+    setTimeout(snapTop, 900);
+    setTimeout(snapTop, 1400);
+  }
+
+  function isChevronTarget(target) {
+    if (!target || !target.closest) return false;
+    return !!target.closest("#jagReportScrollTop, button.jag-report-scroll-top, .jag-report-scroll-top");
+  }
+
+  function onChevronActivate(ev) {
+    if (!isChevronTarget(ev.target)) return;
+    try {
+      ev.preventDefault();
+      ev.stopPropagation();
+      if (typeof ev.stopImmediatePropagation === "function") {
+        ev.stopImmediatePropagation();
+      }
+    } catch (e) {}
+    holdTop();
+    return false;
+  }
+
+  document.addEventListener("click", onChevronActivate, true);
+  document.addEventListener("pointerup", onChevronActivate, true);
+  document.addEventListener(
+    "touchend",
+    function (ev) {
+      if (!isChevronTarget(ev.target)) return;
+      onChevronActivate(ev);
+    },
+    { capture: true, passive: false }
+  );
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (Date.now() <= lockUntil && getY() > 1) {
+        snapTop();
+      }
+    },
+    { passive: true, capture: true }
+  );
+
+  function wireButton() {
+    var buttons = document.querySelectorAll("#jagReportScrollTop");
+    var btn = buttons.length ? buttons[buttons.length - 1] : null;
+    if (!btn) return;
+    btn.onclick = function (ev) {
+      onChevronActivate(ev || window.event);
+      return false;
+    };
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", wireButton);
+  } else {
+    wireButton();
+  }
+  window.addEventListener("load", wireButton);
+  setTimeout(wireButton, 200);
+  setTimeout(wireButton, 800);
+  setTimeout(wireButton, 1600);
+})();
+</script>
+
 </html>
