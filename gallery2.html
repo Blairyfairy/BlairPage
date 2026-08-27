@@ -2962,8 +2962,11 @@ setInterval(updatePageScrollButton,500);
 <script id="gallery2-final-carousel-image-rebuild-fix">
 /* ==========================================
    FINAL OVERRIDE — GALLERY2 IMAGE REBUILD FIX
-   keeps the page/code intact, but replaces only
-   the carousel image injection after old fixes run
+   - keeps full JSON order (no shuffle)
+   - aggressive concurrent load like gallery.html
+   - mobile: higher concurrency so 2-col grid fills fast
+   - path cache + parallel candidate probes
+   - disables later master-fast wipe after success
    ========================================== */
 (function () {
   if (window.__GALLERY2_FINAL_IMAGE_REBUILD_FIX__) return;
@@ -2975,8 +2978,6 @@ setInterval(updatePageScrollButton,500);
     'EasterEggGallery/images2.json',
     './EasterEggGallery/images2.json'
   ];
-
-  const FALLBACK_IMAGE_LIST = [];
 
   const IMAGE_EXTENSIONS = [
     'jpg','jpeg','png','webp','gif','JPG','JPEG','PNG','WEBP','GIF',
@@ -2993,6 +2994,20 @@ setInterval(updatePageScrollButton,500);
     'images/',
     './images/'
   ];
+
+  const PATH_CACHE_KEY = 'blairGallery2ResolvedV2';
+  let pathCache = {};
+  try {
+    pathCache = JSON.parse(sessionStorage.getItem(PATH_CACHE_KEY) || '{}') || {};
+  } catch (e) {
+    pathCache = {};
+  }
+
+  function saveCache() {
+    try {
+      sessionStorage.setItem(PATH_CACHE_KEY, JSON.stringify(pathCache));
+    } catch (e) {}
+  }
 
   function unique(list) {
     return [...new Set(list.filter(Boolean))];
@@ -3015,6 +3030,7 @@ setInterval(updatePageScrollButton,500);
     return file.replace(/\.[^.]+$/, '');
   }
 
+  /** Prefer exact path first, then a short realistic fallback list (not hundreds). */
   function buildFinalCandidates(rawPath) {
     const src = cleanPath(rawPath);
     if (!src) return [];
@@ -3024,81 +3040,150 @@ setInterval(updatePageScrollButton,500);
     }
 
     const candidates = [];
-    const encoded = encodeURI(src);
+    const push = (u) => {
+      if (u && candidates.indexOf(u) === -1) candidates.push(u);
+    };
 
-    candidates.push(src, './' + src.replace(/^\.\//, ''), encoded);
+    push(src);
+    push('./' + src.replace(/^\.\//, ''));
+    try { push(encodeURI(src)); } catch (e) {}
+    push(src.replace(/ /g, '%20'));
+
+    if (pathCache[src]) push(pathCache[src]);
+
+    const slash = src.lastIndexOf('/');
+    const dir = slash > -1 ? src.slice(0, slash + 1) : '';
+    const file = slash > -1 ? src.slice(slash + 1) : src;
+    const base = basenameNoExt(src);
+    const numberMatch = base.match(/(\d+)/);
+
+    const stems = [base];
+    if (file !== base && hasImageExtension(file)) {
+      stems.push(file.replace(/\.[^.]+$/, ''));
+    }
+    if (numberMatch) {
+      const n = parseInt(numberMatch[1], 10);
+      stems.push('img' + n, 'Img' + n, 'IMG' + n, String(n));
+    }
+
+    const dirs = unique([
+      dir,
+      'EasterEggGallery/',
+      './EasterEggGallery/',
+      'BlairPageImages/',
+      './BlairPageImages/',
+      'images/',
+      './images/',
+      ''
+    ]);
+
+    // High-probability extensions first
+    const exts = ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'JPEG', 'PNG', 'WEBP', 'gif', 'GIF'];
+
+    for (let d = 0; d < dirs.length; d++) {
+      for (let s = 0; s < stems.length; s++) {
+        for (let e = 0; e < exts.length; e++) {
+          push(dirs[d] + stems[s] + '.' + exts[e]);
+        }
+      }
+    }
 
     if (hasImageExtension(src)) {
       const baseFile = src.split('/').pop();
-      IMAGE_DIRS.forEach(dir => {
-        candidates.push(dir + baseFile);
-        candidates.push(encodeURI(dir + baseFile));
-      });
-    } else {
-      IMAGE_EXTENSIONS.forEach(ext => {
-        candidates.push(`${src}.${ext}`);
-        candidates.push(`./${src.replace(/^\.\//, '')}.${ext}`);
+      dirs.forEach(function (d) {
+        push(d + baseFile);
       });
     }
 
-    const base = basenameNoExt(src);
-    const numberMatch = base.match(/(\d+)/);
-    const baseNames = [base];
+    return candidates;
+  }
 
-    if (numberMatch) {
-      const n = parseInt(numberMatch[1], 10);
-      baseNames.push(`img${n}`, `Img${n}`, `IMG${n}`, `${n}`);
+  function probe(url, timeoutMs) {
+    timeoutMs = timeoutMs || 6000;
+    return new Promise(function (resolve, reject) {
+      const img = new Image();
+      img.decoding = 'async';
+      const timer = setTimeout(function () {
+        img.onload = img.onerror = null;
+        try { img.src = ''; } catch (e) {}
+        reject(new Error('timeout'));
+      }, timeoutMs);
+      img.onload = function () {
+        clearTimeout(timer);
+        resolve(url);
+      };
+      img.onerror = function () {
+        clearTimeout(timer);
+        reject(new Error('fail'));
+      };
+      img.src = url;
+    });
+  }
+
+  /** Try candidates in small parallel batches for speed (first hit wins). */
+  async function resolveFirstWorkingImage(rawPath) {
+    const src = cleanPath(rawPath);
+    if (!src) return null;
+
+    if (pathCache[src]) {
+      try {
+        await probe(pathCache[src], 3500);
+        return pathCache[src];
+      } catch (e) {
+        delete pathCache[src];
+      }
     }
 
-    baseNames.forEach(name => {
-      IMAGE_DIRS.forEach(dir => {
-        IMAGE_EXTENSIONS.forEach(ext => {
-          candidates.push(`${dir}${name}.${ext}`);
-          candidates.push(encodeURI(`${dir}${name}.${ext}`));
+    const list = buildFinalCandidates(src);
+    // Cap total probes so a bad path cannot stall the whole queue
+    const maxProbes = Math.min(list.length, 24);
+    const limited = list.slice(0, maxProbes);
+    const batchSize = 6;
+
+    for (let i = 0; i < limited.length; i += batchSize) {
+      const batch = limited.slice(i, i + batchSize);
+      let found = null;
+      await new Promise(function (resolve) {
+        let remaining = batch.length;
+        let settled = false;
+        batch.forEach(function (url) {
+          probe(url, 4500).then(function (ok) {
+            if (!settled && ok) {
+              settled = true;
+              found = ok;
+              resolve();
+            }
+          }).catch(function () {}).finally(function () {
+            remaining--;
+            if (remaining === 0 && !settled) resolve();
+          });
         });
       });
-    });
-
-    return unique(candidates);
-  }
-
-  function testImage(candidate) {
-    return new Promise((resolve, reject) => {
-      const probe = new Image();
-      probe.decoding = 'async';
-      probe.loading = 'eager';
-      probe.onload = () => resolve(candidate);
-      probe.onerror = reject;
-      probe.src = candidate;
-    });
-  }
-
-  async function resolveFirstWorkingImage(rawPath) {
-    const candidates = buildFinalCandidates(rawPath);
-
-    for (const candidate of candidates) {
-      try {
-        return await testImage(candidate);
-      } catch (error) {}
+      if (found) {
+        pathCache[src] = found;
+        saveCache();
+        return found;
+      }
     }
-
     return null;
   }
 
   async function fetchGalleryList() {
-    for (const jsonPath of JSON_PATHS) {
+    for (let i = 0; i < JSON_PATHS.length; i++) {
+      const jsonPath = JSON_PATHS[i];
       try {
         const response = await fetch(jsonPath + '?v=' + Date.now(), { cache: 'no-store' });
         if (!response.ok) continue;
-
         const data = await response.json();
-
         if (Array.isArray(data) && data.length) {
           return data.map(cleanPath).filter(Boolean);
         }
       } catch (error) {}
     }
-
+    // If original already populated data, use it
+    if (Array.isArray(window.galleryImagesData) && window.galleryImagesData.length) {
+      return window.galleryImagesData.map(cleanPath).filter(Boolean);
+    }
     return [];
   }
 
@@ -3115,143 +3200,186 @@ setInterval(updatePageScrollButton,500);
 
   function hardShowImage(img, resolvedSrc) {
     img.removeAttribute('data-src');
+    img.dataset.resolvedSrc = resolvedSrc;
     img.dataset.loaded = 'true';
     img.dataset.loading = 'false';
+    img.classList.add('gallery-json-final-image');
     img.style.setProperty('display', 'block', 'important');
     img.style.setProperty('visibility', 'visible', 'important');
     img.style.setProperty('opacity', '1', 'important');
     img.src = resolvedSrc;
+    if (img.decode) {
+      img.decode().catch(function () {});
+    }
   }
 
-  function shuffleList(a) {
-    a = a.slice();
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
+  function wireLightbox(img, resolvedSrc) {
+    img.onclick = function (e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      const parts = getLightboxParts();
+      if (parts.lightbox && parts.lightboxImg) {
+        parts.lightboxImg.src = resolvedSrc;
+        parts.lightboxImg.alt = img.alt || 'Expanded gallery image';
+        parts.lightbox.classList.add('show');
+      }
+    };
   }
 
   let rebuildInFlight = null;
+  let lastSuccessfulCount = 0;
 
   function rebuildGalleryImages() {
-    /* Coalesce overlapping calls (e.g. an initial trigger firing at
-       nearly the same time as a pageshow trigger) into one run, so the
-       gallery isn't fetched and rebuilt more than once per visit. */
     if (rebuildInFlight) return rebuildInFlight;
-    rebuildInFlight = (async () => {
+
+    rebuildInFlight = (async function () {
       const carousel = getCarousel();
       if (!carousel) return;
 
       const list = await fetchGalleryList();
+      if (!list.length) {
+        console.warn('[gallery2] no image list from images2.json');
+        return;
+      }
+
       window.galleryImagesData = list;
 
-      carousel.innerHTML = '';
-
-      /* Keep full JSON order (no shuffle). Load behavior matches gallery.html:
-         concurrent worker pool, higher concurrency on mobile, progressive
-         reveal as images resolve, first batch eager then near-viewport rest. */
+      // Keep full JSON order — never shuffle
       const order = list.slice();
-
-      const slots = order.map((src, index) => {
-        const img = document.createElement('img');
-        img.className = 'gallery-json-final-image';
-        img.alt = 'Blair Page gallery photo';
-        img.loading = index < (window.innerWidth <= 900 ? 10 : 18) ? 'eager' : 'lazy';
-        img.decoding = 'async';
-        img.draggable = false;
-        img.dataset.originalSrc = src;
-        img.dataset.loading = 'true';
-        img.dataset.loaded = 'false';
-        img.style.setProperty('display', 'none', 'important');
-        carousel.appendChild(img);
-        return { img, src, index };
-      });
+      const isMobile = window.innerWidth <= 900;
 
       async function resolveSlot(item) {
-        if (item.img.dataset.loaded === 'true') return;
+        if (!item || !item.img) return false;
+        if (item.img.dataset.loaded === 'true' && item.img.complete && item.img.naturalWidth > 0) {
+          return true;
+        }
+        item.img.dataset.loading = 'true';
         const resolved = await resolveFirstWorkingImage(item.src);
         if (!resolved) {
           item.img.dataset.loading = 'false';
           item.img.dataset.loaded = 'false';
-          item.img.style.setProperty('display', 'none', 'important');
-          return;
+          item.img.style.setProperty('opacity', '0', 'important');
+          return false;
         }
         hardShowImage(item.img, resolved);
+        wireLightbox(item.img, resolved);
+        return true;
       }
 
-      /* Same concurrency pattern as gallery.html final rebuild:
-         mobile gets a larger pool so the 2-column grid fills faster. */
-      const isMobile = window.innerWidth <= 900;
-      const firstCount = isMobile ? 10 : 18;
-      const priority = slots.slice(0, firstCount);
-      const remainder = slots.slice(firstCount);
-      const concurrency = isMobile ? 10 : 8;
-
-      let cursor = 0;
-      async function priorityWorker() {
-        while (cursor < priority.length) {
-          await resolveSlot(priority[cursor++]);
-        }
-      }
-      await Promise.all(Array.from({ length: Math.min(concurrency, priority.length || 1) }, priorityWorker));
-
-      /* Rest: IntersectionObserver near-viewport (mobile-friendly), with
-         fallback concurrent pool matching gallery.html. */
-      if ('IntersectionObserver' in window && remainder.length) {
-        const pending = new Set(remainder);
-        const io = new IntersectionObserver(entries => {
-          const batch = [];
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            const item = remainder.find(x => x.img === entry.target);
-            if (!item || !pending.has(item)) return;
-            pending.delete(item);
-            io.unobserve(entry.target);
-            batch.push(item);
-          });
-          batch.forEach(item => { resolveSlot(item); });
-        }, { rootMargin: '800px 0px', threshold: 0.01 });
-        remainder.forEach(item => io.observe(item.img));
-        setTimeout(() => {
-          const leftover = [...pending];
-          leftover.forEach(item => {
-            pending.delete(item);
-            try { io.unobserve(item.img); } catch (e) {}
-            resolveSlot(item);
-          });
-        }, isMobile ? 4000 : 2500);
-      } else {
-        let c2 = 0;
-        async function worker2() {
-          while (c2 < remainder.length) {
-            await resolveSlot(remainder[c2++]);
+      async function runPool(slotList, limit) {
+        let cursor = 0;
+        async function worker() {
+          while (cursor < slotList.length) {
+            const item = slotList[cursor++];
+            await resolveSlot(item);
           }
         }
-        await Promise.all(Array.from({ length: Math.min(concurrency, remainder.length || 1) }, worker2));
+        const n = Math.min(limit, slotList.length || 1);
+        await Promise.all(Array.from({ length: n }, function () { return worker(); }));
+      }
+
+      // Reuse existing DOM if same ordered list is already present — only fill gaps
+      const existingImgs = [...carousel.querySelectorAll('img')];
+      const canReuse =
+        existingImgs.length === order.length &&
+        existingImgs.length > 0 &&
+        existingImgs.every(function (im, idx) {
+          return (im.dataset.originalSrc || '') === order[idx];
+        });
+
+      let slots;
+      if (canReuse) {
+        slots = existingImgs.map(function (img, index) {
+          return { img: img, src: order[index], index: index };
+        });
+        const missing = slots.filter(function (s) {
+          return s.img.dataset.loaded !== 'true';
+        });
+        if (!missing.length) {
+          lastSuccessfulCount = slots.length;
+          window.__GALLERY2_LOAD_SUCCESS__ = true;
+          window.__GALLERY2_LOADED_COUNT__ = slots.length;
+          return;
+        }
+        await runPool(missing, isMobile ? 14 : 10);
+      } else {
+        carousel.innerHTML = '';
+        slots = order.map(function (src, index) {
+          const img = document.createElement('img');
+          img.className = 'gallery-json-final-image';
+          img.alt = 'Gallery image ' + (index + 1);
+          img.decoding = 'async';
+          img.draggable = false;
+          img.dataset.originalSrc = src;
+          img.dataset.loading = 'true';
+          img.dataset.loaded = 'false';
+          // Keep layout box (opacity only) so mobile grid does not collapse
+          img.style.setProperty('opacity', '0.2', 'important');
+          img.style.setProperty('display', 'block', 'important');
+          img.style.setProperty('visibility', 'visible', 'important');
+          if (index < (isMobile ? 12 : 20)) {
+            img.loading = 'eager';
+            try { img.fetchPriority = 'high'; } catch (e) {}
+          } else {
+            img.loading = 'lazy';
+            try { img.fetchPriority = 'low'; } catch (e) {}
+          }
+          img.src =
+            'data:image/svg+xml;charset=UTF-8,' +
+            encodeURIComponent(
+              '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="rgba(240,239,244,0.06)"/></svg>'
+            );
+          carousel.appendChild(img);
+          return { img: img, src: src, index: index };
+        });
+        await runPool(slots, isMobile ? 14 : 10);
       }
 
       const loadedCount = carousel.querySelectorAll('img[data-loaded="true"]').length;
-      if (!loadedCount && list.length) {
-        console.warn('Gallery JSON loaded, but no image path resolved:', list);
+      lastSuccessfulCount = loadedCount;
+
+      if (loadedCount > 0) {
+        window.__GALLERY2_LOAD_SUCCESS__ = true;
+        window.__GALLERY2_LOADED_COUNT__ = loadedCount;
+      } else if (list.length) {
+        console.warn('[gallery2] JSON loaded but zero paths resolved. Sample:', list.slice(0, 5));
       }
-    })().finally(() => { rebuildInFlight = null; });
+    })().finally(function () {
+      rebuildInFlight = null;
+    });
 
     return rebuildInFlight;
   }
 
   function runFinalPasses() {
     rebuildGalleryImages();
+    // Retry passes like gallery.html so late network / cache races still fill in
+    setTimeout(function () { rebuildGalleryImages(); }, 600);
+    setTimeout(function () { rebuildGalleryImages(); }, 1800);
+    setTimeout(function () {
+      // Soft retry: only reload slots still missing, without full wipe if possible
+      const carousel = getCarousel();
+      if (!carousel) return;
+      const pending = [...carousel.querySelectorAll('img')].filter(function (im) {
+        return im.dataset.loaded !== 'true';
+      });
+      if (pending.length && pending.length === carousel.querySelectorAll('img').length) {
+        // Nothing loaded yet — full rebuild
+        rebuildGalleryImages();
+      }
+    }, 3500);
   }
 
   const originalInitializeGallery = window.initializeGallery;
   window.initializeGallery = function finalInitializeGalleryOverride(images) {
     if (Array.isArray(images) && images.length) {
-      window.galleryImagesData = images;
+      window.galleryImagesData = images.slice();
     }
-    rebuildGalleryImages();
-    return originalInitializeGallery ? undefined : undefined;
+    setTimeout(function () { rebuildGalleryImages(); }, 0);
   };
+  window.initializeGallery.__gallery2Final = true;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', runFinalPasses, { once: true });
@@ -3259,9 +3387,23 @@ setInterval(updatePageScrollButton,500);
     runFinalPasses();
   }
 
-  /* Refresh when returning to the page via back/forward cache (order preserved). */
-  window.addEventListener('pageshow', e => { if (e.persisted) rebuildGalleryImages(); });
+  window.addEventListener('load', function () {
+    setTimeout(function () { rebuildGalleryImages(); }, 120);
+  });
 
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) rebuildGalleryImages();
+  });
+
+  const refresh = document.getElementById('refreshPhotosBtn');
+  if (refresh) {
+    refresh.addEventListener('click', function () {
+      lastSuccessfulCount = 0;
+      window.__GALLERY2_LOAD_SUCCESS__ = false;
+      setTimeout(function () { rebuildGalleryImages(); }, 0);
+      setTimeout(function () { rebuildGalleryImages(); }, 400);
+    });
+  }
 })();
 </script>
 <style>
@@ -7179,6 +7321,16 @@ body#gallery-page .gallery-carousel img.gallery-json-final-image[data-loaded="tr
   if (window.__MASTER_FAST_GALLERY_LOADER__) return;
   window.__MASTER_FAST_GALLERY_LOADER__ = true;
 
+  // If the ordered final rebuild already populated the carousel, do not
+  // wipe it with a second competing pipeline.
+  function masterShouldSkip() {
+    if (window.__GALLERY2_LOAD_SUCCESS__) return true;
+    const car = document.getElementById('galleryCarousel');
+    if (!car) return false;
+    const loaded = car.querySelectorAll('img[data-loaded="true"]').length;
+    return loaded >= 4;
+  }
+
   const PLACEHOLDER = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="transparent"/></svg>'
   );
@@ -7373,6 +7525,9 @@ body#gallery-page .gallery-carousel img.gallery-json-final-image[data-loaded="tr
     if (!Array.isArray(images) || !images.length) return;
     const carousel = document.getElementById('galleryCarousel');
     if (!carousel) return;
+    if (typeof masterShouldSkip === 'function' && masterShouldSkip()) {
+      return;
+    }
 
     // Preserve order from JSON (no shuffle) for stable, predictable loading
     const ordered = images.slice();
