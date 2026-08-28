@@ -1761,6 +1761,8 @@ In many versions of the game, Dominate has restrictions:
 <main class="gallery-page-shell">
   <div class="gallery-wrapper">
 
+    <button id="refreshPhotosBtn" class="refresh-photos-btn" type="button">Refresh Photos</button>
+
     <button class="arrow arrow-left">&#9664;</button>
 
     <div id="galleryCarousel" class="gallery-carousel"></div>
@@ -3136,7 +3138,7 @@ setInterval(updatePageScrollButton,500);
 
     const list = buildFinalCandidates(src);
     // Cap total probes so a bad path cannot stall the whole queue
-    const maxProbes = Math.min(list.length, 24);
+    const maxProbes = Math.min(list.length, 36);
     const limited = list.slice(0, maxProbes);
     const batchSize = 6;
 
@@ -3263,15 +3265,15 @@ setInterval(updatePageScrollButton,500);
         if (!resolved) {
           item.img.dataset.loading = 'false';
           item.img.dataset.loaded = 'false';
-          // Omit entirely — do not leave a blank gap in the scroll
-          try { item.img.remove(); } catch (e) {
-            item.img.style.setProperty('display', 'none', 'important');
-            item.img.style.setProperty('width', '0', 'important');
-            item.img.style.setProperty('height', '0', 'important');
-            item.img.style.setProperty('margin', '0', 'important');
-            item.img.style.setProperty('padding', '0', 'important');
-            item.img.style.setProperty('border', '0', 'important');
-          }
+          // Hidden — zero space (no blank gap). Kept in DOM so later retries can try again.
+          item.img.style.setProperty('display', 'none', 'important');
+          item.img.style.setProperty('visibility', 'hidden', 'important');
+          item.img.style.setProperty('opacity', '0', 'important');
+          item.img.style.setProperty('width', '0', 'important');
+          item.img.style.setProperty('height', '0', 'important');
+          item.img.style.setProperty('margin', '0', 'important');
+          item.img.style.setProperty('padding', '0', 'important');
+          item.img.style.setProperty('border', '0', 'important');
           return false;
         }
         hardShowImage(item.img, resolved);
@@ -3314,7 +3316,15 @@ setInterval(updatePageScrollButton,500);
           window.__GALLERY2_LOADED_COUNT__ = slots.length;
           return;
         }
-        await runPool(missing, isMobile ? 14 : 10);
+        await runPool(missing, isMobile ? 20 : 16);
+        for (let wave = 0; wave < 3; wave++) {
+          const still = slots.filter(function (s) {
+            return s.img && s.img.dataset.loaded !== 'true' && document.contains(s.img);
+          });
+          if (!still.length) break;
+          await new Promise(function (r) { setTimeout(r, 200 + wave * 150); });
+          await runPool(still, isMobile ? 16 : 12);
+        }
       } else {
         carousel.innerHTML = '';
         slots = order.map(function (src, index) {
@@ -3342,7 +3352,19 @@ setInterval(updatePageScrollButton,500);
           carousel.appendChild(img);
           return { img: img, src: src, index: index };
         });
-        await runPool(slots, isMobile ? 14 : 10);
+        // Wave 1: load everything concurrently (higher pool = more at once)
+        await runPool(slots, isMobile ? 20 : 16);
+
+        // Waves 2–4: keep trying every still-missing image until all
+        // have been attempted multiple times (do not stop after a portion).
+        for (let wave = 0; wave < 3; wave++) {
+          const missing = slots.filter(function (s) {
+            return s.img && s.img.dataset.loaded !== 'true' && document.contains(s.img);
+          });
+          if (!missing.length) break;
+          await new Promise(function (r) { setTimeout(r, 250 + wave * 200); });
+          await runPool(missing, isMobile ? 16 : 12);
+        }
       }
 
       const loadedCount = carousel.querySelectorAll('img[data-loaded="true"]').length;
@@ -3354,6 +3376,21 @@ setInterval(updatePageScrollButton,500);
       } else if (list.length) {
         console.warn('[gallery2] JSON loaded but zero paths resolved. Sample:', list.slice(0, 5));
       }
+
+      // Background sweep: keep trying leftovers without blocking UI
+      const leftovers = slots.filter(function (s) {
+        return s.img && s.img.dataset.loaded !== 'true' && document.contains(s.img);
+      });
+      if (leftovers.length) {
+        setTimeout(function () {
+          runPool(leftovers, isMobile ? 12 : 8).then(function () {
+            const n = carousel.querySelectorAll('img[data-loaded="true"]').length;
+            lastSuccessfulCount = n;
+            window.__GALLERY2_LOADED_COUNT__ = n;
+            if (n > 0) window.__GALLERY2_LOAD_SUCCESS__ = true;
+          });
+        }, 1200);
+      }
     })().finally(function () {
       rebuildInFlight = null;
     });
@@ -3363,21 +3400,9 @@ setInterval(updatePageScrollButton,500);
 
   function runFinalPasses() {
     rebuildGalleryImages();
-    // Retry passes like gallery.html so late network / cache races still fill in
-    setTimeout(function () { rebuildGalleryImages(); }, 600);
-    setTimeout(function () { rebuildGalleryImages(); }, 1800);
-    setTimeout(function () {
-      // Soft retry: only reload slots still missing, without full wipe if possible
-      const carousel = getCarousel();
-      if (!carousel) return;
-      const pending = [...carousel.querySelectorAll('img')].filter(function (im) {
-        return im.dataset.loaded !== 'true';
-      });
-      if (pending.length && pending.length === carousel.querySelectorAll('img').length) {
-        // Nothing loaded yet — full rebuild
-        rebuildGalleryImages();
-      }
-    }, 3500);
+    setTimeout(function () { rebuildGalleryImages(); }, 700);
+    setTimeout(function () { rebuildGalleryImages(); }, 2000);
+    setTimeout(function () { rebuildGalleryImages(); }, 4500);
   }
 
   const originalInitializeGallery = window.initializeGallery;
@@ -3403,15 +3428,33 @@ setInterval(updatePageScrollButton,500);
     if (e.persisted) rebuildGalleryImages();
   });
 
-  const refresh = document.getElementById('refreshPhotosBtn');
-  if (refresh) {
+  function bindRefreshButton() {
+    const refresh = document.getElementById('refreshPhotosBtn');
+    if (!refresh || refresh.dataset.gallery2Bound === 'true') return;
+    refresh.dataset.gallery2Bound = 'true';
     refresh.addEventListener('click', function () {
       lastSuccessfulCount = 0;
       window.__GALLERY2_LOAD_SUCCESS__ = false;
-      setTimeout(function () { rebuildGalleryImages(); }, 0);
-      setTimeout(function () { rebuildGalleryImages(); }, 400);
+      window.__GALLERY2_LOADED_COUNT__ = 0;
+      // Clear path cache so Refresh truly re-probes
+      try {
+        pathCache = {};
+        sessionStorage.removeItem(PATH_CACHE_KEY);
+      } catch (e) {}
+      const car = getCarousel();
+      if (car) car.innerHTML = '';
+      refresh.textContent = 'Loading…';
+      refresh.disabled = true;
+      rebuildGalleryImages().finally(function () {
+        refresh.textContent = 'Refresh Photos';
+        refresh.disabled = false;
+      });
+      setTimeout(function () { rebuildGalleryImages(); }, 500);
     });
   }
+  bindRefreshButton();
+  document.addEventListener('DOMContentLoaded', bindRefreshButton, { once: true });
+  window.addEventListener('load', bindRefreshButton);
 })();
 </script>
 <style>
