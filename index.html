@@ -9500,12 +9500,8 @@ html body
   <script src="script.js" defer></script>
 
 <script id="final-global-scroll-stability-runtime">
-/* DISABLED: toggling bp-scrolling during wheel/scroll caused mouse + scrollbar glitches
-   by flipping backdrop-filter and transforms mid-scroll. Left as no-op for compatibility. */
-(function () {
-  'use strict';
-  /* intentionally empty — do not mark bp-scrolling on scroll/wheel */
-})();
+/* Disabled: class toggling during wheel/scroll caused paint glitches. */
+(function () { /* no-op */ })();
 </script>
 
 </body>
@@ -11373,9 +11369,9 @@ a[href*="credly.com"]:not(.credly-inline-link),
 </style>
 
 <style id="smooth-scroll-performance">
-/* Smooth scrolling and performance enhancements */
+/* Performance enhancements — auto scroll-behavior prevents arrow-then-mouse glitch */
 html {
-  scroll-behavior: smooth !important;
+  scroll-behavior: auto !important;
   scroll-padding-top: 1.5rem !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
@@ -11421,11 +11417,11 @@ a, button, input, textarea, select, [role="button"] {
 </div>
 
 <!-- =========================================================
-     UNIFIED SCROLL SYSTEM — mouse wheel / scrollbar / arrows
-     Fast, responsive, no glitch. Overrides all prior handlers below.
+     UNIFIED SCROLL — fixes arrow-then-mouse glitch
+     Root cause was RAF keyboard scroller keeping a "target" that
+     fought the mouse/slider after arrow keys were used.
      ========================================================= -->
 <style id="unified-scroll-final-css">
-  /* Prefer native continuous scrolling; avoid smooth stacking on wheel */
   html {
     scroll-behavior: auto !important;
     overscroll-behavior-y: auto !important;
@@ -11435,7 +11431,7 @@ a, button, input, textarea, select, [role="button"] {
     overscroll-behavior: auto !important;
   }
 
-  /* Never flip expensive paint during scroll (was a major glitch source) */
+  /* Do not flip expensive filters mid-scroll */
   html.bp-scrolling .resume-shell,
   html.bp-scrolling .edu-card,
   html.bp-scrolling .courses-card,
@@ -11446,15 +11442,12 @@ a, button, input, textarea, select, [role="button"] {
   html.bp-scrolling .timeline-enhanced .timeline-item,
   html.bp-scrolling .matrix-card,
   html.bp-scrolling .theme-btn,
-  html.bp-scrolling #themeToggle,
-  html.bp-scroll-stabilizing .resume-shell,
-  html.bp-scroll-paint-lock .resume-shell {
+  html.bp-scrolling #themeToggle {
     backdrop-filter: inherit !important;
     -webkit-backdrop-filter: inherit !important;
     transform: none !important;
   }
 
-  /* Back-to-top */
   #pageScrollTop.page-scroll-top,
   #globalScrollTop,
   #appendedPageScrollTop,
@@ -11495,9 +11488,42 @@ a, button, input, textarea, select, [role="button"] {
 (function () {
   'use strict';
 
-  /* Block older site scroll controllers from re-installing */
+  /* Prevent older controllers from installing */
   window.__gardenScrollControlsInstalled = true;
   window.__unifiedScrollControlsInstalled = true;
+
+  /* Shared cancel token: any leftover RAF / smooth scroll must die
+     the moment the user uses the mouse, wheel, or scrollbar. */
+  var keyRafId = null;
+  var keyTarget = null;
+
+  function cancelProgrammaticScroll() {
+    keyTarget = null;
+    if (keyRafId != null) {
+      try { cancelAnimationFrame(keyRafId); } catch (e) {}
+      keyRafId = null;
+    }
+    /* Hard-stop any in-flight CSS smooth scroll by re-asserting position */
+    try {
+      var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+      window.scrollTo(0, y);
+    } catch (e) {}
+    try {
+      document.documentElement.classList.remove(
+        'bp-scrolling',
+        'bp-scroll-stabilizing',
+        'bp-scroll-paint-lock'
+      );
+    } catch (e) {}
+  }
+
+  /* Mouse / trackpad / scrollbar = fully native. Only cancel leftover keyboard state. */
+  window.addEventListener('wheel', cancelProgrammaticScroll, { passive: true, capture: true });
+  window.addEventListener('touchmove', cancelProgrammaticScroll, { passive: true, capture: true });
+  /* scrollbar drag fires scroll; cancel leftover RAF so it cannot pull against the slider */
+  window.addEventListener('scroll', function () {
+    if (keyRafId != null) cancelProgrammaticScroll();
+  }, { passive: true, capture: true });
 
   function isTypingTarget(el) {
     if (!el) return false;
@@ -11508,7 +11534,8 @@ a, button, input, textarea, select, [role="button"] {
   function findScrollableAncestor(el) {
     while (el && el !== document.body && el !== document.documentElement) {
       var st = window.getComputedStyle(el);
-      if ((st.overflowY === 'auto' || st.overflowY === 'scroll') && el.scrollHeight > el.clientHeight + 1) {
+      if ((st.overflowY === 'auto' || st.overflowY === 'scroll') &&
+          el.scrollHeight > el.clientHeight + 1) {
         return el;
       }
       el = el.parentElement;
@@ -11516,8 +11543,8 @@ a, button, input, textarea, select, [role="button"] {
     return null;
   }
 
-  /* Arrows only — never touch wheel / scrollbar / touch.
-     capture + stopImmediatePropagation overrides older key handlers. */
+  /* Arrow keys: one instant jump, no RAF, no smooth queue.
+     capture + stopImmediatePropagation kills older arrow handlers. */
   document.addEventListener('keydown', function (event) {
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
@@ -11527,11 +11554,21 @@ a, button, input, textarea, select, [role="button"] {
     event.preventDefault();
     event.stopImmediatePropagation();
 
+    /* Cancel anything previous so we never leave a fighting target */
+    cancelProgrammaticScroll();
+
     var amount = Math.max(220, Math.floor(window.innerHeight * 0.72));
-    window.scrollBy(0, event.key === 'ArrowDown' ? amount : -amount);
+    var maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    var cur = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var next = event.key === 'ArrowDown' ? cur + amount : cur - amount;
+    if (next < 0) next = 0;
+    if (next > maxY) next = maxY;
+
+    /* Instant set — no behavior:'smooth', no RAF follow-up */
+    window.scrollTo(0, next);
   }, true);
 
-  /* One back-to-top button; native smooth scroll only on click */
+  /* Back-to-top: native smooth only on click */
   function ensureBackToTop() {
     var btn =
       document.getElementById('pageScrollTop') ||
@@ -11553,6 +11590,7 @@ a, button, input, textarea, select, [role="button"] {
     btn.textContent = '▲';
     btn.onclick = function (e) {
       e.preventDefault();
+      cancelProgrammaticScroll();
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     };
     updateBackToTop();
