@@ -3361,6 +3361,60 @@ body.dark #themeToggle {
     transform: translateY(-2px);
   }
 </style>
+<!-- =========================================================
+     UNIFIED SMOOTH SCROLL CONTROLS — append-only site-wide override
+     Same fast, responsive arrows + native wheel/scrollbar.
+     Overrides prior arrow/scroll handlers on this page.
+     ========================================================= -->
+<style id="unified-scroll-override-css">
+  html {
+    scroll-behavior: auto !important;
+  }
+  body {
+    overscroll-behavior-y: auto !important;
+  }
+  #pageScrollTop.page-scroll-top,
+  #globalScrollTop,
+  #appendedPageScrollTop,
+  .page-scroll-top {
+    position: fixed !important;
+    right: 18px !important;
+    bottom: 18px !important;
+    width: 28px !important;
+    height: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    color: #ffffff !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    z-index: 2147483000 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.2s ease !important;
+  }
+  #pageScrollTop.page-scroll-top.show,
+  #globalScrollTop.show,
+  #appendedPageScrollTop.show,
+  .page-scroll-top.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  #pageScrollTop.page-scroll-top:hover,
+  #globalScrollTop:hover,
+  #appendedPageScrollTop:hover,
+  .page-scroll-top:hover {
+    transform: translateY(-2px);
+  }
+</style>
 <script id="unified-scroll-override-js">
 (function () {
   'use strict';
