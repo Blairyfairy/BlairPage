@@ -5727,38 +5727,39 @@ html.bp-scrolling body{
         <br>
           <h2 class="section-title">Technical Training</h2>
   <li><a href="https://app.pluralsight.com/profile/blairyfairy" target="_blank">Pluralsight Professional Profile</a></li> 
-      <!-- Pluralsight Learning & Training -->
 <a
   href="https://app.pluralsight.com/profile/blairyfairy"
   target="_blank"
   rel="noopener noreferrer"
-  class="learning-card"
-  aria-label="View Blair's Pluralsight learning profile"
+  class="training-card"
+  aria-label="View Blair's Pluralsight profile"
 >
-  <div class="learning-header">
+  <div class="training-top">
     <div>
-      <span class="learning-label">PLURALSIGHT</span>
+      <span class="training-kicker">PLURALSIGHT</span>
       <h2>Technical Training</h2>
     </div>
-    <span class="learning-arrow">↗</span>
+    <span class="training-link">↗</span>
   </div>
 
-  <div class="learning-stats">
+  <div class="training-stats">
     <div>
-      <strong>40+</strong>
+      <strong>50+</strong>
       <span>Courses</span>
     </div>
+
     <div>
-      <strong>12+</strong>
-      <span>Years Learning</span>
+      <strong>2014–2025</strong>
+      <span>Training</span>
     </div>
+
     <div>
-      <strong>2025</strong>
-      <span>Latest Training</span>
+      <strong>6</strong>
+      <span>Core Areas</span>
     </div>
   </div>
 
-  <div class="learning-topics">
+  <div class="training-tags">
     <span>AWS</span>
     <span>Networking</span>
     <span>Security</span>
@@ -5767,343 +5768,584 @@ html.bp-scrolling body{
     <span>Cloud</span>
   </div>
 
-  <div class="learning-timeline">
+  <div class="training-list">
 
-    <div class="learning-year">
-      <span>2025</span>
+    <div class="training-row">
+      <span class="training-year">2025</span>
       <div>
         <b>AWS Solutions Architecture</b>
         <small>
-          Certified Solutions Architect – Associate (SAA-C03)
-          · Professional (SAP-C02)
+          Solutions Architect – Associate (SAA-C03) ·
+          Solutions Architect – Professional (SAP-C02)
         </small>
-        <small>Completed Mar 31, 2025</small>
+        <small>Completed March 31, 2025</small>
       </div>
     </div>
 
-    <div class="learning-year">
-      <span>2023</span>
+    <div class="training-row">
+      <span class="training-year">2023</span>
       <div>
         <b>Networking & Security</b>
         <small>
           Network Concepts · Enterprise Infrastructure · Wireshark ·
           Network Security · Troubleshooting · Subnetting
         </small>
-        <small>Completed Jul–Oct 2023</small>
+        <small>Completed July–October 2023</small>
       </div>
     </div>
 
-    <div class="learning-year">
-      <span>2022</span>
+    <div class="training-row">
+      <span class="training-year">2022</span>
       <div>
-        <b>Networking & AWS</b>
+        <b>Cisco Networking & AWS</b>
         <small>
-          CCNA Networking · Cisco Router Configuration · Ethernet &
+          CCNA Networking · Router Configuration · Ethernet ·
           Switching · AWS Security
         </small>
-        <small>Completed Nov–Dec 2022</small>
+        <small>Completed November–December 2022</small>
       </div>
     </div>
 
-    <div class="learning-year">
-      <span>2021</span>
+    <div class="training-row">
+      <span class="training-year">2021</span>
       <div>
         <b>AWS Cloud Foundations</b>
-        <small>
-          AWS Certified Cloud Practitioner: Exam Prep
-        </small>
-        <small>Completed Nov 29, 2021</small>
+        <small>AWS Certified Cloud Practitioner: Exam Prep</small>
+        <small>Completed November 29, 2021</small>
       </div>
     </div>
 
-    <div class="learning-year">
-      <span>2015</span>
+    <div class="training-row">
+      <span class="training-year">2015</span>
       <div>
         <b>Systems, Cloud & Development</b>
         <small>
           Python · Bash · Linux · Docker · AWS · Networking ·
           OpenStack · PHP/MySQL · Virtualization
         </small>
-        <small>Training completed Jul–Sep 2015</small>
+        <small>Training completed July–September 2015</small>
       </div>
     </div>
 
-    <div class="learning-year">
-      <span>2014</span>
+    <div class="training-row">
+      <span class="training-year">2014</span>
       <div>
-        <b>IT Foundations</b>
+        <b>IT Infrastructure Foundations</b>
         <small>
           CompTIA A+ · Network+ · Storage+ · Linux+ · CCNA ·
           HTTP · Apache · CSS · Cloud Computing
         </small>
-        <small>Training completed Jul–Sep 2014</small>
+        <small>Training completed July–September 2014</small>
       </div>
     </div>
 
   </div>
 
-  <div class="learning-footer">
+  <div class="training-footer">
     <span>View complete Pluralsight profile</span>
     <span>→</span>
   </div>
 </a>
 
 <style>
-  .learning-card {
-    /* Inherits your site's theme when these variables already exist */
-    --lc-bg: var(--card-bg, var(--surface, #111827));
-    --lc-text: var(--text-color, #f8fafc);
-    --lc-muted: var(--muted-color, #94a3b8);
-    --lc-border: var(--border-color, rgba(148,163,184,.18));
-    --lc-accent: var(--accent-color, #38bdf8);
-    --lc-accent-soft: color-mix(
-      in srgb,
-      var(--lc-accent) 12%,
-      transparent
-    );
+  .training-card {
+
+    /*
+      ==========================================================
+      THEME COLOR SYSTEM
+      ==========================================================
+
+      Only TWO primary colors are used:
+
+      1. --training-dark
+         Default / resting state
+
+      2. --training-light
+         Hover / illuminated state
+
+      If your website already defines --accent-color,
+      --theme-color, or --primary-color, this will inherit it.
+    */
+
+    --training-theme:
+      var(--accent-color,
+      var(--theme-color,
+      var(--primary-color,
+      #38bdf8)));
+
+    /*
+      Dark version of the inherited theme color.
+      This is the NORMAL resting state.
+    */
+    --training-dark:
+      color-mix(
+        in srgb,
+        var(--training-theme) 12%,
+        #101010
+      );
+
+    /*
+      Lighter version of the SAME theme color.
+      This becomes active on hover.
+    */
+    --training-light:
+      color-mix(
+        in srgb,
+        var(--training-theme) 32%,
+        #242424
+      );
+
+    /*
+      Soft white mixed into the SAME theme color.
+      Used only for the foggy hover illumination.
+    */
+    --training-fog:
+      color-mix(
+        in srgb,
+        white 22%,
+        var(--training-theme)
+      );
+
+    /*
+      ==========================================================
+      BASE CONTAINER
+      ==========================================================
+    */
 
     display: block;
-    width: min(100%, 760px);
+
+    width: min(100%, 720px);
     box-sizing: border-box;
 
-    margin: 1rem auto;
-    padding: clamp(16px, 2.5vw, 22px);
+    margin: 1rem 0;
+    padding: 18px;
 
-    color: var(--lc-text);
-    background:
-      linear-gradient(
-        135deg,
-        var(--lc-accent-soft),
-        transparent 45%
-      ),
-      var(--lc-bg);
+    /*
+      DEFAULT = DARK THEME COLOR
+    */
+    background: var(--training-dark);
 
-    border: 1px solid var(--lc-border);
-    border-radius: 16px;
+    color: white;
+
+    border: 1px solid
+      color-mix(
+        in srgb,
+        var(--training-theme) 18%,
+        transparent
+      );
+
+    border-radius: 12px;
 
     text-decoration: none;
-    overflow: hidden;
 
-    box-shadow:
-      0 8px 30px rgba(0,0,0,.08);
+    /*
+      IMPORTANT:
+      No permanent glow.
+      No shadow.
+      No gradient.
+    */
+    box-shadow: none;
 
+    /*
+      Smoothly returns to the DARK color
+      when the mouse leaves.
+    */
     transition:
-      transform .2s ease,
-      border-color .2s ease,
-      box-shadow .2s ease;
+      background-color .28s ease,
+      border-color .28s ease,
+      color .28s ease,
+      box-shadow .32s ease;
   }
 
-  .learning-card:hover {
-    transform: translateY(-2px);
-    border-color: color-mix(
-      in srgb,
-      var(--lc-accent) 55%,
-      var(--lc-border)
-    );
 
+  /*
+    ==========================================================
+    HOVER STATE
+    ==========================================================
+
+    DARK → LIGHT
+
+    The entire card lights up using the SAME theme color.
+  */
+
+  .training-card:hover {
+
+    /*
+      SECOND THEME COLOR
+    */
+    background: var(--training-light);
+
+    border-color:
+      color-mix(
+        in srgb,
+        var(--training-theme) 70%,
+        white 8%
+      );
+
+    /*
+      Foggy white illumination.
+      It exists ONLY while hovering.
+    */
     box-shadow:
-      0 12px 36px rgba(0,0,0,.13);
+      0 0 0 1px
+        color-mix(
+          in srgb,
+          var(--training-fog) 35%,
+          transparent
+        ),
+
+      0 0 22px
+        color-mix(
+          in srgb,
+          var(--training-fog) 22%,
+          transparent
+        ),
+
+      0 0 45px
+        color-mix(
+          in srgb,
+          var(--training-fog) 10%,
+          transparent
+        );
   }
 
-  .learning-header {
+
+  /*
+    ==========================================================
+    MOUSE LEAVES
+    ==========================================================
+
+    CSS automatically transitions everything back to:
+
+    DARK THEME COLOR
+    +
+    NO GLOW
+  */
+
+
+  /*
+    ==========================================================
+    HEADER
+    ==========================================================
+  */
+
+  .training-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 12px;
     margin-bottom: 14px;
+
+    text-align: left;
   }
 
-  .learning-label {
+  .training-kicker {
     display: block;
+
     margin-bottom: 3px;
 
-    color: var(--lc-accent);
-    font-size: .66rem;
+    color:
+      color-mix(
+        in srgb,
+        var(--training-theme) 85%,
+        white 15%
+      );
+
+    font-size: .62rem;
     font-weight: 800;
-    letter-spacing: .12em;
+    letter-spacing: .13em;
   }
 
-  .learning-header h2 {
+  .training-top h2 {
     margin: 0;
-    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+
+    color: white;
+
+    font-size: 1.1rem;
     line-height: 1.2;
-  }
-
-  .learning-arrow {
-    display: grid;
-    place-items: center;
-
-    width: 30px;
-    height: 30px;
-    flex: 0 0 30px;
-
-    color: var(--lc-accent);
-    border: 1px solid var(--lc-border);
-    border-radius: 50%;
-    font-size: 1rem;
-  }
-
-  .learning-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-
-  .learning-stats > div {
-    min-width: 0;
-    padding: 9px 10px;
-    background: rgba(127,127,127,.07);
-    border: 1px solid var(--lc-border);
-    border-radius: 10px;
-  }
-
-  .learning-stats strong {
-    display: block;
-    font-size: 1rem;
-    line-height: 1.1;
-  }
-
-  .learning-stats span {
-    display: block;
-    margin-top: 3px;
-    color: var(--lc-muted);
-    font-size: .68rem;
-  }
-
-  .learning-topics {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 14px;
-  }
-
-  .learning-topics span {
-    padding: 4px 8px;
-
-    color: var(--lc-muted);
-    background: rgba(127,127,127,.07);
-    border: 1px solid var(--lc-border);
-    border-radius: 999px;
-
-    font-size: .68rem;
-    line-height: 1;
-  }
-
-  .learning-timeline {
-    display: grid;
-    gap: 6px;
-  }
-
-  .learning-year {
-    display: grid;
-    grid-template-columns: 42px 1fr;
-    gap: 10px;
-
-    padding: 8px 0;
-    border-top: 1px solid var(--lc-border);
-  }
-
-  .learning-year > span {
-    color: var(--lc-accent);
-    font-size: .7rem;
-    font-weight: 800;
-    padding-top: 1px;
-  }
-
-  .learning-year b {
-    display: block;
-    margin-bottom: 2px;
-    font-size: .78rem;
-  }
-
-  .learning-year small {
-    display: block;
-    color: var(--lc-muted);
-    font-size: .67rem;
-    line-height: 1.4;
-  }
-
-  .learning-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-
-    margin-top: 10px;
-    padding-top: 12px;
-
-    border-top: 1px solid var(--lc-border);
-
-    color: var(--lc-accent);
-    font-size: .72rem;
     font-weight: 700;
   }
 
-  /* Small screens */
-  @media (max-width: 480px) {
-    .learning-card {
+  .training-link {
+    flex: 0 0 auto;
+
+    color:
+      color-mix(
+        in srgb,
+        var(--training-theme) 82%,
+        white 18%
+      );
+
+    font-size: 1rem;
+  }
+
+
+  /*
+    ==========================================================
+    STATS
+    ==========================================================
+  */
+
+  .training-stats {
+    display: flex;
+    justify-content: flex-start;
+
+    gap: 24px;
+    margin-bottom: 13px;
+
+    text-align: left;
+  }
+
+  .training-stats div {
+    min-width: 0;
+  }
+
+  .training-stats strong {
+    display: block;
+
+    color: white;
+
+    font-size: .9rem;
+    line-height: 1.2;
+  }
+
+  .training-stats span {
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+      color-mix(
+        in srgb,
+        white 58%,
+        var(--training-theme)
+      );
+
+    font-size: .62rem;
+  }
+
+
+  /*
+    ==========================================================
+    TAGS
+    ==========================================================
+  */
+
+  .training-tags {
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: flex-start;
+    gap: 5px;
+
+    margin-bottom: 13px;
+  }
+
+  .training-tags span {
+    padding: 4px 7px;
+
+    color:
+      color-mix(
+        in srgb,
+        white 72%,
+        var(--training-theme)
+      );
+
+    border: 1px solid
+      color-mix(
+        in srgb,
+        var(--training-theme) 20%,
+        transparent
+      );
+
+    border-radius: 5px;
+
+    font-size: .62rem;
+    line-height: 1;
+  }
+
+
+  /*
+    ==========================================================
+    TRAINING ROWS
+    ==========================================================
+  */
+
+  .training-list {
+    text-align: left;
+  }
+
+  .training-row {
+    display: grid;
+
+    grid-template-columns: 48px minmax(0, 1fr);
+
+    gap: 10px;
+
+    padding: 9px 0;
+
+    border-top: 1px solid
+      color-mix(
+        in srgb,
+        white 10%,
+        transparent
+      );
+  }
+
+  .training-year {
+    color:
+      color-mix(
+        in srgb,
+        var(--training-theme) 82%,
+        white 18%
+      );
+
+    font-size: .66rem;
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  .training-row b {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: white;
+
+    font-size: .73rem;
+    line-height: 1.3;
+  }
+
+  .training-row small {
+    display: block;
+
+    color:
+      color-mix(
+        in srgb,
+        white 57%,
+        var(--training-theme)
+      );
+
+    font-size: .61rem;
+    line-height: 1.45;
+  }
+
+
+  /*
+    ==========================================================
+    FOOTER
+    ==========================================================
+  */
+
+  .training-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 5px;
+    padding-top: 11px;
+
+    border-top: 1px solid
+      color-mix(
+        in srgb,
+        white 10%,
+        transparent
+      );
+
+    color:
+      color-mix(
+        in srgb,
+        var(--training-theme) 82%,
+        white 18%
+      );
+
+    font-size: .65rem;
+    font-weight: 700;
+  }
+
+
+  /*
+    ==========================================================
+    MOBILE
+    ==========================================================
+  */
+
+  @media (max-width: 600px) {
+
+    .training-card {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .training-stats {
+      gap: 18px;
+    }
+  }
+
+
+  @media (max-width: 420px) {
+
+    .training-card {
       margin: .75rem 0;
-      padding: 14px;
-      border-radius: 13px;
+      padding: 13px;
     }
 
-    .learning-stats {
-      gap: 5px;
+    .training-top h2 {
+      font-size: 1rem;
     }
 
-    .learning-stats > div {
-      padding: 8px;
+    .training-stats {
+      gap: 15px;
     }
 
-    .learning-stats strong {
-      font-size: .9rem;
+    .training-stats strong {
+      font-size: .82rem;
     }
 
-    .learning-stats span {
-      font-size: .6rem;
-    }
-
-    .learning-year {
-      grid-template-columns: 36px 1fr;
+    .training-row {
+      grid-template-columns: 40px minmax(0, 1fr);
       gap: 7px;
+      padding: 8px 0;
     }
 
-    .learning-year b {
-      font-size: .74rem;
+    .training-row b {
+      font-size: .7rem;
     }
 
-    .learning-year small {
-      font-size: .62rem;
+    .training-row small {
+      font-size: .58rem;
     }
   }
 
-  /* Very narrow screens */
+
   @media (max-width: 330px) {
-    .learning-stats {
-      grid-template-columns: 1fr;
+
+    .training-stats {
+      gap: 10px;
     }
 
-    .learning-stats > div {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 8px;
+    .training-stats span {
+      font-size: .56rem;
     }
 
-    .learning-stats span {
-      margin-top: 0;
+    .training-tags span {
+      font-size: .57rem;
     }
   }
 
-  /* Respects accessibility preferences */
-  @media (prefers-reduced-motion: reduce) {
-    .learning-card {
-      transition: none;
-    }
 
-    .learning-card:hover {
-      transform: none;
+  /*
+    ==========================================================
+    ACCESSIBILITY
+    ==========================================================
+  */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .training-card {
+      transition: none;
     }
   }
 </style>
