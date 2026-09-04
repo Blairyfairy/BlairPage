@@ -5851,66 +5851,27 @@ html.bp-scrolling body{
   .training-card {
 
     /*
-      ==========================================================
-      THEME COLOR SYSTEM
-      ==========================================================
+     * ========================================================
+     * THEME
+     * ========================================================
+     *
+     * TWO COLORS:
+     *
+     * --training-default = normal text / outline
+     * --training-hover   = illuminated hover state
+     *
+     * THE CONTAINER ITSELF HAS NO BACKGROUND.
+     */
 
-      Only TWO primary colors are used:
+    --training-default:
+      var(--accent-color, var(--theme-color, #8b8b8b));
 
-      1. --training-dark
-         Default / resting state
-
-      2. --training-light
-         Hover / illuminated state
-
-      If your website already defines --accent-color,
-      --theme-color, or --primary-color, this will inherit it.
-    */
-
-    --training-theme:
-      var(--accent-color,
-      var(--theme-color,
-      var(--primary-color,
-      #38bdf8)));
-
-    /*
-      Dark version of the inherited theme color.
-      This is the NORMAL resting state.
-    */
-    --training-dark:
+    --training-hover:
       color-mix(
         in srgb,
-        var(--training-theme) 12%,
-        #101010
+        var(--training-default) 55%,
+        white
       );
-
-    /*
-      Lighter version of the SAME theme color.
-      This becomes active on hover.
-    */
-    --training-light:
-      color-mix(
-        in srgb,
-        var(--training-theme) 32%,
-        #242424
-      );
-
-    /*
-      Soft white mixed into the SAME theme color.
-      Used only for the foggy hover illumination.
-    */
-    --training-fog:
-      color-mix(
-        in srgb,
-        white 22%,
-        var(--training-theme)
-      );
-
-    /*
-      ==========================================================
-      BASE CONTAINER
-      ==========================================================
-    */
 
     display: block;
 
@@ -5921,16 +5882,19 @@ html.bp-scrolling body{
     padding: 18px;
 
     /*
-      DEFAULT = DARK THEME COLOR
-    */
-    background: var(--training-dark);
+     * COMPLETELY TRANSPARENT
+     */
+    background: transparent !important;
 
-    color: white;
+    color: var(--training-default);
 
+    /*
+     * ONLY AN OUTLINE
+     */
     border: 1px solid
       color-mix(
         in srgb,
-        var(--training-theme) 18%,
+        var(--training-default) 35%,
         transparent
       );
 
@@ -5939,95 +5903,64 @@ html.bp-scrolling body{
     text-decoration: none;
 
     /*
-      IMPORTANT:
-      No permanent glow.
-      No shadow.
-      No gradient.
-    */
+     * NO SHADOW / NO GLOW AT REST
+     */
     box-shadow: none;
 
-    /*
-      Smoothly returns to the DARK color
-      when the mouse leaves.
-    */
     transition:
-      background-color .28s ease,
-      border-color .28s ease,
-      color .28s ease,
-      box-shadow .32s ease;
+      color .25s ease,
+      border-color .25s ease,
+      text-shadow .3s ease,
+      box-shadow .3s ease;
   }
 
 
   /*
-    ==========================================================
-    HOVER STATE
-    ==========================================================
-
-    DARK → LIGHT
-
-    The entire card lights up using the SAME theme color.
-  */
+   * ========================================================
+   * HOVER
+   * ========================================================
+   *
+   * DEFAULT COLOR
+   *       ↓
+   * LIGHTER THEME COLOR
+   *       +
+   * SOFT WHITE FOG
+   */
 
   .training-card:hover {
 
-    /*
-      SECOND THEME COLOR
-    */
-    background: var(--training-light);
+    color: var(--training-hover);
 
     border-color:
-      color-mix(
-        in srgb,
-        var(--training-theme) 70%,
-        white 8%
-      );
+      var(--training-hover);
 
     /*
-      Foggy white illumination.
-      It exists ONLY while hovering.
-    */
+     * VERY SOFT LIGHT / FOG.
+     * It does NOT create a colored background.
+     */
     box-shadow:
-      0 0 0 1px
-        color-mix(
-          in srgb,
-          var(--training-fog) 35%,
-          transparent
-        ),
+      0 0 10px
+      color-mix(
+        in srgb,
+        var(--training-hover) 18%,
+        transparent
+      );
 
-      0 0 22px
-        color-mix(
-          in srgb,
-          var(--training-fog) 22%,
-          transparent
-        ),
-
-      0 0 45px
-        color-mix(
-          in srgb,
-          var(--training-fog) 10%,
-          transparent
-        );
+    text-shadow:
+      0 0 8px
+      color-mix(
+        in srgb,
+        white 18%,
+        var(--training-hover)
+      );
   }
 
 
   /*
-    ==========================================================
-    MOUSE LEAVES
-    ==========================================================
-
-    CSS automatically transitions everything back to:
-
-    DARK THEME COLOR
-    +
-    NO GLOW
-  */
-
-
-  /*
-    ==========================================================
-    HEADER
-    ==========================================================
-  */
+   * ========================================================
+   * HEADER
+   * ========================================================
+   */
 
   .training-top {
     display: flex;
@@ -6045,22 +5978,25 @@ html.bp-scrolling body{
 
     margin-bottom: 3px;
 
-    color:
-      color-mix(
-        in srgb,
-        var(--training-theme) 85%,
-        white 15%
-      );
+    color: var(--training-default);
 
     font-size: .62rem;
     font-weight: 800;
     letter-spacing: .13em;
+
+    transition:
+      color .25s ease,
+      text-shadow .3s ease;
+  }
+
+  .training-card:hover .training-kicker {
+    color: var(--training-hover);
   }
 
   .training-top h2 {
     margin: 0;
 
-    color: white;
+    color: inherit;
 
     font-size: 1.1rem;
     line-height: 1.2;
@@ -6070,22 +6006,17 @@ html.bp-scrolling body{
   .training-link {
     flex: 0 0 auto;
 
-    color:
-      color-mix(
-        in srgb,
-        var(--training-theme) 82%,
-        white 18%
-      );
+    color: inherit;
 
     font-size: 1rem;
   }
 
 
   /*
-    ==========================================================
-    STATS
-    ==========================================================
-  */
+   * ========================================================
+   * STATS
+   * ========================================================
+   */
 
   .training-stats {
     display: flex;
@@ -6104,7 +6035,7 @@ html.bp-scrolling body{
   .training-stats strong {
     display: block;
 
-    color: white;
+    color: inherit;
 
     font-size: .9rem;
     line-height: 1.2;
@@ -6115,22 +6046,21 @@ html.bp-scrolling body{
 
     margin-top: 2px;
 
-    color:
-      color-mix(
-        in srgb,
-        white 58%,
-        var(--training-theme)
-      );
+    color: color-mix(
+      in srgb,
+      var(--training-default) 65%,
+      transparent
+    );
 
     font-size: .62rem;
   }
 
 
   /*
-    ==========================================================
-    TAGS
-    ==========================================================
-  */
+   * ========================================================
+   * TAGS
+   * ========================================================
+   */
 
   .training-tags {
     display: flex;
@@ -6145,17 +6075,16 @@ html.bp-scrolling body{
   .training-tags span {
     padding: 4px 7px;
 
-    color:
-      color-mix(
-        in srgb,
-        white 72%,
-        var(--training-theme)
-      );
+    color: color-mix(
+      in srgb,
+      var(--training-default) 80%,
+      transparent
+    );
 
     border: 1px solid
       color-mix(
         in srgb,
-        var(--training-theme) 20%,
+        var(--training-default) 28%,
         transparent
       );
 
@@ -6163,14 +6092,29 @@ html.bp-scrolling body{
 
     font-size: .62rem;
     line-height: 1;
+
+    transition:
+      color .25s ease,
+      border-color .25s ease;
+  }
+
+  .training-card:hover .training-tags span {
+    color: var(--training-hover);
+
+    border-color:
+      color-mix(
+        in srgb,
+        var(--training-hover) 65%,
+        transparent
+      );
   }
 
 
   /*
-    ==========================================================
-    TRAINING ROWS
-    ==========================================================
-  */
+   * ========================================================
+   * TRAINING ROWS
+   * ========================================================
+   */
 
   .training-list {
     text-align: left;
@@ -6185,21 +6129,19 @@ html.bp-scrolling body{
 
     padding: 9px 0;
 
+    /*
+     * TRANSPARENT DIVIDERS
+     */
     border-top: 1px solid
       color-mix(
         in srgb,
-        white 10%,
+        var(--training-default) 18%,
         transparent
       );
   }
 
   .training-year {
-    color:
-      color-mix(
-        in srgb,
-        var(--training-theme) 82%,
-        white 18%
-      );
+    color: var(--training-default);
 
     font-size: .66rem;
     font-weight: 800;
@@ -6211,7 +6153,7 @@ html.bp-scrolling body{
 
     margin-bottom: 2px;
 
-    color: white;
+    color: inherit;
 
     font-size: .73rem;
     line-height: 1.3;
@@ -6220,12 +6162,11 @@ html.bp-scrolling body{
   .training-row small {
     display: block;
 
-    color:
-      color-mix(
-        in srgb,
-        white 57%,
-        var(--training-theme)
-      );
+    color: color-mix(
+      in srgb,
+      var(--training-default) 65%,
+      transparent
+    );
 
     font-size: .61rem;
     line-height: 1.45;
@@ -6233,10 +6174,10 @@ html.bp-scrolling body{
 
 
   /*
-    ==========================================================
-    FOOTER
-    ==========================================================
-  */
+   * ========================================================
+   * FOOTER
+   * ========================================================
+   */
 
   .training-footer {
     display: flex;
@@ -6249,16 +6190,11 @@ html.bp-scrolling body{
     border-top: 1px solid
       color-mix(
         in srgb,
-        white 10%,
+        var(--training-default) 18%,
         transparent
       );
 
-    color:
-      color-mix(
-        in srgb,
-        var(--training-theme) 82%,
-        white 18%
-      );
+    color: var(--training-default);
 
     font-size: .65rem;
     font-weight: 700;
@@ -6266,10 +6202,10 @@ html.bp-scrolling body{
 
 
   /*
-    ==========================================================
-    MOBILE
-    ==========================================================
-  */
+   * ========================================================
+   * MOBILE
+   * ========================================================
+   */
 
   @media (max-width: 600px) {
 
@@ -6337,18 +6273,21 @@ html.bp-scrolling body{
 
 
   /*
-    ==========================================================
-    ACCESSIBILITY
-    ==========================================================
-  */
+   * ========================================================
+   * REDUCED MOTION
+   * ========================================================
+   */
 
   @media (prefers-reduced-motion: reduce) {
 
-    .training-card {
+    .training-card,
+    .training-kicker,
+    .training-tags span {
       transition: none;
     }
   }
 </style>
+
 
         <li><a href="https://www.udemy.com/certificate/UC-03566515-9d9b-45e7-8d71-ca8cae05adde/" target="_blank">WooCommerce WordPress E-Commerce Certification</a></li>
 
