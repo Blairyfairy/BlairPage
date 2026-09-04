@@ -562,26 +562,17 @@
   }
 
   .bp-mobile-page #mobileContent .card-toggle .expand-icon {
-    flex: 0 0 28px !important;
-    width: 28px !important;
-    height: 28px !important;
-    min-width: 28px !important;
-    min-height: 28px !important;
-    max-width: 28px !important;
-    max-height: 28px !important;
-    border: 1px solid rgba(240, 239, 244, 0.18) !important;
+    flex: 0 0 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
     border-radius: 8px !important;
-    display: inline-flex !important;
+    display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: rgba(255, 255, 255, 0.03) !important;
-    margin-left: 10px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    margin-left: 12px !important;
     line-height: 1 !important;
-    font-size: 1.05rem !important;
-    font-weight: 700 !important;
-    color: #f0eff4 !important;
-    transform: none !important;
-    rotate: 0deg !important;
   }
 
   .bp-mobile-page #mobileContent .card-content {
@@ -830,23 +821,15 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 28px !important;
-    height: 28px !important;
-    min-width: 28px !important;
-    min-height: 28px !important;
-    max-width: 28px !important;
-    max-height: 28px !important;
-    border: 1px solid rgba(240, 239, 244, 0.18) !important;
+    width: 30px !important;
+    height: 30px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
     border-radius: 8px !important;
     margin-right: 10px !important;
     font-weight: 700 !important;
-    font-size: 1.05rem !important;
-    flex: 0 0 28px !important;
     flex-shrink: 0 !important;
-    background: rgba(255, 255, 255, 0.03) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
     color: #f0eff4 !important;
-    transform: none !important;
-    rotate: 0deg !important;
   }
 
   .bp-mobile-page #mobileContent .job-list-collapsible {
@@ -3974,13 +3957,15 @@
             const card = button.closest(".matrix-card");
             if (!card) return;
             const expanded = button.getAttribute("aria-expanded") === "true";
-            button.setAttribute("aria-expanded", String(!expanded));
-            card.classList.toggle("open");
+            const nextOpen = !expanded;
+            button.setAttribute("aria-expanded", String(nextOpen));
+            card.classList.toggle("open", nextOpen);
             const icon = button.querySelector(".expand-icon");
-            if (icon) icon.textContent = expanded ? "＋" : "−";
+            if (icon) icon.textContent = nextOpen ? "−" : "+";
             const content = card.querySelector(".card-content");
             if (content) {
-              content.style.setProperty("display", expanded ? "none" : "block", "important");
+              content.hidden = !nextOpen;
+              content.style.setProperty("display", nextOpen ? "block" : "none", "important");
             }
             lockMatrixCardWidths(pulledShell);
           });
@@ -6081,21 +6066,21 @@ function forceRepairCredlyEmbeds(root) {
   align-items: center !important;
   justify-content: center !important;
 
-  width: 28px !important;
-  min-width: 28px !important;
-  max-width: 28px !important;
+  width: 30px !important;
+  min-width: 30px !important;
+  max-width: 30px !important;
 
-  height: 28px !important;
-  min-height: 28px !important;
-  max-height: 28px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  max-height: 30px !important;
 
-  flex: 0 0 28px !important;
+  flex: 0 0 30px !important;
   margin-left: 10px !important;
   padding: 0 !important;
 
-  border: 1px solid rgba(240, 239, 244, 0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
   border-radius: 8px !important;
-  background: rgba(255, 255, 255, 0.03) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
 
   color: #f0eff4 !important;
   font-size: 1.05rem !important;
@@ -6106,15 +6091,13 @@ function forceRepairCredlyEmbeds(root) {
   box-shadow: none !important;
   text-shadow: none !important;
 
-  transform: none !important;
-  rotate: 0deg !important;
   transform-origin: center center !important;
-  transition: background 0.2s ease, border-color 0.2s ease !important;
+  transition: transform 0.25s ease, background 0.2s ease !important;
 }
 
 .bp-mobile-page #mobileContent .profile-matrix .matrix-card.open .card-toggle .expand-icon,
 .bp-mobile-page #mobileContent .profile-matrix .matrix-card .card-toggle[aria-expanded="true"] .expand-icon {
-  transform: none !important; /* was rotate(45deg) — desktop parity */
+  transform: none !important; /* desktop parity no-spin */
   background: rgba(158, 130, 156, 0.1) !important;
 }
 
@@ -6142,15 +6125,15 @@ function forceRepairCredlyEmbeds(root) {
         align-items: center !important;
         justify-content: center !important;
 
-        width: 28px !important;
-        min-width: 28px !important;
-        max-width: 28px !important;
+        width: 30px !important;
+        min-width: 30px !important;
+        max-width: 30px !important;
 
-        height: 28px !important;
-        min-height: 28px !important;
-        max-height: 28px !important;
+        height: 30px !important;
+        min-height: 30px !important;
+        max-height: 30px !important;
 
-        flex: 0 0 28px !important;
+        flex: 0 0 30px !important;
         margin-left: 10px !important;
         margin-right: 0 !important;
         padding: 0 !important;
@@ -6174,7 +6157,7 @@ function forceRepairCredlyEmbeds(root) {
       body.bp-mobile-page #mobileContent .matrix-card .card-toggle[aria-expanded="true"] > span:last-child,
       body.bp-mobile-page #mobileContent .matrix-card.open .card-toggle .expand-icon,
       body.bp-mobile-page #mobileContent .matrix-card .card-toggle[aria-expanded="true"] .expand-icon {
-        transform: none !important; /* was rotate(45deg) — desktop parity */
+        transform: none !important; /* desktop parity no-spin */
         background: rgba(158,130,156,0.1) !important;
       }
     `;
@@ -6190,31 +6173,28 @@ function forceRepairCredlyEmbeds(root) {
       if (!icon) return;
 
       icon.classList.add("expand-icon");
+      icon.textContent = "＋";
 
-      icon.style.setProperty("width", "28px", "important");
-      icon.style.setProperty("height", "28px", "important");
-      icon.style.setProperty("min-width", "28px", "important");
-      icon.style.setProperty("min-height", "28px", "important");
-      icon.style.setProperty("max-width", "28px", "important");
-      icon.style.setProperty("max-height", "28px", "important");
-      icon.style.setProperty("flex", "0 0 28px", "important");
-      icon.style.setProperty("border", "1px solid rgba(240,239,244,0.18)", "important");
+      icon.style.setProperty("width", "30px", "important");
+      icon.style.setProperty("height", "30px", "important");
+      icon.style.setProperty("flex", "0 0 30px", "important");
+      icon.style.setProperty("border", "1px solid rgba(255,255,255,0.2)", "important");
       icon.style.setProperty("border-radius", "8px", "important");
-      icon.style.setProperty("background", "rgba(255,255,255,0.03)", "important");
+      icon.style.setProperty("background", "rgba(255,255,255,0.05)", "important");
       icon.style.setProperty("color", "#f0eff4", "important");
       icon.style.setProperty("display", "inline-flex", "important");
       icon.style.setProperty("align-items", "center", "important");
       icon.style.setProperty("justify-content", "center", "important");
-      icon.style.setProperty("font-size", "1.05rem", "important");
-      icon.style.setProperty("font-weight", "700", "important");
 
       const expanded =
         btn.getAttribute("aria-expanded") === "true" ||
         btn.closest(".matrix-card")?.classList.contains("open");
 
-      icon.style.setProperty("transform", "none", "important");
-      icon.style.setProperty("rotate", "0deg", "important");
-      icon.textContent = expanded ? "−" : "+";
+      icon.style.setProperty(
+        "transform",
+        "none",
+        "important"
+      );
     });
   }
 
@@ -6236,7 +6216,7 @@ function forceRepairCredlyEmbeds(root) {
     setTimeout(runForce, 80);
   });
 
-  /* neutralized: setInterval(runForce, 1000); — desktop parity uses plain +/− */
+  /* neutralized for index parity: setInterval(runForce, 1000); */
 })();
 </script>
  <script>
@@ -10555,110 +10535,51 @@ body.bp-mobile-page #mobileContent .matrix-card.bp-force-open .card-toggle .expa
 </script>
 
 <!-- =========================================================
-     DESKTOP-PARITY +/− TOGGLES + SNUG MOBILE FIT
-     Append-only: match index.html plain + / − feel (no spin),
-     unify matrix + job expand controls, tighten spacing past toggles
-     so content fits snug on mobile while keeping background & all info.
+     INDEX.HTML PARITY — COLLAPSED BY DEFAULT, EXPAND ON +/−
+     Mirrors script(6).js matrix + job toggle behavior on mobile:
+     start closed, show description bullets only after click,
+     plain + / −, keep existing bg and content.
 ========================================================= -->
-<style id="bp-desktop-parity-plus-minus-snug-final">
-/* Match desktop plain + / − (no rotate-to-X). Keep mobile glass/bg unchanged. */
-body.bp-mobile-page #mobileContent .expand-icon,
-body.bp-mobile-page #mobileContent .job-plus,
-body.bp-mobile-page #mobileContent .job-expand-btn,
-body.bp-mobile-page #mobileContent .card-toggle .expand-icon,
-body.bp-mobile-page #mobileContent .matrix-card .card-toggle .expand-icon,
-body.bp-mobile-page #mobileContent .matrix-card.open .card-toggle .expand-icon,
-body.bp-mobile-page #mobileContent .matrix-card .card-toggle[aria-expanded="true"] .expand-icon,
-body.bp-mobile-page #mobileContent .matrix-card .card-toggle[aria-expanded="false"] .expand-icon,
-body.bp-mobile-page #mobileContent .profile-matrix .matrix-card .card-toggle .expand-icon,
-body.bp-mobile-page #mobileContent .bp-fused-matrix .matrix-card .card-toggle .expand-icon {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 28px !important;
-  min-width: 28px !important;
-  max-width: 28px !important;
-  height: 28px !important;
-  min-height: 28px !important;
-  max-height: 28px !important;
-  flex: 0 0 28px !important;
-  border-radius: 8px !important;
-  border: 1px solid rgba(240, 239, 244, 0.18) !important;
-  background: rgba(255, 255, 255, 0.03) !important;
-  color: #f0eff4 !important;
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif !important;
-  font-size: 1.05rem !important;
-  font-weight: 700 !important;
-  line-height: 1 !important;
-  text-align: center !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  transform: none !important;
-  rotate: 0deg !important;
-  scale: 1 !important;
-  translate: 0 0 !important;
-  animation: none !important;
-  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
-  -webkit-tap-highlight-color: transparent !important;
+<style id="bp-index-parity-collapse-expand-final">
+/* Job description lists: collapsed until expanded (desktop parity) */
+body.bp-mobile-page #mobileContent .job-list-collapsible,
+body.bp-mobile-page #mobileContent .job-details ul.job-list-collapsible,
+body.bp-mobile-page #mobileContent .job-details ul[hidden],
+body.bp-mobile-page #mobileContent .job-details > ul:not(.expanded):not(.job-projects ul) {
+  display: none !important;
 }
 
-body.bp-mobile-page #mobileContent .job-plus,
-body.bp-mobile-page #mobileContent .job-expand-btn {
-  margin-right: 10px !important;
+body.bp-mobile-page #mobileContent .job-list-collapsible.expanded,
+body.bp-mobile-page #mobileContent .job-details ul.job-list-collapsible.expanded,
+body.bp-mobile-page #mobileContent .job-details ul.expanded {
+  display: block !important;
 }
 
-/* Card toggle row: desktop-like gap, snug height */
-body.bp-mobile-page #mobileContent .card-toggle,
-body.bp-mobile-page #mobileContent .matrix-card .card-toggle,
-body.bp-mobile-page #mobileContent .profile-matrix .card-toggle,
-body.bp-mobile-page #mobileContent .bp-fused-matrix .card-toggle {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 0.75rem !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  min-height: 52px !important;
-  padding: 0.72rem 0.85rem !important;
-  margin: 0 !important;
-  background: none !important;
-  border: none !important;
-  color: inherit !important;
-  text-align: left !important;
-  cursor: pointer !important;
-  border-radius: 12px !important;
-  -webkit-tap-highlight-color: transparent !important;
+/* Selected Projects stay visible when marked */
+body.bp-mobile-page #mobileContent .job-projects,
+body.bp-mobile-page #mobileContent .job-projects .project-list,
+body.bp-mobile-page #mobileContent .job-projects ul {
+  display: grid !important;
 }
 
-body.bp-mobile-page #mobileContent .card-toggle > *:first-child {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-  max-width: calc(100% - 40px) !important;
-  overflow-wrap: anywhere !important;
-}
-
-/* Content past +/−: snug, no wasted space */
-body.bp-mobile-page #mobileContent .card-content,
+/* Matrix card body collapsed until .open */
+body.bp-mobile-page #mobileContent .matrix-card > .card-content,
 body.bp-mobile-page #mobileContent .matrix-card .card-content {
-  padding: 0 0.85rem 0.85rem !important;
-  margin: 0 !important;
-  line-height: 1.55 !important;
-  font-size: 0.92rem !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  overflow: visible !important;
+  display: none !important;
 }
 
+body.bp-mobile-page #mobileContent .matrix-card.open > .card-content,
 body.bp-mobile-page #mobileContent .matrix-card.open .card-content,
 body.bp-mobile-page #mobileContent .matrix-card.bp-force-open .card-content {
   display: block !important;
 }
 
-/* Job role rows: same +/− language as matrix */
+body.bp-mobile-page #mobileContent .card-content[hidden],
+body.bp-mobile-page #mobileContent .job-details ul[hidden] {
+  display: none !important;
+}
+
+/* Snug +/− controls matching desktop script feel */
 body.bp-mobile-page #mobileContent .job-click,
 body.bp-mobile-page #mobileContent .job-toggle-row {
   display: flex !important;
@@ -10666,179 +10587,311 @@ body.bp-mobile-page #mobileContent .job-toggle-row {
   gap: 0 !important;
   width: 100% !important;
   max-width: 100% !important;
-  min-width: 0 !important;
   padding: 6px 8px !important;
-  margin: 0.15rem 0 0.55rem 0 !important;
+  margin: 0.2rem 0 0.65rem 0 !important;
   border-radius: 8px !important;
-  background: transparent !important;
   cursor: pointer !important;
   user-select: none !important;
+  background: transparent !important;
   -webkit-tap-highlight-color: transparent !important;
 }
 
-body.bp-mobile-page #mobileContent .job-click:active,
-body.bp-mobile-page #mobileContent .job-toggle-row:active,
+body.bp-mobile-page #mobileContent .job-click[aria-expanded="true"],
 body.bp-mobile-page #mobileContent .job-toggle-row[aria-expanded="true"] {
   background: rgba(158, 130, 156, 0.10) !important;
 }
 
-body.bp-mobile-page #mobileContent .job-list-collapsible,
-body.bp-mobile-page #mobileContent .job-list-collapsible.expanded {
-  margin-top: 0.25rem !important;
-  margin-bottom: 0.35rem !important;
-  padding-left: 0 !important;
-}
-
-body.bp-mobile-page #mobileContent .job-list-collapsible li {
-  margin-bottom: 0.45rem !important;
-  line-height: 1.5 !important;
-}
-
-/* Matrix cards: slightly tighter shell so more content fits above the fold */
-body.bp-mobile-page #mobileContent .matrix-card,
-body.bp-mobile-page #mobileContent .profile-matrix .matrix-card,
-body.bp-mobile-page #mobileContent .bp-fused-matrix .matrix-card {
-  min-height: 0 !important;
-  overflow: visible !important;
-  border-radius: 14px !important;
-}
-
-body.bp-mobile-page #mobileContent .matrix-grid {
-  gap: 12px !important;
-}
-
-/* Identity / section breathing room without changing bg */
-body.bp-mobile-page #mobileContent > .resume-shell > section,
-body.bp-mobile-page #mobileContent .bp-fused-top-card {
-  padding: 1rem 1rem 1.15rem !important;
-}
-
-body.bp-mobile-page #mobileContent h2 {
-  margin: 0 0 0.85rem !important;
-  font-size: 1.35rem !important;
-}
-
-/* Prevent earlier rotate scripts from winning on paint */
-body.bp-mobile-page #mobileContent .expand-icon *,
-body.bp-mobile-page #mobileContent .job-plus *,
-body.bp-mobile-page #mobileContent .job-expand-btn * {
+body.bp-mobile-page #mobileContent .job-plus,
+body.bp-mobile-page #mobileContent .job-expand-btn,
+body.bp-mobile-page #mobileContent .expand-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+  flex: 0 0 28px !important;
+  margin: 0 10px 0 0 !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(240, 239, 244, 0.18) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: #f0eff4 !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
   transform: none !important;
   rotate: 0deg !important;
-  animation: none !important;
+}
+
+body.bp-mobile-page #mobileContent .card-toggle .expand-icon {
+  margin: 0 0 0 10px !important;
+}
+
+/* Tighter mobile fit under expanded content */
+body.bp-mobile-page #mobileContent .job-list-collapsible.expanded li {
+  margin-bottom: 0.45rem !important;
+  line-height: 1.5 !important;
+  font-size: 0.92rem !important;
+}
+
+body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
+  padding: 0 0.85rem 0.85rem !important;
+  font-size: 0.92rem !important;
+  line-height: 1.55 !important;
 }
 </style>
-<script id="bp-desktop-parity-plus-minus-snug-script">
+<script id="bp-index-parity-collapse-expand-script">
 (function () {
   "use strict";
 
   function setIcon(el, open) {
     if (!el) return;
-    el.classList.add("expand-icon");
     el.textContent = open ? "−" : "+";
-    [
-      ["transform", "none"],
-      ["rotate", "0deg"],
-      ["scale", "1"],
-      ["translate", "0 0"],
-      ["animation", "none"],
-      ["transition", "background 0.2s ease, border-color 0.2s ease"],
-      ["width", "28px"],
-      ["height", "28px"],
-      ["min-width", "28px"],
-      ["min-height", "28px"],
-      ["max-width", "28px"],
-      ["max-height", "28px"],
-      ["flex", "0 0 28px"],
-      ["border", "1px solid rgba(240,239,244,0.18)"],
-      ["border-radius", "8px"],
-      ["background", "rgba(255,255,255,0.03)"],
-      ["color", "#f0eff4"],
-      ["font-size", "1.05rem"],
-      ["font-weight", "700"],
-      ["line-height", "1"],
-      ["display", "inline-flex"],
-      ["align-items", "center"],
-      ["justify-content", "center"]
-    ].forEach(function (pair) {
-      el.style.setProperty(pair[0], pair[1], "important");
-    });
+    el.style.setProperty("transform", "none", "important");
+    el.style.setProperty("rotate", "0deg", "important");
   }
 
-  function syncMatrix() {
-    var root = document.getElementById("mobileContent") || document;
+  function collapseMatrixDefaults(root) {
     root.querySelectorAll(".matrix-card").forEach(function (card) {
       var btn = card.querySelector(".card-toggle");
-      var icon =
-        card.querySelector(".expand-icon") ||
-        (btn && (btn.querySelector(".expand-icon") || btn.querySelector(":scope > span:last-child")));
       var content = card.querySelector(".card-content");
-      var open =
-        card.classList.contains("open") ||
-        card.classList.contains("bp-force-open") ||
-        (btn && btn.getAttribute("aria-expanded") === "true");
+      var icon = btn && (btn.querySelector(".expand-icon") || btn.querySelector("span:last-child"));
+      var wantOpen =
+        card.classList.contains("open") &&
+        btn &&
+        btn.getAttribute("aria-expanded") === "true";
 
-      if (btn) btn.setAttribute("aria-expanded", String(!!open));
+      // Fresh pull: force closed like desktop initial state unless already user-opened
+      if (!card.dataset.bpUserToggled) {
+        wantOpen = false;
+      }
+
+      card.classList.toggle("open", wantOpen);
+      if (btn) btn.setAttribute("aria-expanded", String(wantOpen));
       if (content) {
-        content.style.setProperty("display", open ? "block" : "none", "important");
+        content.hidden = !wantOpen;
+        content.style.setProperty("display", wantOpen ? "block" : "none", "important");
       }
-      setIcon(icon, open);
-    });
-  }
-
-  function syncJobs() {
-    var root = document.getElementById("mobileContent") || document;
-    root.querySelectorAll(".job-click, .job-toggle-row").forEach(function (row) {
-      var plus =
-        row.querySelector(".job-plus, .job-expand-btn, .expand-icon") ||
-        row.querySelector("span");
-      if (!plus) return;
-      var list =
-        row.parentElement &&
-        row.parentElement.querySelector(".job-list-collapsible, .job-projects, ul");
-      var open =
-        row.getAttribute("aria-expanded") === "true" ||
-        (list &&
-          (list.classList.contains("expanded") ||
-            list.classList.contains("open") ||
-            getComputedStyle(list).display !== "none"));
-      setIcon(plus, open);
-      if (plus.classList.contains("job-plus") || plus.classList.contains("job-expand-btn")) {
-        plus.style.setProperty("margin-right", "10px", "important");
+      if (icon) {
+        icon.classList.add("expand-icon");
+        setIcon(icon, wantOpen);
       }
     });
   }
 
-  function run() {
+  function wireMatrix(root) {
+    root.querySelectorAll(".matrix-card > .card-toggle, .matrix-card .card-toggle").forEach(function (button) {
+      if (button.dataset.bpIndexParityWired === "true") return;
+      button.dataset.bpIndexParityWired = "true";
+
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var card = button.closest(".matrix-card");
+        if (!card) return;
+        card.dataset.bpUserToggled = "1";
+        var content = card.querySelector(".card-content");
+        var icon = button.querySelector(".expand-icon") || button.querySelector("span:last-child");
+        var open = button.getAttribute("aria-expanded") !== "true";
+
+        card.classList.toggle("open", open);
+        button.setAttribute("aria-expanded", String(open));
+        if (content) {
+          content.hidden = !open;
+          content.style.setProperty("display", open ? "block" : "none", "important");
+        }
+        if (icon) {
+          icon.classList.add("expand-icon");
+          setIcon(icon, open);
+        }
+      }, true);
+    });
+  }
+
+  function isSelectedProjects(title) {
+    return ((title && title.textContent) || "").indexOf("Selected Projects") !== -1;
+  }
+
+  function findRoleList(job, heading) {
+    var list =
+      (heading.closest && heading.closest(".job-toggle-row") && heading.closest(".job-toggle-row").nextElementSibling) ||
+      heading.nextElementSibling;
+    while (list && list.tagName !== "UL" && list.tagName !== "H4" && list.tagName !== "H3") {
+      list = list.nextElementSibling;
+    }
+    if (list && list.tagName === "UL") return list;
+    // fallback: first UL in job that is not under .job-projects
+    var lists = job.querySelectorAll(":scope > ul, :scope > .job-list-collapsible");
+    for (var i = 0; i < lists.length; i++) {
+      if (!lists[i].closest(".job-projects")) return lists[i];
+    }
+    return null;
+  }
+
+  function wireJobs(root) {
+    root.querySelectorAll(".job-details").forEach(function (job) {
+      if (job.dataset.bpIndexParityJobs === "true") return;
+
+      var headings = Array.prototype.slice.call(
+        job.querySelectorAll(":scope > h4, :scope > h3, :scope > .job-toggle-row > h4, :scope > .job-click > h4, :scope > .job-click > h3")
+      );
+
+      // If job-click wrappers already exist from earlier mobile code, re-bind cleanly
+      var existingClicks = Array.prototype.slice.call(job.querySelectorAll(":scope > .job-click"));
+      if (existingClicks.length) {
+        existingClicks.forEach(function (row) {
+          if (row.dataset.bpIndexParityWired === "true") return;
+          row.dataset.bpIndexParityWired = "true";
+
+          var icon = row.querySelector(".job-plus, .job-expand-btn, .expand-icon");
+          var list = row.nextElementSibling;
+          while (list && list.tagName !== "UL") list = list.nextElementSibling;
+          if (!list) return;
+
+          var titleEl = row.querySelector("h4, h3");
+          if (titleEl && isSelectedProjects(titleEl)) {
+            list.classList.add("expanded");
+            list.hidden = false;
+            list.style.setProperty("display", "block", "important");
+            setIcon(icon, true);
+            row.setAttribute("aria-expanded", "true");
+            return;
+          }
+
+          list.classList.add("job-list-collapsible");
+          list.classList.remove("expanded");
+          list.hidden = true;
+          list.style.setProperty("display", "none", "important");
+          row.setAttribute("aria-expanded", "false");
+          setIcon(icon, false);
+
+          function toggle() {
+            var open = row.getAttribute("aria-expanded") !== "true";
+            row.setAttribute("aria-expanded", String(open));
+            list.classList.toggle("expanded", open);
+            list.hidden = !open;
+            list.style.setProperty("display", open ? "block" : "none", "important");
+            setIcon(icon, open);
+            row.style.background = open ? "rgba(158,130,156,0.10)" : "transparent";
+          }
+
+          row.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggle();
+          }, true);
+          row.addEventListener("keydown", function (e) {
+            if (e.key !== "Enter" && e.key !== " ") return;
+            e.preventDefault();
+            toggle();
+          }, true);
+        });
+        job.dataset.bpIndexParityJobs = "true";
+        return;
+      }
+
+      headings.forEach(function (heading) {
+        if (isSelectedProjects(heading)) {
+          var keep = findRoleList(job, heading);
+          if (keep) {
+            keep.classList.add("expanded");
+            keep.hidden = false;
+            keep.style.setProperty("display", "block", "important");
+          }
+          return;
+        }
+
+        var list = findRoleList(job, heading);
+        if (!list) return;
+
+        var row = heading.closest(".job-toggle-row");
+        if (!row) {
+          row = document.createElement("div");
+          row.className = "job-click";
+          row.tabIndex = 0;
+          row.setAttribute("role", "button");
+          var icon = document.createElement("span");
+          icon.className = "job-plus";
+          icon.setAttribute("aria-hidden", "true");
+          list.parentNode.insertBefore(row, list);
+          row.appendChild(icon);
+          row.appendChild(heading);
+        }
+
+        var icon = row.querySelector(".job-plus, .job-expand-btn, .expand-icon");
+        if (!icon) {
+          icon = document.createElement("span");
+          icon.className = "job-plus";
+          row.insertBefore(icon, row.firstChild);
+        }
+
+        list.classList.add("job-list-collapsible");
+        list.classList.remove("expanded");
+        list.hidden = true;
+        list.style.setProperty("display", "none", "important");
+        row.setAttribute("aria-expanded", "false");
+        setIcon(icon, false);
+
+        if (row.dataset.bpIndexParityWired === "true") return;
+        row.dataset.bpIndexParityWired = "true";
+
+        function toggle() {
+          var open = row.getAttribute("aria-expanded") !== "true";
+          row.setAttribute("aria-expanded", String(open));
+          list.classList.toggle("expanded", open);
+          list.hidden = !open;
+          list.style.setProperty("display", open ? "block" : "none", "important");
+          setIcon(icon, open);
+          row.style.background = open ? "rgba(158,130,156,0.10)" : "transparent";
+        }
+
+        row.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggle();
+        }, true);
+        row.addEventListener("keydown", function (e) {
+          if (e.key !== "Enter" && e.key !== " ") return;
+          e.preventDefault();
+          toggle();
+        }, true);
+      });
+
+      job.dataset.bpIndexParityJobs = "true";
+    });
+  }
+
+  function run(root) {
+    root = root || document.getElementById("mobileContent") || document;
     try {
-      syncMatrix();
-      syncJobs();
+      collapseMatrixDefaults(root);
+      wireMatrix(root);
+      wireJobs(root);
     } catch (e) {}
   }
 
   function schedule() {
     run();
-    [80, 200, 450, 900, 1600, 2800, 4500].forEach(function (ms) {
+    [120, 350, 700, 1200, 2000, 3500, 5500].forEach(function (ms) {
       setTimeout(run, ms);
     });
   }
 
-  document.addEventListener(
-    "click",
-    function (e) {
-      if (!e.target || !e.target.closest) return;
-      if (
-        e.target.closest(
-          "#mobileContent .card-toggle, #mobileContent .job-click, #mobileContent .job-toggle-row"
-        )
-      ) {
-        requestAnimationFrame(run);
-        setTimeout(run, 0);
-        setTimeout(run, 40);
-        setTimeout(run, 120);
-      }
-    },
-    true
-  );
+  // Re-run after mobile content is injected into #mobileContent
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () {
+      schedule();
+    });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () {
+      try { mo.disconnect(); } catch (e) {}
+    }, 12000);
+  }
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", schedule);
