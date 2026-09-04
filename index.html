@@ -5726,7 +5726,388 @@ html.bp-scrolling body{
         <br>
         <br>
           <h2 class="section-title">Technical Training</h2>
-  <li><a href="https://app.pluralsight.com/profile/blairyfairy" target="_blank">Pluralsight Professional Profile</a></li>     
+  <li><a href="https://app.pluralsight.com/profile/blairyfairy" target="_blank">Pluralsight Professional Profile</a></li> 
+      <!-- Pluralsight Learning & Training -->
+<a
+  href="https://app.pluralsight.com/profile/blairyfairy"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="learning-card"
+  aria-label="View Blair's Pluralsight learning profile"
+>
+  <div class="learning-header">
+    <div>
+      <span class="learning-label">PLURALSIGHT</span>
+      <h2>Technical Training</h2>
+    </div>
+    <span class="learning-arrow">↗</span>
+  </div>
+
+  <div class="learning-stats">
+    <div>
+      <strong>40+</strong>
+      <span>Courses</span>
+    </div>
+    <div>
+      <strong>12+</strong>
+      <span>Years Learning</span>
+    </div>
+    <div>
+      <strong>2025</strong>
+      <span>Latest Training</span>
+    </div>
+  </div>
+
+  <div class="learning-topics">
+    <span>AWS</span>
+    <span>Networking</span>
+    <span>Security</span>
+    <span>Linux</span>
+    <span>Python</span>
+    <span>Cloud</span>
+  </div>
+
+  <div class="learning-timeline">
+
+    <div class="learning-year">
+      <span>2025</span>
+      <div>
+        <b>AWS Solutions Architecture</b>
+        <small>
+          Certified Solutions Architect – Associate (SAA-C03)
+          · Professional (SAP-C02)
+        </small>
+        <small>Completed Mar 31, 2025</small>
+      </div>
+    </div>
+
+    <div class="learning-year">
+      <span>2023</span>
+      <div>
+        <b>Networking & Security</b>
+        <small>
+          Network Concepts · Enterprise Infrastructure · Wireshark ·
+          Network Security · Troubleshooting · Subnetting
+        </small>
+        <small>Completed Jul–Oct 2023</small>
+      </div>
+    </div>
+
+    <div class="learning-year">
+      <span>2022</span>
+      <div>
+        <b>Networking & AWS</b>
+        <small>
+          CCNA Networking · Cisco Router Configuration · Ethernet &
+          Switching · AWS Security
+        </small>
+        <small>Completed Nov–Dec 2022</small>
+      </div>
+    </div>
+
+    <div class="learning-year">
+      <span>2021</span>
+      <div>
+        <b>AWS Cloud Foundations</b>
+        <small>
+          AWS Certified Cloud Practitioner: Exam Prep
+        </small>
+        <small>Completed Nov 29, 2021</small>
+      </div>
+    </div>
+
+    <div class="learning-year">
+      <span>2015</span>
+      <div>
+        <b>Systems, Cloud & Development</b>
+        <small>
+          Python · Bash · Linux · Docker · AWS · Networking ·
+          OpenStack · PHP/MySQL · Virtualization
+        </small>
+        <small>Training completed Jul–Sep 2015</small>
+      </div>
+    </div>
+
+    <div class="learning-year">
+      <span>2014</span>
+      <div>
+        <b>IT Foundations</b>
+        <small>
+          CompTIA A+ · Network+ · Storage+ · Linux+ · CCNA ·
+          HTTP · Apache · CSS · Cloud Computing
+        </small>
+        <small>Training completed Jul–Sep 2014</small>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="learning-footer">
+    <span>View complete Pluralsight profile</span>
+    <span>→</span>
+  </div>
+</a>
+
+<style>
+  .learning-card {
+    /* Inherits your site's theme when these variables already exist */
+    --lc-bg: var(--card-bg, var(--surface, #111827));
+    --lc-text: var(--text-color, #f8fafc);
+    --lc-muted: var(--muted-color, #94a3b8);
+    --lc-border: var(--border-color, rgba(148,163,184,.18));
+    --lc-accent: var(--accent-color, #38bdf8);
+    --lc-accent-soft: color-mix(
+      in srgb,
+      var(--lc-accent) 12%,
+      transparent
+    );
+
+    display: block;
+    width: min(100%, 760px);
+    box-sizing: border-box;
+
+    margin: 1rem auto;
+    padding: clamp(16px, 2.5vw, 22px);
+
+    color: var(--lc-text);
+    background:
+      linear-gradient(
+        135deg,
+        var(--lc-accent-soft),
+        transparent 45%
+      ),
+      var(--lc-bg);
+
+    border: 1px solid var(--lc-border);
+    border-radius: 16px;
+
+    text-decoration: none;
+    overflow: hidden;
+
+    box-shadow:
+      0 8px 30px rgba(0,0,0,.08);
+
+    transition:
+      transform .2s ease,
+      border-color .2s ease,
+      box-shadow .2s ease;
+  }
+
+  .learning-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(
+      in srgb,
+      var(--lc-accent) 55%,
+      var(--lc-border)
+    );
+
+    box-shadow:
+      0 12px 36px rgba(0,0,0,.13);
+  }
+
+  .learning-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .learning-label {
+    display: block;
+    margin-bottom: 3px;
+
+    color: var(--lc-accent);
+    font-size: .66rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+  }
+
+  .learning-header h2 {
+    margin: 0;
+    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+    line-height: 1.2;
+  }
+
+  .learning-arrow {
+    display: grid;
+    place-items: center;
+
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+
+    color: var(--lc-accent);
+    border: 1px solid var(--lc-border);
+    border-radius: 50%;
+    font-size: 1rem;
+  }
+
+  .learning-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .learning-stats > div {
+    min-width: 0;
+    padding: 9px 10px;
+    background: rgba(127,127,127,.07);
+    border: 1px solid var(--lc-border);
+    border-radius: 10px;
+  }
+
+  .learning-stats strong {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+
+  .learning-stats span {
+    display: block;
+    margin-top: 3px;
+    color: var(--lc-muted);
+    font-size: .68rem;
+  }
+
+  .learning-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 14px;
+  }
+
+  .learning-topics span {
+    padding: 4px 8px;
+
+    color: var(--lc-muted);
+    background: rgba(127,127,127,.07);
+    border: 1px solid var(--lc-border);
+    border-radius: 999px;
+
+    font-size: .68rem;
+    line-height: 1;
+  }
+
+  .learning-timeline {
+    display: grid;
+    gap: 6px;
+  }
+
+  .learning-year {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 10px;
+
+    padding: 8px 0;
+    border-top: 1px solid var(--lc-border);
+  }
+
+  .learning-year > span {
+    color: var(--lc-accent);
+    font-size: .7rem;
+    font-weight: 800;
+    padding-top: 1px;
+  }
+
+  .learning-year b {
+    display: block;
+    margin-bottom: 2px;
+    font-size: .78rem;
+  }
+
+  .learning-year small {
+    display: block;
+    color: var(--lc-muted);
+    font-size: .67rem;
+    line-height: 1.4;
+  }
+
+  .learning-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin-top: 10px;
+    padding-top: 12px;
+
+    border-top: 1px solid var(--lc-border);
+
+    color: var(--lc-accent);
+    font-size: .72rem;
+    font-weight: 700;
+  }
+
+  /* Small screens */
+  @media (max-width: 480px) {
+    .learning-card {
+      margin: .75rem 0;
+      padding: 14px;
+      border-radius: 13px;
+    }
+
+    .learning-stats {
+      gap: 5px;
+    }
+
+    .learning-stats > div {
+      padding: 8px;
+    }
+
+    .learning-stats strong {
+      font-size: .9rem;
+    }
+
+    .learning-stats span {
+      font-size: .6rem;
+    }
+
+    .learning-year {
+      grid-template-columns: 36px 1fr;
+      gap: 7px;
+    }
+
+    .learning-year b {
+      font-size: .74rem;
+    }
+
+    .learning-year small {
+      font-size: .62rem;
+    }
+  }
+
+  /* Very narrow screens */
+  @media (max-width: 330px) {
+    .learning-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .learning-stats > div {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .learning-stats span {
+      margin-top: 0;
+    }
+  }
+
+  /* Respects accessibility preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .learning-card {
+      transition: none;
+    }
+
+    .learning-card:hover {
+      transform: none;
+    }
+  }
+</style>
+
         <li><a href="https://www.udemy.com/certificate/UC-03566515-9d9b-45e7-8d71-ca8cae05adde/" target="_blank">WooCommerce WordPress E-Commerce Certification</a></li>
 
         <li><a href="https://www.udemy.com/certificate/UC-30e2a324-7424-4366-a3b4-cf18d2661445/" target="_blank">Docker & Kubernetes K8s – Complete Guide</a></li>
