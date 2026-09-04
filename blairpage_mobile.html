@@ -562,17 +562,26 @@
   }
 
   .bp-mobile-page #mobileContent .card-toggle .expand-icon {
-    flex: 0 0 36px !important;
-    width: 36px !important;
-    height: 36px !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    flex: 0 0 28px !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    border: 1px solid rgba(240, 239, 244, 0.18) !important;
     border-radius: 8px !important;
-    display: flex !important;
+    display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    margin-left: 12px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    margin-left: 10px !important;
     line-height: 1 !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    color: #f0eff4 !important;
+    transform: none !important;
+    rotate: 0deg !important;
   }
 
   .bp-mobile-page #mobileContent .card-content {
@@ -821,15 +830,23 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 30px !important;
-    height: 30px !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    border: 1px solid rgba(240, 239, 244, 0.18) !important;
     border-radius: 8px !important;
     margin-right: 10px !important;
     font-weight: 700 !important;
+    font-size: 1.05rem !important;
+    flex: 0 0 28px !important;
     flex-shrink: 0 !important;
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
     color: #f0eff4 !important;
+    transform: none !important;
+    rotate: 0deg !important;
   }
 
   .bp-mobile-page #mobileContent .job-list-collapsible {
@@ -6064,21 +6081,21 @@ function forceRepairCredlyEmbeds(root) {
   align-items: center !important;
   justify-content: center !important;
 
-  width: 30px !important;
-  min-width: 30px !important;
-  max-width: 30px !important;
+  width: 28px !important;
+  min-width: 28px !important;
+  max-width: 28px !important;
 
-  height: 30px !important;
-  min-height: 30px !important;
-  max-height: 30px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
 
-  flex: 0 0 30px !important;
+  flex: 0 0 28px !important;
   margin-left: 10px !important;
   padding: 0 !important;
 
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(240, 239, 244, 0.18) !important;
   border-radius: 8px !important;
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
 
   color: #f0eff4 !important;
   font-size: 1.05rem !important;
@@ -6089,18 +6106,20 @@ function forceRepairCredlyEmbeds(root) {
   box-shadow: none !important;
   text-shadow: none !important;
 
+  transform: none !important;
+  rotate: 0deg !important;
   transform-origin: center center !important;
-  transition: transform 0.25s ease, background 0.2s ease !important;
+  transition: background 0.2s ease, border-color 0.2s ease !important;
 }
 
 .bp-mobile-page #mobileContent .profile-matrix .matrix-card.open .card-toggle .expand-icon,
 .bp-mobile-page #mobileContent .profile-matrix .matrix-card .card-toggle[aria-expanded="true"] .expand-icon {
-  transform: rotate(45deg) !important;
+  transform: none !important; /* was rotate(45deg) — desktop parity */
   background: rgba(158, 130, 156, 0.1) !important;
 }
 
 .bp-mobile-page #mobileContent .profile-matrix .matrix-card:not(.open) .card-toggle[aria-expanded="false"] .expand-icon {
-  transform: rotate(0deg) !important;
+  transform: none !important;
   background: rgba(255, 255, 255, 0.05) !important;
 }
 </style>
@@ -6123,15 +6142,15 @@ function forceRepairCredlyEmbeds(root) {
         align-items: center !important;
         justify-content: center !important;
 
-        width: 30px !important;
-        min-width: 30px !important;
-        max-width: 30px !important;
+        width: 28px !important;
+        min-width: 28px !important;
+        max-width: 28px !important;
 
-        height: 30px !important;
-        min-height: 30px !important;
-        max-height: 30px !important;
+        height: 28px !important;
+        min-height: 28px !important;
+        max-height: 28px !important;
 
-        flex: 0 0 30px !important;
+        flex: 0 0 28px !important;
         margin-left: 10px !important;
         margin-right: 0 !important;
         padding: 0 !important;
@@ -6155,7 +6174,7 @@ function forceRepairCredlyEmbeds(root) {
       body.bp-mobile-page #mobileContent .matrix-card .card-toggle[aria-expanded="true"] > span:last-child,
       body.bp-mobile-page #mobileContent .matrix-card.open .card-toggle .expand-icon,
       body.bp-mobile-page #mobileContent .matrix-card .card-toggle[aria-expanded="true"] .expand-icon {
-        transform: rotate(45deg) !important;
+        transform: none !important; /* was rotate(45deg) — desktop parity */
         background: rgba(158,130,156,0.1) !important;
       }
     `;
@@ -6171,28 +6190,31 @@ function forceRepairCredlyEmbeds(root) {
       if (!icon) return;
 
       icon.classList.add("expand-icon");
-      icon.textContent = "＋";
 
-      icon.style.setProperty("width", "30px", "important");
-      icon.style.setProperty("height", "30px", "important");
-      icon.style.setProperty("flex", "0 0 30px", "important");
-      icon.style.setProperty("border", "1px solid rgba(255,255,255,0.2)", "important");
+      icon.style.setProperty("width", "28px", "important");
+      icon.style.setProperty("height", "28px", "important");
+      icon.style.setProperty("min-width", "28px", "important");
+      icon.style.setProperty("min-height", "28px", "important");
+      icon.style.setProperty("max-width", "28px", "important");
+      icon.style.setProperty("max-height", "28px", "important");
+      icon.style.setProperty("flex", "0 0 28px", "important");
+      icon.style.setProperty("border", "1px solid rgba(240,239,244,0.18)", "important");
       icon.style.setProperty("border-radius", "8px", "important");
-      icon.style.setProperty("background", "rgba(255,255,255,0.05)", "important");
+      icon.style.setProperty("background", "rgba(255,255,255,0.03)", "important");
       icon.style.setProperty("color", "#f0eff4", "important");
       icon.style.setProperty("display", "inline-flex", "important");
       icon.style.setProperty("align-items", "center", "important");
       icon.style.setProperty("justify-content", "center", "important");
+      icon.style.setProperty("font-size", "1.05rem", "important");
+      icon.style.setProperty("font-weight", "700", "important");
 
       const expanded =
         btn.getAttribute("aria-expanded") === "true" ||
         btn.closest(".matrix-card")?.classList.contains("open");
 
-      icon.style.setProperty(
-        "transform",
-        expanded ? "rotate(45deg)" : "rotate(0deg)",
-        "important"
-      );
+      icon.style.setProperty("transform", "none", "important");
+      icon.style.setProperty("rotate", "0deg", "important");
+      icon.textContent = expanded ? "−" : "+";
     });
   }
 
@@ -6214,7 +6236,7 @@ function forceRepairCredlyEmbeds(root) {
     setTimeout(runForce, 80);
   });
 
-  setInterval(runForce, 1000);
+  /* neutralized: setInterval(runForce, 1000); — desktop parity uses plain +/− */
 })();
 </script>
  <script>
@@ -6826,7 +6848,7 @@ body.bp-mobile-page #mobileContent .matrix-card .card-toggle .expand-icon {
   align-items: center !important;
   justify-content: center !important;
 
-  transform: rotate(0deg) !important;
+  transform: none !important;
   transform-origin: center center !important;
 
   transition: transform 0.25s ease, background 0.2s ease !important;
@@ -10531,6 +10553,302 @@ body.bp-mobile-page #mobileContent .matrix-card.bp-force-open .card-toggle .expa
   setTimeout(lockMatrixPlusMinusNoSpin, 2700);
 })();
 </script>
+
+<!-- =========================================================
+     DESKTOP-PARITY +/− TOGGLES + SNUG MOBILE FIT
+     Append-only: match index.html plain + / − feel (no spin),
+     unify matrix + job expand controls, tighten spacing past toggles
+     so content fits snug on mobile while keeping background & all info.
+========================================================= -->
+<style id="bp-desktop-parity-plus-minus-snug-final">
+/* Match desktop plain + / − (no rotate-to-X). Keep mobile glass/bg unchanged. */
+body.bp-mobile-page #mobileContent .expand-icon,
+body.bp-mobile-page #mobileContent .job-plus,
+body.bp-mobile-page #mobileContent .job-expand-btn,
+body.bp-mobile-page #mobileContent .card-toggle .expand-icon,
+body.bp-mobile-page #mobileContent .matrix-card .card-toggle .expand-icon,
+body.bp-mobile-page #mobileContent .matrix-card.open .card-toggle .expand-icon,
+body.bp-mobile-page #mobileContent .matrix-card .card-toggle[aria-expanded="true"] .expand-icon,
+body.bp-mobile-page #mobileContent .matrix-card .card-toggle[aria-expanded="false"] .expand-icon,
+body.bp-mobile-page #mobileContent .profile-matrix .matrix-card .card-toggle .expand-icon,
+body.bp-mobile-page #mobileContent .bp-fused-matrix .matrix-card .card-toggle .expand-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;
+  min-width: 28px !important;
+  max-width: 28px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
+  flex: 0 0 28px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(240, 239, 244, 0.18) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: #f0eff4 !important;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+  rotate: 0deg !important;
+  scale: 1 !important;
+  translate: 0 0 !important;
+  animation: none !important;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+body.bp-mobile-page #mobileContent .job-plus,
+body.bp-mobile-page #mobileContent .job-expand-btn {
+  margin-right: 10px !important;
+}
+
+/* Card toggle row: desktop-like gap, snug height */
+body.bp-mobile-page #mobileContent .card-toggle,
+body.bp-mobile-page #mobileContent .matrix-card .card-toggle,
+body.bp-mobile-page #mobileContent .profile-matrix .card-toggle,
+body.bp-mobile-page #mobileContent .bp-fused-matrix .card-toggle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 0.75rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  min-height: 52px !important;
+  padding: 0.72rem 0.85rem !important;
+  margin: 0 !important;
+  background: none !important;
+  border: none !important;
+  color: inherit !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  border-radius: 12px !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+body.bp-mobile-page #mobileContent .card-toggle > *:first-child {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  max-width: calc(100% - 40px) !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Content past +/−: snug, no wasted space */
+body.bp-mobile-page #mobileContent .card-content,
+body.bp-mobile-page #mobileContent .matrix-card .card-content {
+  padding: 0 0.85rem 0.85rem !important;
+  margin: 0 !important;
+  line-height: 1.55 !important;
+  font-size: 0.92rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow: visible !important;
+}
+
+body.bp-mobile-page #mobileContent .matrix-card.open .card-content,
+body.bp-mobile-page #mobileContent .matrix-card.bp-force-open .card-content {
+  display: block !important;
+}
+
+/* Job role rows: same +/− language as matrix */
+body.bp-mobile-page #mobileContent .job-click,
+body.bp-mobile-page #mobileContent .job-toggle-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  padding: 6px 8px !important;
+  margin: 0.15rem 0 0.55rem 0 !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+body.bp-mobile-page #mobileContent .job-click:active,
+body.bp-mobile-page #mobileContent .job-toggle-row:active,
+body.bp-mobile-page #mobileContent .job-toggle-row[aria-expanded="true"] {
+  background: rgba(158, 130, 156, 0.10) !important;
+}
+
+body.bp-mobile-page #mobileContent .job-list-collapsible,
+body.bp-mobile-page #mobileContent .job-list-collapsible.expanded {
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.35rem !important;
+  padding-left: 0 !important;
+}
+
+body.bp-mobile-page #mobileContent .job-list-collapsible li {
+  margin-bottom: 0.45rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Matrix cards: slightly tighter shell so more content fits above the fold */
+body.bp-mobile-page #mobileContent .matrix-card,
+body.bp-mobile-page #mobileContent .profile-matrix .matrix-card,
+body.bp-mobile-page #mobileContent .bp-fused-matrix .matrix-card {
+  min-height: 0 !important;
+  overflow: visible !important;
+  border-radius: 14px !important;
+}
+
+body.bp-mobile-page #mobileContent .matrix-grid {
+  gap: 12px !important;
+}
+
+/* Identity / section breathing room without changing bg */
+body.bp-mobile-page #mobileContent > .resume-shell > section,
+body.bp-mobile-page #mobileContent .bp-fused-top-card {
+  padding: 1rem 1rem 1.15rem !important;
+}
+
+body.bp-mobile-page #mobileContent h2 {
+  margin: 0 0 0.85rem !important;
+  font-size: 1.35rem !important;
+}
+
+/* Prevent earlier rotate scripts from winning on paint */
+body.bp-mobile-page #mobileContent .expand-icon *,
+body.bp-mobile-page #mobileContent .job-plus *,
+body.bp-mobile-page #mobileContent .job-expand-btn * {
+  transform: none !important;
+  rotate: 0deg !important;
+  animation: none !important;
+}
+</style>
+<script id="bp-desktop-parity-plus-minus-snug-script">
+(function () {
+  "use strict";
+
+  function setIcon(el, open) {
+    if (!el) return;
+    el.classList.add("expand-icon");
+    el.textContent = open ? "−" : "+";
+    [
+      ["transform", "none"],
+      ["rotate", "0deg"],
+      ["scale", "1"],
+      ["translate", "0 0"],
+      ["animation", "none"],
+      ["transition", "background 0.2s ease, border-color 0.2s ease"],
+      ["width", "28px"],
+      ["height", "28px"],
+      ["min-width", "28px"],
+      ["min-height", "28px"],
+      ["max-width", "28px"],
+      ["max-height", "28px"],
+      ["flex", "0 0 28px"],
+      ["border", "1px solid rgba(240,239,244,0.18)"],
+      ["border-radius", "8px"],
+      ["background", "rgba(255,255,255,0.03)"],
+      ["color", "#f0eff4"],
+      ["font-size", "1.05rem"],
+      ["font-weight", "700"],
+      ["line-height", "1"],
+      ["display", "inline-flex"],
+      ["align-items", "center"],
+      ["justify-content", "center"]
+    ].forEach(function (pair) {
+      el.style.setProperty(pair[0], pair[1], "important");
+    });
+  }
+
+  function syncMatrix() {
+    var root = document.getElementById("mobileContent") || document;
+    root.querySelectorAll(".matrix-card").forEach(function (card) {
+      var btn = card.querySelector(".card-toggle");
+      var icon =
+        card.querySelector(".expand-icon") ||
+        (btn && (btn.querySelector(".expand-icon") || btn.querySelector(":scope > span:last-child")));
+      var content = card.querySelector(".card-content");
+      var open =
+        card.classList.contains("open") ||
+        card.classList.contains("bp-force-open") ||
+        (btn && btn.getAttribute("aria-expanded") === "true");
+
+      if (btn) btn.setAttribute("aria-expanded", String(!!open));
+      if (content) {
+        content.style.setProperty("display", open ? "block" : "none", "important");
+      }
+      setIcon(icon, open);
+    });
+  }
+
+  function syncJobs() {
+    var root = document.getElementById("mobileContent") || document;
+    root.querySelectorAll(".job-click, .job-toggle-row").forEach(function (row) {
+      var plus =
+        row.querySelector(".job-plus, .job-expand-btn, .expand-icon") ||
+        row.querySelector("span");
+      if (!plus) return;
+      var list =
+        row.parentElement &&
+        row.parentElement.querySelector(".job-list-collapsible, .job-projects, ul");
+      var open =
+        row.getAttribute("aria-expanded") === "true" ||
+        (list &&
+          (list.classList.contains("expanded") ||
+            list.classList.contains("open") ||
+            getComputedStyle(list).display !== "none"));
+      setIcon(plus, open);
+      if (plus.classList.contains("job-plus") || plus.classList.contains("job-expand-btn")) {
+        plus.style.setProperty("margin-right", "10px", "important");
+      }
+    });
+  }
+
+  function run() {
+    try {
+      syncMatrix();
+      syncJobs();
+    } catch (e) {}
+  }
+
+  function schedule() {
+    run();
+    [80, 200, 450, 900, 1600, 2800, 4500].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  document.addEventListener(
+    "click",
+    function (e) {
+      if (!e.target || !e.target.closest) return;
+      if (
+        e.target.closest(
+          "#mobileContent .card-toggle, #mobileContent .job-click, #mobileContent .job-toggle-row"
+        )
+      ) {
+        requestAnimationFrame(run);
+        setTimeout(run, 0);
+        setTimeout(run, 40);
+        setTimeout(run, 120);
+      }
+    },
+    true
+  );
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+})();
+</script>
+
 <div class="footer-counter" style="margin-top:12px;text-align:center;">
     <img
         src="https://hits.sh/blairyfairy.github.io/BlairPage.svg?style=flat-square&label=Portfolio%20Visitors"
