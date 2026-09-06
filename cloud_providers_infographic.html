@@ -670,8 +670,8 @@ th {
 /* Keep all hero badge cards in exactly one horizontal row and scale their contents to fit. */
 .hero-badges {
   display: grid !important;
-  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
-  gap: clamp(.25rem, .8vw, 1rem) !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: clamp(.2rem, .7vw, .85rem) !important;
   width: 100% !important;
   min-width: 0 !important;
 }
@@ -698,8 +698,8 @@ th {
 }
 @media (max-width: 640px) {
   .hero-badges {
-    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
-    gap: 3px !important;
+    grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+    gap: 2px !important;
   }
   .hero-badges .badge-card {
     padding: 4px !important;
@@ -743,8 +743,8 @@ th {
 <section class="page-title-shell">
   <h1 class="blog-page-title">Top Cloud Providers: Market Leaders, Private Cloud Options & Gartner-Style Positioning</h1>
   <p class="hero-subtitle">
-    This version compares twelve cloud options with a bias toward real operator choices instead of only hyperscaler marketing: <strong>AWS, Microsoft Azure, Google Cloud, Oracle Cloud Infrastructure, Alibaba Cloud, IBM Cloud / Red Hat OpenShift, Cloudflare, DigitalOcean, Rackspace Technology, Kinsta, OpenStack, and Mirantis</strong>.
-    It blends public-company proxies, official cloud revenue, market-share context, growth rates, managed-service posture, open-source/private-cloud relevance, and an <strong>illustrative Gartner-style provider matrix</strong> built from sourced public signals rather than proprietary Gartner placement.
+    This version compares thirteen cloud options with a bias toward real operator choices instead of only hyperscaler marketing: <strong>AWS, Microsoft Azure, Google Cloud, Oracle Cloud Infrastructure, Alibaba Cloud, IBM Cloud / Red Hat OpenShift, Cloudflare, DigitalOcean, Rackspace Technology, RunPod, Kinsta, OpenStack, and Mirantis</strong>.
+    It blends public-company proxies, official cloud revenue, market-share context, growth rates, managed-service posture, open-source/private-cloud relevance, AI GPU infrastructure, managed platforms, and an <strong>illustrative Gartner-style provider matrix</strong> built from sourced public signals rather than proprietary Gartner placement.
   </p>
 </section>
 
@@ -1237,8 +1237,6 @@ const providerData = [
     ]
   },
   {
-    name: "Kinsta",
-  {
     name: "RunPod",
     category: "AI developer cloud / GPU infrastructure",
     score: "AI infrastructure specialist",
@@ -1265,6 +1263,8 @@ const providerData = [
       {label: "RunPod — GPU Cloud Pricing", url: "https://www.runpod.io/pricing"}
     ]
   },
+  {
+    name: "Kinsta",
     category: "Managed WordPress / application platform",
     score: "Managed-platform specialist",
     scaleIndex: 16,
@@ -1522,8 +1522,16 @@ function createCharts() {
     }
   });
 
-  const modelCounts = {"Hyperscaler": 5, "Hybrid / enterprise platform": 1, "Edge / developer cloud": 1, "Developer cloud": 1, "Managed / hybrid operator": 2, "Open-source private cloud": 1, "Private cloud / Kubernetes platform": 1};
-  modelCounts["GPU / AI cloud"] = 1;
+  const modelCounts = {
+    "Hyperscaler": 5,
+    "Hybrid / enterprise platform": 1,
+    "Edge / developer cloud": 1,
+    "Developer cloud": 1,
+    "Managed / hybrid operator": 2,
+    "GPU / AI cloud": 1,
+    "Open-source private cloud": 1,
+    "Private cloud / Kubernetes platform": 1
+  };
   const modelMixChart = new Chart(document.getElementById('modelMixChart'), {
     type: 'doughnut',
     data: {
@@ -1536,7 +1544,9 @@ function createCharts() {
           'rgba(240,239,244,0.25)',
           'rgba(158,130,156,0.55)',
           'rgba(255,255,255,0.18)',
-          'rgba(158,130,156,0.28)'
+          'rgba(158,130,156,0.40)',
+          'rgba(158,130,156,0.28)',
+          'rgba(240,239,244,0.35)'
         ],
         borderColor: 'rgba(240,239,244,0.24)',
         borderWidth: 1
