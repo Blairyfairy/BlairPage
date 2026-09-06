@@ -665,6 +665,58 @@ th {
   }
 }
 </style>
+
+<style id="hero-badges-single-row">
+/* Keep all hero badge cards in exactly one horizontal row and scale their contents to fit. */
+.hero-badges {
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  gap: clamp(.25rem, .8vw, 1rem) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.hero-badges .badge-card {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  padding: clamp(.45rem, 1vw, 1rem) !important;
+}
+.hero-badges .badge-card h3 {
+  font-size: clamp(.5rem, .85vw, .9rem) !important;
+  line-height: 1.08 !important;
+  overflow-wrap: anywhere !important;
+}
+.hero-badges .badge-card .metric {
+  font-size: clamp(.65rem, 1.25vw, 1.25rem) !important;
+  line-height: 1.05 !important;
+  overflow-wrap: anywhere !important;
+}
+.hero-badges .badge-card p {
+  font-size: clamp(.42rem, .68vw, .72rem) !important;
+  line-height: 1.25 !important;
+  overflow-wrap: anywhere !important;
+  margin-bottom: 0 !important;
+}
+@media (max-width: 640px) {
+  .hero-badges {
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    gap: 3px !important;
+  }
+  .hero-badges .badge-card {
+    padding: 4px !important;
+    border-radius: 8px !important;
+  }
+  .hero-badges .badge-card h3 {
+    font-size: clamp(.3rem, 1.35vw, .48rem) !important;
+  }
+  .hero-badges .badge-card .metric {
+    font-size: clamp(.42rem, 1.65vw, .62rem) !important;
+  }
+  .hero-badges .badge-card p {
+    font-size: clamp(.28rem, 1.05vw, .42rem) !important;
+    line-height: 1.15 !important;
+  }
+}
+</style>
 </head>
 <body>
 <header class="top-bar">
@@ -723,6 +775,11 @@ th {
     <p>Rackspace remains relevant when the decision is not only “which cloud,” but “who operates, migrates, or supports it.”</p>
   </article>
   <article class="badge-card">
+    <h3>AI GPU cloud angle</h3>
+    <div class="metric">RunPod</div>
+    <p>RunPod adds an AI developer-cloud path built around on-demand GPUs, Serverless inference, Pods, and multi-GPU Clusters.</p>
+  </article>
+  <article class="badge-card">
     <h3>Managed WordPress angle</h3>
     <div class="metric">Kinsta</div>
     <p>Kinsta adds a managed WordPress, application, database, and static-site hosting path for teams that want cloud-backed performance without running the platform themselves.</p>
@@ -752,6 +809,7 @@ th {
         <ul>
           <li><strong>OpenStack</strong> belongs in the shortlist when sovereignty, private cloud, or VMware exit paths matter.</li>
           <li><strong>Rackspace</strong> is not a hyperscaler substitute, but it remains a real managed-cloud and hybrid operating option.</li>
+          <li><strong>RunPod</strong> belongs in the AI-infrastructure discussion when GPU availability, inference economics, container control, and rapid deployment matter more than a broad hyperscaler service catalog.</li>
           <li><strong>Kinsta</strong> belongs in the managed-platform discussion when WordPress, app hosting, database hosting, static sites, and performance operations matter more than owning the underlying cloud layer.</li>
           <li><strong>Cloudflare</strong> and <strong>DigitalOcean</strong> matter when developer simplicity, edge reach, or lower-complexity adoption matters more than owning every enterprise stack layer.</li>
         </ul>
@@ -846,6 +904,8 @@ th {
         <span>enterprise account control</span>
         <span>edge compute</span>
         <span>GPU capacity</span>
+        <span>AI developer cloud</span>
+        <span>GPU inference</span>
         <span>observability stack</span>
         <span>managed WordPress platform</span>
         <span>control plane maturity</span>
@@ -1178,6 +1238,33 @@ const providerData = [
   },
   {
     name: "Kinsta",
+  {
+    name: "RunPod",
+    category: "AI developer cloud / GPU infrastructure",
+    score: "AI infrastructure specialist",
+    scaleIndex: 30,
+    growth: 30,
+    model: "GPU / AI cloud",
+    ownership: "RunPod / private company",
+    scaleAnchor: "30+ GPU models across 31 global regions; supports Pods, Serverless, and multi-GPU Clusters",
+    growthAnchor: "No public standalone revenue disclosure; current platform signal is rapid AI-infrastructure expansion, GPU availability, Serverless adoption, and developer-cloud growth",
+    fit: "AI training, fine-tuning, inference, GPU development, containerized AI workloads, batch jobs, and teams needing direct GPU control with rapid deployment",
+    vision: 8.3,
+    execution: 7.1,
+    preview: "RunPod is a specialized AI developer cloud rather than a general-purpose hyperscaler. Its differentiation is direct GPU access, fast deployment, per-second billing, Serverless inference, and a clear path from development Pods to production workloads.",
+    detail: [
+      "RunPod's current platform combines Cloud GPUs / Pods, Serverless GPU endpoints, and Clusters for multi-GPU workloads, making it a focused AI infrastructure layer rather than a broad enterprise cloud replacement.",
+      "The platform emphasizes rapid GPU deployment, per-second billing, global regions, custom containers, and direct control over GPU, storage, and runtime environments.",
+      "Strategically, RunPod belongs near specialized cloud and managed-platform providers in this comparison, but its strongest differentiation is AI compute: it targets teams that need GPU capacity and inference economics without assembling the full hyperscaler stack."
+    ],
+    signals: ["GPU-first AI infrastructure", "Serverless inference and scale-to-zero", "Fast containerized GPU deployment", "Strong fit for AI developers and GPU-intensive workloads"],
+    sources: [
+      {label: "RunPod — AI Developer Cloud", url: "https://www.runpod.io/"},
+      {label: "RunPod — Cloud GPUs", url: "https://www.runpod.io/product/cloud-gpus"},
+      {label: "RunPod — Serverless", url: "https://www.runpod.io/product/serverless"},
+      {label: "RunPod — GPU Cloud Pricing", url: "https://www.runpod.io/pricing"}
+    ]
+  },
     category: "Managed WordPress / application platform",
     score: "Managed-platform specialist",
     scaleIndex: 16,
@@ -1271,6 +1358,10 @@ const references = [
   {text: "Mirantis. (n.d.). Mirantis OpenStack for Kubernetes.", url: "https://www.mirantis.com/software/mirantis-openstack-for-kubernetes/"},
   {text: "Mirantis. (n.d.). k0s certified Kubernetes distribution.", url: "https://www.mirantis.com/software/k0s/"},
   {text: "Kinsta. (n.d.). Managed WordPress Hosting.", url: "https://kinsta.com/wordpress-hosting/"},
+  {text: "RunPod. (n.d.). AI Developer Cloud.", url: "https://www.runpod.io/"},
+  {text: "RunPod. (n.d.). Cloud GPUs.", url: "https://www.runpod.io/product/cloud-gpus"},
+  {text: "RunPod. (n.d.). Serverless.", url: "https://www.runpod.io/product/serverless"},
+  {text: "RunPod. (n.d.). GPU Cloud Pricing.", url: "https://www.runpod.io/pricing"},
   {text: "Kinsta. (n.d.). Application Hosting.", url: "https://kinsta.com/application-hosting/"},
   {text: "Kinsta. (n.d.). Database Hosting.", url: "https://kinsta.com/database-hosting/"},
   {text: "Kinsta. (n.d.). Static Site Hosting.", url: "https://kinsta.com/static-site-hosting/"},
@@ -1432,6 +1523,7 @@ function createCharts() {
   });
 
   const modelCounts = {"Hyperscaler": 5, "Hybrid / enterprise platform": 1, "Edge / developer cloud": 1, "Developer cloud": 1, "Managed / hybrid operator": 2, "Open-source private cloud": 1, "Private cloud / Kubernetes platform": 1};
+  modelCounts["GPU / AI cloud"] = 1;
   const modelMixChart = new Chart(document.getElementById('modelMixChart'), {
     type: 'doughnut',
     data: {
