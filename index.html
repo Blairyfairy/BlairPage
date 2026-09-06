@@ -9769,6 +9769,130 @@ html body
 (function () { /* no-op */ })();
 </script>
 
+
+<!-- =========================================================
+     MATRIX GRID EQUAL-SIZE LOCK — append-only
+     All 6 profile cards stay equal width; collapsed headers match;
+     expansion grows only the opened card (align-items:start),
+     no sibling stretch. Screen-size responsive columns preserved.
+     ========================================================= -->
+<style id="matrix-grid-equal-size-lock-final">
+html body .profile-matrix,
+html.desktop-resize-lock body .profile-matrix,
+html.mobile-device-route body .profile-matrix{
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+
+html body .profile-matrix .matrix-grid,
+html.desktop-resize-lock body .profile-matrix .matrix-grid,
+html.mobile-device-route body .profile-matrix .matrix-grid,
+.matrix-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+  grid-auto-rows:auto !important;
+  align-items:start !important; /* critical: expansion must not stretch siblings */
+  justify-items:stretch !important;
+  gap:clamp(0.75rem, 1.55vw, 1.25rem) !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  margin:0 auto !important;
+  box-sizing:border-box !important;
+}
+
+html body .profile-matrix .matrix-card,
+html.desktop-resize-lock body .profile-matrix .matrix-card,
+html.mobile-device-route body .profile-matrix .matrix-card,
+.matrix-card{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  height:auto !important;
+  min-height:0 !important;
+  box-sizing:border-box !important;
+  align-self:start !important; /* each card only as tall as its own content */
+  justify-self:stretch !important;
+}
+
+/* Collapsed header row: identical height + layout for every card */
+html body .profile-matrix .matrix-card .card-toggle,
+html.desktop-resize-lock body .profile-matrix .matrix-card .card-toggle,
+html.mobile-device-route body .profile-matrix .matrix-card .card-toggle,
+.matrix-card .card-toggle{
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  width:100% !important;
+  min-height:3.15rem !important;
+  height:auto !important;
+  padding:0.85rem 1.1rem !important;
+  box-sizing:border-box !important;
+  gap:0.5rem !important;
+}
+
+html body .profile-matrix .matrix-card .card-toggle > span:first-child,
+html.desktop-resize-lock body .profile-matrix .matrix-card .card-toggle > span:first-child,
+.matrix-card .card-toggle > span:first-child{
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  text-align:left !important;
+  white-space:normal !important;
+  overflow-wrap:anywhere !important;
+  line-height:1.25 !important;
+}
+
+html body .profile-matrix .matrix-card .card-toggle .expand-icon,
+html.desktop-resize-lock body .profile-matrix .matrix-card .card-toggle .expand-icon,
+.matrix-card .card-toggle .expand-icon{
+  flex:0 0 28px !important;
+  width:28px !important;
+  min-width:28px !important;
+  max-width:28px !important;
+  height:28px !important;
+  min-height:28px !important;
+  max-height:28px !important;
+}
+
+/* Expanded content stays inside the card; does not force other cards wider/taller */
+html body .profile-matrix .matrix-card .card-content,
+html.desktop-resize-lock body .profile-matrix .matrix-card .card-content,
+.matrix-card .card-content{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+  overflow-wrap:anywhere !important;
+}
+
+html body .profile-matrix .matrix-card.open,
+html.desktop-resize-lock body .profile-matrix .matrix-card.open,
+.matrix-card.open{
+  align-self:start !important;
+  height:auto !important;
+}
+
+@media (min-width:641px) and (max-width:900px){
+  html body .profile-matrix .matrix-grid,
+  html.desktop-resize-lock body .profile-matrix .matrix-grid,
+  .matrix-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    align-items:start !important;
+  }
+}
+
+@media (max-width:640px){
+  html body .profile-matrix .matrix-grid,
+  html.desktop-resize-lock body .profile-matrix .matrix-grid,
+  .matrix-grid{
+    grid-template-columns:1fr !important;
+    align-items:start !important;
+  }
+}
+</style>
+
 </body>
 </html>
 
