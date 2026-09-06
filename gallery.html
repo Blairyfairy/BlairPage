@@ -3438,3 +3438,159 @@ iframe{
 </script>
 </body>
 </html>
+<style id="gallery-mobile-video-final">
+/* FINAL MOBILE-ONLY VIDEO BACKGROUND OVERRIDE
+   Existing desktop/tablet behavior is untouched.
+   This only makes the existing hero video the lowest visible layer
+   on phones/tablets while keeping all page content interactive above it. */
+@media (max-width:900px){
+  html,
+  body#gallery-page{
+    background:transparent !important;
+    background-color:transparent !important;
+    background-image:none !important;
+  }
+
+  /* Keep the existing light/dark background options as the fallback
+     canvas, while the video sits above this layer. */
+  body#gallery-page::before{
+    content:"" !important;
+    position:fixed !important;
+    inset:0 !important;
+    background:var(--bg-light) !important;
+    background-image:var(--bg-light) !important;
+    background-repeat:no-repeat !important;
+    background-size:cover !important;
+    background-attachment:scroll !important;
+    z-index:-1 !important;
+    pointer-events:none !important;
+  }
+
+  body#gallery-page::after,
+  html::before,
+  html::after{
+    background:transparent !important;
+    background-color:transparent !important;
+    background-image:none !important;
+  }
+
+  #gallery-page .hero{
+    position:fixed !important;
+    inset:0 !important;
+    width:100vw !important;
+    height:100vh !important;
+    height:100dvh !important;
+    min-height:100dvh !important;
+    z-index:0 !important;
+    overflow:hidden !important;
+    pointer-events:none !important;
+    isolation:isolate !important;
+    background:transparent !important;
+    background-image:none !important;
+    transform:translateZ(0);
+  }
+
+  #gallery-page .hero video{
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    min-width:100% !important;
+    min-height:100% !important;
+    max-width:none !important;
+    max-height:none !important;
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+    pointer-events:none !important;
+    background:transparent !important;
+    transform:translate3d(0,0,0) !important;
+    will-change:transform !important;
+    backface-visibility:hidden !important;
+    -webkit-backface-visibility:hidden !important;
+  }
+
+  #gallery-page .gallery-page-shell{
+    position:relative !important;
+    z-index:2 !important;
+    background:transparent !important;
+    background-image:none !important;
+  }
+
+  #gallery-page .top-bar,
+  #gallery-page .logo-top-left,
+  #gallery-page .gallery-wrapper,
+  #gallery-page .refresh-photos-btn,
+  #gallery-page .gallery-carousel,
+  #gallery-page .gallery-carousel img,
+  #gallery-page .page-scroll-top{
+    position:relative;
+    z-index:3;
+  }
+
+  #gallery-page .top-bar{
+    z-index:1000 !important;
+  }
+
+  #gallery-page .logo-top-left{
+    z-index:1000 !important;
+  }
+
+  #gallery-page .page-scroll-top{
+    z-index:10060 !important;
+  }
+}
+</style>
+
+<script id="gallery-mobile-video-final-js">
+(() => {
+  const video = document.getElementById("heroVideo");
+  if (!video) return;
+
+  const forceMobileVideo = () => {
+    if (window.innerWidth > 900) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+    video.setAttribute("autoplay", "");
+    video.setAttribute("loop", "");
+    video.removeAttribute("poster");
+
+    if (video.readyState >= 2) {
+      const p = video.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    } else {
+      video.load();
+      const p = video.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    }
+  };
+
+  window.addEventListener("pageshow", forceMobileVideo);
+  window.addEventListener("resize", forceMobileVideo, {passive:true});
+  window.addEventListener("orientationchange", forceMobileVideo, {passive:true});
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) forceMobileVideo();
+  }, {passive:true});
+
+  video.addEventListener("loadedmetadata", forceMobileVideo);
+  video.addEventListener("canplay", forceMobileVideo);
+
+  /* A user gesture is a useful fallback for mobile browsers that delay autoplay. */
+  window.addEventListener("touchstart", forceMobileVideo, {passive:true, once:true});
+  window.addEventListener("pointerdown", forceMobileVideo, {passive:true, once:true});
+
+  forceMobileVideo();
+  setTimeout(forceMobileVideo, 100);
+  setTimeout(forceMobileVideo, 500);
+  setTimeout(forceMobileVideo, 1500);
+})();
+</script>
