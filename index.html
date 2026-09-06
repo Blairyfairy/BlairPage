@@ -9770,29 +9770,25 @@ html body
 </script>
 
 
-<!-- =========================================================
-     MATRIX GRID EQUAL-SIZE LOCK — append-only
-     All 6 profile cards stay equal width; collapsed headers match;
-     expansion grows only the opened card (align-items:start),
-     no sibling stretch. Screen-size responsive columns preserved.
-     ========================================================= -->
-<style id="matrix-grid-equal-size-lock-final">
-html body .profile-matrix,
-html.desktop-resize-lock body .profile-matrix,
-html.mobile-device-route body .profile-matrix{
-  width:100% !important;
-  max-width:100% !important;
-  box-sizing:border-box !important;
-}
 
+<!-- =========================================================
+     MATRIX GRID EQUAL BUTTON RECTANGLE LOCK — append-only
+     Forces every collapsed matrix card (incl. Enterprise & SMB)
+     to the exact same width and height as the others, regardless
+     of title length / line wrap. Expansion still grows only the
+     opened card.
+     ========================================================= -->
+<style id="matrix-grid-equal-button-rectangle-lock">
+/* Kill older center-justify that can shrink individual cards */
 html body .profile-matrix .matrix-grid,
 html.desktop-resize-lock body .profile-matrix .matrix-grid,
 html.mobile-device-route body .profile-matrix .matrix-grid,
-.matrix-grid{
+section.profile-matrix .matrix-grid,
+.profile-matrix .matrix-grid{
   display:grid !important;
   grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
   grid-auto-rows:auto !important;
-  align-items:start !important; /* critical: expansion must not stretch siblings */
+  align-items:stretch !important; /* same row = same height when collapsed */
   justify-items:stretch !important;
   gap:clamp(0.75rem, 1.55vw, 1.25rem) !important;
   width:100% !important;
@@ -9802,50 +9798,77 @@ html.mobile-device-route body .profile-matrix .matrix-grid,
   box-sizing:border-box !important;
 }
 
+/* Every card fills its grid cell completely */
 html body .profile-matrix .matrix-card,
 html.desktop-resize-lock body .profile-matrix .matrix-card,
 html.mobile-device-route body .profile-matrix .matrix-card,
+section.profile-matrix .matrix-card,
+.profile-matrix .matrix-card,
 .matrix-card{
   width:100% !important;
-  max-width:100% !important;
+  max-width:none !important;
   min-width:0 !important;
-  height:auto !important;
-  min-height:0 !important;
+  margin:0 !important;
   box-sizing:border-box !important;
-  align-self:start !important; /* each card only as tall as its own content */
   justify-self:stretch !important;
+  align-self:stretch !important;
+  display:flex !important;
+  flex-direction:column !important;
 }
 
-/* Collapsed header row: identical height + layout for every card */
+/* Collapsed cards: identical fixed min height so short titles (Enterprise & SMB)
+   match long wrapping titles (Professional Snapshot / Systems, Data & Security) */
+html body .profile-matrix .matrix-card:not(.open),
+html.desktop-resize-lock body .profile-matrix .matrix-card:not(.open),
+html.mobile-device-route body .profile-matrix .matrix-card:not(.open),
+.profile-matrix .matrix-card:not(.open),
+.matrix-card:not(.open){
+  min-height:4.75rem !important;
+  height:auto !important;
+}
+
+/* Toggle button fills the full card rectangle when collapsed */
 html body .profile-matrix .matrix-card .card-toggle,
 html.desktop-resize-lock body .profile-matrix .matrix-card .card-toggle,
 html.mobile-device-route body .profile-matrix .matrix-card .card-toggle,
+.profile-matrix .matrix-card .card-toggle,
 .matrix-card .card-toggle{
   display:flex !important;
   flex-direction:row !important;
   align-items:center !important;
   justify-content:space-between !important;
   width:100% !important;
-  min-height:3.15rem !important;
-  height:auto !important;
-  padding:0.85rem 1.1rem !important;
+  max-width:100% !important;
+  min-height:4.75rem !important;
+  height:100% !important;
+  flex:1 1 auto !important;
+  padding:0.9rem 1.15rem !important;
+  margin:0 !important;
   box-sizing:border-box !important;
-  gap:0.5rem !important;
+  gap:0.55rem !important;
 }
 
+/* Title text: allow wrap but reserve 2-line space so all headers match */
 html body .profile-matrix .matrix-card .card-toggle > span:first-child,
 html.desktop-resize-lock body .profile-matrix .matrix-card .card-toggle > span:first-child,
+.profile-matrix .matrix-card .card-toggle > span:first-child,
 .matrix-card .card-toggle > span:first-child{
   flex:1 1 auto !important;
   min-width:0 !important;
+  max-width:100% !important;
   text-align:left !important;
   white-space:normal !important;
-  overflow-wrap:anywhere !important;
-  line-height:1.25 !important;
+  overflow-wrap:break-word !important;
+  word-break:normal !important;
+  line-height:1.28 !important;
+  min-height:2.56em !important; /* ~2 lines — equal optical height for short titles */
+  display:flex !important;
+  align-items:center !important;
 }
 
 html body .profile-matrix .matrix-card .card-toggle .expand-icon,
 html.desktop-resize-lock body .profile-matrix .matrix-card .card-toggle .expand-icon,
+.profile-matrix .matrix-card .card-toggle .expand-icon,
 .matrix-card .card-toggle .expand-icon{
   flex:0 0 28px !important;
   width:28px !important;
@@ -9854,41 +9877,71 @@ html.desktop-resize-lock body .profile-matrix .matrix-card .card-toggle .expand-
   height:28px !important;
   min-height:28px !important;
   max-height:28px !important;
+  align-self:center !important;
 }
 
-/* Expanded content stays inside the card; does not force other cards wider/taller */
+/* When open: only this card grows; others keep collapsed equal size */
+html body .profile-matrix .matrix-card.open,
+html.desktop-resize-lock body .profile-matrix .matrix-card.open,
+.profile-matrix .matrix-card.open,
+.matrix-card.open{
+  align-self:start !important;
+  height:auto !important;
+  min-height:0 !important;
+}
+
+html body .profile-matrix .matrix-card.open .card-toggle,
+.profile-matrix .matrix-card.open .card-toggle,
+.matrix-card.open .card-toggle{
+  height:auto !important;
+  min-height:3.25rem !important;
+  flex:0 0 auto !important;
+}
+
 html body .profile-matrix .matrix-card .card-content,
-html.desktop-resize-lock body .profile-matrix .matrix-card .card-content,
+.profile-matrix .matrix-card .card-content,
 .matrix-card .card-content{
   width:100% !important;
   max-width:100% !important;
   min-width:0 !important;
   box-sizing:border-box !important;
-  overflow-wrap:anywhere !important;
 }
 
-html body .profile-matrix .matrix-card.open,
-html.desktop-resize-lock body .profile-matrix .matrix-card.open,
-.matrix-card.open{
+/* Same-row collapsed cards share identical height via stretch */
+html body .profile-matrix .matrix-grid,
+.profile-matrix .matrix-grid{
+  align-items:stretch !important;
+}
+
+/* If any card in a row is open, keep closed siblings from being stretched tall */
+html body .profile-matrix .matrix-grid:has(.matrix-card.open),
+.profile-matrix .matrix-grid:has(.matrix-card.open){
+  align-items:start !important;
+}
+
+html body .profile-matrix .matrix-grid:has(.matrix-card.open) .matrix-card:not(.open),
+.profile-matrix .matrix-grid:has(.matrix-card.open) .matrix-card:not(.open){
+  min-height:4.75rem !important;
   align-self:start !important;
-  height:auto !important;
 }
 
 @media (min-width:641px) and (max-width:900px){
   html body .profile-matrix .matrix-grid,
-  html.desktop-resize-lock body .profile-matrix .matrix-grid,
-  .matrix-grid{
+  .profile-matrix .matrix-grid{
     grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
-    align-items:start !important;
   }
 }
 
 @media (max-width:640px){
   html body .profile-matrix .matrix-grid,
-  html.desktop-resize-lock body .profile-matrix .matrix-grid,
-  .matrix-grid{
+  .profile-matrix .matrix-grid{
     grid-template-columns:1fr !important;
-    align-items:start !important;
+  }
+  html body .profile-matrix .matrix-card:not(.open),
+  .profile-matrix .matrix-card:not(.open),
+  html body .profile-matrix .matrix-card .card-toggle,
+  .profile-matrix .matrix-card .card-toggle{
+    min-height:3.75rem !important;
   }
 }
 </style>
