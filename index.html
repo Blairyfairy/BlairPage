@@ -3416,7 +3416,7 @@ html.bp-scrolling body{
         <li>Designed, deployed, and maintained OpenStack orchestration templates and Heat stacks for VM provisioning, VMware, configuration management, rollbacks, and orchestration failure recovery. Worked closely with engineering teams to coordinate stack updates and maintain high reliability.</li>
         <li>Applied infrastructure and networking knowledge across Linux and OpenStack environments during the transition to parnership with AWS ISP/circuit provider to link your dedicated Rackspace servers directly to AWS via AWS Direct Connect including TCP/IP, IPv4/IPv6, CIDR, DNS, DHCP, NAT, VLANs, ICMP, routing, MTU, SSH, iptables, firewalld, OpenStack Neutron, Open vSwitch (OVS), Linux Bridges, VXLAN, HAProxy, NGINX Reverse Proxy, F5 BIG-IP (LTM fundamentals), Akamai, Cisco IOS, Juniper JunOS, Alert Logic, Nagios, SNMP, Syslog, tcpdump, traceroute, netstat/ss, dig, nslookup, and iproute2 to troubleshoot production hosting infrastructure and rapidly resolve enterprise customer incidents.</li>
         <li>Worked with DRAC and iLO interfaces for remote server access, capable of checking various failures with omreport and hputils for battery, chassis swap and other failures as a quality checked instruction handoff to DC Ops as maintenances, occasionally interacting with VMware ESXi hosts and VDI chains. Collaborated with DC Ops, SAN, and physical infrastructure teams to address hardware-level issues without direct hypervisor access.</li>
-        <p>Applied hands-on cloud infrastructure and enterprise technology expertise in <strong>Technical Sales, Solutions Consulting, Pre-Sales Engineering, Solution Architecture, and Consultative Selling</strong> to conduct technical discovery, identify customer business and technology requirements, assess infrastructure, performance, scalability, availability, and security challenges, and recommend solutions aligned with customer objectives. Maintained broad knowledge of the <strong>cloud, hosting, security, networking, database, CDN, DevOps, and infrastructure technology markets</strong>, including major vendors, technology brands, product portfolios, service offerings, solution packages, licensing models, and competitive alternatives. Evaluated customer requirements against available <strong>vendor solutions, technology stacks, service tiers, packages, and architecture options</strong> to recommend the appropriate combination of products and services based on functionality, performance, scalability, security, availability, compatibility, cost, and business value. Identified and developed <strong>upsell, cross-sell, account expansion, security upsell, package expansion, and solution adoption opportunities</strong> by uncovering technical gaps and positioning additional services. Recommended and positioned solutions spanning <strong>AWS, OpenStack, managed cloud, dedicated infrastructure, Linux, databases, networking, CDN, caching, DevOps, CI/CD, high availability, disaster recovery, Infrastructure as Code (IaC), and enterprise security</strong>. Consulted on and upsold <strong>security solutions</strong> including SSL/TLS, firewalls, network security, vulnerability assessment and remediation, security hardening, access controls, monitoring, threat detection, DDoS protection, CDN/edge security, and security-focused infrastructure services. Compared and aligned different <strong>vendors, brands, products, packages, service levels, and technical architectures</strong> to customer use cases while communicating technical capabilities, differentiators, tradeoffs, ROI, risk reduction, and total cost/value. Partnered with engineering, operations, network, database, security, and infrastructure teams to validate solution feasibility, address technical objections, support solution design, and deliver technically credible recommendations. Leveraged <strong>needs analysis, technical discovery, solution qualification, competitive positioning, vendor knowledge, product knowledge, objection handling, consultative selling, value-based selling, upselling, cross-selling, relationship management, and technical account management</strong> to support customer retention, revenue growth, account expansion, and long-term technology adoption.</p>
+        <p>Applied hands-on cloud infrastructure and enterprise technology expertise in <strong>Technical Sales, Solutions Consulting, Pre-Sales Engineering, Solution Architecture, and Consultative Selling</strong> to conduct technical discovery, identify customer business and technology requirements, assess infrastructure, performance, scalability, availability, and security challenges, and recommend solutions aligned with customer objectives. Maintained broad knowledge of the <strong>cloud, hosting, security, networking, database, CDN, DevOps, and infrastructure technology markets</strong>, including major vendors, technology brands, product portfolios, service offerings, licensing models, and competitive alternatives. Evaluated customer requirements against available <strong>vendor solutions, technology stacks, service tiers, packages, and architecture options</strong> to recommend the appropriate combination of products and services based on functionality, performance, scalability, security, availability, compatibility, cost, and business value. Identified and developed <strong>upsell, cross-sell, account expansion, security upsell, package expansion, and solution adoption opportunities</strong> by uncovering technical gaps and positioning additional services. Recommended and positioned solutions spanning <strong>AWS, OpenStack, managed cloud, dedicated infrastructure, Linux, databases, networking, CDN, caching, DevOps, CI/CD, high availability, disaster recovery, Infrastructure as Code (IaC), and enterprise security</strong>. Consulted on and upsold <strong>security solutions</strong> including SSL/TLS, firewalls, network security, vulnerability assessment and remediation, security hardening, access controls, monitoring, threat detection, DDoS protection, CDN/edge security, and security-focused infrastructure services. Compared and aligned different <strong>vendors, brands, products, packages, service levels, and technical architectures</strong> to customer use cases while communicating technical capabilities, differentiators, tradeoffs, ROI, risk reduction, and total cost/value. Partnered with engineering, operations, network, database, security, and infrastructure teams to validate solution feasibility, address technical objections, support solution design, and deliver technically credible recommendations. Leveraged <strong>needs analysis, technical discovery, solution qualification, competitive positioning, vendor knowledge, product knowledge, objection handling, consultative selling, value-based selling, upselling, cross-selling, relationship management, and technical account management</strong> to support customer retention, revenue growth, account expansion, and long-term technology adoption.</p>
         <li>Coordinated with network, DNS, and storage teams to execute tasks that intersected OS-level responsibilities, including RAID troubleshooting, storage replication, and network adjustments. Utilized commands such as hputils, omreport, and xe for diagnostics and orchestration support.</li>
         <li>Monitored systems, databases, caches, and applications using native Linux tools, Nagios, and ELK dashboards. Analyzed logs, triaged alerts, and proactively resolved performance or stability issues.</li>
         <li>Executed disaster recovery drills, failover testing, and backup verification across Rackspace Cloud, OpenStack, and dedicated environments, ensuring high availability and integrity of critical e-commerce workloads.</li>
@@ -3428,6 +3428,9 @@ html.bp-scrolling body{
 </div>
 
 <style>
+/* ===============================
+   RACKSPACE LOGO
+   =============================== */
 .rackspace-logo-fixed {
   display: block !important;
   width: 72px !important;
@@ -3445,7 +3448,63 @@ html.bp-scrolling body{
   padding: 0 !important;
   image-rendering: -webkit-optimize-contrast;
 }
+
+/* ===============================
+   RACKSPACE EXPANSION VISIBILITY
+   Prevent parent accordion/timeline
+   rules from cutting off content.
+   =============================== */
+.timeline-item:has(.rackspace-logo-fixed),
+.timeline-content:has(.rackspace-logo-fixed),
+.job-layout:has(.rackspace-logo-fixed),
+.job-details:has(.rackspace-logo-fixed) {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Make the complete Rackspace content
+   naturally determine its own height. */
+.job-details:has(.rackspace-logo-fixed) {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.job-details:has(.rackspace-logo-fixed) ul {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+
+.job-details:has(.rackspace-logo-fixed) li,
+.job-details:has(.rackspace-logo-fixed) p {
+  max-height: none !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+
+/* Prevent long paragraphs from being
+   clipped by text/height rules. */
+.job-details:has(.rackspace-logo-fixed) p {
+  height: auto !important;
+  min-height: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+}
+
+/* Ensure the expansion container itself
+   can grow to the full content height. */
+.timeline-content:has(.rackspace-logo-fixed) {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
 </style>
+
       
 <!-- =====================
      STRING THEORY SOFTWARE
