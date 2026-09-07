@@ -13630,3 +13630,257 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 })();
 </script>
+
+<!-- =========================================================
+     STRICT ONLY: restore missing Lansing Community College
+     logo + title inside Courses (match MongoDB block).
+     Do not change volunteer, colors, jobs, marquee, or anything else.
+========================================================= -->
+<script id="bp-strict-restore-lcc-courses-only">
+(function () {
+  "use strict";
+
+  function lower(s) {
+    return (s || "").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+
+  function setImp(el, prop, val) {
+    if (el && el.style) el.style.setProperty(prop, val, "important");
+  }
+
+  function isVolunteer(el) {
+    return !!(el && el.closest && el.closest(
+      ".bp-fused-volunteer, .volunteer-card, .volunteer-grid, .volunteer-section"
+    ));
+  }
+
+  function getCoursesRoot(root) {
+    var grid = root.querySelector(".course-grid, .courses-card");
+    if (grid && !isVolunteer(grid)) return grid;
+    var heads = root.querySelectorAll("h2, h3");
+    for (var i = 0; i < heads.length; i++) {
+      var t = lower(heads[i].textContent);
+      if (t === "courses" || t === "technical training") {
+        var sec = heads[i].closest("section, .section, div") || heads[i].parentElement;
+        if (sec && !isVolunteer(sec)) return sec;
+      }
+    }
+    return null;
+  }
+
+  function hasVisibleLccTitle(area) {
+    var nodes = area.querySelectorAll(".course-title, h3, h4, a, span, strong, p, div");
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (isVolunteer(el)) continue;
+      var t = lower(el.textContent);
+      if (t.indexOf("lansing community college") === -1) continue;
+      if ((el.textContent || "").length > 60) continue;
+      var st = window.getComputedStyle(el);
+      if (st.display === "none" || st.visibility === "hidden" || st.opacity === "0") {
+        setImp(el, "display", "block");
+        setImp(el, "visibility", "visible");
+        setImp(el, "opacity", "1");
+      }
+      return el;
+    }
+    return null;
+  }
+
+  function hasLccLogo(area) {
+    var imgs = area.querySelectorAll("img");
+    for (var i = 0; i < imgs.length; i++) {
+      if (isVolunteer(imgs[i])) continue;
+      var alt = lower(imgs[i].getAttribute("alt"));
+      var src = lower(imgs[i].getAttribute("src"));
+      if (
+        alt.indexOf("lansing") !== -1 ||
+        alt.indexOf("community college") !== -1 ||
+        src.indexOf("lcclogo") !== -1
+      ) {
+        setImp(imgs[i], "display", "block");
+        setImp(imgs[i], "visibility", "visible");
+        setImp(imgs[i], "opacity", "1");
+        return imgs[i];
+      }
+    }
+    return null;
+  }
+
+  function findMongoGroup(area) {
+    var groups = area.querySelectorAll(".course-group, .job-layout, article, div");
+    for (var i = 0; i < groups.length; i++) {
+      var g = groups[i];
+      if (isVolunteer(g)) continue;
+      var t = lower(g.textContent);
+      if (t.indexOf("mongodb university") !== -1 && t.length < 1200) return g;
+    }
+    return null;
+  }
+
+  function findLccList(area) {
+    // Prefer a ul that mentions known LCC course strings
+    var lists = area.querySelectorAll("ul");
+    for (var i = 0; i < lists.length; i++) {
+      var u = lists[i];
+      if (isVolunteer(u)) continue;
+      var t = lower(u.textContent);
+      if (
+        t.indexOf("writ 121") !== -1 ||
+        t.indexOf("composition i") !== -1 ||
+        t.indexOf("econ 201") !== -1 ||
+        t.indexOf("indoor tennis") !== -1 ||
+        t.indexOf("tap & lyrical") !== -1 ||
+        t.indexOf("tap and lyrical") !== -1
+      ) {
+        return u;
+      }
+    }
+    return null;
+  }
+
+  function sizeLike(img, ref) {
+    var px = 50;
+    if (ref) {
+      var w = parseInt(window.getComputedStyle(ref).width, 10);
+      if (w && w > 0 && w < 120) px = w;
+    }
+    var size = px + "px";
+    ["width", "height", "min-width", "min-height", "max-width", "max-height"].forEach(function (p) {
+      setImp(img, p, size);
+    });
+    setImp(img, "object-fit", "contain");
+    setImp(img, "display", "block");
+    setImp(img, "margin", "0 auto");
+    setImp(img, "border-radius", "12px");
+    setImp(img, "visibility", "visible");
+    setImp(img, "opacity", "1");
+    var wrap = img.closest(".job-logo, .course-logo");
+    if (wrap) {
+      ["width", "height", "min-width", "min-height", "max-width", "max-height"].forEach(function (p) {
+        setImp(wrap, p, size);
+      });
+      setImp(wrap, "display", "flex");
+      setImp(wrap, "justify-content", "center");
+      setImp(wrap, "margin", "0 auto 0.55rem auto");
+    }
+  }
+
+  function resolveLccSrc(root, refImg) {
+    var imgs = root.querySelectorAll("img");
+    for (var i = 0; i < imgs.length; i++) {
+      var src = imgs[i].getAttribute("src") || "";
+      if (/lcclogo/i.test(src)) return src;
+    }
+    if (refImg) {
+      var s = refImg.getAttribute("src") || "";
+      if (s.indexOf("/") !== -1) return s.replace(/[^\/]+$/, "lcclogo.jpg");
+    }
+    return "lcclogo.jpg";
+  }
+
+  function restore(root) {
+    var area = getCoursesRoot(root);
+    if (!area) return;
+
+    var titleEl = hasVisibleLccTitle(area);
+    var logoEl = hasLccLogo(area);
+    var mongoGroup = findMongoGroup(area);
+    var refImg = area.querySelector('img[alt*="MongoDB" i], img[src*="mongo1" i]');
+    var lccList = findLccList(area);
+
+    // Already complete
+    if (titleEl && logoEl) {
+      sizeLike(logoEl, refImg);
+      // Ensure logo sits above title inside same parent when possible
+      var card = titleEl.closest(".course-group, .job-layout, article, .card") || titleEl.parentElement;
+      if (card && logoEl) {
+        var wrap = logoEl.closest(".job-logo, .course-logo") || logoEl;
+        if (!card.contains(logoEl)) {
+          card.insertBefore(wrap, card.firstChild);
+        }
+      }
+      return;
+    }
+
+    // Build a course-group matching Mongo structure
+    var group = document.createElement("div");
+    group.className = "course-group";
+    group.setAttribute("data-bp-lcc-restored", "yes");
+
+    // Logo
+    var logoWrap = document.createElement("div");
+    logoWrap.className = "job-logo";
+    var img = document.createElement("img");
+    img.alt = "Lansing Community College";
+    img.className = "logo-img";
+    img.src = resolveLccSrc(root, refImg);
+    logoWrap.appendChild(img);
+    group.appendChild(logoWrap);
+    sizeLike(img, refImg);
+
+    // Title (white — matches current school titles)
+    var title = document.createElement("div");
+    title.className = "course-title lcc";
+    title.textContent = "Lansing Community College";
+    setImp(title, "color", "#ffffff");
+    setImp(title, "-webkit-text-fill-color", "#ffffff");
+    setImp(title, "text-align", "center");
+    setImp(title, "font-weight", "700");
+    setImp(title, "margin", "0 0 0.45rem 0");
+    group.appendChild(title);
+
+    // Re-home existing LCC course list if found outside
+    if (lccList && !group.contains(lccList)) {
+      group.appendChild(lccList);
+    }
+
+    // Insert before MongoDB group if present, else at top of courses area
+    if (mongoGroup && mongoGroup.parentNode) {
+      mongoGroup.parentNode.insertBefore(group, mongoGroup);
+    } else {
+      // After Courses heading if possible
+      var heading = null;
+      Array.prototype.forEach.call(area.querySelectorAll("h2, h3"), function (h) {
+        var t = lower(h.textContent);
+        if (t === "courses" || t === "technical training") heading = h;
+      });
+      if (heading && heading.parentNode === area) {
+        if (heading.nextSibling) area.insertBefore(group, heading.nextSibling);
+        else area.appendChild(group);
+      } else {
+        area.insertBefore(group, area.firstChild);
+      }
+    }
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    try {
+      restore(root);
+    } catch (e) {}
+  }
+
+  function schedule() {
+    run();
+    [100, 300, 700, 1200, 2000, 3500, 5500, 8000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () { run(); });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 16000);
+  }
+})();
+</script>
