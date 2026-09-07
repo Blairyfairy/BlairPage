@@ -267,6 +267,24 @@
     padding: 18px 16px;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
     margin-bottom: 16px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Force all images visible from initial load */
+  .bp-mobile-page #mobileContent img,
+  .bp-mobile-page #mobileContent .course-group,
+  .bp-mobile-page #mobileContent .course-logo,
+  .bp-mobile-page #mobileContent .job-logo,
+  .bp-mobile-page #mobileContent .volunteer-card,
+  .bp-mobile-page #mobileContent .course-title,
+  .bp-mobile-page #mobileContent .course-description,
+  .bp-mobile-page #mobileContent .badge-item,
+  .bp-mobile-page #mobileContent .badge-img {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .bp-mobile-page #mobileContent .top-bar {
@@ -14247,13 +14265,25 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
      NO-JUMP LOAD + VOLUNTEER JUDGE FIX + COURSES LOGOS ONCE
 ========================================================= -->
 <style id="bp-no-jump-settled-load">
-  /* Hide content until first settle — prevents stack→row and layout jump */
+  /* Content visible from initial load — no blinking or opacity transitions */
+  html body.bp-mobile-page #mobileContent {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: none !important;
+  }
   html:not(.bp-content-ready) body.bp-mobile-page #mobileContent {
-    opacity: 0 !important;
+    opacity: 1 !important;
   }
   html.bp-content-ready body.bp-mobile-page #mobileContent {
     opacity: 1 !important;
     transition: none !important;
+  }
+
+  /* Force all images visible from initial load */
+  body.bp-mobile-page #mobileContent img {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   /* Badge row always final 2x4 grid — never flex wrap stack */
@@ -14264,6 +14294,15 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     max-width: 360px !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  body.bp-mobile-page #mobileContent .badge-item,
+  body.bp-mobile-page #mobileContent .badge-img {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item {
@@ -14459,23 +14498,14 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     markReady();
   }
 
-  // Show content after pull has likely finished; limited retries for volunteer/courses only
+  // Execute all fixes immediately on initial load with no delay or blinking
   function schedule() {
     runEarly();
-    [200, 600, 1200, 2200].forEach(function (ms, i) {
-      setTimeout(function () {
-        runEarly();
-        if (i < 3) {
-          try {
-            fixFirstVolunteerOnly();
-            fixCoursesLogosOnce();
-          } catch (e) {}
-        }
-        if (i === 3) markReady();
-      }, ms);
-    });
-    // Safety: always reveal even if slow
-    setTimeout(markReady, 3500);
+    try {
+      fixFirstVolunteerOnly();
+      fixCoursesLogosOnce();
+    } catch (e) {}
+    markReady();
   }
 
   if (document.readyState === "loading") {
@@ -14485,7 +14515,7 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
   window.addEventListener("load", function () {
     runSettle();
-    setTimeout(markReady, 500);
+    markReady();
   }, { passive: true });
 })();
 </script>
