@@ -5073,7 +5073,7 @@ setTimeout(function () {
   document.addEventListener("DOMContentLoaded", queueStaticSpacing);
   window.addEventListener("load", queueStaticSpacing);
   window.addEventListener("resize", queueStaticSpacing);
-  window.addEventListener("scroll", queueStaticSpacing, { passive: true });
+  // Disabled in smooth-scroll mode: do not mutate layout during page scrolling.
 
   document.addEventListener("click", function (e) {
     if (e.target.closest(".job-click, .card-toggle, .theme-btn")) {
@@ -5653,7 +5653,7 @@ setTimeout(function () {
   }
 
   window.addEventListener('load', runForcePass);
-  window.addEventListener('scroll', runForcePass, { passive: true });
+  // Disabled in smooth-scroll mode: do not mutate layout during page scrolling.
   window.addEventListener('resize', runForcePass);
 
   const observer = new MutationObserver(() => {
@@ -8059,7 +8059,7 @@ body.bp-mobile-page #mobileContent .matrix-card .card-toggle > span:last-child *
   document.addEventListener("DOMContentLoaded", runBurst, { passive: true });
   window.addEventListener("load", runBurst, { passive: true });
   window.addEventListener("pageshow", runBurst, { passive: true });
-  window.addEventListener("scroll", function () { raf(forceVisibleState); }, { passive: true });
+  // Disabled in smooth-scroll mode: do not mutate layout during page scrolling.
   window.addEventListener("resize", function () { raf(forceVisibleState); }, { passive: true });
   document.addEventListener("visibilitychange", runBurst, { passive: true });
 
@@ -11037,9 +11037,8 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     important(logo, "box-shadow", "none");
 
     var wrap = logo.closest(".job-logo, .course-logo");
-    if (wrap && !group.contains(wrap)) group.insertBefore(wrap, group.firstChild);
-    else if (!group.contains(logo)) group.insertBefore(logo, group.firstChild);
-    else if (wrap && wrap.parentNode !== group) group.insertBefore(wrap, group.firstChild);
+    // Stable mode: never reparent an existing LCC logo. Reparenting caused scroll/load flicker.
+    if (!group.contains(logo) && !wrap) group.appendChild(logo);
   }
 
   function schedule() {
@@ -11058,6 +11057,172 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   window.addEventListener("load", schedule, { passive: true });
 })();
 </script>
+
+<!-- =========================================================
+     FINAL SMOOTH INDEX-STYLE SCROLL + CREDLY/LCC PAINT LOCK
+     Append-only final layer.
+     No DOM rebuilding, no logo reparenting, no scroll-time layout work.
+========================================================= -->
+<style id="bp-final-smooth-index-scroll-lock">
+  html,
+  body.bp-mobile-page {
+    scroll-behavior: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    touch-action: pan-y pinch-zoom !important;
+  }
+
+  body.bp-mobile-page #mobileContent,
+  body.bp-mobile-page #mobileContent .resume-shell {
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    contain: none !important;
+    content-visibility: visible !important;
+    transform: none !important;
+  }
+
+  /* Credly must remain a normal, independently painted iframe.
+     Never hide it, fade it, pause it, or recycle its layer during scrolling. */
+  body.bp-mobile-page #mobileContent .credly-embed-badge,
+  body.bp-mobile-page #mobileContent [data-share-badge-id],
+  body.bp-mobile-page #mobileContent [data-iframe-width],
+  body.bp-mobile-page #mobileContent iframe[src*="credly.com"],
+  body.bp-mobile-page #mobileContent iframe[src*="credly"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    content-visibility: visible !important;
+    contain: none !important;
+    filter: none !important;
+    will-change: auto !important;
+    transform: none !important;
+  }
+
+  body.bp-mobile-page #mobileContent iframe[src*="credly.com"],
+  body.bp-mobile-page #mobileContent iframe[src*="credly"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 230px !important;
+    height: 230px !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+
+  /* Do not let the scrolling state hide/pause Credly rendering. */
+  body.bp-mobile-page.bp-is-scrolling #mobileContent .credly-embed-badge,
+  body.bp-mobile-page.bp-is-scrolling #mobileContent [data-share-badge-id],
+  body.bp-mobile-page.bp-is-scrolling #mobileContent iframe[src*="credly.com"],
+  body.bp-mobile-page.bp-is-scrolling #mobileContent iframe[src*="credly"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* LCC: paint in place; never animate or disappear after first paint. */
+  body.bp-mobile-page #mobileContent img[alt*="Lansing Community College" i],
+  body.bp-mobile-page #mobileContent img[src*="lcclogo" i],
+  body.bp-mobile-page #mobileContent .bp-final-lcc-logo {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    content-visibility: visible !important;
+    contain: none !important;
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    will-change: auto !important;
+  }
+
+  /* Requested school names stay pure white. */
+  body.bp-mobile-page #mobileContent .course-title.lcc,
+  body.bp-mobile-page #mobileContent .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .course-title.rackspace,
+  body.bp-mobile-page #mobileContent .course-title.lcc *,
+  body.bp-mobile-page #mobileContent .course-title.mongodb *,
+  body.bp-mobile-page #mobileContent .course-title.rackspace * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+</style>
+
+<script id="bp-final-smooth-index-scroll-lock-script">
+(function () {
+  "use strict";
+
+  var started = false;
+
+  function setImportant(el, prop, value) {
+    if (el && el.style) el.style.setProperty(prop, value, "important");
+  }
+
+  function stabilize() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+
+    /* Never move an existing LCC logo. Only stabilize the one already in index.html. */
+    var lcc = root.querySelector(
+      'img[alt*="Lansing Community College" i], img[src*="lcclogo" i], .bp-final-lcc-logo'
+    );
+
+    if (lcc) {
+      setImportant(lcc, "display", "block");
+      setImportant(lcc, "visibility", "visible");
+      setImportant(lcc, "opacity", "1");
+      setImportant(lcc, "content-visibility", "visible");
+      setImportant(lcc, "contain", "none");
+      setImportant(lcc, "animation", "none");
+      setImportant(lcc, "transition", "none");
+      setImportant(lcc, "transform", "none");
+      setImportant(lcc, "filter", "none");
+      setImportant(lcc, "will-change", "auto");
+    }
+
+    /* Lock Credly paint without reinitializing or replacing its iframe. */
+    root.querySelectorAll(
+      '.credly-embed-badge, [data-share-badge-id], iframe[src*="credly.com"], iframe[src*="credly"]'
+    ).forEach(function (el) {
+      setImportant(el, "display", "block");
+      setImportant(el, "visibility", "visible");
+      setImportant(el, "opacity", "1");
+      setImportant(el, "content-visibility", "visible");
+      setImportant(el, "contain", "none");
+      setImportant(el, "filter", "none");
+      setImportant(el, "will-change", "auto");
+    });
+
+    /* Do not call CredlyEmbed.initialize() here.
+       Reinitializing an already-rendered badge can blank/repaint it during scrolling. */
+  }
+
+  function start() {
+    if (started) return;
+    started = true;
+
+    /* A small initial settle only; nothing runs on scroll. */
+    stabilize();
+    requestAnimationFrame(stabilize);
+    setTimeout(stabilize, 350);
+    setTimeout(stabilize, 1000);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start, { once: true });
+  } else {
+    start();
+  }
+
+  window.addEventListener("load", stabilize, { once: true, passive: true });
+})();
+</script>
+
 </body>
 </html>
 
@@ -13313,10 +13478,7 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 
   // Page scroll
-  window.addEventListener("scroll", onScrollActivity, { passive: true, capture: true });
-  document.addEventListener("scroll", onScrollActivity, { passive: true, capture: true });
-  window.addEventListener("touchmove", onScrollActivity, { passive: true, capture: true });
-  window.addEventListener("wheel", onScrollActivity, { passive: true, capture: true });
+  // Disabled: index.html owns normal scrolling; no scroll-time class/layout mutations.
 
   // Marquee touch / pan
   function bindMarquee() {
@@ -13541,7 +13703,7 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     document.documentElement.style.setProperty("overflow-y", "auto", "important");
   }
 
-  window.addEventListener("scroll", onScroll, { passive: true });
+  // Disabled: do not rewrite overflow/classes during every scroll event.
   window.addEventListener("touchstart", function () {
     unlock();
   }, { passive: true });
