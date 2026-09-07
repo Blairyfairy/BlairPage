@@ -913,7 +913,7 @@
   }
 
   .bp-mobile-page #mobileContent .course-title.lcc {
-    color: #6f7b95 !important;
+    color: #f0eff4 !important;
   }
 
   .bp-mobile-page #mobileContent .uopeople-purple {
@@ -921,7 +921,10 @@
     font-weight: 600 !important;
   }
 
-  .bp-mobile-page #mobileContent .course-title.rackspace,
+  .bp-mobile-page #mobileContent .course-title.rackspace {
+    color: #f0eff4 !important;
+  }
+
   .bp-mobile-page #mobileContent .course-title.redhat {
     color: #b05263 !important;
   }
@@ -931,7 +934,7 @@
   }
 
   .bp-mobile-page #mobileContent .course-title.mongodb {
-    color: #3f9b6c !important;
+    color: #f0eff4 !important;
   }
 
   .bp-mobile-page #mobileContent .course-title.cpanel {
@@ -12616,6 +12619,248 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     var mo = new MutationObserver(function () { run(); });
     mo.observe(host, { childList: true, subtree: true });
     setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 14000);
+  }
+})();
+</script>
+
+<!-- =========================================================
+     LCC LOGO RESTORE + THREE SCHOOL WHITE TITLES ONLY
+     Puts Lansing Community College logo back into its courses
+     responsive block to match MongoDB / Rackspace. Nothing else.
+========================================================= -->
+<style id="bp-lcc-logo-restore-white-titles">
+  body.bp-mobile-page #mobileContent .course-title.lcc,
+  body.bp-mobile-page #mobileContent .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .course-title.rackspace,
+  body.bp-mobile-page #mobileContent .course-title.cloudtech,
+  body.bp-mobile-page #mobileContent .course-grid .course-title.lcc,
+  body.bp-mobile-page #mobileContent .course-grid .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .course-grid .course-title.rackspace,
+  body.bp-mobile-page #mobileContent .courses-card .course-title.lcc,
+  body.bp-mobile-page #mobileContent .courses-card .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .courses-card .course-title.rackspace {
+    color: #f0eff4 !important;
+  }
+</style>
+
+<script id="bp-lcc-logo-restore-white-titles-script">
+(function () {
+  "use strict";
+
+  function lower(s) {
+    return (s || "").toLowerCase();
+  }
+
+  function setImp(el, prop, val) {
+    if (el && el.style) el.style.setProperty(prop, val, "important");
+  }
+
+  function whiteTitles(root) {
+    var sels = [
+      ".course-title.lcc",
+      ".course-title.mongodb",
+      ".course-title.rackspace",
+      ".course-title.cloudtech"
+    ];
+    sels.forEach(function (sel) {
+      Array.prototype.forEach.call(root.querySelectorAll(sel), function (el) {
+        setImp(el, "color", "#f0eff4");
+      });
+    });
+    Array.prototype.forEach.call(
+      root.querySelectorAll(".course-grid .course-title, .courses-card .course-title, .course-group .course-title, .course-header .course-title, .course-group h3, .course-group h4, .course-header h3, .course-header h4"),
+      function (el) {
+        var t = lower(el.textContent);
+        if (
+          t.indexOf("lansing community college") !== -1 ||
+          t.indexOf("mongodb university") !== -1 ||
+          t.indexOf("rackspace cloud university") !== -1 ||
+          t.indexOf("cloud university") !== -1
+        ) {
+          setImp(el, "color", "#f0eff4");
+        }
+      }
+    );
+  }
+
+  function coursesRoots(root) {
+    var list = Array.prototype.slice.call(root.querySelectorAll(".course-grid, .courses-card"));
+    if (list.length) return list;
+    Array.prototype.forEach.call(root.querySelectorAll("h2, h3"), function (h) {
+      var t = lower(h.textContent).trim();
+      if (t === "technical training" || t === "courses") {
+        var sec = h.closest("section, .section, div") || h.parentElement;
+        if (sec) list.push(sec);
+      }
+    });
+    return list;
+  }
+
+  function findLansingGroup(area) {
+    var candidates = area.querySelectorAll(".course-group, .job-layout, article, div");
+    for (var i = 0; i < candidates.length; i++) {
+      var el = candidates[i];
+      var t = lower(el.textContent);
+      if (t.indexOf("lansing community college") === -1) continue;
+      // Prefer the tightest block that owns the title
+      if (el.querySelector(".course-title.lcc, .course-title")) return el;
+      if (t.length < 800) return el;
+    }
+    return null;
+  }
+
+  function referenceLogoSize(area) {
+    var ref = area.querySelector(
+      'img[alt*="MongoDB" i], img[src*="mongo1" i], img[alt*="Cloud U" i], img[alt*="Rackspace Cloud" i]'
+    );
+    if (!ref) return 50;
+    var w = parseInt(window.getComputedStyle(ref).width, 10);
+    return w && w > 0 && w < 120 ? w : 50;
+  }
+
+  function resolveLccSrc(root) {
+    var imgs = root.querySelectorAll("img");
+    for (var i = 0; i < imgs.length; i++) {
+      var src = imgs[i].getAttribute("src") || "";
+      var alt = lower(imgs[i].getAttribute("alt"));
+      if (lower(src).indexOf("lcclogo") !== -1 || alt.indexOf("lansing") !== -1) {
+        return src;
+      }
+    }
+    // Same relative asset name used elsewhere in this page
+    var base = "";
+    try {
+      var scripts = document.querySelectorAll("script[src], link[href]");
+      // Prefer paths next to index content images if any mongo logo path gives a folder
+      for (var j = 0; j < imgs.length; j++) {
+        var s = imgs[j].getAttribute("src") || "";
+        if (/mongo1|udacity|rackspace/i.test(s) && s.indexOf("/") !== -1) {
+          base = s.replace(/[^\/]+$/, "");
+          break;
+        }
+      }
+    } catch (e) {}
+    return (base || "") + "lcclogo.jpg";
+  }
+
+  function applyLogoBox(img, wrap, px) {
+    var size = String(px) + "px";
+    ["width", "height", "min-width", "min-height", "max-width", "max-height"].forEach(function (p) {
+      setImp(img, p, size);
+    });
+    setImp(img, "object-fit", "contain");
+    setImp(img, "border-radius", "12px");
+    setImp(img, "display", "block");
+    setImp(img, "visibility", "visible");
+    setImp(img, "opacity", "1");
+    setImp(img, "margin", "0");
+    setImp(img, "padding", "0");
+    if (wrap) {
+      ["width", "height", "min-width", "min-height", "max-width", "max-height"].forEach(function (p) {
+        setImp(wrap, p, size);
+      });
+      setImp(wrap, "flex", "0 0 " + size);
+      setImp(wrap, "margin", "0");
+      setImp(wrap, "padding", "0");
+      setImp(wrap, "display", "flex");
+      setImp(wrap, "align-items", "flex-start");
+      setImp(wrap, "justify-content", "flex-start");
+      setImp(wrap, "background", "transparent");
+      setImp(wrap, "border", "none");
+      setImp(wrap, "box-shadow", "none");
+    }
+  }
+
+  function ensureLccLogo(root) {
+    var areas = coursesRoots(root);
+    var src = resolveLccSrc(root);
+
+    areas.forEach(function (area) {
+      var group = findLansingGroup(area);
+      if (!group) return;
+
+      // Already has a Lansing / lcclogo image inside this courses group
+      var existing = group.querySelector(
+        'img[alt*="Lansing" i], img[alt*="Community College" i], img[src*="lcclogo" i]'
+      );
+      var px = referenceLogoSize(area);
+
+      if (existing) {
+        // Make sure it is visible and sized like the other two
+        var wrap = existing.closest(".job-logo, .course-logo");
+        applyLogoBox(existing, wrap, px);
+        setImp(existing, "display", "block");
+        setImp(existing, "visibility", "visible");
+        setImp(existing, "opacity", "1");
+        return;
+      }
+
+      // Insert logo matching sibling school structure (job-logo + img)
+      var wrap = document.createElement("div");
+      wrap.className = "job-logo";
+      var img = document.createElement("img");
+      img.alt = "Lansing Community College";
+      img.src = src;
+      img.className = "logo-img";
+      wrap.appendChild(img);
+
+      // Place before title if present, else first child
+      var title =
+        group.querySelector(".course-title.lcc, .course-title, h3, h4") ||
+        group.firstElementChild;
+      if (title && title.parentNode === group) {
+        group.insertBefore(wrap, title);
+      } else {
+        group.insertBefore(wrap, group.firstChild);
+      }
+
+      applyLogoBox(img, wrap, px);
+
+      // If src 404, try alternate common paths once
+      img.onerror = function () {
+        if (img.dataset.bpLccTried === "1") return;
+        img.dataset.bpLccTried = "1";
+        var alts = [
+          "lcclogo.jpg",
+          "./lcclogo.jpg",
+          "images/lcclogo.jpg",
+          "./images/lcclogo.jpg",
+          "assets/lcclogo.jpg"
+        ];
+        var next = alts.filter(function (a) { return a !== img.src; })[0];
+        if (next) img.src = next;
+      };
+    });
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    try {
+      ensureLccLogo(root);
+      whiteTitles(root);
+    } catch (e) {}
+  }
+
+  function schedule() {
+    run();
+    [100, 300, 700, 1200, 2000, 3500, 5500, 8000, 11000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () { run(); });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 16000);
   }
 })();
 </script>
