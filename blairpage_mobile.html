@@ -10912,24 +10912,31 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 </html>
 
 <!-- =========================================================
-     FINAL — ENTERPRISE BRAND MARQUEE MOBILE FIT
-     The marque logos/items from index.html were oversized /
-     overflowing on mobile. Style them to fit the screen and
-     look clean (desktop-like seamless row) WITHOUT touching
-     the hardcoded portfolio badge row (Linktree / Discord /
-     DeviantArt / 666 AWS / etc — those stay as they were).
+     ENTERPRISE BRAND MARQUEE — DESKTOP-PARITY MOBILE BEHAVIOR
+     Index styles are NOT copied into the mobile clone, so the
+     marque was missing keyframes / track layout and looked
+     slow, overlapping, and broken. This block restores the
+     same seamless dual-set scroll, spacing, and motion as
+     desktop (scaled slightly for phone width). Does NOT
+     change the hardcoded portfolio badge row.
 ========================================================= -->
-<style id="bp-final-enterprise-marque-mobile-fit">
-  /* --- Contain the marque so it never widens the page --- */
+<style id="bp-enterprise-marque-desktop-parity">
+  @keyframes enterpriseBrandScroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+
   body.bp-mobile-page #mobileContent .enterprise-brand-slider,
   body.bp-mobile-page #mobileContent section.enterprise-brand-slider {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
     overflow: hidden !important;
-    padding: 10px 0 !important;
-    margin: 0.35rem 0 0.55rem !important;
     background: transparent !important;
+    color: #ffffff !important;
+    padding: 14px 0 !important;
+    margin: 0.4rem 0 0.6rem !important;
+    position: relative !important;
     box-sizing: border-box !important;
   }
 
@@ -10939,36 +10946,43 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     overflow: hidden !important;
   }
 
+  /* Same dual-set seamless loop as desktop */
   body.bp-mobile-page #mobileContent .enterprise-brand-slider__track {
     display: flex !important;
     width: max-content !important;
     align-items: center !important;
+    flex-wrap: nowrap !important;
     animation: enterpriseBrandScroll 52s linear infinite !important;
     will-change: transform !important;
+    transform: translate3d(0, 0, 0) !important;
   }
 
   body.bp-mobile-page #mobileContent .enterprise-brand-slider__set {
     display: flex !important;
     align-items: center !important;
     flex-shrink: 0 !important;
+    flex-wrap: nowrap !important;
   }
 
-  /* Smaller, uniform logo tiles on mobile */
+  /* Desktop uses clamp(185px, 19vw, 250px). On phone use a
+     stable mid size so logos don't crowd or stretch. */
   body.bp-mobile-page #mobileContent .enterprise-brand-slider__item {
-    width: 118px !important;
-    min-width: 118px !important;
-    max-width: 118px !important;
-    height: 44px !important;
-    min-height: 44px !important;
-    max-height: 44px !important;
-    padding: 6px 10px !important;
+    width: 150px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    max-height: 52px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     flex-shrink: 0 !important;
+    padding: 8px 14px !important;
+    color: #ffffff !important;
     opacity: 0.92 !important;
     box-sizing: border-box !important;
-    overflow: hidden !important;
+    overflow: visible !important;
+    transition: opacity 0.25s ease, transform 0.25s ease !important;
   }
 
   body.bp-mobile-page #mobileContent .enterprise-brand-slider__item:hover {
@@ -10976,114 +10990,150 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     transform: scale(1.03) !important;
   }
 
-  /* Text logos: single line, scaled down */
+  /* Brand text / marks — single line, readable, no overlap */
   body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-mark,
   body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit,
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item span {
-    font-size: 13px !important;
-    line-height: 1.1 !important;
-    letter-spacing: -0.4px !important;
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item > span {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
     white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    max-width: 100% !important;
+    overflow: visible !important;
+    max-width: none !important;
+    font-size: 15px !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.5px !important;
+    color: #ffffff !important;
   }
 
   body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-heart {
-    font-size: 14px !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
   }
 
-  /* SVG / icon marks inside marque items */
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade {
+    flex-direction: column !important;
+    gap: 2px !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade strong {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade small {
+    font-size: 7px !important;
+    letter-spacing: 2.5px !important;
+    margin-top: 2px !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit-symbol,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb-symbol {
+    width: 22px !important;
+    height: 22px !important;
+    flex: 0 0 22px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important;
+  }
+
   body.bp-mobile-page #mobileContent .enterprise-brand-slider__item svg {
     width: 22px !important;
     height: 22px !important;
-    max-width: 22px !important;
-    max-height: 22px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
     display: block !important;
+    overflow: visible !important;
     flex-shrink: 0 !important;
   }
 
   body.bp-mobile-page #mobileContent .enterprise-brand-slider__item img {
-    max-width: 90px !important;
-    max-height: 28px !important;
+    max-width: 110px !important;
+    max-height: 32px !important;
     width: auto !important;
     height: auto !important;
     object-fit: contain !important;
   }
 
-  /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
     body.bp-mobile-page #mobileContent .enterprise-brand-slider__track {
       animation: none !important;
     }
   }
 
-  /* Extra-narrow phones */
   @media (max-width: 360px) {
     body.bp-mobile-page #mobileContent .enterprise-brand-slider__item {
-      width: 102px !important;
-      min-width: 102px !important;
-      max-width: 102px !important;
-      height: 40px !important;
-      padding: 5px 8px !important;
+      width: 132px !important;
+      min-width: 132px !important;
+      max-width: 132px !important;
+      height: 48px !important;
+      padding: 6px 10px !important;
     }
     body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-mark,
     body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit,
-    body.bp-mobile-page #mobileContent .enterprise-brand-slider__item span {
-      font-size: 12px !important;
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb,
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider__item > span {
+      font-size: 13px !important;
     }
   }
 
-  /* =========================================================
-     DO NOT touch the hardcoded portfolio badge row
-     (Linktree, Discord, WhatsApp, DeviantArt, 666 AWS, etc.)
-     Leave those styles exactly as the earlier mobile CSS had them.
-     ========================================================= */
+  /* Page shell still fits the screen */
+  html, body.bp-mobile-page {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  body.bp-mobile-page .mobile-shell,
+  body.bp-mobile-page #mobileContent {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
 </style>
 
-<script id="bp-final-enterprise-marque-mobile-fit-script">
+<script id="bp-enterprise-marque-desktop-parity-script">
 (function () {
   "use strict";
 
-  function fitMarque() {
-    var root = document.getElementById("mobileContent");
+  function ensureMarqueAnimation(root) {
     if (!root) return;
+    var tracks = root.querySelectorAll(".enterprise-brand-slider__track");
+    Array.prototype.forEach.call(tracks, function (track) {
+      // Force the same desktop animation properties
+      track.style.setProperty("display", "flex", "important");
+      track.style.setProperty("width", "max-content", "important");
+      track.style.setProperty("align-items", "center", "important");
+      track.style.setProperty("flex-wrap", "nowrap", "important");
+      track.style.setProperty("animation-name", "enterpriseBrandScroll", "important");
+      track.style.setProperty("animation-duration", "52s", "important");
+      track.style.setProperty("animation-timing-function", "linear", "important");
+      track.style.setProperty("animation-iteration-count", "infinite", "important");
+      track.style.setProperty("will-change", "transform", "important");
+    });
 
-    var sliders = root.querySelectorAll(".enterprise-brand-slider, section.enterprise-brand-slider");
-    Array.prototype.forEach.call(sliders, function (slider) {
-      slider.style.setProperty("width", "100%", "important");
-      slider.style.setProperty("max-width", "100%", "important");
-      slider.style.setProperty("overflow", "hidden", "important");
-      slider.style.setProperty("padding", "10px 0", "important");
+    root.querySelectorAll(".enterprise-brand-slider__set").forEach(function (set) {
+      set.style.setProperty("display", "flex", "important");
+      set.style.setProperty("align-items", "center", "important");
+      set.style.setProperty("flex-shrink", "0", "important");
+      set.style.setProperty("flex-wrap", "nowrap", "important");
+    });
 
-      var items = slider.querySelectorAll(".enterprise-brand-slider__item");
-      Array.prototype.forEach.call(items, function (item) {
-        item.style.setProperty("width", "118px", "important");
-        item.style.setProperty("min-width", "118px", "important");
-        item.style.setProperty("max-width", "118px", "important");
-        item.style.setProperty("height", "44px", "important");
-        item.style.setProperty("padding", "6px 10px", "important");
-        item.style.setProperty("overflow", "hidden", "important");
-      });
-
-      slider.querySelectorAll("svg").forEach(function (svg) {
-        svg.style.setProperty("width", "22px", "important");
-        svg.style.setProperty("height", "22px", "important");
-        svg.style.setProperty("max-width", "22px", "important");
-        svg.style.setProperty("max-height", "22px", "important");
-      });
-
-      slider.querySelectorAll("img").forEach(function (img) {
-        img.style.setProperty("max-width", "90px", "important");
-        img.style.setProperty("max-height", "28px", "important");
-        img.style.setProperty("object-fit", "contain", "important");
-      });
+    root.querySelectorAll(".enterprise-brand-slider__item").forEach(function (item) {
+      item.style.setProperty("flex-shrink", "0", "important");
+      item.style.setProperty("width", "150px", "important");
+      item.style.setProperty("min-width", "150px", "important");
+      item.style.setProperty("height", "52px", "important");
+      item.style.setProperty("display", "flex", "important");
+      item.style.setProperty("align-items", "center", "important");
+      item.style.setProperty("justify-content", "center", "important");
     });
   }
 
-  // Still strip desktop brand-badge-row (not the marque) and keep hardcoded portfolio row
-  function stripAndKeepHardcoded() {
-    var root = document.getElementById("mobileContent");
+  function stripDesktopBadgeRowKeepHardcoded(root) {
     if (!root) return;
     root.querySelectorAll(".brand-badge-row").forEach(function (el) {
       try { el.remove(); } catch (e) {}
@@ -11094,13 +11144,15 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 
   function run() {
-    stripAndKeepHardcoded();
-    fitMarque();
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    stripDesktopBadgeRowKeepHardcoded(root);
+    ensureMarqueAnimation(root);
   }
 
   function schedule() {
     run();
-    [150, 400, 900, 1600, 2800, 4500, 7000].forEach(function (ms) {
+    [120, 350, 700, 1400, 2500, 4200, 6500].forEach(function (ms) {
       setTimeout(run, ms);
     });
   }
@@ -11120,31 +11172,3 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 })();
 </script>
-
-<!-- Screen-fit for the rest of the page (does not target badge row or marque items specially) -->
-<style id="bp-final-screen-fit-rest">
-  html, body.bp-mobile-page {
-    width: 100% !important;
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-    box-sizing: border-box !important;
-  }
-  body.bp-mobile-page .mobile-shell,
-  body.bp-mobile-page #mobileShell,
-  body.bp-mobile-page #mobileContent {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    overflow-x: hidden !important;
-    box-sizing: border-box !important;
-  }
-  body.bp-mobile-page #mobileContent .resume-shell,
-  body.bp-mobile-page #mobileContent .container,
-  body.bp-mobile-page #mobileContent .bp-fused-top-card,
-  body.bp-mobile-page #mobileContent section {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    box-sizing: border-box !important;
-  }
-</style>
