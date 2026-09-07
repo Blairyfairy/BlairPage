@@ -10908,6 +10908,156 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
         alt="Portfolio Visitors"
         style="border-radius:8px;opacity:.9;">
 </div>
+
+<!-- =========================================================
+     FINAL LCC VISIBILITY + THREE UNIVERSITY TITLES — ONLY
+     Restores Lansing Community College logo in its existing
+     course group and forces the three requested titles white.
+     No other layout/content is changed.
+========================================================= -->
+<style id="bp-final-lcc-logo-white-university-titles">
+  body.bp-mobile-page #mobileContent .course-title.lcc,
+  body.bp-mobile-page #mobileContent .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .course-title.rackspace,
+  body.bp-mobile-page #mobileContent .course-title.cloudtech,
+  body.bp-mobile-page #mobileContent .course-group h3,
+  body.bp-mobile-page #mobileContent .course-group h4,
+  body.bp-mobile-page #mobileContent .course-group a,
+  body.bp-mobile-page #mobileContent .course-group strong {
+    -webkit-text-fill-color: inherit;
+  }
+
+  body.bp-mobile-page #mobileContent .course-title.lcc,
+  body.bp-mobile-page #mobileContent .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .course-title.rackspace,
+  body.bp-mobile-page #mobileContent .course-title.cloudtech {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+
+  body.bp-mobile-page #mobileContent .bp-final-lcc-logo {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px !important;
+    min-height: 56px !important;
+    max-width: 56px !important;
+    max-height: 56px !important;
+    object-fit: contain !important;
+    margin: 0 0.8rem 0 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+</style>
+
+<script id="bp-final-lcc-logo-white-university-titles-script">
+(function () {
+  "use strict";
+
+  function lower(v) {
+    return (v || "").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+
+  function important(el, prop, value) {
+    if (el && el.style) el.style.setProperty(prop, value, "important");
+  }
+
+  function fix() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+
+    var area = root.querySelector(".course-grid, .courses-card");
+    if (!area) return;
+
+    var titles = area.querySelectorAll(".course-title, .course-header h3, .course-header h4, .course-group h3, .course-group h4, a, span, strong");
+    var lccTitle = null;
+    var mongoTitle = null;
+    var rackspaceTitle = null;
+
+    Array.prototype.forEach.call(titles, function (el) {
+      var text = lower(el.textContent);
+      if (text.indexOf("lansing community college") !== -1 && text.length < 70) lccTitle = lccTitle || el;
+      if (text.indexOf("mongodb university") !== -1 && text.length < 70) mongoTitle = mongoTitle || el;
+      if (text.indexOf("rackspace cloud university") !== -1 && text.length < 70) rackspaceTitle = rackspaceTitle || el;
+    });
+
+    [lccTitle, mongoTitle, rackspaceTitle].forEach(function (el) {
+      if (!el) return;
+      important(el, "color", "#ffffff");
+      important(el, "-webkit-text-fill-color", "#ffffff");
+    });
+
+    if (!lccTitle) return;
+
+    var group =
+      lccTitle.closest(".course-group") ||
+      lccTitle.closest(".job-layout") ||
+      lccTitle.closest("article") ||
+      lccTitle.parentElement;
+
+    if (!group) return;
+
+    var logo = null;
+    Array.prototype.forEach.call(area.querySelectorAll("img"), function (img) {
+      if (logo) return;
+      var alt = lower(img.getAttribute("alt"));
+      var src = lower(img.getAttribute("src"));
+      if (
+        alt.indexOf("lansing") !== -1 ||
+        alt.indexOf("community college") !== -1 ||
+        src.indexOf("lcclogo") !== -1
+      ) {
+        logo = img;
+      }
+    });
+
+    if (!logo) {
+      logo = document.createElement("img");
+      logo.src = "lcclogo.jpg";
+      logo.alt = "Lansing Community College";
+      logo.className = "bp-final-lcc-logo";
+    }
+
+    important(logo, "display", "block");
+    important(logo, "visibility", "visible");
+    important(logo, "opacity", "1");
+    important(logo, "width", "56px");
+    important(logo, "height", "56px");
+    important(logo, "min-width", "56px");
+    important(logo, "min-height", "56px");
+    important(logo, "max-width", "56px");
+    important(logo, "max-height", "56px");
+    important(logo, "object-fit", "contain");
+    important(logo, "margin", "0 0.8rem 0 0");
+    important(logo, "padding", "0");
+    important(logo, "border", "none");
+    important(logo, "box-shadow", "none");
+
+    var wrap = logo.closest(".job-logo, .course-logo");
+    if (wrap && !group.contains(wrap)) group.insertBefore(wrap, group.firstChild);
+    else if (!group.contains(logo)) group.insertBefore(logo, group.firstChild);
+    else if (wrap && wrap.parentNode !== group) group.insertBefore(wrap, group.firstChild);
+  }
+
+  function schedule() {
+    fix();
+    [250, 750, 1500, 2500, 4000].forEach(function (ms) {
+      setTimeout(fix, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+
+  window.addEventListener("load", schedule, { passive: true });
+})();
+</script>
 </body>
 </html>
 
