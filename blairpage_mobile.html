@@ -10911,273 +10911,22 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 </body>
 </html>
 
-<!-- =========================================================
-     ENTERPRISE BRAND MARQUEE — DESKTOP-PARITY MOBILE BEHAVIOR
-     Index styles are NOT copied into the mobile clone, so the
-     marque was missing keyframes / track layout and looked
-     slow, overlapping, and broken. This block restores the
-     same seamless dual-set scroll, spacing, and motion as
-     desktop (scaled slightly for phone width). Does NOT
-     change the hardcoded portfolio badge row.
-========================================================= -->
-<style id="bp-enterprise-marque-desktop-parity">
-  @keyframes enterpriseBrandScroll {
-    from { transform: translate3d(0, 0, 0); }
-    to   { transform: translate3d(-50%, 0, 0); }
-  }
 
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider,
-  body.bp-mobile-page #mobileContent section.enterprise-brand-slider {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    overflow: hidden !important;
-    background: transparent !important;
-    color: #ffffff !important;
-    padding: 14px 0 !important;
-    margin: 0.4rem 0 0.6rem !important;
-    position: relative !important;
-    box-sizing: border-box !important;
-  }
 
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__viewport {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-  }
 
-  /* Same dual-set seamless loop as desktop */
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__track {
-    display: flex !important;
-    width: max-content !important;
-    align-items: center !important;
-    flex-wrap: nowrap !important;
-    animation: enterpriseBrandScroll 52s linear infinite !important;
-    will-change: transform !important;
-    transform: translate3d(0, 0, 0) !important;
-  }
-
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__set {
-    display: flex !important;
-    align-items: center !important;
-    flex-shrink: 0 !important;
-    flex-wrap: nowrap !important;
-  }
-
-  /* Desktop uses clamp(185px, 19vw, 250px). On phone use a
-     stable mid size so logos don't crowd or stretch. */
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item {
-    width: 150px !important;
-    min-width: 150px !important;
-    max-width: 150px !important;
-    height: 52px !important;
-    min-height: 52px !important;
-    max-height: 52px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-shrink: 0 !important;
-    padding: 8px 14px !important;
-    color: #ffffff !important;
-    opacity: 0.92 !important;
-    box-sizing: border-box !important;
-    overflow: visible !important;
-    transition: opacity 0.25s ease, transform 0.25s ease !important;
-  }
-
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item:hover {
-    opacity: 1 !important;
-    transform: scale(1.03) !important;
-  }
-
-  /* Brand text / marks — single line, readable, no overlap */
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-mark,
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit,
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb,
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade,
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item > span {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 6px !important;
-    white-space: nowrap !important;
-    overflow: visible !important;
-    max-width: none !important;
-    font-size: 15px !important;
-    line-height: 1.1 !important;
-    letter-spacing: -0.5px !important;
-    color: #ffffff !important;
-  }
-
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-heart {
-    font-size: 16px !important;
-    line-height: 1 !important;
-  }
-
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade {
-    flex-direction: column !important;
-    gap: 2px !important;
-  }
-
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade strong {
-    font-size: 14px !important;
-    font-weight: 400 !important;
-  }
-
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade small {
-    font-size: 7px !important;
-    letter-spacing: 2.5px !important;
-    margin-top: 2px !important;
-  }
-
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit-symbol,
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb-symbol {
-    width: 22px !important;
-    height: 22px !important;
-    flex: 0 0 22px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: visible !important;
-  }
-
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item svg {
-    width: 22px !important;
-    height: 22px !important;
-    max-width: 28px !important;
-    max-height: 28px !important;
-    display: block !important;
-    overflow: visible !important;
-    flex-shrink: 0 !important;
-  }
-
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item img {
-    max-width: 110px !important;
-    max-height: 32px !important;
-    width: auto !important;
-    height: auto !important;
-    object-fit: contain !important;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    body.bp-mobile-page #mobileContent .enterprise-brand-slider__track {
-      animation: none !important;
-    }
-  }
-
-  @media (max-width: 360px) {
-    body.bp-mobile-page #mobileContent .enterprise-brand-slider__item {
-      width: 132px !important;
-      min-width: 132px !important;
-      max-width: 132px !important;
-      height: 48px !important;
-      padding: 6px 10px !important;
-    }
-    body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-mark,
-    body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit,
-    body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb,
-    body.bp-mobile-page #mobileContent .enterprise-brand-slider__item > span {
-      font-size: 13px !important;
-    }
-  }
-
-  /* Page shell still fits the screen */
-  html, body.bp-mobile-page {
-    width: 100% !important;
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-  }
-  body.bp-mobile-page .mobile-shell,
-  body.bp-mobile-page #mobileContent {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-  }
-</style>
-
-<script id="bp-enterprise-marque-desktop-parity-script">
-(function () {
-  "use strict";
-
-  function ensureMarqueAnimation(root) {
-    if (!root) return;
-    var tracks = root.querySelectorAll(".enterprise-brand-slider__track");
-    Array.prototype.forEach.call(tracks, function (track) {
-      // Force the same desktop animation properties
-      track.style.setProperty("display", "flex", "important");
-      track.style.setProperty("width", "max-content", "important");
-      track.style.setProperty("align-items", "center", "important");
-      track.style.setProperty("flex-wrap", "nowrap", "important");
-      track.style.setProperty("animation-name", "enterpriseBrandScroll", "important");
-      track.style.setProperty("animation-duration", "52s", "important");
-      track.style.setProperty("animation-timing-function", "linear", "important");
-      track.style.setProperty("animation-iteration-count", "infinite", "important");
-      track.style.setProperty("will-change", "transform", "important");
-    });
-
-    root.querySelectorAll(".enterprise-brand-slider__set").forEach(function (set) {
-      set.style.setProperty("display", "flex", "important");
-      set.style.setProperty("align-items", "center", "important");
-      set.style.setProperty("flex-shrink", "0", "important");
-      set.style.setProperty("flex-wrap", "nowrap", "important");
-    });
-
-    root.querySelectorAll(".enterprise-brand-slider__item").forEach(function (item) {
-      item.style.setProperty("flex-shrink", "0", "important");
-      item.style.setProperty("width", "150px", "important");
-      item.style.setProperty("min-width", "150px", "important");
-      item.style.setProperty("height", "52px", "important");
-      item.style.setProperty("display", "flex", "important");
-      item.style.setProperty("align-items", "center", "important");
-      item.style.setProperty("justify-content", "center", "important");
-    });
-  }
-
-  function stripDesktopBadgeRowKeepHardcoded(root) {
-    if (!root) return;
-    root.querySelectorAll(".brand-badge-row").forEach(function (el) {
-      try { el.remove(); } catch (e) {}
-    });
-    if (typeof injectHardcodedPortfolioRow === "function") {
-      try { injectHardcodedPortfolioRow(root); } catch (e) {}
-    }
-  }
-
-  function run() {
-    var root = document.getElementById("mobileContent");
-    if (!root) return;
-    stripDesktopBadgeRowKeepHardcoded(root);
-    ensureMarqueAnimation(root);
-  }
-
-  function schedule() {
-    run();
-    [120, 350, 700, 1400, 2500, 4200, 6500].forEach(function (ms) {
-      setTimeout(run, ms);
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", schedule);
-  } else {
-    schedule();
-  }
-  window.addEventListener("load", schedule, { passive: true });
-
-  var host = document.getElementById("mobileContent");
-  if (host && window.MutationObserver) {
-    var mo = new MutationObserver(function () { run(); });
-    mo.observe(host, { childList: true, subtree: true });
-    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 12000);
-  }
-})();
-</script>
 
 <!-- =========================================================
-     FINAL HARD LOCK — SCREEN FIT + MARQUE SPEED = DESKTOP 52s
+     CLEAN FIX FROM ORIGINAL bak.html
+     - Everything under the enterprise brand marquee fits the
+       mobile screen (no horizontal overflow)
+     - Marquee matches index.html desktop behavior:
+         * seamless dual-set loop
+         * enterpriseBrandScroll 52s linear infinite
+         * logos/icons sized and spaced so they do not overlap
+     - Does not alter the hardcoded portfolio badge row
 ========================================================= -->
-<style id="bp-final-hard-lock-fit-and-speed">
-  /* Nothing escapes the screen */
+<style id="bp-bak-marque-and-screen-fit">
+  /* ---------- Page / content under marquee: fit screen ---------- */
   html,
   body,
   body.bp-mobile-page {
@@ -11186,152 +10935,6 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     overflow-x: hidden !important;
     overscroll-behavior-x: none !important;
     box-sizing: border-box !important;
-  }
-
-  body.bp-mobile-page .mobile-topbar-wrap,
-  body.bp-mobile-page .mobile-shell,
-  body.bp-mobile-page #mobileShell,
-  body.bp-mobile-page #mobileContent,
-  body.bp-mobile-page #mobileContent .resume-shell,
-  body.bp-mobile-page #mobileContent .container,
-  body.bp-mobile-page #mobileContent .bp-fused-top-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    overflow-x: hidden !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Marquee container clips; track scrolls inside only */
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider,
-  body.bp-mobile-page #mobileContent section.enterprise-brand-slider {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-    overflow-x: hidden !important;
-    box-sizing: border-box !important;
-  }
-
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__viewport {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-    overflow-x: hidden !important;
-  }
-
-  /* EXACT desktop speed: 52s linear infinite, -50% seamless */
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__track,
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .enterprise-brand-slider__track {
-    display: flex !important;
-    width: max-content !important;
-    align-items: center !important;
-    flex-wrap: nowrap !important;
-    animation-name: enterpriseBrandScroll !important;
-    animation-duration: 52s !important;
-    animation-timing-function: linear !important;
-    animation-iteration-count: infinite !important;
-    animation-delay: 0s !important;
-    animation-direction: normal !important;
-    animation-fill-mode: none !important;
-    animation-play-state: running !important;
-    will-change: transform !important;
-  }
-
-  @keyframes enterpriseBrandScroll {
-    from { transform: translate3d(0, 0, 0); }
-    to   { transform: translate3d(-50%, 0, 0); }
-  }
-</style>
-
-<script id="bp-final-hard-lock-fit-and-speed-script">
-(function () {
-  "use strict";
-
-  function lockFitAndSpeed() {
-    var root = document.getElementById("mobileContent");
-    [document.documentElement, document.body].forEach(function (el) {
-      if (!el) return;
-      el.style.setProperty("overflow-x", "hidden", "important");
-      el.style.setProperty("max-width", "100vw", "important");
-      el.style.setProperty("width", "100%", "important");
-    });
-
-    var shell = document.getElementById("mobileShell") || document.querySelector(".mobile-shell");
-    if (shell) {
-      shell.style.setProperty("overflow-x", "hidden", "important");
-      shell.style.setProperty("max-width", "100%", "important");
-      shell.style.setProperty("width", "100%", "important");
-    }
-
-    if (!root) return;
-    root.style.setProperty("overflow-x", "hidden", "important");
-    root.style.setProperty("max-width", "100%", "important");
-    root.style.setProperty("width", "100%", "important");
-
-    root.querySelectorAll(".enterprise-brand-slider, section.enterprise-brand-slider").forEach(function (s) {
-      s.style.setProperty("overflow", "hidden", "important");
-      s.style.setProperty("overflow-x", "hidden", "important");
-      s.style.setProperty("max-width", "100%", "important");
-      s.style.setProperty("width", "100%", "important");
-    });
-
-    root.querySelectorAll(".enterprise-brand-slider__viewport").forEach(function (v) {
-      v.style.setProperty("overflow", "hidden", "important");
-      v.style.setProperty("width", "100%", "important");
-      v.style.setProperty("max-width", "100%", "important");
-    });
-
-    // Exact desktop speed
-    root.querySelectorAll(".enterprise-brand-slider__track").forEach(function (track) {
-      track.style.setProperty("animation-name", "enterpriseBrandScroll", "important");
-      track.style.setProperty("animation-duration", "52s", "important");
-      track.style.setProperty("animation-timing-function", "linear", "important");
-      track.style.setProperty("animation-iteration-count", "infinite", "important");
-      track.style.setProperty("animation-delay", "0s", "important");
-      track.style.setProperty("animation-direction", "normal", "important");
-      track.style.setProperty("animation-play-state", "running", "important");
-      track.style.setProperty("display", "flex", "important");
-      track.style.setProperty("width", "max-content", "important");
-      track.style.setProperty("flex-wrap", "nowrap", "important");
-    });
-  }
-
-  function schedule() {
-    lockFitAndSpeed();
-    [100, 300, 700, 1400, 2500, 4000, 6500].forEach(function (ms) {
-      setTimeout(lockFitAndSpeed, ms);
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", schedule);
-  } else {
-    schedule();
-  }
-  window.addEventListener("load", schedule, { passive: true });
-
-  var host = document.getElementById("mobileContent");
-  if (host && window.MutationObserver) {
-    var mo = new MutationObserver(function () { lockFitAndSpeed(); });
-    mo.observe(host, { childList: true, subtree: true });
-    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 12000);
-  }
-})();
-</script>
-
-<!-- =========================================================
-     DEFINITIVE FIX
-     1) Everything under the marque fits the mobile screen
-     2) Marquee actually scrolls like index.html (52s / -50%)
-        via CSS + JS driver (index styles never load on mobile)
-========================================================= -->
-<style id="bp-definitive-fit-and-marque">
-  /* ---- Screen fit: nothing wider than viewport ---- */
-  html, body, body.bp-mobile-page {
-    width: 100% !important;
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-    overscroll-behavior-x: none !important;
   }
 
   body.bp-mobile-page .mobile-shell,
@@ -11367,7 +10970,7 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   body.bp-mobile-page #mobileContent .volunteer-grid,
   body.bp-mobile-page #mobileContent .volunteer-card,
   body.bp-mobile-page #mobileContent .resume-sections,
-  body.bp-mobile-page #mobileContent section {
+  body.bp-mobile-page #mobileContent section:not(.enterprise-brand-slider) {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
@@ -11380,14 +10983,15 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     width: 100% !important;
     max-width: 100% !important;
     overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
-  body.bp-mobile-page #mobileContent img:not(.bp-hardcoded-badge-row img) {
+  body.bp-mobile-page #mobileContent img:not(.bp-hardcoded-badge-row img):not(.enterprise-brand-slider img) {
     max-width: 100% !important;
     height: auto !important;
   }
 
-  /* ---- Marquee structure (desktop parity) ---- */
+  /* ---------- Enterprise brand marquee (desktop parity) ---------- */
   @keyframes enterpriseBrandScroll {
     from { transform: translate3d(0, 0, 0); }
     to   { transform: translate3d(-50%, 0, 0); }
@@ -11400,9 +11004,10 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     max-width: 100% !important;
     min-width: 0 !important;
     overflow: hidden !important;
+    background: transparent !important;
+    color: #ffffff !important;
     padding: 14px 0 !important;
     margin: 0.35rem 0 0.55rem !important;
-    background: transparent !important;
     position: relative !important;
     box-sizing: border-box !important;
   }
@@ -11435,34 +11040,110 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 
   body.bp-mobile-page #mobileContent .enterprise-brand-slider__item {
-    flex: 0 0 auto !important;
+    flex: 0 0 150px !important;
     width: 150px !important;
     min-width: 150px !important;
     max-width: 150px !important;
     height: 52px !important;
+    min-height: 52px !important;
+    max-height: 52px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     padding: 8px 12px !important;
     box-sizing: border-box !important;
-    color: #fff !important;
+    color: #ffffff !important;
     opacity: 0.92 !important;
     overflow: visible !important;
   }
 
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item span,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item:hover {
+    opacity: 1 !important;
+  }
+
   body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-mark,
   body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit,
-  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb {
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item > span {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
     white-space: nowrap !important;
     font-size: 14px !important;
-    color: #fff !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.4px !important;
+    color: #ffffff !important;
+    max-width: none !important;
+    overflow: visible !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-heart {
+    font-size: 15px !important;
+    line-height: 1 !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade {
+    flex-direction: column !important;
+    gap: 2px !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade strong {
+    font-size: 13px !important;
+    font-weight: 400 !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-katespade small {
+    font-size: 7px !important;
+    letter-spacing: 2.5px !important;
+    margin-top: 2px !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit-symbol,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb-symbol {
+    width: 22px !important;
+    height: 22px !important;
+    flex: 0 0 22px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important;
   }
 
   body.bp-mobile-page #mobileContent .enterprise-brand-slider__item svg {
     width: 22px !important;
     height: 22px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    display: block !important;
     flex-shrink: 0 !important;
+    overflow: visible !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item img {
+    max-width: 110px !important;
+    max-height: 32px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  @media (max-width: 360px) {
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider__item {
+      flex-basis: 132px !important;
+      width: 132px !important;
+      min-width: 132px !important;
+      max-width: 132px !important;
+      height: 48px !important;
+      padding: 6px 10px !important;
+    }
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-mark,
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit,
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb,
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider__item > span {
+      font-size: 13px !important;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -11472,22 +11153,30 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 </style>
 
-<script id="bp-definitive-fit-and-marque-script">
+<script id="bp-bak-marque-and-screen-fit-script">
 (function () {
   "use strict";
 
-  var marqueRaf = null;
-  var marqueStarted = false;
+  var jsMarqueActive = false;
+  var jsMarqueRaf = null;
 
-  function fitWidths(root) {
+  function fitUnderMarque(root) {
     if (!root) return;
-    [document.documentElement, document.body, document.getElementById("mobileShell"), root].forEach(function (el) {
-      if (!el || !el.style) return;
-      el.style.setProperty("width", "100%", "important");
-      el.style.setProperty("max-width", el === document.documentElement || el === document.body ? "100vw" : "100%", "important");
+    [document.documentElement, document.body].forEach(function (el) {
+      if (!el) return;
       el.style.setProperty("overflow-x", "hidden", "important");
-      el.style.setProperty("min-width", "0", "important");
+      el.style.setProperty("max-width", "100vw", "important");
+      el.style.setProperty("width", "100%", "important");
     });
+    var shell = document.getElementById("mobileShell") || document.querySelector(".mobile-shell");
+    if (shell) {
+      shell.style.setProperty("overflow-x", "hidden", "important");
+      shell.style.setProperty("max-width", "100%", "important");
+      shell.style.setProperty("width", "100%", "important");
+    }
+    root.style.setProperty("overflow-x", "hidden", "important");
+    root.style.setProperty("max-width", "100%", "important");
+    root.style.setProperty("width", "100%", "important");
 
     var blocks = root.querySelectorAll(
       ".resume-shell, .container, .bp-fused-top-card, .identity-row, .identity-info, " +
@@ -11498,7 +11187,6 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     );
     Array.prototype.forEach.call(blocks, function (el) {
       if (el.classList && el.classList.contains("enterprise-brand-slider")) {
-        // marque: clip only, do not force children widths here
         el.style.setProperty("width", "100%", "important");
         el.style.setProperty("max-width", "100%", "important");
         el.style.setProperty("overflow", "hidden", "important");
@@ -11524,91 +11212,75 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     if (!track) return;
 
     var sets = track.querySelectorAll(":scope > .enterprise-brand-slider__set");
-    // Ensure at least 2 sets for seamless -50% loop (clone if only one)
     if (sets.length === 1) {
       var clone = sets[0].cloneNode(true);
       clone.setAttribute("aria-hidden", "true");
       track.appendChild(clone);
-      sets = track.querySelectorAll(":scope > .enterprise-brand-slider__set");
     }
 
-    // Layout
     slider.style.setProperty("width", "100%", "important");
     slider.style.setProperty("max-width", "100%", "important");
     slider.style.setProperty("overflow", "hidden", "important");
     viewport.style.setProperty("width", "100%", "important");
     viewport.style.setProperty("overflow", "hidden", "important");
+
     track.style.setProperty("display", "flex", "important");
+    track.style.setProperty("flex-direction", "row", "important");
     track.style.setProperty("flex-wrap", "nowrap", "important");
-    track.style.setProperty("width", "max-content", "important");
     track.style.setProperty("align-items", "center", "important");
-
-    Array.prototype.forEach.call(sets, function (set) {
-      set.style.setProperty("display", "flex", "important");
-      set.style.setProperty("flex-wrap", "nowrap", "important");
-      set.style.setProperty("flex-shrink", "0", "important");
-      set.style.setProperty("align-items", "center", "important");
-    });
-
-    Array.prototype.forEach.call(track.querySelectorAll(".enterprise-brand-slider__item"), function (item) {
-      item.style.setProperty("flex", "0 0 150px", "important");
-      item.style.setProperty("width", "150px", "important");
-      item.style.setProperty("min-width", "150px", "important");
-      item.style.setProperty("height", "52px", "important");
-    });
-
-    // Prefer CSS animation at exact desktop speed
+    track.style.setProperty("width", "max-content", "important");
     track.style.setProperty("animation-name", "enterpriseBrandScroll", "important");
     track.style.setProperty("animation-duration", "52s", "important");
     track.style.setProperty("animation-timing-function", "linear", "important");
     track.style.setProperty("animation-iteration-count", "infinite", "important");
     track.style.setProperty("animation-play-state", "running", "important");
 
-    // JS fallback driver if CSS animation is not applying (e.g. overridden)
-    if (marqueStarted) return;
-    marqueStarted = true;
+    track.querySelectorAll(":scope > .enterprise-brand-slider__set").forEach(function (set) {
+      set.style.setProperty("display", "flex", "important");
+      set.style.setProperty("flex-wrap", "nowrap", "important");
+      set.style.setProperty("flex-shrink", "0", "important");
+      set.style.setProperty("align-items", "center", "important");
+    });
 
+    track.querySelectorAll(".enterprise-brand-slider__item").forEach(function (item) {
+      item.style.setProperty("flex", "0 0 150px", "important");
+      item.style.setProperty("width", "150px", "important");
+      item.style.setProperty("min-width", "150px", "important");
+      item.style.setProperty("height", "52px", "important");
+      item.style.setProperty("display", "flex", "important");
+      item.style.setProperty("align-items", "center", "important");
+      item.style.setProperty("justify-content", "center", "important");
+    });
+
+    // JS fallback if CSS animation is not applied
+    if (jsMarqueActive) return;
     var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
 
-    // After a moment, if computed animation is none, drive with rAF
     setTimeout(function () {
       var cs = window.getComputedStyle(track);
-      var name = (cs.animationName || cs.webkitAnimationName || "").toString();
-      if (name && name !== "none") return; // CSS animation is active
+      var name = (cs.animationName || "").toString();
+      if (name && name !== "none") return;
 
-      // JS seamless scroll: full -50% in 52 seconds
+      jsMarqueActive = true;
       var start = null;
       var duration = 52000;
-
       function frame(ts) {
         if (start === null) start = ts;
-        var elapsed = (ts - start) % duration;
-        var pct = elapsed / duration; // 0..1
+        var pct = ((ts - start) % duration) / duration;
         track.style.setProperty("animation", "none", "important");
         track.style.setProperty("transform", "translate3d(" + (-pct * 50) + "%, 0, 0)", "important");
-        marqueRaf = requestAnimationFrame(frame);
+        jsMarqueRaf = requestAnimationFrame(frame);
       }
-      if (marqueRaf) cancelAnimationFrame(marqueRaf);
-      marqueRaf = requestAnimationFrame(frame);
-    }, 400);
-  }
-
-  function stripBrandBadgeKeepHardcoded(root) {
-    if (!root) return;
-    root.querySelectorAll(".brand-badge-row").forEach(function (el) {
-      try { el.remove(); } catch (e) {}
-    });
-    if (typeof injectHardcodedPortfolioRow === "function") {
-      try { injectHardcodedPortfolioRow(root); } catch (e) {}
-    }
+      if (jsMarqueRaf) cancelAnimationFrame(jsMarqueRaf);
+      jsMarqueRaf = requestAnimationFrame(frame);
+    }, 500);
   }
 
   function run() {
     var root = document.getElementById("mobileContent");
     if (!root) return;
-    stripBrandBadgeKeepHardcoded(root);
-    fitWidths(root);
+    fitUnderMarque(root);
     setupMarque(root);
   }
 
@@ -11631,6 +11303,216 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     var mo = new MutationObserver(function () { run(); });
     mo.observe(host, { childList: true, subtree: true });
     setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 14000);
+  }
+})();
+</script>
+
+<!-- =========================================================
+     NUCLEAR SCREEN-FIT — content under marque cannot exceed viewport
+========================================================= -->
+<style id="bp-nuclear-screen-fit">
+  html, body, body.bp-mobile-page {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+  }
+
+  body.bp-mobile-page .mobile-shell,
+  body.bp-mobile-page #mobileShell {
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page #mobileContent {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* resume-shell was overflow:visible — that lets children widen the page */
+  body.bp-mobile-page #mobileContent .resume-shell {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  body.bp-mobile-page #mobileContent > .resume-shell > section,
+  body.bp-mobile-page #mobileContent .bp-fused-top-card,
+  body.bp-mobile-page #mobileContent section {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
+
+  /* Do not constrain the marque track itself */
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__track,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__set {
+    max-width: none !important;
+    width: max-content !important;
+    overflow: visible !important;
+  }
+
+  /* Kill min-width:100% that forces cards past padded parents */
+  body.bp-mobile-page #mobileContent .matrix-card,
+  body.bp-mobile-page #mobileContent .card-toggle,
+  body.bp-mobile-page #mobileContent .card-content,
+  body.bp-mobile-page #mobileContent .matrix-grid,
+  body.bp-mobile-page #mobileContent .job-layout,
+  body.bp-mobile-page #mobileContent .job-details,
+  body.bp-mobile-page #mobileContent .timeline-item,
+  body.bp-mobile-page #mobileContent .edu-card,
+  body.bp-mobile-page #mobileContent .education-wrapper,
+  body.bp-mobile-page #mobileContent .course-grid,
+  body.bp-mobile-page #mobileContent .courses-card,
+  body.bp-mobile-page #mobileContent .cert-card,
+  body.bp-mobile-page #mobileContent .certification-card,
+  body.bp-mobile-page #mobileContent .certification-list,
+  body.bp-mobile-page #mobileContent .volunteer-card,
+  body.bp-mobile-page #mobileContent .volunteer-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page #mobileContent .job-logo {
+    min-width: 48px !important;
+    width: 48px !important;
+    max-width: 48px !important;
+    flex: 0 0 48px !important;
+  }
+
+  body.bp-mobile-page #mobileContent .job-logo img,
+  body.bp-mobile-page #mobileContent .logo-img {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    max-width: 48px !important;
+    max-height: 48px !important;
+  }
+
+  body.bp-mobile-page #mobileContent p,
+  body.bp-mobile-page #mobileContent li,
+  body.bp-mobile-page #mobileContent h1,
+  body.bp-mobile-page #mobileContent h2,
+  body.bp-mobile-page #mobileContent h3,
+  body.bp-mobile-page #mobileContent h4,
+  body.bp-mobile-page #mobileContent a,
+  body.bp-mobile-page #mobileContent span,
+  body.bp-mobile-page #mobileContent div {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  /* Keep marque labels single-line */
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider * {
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+  }
+
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row,
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row * {
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+  }
+</style>
+
+<script id="bp-nuclear-screen-fit-script">
+(function () {
+  "use strict";
+
+  function clampOverflow(root) {
+    if (!root) return;
+    var vw = Math.min(window.innerWidth || 400, document.documentElement.clientWidth || 400);
+
+    [document.documentElement, document.body, document.getElementById("mobileShell"), root].forEach(function (el) {
+      if (!el || !el.style) return;
+      el.style.setProperty("overflow-x", "hidden", "important");
+      el.style.setProperty("max-width", el === document.documentElement || el === document.body ? "100vw" : "100%", "important");
+      el.style.setProperty("width", "100%", "important");
+    });
+
+    // resume-shell must clip
+    var shell = root.querySelector(".resume-shell");
+    if (shell) {
+      shell.style.setProperty("overflow-x", "hidden", "important");
+      shell.style.setProperty("overflow", "hidden", "important");
+      shell.style.setProperty("max-width", "100%", "important");
+      shell.style.setProperty("width", "100%", "important");
+      shell.style.setProperty("min-width", "0", "important");
+    }
+
+    // Any element (except marque track internals) that is wider than viewport gets clamped
+    var all = root.querySelectorAll("div, section, article, ul, ol, table, p, h1, h2, h3, h4, span, a");
+    Array.prototype.forEach.call(all, function (el) {
+      if (!el || !el.getBoundingClientRect) return;
+      if (el.closest && el.closest(".enterprise-brand-slider__track")) return;
+      if (el.closest && el.closest(".bp-hardcoded-badge-row")) return;
+      try {
+        var r = el.getBoundingClientRect();
+        if (r.width > vw + 2) {
+          el.style.setProperty("max-width", "100%", "important");
+          el.style.setProperty("width", "100%", "important");
+          el.style.setProperty("min-width", "0", "important");
+          el.style.setProperty("box-sizing", "border-box", "important");
+          el.style.setProperty("overflow-x", "hidden", "important");
+        }
+      } catch (e) {}
+    });
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    clampOverflow(root);
+  }
+
+  function schedule() {
+    run();
+    [100, 300, 700, 1200, 2000, 3500, 5500, 8000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+  window.addEventListener("resize", function () { setTimeout(run, 50); }, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () { run(); });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 15000);
   }
 })();
 </script>
