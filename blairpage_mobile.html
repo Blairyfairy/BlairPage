@@ -272,8 +272,7 @@
     opacity: 1 !important;
   }
 
-  /* Force all images visible from initial load */
-  .bp-mobile-page #mobileContent img,
+  /* Force all main content and cards visible on load */
   .bp-mobile-page #mobileContent .course-group,
   .bp-mobile-page #mobileContent .course-logo,
   .bp-mobile-page #mobileContent .job-logo,
@@ -285,6 +284,25 @@
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+  }
+
+  /* Compact badges in single row — no wrapping, fixed at initial load */
+  .bp-mobile-page #mobileContent .bp-hardcoded-badge-row.has-compact-badges {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 0.5rem !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .bp-mobile-page #mobileContent .bp-hardcoded-badge-row:has(.badge-item.compact-badge) {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
   }
 
   .bp-mobile-page #mobileContent .top-bar {
@@ -2733,21 +2751,23 @@
 }
 
 .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge {
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: 100% !important;
+  width: auto !important;
+  min-width: auto !important;
+  max-width: none !important;
   min-height: 30px !important;
   height: 30px !important;
   max-height: 30px !important;
-  padding: 0 !important;
+  padding: 0 0.6rem !important;
   margin: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   gap: 0 !important;
-  flex: none !important;
+  flex: 0 1 auto !important;
   white-space: nowrap !important;
   overflow: hidden !important;
+  flex-shrink: 1 !important;
+  flex-basis: auto !important;
 }
 
 .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .icon-wrap {
@@ -2770,10 +2790,14 @@
 }
 
 .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .copy {
-  min-width: 0 !important;
-  max-width: calc(100% - 22px) !important;
+  min-width: auto !important;
+  max-width: none !important;
   margin-left: 0.18rem !important;
   overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-shrink: 1 !important;
+  flex-basis: auto !important;
 }
 
 .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .label {
@@ -2783,10 +2807,12 @@
   font-weight: 700 !important;
   letter-spacing: -0.035em !important;
   line-height: 1 !important;
-  max-width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
   overflow: hidden !important;
   text-overflow: clip !important;
   white-space: nowrap !important;
+  flex-shrink: 1 !important;
 }
 
 .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .sub {
@@ -2796,10 +2822,12 @@
   font-size: 0.43rem !important;
   letter-spacing: -0.03em !important;
   line-height: 1.05 !important;
-  max-width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
   overflow: hidden !important;
   text-overflow: clip !important;
   white-space: nowrap !important;
+  flex-shrink: 1 !important;
 }
 
 .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .bp-education-line {
@@ -14484,8 +14512,17 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     var root = document.getElementById("mobileContent");
     if (root) {
       Array.prototype.forEach.call(root.querySelectorAll(".bp-hardcoded-badge-row"), function (row) {
-        setImp(row, "display", "grid");
-        setImp(row, "grid-template-columns", "repeat(4, minmax(0, 1fr))");
+        var hasCompact = row.querySelector(".badge-item.compact-badge");
+        if (!hasCompact) {
+          setImp(row, "display", "grid");
+          setImp(row, "grid-template-columns", "repeat(4, minmax(0, 1fr))");
+        } else {
+          setImp(row, "display", "flex");
+          setImp(row, "flex-wrap", "nowrap");
+          setImp(row, "flex-direction", "row");
+          setImp(row, "overflow-x", "auto");
+          setImp(row, "gap", "0.5rem");
+        }
       });
     }
   }
