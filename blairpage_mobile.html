@@ -11550,8 +11550,27 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 (function () {
   "use strict";
 
+  var intervalStarted = false;
+
+  function forceScrollable(viewport) {
+    if (!viewport) return;
+    if (viewport.style.overflowX !== "auto") {
+      viewport.style.setProperty("overflow-x", "auto", "important");
+      viewport.style.setProperty("overflow-y", "hidden", "important");
+    }
+    if (viewport.style.touchAction !== "pan-x") {
+      viewport.style.setProperty("touch-action", "pan-x", "important");
+    }
+    if (viewport.style.getPropertyValue("-webkit-overflow-scrolling") !== "touch") {
+      viewport.style.setProperty("-webkit-overflow-scrolling", "touch", "important");
+    }
+  }
+
   function setup(viewport, track) {
     if (!viewport || !track) return;
+
+    forceScrollable(viewport);
+
     if (viewport.getAttribute("data-bp-touch-bound") === "yes") return;
     viewport.setAttribute("data-bp-touch-bound", "yes");
 
@@ -11574,6 +11593,17 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     ["touchend", "touchcancel", "pointerup", "mouseleave", "scroll"].forEach(function (evt) {
       viewport.addEventListener(evt, scheduleResume, { passive: true });
     });
+
+    // Another script on this page keeps resetting this element's inline
+    // "overflow" back to hidden on a timer, which silently kills the
+    // touch-scroll. Watch for that and correct it immediately whenever it
+    // happens, instead of relying on our own timed schedule alone.
+    if (window.MutationObserver) {
+      var styleWatcher = new MutationObserver(function () {
+        forceScrollable(viewport);
+      });
+      styleWatcher.observe(viewport, { attributes: true, attributeFilter: ["style"] });
+    }
   }
 
   function run() {
@@ -11591,6 +11621,13 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     [200, 500, 1000, 2000, 3500, 5500, 8000].forEach(function (ms) {
       setTimeout(run, ms);
     });
+    if (!intervalStarted) {
+      intervalStarted = true;
+      // Belt-and-suspenders: the page's own marquee script keeps re-running
+      // on its own schedule too, so keep reasserting scrollability well
+      // past our one-time timeouts above.
+      setInterval(run, 600);
+    }
   }
 
   if (document.readyState === "loading") {
@@ -11606,27 +11643,47 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 (function () {
   "use strict";
 
-  var fixes = [
-    { pattern: /Game\s*Crazy/gi, replacement: "GameCrazy" },
-    { pattern: /V\s*imeo/gi, replacement: "Vimeo" }
-  ];
+  // The visible gap in "Game Crazy" / "V imeo" isn't a stray space
+  // character sitting in one text node — these labels are split across
+  // sibling elements inside the item's wrapping span (same pattern as the
+  // other multi-part brand marks), and that span has a flex "gap" between
+  // its children. A plain text-node regex can't see across element
+  // boundaries, so instead we look at each item's fully-collapsed text and,
+  // when it matches one of these two brands, rewrite it as a single clean
+  // text node inside the existing (or a fresh) label span. That removes the
+  // inter-element gap entirely while keeping the same font size/color/etc.
+  // that ">span" already gets from the marquee's own styling.
 
-  function fixTextNode(node) {
-    var text = node.nodeValue;
-    if (!text) return;
-    var out = text;
-    fixes.forEach(function (f) {
-      out = out.replace(f.pattern, f.replacement);
-    });
-    if (out !== text) node.nodeValue = out;
+  var wordFixes = {
+    "gamecrazy": "GameCrazy",
+    "vimeo": "Vimeo"
+  };
+
+  function normalizeKey(s) {
+    return (s || "").replace(/\s+/g, "").toLowerCase();
   }
 
-  function walk(el) {
-    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-    var node;
-    while ((node = walker.nextNode())) {
-      fixTextNode(node);
+  function fixItem(item) {
+    var desired = wordFixes[normalizeKey(item.textContent)];
+    if (!desired) return;
+    if (item.getAttribute("data-bp-label-fixed") === desired) return;
+
+    var span = item.querySelector(":scope > span");
+    if (!span) {
+      span = document.createElement("span");
+      item.appendChild(span);
     }
+
+    // Drop every other direct child of the item (any stray icon/text nodes
+    // sitting outside the label span) and collapse the label span itself
+    // down to one plain text node.
+    Array.prototype.slice.call(item.childNodes).forEach(function (n) {
+      if (n !== span) item.removeChild(n);
+    });
+    span.style.setProperty("gap", "0", "important");
+    span.textContent = desired;
+
+    item.setAttribute("data-bp-label-fixed", desired);
   }
 
   function run() {
@@ -11634,7 +11691,10 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     if (!root) return;
     var slider = root.querySelector(".enterprise-brand-slider");
     if (!slider) return;
-    walk(slider);
+    Array.prototype.forEach.call(
+      slider.querySelectorAll(".enterprise-brand-slider__item"),
+      fixItem
+    );
   }
 
   function schedule() {
