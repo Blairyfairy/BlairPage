@@ -14558,15 +14558,48 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 </script>
 
 
-<!-- Force white text for institution names -->
+<!-- Force white text ONLY for the three institution names -->
 <style id="bp-institution-names-white">
-  .course-title:has(+ .course-description) {
+  /* Target only the specific three institution titles */
+  .bp-mobile-page #mobileContent .course-title:contains("Lansing Community College"),
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Lansing Community College")) .course-title,
+  .bp-mobile-page #mobileContent .course-group:has(h3:contains("Lansing Community College")) .course-title,
+  .bp-mobile-page #mobileContent .course-group:has(h4:contains("Lansing Community College")) .course-title {
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
   }
   
-  .bp-mobile-page .course-title {
+  .bp-mobile-page #mobileContent .course-title:contains("MongoDB University"),
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("MongoDB University")) .course-title,
+  .bp-mobile-page #mobileContent .course-group:has(h3:contains("MongoDB University")) .course-title,
+  .bp-mobile-page #mobileContent .course-group:has(h4:contains("MongoDB University")) .course-title {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+  
+  .bp-mobile-page #mobileContent .course-title:contains("Rackspace Cloud University"),
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Rackspace Cloud University")) .course-title,
+  .bp-mobile-page #mobileContent .course-group:has(h3:contains("Rackspace Cloud University")) .course-title,
+  .bp-mobile-page #mobileContent .course-group:has(h4:contains("Rackspace Cloud University")) .course-title {
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
   }
 </style>
+
+<script id="bp-institution-names-white-script">
+(function () {
+  var root = document.getElementById("mobileContent");
+  if (!root) return;
+  
+  var titles = root.querySelectorAll(".course-title, h3, h4");
+  titles.forEach(function(el) {
+    var text = (el.textContent || "").toLowerCase();
+    if (text.indexOf("lansing community college") !== -1 || 
+        text.indexOf("mongodb university") !== -1 ||
+        text.indexOf("rackspace cloud university") !== -1) {
+      el.style.setProperty("color", "#ffffff", "important");
+      el.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+    }
+  });
+})();
+</script>
