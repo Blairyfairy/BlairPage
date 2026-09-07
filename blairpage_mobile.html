@@ -11223,6 +11223,137 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 })();
 </script>
 
+
+<!-- FINAL LCC-IN-ITS-OWN-ELEMENT FIX
+     Existing MongoDB/Rackspace structure untouched.
+     LCC logo is only restored into the existing LCC course element.
+     No scroll/layout/rebuild behavior is changed.
+-->
+<style id="bp-final-lcc-element-logo-white-font">
+  body.bp-mobile-page #mobileContent .course-title.lcc,
+  body.bp-mobile-page #mobileContent .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .course-title.rackspace,
+  body.bp-mobile-page #mobileContent .course-title.lcc *,
+  body.bp-mobile-page #mobileContent .course-title.mongodb *,
+  body.bp-mobile-page #mobileContent .course-title.rackspace * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+
+  /* LCC logo: visible, static, and inside the same course element as its
+     Lansing Community College description. */
+  body.bp-mobile-page #mobileContent .course-group:has(.course-title.lcc) img[alt*="Lansing Community College" i],
+  body.bp-mobile-page #mobileContent .course-group:has(.course-title.lcc) img[src*="lcclogo" i],
+  body.bp-mobile-page #mobileContent .courses-card:has(.course-title.lcc) img[alt*="Lansing Community College" i],
+  body.bp-mobile-page #mobileContent .courses-card:has(.course-title.lcc) img[src*="lcclogo" i],
+  body.bp-mobile-page #mobileContent .course-grid:has(.course-title.lcc) img[alt*="Lansing Community College" i],
+  body.bp-mobile-page #mobileContent .course-grid:has(.course-title.lcc) img[src*="lcclogo" i] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+    float: none !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+    content-visibility: visible !important;
+    will-change: auto !important;
+  }
+</style>
+
+<script id="bp-final-lcc-element-logo-script">
+(function () {
+  "use strict";
+
+  function restoreLccLogoInExistingElement() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+
+    var title = root.querySelector(
+      '.course-title.lcc'
+    );
+    if (!title) return;
+
+    /*
+      Find the existing LCC logo first. Never move MongoDB/Rackspace,
+      never rebuild the course grid, and never run from scroll.
+    */
+    var logo = root.querySelector(
+      'img[alt*="Lansing Community College" i], img[src*="lcclogo" i]'
+    );
+
+    /*
+      The LCC course element is the nearest existing course container.
+      The logo is inserted only if it is missing from that element.
+    */
+    var element = title.closest(".course-group, .courses-card, .course-card, .course-grid");
+    if (!element) return;
+
+    if (!logo) {
+      logo = document.createElement("img");
+      logo.src = "lcclogo.jpg";
+      logo.alt = "Lansing Community College";
+      logo.className = "bp-final-lcc-logo";
+    }
+
+    if (!element.contains(logo)) {
+      /*
+        Put the logo directly before the existing LCC title/description
+        within the LCC element, matching the existing course-logo pattern.
+      */
+      title.parentNode.insertBefore(logo, title);
+    }
+
+    logo.classList.add("bp-final-lcc-logo");
+
+    logo.style.setProperty("display", "block", "important");
+    logo.style.setProperty("visibility", "visible", "important");
+    logo.style.setProperty("opacity", "1", "important");
+    logo.style.setProperty("position", "static", "important");
+    logo.style.setProperty("float", "none", "important");
+    logo.style.setProperty("transform", "none", "important");
+    logo.style.setProperty("animation", "none", "important");
+    logo.style.setProperty("transition", "none", "important");
+    logo.style.setProperty("filter", "none", "important");
+    logo.style.setProperty("will-change", "auto", "important");
+    logo.style.setProperty("content-visibility", "visible", "important");
+
+    /* Exact same square logo footprint used by the existing course logos. */
+    var reference = root.querySelector(
+      '.course-title.mongodb ~ img, .course-title.rackspace ~ img, ' +
+      '.course-title.mongodb + img, .course-title.rackspace + img'
+    );
+
+    if (reference) {
+      var cs = window.getComputedStyle(reference);
+      ["width", "height", "max-width", "object-fit", "margin"].forEach(function (p) {
+        if (cs[p] && cs[p] !== "auto") {
+          logo.style.setProperty(p, cs[p], "important");
+        }
+      });
+    }
+
+    logo.addEventListener("error", function () {
+      /*
+        Keep the element present if the image temporarily fails; do not
+        remove or replace the LCC course content.
+      */
+      logo.style.setProperty("visibility", "visible", "important");
+      logo.style.setProperty("opacity", "1", "important");
+    }, { once: true });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", restoreLccLogoInExistingElement, { once: true });
+  } else {
+    restoreLccLogoInExistingElement();
+  }
+
+  window.addEventListener("load", restoreLccLogoInExistingElement, { once: true });
+})();
+</script>
+
 </body>
 </html>
 
