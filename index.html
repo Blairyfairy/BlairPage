@@ -2457,13 +2457,13 @@ html.bp-scrolling body{
     <!-- =========================================================
      ENTERPRISE / CLIENT BRAND MARQUEE
      Self-contained — no external logo files required
-     
+
      Theme:
      Deep Plum  #291528
      Mauve      #d8bfd5
      Purple     #714967
      White      #ffffff
-     
+
      Transparent background
      Single seamless horizontal row
      Responsive desktop / tablet / mobile
@@ -2500,8 +2500,86 @@ html.bp-scrolling body{
                      aria-label="Fitbit">
 
                     <span class="brand-fitbit">
-                        <span class="brand-fitbit-symbol">⌁</span>
-                        <span>fitbit</span>
+
+                        <!-- Fitbit geometric diamond-dot symbol -->
+                        <span class="brand-fitbit-symbol"
+                              aria-hidden="true">
+
+                            <svg
+                                viewBox="0 0 44 36"
+                                role="img"
+                                aria-hidden="true"
+                                focusable="false">
+
+                                <!--
+                                    Geometric Fitbit-style
+                                    diamond arrangement.
+                                    White monochrome for
+                                    the enterprise marquee.
+                                -->
+
+                                <rect
+                                    x="4"
+                                    y="14"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 8 18)"
+                                    fill="currentColor" />
+
+                                <rect
+                                    x="11"
+                                    y="7"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 15 11)"
+                                    fill="currentColor" />
+
+                                <rect
+                                    x="11"
+                                    y="21"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 15 25)"
+                                    fill="currentColor" />
+
+                                <rect
+                                    x="18"
+                                    y="14"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 22 18)"
+                                    fill="currentColor" />
+
+                                <rect
+                                    x="25"
+                                    y="7"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 29 11)"
+                                    fill="currentColor" />
+
+                                <rect
+                                    x="25"
+                                    y="21"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 29 25)"
+                                    fill="currentColor" />
+
+                            </svg>
+
+                        </span>
+
+                        <span class="brand-fitbit-word">
+                            fitbit
+                        </span>
+
                     </span>
 
                 </div>
@@ -2656,8 +2734,79 @@ html.bp-scrolling body{
                 <div class="enterprise-brand-slider__item enterprise-brand--fitbit">
 
                     <span class="brand-fitbit">
-                        <span class="brand-fitbit-symbol">⌁</span>
-                        <span>fitbit</span>
+
+                        <!-- Fitbit geometric diamond-dot symbol -->
+                        <span class="brand-fitbit-symbol"
+                              aria-hidden="true">
+
+                            <svg
+                                viewBox="0 0 44 36"
+                                role="img"
+                                aria-hidden="true"
+                                focusable="false">
+
+                                <rect
+                                    x="4"
+                                    y="14"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 8 18)"
+                                    fill="currentColor" />
+
+                                <rect
+                                    x="11"
+                                    y="7"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 15 11)"
+                                    fill="currentColor" />
+
+                                <rect
+                                    x="11"
+                                    y="21"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 15 25)"
+                                    fill="currentColor" />
+
+                                <rect
+                                    x="18"
+                                    y="14"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 22 18)"
+                                    fill="currentColor" />
+
+                                <rect
+                                    x="25"
+                                    y="7"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 29 11)"
+                                    fill="currentColor" />
+
+                                <rect
+                                    x="25"
+                                    y="21"
+                                    width="8"
+                                    height="8"
+                                    rx="1"
+                                    transform="rotate(45 29 25)"
+                                    fill="currentColor" />
+
+                            </svg>
+
+                        </span>
+
+                        <span class="brand-fitbit-word">
+                            fitbit
+                        </span>
+
                     </span>
 
                 </div>
@@ -2919,6 +3068,8 @@ html.bp-scrolling body{
 
     align-items: center;
 
+    justify-content: center;
+
     gap: 9px;
 
     font-family:
@@ -2932,14 +3083,54 @@ html.bp-scrolling body{
     font-weight: 500;
 
     letter-spacing: -.8px;
+
+    white-space: nowrap;
 }
 
 
+/*
+   Geometric Fitbit-style symbol.
+
+   SVG is used instead of a text character so the
+   diamond arrangement stays consistent across:
+
+   Desktop
+   Tablet
+   Mobile
+   Small phones
+*/
+
 .brand-fitbit-symbol {
-    font-size: 34px;
+    display: inline-flex;
 
-    transform: rotate(-20deg);
+    align-items: center;
+    justify-content: center;
 
+    width: 34px;
+
+    height: 30px;
+
+    flex:
+        0 0 34px;
+
+    color: #ffffff;
+
+    overflow: visible;
+}
+
+
+.brand-fitbit-symbol svg {
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: visible;
+}
+
+
+.brand-fitbit-word {
     display: inline-block;
 
     line-height: 1;
@@ -2948,18 +3139,19 @@ html.bp-scrolling body{
 
 /* =========================================================
    AIRBNB
-   FIXED — SVG CONTAINER PREVENTS CLIPPING
    ========================================================= */
 
 .brand-airbnb {
     display: inline-flex;
 
     align-items: center;
+
     justify-content: center;
 
     gap: 10px;
 
     min-width: 145px;
+
     min-height: 48px;
 
     overflow: visible;
@@ -2989,6 +3181,7 @@ html.bp-scrolling body{
     justify-content: center;
 
     width: 34px;
+
     height: 42px;
 
     flex:
@@ -3008,6 +3201,7 @@ html.bp-scrolling body{
     display: block;
 
     width: 100%;
+
     height: 100%;
 
     overflow: visible;
@@ -3335,10 +3529,21 @@ html.bp-scrolling body{
 
     .brand-fitbit {
         font-size: 22px;
+
+        gap: 8px;
     }
 
 
-    /* AIRBNB — FIXED MOBILE */
+    .brand-fitbit-symbol {
+        width: 30px;
+
+        height: 27px;
+
+        flex-basis: 30px;
+    }
+
+
+    /* AIRBNB */
 
     .brand-airbnb {
         min-width: 138px;
@@ -3428,6 +3633,26 @@ html.bp-scrolling body{
         animation-duration: 36s;
     }
 
+
+    /* FITBIT */
+
+    .brand-fitbit {
+        font-size: 19px;
+
+        gap: 6px;
+    }
+
+
+    .brand-fitbit-symbol {
+        width: 27px;
+
+        height: 24px;
+
+        flex-basis: 27px;
+    }
+
+
+    /* AIRBNB */
 
     .brand-airbnb {
         min-width: 125px;
