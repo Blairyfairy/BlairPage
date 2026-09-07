@@ -14419,3 +14419,377 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   window.MutationObserver.prototype = nativeMO.prototype;
 })();
 </script>
+
+<!-- =========================================================
+     GLOBAL NO-BLINK for scroll + all move interactions
+     Covers: page scroll, marquee, touch pan, +/- expand,
+     matrix toggles, theme. Layout/content otherwise unchanged.
+========================================================= -->
+<style id="bp-global-no-blink-motion">
+  /* Kill flicker sources on interactive surfaces */
+  body.bp-mobile-page #mobileContent,
+  body.bp-mobile-page #mobileContent .resume-shell,
+  body.bp-mobile-page #mobileContent .timeline-item,
+  body.bp-mobile-page #mobileContent .job-click,
+  body.bp-mobile-page #mobileContent .job-list-collapsible,
+  body.bp-mobile-page #mobileContent .matrix-card,
+  body.bp-mobile-page #mobileContent .matrix-card .card-content,
+  body.bp-mobile-page #mobileContent .course-group,
+  body.bp-mobile-page #mobileContent .course-grid,
+  body.bp-mobile-page #mobileContent .courses-card,
+  body.bp-mobile-page #mobileContent .cert-card,
+  body.bp-mobile-page #mobileContent .certification-card,
+  body.bp-mobile-page #mobileContent .volunteer-card,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__viewport,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__track,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item {
+    transition: none !important;
+    animation-duration: inherit;
+  }
+
+  /* Expanding content should appear/disappear without fade blink */
+  body.bp-mobile-page #mobileContent .job-list-collapsible,
+  body.bp-mobile-page #mobileContent .job-list-collapsible.expanded,
+  body.bp-mobile-page #mobileContent .matrix-card .card-content,
+  body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  body.bp-mobile-page #mobileContent .job-list-collapsible:not(.expanded) {
+    /* display controlled by scripts; never opacity-fade */
+    opacity: 1 !important;
+  }
+
+  /* Marquee: keep continuous motion but no opacity/filter flicker */
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item:hover,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider img,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider span {
+    transition: none !important;
+    filter: none !important;
+    will-change: auto !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__track {
+    /* animation retained for scroll; no secondary transitions */
+    transition: none !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+    transform: translateZ(0);
+  }
+
+  /* Credly / iframes: never blink on scroll */
+  body.bp-mobile-page #mobileContent .credly-embed-badge,
+  body.bp-mobile-page #mobileContent [data-share-badge-id],
+  body.bp-mobile-page #mobileContent iframe[src*="credly"] {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    will-change: auto !important;
+  }
+
+  /* During any active motion class */
+  body.bp-mobile-page.bp-is-scrolling #mobileContent,
+  body.bp-mobile-page.bp-is-moving #mobileContent {
+    pointer-events: auto !important;
+  }
+
+  body.bp-mobile-page.bp-is-scrolling #mobileContent *,
+  body.bp-mobile-page.bp-is-moving #mobileContent * {
+    transition: none !important;
+    animation-play-state: paused !important;
+  }
+
+  /* Exception: marquee track may keep running unless touch-scrolling the viewport */
+  body.bp-mobile-page.bp-is-scrolling #mobileContent .enterprise-brand-slider__track {
+    animation-play-state: paused !important;
+  }
+
+  body.bp-mobile-page.bp-marquee-touching #mobileContent .enterprise-brand-slider__track {
+    animation-play-state: paused !important;
+  }
+</style>
+
+<script id="bp-global-no-blink-motion-script">
+(function () {
+  "use strict";
+
+  var scrollTimer = null;
+  var moveTimer = null;
+
+  function setFlag(name, on) {
+    document.body.classList.toggle(name, !!on);
+    document.documentElement.classList.toggle(name, !!on);
+  }
+
+  function onScrollActivity() {
+    setFlag("bp-is-scrolling", true);
+    setFlag("bp-is-moving", true);
+    if (scrollTimer) clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function () {
+      setFlag("bp-is-scrolling", false);
+      setFlag("bp-is-moving", false);
+    }, 200);
+  }
+
+  function onMoveActivity() {
+    setFlag("bp-is-moving", true);
+    if (moveTimer) clearTimeout(moveTimer);
+    moveTimer = setTimeout(function () {
+      setFlag("bp-is-moving", false);
+    }, 200);
+  }
+
+  // Page scroll
+  window.addEventListener("scroll", onScrollActivity, { passive: true, capture: true });
+  document.addEventListener("scroll", onScrollActivity, { passive: true, capture: true });
+  window.addEventListener("touchmove", onScrollActivity, { passive: true, capture: true });
+  window.addEventListener("wheel", onScrollActivity, { passive: true, capture: true });
+
+  // Marquee touch / pan
+  function bindMarquee() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    var vp = root.querySelector(".enterprise-brand-slider__viewport, .enterprise-brand-slider");
+    if (!vp || vp.getAttribute("data-bp-noblink-bound") === "yes") return;
+    vp.setAttribute("data-bp-noblink-bound", "yes");
+
+    function touchOn() {
+      document.body.classList.add("bp-marquee-touching");
+      onMoveActivity();
+    }
+    function touchOff() {
+      document.body.classList.remove("bp-marquee-touching");
+      onMoveActivity();
+    }
+    ["touchstart", "pointerdown"].forEach(function (e) {
+      vp.addEventListener(e, touchOn, { passive: true });
+    });
+    ["touchend", "touchcancel", "pointerup", "pointercancel"].forEach(function (e) {
+      vp.addEventListener(e, touchOff, { passive: true });
+    });
+    vp.addEventListener("scroll", onMoveActivity, { passive: true });
+  }
+
+  // +/- and matrix toggles: mark brief move, force no opacity animation
+  function bindToggles() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    if (root.getAttribute("data-bp-toggle-noblink") === "yes") return;
+    root.setAttribute("data-bp-toggle-noblink", "yes");
+
+    root.addEventListener(
+      "click",
+      function (e) {
+        var t = e.target && e.target.closest && e.target.closest(
+          ".job-click, .job-toggle-row, .card-toggle, .matrix-card .card-toggle"
+        );
+        if (!t) return;
+        onMoveActivity();
+        // Ensure expanded panels don't fade
+        setTimeout(function () {
+          var card = t.closest(".matrix-card, .job-details, .timeline-item");
+          if (!card) return;
+          Array.prototype.forEach.call(
+            card.querySelectorAll(".job-list-collapsible, .card-content"),
+            function (el) {
+              el.style.setProperty("transition", "none", "important");
+              el.style.setProperty("animation", "none", "important");
+              el.style.setProperty("opacity", "1", "important");
+            }
+          );
+        }, 0);
+      },
+      true
+    );
+  }
+
+  // Skip repair work while moving (extend existing interval guard)
+  var nativeSetInterval = window.setInterval;
+  if (!window.__bpGlobalNoBlinkInterval) {
+    window.__bpGlobalNoBlinkInterval = true;
+    window.setInterval = function (fn, delay) {
+      if (typeof fn !== "function") return nativeSetInterval.apply(window, arguments);
+      return nativeSetInterval.call(window, function () {
+        if (
+          document.body.classList.contains("bp-is-scrolling") ||
+          document.body.classList.contains("bp-is-moving") ||
+          document.body.classList.contains("bp-marquee-touching")
+        ) {
+          return;
+        }
+        try {
+          return fn.apply(this, arguments);
+        } catch (e) {}
+      }, delay);
+    };
+  }
+
+  function run() {
+    bindMarquee();
+    bindToggles();
+  }
+
+  function schedule() {
+    run();
+    [200, 800, 2000, 4000, 7000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+})();
+</script>
+
+<!-- =========================================================
+     UNLOCK PAGE SCROLL — vertical scroll must always work
+     Softens prior anti-blink rules that could freeze scrolling.
+========================================================= -->
+<style id="bp-unlock-page-scroll">
+  html, body, body.bp-mobile-page {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100% !important;
+    max-height: none !important;
+    position: static !important;
+    touch-action: pan-y pinch-zoom !important;
+    overscroll-behavior-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body.bp-mobile-page .mobile-shell,
+  body.bp-mobile-page #mobileShell,
+  body.bp-mobile-page #mobileContent,
+  body.bp-mobile-page #mobileContent .resume-shell,
+  body.bp-mobile-page #mobileContent .container {
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    max-height: none !important;
+    height: auto !important;
+    touch-action: pan-y pinch-zoom !important;
+    pointer-events: auto !important;
+  }
+
+  /* Do NOT use overflow:hidden shorthand on main content shells */
+  body.bp-mobile-page #mobileContent .resume-shell {
+    overflow: visible !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+  }
+
+  /* While "scrolling" flag is on, never block interaction/scroll */
+  body.bp-mobile-page.bp-is-scrolling,
+  body.bp-mobile-page.bp-is-moving,
+  body.bp-mobile-page.bp-is-scrolling #mobileContent,
+  body.bp-mobile-page.bp-is-moving #mobileContent,
+  body.bp-mobile-page.bp-is-scrolling #mobileContent *,
+  body.bp-mobile-page.bp-is-moving #mobileContent * {
+    pointer-events: auto !important;
+  }
+
+  /* Only pause decorative animations — not scrolling itself */
+  body.bp-mobile-page.bp-is-scrolling #mobileContent * {
+    /* remove the previous blanket animation-play-state: paused on everything
+       by restoring default for non-marque elements */
+    animation-play-state: running !important;
+  }
+
+  body.bp-mobile-page.bp-is-scrolling #mobileContent .enterprise-brand-slider__track,
+  body.bp-mobile-page.bp-marquee-touching #mobileContent .enterprise-brand-slider__track {
+    animation-play-state: paused !important;
+  }
+
+  /* Fixed background pseudo-elements must not capture input */
+  html::before,
+  body.bp-mobile-page::before {
+    pointer-events: none !important;
+  }
+</style>
+
+<script id="bp-unlock-page-scroll-script">
+(function () {
+  "use strict";
+
+  function unlock() {
+    var html = document.documentElement;
+    var body = document.body;
+    [html, body].forEach(function (el) {
+      if (!el || !el.style) return;
+      el.style.setProperty("overflow-x", "hidden", "important");
+      el.style.setProperty("overflow-y", "auto", "important");
+      el.style.setProperty("height", "auto", "important");
+      el.style.setProperty("max-height", "none", "important");
+      el.style.setProperty("position", "static", "important");
+      el.style.setProperty("touch-action", "pan-y pinch-zoom", "important");
+      el.style.setProperty("pointer-events", "auto", "important");
+    });
+
+    ["mobileShell", "mobileContent"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.style.setProperty("overflow-x", "hidden", "important");
+      el.style.setProperty("overflow-y", "visible", "important");
+      el.style.setProperty("max-height", "none", "important");
+      el.style.setProperty("height", "auto", "important");
+      el.style.setProperty("touch-action", "pan-y pinch-zoom", "important");
+      el.style.setProperty("pointer-events", "auto", "important");
+    });
+
+    var shell = document.querySelector("#mobileContent .resume-shell, .mobile-shell");
+    if (shell) {
+      shell.style.setProperty("overflow", "visible", "important");
+      shell.style.setProperty("overflow-x", "hidden", "important");
+      shell.style.setProperty("overflow-y", "visible", "important");
+      shell.style.setProperty("max-height", "none", "important");
+      shell.style.setProperty("pointer-events", "auto", "important");
+    }
+
+    // Clear any accidental scroll lock classes that freeze the page
+    document.body.classList.remove("bp-is-scrolling", "bp-is-moving");
+    html.classList.remove("bp-is-scrolling", "bp-is-moving");
+  }
+
+  // Soften scroll flag: only used for marquee pause, never locks body
+  var timer = null;
+  function onScroll() {
+    document.body.classList.add("bp-is-scrolling");
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      document.body.classList.remove("bp-is-scrolling");
+      document.documentElement.classList.remove("bp-is-scrolling");
+    }, 150);
+    // Always ensure scroll stays unlocked
+    document.body.style.setProperty("overflow-y", "auto", "important");
+    document.documentElement.style.setProperty("overflow-y", "auto", "important");
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("touchstart", function () {
+    unlock();
+  }, { passive: true });
+
+  function schedule() {
+    unlock();
+    [50, 200, 500, 1000, 2000, 4000].forEach(function (ms) {
+      setTimeout(unlock, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+})();
+</script>
