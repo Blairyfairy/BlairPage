@@ -3426,7 +3426,228 @@ html.bp-scrolling body{
     </div>
   </div>
 </div>
+<!-- ===============================
+     FORCE RACKSPACE EXPANSION HEIGHT
+     =============================== -->
+<style>
+/*
+ * RACKSPACE ONLY:
+ * Force the complete expanded job description
+ * to remain visible regardless of accordion,
+ * timeline, animation, or max-height rules.
+ */
 
+.timeline-item:has(.rackspace-logo-fixed) {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.timeline-item:has(.rackspace-logo-fixed) .timeline-content {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.timeline-item:has(.rackspace-logo-fixed) .job-layout {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.timeline-item:has(.rackspace-logo-fixed) .job-details {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/*
+ * Force the complete list and every individual
+ * content element to display at natural height.
+ */
+.timeline-item:has(.rackspace-logo-fixed) ul {
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.timeline-item:has(.rackspace-logo-fixed) li {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.timeline-item:has(.rackspace-logo-fixed) p {
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+/*
+ * Prevent text clipping from nested elements.
+ */
+.timeline-item:has(.rackspace-logo-fixed) strong,
+.timeline-item:has(.rackspace-logo-fixed) a,
+.timeline-item:has(.rackspace-logo-fixed) span {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/*
+ * Override common accordion animation states.
+ */
+.timeline-item:has(.rackspace-logo-fixed) .timeline-content[style],
+.timeline-item:has(.rackspace-logo-fixed) .job-details[style],
+.timeline-item:has(.rackspace-logo-fixed) ul[style] {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/*
+ * If the site uses a collapsed/expanded class,
+ * ensure the expanded Rackspace content can grow
+ * to its complete natural height.
+ */
+.timeline-item:has(.rackspace-logo-fixed).expanded,
+.timeline-item:has(.rackspace-logo-fixed).active,
+.timeline-item:has(.rackspace-logo-fixed).open,
+.timeline-item:has(.rackspace-logo-fixed)[aria-expanded="true"] {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.timeline-item:has(.rackspace-logo-fixed).expanded .timeline-content,
+.timeline-item:has(.rackspace-logo-fixed).active .timeline-content,
+.timeline-item:has(.rackspace-logo-fixed).open .timeline-content,
+.timeline-item:has(.rackspace-logo-fixed)[aria-expanded="true"] .timeline-content {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/*
+ * Remove clipping from common animated wrappers.
+ */
+.timeline-item:has(.rackspace-logo-fixed) .collapse,
+.timeline-item:has(.rackspace-logo-fixed) .collapsing,
+.timeline-item:has(.rackspace-logo-fixed) .accordion-content,
+.timeline-item:has(.rackspace-logo-fixed) .timeline-description,
+.timeline-item:has(.rackspace-logo-fixed) .description,
+.timeline-item:has(.rackspace-logo-fixed) .content {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/*
+ * Ensure the browser recalculates the full layout
+ * rather than inheriting a constrained height.
+ */
+.timeline-item:has(.rackspace-logo-fixed) * {
+  box-sizing: border-box;
+}
+
+.timeline-item:has(.rackspace-logo-fixed) {
+  contain: none !important;
+  content-visibility: visible !important;
+}
+</style>
+
+<script>
+/* ==========================================
+   RACKSPACE FORCE-EXPAND HEIGHT REPAIR
+   ========================================== */
+(function () {
+  function forceRackspaceHeight() {
+    const rackspace = document.querySelector(
+      '.timeline-item:has(.rackspace-logo-fixed)'
+    );
+
+    if (!rackspace) return;
+
+    const elements = rackspace.querySelectorAll(
+      '.timeline-item, .timeline-content, .job-layout, .job-details, ul, li, p, .collapse, .collapsing, .accordion-content, .timeline-description, .description, .content'
+    );
+
+    rackspace.style.setProperty('height', 'auto', 'important');
+    rackspace.style.setProperty('max-height', 'none', 'important');
+    rackspace.style.setProperty('overflow', 'visible', 'important');
+
+    elements.forEach(function (element) {
+      element.style.setProperty('height', 'auto', 'important');
+      element.style.setProperty('max-height', 'none', 'important');
+      element.style.setProperty('overflow', 'visible', 'important');
+    });
+
+    /*
+     * Force a browser layout recalculation after
+     * the accordion animation/open event.
+     */
+    void rackspace.offsetHeight;
+  }
+
+  /*
+   * Initial repair.
+   */
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      forceRackspaceHeight
+    );
+  } else {
+    forceRackspaceHeight();
+  }
+
+  /*
+   * Reapply after opening/closing animations,
+   * clicks, transitions, and dynamic layout changes.
+   */
+  document.addEventListener('click', function () {
+    setTimeout(forceRackspaceHeight, 0);
+    setTimeout(forceRackspaceHeight, 100);
+    setTimeout(forceRackspaceHeight, 300);
+    setTimeout(forceRackspaceHeight, 600);
+    setTimeout(forceRackspaceHeight, 1000);
+  });
+
+  window.addEventListener('resize', forceRackspaceHeight);
+
+  /*
+   * Catch DOM changes made by the existing
+   * accordion/timeline JavaScript.
+   */
+  const observer = new MutationObserver(function () {
+    forceRackspaceHeight();
+  });
+
+  observer.observe(document.body, {
+    attributes: true,
+    attributeFilter: [
+      'class',
+      'style',
+      'aria-expanded'
+    ],
+    subtree: true
+  });
+})();
+</script>
 <style>
 /* ===============================
    RACKSPACE LOGO
