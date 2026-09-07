@@ -11516,3 +11516,333 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 })();
 </script>
+
+
+<!-- =========================================================
+     USER-REQUESTED FIXES (appended, nothing above changed)
+     1) Marquee: touch-swipe left/right on mobile
+     2) Marquee: fix "Game Crazy" -> "GameCrazy", "V imeo" -> "Vimeo"
+     3) Job description +/- rows: full width + left aligned
+     4) Certifications: content left aligned (unchanged otherwise)
+     5) Technical Training: content left aligned (unchanged otherwise)
+     6) Volunteer "Judge" card: remove duplicate Lansing Community
+        College logo, keep only the first logo
+========================================================= -->
+
+<style id="bp-userfix-marquee-touch-scroll">
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__viewport {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x !important;
+    overscroll-behavior-x: contain !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__viewport::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+</style>
+
+<script id="bp-userfix-marquee-touch-scroll-script">
+(function () {
+  "use strict";
+
+  function setup(viewport, track) {
+    if (!viewport || !track) return;
+    if (viewport.getAttribute("data-bp-touch-bound") === "yes") return;
+    viewport.setAttribute("data-bp-touch-bound", "yes");
+
+    var resumeTimer = null;
+
+    function pause() {
+      track.style.setProperty("animation-play-state", "paused", "important");
+    }
+
+    function scheduleResume() {
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function () {
+        track.style.setProperty("animation-play-state", "running", "important");
+      }, 2200);
+    }
+
+    ["touchstart", "pointerdown", "mouseenter"].forEach(function (evt) {
+      viewport.addEventListener(evt, pause, { passive: true });
+    });
+    ["touchend", "touchcancel", "pointerup", "mouseleave", "scroll"].forEach(function (evt) {
+      viewport.addEventListener(evt, scheduleResume, { passive: true });
+    });
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    var slider = root.querySelector(".enterprise-brand-slider");
+    if (!slider) return;
+    var viewport = slider.querySelector(".enterprise-brand-slider__viewport") || slider;
+    var track = slider.querySelector(".enterprise-brand-slider__track");
+    setup(viewport, track);
+  }
+
+  function schedule() {
+    run();
+    [200, 500, 1000, 2000, 3500, 5500, 8000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+})();
+</script>
+
+<script id="bp-userfix-marquee-icon-text-fix">
+(function () {
+  "use strict";
+
+  var fixes = [
+    { pattern: /Game\s*Crazy/gi, replacement: "GameCrazy" },
+    { pattern: /V\s*imeo/gi, replacement: "Vimeo" }
+  ];
+
+  function fixTextNode(node) {
+    var text = node.nodeValue;
+    if (!text) return;
+    var out = text;
+    fixes.forEach(function (f) {
+      out = out.replace(f.pattern, f.replacement);
+    });
+    if (out !== text) node.nodeValue = out;
+  }
+
+  function walk(el) {
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    var node;
+    while ((node = walker.nextNode())) {
+      fixTextNode(node);
+    }
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    var slider = root.querySelector(".enterprise-brand-slider");
+    if (!slider) return;
+    walk(slider);
+  }
+
+  function schedule() {
+    run();
+    [200, 500, 1000, 2000, 3500, 5500, 8000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () {
+      run();
+    });
+    mo.observe(host, { childList: true, subtree: true, characterData: true });
+    setTimeout(function () {
+      try { mo.disconnect(); } catch (e) {}
+    }, 16000);
+  }
+})();
+</script>
+
+<!-- ---------- Job description +/- rows: full width + left aligned ---------- -->
+<style id="bp-userfix-job-click-full-width-left">
+  body.bp-mobile-page #mobileContent .job-click {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    align-self: stretch !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  body.bp-mobile-page #mobileContent .job-click h3,
+  body.bp-mobile-page #mobileContent .job-click h4 {
+    text-align: left !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body.bp-mobile-page #mobileContent .job-list-collapsible,
+  body.bp-mobile-page #mobileContent .job-list-collapsible.expanded,
+  body.bp-mobile-page #mobileContent .job-details ul.job-list-collapsible li {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+  }
+</style>
+
+<script id="bp-userfix-job-click-full-width-left-script">
+(function () {
+  "use strict";
+
+  function setImportant(el, prop, value) {
+    if (el && el.style) el.style.setProperty(prop, value, "important");
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+
+    Array.prototype.forEach.call(root.querySelectorAll(".job-click"), function (row) {
+      setImportant(row, "width", "100%");
+      setImportant(row, "max-width", "100%");
+      setImportant(row, "box-sizing", "border-box");
+      setImportant(row, "text-align", "left");
+      setImportant(row, "justify-content", "flex-start");
+    });
+
+    Array.prototype.forEach.call(root.querySelectorAll(".job-list-collapsible"), function (list) {
+      setImportant(list, "width", "100%");
+      setImportant(list, "max-width", "100%");
+      setImportant(list, "box-sizing", "border-box");
+      setImportant(list, "text-align", "left");
+    });
+  }
+
+  function schedule() {
+    run();
+    [150, 400, 900, 1600, 2800, 4500, 7000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+})();
+</script>
+
+<!-- ---------- Certifications: left align content only ---------- -->
+<style id="bp-userfix-certifications-left-align">
+  body.bp-mobile-page #mobileContent .cert-card,
+  body.bp-mobile-page #mobileContent .certs-card,
+  body.bp-mobile-page #mobileContent .certification-card,
+  body.bp-mobile-page #mobileContent .certification-list,
+  body.bp-mobile-page #mobileContent .cert-card *,
+  body.bp-mobile-page #mobileContent .certs-card *,
+  body.bp-mobile-page #mobileContent .certification-card *,
+  body.bp-mobile-page #mobileContent .certification-list * {
+    text-align: left !important;
+  }
+</style>
+
+<!-- ---------- Technical Training: left align content only ---------- -->
+<style id="bp-userfix-technical-training-left-align">
+  body.bp-mobile-page #mobileContent .courses-card,
+  body.bp-mobile-page #mobileContent .course-grid,
+  body.bp-mobile-page #mobileContent .courses-card *,
+  body.bp-mobile-page #mobileContent .course-grid * {
+    text-align: left !important;
+  }
+</style>
+
+<!-- ---------- Volunteer "Judge" card: drop duplicate Lansing Community College logo ---------- -->
+<script id="bp-userfix-judge-remove-lansing-duplicate">
+(function () {
+  "use strict";
+
+  function norm(v) {
+    return (v || "").toLowerCase();
+  }
+
+  function isLansingImg(img) {
+    var alt = norm(img.getAttribute("alt"));
+    var src = norm(img.getAttribute("src"));
+    return alt.indexOf("lansing") !== -1 ||
+           alt.indexOf("community college") !== -1 ||
+           src.indexOf("lansing") !== -1 ||
+           src.indexOf("lcclogo") !== -1;
+  }
+
+  function volunteerSectionRoot(root) {
+    var headings = root.querySelectorAll("h2, h3");
+    for (var i = 0; i < headings.length; i++) {
+      if ((headings[i].textContent || "").trim().toLowerCase() === "volunteer work") {
+        return headings[i].closest("section, .section, .bp-fused-volunteer, .volunteer-section, .resume-section, div") || headings[i].parentElement || root;
+      }
+    }
+    return root.querySelector(".bp-fused-volunteer") || root;
+  }
+
+  function isJudgeCard(el) {
+    var t = norm(el.textContent);
+    return t.indexOf("judge") !== -1 ||
+           t.indexOf("first robotics") !== -1 ||
+           t.indexOf("youth stem") !== -1;
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    var section = volunteerSectionRoot(root);
+    if (!section) return;
+
+    var cards = section.querySelectorAll(".volunteer-card, .job-layout, .timeline-item, article, .card");
+    Array.prototype.forEach.call(cards, function (card) {
+      if (!isJudgeCard(card)) return;
+
+      var imgs = Array.prototype.slice.call(card.querySelectorAll("img"));
+      if (imgs.length < 2) return;
+
+      imgs.forEach(function (img) {
+        if (!isLansingImg(img)) return;
+        var logoWrap = img.closest(".job-logo");
+        if (img.parentNode) img.parentNode.removeChild(img);
+        if (logoWrap && logoWrap.parentNode && !logoWrap.querySelector("img")) {
+          logoWrap.parentNode.removeChild(logoWrap);
+        }
+      });
+    });
+  }
+
+  function schedule() {
+    run();
+    [200, 500, 1000, 1800, 3000, 4500, 6500, 9000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () {
+      run();
+    });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () {
+      try { mo.disconnect(); } catch (e) {}
+    }, 14000);
+  }
+})();
+</script>
