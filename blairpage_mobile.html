@@ -14657,3 +14657,60 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   });
 })();
 </script>
+
+<!-- ---------- Persistent white text for LCC / MongoDB / Rackspace course blocks ---------- -->
+<!-- Re-applies on every content change so it survives the resume content re-loading -->
+<script id="bp-persistent-course-block-white">
+(function () {
+  var MATCHES = [
+    "lansing community college",
+    "mongodb university",
+    "rackspace cloud university"
+  ];
+
+  function whitenCourseBlocks() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+
+    var titles = root.querySelectorAll(".course-title, h3, h4");
+    titles.forEach(function (el) {
+      var text = (el.textContent || "").toLowerCase();
+      var isMatch = MATCHES.some(function (m) { return text.indexOf(m) !== -1; });
+      if (!isMatch) return;
+
+      el.style.setProperty("color", "#ffffff", "important");
+      el.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+
+      var courseGroup = el.closest(".course-group") || el.closest(".courses-card") || el.closest(".course-grid");
+      if (!courseGroup) return;
+
+      courseGroup.querySelectorAll("li, span, p, div, a, strong, .course-description").forEach(function (child) {
+        child.style.setProperty("color", "#ffffff", "important");
+        child.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+      });
+    });
+  }
+
+  whitenCourseBlocks();
+  document.addEventListener("DOMContentLoaded", whitenCourseBlocks);
+  window.addEventListener("load", whitenCourseBlocks);
+
+  var root = document.getElementById("mobileContent");
+  var observer = new MutationObserver(function () {
+    whitenCourseBlocks();
+  });
+
+  function startObserving() {
+    var target = document.getElementById("mobileContent") || document.body;
+    if (target) {
+      observer.observe(target, { childList: true, subtree: true });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startObserving);
+  } else {
+    startObserving();
+  }
+})();
+</script>
