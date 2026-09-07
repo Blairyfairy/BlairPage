@@ -11172,3 +11172,149 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 })();
 </script>
+
+<!-- =========================================================
+     FINAL HARD LOCK — SCREEN FIT + MARQUE SPEED = DESKTOP 52s
+========================================================= -->
+<style id="bp-final-hard-lock-fit-and-speed">
+  /* Nothing escapes the screen */
+  html,
+  body,
+  body.bp-mobile-page {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    overscroll-behavior-x: none !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page .mobile-topbar-wrap,
+  body.bp-mobile-page .mobile-shell,
+  body.bp-mobile-page #mobileShell,
+  body.bp-mobile-page #mobileContent,
+  body.bp-mobile-page #mobileContent .resume-shell,
+  body.bp-mobile-page #mobileContent .container,
+  body.bp-mobile-page #mobileContent .bp-fused-top-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Marquee container clips; track scrolls inside only */
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider,
+  body.bp-mobile-page #mobileContent section.enterprise-brand-slider {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__viewport {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+  }
+
+  /* EXACT desktop speed: 52s linear infinite, -50% seamless */
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__track,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .enterprise-brand-slider__track {
+    display: flex !important;
+    width: max-content !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    animation-name: enterpriseBrandScroll !important;
+    animation-duration: 52s !important;
+    animation-timing-function: linear !important;
+    animation-iteration-count: infinite !important;
+    animation-delay: 0s !important;
+    animation-direction: normal !important;
+    animation-fill-mode: none !important;
+    animation-play-state: running !important;
+    will-change: transform !important;
+  }
+
+  @keyframes enterpriseBrandScroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+</style>
+
+<script id="bp-final-hard-lock-fit-and-speed-script">
+(function () {
+  "use strict";
+
+  function lockFitAndSpeed() {
+    var root = document.getElementById("mobileContent");
+    [document.documentElement, document.body].forEach(function (el) {
+      if (!el) return;
+      el.style.setProperty("overflow-x", "hidden", "important");
+      el.style.setProperty("max-width", "100vw", "important");
+      el.style.setProperty("width", "100%", "important");
+    });
+
+    var shell = document.getElementById("mobileShell") || document.querySelector(".mobile-shell");
+    if (shell) {
+      shell.style.setProperty("overflow-x", "hidden", "important");
+      shell.style.setProperty("max-width", "100%", "important");
+      shell.style.setProperty("width", "100%", "important");
+    }
+
+    if (!root) return;
+    root.style.setProperty("overflow-x", "hidden", "important");
+    root.style.setProperty("max-width", "100%", "important");
+    root.style.setProperty("width", "100%", "important");
+
+    root.querySelectorAll(".enterprise-brand-slider, section.enterprise-brand-slider").forEach(function (s) {
+      s.style.setProperty("overflow", "hidden", "important");
+      s.style.setProperty("overflow-x", "hidden", "important");
+      s.style.setProperty("max-width", "100%", "important");
+      s.style.setProperty("width", "100%", "important");
+    });
+
+    root.querySelectorAll(".enterprise-brand-slider__viewport").forEach(function (v) {
+      v.style.setProperty("overflow", "hidden", "important");
+      v.style.setProperty("width", "100%", "important");
+      v.style.setProperty("max-width", "100%", "important");
+    });
+
+    // Exact desktop speed
+    root.querySelectorAll(".enterprise-brand-slider__track").forEach(function (track) {
+      track.style.setProperty("animation-name", "enterpriseBrandScroll", "important");
+      track.style.setProperty("animation-duration", "52s", "important");
+      track.style.setProperty("animation-timing-function", "linear", "important");
+      track.style.setProperty("animation-iteration-count", "infinite", "important");
+      track.style.setProperty("animation-delay", "0s", "important");
+      track.style.setProperty("animation-direction", "normal", "important");
+      track.style.setProperty("animation-play-state", "running", "important");
+      track.style.setProperty("display", "flex", "important");
+      track.style.setProperty("width", "max-content", "important");
+      track.style.setProperty("flex-wrap", "nowrap", "important");
+    });
+  }
+
+  function schedule() {
+    lockFitAndSpeed();
+    [100, 300, 700, 1400, 2500, 4000, 6500].forEach(function (ms) {
+      setTimeout(lockFitAndSpeed, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () { lockFitAndSpeed(); });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 12000);
+  }
+})();
+</script>
