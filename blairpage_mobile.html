@@ -13884,3 +13884,216 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 })();
 </script>
+
+<!-- =========================================================
+     STRICT: move existing LCC logo+title+list INTO the empty
+     card beneath them (do not recreate content; only relocate).
+========================================================= -->
+<script id="bp-strict-move-lcc-into-empty-card">
+(function () {
+  "use strict";
+
+  function lower(s) {
+    return (s || "").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+
+  function isVolunteer(el) {
+    return !!(el && el.closest && el.closest(
+      ".bp-fused-volunteer, .volunteer-card, .volunteer-grid, .volunteer-section"
+    ));
+  }
+
+  function coursesRoot(root) {
+    var grid = root.querySelector(".course-grid, .courses-card");
+    if (grid && !isVolunteer(grid)) return grid;
+    var heads = root.querySelectorAll("h2, h3");
+    for (var i = 0; i < heads.length; i++) {
+      var t = lower(heads[i].textContent);
+      if (t === "courses" || t === "technical training") {
+        var sec = heads[i].closest("section, .section, div") || heads[i].parentElement;
+        if (sec && !isVolunteer(sec)) return sec;
+      }
+    }
+    return null;
+  }
+
+  function isLccImg(img) {
+    var alt = lower(img.getAttribute("alt"));
+    var src = lower(img.getAttribute("src"));
+    return (
+      alt.indexOf("lansing") !== -1 ||
+      alt.indexOf("community college") !== -1 ||
+      src.indexOf("lcclogo") !== -1
+    );
+  }
+
+  function isLccTitle(el) {
+    var t = lower(el.textContent);
+    return t.indexOf("lansing community college") !== -1 && (el.textContent || "").length < 60;
+  }
+
+  function isLccList(ul) {
+    var t = lower(ul.textContent);
+    return (
+      t.indexOf("writ 121") !== -1 ||
+      t.indexOf("composition i") !== -1 ||
+      t.indexOf("econ 201") !== -1 ||
+      t.indexOf("indoor tennis") !== -1 ||
+      t.indexOf("tap") !== -1
+    );
+  }
+
+  function isEmptyCard(el) {
+    if (!el || el.nodeType !== 1) return false;
+    if (isVolunteer(el)) return false;
+    // Has card-like chrome (padding/radius/background) but little/no meaningful text
+    var text = lower(el.textContent).replace(/\s+/g, " ").trim();
+    // Empty or nearly empty of text content
+    if (text.length > 8) return false;
+    var style = window.getComputedStyle(el);
+    var radius = parseFloat(style.borderRadius) || 0;
+    var padT = parseFloat(style.paddingTop) || 0;
+    var padB = parseFloat(style.paddingBottom) || 0;
+    var minH = parseFloat(style.minHeight) || el.offsetHeight || 0;
+    // Looks like a reserved card shell
+    if (radius >= 8 || padT + padB >= 16 || minH >= 80) return true;
+    // Class hints
+    var cls = (el.className && String(el.className)) || "";
+    if (/course-group|job-layout|card|cert/i.test(cls)) return true;
+    return false;
+  }
+
+  function collectLccPieces(area) {
+    var logo = null;
+    var title = null;
+    var list = null;
+
+    Array.prototype.forEach.call(area.querySelectorAll("img"), function (img) {
+      if (isVolunteer(img)) return;
+      if (isLccImg(img)) logo = img.closest(".job-logo, .course-logo") || img;
+    });
+
+    Array.prototype.forEach.call(
+      area.querySelectorAll(".course-title, h3, h4, a, span, strong, p, div"),
+      function (el) {
+        if (isVolunteer(el)) return;
+        if (!isLccTitle(el)) return;
+        // Prefer the tightest title node
+        if (!title || el.textContent.length <= title.textContent.length) title = el;
+      }
+    );
+
+    Array.prototype.forEach.call(area.querySelectorAll("ul"), function (ul) {
+      if (isVolunteer(ul)) return;
+      if (isLccList(ul)) list = ul;
+    });
+
+    return { logo: logo, title: title, list: list };
+  }
+
+  function findEmptyCardBelow(area, pieces) {
+    // 1) Explicit empty course-group / card with no LCC text
+    var candidates = area.querySelectorAll(
+      ".course-group, .job-layout, article, .card, div"
+    );
+    var empties = [];
+    Array.prototype.forEach.call(candidates, function (el) {
+      if (!isEmptyCard(el)) return;
+      // Must not already contain mongo/rackspace content
+      var t = lower(el.textContent);
+      if (t.indexOf("mongodb") !== -1 || t.indexOf("rackspace") !== -1) return;
+      empties.push(el);
+    });
+
+    if (!empties.length) return null;
+
+    // Prefer the empty card that follows the LCC title/list in document order
+    var anchor = pieces.title || pieces.list || pieces.logo;
+    if (anchor) {
+      for (var i = 0; i < empties.length; i++) {
+        var pos = anchor.compareDocumentPosition(empties[i]);
+        if (pos & Node.DOCUMENT_POSITION_FOLLOWING) return empties[i];
+      }
+    }
+    return empties[0];
+  }
+
+  function alreadyInside(card, pieces) {
+    if (!card) return false;
+    var ok = true;
+    if (pieces.logo && !card.contains(pieces.logo)) ok = false;
+    if (pieces.title && !card.contains(pieces.title)) ok = false;
+    if (pieces.list && !card.contains(pieces.list)) ok = false;
+    return ok && (pieces.logo || pieces.title || pieces.list);
+  }
+
+  function moveIn(card, pieces) {
+    if (!card) return;
+    // Order: logo, title, list
+    if (pieces.logo && !card.contains(pieces.logo)) {
+      card.appendChild(pieces.logo);
+    }
+    if (pieces.title && !card.contains(pieces.title)) {
+      card.appendChild(pieces.title);
+    }
+    if (pieces.list && !card.contains(pieces.list)) {
+      card.appendChild(pieces.list);
+    }
+    // Ensure visible
+    card.style.setProperty("display", "", "important");
+    card.style.removeProperty("display");
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    var area = coursesRoot(root);
+    if (!area) return;
+
+    try {
+      var pieces = collectLccPieces(area);
+      if (!pieces.logo && !pieces.title && !pieces.list) return;
+
+      var card = findEmptyCardBelow(area, pieces);
+      if (!card) {
+        // Fallback: parent next-sibling empty card after title
+        var anchor = pieces.title || pieces.list || pieces.logo;
+        if (anchor) {
+          var sib = anchor.parentElement && anchor.parentElement.nextElementSibling;
+          while (sib) {
+            if (isEmptyCard(sib)) {
+              card = sib;
+              break;
+            }
+            sib = sib.nextElementSibling;
+          }
+        }
+      }
+      if (!card) return;
+      if (alreadyInside(card, pieces)) return;
+      moveIn(card, pieces);
+    } catch (e) {}
+  }
+
+  function schedule() {
+    run();
+    [80, 200, 500, 1000, 1800, 3000, 5000, 8000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () { run(); });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 16000);
+  }
+})();
+</script>
