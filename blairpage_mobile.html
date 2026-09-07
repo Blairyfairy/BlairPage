@@ -388,15 +388,18 @@
 
   /* HARD-CODED PORTFOLIO-CARD LINKS ONLY */
   .bp-mobile-page #mobileContent .bp-hardcoded-badge-row {
-    display: flex !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
     align-items: center !important;
-    justify-content: center !important;
-    gap: 0.22rem !important;
-    flex-wrap: wrap !important;
+    justify-items: center !important;
+    column-gap: 0.28rem !important;
+    row-gap: 0.48rem !important;
     width: 100% !important;
-    margin: 0.45rem auto 0.55rem !important;
-    text-align: left !important;
-    max-width: none !important;
+    max-width: 360px !important;
+    margin: 0.45rem auto 0.65rem !important;
+    text-align: center !important;
+    flex-wrap: nowrap !important;
   }
 
   .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item {
@@ -13794,5 +13797,244 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", schedule);
   else schedule();
   window.addEventListener("load", schedule, { passive: true });
+})();
+</script>
+
+<!-- =========================================================
+     NO-JUMP LOAD + VOLUNTEER JUDGE FIX + COURSES LOGOS ONCE
+========================================================= -->
+<style id="bp-no-jump-settled-load">
+  /* Hide content until first settle — prevents stack→row and layout jump */
+  html:not(.bp-content-ready) body.bp-mobile-page #mobileContent {
+    opacity: 0 !important;
+  }
+  html.bp-content-ready body.bp-mobile-page #mobileContent {
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  /* Badge row always final 2x4 grid — never flex wrap stack */
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
+    max-width: 360px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item {
+    transition: none !important;
+    transform: none !important;
+  }
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item:hover {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* Courses stable, white titles */
+  body.bp-mobile-page #mobileContent .course-title.lcc,
+  body.bp-mobile-page #mobileContent .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .course-title.rackspace,
+  body.bp-mobile-page #mobileContent .course-title.cloudtech {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-group,
+  body.bp-mobile-page #mobileContent .course-grid,
+  body.bp-mobile-page #mobileContent .courses-card {
+    transition: none !important;
+    animation: none !important;
+  }
+</style>
+
+<script id="bp-no-jump-volunteer-courses-once">
+(function () {
+  "use strict";
+
+  function lower(s) {
+    return (s || "").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+
+  function setImp(el, prop, val) {
+    if (el && el.style) el.style.setProperty(prop, val, "important");
+  }
+
+  var settled = false;
+
+  function markReady() {
+    if (settled) return;
+    settled = true;
+    document.documentElement.classList.add("bp-content-ready");
+    document.body.classList.add("bp-content-ready");
+  }
+
+  /* -------- Volunteer: ONLY fix first card → Judge + First Robotics logo -------- */
+  function fixFirstVolunteerOnly() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+
+    var cards = [];
+    // Prefer volunteer section cards
+    var heads = root.querySelectorAll("h2, h3");
+    var section = null;
+    Array.prototype.forEach.call(heads, function (h) {
+      if (lower(h.textContent) === "volunteer work") {
+        section = h.closest("section, .section, .bp-fused-volunteer, div") || h.parentElement;
+      }
+    });
+    var scope = section || root;
+    var found = scope.querySelectorAll(".volunteer-card, .bp-fused-volunteer .job-layout, .volunteer-grid > *");
+    if (found.length) {
+      Array.prototype.forEach.call(found, function (c) { cards.push(c); });
+    }
+    if (!cards.length) return;
+
+    var first = cards[0];
+    // Leave second (Community Volunteer) completely alone
+    if (cards.length > 1) {
+      // no-op on cards[1]
+    }
+
+    var img =
+      first.querySelector('img[alt*="First" i], img[alt*="Robotics" i], img[alt*="Judge" i], img[src*="first" i]') ||
+      first.querySelector("img");
+    if (!img) return;
+
+    // Ensure title text "Judge" exists next to logo
+    var titleRow = first.querySelector(".bp-final-volunteer-title-row, .bp-volunteer-side-title");
+    var titleEl =
+      (titleRow && titleRow.querySelector(".bp-final-volunteer-title-text, .bp-volunteer-side-title")) ||
+      first.querySelector(".bp-final-volunteer-title-text, .bp-volunteer-side-title");
+
+    if (titleEl) {
+      var t = lower(titleEl.textContent);
+      if (t !== "judge") {
+        titleEl.textContent = "Judge";
+      }
+    } else if (titleRow) {
+      var te = document.createElement("div");
+      te.className = "bp-final-volunteer-title-text";
+      te.textContent = "Judge";
+      titleRow.appendChild(te);
+    }
+
+    // Make sure logo is visible
+    setImp(img, "display", "block");
+    setImp(img, "visibility", "visible");
+    setImp(img, "opacity", "1");
+  }
+
+  /* -------- Courses: one-shot place logos with matching school groups (no loops) -------- */
+  function fixCoursesLogosOnce() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    var area = root.querySelector(".course-grid, .courses-card");
+    if (!area) return;
+    if (area.getAttribute("data-bp-courses-once") === "yes") return;
+
+    function findTitle(needle) {
+      var nodes = area.querySelectorAll(".course-title, h3, h4, a, span, strong, div");
+      for (var i = 0; i < nodes.length; i++) {
+        var t = lower(nodes[i].textContent);
+        if (t.indexOf(needle) !== -1 && (nodes[i].textContent || "").length < 70) return nodes[i];
+      }
+      return null;
+    }
+
+    function groupOf(el) {
+      if (!el) return null;
+      return el.closest(".course-group") || el.closest(".job-layout") || el.closest("article") || el.parentElement;
+    }
+
+    function matchImg(kind) {
+      var imgs = area.querySelectorAll("img");
+      for (var i = 0; i < imgs.length; i++) {
+        var a = lower(imgs[i].getAttribute("alt"));
+        var s = lower(imgs[i].getAttribute("src"));
+        if (kind === "lcc" && (a.indexOf("lansing") !== -1 || s.indexOf("lcclogo") !== -1 || a.indexOf("community college") !== -1)) return imgs[i];
+        if (kind === "mongo" && (a.indexOf("mongo") !== -1 || s.indexOf("mongo") !== -1)) return imgs[i];
+        if (kind === "cloud" && (a.indexOf("cloud") !== -1 || a.indexOf("rackspace") !== -1 || s.indexOf("cloud") !== -1)) return imgs[i];
+      }
+      return null;
+    }
+
+    function putLogo(group, img) {
+      if (!group || !img) return;
+      var wrap = img.closest(".job-logo, .course-logo") || img;
+      if (!group.contains(img)) {
+        group.insertBefore(wrap, group.firstChild);
+      }
+      setImp(img, "display", "block");
+      setImp(img, "visibility", "visible");
+      setImp(img, "opacity", "1");
+    }
+
+    var lccT = findTitle("lansing community college");
+    var mongoT = findTitle("mongodb university");
+    var cloudT = findTitle("rackspace cloud university") || findTitle("cloud university");
+
+    putLogo(groupOf(lccT), matchImg("lcc"));
+    putLogo(groupOf(mongoT), matchImg("mongo"));
+    putLogo(groupOf(cloudT), matchImg("cloud"));
+
+    // White titles once
+    [lccT, mongoT, cloudT].forEach(function (el) {
+      if (!el) return;
+      setImp(el, "color", "#ffffff");
+      setImp(el, "-webkit-text-fill-color", "#ffffff");
+    });
+
+    area.setAttribute("data-bp-courses-once", "yes");
+  }
+
+  function runEarly() {
+    // Apply final badge grid inline ASAP
+    var root = document.getElementById("mobileContent");
+    if (root) {
+      Array.prototype.forEach.call(root.querySelectorAll(".bp-hardcoded-badge-row"), function (row) {
+        setImp(row, "display", "grid");
+        setImp(row, "grid-template-columns", "repeat(4, minmax(0, 1fr))");
+      });
+    }
+  }
+
+  function runSettle() {
+    try {
+      fixFirstVolunteerOnly();
+      fixCoursesLogosOnce();
+    } catch (e) {}
+    markReady();
+  }
+
+  // Show content after pull has likely finished; limited retries for volunteer/courses only
+  function schedule() {
+    runEarly();
+    [200, 600, 1200, 2200].forEach(function (ms, i) {
+      setTimeout(function () {
+        runEarly();
+        if (i < 3) {
+          try {
+            fixFirstVolunteerOnly();
+            fixCoursesLogosOnce();
+          } catch (e) {}
+        }
+        if (i === 3) markReady();
+      }, ms);
+    });
+    // Safety: always reveal even if slow
+    setTimeout(markReady, 3500);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", function () {
+    runSettle();
+    setTimeout(markReady, 500);
+  }, { passive: true });
 })();
 </script>
