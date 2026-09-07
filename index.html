@@ -2455,295 +2455,111 @@ html.bp-scrolling body{
 </style>
      <p>13+ years of cloud experience and 20+ years of experience designing, deploying, and optimizing high-performance e-commerce, WordPress, and Magento platforms across AWS, OpenStack, Rackspace, UpCloud, Liquid Web, Nexcess, and hybrid cloud environments. Combines systems engineering, cloud infrastructure, product management, technical sales, CRM and business intelligence, direct retail sales, visual merchandising, inventory coordination, POS operations, digital branding, and high-touch client support for SMB and Enterprise customers. Experienced in leveraging customer and business intelligence to enrich account and opportunity data, evaluate pipeline health, identify account expansion opportunities, assess product and solution mix, support revenue forecasting, and translate technical and business requirements into consultative product and solution strategies. Driven by a strong commitment to the live events and experiential industry, combining technology, production, audience engagement, business strategy, and high-touch client service to create exceptional experiences and measurable value.</p>
         <!-- =========================================================
-     PREMIUM ENTERPRISE / PROFESSIONAL EXPERIENCE SHOWCASE
-     Inline SVG logos • Theme inheriting • Transparent background
-     Plum / Mauve / White palette • Responsive marquee
+     ENTERPRISE BRAND SLIDER
+     Transparent / Responsive / Single Row / Inline SVG
      ========================================================= -->
 
 <style>
-  /* ---------------------------------------------------------
-     ENTERPRISE SHOWCASE — THEME-INHERITING
-     --------------------------------------------------------- */
-
-  .bp-enterprise {
-    --bp-plum: #291528;
-    --bp-plum-2: #3a2038;
-    --bp-mauve: #714967;
-    --bp-dusty: #b99aae;
-    --bp-soft: #d8bfd5;
-    --bp-white: #ffffff;
-
-    position: relative;
+  .enterprise-brand-slider {
     width: 100%;
+    max-width: 100%;
     overflow: hidden;
-    isolation: isolate;
-
-    /*
-      IMPORTANT:
-      Completely transparent base so the section inherits
-      whatever background the surrounding portfolio uses.
-    */
-    background: transparent;
-
-    color: currentColor;
-    padding: clamp(64px, 8vw, 110px) 0;
+    background: transparent !important;
+    border: 0;
+    padding: 16px 0;
+    margin: 0;
+    color: inherit;
   }
 
-  /* Very subtle purple/mauve atmospheric lighting.
-     No blue/cyan tones. */
-  .bp-enterprise::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -3;
-    pointer-events: none;
-
-    background:
-      radial-gradient(
-        circle at 18% 20%,
-        rgba(113, 73, 103, 0.10),
-        transparent 34%
-      ),
-      radial-gradient(
-        circle at 82% 75%,
-        rgba(216, 191, 213, 0.08),
-        transparent 36%
-      );
-  }
-
-  /* Architectural grid */
-  .bp-enterprise::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    pointer-events: none;
-
-    background-image:
-      linear-gradient(
-        rgba(113, 73, 103, 0.055) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        90deg,
-        rgba(113, 73, 103, 0.055) 1px,
-        transparent 1px
-      );
-
-    background-size: 42px 42px;
-
-    mask-image: linear-gradient(
-      to bottom,
-      transparent,
-      black 16%,
-      black 84%,
-      transparent
-    );
-
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      transparent,
-      black 16%,
-      black 84%,
-      transparent
-    );
-  }
-
-  .bp-enterprise__container {
-    width: min(1480px, calc(100% - 40px));
-    margin: 0 auto;
-  }
-
-  /* ---------------------------------------------------------
-     HEADER
-     --------------------------------------------------------- */
-
-  .bp-enterprise__header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
-    gap: 32px;
-    margin-bottom: 38px;
-  }
-
-  .bp-enterprise__eyebrow {
+  .enterprise-brand-slider__track {
     display: flex;
     align-items: center;
-    gap: 12px;
-
-    margin: 0 0 13px;
-
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-
-    color: var(--bp-mauve);
+    width: max-content;
+    will-change: transform;
+    animation: enterpriseBrandScroll 48s linear infinite;
   }
 
-  .bp-enterprise__eyebrow::before {
-    content: "";
-    width: 34px;
-    height: 1px;
-
-    background: currentColor;
-    opacity: 0.7;
+  .enterprise-brand-slider__track:hover {
+    animation-play-state: paused;
   }
 
-  .bp-enterprise__title {
-    margin: 0;
+  .enterprise-brand-slider__item {
+    flex: 0 0 auto;
 
-    font-size: clamp(30px, 4vw, 52px);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.035em;
+    width: clamp(175px, 17vw, 245px);
+    height: clamp(60px, 7vw, 82px);
 
-    color: currentColor;
-  }
-
-  .bp-enterprise__intro {
-    max-width: 700px;
-    margin: 15px 0 0;
-
-    font-size: clamp(14px, 1.4vw, 16px);
-    line-height: 1.75;
-
-    color: currentColor;
-    opacity: 0.68;
-  }
-
-  .bp-enterprise__index {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    width: 82px;
-    height: 82px;
+    padding: 10px 28px;
 
-    border: 1px solid rgba(113, 73, 103, 0.25);
-    border-radius: 50%;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
 
-    color: var(--bp-mauve);
+    color: inherit;
 
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-align: center;
+    opacity: .78;
 
-    background: rgba(113, 73, 103, 0.035);
-
-    box-shadow:
-      inset 0 0 0 8px rgba(113, 73, 103, 0.018),
-      0 15px 45px rgba(41, 21, 40, 0.05);
+    transition:
+      opacity .25s ease,
+      transform .25s ease;
   }
 
-  /* ---------------------------------------------------------
-     MAIN STAGE
-     --------------------------------------------------------- */
-
-  .bp-enterprise__stage {
-    position: relative;
-    overflow: hidden;
-
-    border-top: 1px solid rgba(113, 73, 103, 0.22);
-    border-bottom: 1px solid rgba(113, 73, 103, 0.22);
-
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.025),
-        rgba(113, 73, 103, 0.018)
-      );
-
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+  .enterprise-brand-slider__item:hover {
+    opacity: 1;
+    transform: scale(1.04);
   }
 
-  /* Decorative vertical architectural lines */
-  .bp-enterprise__stage::before,
-  .bp-enterprise__stage::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
+  .enterprise-brand-slider__svg {
+    display: block;
 
-    width: 1px;
-
-    background: rgba(113, 73, 103, 0.13);
-
-    pointer-events: none;
-    z-index: 4;
-  }
-
-  .bp-enterprise__stage::before {
-    left: 8%;
-  }
-
-  .bp-enterprise__stage::after {
-    right: 8%;
-  }
-
-  /* ---------------------------------------------------------
-     MARQUEE
-     --------------------------------------------------------- */
-
-  .bp-enterprise__viewport {
-    position: relative;
-    overflow: hidden;
     width: 100%;
+    max-width: 175px;
+    max-height: 48px;
+
+    height: auto;
+
+    overflow: visible;
+
+    color: inherit;
   }
 
-  .bp-enterprise__viewport::before,
-  .bp-enterprise__viewport::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: clamp(50px, 10vw, 180px);
+  /*
+     SVGs default to monochrome/current theme color.
+     This keeps the slider compatible with your purple/white
+     theme without introducing blue.
+  */
 
-    z-index: 5;
-    pointer-events: none;
+  .enterprise-brand-slider__svg path,
+  .enterprise-brand-slider__svg rect,
+  .enterprise-brand-slider__svg circle,
+  .enterprise-brand-slider__svg ellipse,
+  .enterprise-brand-slider__svg polygon {
+    fill: currentColor;
   }
 
-  .bp-enterprise__viewport::before {
-    left: 0;
-
-    background: linear-gradient(
-      90deg,
-      var(--bp-plum, transparent),
-      transparent
-    );
-
-    opacity: 0.08;
+  .enterprise-brand-slider__svg text {
+    fill: currentColor;
   }
 
-  .bp-enterprise__viewport::after {
-    right: 0;
-
-    background: linear-gradient(
-      270deg,
-      var(--bp-plum, transparent),
-      transparent
-    );
-
-    opacity: 0.08;
+  .enterprise-brand-slider__svg .outline {
+    fill: none;
+    stroke: currentColor;
   }
 
-  .bp-enterprise__track {
-    display: flex;
-    width: max-content;
-
-    animation: bpEnterpriseMarquee 62s linear infinite;
-
-    will-change: transform;
+  /* Slightly larger wordmarks */
+  .enterprise-brand-slider__svg--wide {
+    max-width: 195px;
   }
 
-  .bp-enterprise__track:hover {
-    animation-play-state: paused;
+  .enterprise-brand-slider__svg--small {
+    max-width: 145px;
   }
 
-  @keyframes bpEnterpriseMarquee {
+  @keyframes enterpriseBrandScroll {
     from {
       transform: translate3d(0, 0, 0);
     }
@@ -2753,1176 +2569,443 @@ html.bp-scrolling body{
     }
   }
 
-  /* ---------------------------------------------------------
-     BRAND ITEMS
-     --------------------------------------------------------- */
+  @media (max-width: 700px) {
 
-  .bp-enterprise__brand {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex: 0 0 auto;
-
-    width: clamp(190px, 18vw, 285px);
-    min-height: 155px;
-
-    padding: 30px 34px;
-
-    border-right: 1px solid rgba(113, 73, 103, 0.17);
-
-    color: currentColor;
-
-    background: rgba(255, 255, 255, 0.018);
-
-    transition:
-      background 0.3s ease,
-      color 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  .bp-enterprise__brand::before {
-    content: "";
-    position: absolute;
-    left: 24px;
-    top: 24px;
-
-    width: 5px;
-    height: 5px;
-
-    border-radius: 50%;
-
-    background: var(--bp-mauve);
-    opacity: 0.45;
-
-    transition:
-      transform 0.3s ease,
-      opacity 0.3s ease;
-  }
-
-  .bp-enterprise__brand::after {
-    content: "";
-    position: absolute;
-
-    left: 24px;
-    right: 24px;
-    bottom: 20px;
-
-    height: 1px;
-
-    background:
-      linear-gradient(
-        90deg,
-        transparent,
-        rgba(113, 73, 103, 0.18),
-        transparent
-      );
-  }
-
-  .bp-enterprise__brand:hover {
-    background: rgba(113, 73, 103, 0.045);
-    color: var(--bp-mauve);
-  }
-
-  .bp-enterprise__brand:hover::before {
-    transform: scale(1.8);
-    opacity: 0.9;
-  }
-
-  /* ---------------------------------------------------------
-     SVG LOGOS
-     --------------------------------------------------------- */
-
-  .bp-enterprise__logo {
-    display: block;
-
-    width: 100%;
-    max-width: 190px;
-    height: auto;
-    max-height: 58px;
-
-    color: currentColor;
-
-    fill: currentColor;
-
-    overflow: visible;
-
-    transition:
-      transform 0.35s ease,
-      opacity 0.35s ease;
-  }
-
-  .bp-enterprise__brand:hover .bp-enterprise__logo {
-    transform: scale(1.035);
-  }
-
-  .bp-enterprise__logo path,
-  .bp-enterprise__logo circle,
-  .bp-enterprise__logo rect,
-  .bp-enterprise__logo polygon,
-  .bp-enterprise__logo ellipse {
-    fill: currentColor;
-  }
-
-  .bp-enterprise__logo--stroke path,
-  .bp-enterprise__logo--stroke circle,
-  .bp-enterprise__logo--stroke rect,
-  .bp-enterprise__logo--stroke polygon,
-  .bp-enterprise__logo--stroke ellipse {
-    fill: none;
-    stroke: currentColor;
-  }
-
-  /* Some logos need a wordmark proportion */
-  .bp-enterprise__logo--wordmark {
-    max-width: 200px;
-    max-height: 52px;
-  }
-
-  /* ---------------------------------------------------------
-     LABEL / CAPTION
-     --------------------------------------------------------- */
-
-  .bp-enterprise__caption {
-    position: absolute;
-    left: 25px;
-    top: 22px;
-
-    font-size: 8px;
-    line-height: 1;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-
-    color: currentColor;
-    opacity: 0.34;
-  }
-
-  /* ---------------------------------------------------------
-     FOOTNOTE
-     --------------------------------------------------------- */
-
-  .bp-enterprise__footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 25px;
-
-    margin-top: 23px;
-  }
-
-  .bp-enterprise__footer-text {
-    margin: 0;
-
-    font-size: 11px;
-    line-height: 1.6;
-    letter-spacing: 0.03em;
-
-    color: currentColor;
-    opacity: 0.48;
-  }
-
-  .bp-enterprise__footer-line {
-    flex: 1;
-    height: 1px;
-
-    background:
-      linear-gradient(
-        90deg,
-        rgba(113, 73, 103, 0.18),
-        transparent
-      );
-  }
-
-  /* ---------------------------------------------------------
-     MOBILE
-     --------------------------------------------------------- */
-
-  @media (max-width: 760px) {
-
-    .bp-enterprise {
-      padding: 55px 0 65px;
+    .enterprise-brand-slider {
+      padding: 10px 0;
     }
 
-    .bp-enterprise__container {
-      width: min(100% - 24px, 1480px);
+    .enterprise-brand-slider__item {
+      width: 165px;
+      height: 62px;
+      padding: 8px 22px;
     }
 
-    .bp-enterprise__header {
-      display: block;
-      margin-bottom: 28px;
+    .enterprise-brand-slider__svg {
+      max-width: 135px;
+      max-height: 40px;
     }
 
-    .bp-enterprise__title {
-      font-size: clamp(30px, 9vw, 42px);
+    .enterprise-brand-slider__svg--wide {
+      max-width: 150px;
     }
 
-    .bp-enterprise__intro {
-      font-size: 14px;
-      line-height: 1.65;
-    }
-
-    .bp-enterprise__index {
-      display: none;
-    }
-
-    .bp-enterprise__stage::before {
-      left: 18px;
-    }
-
-    .bp-enterprise__stage::after {
-      right: 18px;
-    }
-
-    .bp-enterprise__viewport {
-      overflow-x: auto;
-      overflow-y: hidden;
-
-      scrollbar-width: none;
-
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-x: contain;
-    }
-
-    .bp-enterprise__viewport::-webkit-scrollbar {
-      display: none;
-    }
-
-    /*
-      On mobile the marquee remains animated, but the viewport
-      is also touch-scrollable.
-    */
-    .bp-enterprise__track {
-      animation-duration: 75s;
-    }
-
-    .bp-enterprise__brand {
-      width: 205px;
-      min-height: 135px;
-
-      padding: 28px;
-    }
-
-    .bp-enterprise__logo {
-      max-width: 155px;
-      max-height: 48px;
-    }
-
-    .bp-enterprise__footer {
-      display: block;
-    }
-
-    .bp-enterprise__footer-line {
-      display: none;
-    }
-
-    .bp-enterprise__footer-text {
-      font-size: 10px;
-      line-height: 1.65;
+    .enterprise-brand-slider__track {
+      animation-duration: 42s;
     }
   }
-
-  /* ---------------------------------------------------------
-     REDUCED MOTION
-     --------------------------------------------------------- */
 
   @media (prefers-reduced-motion: reduce) {
-
-    .bp-enterprise__track {
+    .enterprise-brand-slider__track {
       animation: none;
       transform: none;
-    }
-
-    .bp-enterprise__brand,
-    .bp-enterprise__logo {
-      transition: none;
     }
   }
 </style>
 
 
-<section
-  class="bp-enterprise"
-  id="enterprise-experience"
-  aria-labelledby="bp-enterprise-title"
+<!-- =========================================================
+     INLINE SVG SYMBOL LIBRARY
+     ========================================================= -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="0"
+  height="0"
+  aria-hidden="true"
+  style="position:absolute;width:0;height:0;overflow:hidden;"
+>
+  <defs>
+
+    <!-- AIRBNB -->
+    <symbol id="enterprise-airbnb" viewBox="0 0 512 161">
+      <path d="M108.5 15.4c-18.7 0-34.8 12.1-43.5 31.2C55.8 68.2 46.1 91.8 38.2 111c-5.8 14.1-8.1 25.5-6.3 34.1 2.3 11.3 10.9 18.3 22.1 19.3 13.1 1.2 24.4-7.4 35.5-23.2l19-27 19 27c11.1 15.8 22.4 24.4 35.5 23.2 11.2-1 19.8-8 22.1-19.3 1.8-8.6-.5-20-6.3-34.1-7.9-19.2-17.6-42.8-26.8-64.4-8.7-19.1-24.8-31.2-43.5-31.2Zm0 23.4c8.9 0 17.5 7.4 23.7 20.9 8.2 17.9 17.6 40.9 25.4 59.6 4.7 11.3 6.7 18.9 5.8 23.1-.7 3.4-2.7 5.1-6 5.4-6.4.6-13.9-6.1-22.8-18.7l-26.1-37.2-26.1 37.2c-8.9 12.6-16.4 19.3-22.8 18.7-3.3-.3-5.3-2-6-5.4-.9-4.2 1.1-11.8 5.8-23.1 7.8-18.7 17.2-41.7 25.4-59.6 6.2-13.5 14.8-20.9 23.7-20.9Z"/>
+      <text x="195" y="108"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="67"
+        font-weight="600"
+        letter-spacing="-3">airbnb</text>
+    </symbol>
+
+
+    <!-- FITBIT -->
+    <symbol id="enterprise-fitbit" viewBox="0 0 640 180">
+
+      <g>
+        <rect x="18" y="67" width="22" height="22" rx="5"/>
+        <rect x="48" y="58" width="22" height="22" rx="5"/>
+        <rect x="78" y="67" width="22" height="22" rx="5"/>
+
+        <rect x="108" y="49" width="22" height="22" rx="5"/>
+        <rect x="138" y="40" width="22" height="22" rx="5"/>
+        <rect x="168" y="49" width="22" height="22" rx="5"/>
+
+        <rect x="108" y="85" width="22" height="22" rx="5"/>
+        <rect x="138" y="94" width="22" height="22" rx="5"/>
+        <rect x="168" y="85" width="22" height="22" rx="5"/>
+      </g>
+
+      <text x="225" y="105"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="67"
+        font-weight="600"
+        letter-spacing="-2">fitbit</text>
+
+    </symbol>
+
+
+    <!-- VIMEO -->
+    <symbol id="enterprise-vimeo" viewBox="0 0 640 180">
+
+      <path d="
+        M40 47
+        C63 30 91 28 108 39
+        C121 47 123 62 118 77
+        C110 101 87 130 65 145
+        C50 155 38 151 32 136
+        C25 119 20 93 14 73
+        C10 59 5 55 0 60
+        L0 45
+        C15 37 29 38 40 47
+        Z
+      "/>
+
+      <text x="130" y="116"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="78"
+        font-weight="700"
+        letter-spacing="-4">vimeo</text>
+
+    </symbol>
+
+
+    <!-- PIZZA HUT -->
+    <symbol id="enterprise-pizzahut" viewBox="0 0 700 180">
+
+      <path d="
+        M35 54
+        C73 25 119 14 163 18
+        C207 22 245 38 277 66
+        C239 65 208 75 183 92
+        C158 109 140 132 128 159
+        C114 134 94 112 70 95
+        C53 83 41 70 35 54
+        Z
+      "/>
+
+      <text x="300" y="83"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="42"
+        font-weight="700">PIZZA</text>
+
+      <text x="300" y="130"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="42"
+        font-weight="700">HUT</text>
+
+    </symbol>
+
+
+    <!-- KATE SPADE -->
+    <symbol id="enterprise-katespade" viewBox="0 0 700 180">
+
+      <path d="
+        M58 22
+        L71 46
+        L98 51
+        L78 71
+        L82 98
+        L58 86
+        L34 98
+        L38 71
+        L18 51
+        L45 46
+        Z
+      "/>
+
+      <text x="125" y="100"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="51"
+        font-weight="600"
+        letter-spacing="0">kate spade</text>
+
+      <text x="128" y="130"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="17"
+        letter-spacing="5">NEW YORK</text>
+
+    </symbol>
+
+
+    <!-- RENT THE RUNWAY -->
+    <symbol id="enterprise-rtr" viewBox="0 0 760 180">
+
+      <text x="25" y="77"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="39"
+        font-weight="700"
+        letter-spacing="1">RENT THE</text>
+
+      <text x="25" y="126"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="39"
+        font-weight="700"
+        letter-spacing="1">RUNWAY</text>
+
+    </symbol>
+
+
+    <!-- MEMBEAN -->
+    <symbol id="enterprise-membean" viewBox="0 0 700 180">
+
+      <path d="
+        M30 125
+        V78
+        C30 53 49 34 74 34
+        C92 34 108 44 116 59
+        C124 44 140 34 158 34
+        C183 34 202 53 202 78
+        V125
+        H174
+        V80
+        C174 70 167 63 158 63
+        C148 63 141 70 141 80
+        V125
+        H113
+        V80
+        C113 70 106 63 97 63
+        C87 63 80 70 80 80
+        V125
+        Z
+      "/>
+
+      <text x="230" y="117"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="63"
+        font-weight="700"
+        letter-spacing="-3">membean</text>
+
+    </symbol>
+
+
+    <!-- GIVEWP -->
+    <symbol id="enterprise-givewp" viewBox="0 0 760 180">
+
+      <path d="
+        M62 77
+        C62 53 81 35 105 35
+        C125 35 140 47 148 64
+        C156 47 171 35 191 35
+        C215 35 234 53 234 77
+        C234 104 210 125 148 146
+        C86 125 62 104 62 77
+        Z
+      "/>
+
+      <text x="270" y="114"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="67"
+        font-weight="700"
+        letter-spacing="-3">GiveWP</text>
+
+    </symbol>
+
+
+    <!-- GAMECRAZY -->
+    <symbol id="enterprise-gamecrazy" viewBox="0 0 760 180">
+
+      <text x="25" y="115"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="67"
+        font-weight="900"
+        letter-spacing="-4">GameCrazy</text>
+
+    </symbol>
+
+  </defs>
+</svg>
+
+
+<!-- =========================================================
+     SINGLE RESPONSIVE ROW
+     ========================================================= -->
+
+<div
+  class="enterprise-brand-slider"
+  aria-label="Selected enterprise brands"
 >
 
-  <!-- =======================================================
-       SVG SYMBOL LIBRARY
+  <div class="enterprise-brand-slider__track">
 
-       All logos are inline SVG.
-       No <img> tags.
-       No external image requests.
-       currentColor allows theme inheritance.
-       ======================================================= -->
+    <!-- FIRST SET -->
 
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="0"
-    height="0"
-    aria-hidden="true"
-    style="
-      position:absolute;
-      width:0;
-      height:0;
-      overflow:hidden;
-    "
-  >
-
-    <defs>
-
-      <!-- ===================================================
-           AIRBNB
-           =================================================== -->
-
-      <symbol
-        id="bp-logo-airbnb"
-        viewBox="0 0 500 500"
+    <div class="enterprise-brand-slider__item">
+      <svg
+        class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+        viewBox="0 0 760 180"
+        role="img"
+        aria-label="GiveWP"
       >
-        <path
-          d="M250 38
-             C206 38 170 70 143 111
-             C111 159 85 220 64 275
-             C49 315 43 350 49 379
-             C57 420 89 447 130 452
-             C178 458 217 426 250 378
-             C283 426 322 458 370 452
-             C411 447 443 420 451 379
-             C457 350 451 315 436 275
-             C415 220 389 159 357 111
-             C330 70 294 38 250 38
-             Z
+        <use href="#enterprise-givewp"></use>
+      </svg>
+    </div>
 
-             M250 100
-             C275 100 300 124 321 157
-             C348 199 372 255 390 306
-             C400 335 404 355 400 369
-             C396 385 384 394 369 396
-             C340 399 312 372 286 332
-             L250 276
-             L214 332
-             C188 372 160 399 131 396
-             C116 394 104 385 100 369
-             C96 355 100 335 110 306
-             C128 255 152 199 179 157
-             C200 124 225 100 250 100
-             Z
-
-             M250 197
-             L213 260
-             L250 318
-             L287 260
-             Z"
-        />
-      </symbol>
-
-
-      <!-- ===================================================
-           FITBIT
-           Simplified official-style monochrome mark
-           =================================================== -->
-
-      <symbol
-        id="bp-logo-fitbit"
-        viewBox="0 0 640 220"
-      >
-        <g>
-          <rect x="44" y="84" width="42" height="42" rx="10"/>
-          <rect x="100" y="70" width="42" height="42" rx="10"/>
-          <rect x="156" y="84" width="42" height="42" rx="10"/>
-
-          <rect x="212" y="56" width="42" height="42" rx="10"/>
-          <rect x="268" y="42" width="42" height="42" rx="10"/>
-          <rect x="324" y="56" width="42" height="42" rx="10"/>
-
-          <rect x="212" y="112" width="42" height="42" rx="10"/>
-          <rect x="268" y="126" width="42" height="42" rx="10"/>
-          <rect x="324" y="112" width="42" height="42" rx="10"/>
-        </g>
-
-        <path
-          d="
-            M410 76
-            H436
-            C456 76 470 88 470 108
-            C470 128 456 142 436 142
-            H410
-            Z
-
-            M436 96
-            H430
-            V122
-            H436
-            C445 122 450 117 450 109
-            C450 101 445 96 436 96
-            Z
-
-            M494 76
-            H516
-            V142
-            H494
-            Z
-
-            M536 76
-            H596
-            V96
-            H558
-            V101
-            H590
-            V119
-            H558
-            V142
-            H536
-            Z
-          "
-        />
-      </symbol>
-
-
-      <!-- ===================================================
-           VIMEO
-           =================================================== -->
-
-      <symbol
-        id="bp-logo-vimeo"
+    <div class="enterprise-brand-slider__item">
+      <svg
+        class="enterprise-brand-slider__svg"
         viewBox="0 0 640 180"
+        role="img"
+        aria-label="Fitbit"
       >
-        <path
-          d="
-            M44 55
-            C70 32 104 24 134 30
-            C153 34 165 47 166 65
-            C168 86 151 111 129 136
-            C112 155 96 169 81 170
-            C63 171 51 154 44 134
-            C37 113 31 88 24 72
-            C18 58 11 55 4 60
-            L0 48
-            C17 38 31 35 44 55
-            Z
+        <use href="#enterprise-fitbit"></use>
+      </svg>
+    </div>
 
-            M84 63
-            C95 58 103 61 105 70
-            C108 82 102 96 94 106
-            C88 113 82 117 77 116
-            C71 115 68 107 65 97
-            L56 67
-            C53 59 48 56 43 59
-            C55 48 68 44 76 49
-            C82 52 83 57 84 63
-            Z
-          "
-          transform="translate(28 0) scale(0.82)"
-        />
-
-        <text
-          x="175"
-          y="120"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="78"
-          font-weight="700"
-          letter-spacing="-3"
-          fill="currentColor"
-        >
-          vimeo
-        </text>
-      </symbol>
-
-
-      <!-- ===================================================
-           PIZZA HUT
-           =================================================== -->
-
-      <symbol
-        id="bp-logo-pizzahut"
-        viewBox="0 0 640 240"
+    <div class="enterprise-brand-slider__item">
+      <svg
+        class="enterprise-brand-slider__svg"
+        viewBox="0 0 512 161"
+        role="img"
+        aria-label="Airbnb"
       >
-        <path
-          d="
-            M65 72
-            C105 40 151 25 199 25
-            C250 25 299 42 340 75
-            C306 76 276 86 252 101
-            C228 116 209 137 195 162
-            C181 139 161 119 138 104
-            C116 89 91 79 65 72
-            Z
-          "
-        />
+        <use href="#enterprise-airbnb"></use>
+      </svg>
+    </div>
 
-        <path
-          d="
-            M76 91
-            C112 103 142 125 166 154
-            C179 169 190 186 198 203
-            C205 187 215 168 230 151
-            C255 121 286 99 322 87
-            C293 82 263 87 236 101
-            C218 110 204 123 193 140
-            C181 123 166 110 148 101
-            C126 90 101 86 76 91
-            Z
-          "
-        />
-
-        <text
-          x="365"
-          y="118"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="54"
-          font-weight="700"
-          letter-spacing="-2"
-          fill="currentColor"
-        >
-          PIZZA
-        </text>
-
-        <text
-          x="365"
-          y="174"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="54"
-          font-weight="700"
-          letter-spacing="-2"
-          fill="currentColor"
-        >
-          HUT
-        </text>
-      </symbol>
-
-
-      <!-- ===================================================
-           KATE SPADE
-           =================================================== -->
-
-      <symbol
-        id="bp-logo-katespade"
+    <div class="enterprise-brand-slider__item">
+      <svg
+        class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
         viewBox="0 0 700 180"
+        role="img"
+        aria-label="Kate Spade New York"
       >
-        <path
-          d="
-            M78 24
-            L93 49
-            L122 54
-            L101 75
-            L106 105
-            L78 92
-            L50 105
-            L55 75
-            L34 54
-            L63 49
-            Z
-          "
-        />
+        <use href="#enterprise-katespade"></use>
+      </svg>
+    </div>
 
-        <text
-          x="145"
-          y="87"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="53"
-          font-weight="600"
-          letter-spacing="1"
-          fill="currentColor"
-        >
-          kate spade
-        </text>
+    <div class="enterprise-brand-slider__item">
+      <svg
+        class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+        viewBox="0 0 640 180"
+        role="img"
+        aria-label="Vimeo"
+      >
+        <use href="#enterprise-vimeo"></use>
+      </svg>
+    </div>
 
-        <text
-          x="147"
-          y="125"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="22"
-          font-weight="400"
-          letter-spacing="5"
-          fill="currentColor"
-        >
-          NEW YORK
-        </text>
-      </symbol>
+    <div class="enterprise-brand-slider__item">
+      <svg
+        class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+        viewBox="0 0 700 180"
+        role="img"
+        aria-label="Pizza Hut"
+      >
+        <use href="#enterprise-pizzahut"></use>
+      </svg>
+    </div>
 
-
-      <!-- ===================================================
-           RENT THE RUNWAY
-           =================================================== -->
-
-      <symbol
-        id="bp-logo-rtr"
+    <div class="enterprise-brand-slider__item">
+      <svg
+        class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
         viewBox="0 0 760 180"
+        role="img"
+        aria-label="Rent the Runway"
       >
-        <circle
-          cx="82"
-          cy="90"
-          r="57"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="8"
-        />
+        <use href="#enterprise-rtr"></use>
+      </svg>
+    </div>
 
-        <path
-          d="
-            M55 65
-            H109
-            C128 65 140 75 140 91
-            C140 104 132 113 119 117
-            L144 144
-            H119
-            L96 119
-            H79
-            V144
-            H55
-            Z
-
-            M79 84
-            V101
-            H105
-            C112 101 116 98 116 92
-            C116 87 112 84 105 84
-            Z
-          "
-          fill="currentColor"
-        />
-
-        <text
-          x="175"
-          y="82"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="48"
-          font-weight="700"
-          letter-spacing="-1"
-          fill="currentColor"
-        >
-          RENT THE
-        </text>
-
-        <text
-          x="175"
-          y="132"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="48"
-          font-weight="700"
-          letter-spacing="-1"
-          fill="currentColor"
-        >
-          RUNWAY
-        </text>
-      </symbol>
-
-
-      <!-- ===================================================
-           MEMBEAN
-           =================================================== -->
-
-      <symbol
-        id="bp-logo-membean"
-        viewBox="0 0 700 200"
+    <div class="enterprise-brand-slider__item">
+      <svg
+        class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+        viewBox="0 0 700 180"
+        role="img"
+        aria-label="Membean"
       >
-        <path
-          d="
-            M45 118
-            C45 82 73 55 109 55
-            C128 55 145 63 157 76
-            C169 63 186 55 205 55
-            C241 55 269 82 269 118
-            V151
-            H238
-            V119
-            C238 99 226 86 208 86
-            C189 86 174 100 174 119
-            V151
-            H143
-            V119
-            C143 100 128 86 110 86
-            C91 86 76 100 76 119
-            V151
-            H45
-            Z
-          "
-        />
+        <use href="#enterprise-membean"></use>
+      </svg>
+    </div>
 
-        <text
-          x="302"
-          y="137"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="76"
-          font-weight="700"
-          letter-spacing="-3"
-          fill="currentColor"
-        >
-          membean
-        </text>
-      </symbol>
-
-
-      <!-- ===================================================
-           GAMECRAZY
-           =================================================== -->
-
-      <symbol
-        id="bp-logo-gamecrazy"
+    <div class="enterprise-brand-slider__item">
+      <svg
+        class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
         viewBox="0 0 760 180"
+        role="img"
+        aria-label="GameCrazy"
       >
-        <text
-          x="25"
-          y="116"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="74"
-          font-weight="900"
-          letter-spacing="-4"
-          fill="currentColor"
-        >
-          GameCrazy
-        </text>
-
-        <path
-          d="
-            M35 135
-            H690
-          "
-          stroke="currentColor"
-          stroke-width="8"
-          stroke-linecap="round"
-        />
-      </symbol>
-
-
-      <!-- ===================================================
-           GIVEWP
-           =================================================== -->
-
-      <symbol
-        id="bp-logo-givewp"
-        viewBox="0 0 760 180"
-      >
-        <path
-          d="
-            M72 91
-            C72 64 92 44 119 44
-            C142 44 158 58 167 77
-            C176 58 192 44 215 44
-            C242 44 262 64 262 91
-            C262 122 233 144 167 166
-            C101 144 72 122 72 91
-            Z
-          "
-        />
-
-        <text
-          x="300"
-          y="116"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="70"
-          font-weight="700"
-          letter-spacing="-3"
-          fill="currentColor"
-        >
-          GiveWP
-        </text>
-      </symbol>
-
-    </defs>
-  </svg>
-
-
-  <!-- =======================================================
-       CONTENT
-       ======================================================= -->
-
-  <div class="bp-enterprise__container">
-
-    <header class="bp-enterprise__header">
-
-      <div>
-
-        <div class="bp-enterprise__eyebrow">
-          Enterprise Experience
-        </div>
-
-        <h2
-          class="bp-enterprise__title"
-          id="bp-enterprise-title"
-        >
-          Platforms. Brands. Scale.
-        </h2>
-
-        <p class="bp-enterprise__intro">
-          Technical support, cloud infrastructure, e-commerce,
-          hosting, systems engineering, database operations,
-          and platform optimization across SMB and enterprise
-          environments.
-        </p>
-
-      </div>
-
-      <div
-        class="bp-enterprise__index"
-        aria-hidden="true"
-      >
-        01<br>
-        / 08
-      </div>
-
-    </header>
-
-
-    <!-- =====================================================
-         LOGO MARQUEE
-         ===================================================== -->
-
-    <div class="bp-enterprise__stage">
-
-      <div class="bp-enterprise__viewport">
-
-        <div class="bp-enterprise__track">
-
-
-          <!-- =================================================
-               SET 1
-               ================================================= -->
-
-          <div class="bp-enterprise__brand">
-
-            <span class="bp-enterprise__caption">
-              Enterprise Platform
-            </span>
-
-            <svg
-              class="bp-enterprise__logo"
-              viewBox="0 0 760 180"
-              role="img"
-              aria-label="GiveWP"
-            >
-              <use href="#bp-logo-givewp"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand">
-
-            <span class="bp-enterprise__caption">
-              Health Technology
-            </span>
-
-            <svg
-              class="bp-enterprise__logo"
-              viewBox="0 0 640 220"
-              role="img"
-              aria-label="Fitbit"
-            >
-              <use href="#bp-logo-fitbit"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand">
-
-            <span class="bp-enterprise__caption">
-              Global Hospitality
-            </span>
-
-            <svg
-              class="bp-enterprise__logo"
-              viewBox="0 0 500 500"
-              role="img"
-              aria-label="Airbnb"
-            >
-              <use href="#bp-logo-airbnb"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand">
-
-            <span class="bp-enterprise__caption">
-              Luxury Fashion
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 700 180"
-              role="img"
-              aria-label="Kate Spade New York"
-            >
-              <use href="#bp-logo-katespade"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand">
-
-            <span class="bp-enterprise__caption">
-              Video Platform
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 640 180"
-              role="img"
-              aria-label="Vimeo"
-            >
-              <use href="#bp-logo-vimeo"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand">
-
-            <span class="bp-enterprise__caption">
-              Global Hospitality
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 640 240"
-              role="img"
-              aria-label="Pizza Hut"
-            >
-              <use href="#bp-logo-pizzahut"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand">
-
-            <span class="bp-enterprise__caption">
-              Fashion Technology
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 760 180"
-              role="img"
-              aria-label="Rent the Runway"
-            >
-              <use href="#bp-logo-rtr"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand">
-
-            <span class="bp-enterprise__caption">
-              Education Technology
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 700 200"
-              role="img"
-              aria-label="Membean"
-            >
-              <use href="#bp-logo-membean"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand">
-
-            <span class="bp-enterprise__caption">
-              Gaming Retail
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 760 180"
-              role="img"
-              aria-label="GameCrazy"
-            >
-              <use href="#bp-logo-gamecrazy"></use>
-            </svg>
-
-          </div>
-
-
-          <!-- =================================================
-               SET 2
-               Exact duplicate for seamless marquee looping.
-               ================================================= -->
-
-          <div class="bp-enterprise__brand" aria-hidden="true">
-
-            <span class="bp-enterprise__caption">
-              Enterprise Platform
-            </span>
-
-            <svg
-              class="bp-enterprise__logo"
-              viewBox="0 0 760 180"
-            >
-              <use href="#bp-logo-givewp"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand" aria-hidden="true">
-
-            <span class="bp-enterprise__caption">
-              Health Technology
-            </span>
-
-            <svg
-              class="bp-enterprise__logo"
-              viewBox="0 0 640 220"
-            >
-              <use href="#bp-logo-fitbit"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand" aria-hidden="true">
-
-            <span class="bp-enterprise__caption">
-              Global Hospitality
-            </span>
-
-            <svg
-              class="bp-enterprise__logo"
-              viewBox="0 0 500 500"
-            >
-              <use href="#bp-logo-airbnb"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand" aria-hidden="true">
-
-            <span class="bp-enterprise__caption">
-              Luxury Fashion
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 700 180"
-            >
-              <use href="#bp-logo-katespade"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand" aria-hidden="true">
-
-            <span class="bp-enterprise__caption">
-              Video Platform
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 640 180"
-            >
-              <use href="#bp-logo-vimeo"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand" aria-hidden="true">
-
-            <span class="bp-enterprise__caption">
-              Global Hospitality
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 640 240"
-            >
-              <use href="#bp-logo-pizzahut"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand" aria-hidden="true">
-
-            <span class="bp-enterprise__caption">
-              Fashion Technology
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 760 180"
-            >
-              <use href="#bp-logo-rtr"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand" aria-hidden="true">
-
-            <span class="bp-enterprise__caption">
-              Education Technology
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 700 200"
-            >
-              <use href="#bp-logo-membean"></use>
-            </svg>
-
-          </div>
-
-
-          <div class="bp-enterprise__brand" aria-hidden="true">
-
-            <span class="bp-enterprise__caption">
-              Gaming Retail
-            </span>
-
-            <svg
-              class="bp-enterprise__logo bp-enterprise__logo--wordmark"
-              viewBox="0 0 760 180"
-            >
-              <use href="#bp-logo-gamecrazy"></use>
-            </svg>
-
-          </div>
-
-
-        </div>
-      </div>
+        <use href="#enterprise-gamecrazy"></use>
+      </svg>
     </div>
 
 
-    <!-- =====================================================
-         FOOTER
-         ===================================================== -->
+    <!-- DUPLICATE SET FOR SEAMLESS LOOP -->
 
-    <div class="bp-enterprise__footer">
+    <div class="enterprise-brand-slider__item" aria-hidden="true">
+      <svg class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+           viewBox="0 0 760 180">
+        <use href="#enterprise-givewp"></use>
+      </svg>
+    </div>
 
-      <p class="bp-enterprise__footer-text">
-        Selected enterprise and commercial platforms supported
-        across infrastructure, e-commerce, cloud, hosting,
-        databases, and customer-facing systems.
-      </p>
+    <div class="enterprise-brand-slider__item" aria-hidden="true">
+      <svg class="enterprise-brand-slider__svg"
+           viewBox="0 0 640 180">
+        <use href="#enterprise-fitbit"></use>
+      </svg>
+    </div>
 
-      <div
-        class="bp-enterprise__footer-line"
-        aria-hidden="true"
-      ></div>
+    <div class="enterprise-brand-slider__item" aria-hidden="true">
+      <svg class="enterprise-brand-slider__svg"
+           viewBox="0 0 512 161">
+        <use href="#enterprise-airbnb"></use>
+      </svg>
+    </div>
 
-      <p class="bp-enterprise__footer-text">
-        SYSTEMS · CLOUD · COMMERCE
-      </p>
+    <div class="enterprise-brand-slider__item" aria-hidden="true">
+      <svg class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+           viewBox="0 0 700 180">
+        <use href="#enterprise-katespade"></use>
+      </svg>
+    </div>
 
+    <div class="enterprise-brand-slider__item" aria-hidden="true">
+      <svg class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+           viewBox="0 0 640 180">
+        <use href="#enterprise-vimeo"></use>
+      </svg>
+    </div>
+
+    <div class="enterprise-brand-slider__item" aria-hidden="true">
+      <svg class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+           viewBox="0 0 700 180">
+        <use href="#enterprise-pizzahut"></use>
+      </svg>
+    </div>
+
+    <div class="enterprise-brand-slider__item" aria-hidden="true">
+      <svg class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+           viewBox="0 0 760 180">
+        <use href="#enterprise-rtr"></use>
+      </svg>
+    </div>
+
+    <div class="enterprise-brand-slider__item" aria-hidden="true">
+      <svg class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+           viewBox="0 0 700 180">
+        <use href="#enterprise-membean"></use>
+      </svg>
+    </div>
+
+    <div class="enterprise-brand-slider__item" aria-hidden="true">
+      <svg class="enterprise-brand-slider__svg enterprise-brand-slider__svg--wide"
+           viewBox="0 0 760 180">
+        <use href="#enterprise-gamecrazy"></use>
+      </svg>
     </div>
 
   </div>
-</section>
+</div>
         <p>Combines technical sales, consultative solution development, cloud infrastructure, e-commerce, CRM, business intelligence, and customer-facing experience to identify customer objectives, stakeholders, challenges, and opportunities; translate complex business requirements into end-to-end technology solutions; support revenue growth, account expansion, pipeline health, opportunity qualification, solution positioning, proposal development, and revenue forecasting; communicate technical concepts and measurable business value to customers and stakeholders; and deliver customer-focused solutions across the lifecycle. Brings a strong interest in the meetings, hospitality, entertainment, and live events industry, including digital engagement and virtual and hybrid experiences, with a customer-first approach to technology, audience engagement, operational excellence, and measurable ROI.</p>
       </section>
       
