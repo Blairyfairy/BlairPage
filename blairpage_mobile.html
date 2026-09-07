@@ -8751,15 +8751,10 @@ body.bp-mobile-page #mobileContent .bp-percona-direct-tight .job-click h4 {
       });
     });
 
-    /* Courses area fit for Lansing, MongoDB, Cloud U */
+    /* Courses area: size logos only — do not restructure layout */
     Array.prototype.forEach.call(root.querySelectorAll('.course-grid .course-group, .courses-card .course-group, .course-grid .job-layout, .courses-card .job-layout'), function (group) {
-      group.style.setProperty('display', 'grid', 'important');
-      group.style.setProperty('grid-template-columns', '44px minmax(0, 1fr)', 'important');
-      group.style.setProperty('column-gap', '0.68rem', 'important');
-      group.style.setProperty('align-items', 'start', 'important');
       group.style.setProperty('width', '100%', 'important');
       group.style.setProperty('max-width', '100%', 'important');
-      group.style.setProperty('overflow', 'visible', 'important');
     });
 
     Array.prototype.forEach.call(root.querySelectorAll('img'), function (img) {
@@ -11928,303 +11923,15 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
      Restores LCC logo in Technical Training if missing.
      Never moves course logos into volunteer.
 ========================================================= -->
+<!-- COURSES RESTORED — non-destructive logo size + white titles only -->
 <style id="bp-courses-three-logo-parity">
-  body.bp-mobile-page #mobileContent .course-grid .course-group,
-  body.bp-mobile-page #mobileContent .courses-card .course-group,
-  body.bp-mobile-page #mobileContent .course-grid .job-layout.bp-course-logo-row,
-  body.bp-mobile-page #mobileContent .courses-card .job-layout.bp-course-logo-row {
-    display: grid !important;
-    grid-template-columns: 46px minmax(0, 1fr) !important;
-    column-gap: 0.72rem !important;
-    row-gap: 0.35rem !important;
-    align-items: start !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  body.bp-mobile-page #mobileContent .course-grid .course-group > .job-logo,
-  body.bp-mobile-page #mobileContent .courses-card .course-group > .job-logo,
-  body.bp-mobile-page #mobileContent .course-grid .bp-course-logo-row > .job-logo,
-  body.bp-mobile-page #mobileContent .courses-card .bp-course-logo-row > .job-logo {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-    width: 46px !important;
-    min-width: 46px !important;
-    max-width: 46px !important;
-    height: 46px !important;
-    flex: 0 0 46px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    display: flex !important;
-    align-items: flex-start !important;
-    justify-content: flex-start !important;
-    align-self: start !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  body.bp-mobile-page #mobileContent .course-grid .course-group > .job-logo img,
-  body.bp-mobile-page #mobileContent .courses-card .course-group > .job-logo img,
-  body.bp-mobile-page #mobileContent .course-grid img[alt*="Lansing" i],
-  body.bp-mobile-page #mobileContent .courses-card img[alt*="Lansing" i],
-  body.bp-mobile-page #mobileContent .course-grid img[alt*="Community College" i],
-  body.bp-mobile-page #mobileContent .course-grid img[alt*="MongoDB" i],
-  body.bp-mobile-page #mobileContent .courses-card img[alt*="MongoDB" i],
-  body.bp-mobile-page #mobileContent .course-grid img[alt*="Cloud U" i],
-  body.bp-mobile-page #mobileContent .course-grid img[alt*="Rackspace Cloud" i],
-  body.bp-mobile-page #mobileContent .courses-card img[alt*="Cloud U" i],
-  body.bp-mobile-page #mobileContent .courses-card img[alt*="Rackspace Cloud" i],
-  body.bp-mobile-page #mobileContent .course-grid img[src*="lcclogo" i],
-  body.bp-mobile-page #mobileContent .courses-card img[src*="lcclogo" i],
-  body.bp-mobile-page #mobileContent .course-grid img[src*="mongo1" i],
-  body.bp-mobile-page #mobileContent .courses-card img[src*="mongo1" i] {
-    width: 46px !important;
-    height: 46px !important;
-    min-width: 46px !important;
-    min-height: 46px !important;
-    max-width: 46px !important;
-    max-height: 46px !important;
-    display: block !important;
-    object-fit: contain !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    clip-path: inset(0 round 12px) !important;
-    -webkit-clip-path: inset(0 round 12px) !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  body.bp-mobile-page #mobileContent .course-grid .course-group > .course-header,
-  body.bp-mobile-page #mobileContent .courses-card .course-group > .course-header,
-  body.bp-mobile-page #mobileContent .course-grid .course-group > .job-details,
-  body.bp-mobile-page #mobileContent .courses-card .course-group > .job-details,
-  body.bp-mobile-page #mobileContent .course-grid .course-group > .course-title,
-  body.bp-mobile-page #mobileContent .courses-card .course-group > .course-title {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    text-align: left !important;
-    min-width: 0 !important;
-  }
-
-  body.bp-mobile-page #mobileContent .course-grid .course-group > ul,
-  body.bp-mobile-page #mobileContent .courses-card .course-group > ul {
-    grid-column: 1 / -1 !important;
-    grid-row: 2 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    text-align: left !important;
-    margin: 0.2rem 0 0 0 !important;
-  }
+  /* Intentionally minimal: earlier aggressive grid rewrite disabled */
 </style>
-
 <script id="bp-courses-three-logo-parity-script">
 (function () {
   "use strict";
-
-  function lower(s) {
-    return (s || "").toLowerCase();
-  }
-
-  function setImp(el, prop, val) {
-    if (el && el.style) el.style.setProperty(prop, val, "important");
-  }
-
-  function sizeLogo(img, wrap) {
-    ["width", "height", "min-width", "min-height", "max-width", "max-height"].forEach(function (p) {
-      setImp(img, p, "46px");
-    });
-    setImp(img, "object-fit", "contain");
-    setImp(img, "border-radius", "12px");
-    setImp(img, "display", "block");
-    setImp(img, "margin", "0");
-    setImp(img, "padding", "0");
-    if (wrap) {
-      ["width", "height", "min-width", "min-height", "max-width", "max-height"].forEach(function (p) {
-        setImp(wrap, p, "46px");
-      });
-      setImp(wrap, "flex", "0 0 46px");
-      setImp(wrap, "margin", "0");
-      setImp(wrap, "padding", "0");
-      setImp(wrap, "display", "flex");
-      setImp(wrap, "align-items", "flex-start");
-      setImp(wrap, "justify-content", "flex-start");
-    }
-  }
-
-  function findCoursesRoot(root) {
-    var grids = root.querySelectorAll(".course-grid, .courses-card");
-    if (grids.length) return grids;
-    // Fallback: section under "Technical Training" / "Courses"
-    var out = [];
-    Array.prototype.forEach.call(root.querySelectorAll("h2, h3"), function (h) {
-      var t = lower(h.textContent).trim();
-      if (t === "technical training" || t === "courses") {
-        var sec = h.closest("section, .section, div") || h.parentElement;
-        if (sec) out.push(sec);
-      }
-    });
-    return out;
-  }
-
-  function classifyGroup(group) {
-    var t = lower(group.textContent);
-    var img = group.querySelector("img");
-    var alt = lower(img && img.getAttribute("alt"));
-    var src = lower(img && img.getAttribute("src"));
-    if (
-      t.indexOf("lansing") !== -1 ||
-      t.indexOf("community college") !== -1 ||
-      alt.indexOf("lansing") !== -1 ||
-      src.indexOf("lcclogo") !== -1
-    ) {
-      return "lansing";
-    }
-    if (t.indexOf("mongodb") !== -1 || alt.indexOf("mongodb") !== -1 || src.indexOf("mongo") !== -1) {
-      return "mongo";
-    }
-    if (
-      t.indexOf("cloud u") !== -1 ||
-      t.indexOf("rackspace cloud") !== -1 ||
-      t.indexOf("cloud university") !== -1 ||
-      alt.indexOf("cloud") !== -1 ||
-      src.indexOf("cloud") !== -1
-    ) {
-      return "cloudu";
-    }
-    return null;
-  }
-
-  function findLccSrc(root) {
-    var imgs = root.querySelectorAll("img");
-    for (var i = 0; i < imgs.length; i++) {
-      var src = imgs[i].getAttribute("src") || "";
-      var alt = lower(imgs[i].getAttribute("alt"));
-      if (lower(src).indexOf("lcclogo") !== -1 || alt.indexOf("lansing") !== -1) {
-        return src;
-      }
-    }
-    // Common relative paths used by the portfolio
-    return "lcclogo.jpg";
-  }
-
-  function ensureGroupLogo(group, kind, lccSrc) {
-    var img = group.querySelector("img");
-    var wrap = group.querySelector(".job-logo");
-
-    if (!img && kind === "lansing") {
-      wrap = document.createElement("div");
-      wrap.className = "job-logo";
-      img = document.createElement("img");
-      img.setAttribute("alt", "Lansing Community College");
-      img.setAttribute("src", lccSrc || "lcclogo.jpg");
-      wrap.appendChild(img);
-      group.insertBefore(wrap, group.firstChild);
-    } else if (img && !wrap) {
-      wrap = document.createElement("div");
-      wrap.className = "job-logo";
-      img.parentNode.insertBefore(wrap, img);
-      wrap.appendChild(img);
-    }
-
-    if (!img) return;
-
-    // Keep LCC logo only inside courses — if somehow under volunteer, move back is not needed;
-    // volunteer cleaner handles volunteer-side duplicates only.
-    if (kind === "lansing" && img.closest(".volunteer-card, .bp-fused-volunteer")) {
-      // Do not keep LCC inside volunteer; courses restore below owns the canonical one.
-      return;
-    }
-
-    sizeLogo(img, wrap || img.closest(".job-logo"));
-
-    // Place logo as first child of the group for consistent grid column 1
-    wrap = img.closest(".job-logo") || wrap;
-    if (wrap && wrap.parentNode === group && group.firstElementChild !== wrap) {
-      group.insertBefore(wrap, group.firstElementChild);
-    }
-
-    group.classList.add("bp-course-logo-row");
-    setImp(group, "display", "grid");
-    setImp(group, "grid-template-columns", "46px minmax(0, 1fr)");
-    setImp(group, "column-gap", "0.72rem");
-    setImp(group, "align-items", "start");
-  }
-
-  function run() {
-    var root = document.getElementById("mobileContent") || document;
-    var lccSrc = findLccSrc(root);
-    var areas = findCoursesRoot(root);
-
-    Array.prototype.forEach.call(areas, function (area) {
-      var groups = area.querySelectorAll(".course-group, .job-layout");
-      if (!groups.length) {
-        // treat direct children that look like school blocks
-        groups = area.querySelectorAll(":scope > div, :scope > article");
-      }
-      Array.prototype.forEach.call(groups, function (group) {
-        var kind = classifyGroup(group);
-        if (!kind) return;
-        ensureGroupLogo(group, kind, lccSrc);
-      });
-    });
-
-    // Explicit pass: any course-grid image for the three schools
-    Array.prototype.forEach.call(
-      root.querySelectorAll(".course-grid img, .courses-card img"),
-      function (img) {
-        var hay = lower((img.getAttribute("alt") || "") + " " + (img.getAttribute("src") || ""));
-        if (
-          hay.indexOf("lansing") !== -1 ||
-          hay.indexOf("community college") !== -1 ||
-          hay.indexOf("lcclogo") !== -1 ||
-          hay.indexOf("mongo") !== -1 ||
-          hay.indexOf("cloud u") !== -1 ||
-          hay.indexOf("rackspace cloud") !== -1 ||
-          hay.indexOf("cloud university") !== -1
-        ) {
-          sizeLogo(img, img.closest(".job-logo"));
-          // Ensure visible
-          setImp(img, "visibility", "visible");
-          setImp(img, "opacity", "1");
-          setImp(img, "display", "block");
-        }
-      }
-    );
-  }
-
-  function schedule() {
-    run();
-    [150, 400, 900, 1600, 2800, 4500, 7000, 10000].forEach(function (ms) {
-      setTimeout(run, ms);
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", schedule);
-  } else {
-    schedule();
-  }
-  window.addEventListener("load", schedule, { passive: true });
-
-  var host = document.getElementById("mobileContent");
-  if (host && window.MutationObserver) {
-    var mo = new MutationObserver(function () {
-      run();
-    });
-    mo.observe(host, { childList: true, subtree: true });
-    setTimeout(function () {
-      try {
-        mo.disconnect();
-      } catch (e) {}
-    }, 16000);
-  }
+  /* Disabled aggressive DOM rewrite that broke courses structure.
+     Logo size + white titles handled by bp-courses-restore-final below. */
 })();
 </script>
 
@@ -12640,6 +12347,275 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     var mo = new MutationObserver(function () { run(); });
     mo.observe(host, { childList: true, subtree: true });
     setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 16000);
+  }
+})();
+</script>
+
+<!-- =========================================================
+     COURSES RESTORE FINAL — put structure back, only equalize
+     the 3 school logos + white titles. Branding marquee untouched.
+========================================================= -->
+<style id="bp-courses-restore-final">
+  /* Undo broken multi-column grid / fixed title widths on courses */
+  body.bp-mobile-page #mobileContent .course-grid .course-group,
+  body.bp-mobile-page #mobileContent .courses-card .course-group,
+  body.bp-mobile-page #mobileContent .course-grid .job-layout,
+  body.bp-mobile-page #mobileContent .courses-card .job-layout {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 0.72rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    grid-template-columns: none !important;
+    text-align: left !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid .job-logo,
+  body.bp-mobile-page #mobileContent .courses-card .job-logo,
+  body.bp-mobile-page #mobileContent .course-grid .course-logo,
+  body.bp-mobile-page #mobileContent .courses-card .course-logo {
+    flex: 0 0 50px !important;
+    width: 50px !important;
+    min-width: 50px !important;
+    max-width: 50px !important;
+    height: 50px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* All 3 school logos identical size — LCC, MongoDB, Rackspace Cloud U */
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="Lansing" i],
+  body.bp-mobile-page #mobileContent .courses-card img[alt*="Lansing" i],
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="Community College" i],
+  body.bp-mobile-page #mobileContent .courses-card img[alt*="Community College" i],
+  body.bp-mobile-page #mobileContent .course-grid img[src*="lcclogo" i],
+  body.bp-mobile-page #mobileContent .courses-card img[src*="lcclogo" i],
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="MongoDB" i],
+  body.bp-mobile-page #mobileContent .courses-card img[alt*="MongoDB" i],
+  body.bp-mobile-page #mobileContent .course-grid img[src*="mongo1" i],
+  body.bp-mobile-page #mobileContent .courses-card img[src*="mongo1" i],
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="Cloud U" i],
+  body.bp-mobile-page #mobileContent .courses-card img[alt*="Cloud U" i],
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="Rackspace Cloud" i],
+  body.bp-mobile-page #mobileContent .courses-card img[alt*="Rackspace Cloud" i],
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="Cloud University" i],
+  body.bp-mobile-page #mobileContent .courses-card img[alt*="Cloud University" i],
+  body.bp-mobile-page #mobileContent .course-grid .job-logo img,
+  body.bp-mobile-page #mobileContent .courses-card .job-logo img {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+    max-width: 50px !important;
+    max-height: 50px !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    clip-path: inset(0 round 12px) !important;
+    -webkit-clip-path: inset(0 round 12px) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid .course-header,
+  body.bp-mobile-page #mobileContent .courses-card .course-header,
+  body.bp-mobile-page #mobileContent .course-grid .job-details,
+  body.bp-mobile-page #mobileContent .courses-card .job-details {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid .course-title,
+  body.bp-mobile-page #mobileContent .courses-card .course-title,
+  body.bp-mobile-page #mobileContent .course-grid .course-header h3,
+  body.bp-mobile-page #mobileContent .courses-card .course-header h3,
+  body.bp-mobile-page #mobileContent .course-grid .course-header h4,
+  body.bp-mobile-page #mobileContent .courses-card .course-header h4 {
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 0 0.35rem 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+    line-height: 1.25 !important;
+    font-weight: 700 !important;
+  }
+
+  /* White theme font for the 3 school names only */
+  body.bp-mobile-page #mobileContent .course-title.lcc,
+  body.bp-mobile-page #mobileContent .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .course-title.rackspace,
+  body.bp-mobile-page #mobileContent .course-title.cloudtech {
+    color: var(--text-light, #f0eff4) !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid ul,
+  body.bp-mobile-page #mobileContent .courses-card ul {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    list-style: disc outside !important;
+    padding-left: 1.2rem !important;
+    margin: 0.25rem 0 0 0 !important;
+    text-align: left !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid li,
+  body.bp-mobile-page #mobileContent .courses-card li,
+  body.bp-mobile-page #mobileContent .course-grid li a,
+  body.bp-mobile-page #mobileContent .courses-card li a {
+    text-align: left !important;
+  }
+</style>
+
+<script id="bp-courses-restore-final-script">
+(function () {
+  "use strict";
+
+  function setImp(el, prop, val) {
+    if (el && el.style) el.style.setProperty(prop, val, "important");
+  }
+
+  function lower(s) {
+    return (s || "").toLowerCase();
+  }
+
+  function isSchoolImg(img) {
+    var hay = lower((img.getAttribute("alt") || "") + " " + (img.getAttribute("src") || ""));
+    return (
+      hay.indexOf("lansing") !== -1 ||
+      hay.indexOf("community college") !== -1 ||
+      hay.indexOf("lcclogo") !== -1 ||
+      hay.indexOf("mongodb") !== -1 ||
+      hay.indexOf("mongo1") !== -1 ||
+      hay.indexOf("cloud u") !== -1 ||
+      hay.indexOf("rackspace cloud") !== -1 ||
+      hay.indexOf("cloud university") !== -1
+    );
+  }
+
+  function sizeSchoolLogo(img) {
+    ["width", "height", "min-width", "min-height", "max-width", "max-height"].forEach(function (p) {
+      setImp(img, p, "50px");
+    });
+    setImp(img, "object-fit", "contain");
+    setImp(img, "border-radius", "12px");
+    setImp(img, "display", "block");
+    setImp(img, "visibility", "visible");
+    setImp(img, "opacity", "1");
+    setImp(img, "margin", "0");
+    setImp(img, "padding", "0");
+    var wrap = img.closest(".job-logo, .course-logo");
+    if (wrap) {
+      ["width", "height", "min-width", "min-height", "max-width", "max-height"].forEach(function (p) {
+        setImp(wrap, p, "50px");
+      });
+      setImp(wrap, "flex", "0 0 50px");
+      setImp(wrap, "margin", "0");
+      setImp(wrap, "padding", "0");
+    }
+  }
+
+  function whiteSchoolTitles(root) {
+    Array.prototype.forEach.call(
+      root.querySelectorAll(".course-title.lcc, .course-title.mongodb, .course-title.rackspace, .course-title.cloudtech"),
+      function (el) {
+        setImp(el, "color", "var(--text-light, #f0eff4)");
+      }
+    );
+    Array.prototype.forEach.call(
+      root.querySelectorAll(".course-grid .course-title, .courses-card .course-title, .course-group h3, .course-group h4, .course-header h3, .course-header h4"),
+      function (el) {
+        var t = lower(el.textContent);
+        if (
+          t.indexOf("lansing") !== -1 ||
+          t.indexOf("mongodb") !== -1 ||
+          t.indexOf("rackspace cloud") !== -1 ||
+          t.indexOf("cloud university") !== -1
+        ) {
+          setImp(el, "color", "var(--text-light, #f0eff4)");
+        }
+      }
+    );
+  }
+
+  function restoreLayout(root) {
+    Array.prototype.forEach.call(
+      root.querySelectorAll(".course-grid .course-group, .courses-card .course-group, .course-grid .job-layout, .courses-card .job-layout"),
+      function (group) {
+        // Clear forced grid columns from older scripts
+        group.style.removeProperty("grid-template-columns");
+        setImp(group, "display", "flex");
+        setImp(group, "flex-direction", "row");
+        setImp(group, "flex-wrap", "wrap");
+        setImp(group, "align-items", "flex-start");
+        setImp(group, "width", "100%");
+        setImp(group, "max-width", "100%");
+        setImp(group, "text-align", "left");
+      }
+    );
+
+    Array.prototype.forEach.call(
+      root.querySelectorAll(".course-grid img, .courses-card img"),
+      function (img) {
+        if (!isSchoolImg(img)) return;
+        sizeSchoolLogo(img);
+      }
+    );
+
+    whiteSchoolTitles(root);
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    try {
+      restoreLayout(root);
+    } catch (e) {}
+  }
+
+  function schedule() {
+    run();
+    [150, 400, 900, 1600, 2800, 4500, 7000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () { run(); });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 14000);
   }
 })();
 </script>
