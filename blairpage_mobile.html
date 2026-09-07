@@ -3898,9 +3898,14 @@
           details.style.setProperty("overflow", "visible", "important");
         });
 
-        root.querySelectorAll(".bp-fused-experience .job-click, .bp-fused-experience .job-details p").forEach(function(el){
+        root.querySelectorAll(".bp-fused-experience .job-details p").forEach(function(el){
           el.style.setProperty("overflow", "hidden", "important");
           el.style.setProperty("width", "auto", "important");
+        });
+        root.querySelectorAll(".bp-fused-experience .job-click").forEach(function(el){
+          el.style.setProperty("overflow", "hidden", "important");
+          el.style.setProperty("width", "100%", "important");
+          el.style.setProperty("max-width", "100%", "important");
         });
 
         root.querySelectorAll(".bp-fused-experience .job-click").forEach(function(el){
@@ -4076,13 +4081,14 @@ pulledShell.querySelectorAll(".job-details").forEach(function (job) {
           makeRoundedLogo(img, true);
         });
 
-        pulledShell.querySelectorAll(".course-title.lcc").forEach(function (el) { el.style.color = "#6f7b95"; });
+        pulledShell.querySelectorAll(".course-title.lcc").forEach(function (el) { el.style.setProperty("color", "#f0eff4", "important"); });
         pulledShell.querySelectorAll(".uopeople-purple").forEach(function (el) { el.style.color = "#a592c7"; });
-        pulledShell.querySelectorAll(".course-title.rackspace, .course-title.redhat").forEach(function (el) { el.style.color = "#b05263"; });
+        pulledShell.querySelectorAll(".course-title.rackspace").forEach(function (el) { el.style.setProperty("color", "#f0eff4", "important"); });
+        pulledShell.querySelectorAll(".course-title.redhat").forEach(function (el) { el.style.color = "#b05263"; });
         pulledShell.querySelectorAll(".course-title.lpic").forEach(function (el) { el.style.color = "#d2b85c"; });
-        pulledShell.querySelectorAll(".course-title.mongodb").forEach(function (el) { el.style.color = "#3f9b6c"; });
+        pulledShell.querySelectorAll(".course-title.mongodb").forEach(function (el) { el.style.setProperty("color", "#f0eff4", "important"); });
         pulledShell.querySelectorAll(".course-title.cpanel").forEach(function (el) { el.style.color = "#d26a3f"; });
-        pulledShell.querySelectorAll(".course-title.cloudtech").forEach(function (el) { el.style.color = "#6b7ed1"; });
+        pulledShell.querySelectorAll(".course-title.cloudtech").forEach(function (el) { el.style.setProperty("color", "#f0eff4", "important"); });
         pulledShell.querySelectorAll(".course-title.imunify").forEach(function (el) { el.style.color = "#4a9a7a"; });
         pulledShell.querySelectorAll(".course-title.plesk").forEach(function (el) { el.style.color = "#9fbf4a"; });
 
@@ -11861,16 +11867,25 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     if (!root) return;
     var section = volunteerSectionRoot(root);
     if (!section) return;
+    // Never operate on courses / technical training (LCC logo belongs there)
+    if (section.closest && (section.closest(".course-grid, .courses-card") || section.querySelector(".course-grid, .courses-card"))) {
+      // Only walk volunteer cards inside this section, not course blocks
+    }
 
     var cards = section.querySelectorAll(".volunteer-card, .job-layout, .timeline-item, article, .card");
     Array.prototype.forEach.call(cards, function (card) {
       if (!isJudgeCard(card)) return;
+      // Hard guard: do not touch anything inside technical training / courses
+      if (card.closest(".course-grid, .courses-card, .course-group, .courses-section")) return;
+      if (card.querySelector(".course-grid, .courses-card, .course-title")) return;
 
       var imgs = Array.prototype.slice.call(card.querySelectorAll("img"));
       if (imgs.length < 2) return;
 
       imgs.forEach(function (img) {
         if (!isLansingImg(img)) return;
+        // Extra guard: image inside courses area is sacred
+        if (img.closest(".course-grid, .courses-card, .course-group")) return;
         var logoWrap = img.closest(".job-logo");
         if (img.parentNode) img.parentNode.removeChild(img);
         if (logoWrap && logoWrap.parentNode && !logoWrap.querySelector("img")) {
@@ -11903,6 +11918,728 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     setTimeout(function () {
       try { mo.disconnect(); } catch (e) {}
     }, 14000);
+  }
+})();
+</script>
+
+<!-- =========================================================
+     COURSES LOGO PARITY — Lansing / MongoDB / Rackspace Cloud U
+     Same size, same left placement above each school description.
+     Restores LCC logo in Technical Training if missing.
+     Never moves course logos into volunteer.
+========================================================= -->
+<style id="bp-courses-three-logo-parity">
+  body.bp-mobile-page #mobileContent .course-grid .course-group,
+  body.bp-mobile-page #mobileContent .courses-card .course-group,
+  body.bp-mobile-page #mobileContent .course-grid .job-layout.bp-course-logo-row,
+  body.bp-mobile-page #mobileContent .courses-card .job-layout.bp-course-logo-row {
+    display: grid !important;
+    grid-template-columns: 46px minmax(0, 1fr) !important;
+    column-gap: 0.72rem !important;
+    row-gap: 0.35rem !important;
+    align-items: start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid .course-group > .job-logo,
+  body.bp-mobile-page #mobileContent .courses-card .course-group > .job-logo,
+  body.bp-mobile-page #mobileContent .course-grid .bp-course-logo-row > .job-logo,
+  body.bp-mobile-page #mobileContent .courses-card .bp-course-logo-row > .job-logo {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    width: 46px !important;
+    min-width: 46px !important;
+    max-width: 46px !important;
+    height: 46px !important;
+    flex: 0 0 46px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    align-self: start !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid .course-group > .job-logo img,
+  body.bp-mobile-page #mobileContent .courses-card .course-group > .job-logo img,
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="Lansing" i],
+  body.bp-mobile-page #mobileContent .courses-card img[alt*="Lansing" i],
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="Community College" i],
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="MongoDB" i],
+  body.bp-mobile-page #mobileContent .courses-card img[alt*="MongoDB" i],
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="Cloud U" i],
+  body.bp-mobile-page #mobileContent .course-grid img[alt*="Rackspace Cloud" i],
+  body.bp-mobile-page #mobileContent .courses-card img[alt*="Cloud U" i],
+  body.bp-mobile-page #mobileContent .courses-card img[alt*="Rackspace Cloud" i],
+  body.bp-mobile-page #mobileContent .course-grid img[src*="lcclogo" i],
+  body.bp-mobile-page #mobileContent .courses-card img[src*="lcclogo" i],
+  body.bp-mobile-page #mobileContent .course-grid img[src*="mongo1" i],
+  body.bp-mobile-page #mobileContent .courses-card img[src*="mongo1" i] {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    min-height: 46px !important;
+    max-width: 46px !important;
+    max-height: 46px !important;
+    display: block !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    clip-path: inset(0 round 12px) !important;
+    -webkit-clip-path: inset(0 round 12px) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid .course-group > .course-header,
+  body.bp-mobile-page #mobileContent .courses-card .course-group > .course-header,
+  body.bp-mobile-page #mobileContent .course-grid .course-group > .job-details,
+  body.bp-mobile-page #mobileContent .courses-card .course-group > .job-details,
+  body.bp-mobile-page #mobileContent .course-grid .course-group > .course-title,
+  body.bp-mobile-page #mobileContent .courses-card .course-group > .course-title {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+    min-width: 0 !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid .course-group > ul,
+  body.bp-mobile-page #mobileContent .courses-card .course-group > ul {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left !important;
+    margin: 0.2rem 0 0 0 !important;
+  }
+</style>
+
+<script id="bp-courses-three-logo-parity-script">
+(function () {
+  "use strict";
+
+  function lower(s) {
+    return (s || "").toLowerCase();
+  }
+
+  function setImp(el, prop, val) {
+    if (el && el.style) el.style.setProperty(prop, val, "important");
+  }
+
+  function sizeLogo(img, wrap) {
+    ["width", "height", "min-width", "min-height", "max-width", "max-height"].forEach(function (p) {
+      setImp(img, p, "46px");
+    });
+    setImp(img, "object-fit", "contain");
+    setImp(img, "border-radius", "12px");
+    setImp(img, "display", "block");
+    setImp(img, "margin", "0");
+    setImp(img, "padding", "0");
+    if (wrap) {
+      ["width", "height", "min-width", "min-height", "max-width", "max-height"].forEach(function (p) {
+        setImp(wrap, p, "46px");
+      });
+      setImp(wrap, "flex", "0 0 46px");
+      setImp(wrap, "margin", "0");
+      setImp(wrap, "padding", "0");
+      setImp(wrap, "display", "flex");
+      setImp(wrap, "align-items", "flex-start");
+      setImp(wrap, "justify-content", "flex-start");
+    }
+  }
+
+  function findCoursesRoot(root) {
+    var grids = root.querySelectorAll(".course-grid, .courses-card");
+    if (grids.length) return grids;
+    // Fallback: section under "Technical Training" / "Courses"
+    var out = [];
+    Array.prototype.forEach.call(root.querySelectorAll("h2, h3"), function (h) {
+      var t = lower(h.textContent).trim();
+      if (t === "technical training" || t === "courses") {
+        var sec = h.closest("section, .section, div") || h.parentElement;
+        if (sec) out.push(sec);
+      }
+    });
+    return out;
+  }
+
+  function classifyGroup(group) {
+    var t = lower(group.textContent);
+    var img = group.querySelector("img");
+    var alt = lower(img && img.getAttribute("alt"));
+    var src = lower(img && img.getAttribute("src"));
+    if (
+      t.indexOf("lansing") !== -1 ||
+      t.indexOf("community college") !== -1 ||
+      alt.indexOf("lansing") !== -1 ||
+      src.indexOf("lcclogo") !== -1
+    ) {
+      return "lansing";
+    }
+    if (t.indexOf("mongodb") !== -1 || alt.indexOf("mongodb") !== -1 || src.indexOf("mongo") !== -1) {
+      return "mongo";
+    }
+    if (
+      t.indexOf("cloud u") !== -1 ||
+      t.indexOf("rackspace cloud") !== -1 ||
+      t.indexOf("cloud university") !== -1 ||
+      alt.indexOf("cloud") !== -1 ||
+      src.indexOf("cloud") !== -1
+    ) {
+      return "cloudu";
+    }
+    return null;
+  }
+
+  function findLccSrc(root) {
+    var imgs = root.querySelectorAll("img");
+    for (var i = 0; i < imgs.length; i++) {
+      var src = imgs[i].getAttribute("src") || "";
+      var alt = lower(imgs[i].getAttribute("alt"));
+      if (lower(src).indexOf("lcclogo") !== -1 || alt.indexOf("lansing") !== -1) {
+        return src;
+      }
+    }
+    // Common relative paths used by the portfolio
+    return "lcclogo.jpg";
+  }
+
+  function ensureGroupLogo(group, kind, lccSrc) {
+    var img = group.querySelector("img");
+    var wrap = group.querySelector(".job-logo");
+
+    if (!img && kind === "lansing") {
+      wrap = document.createElement("div");
+      wrap.className = "job-logo";
+      img = document.createElement("img");
+      img.setAttribute("alt", "Lansing Community College");
+      img.setAttribute("src", lccSrc || "lcclogo.jpg");
+      wrap.appendChild(img);
+      group.insertBefore(wrap, group.firstChild);
+    } else if (img && !wrap) {
+      wrap = document.createElement("div");
+      wrap.className = "job-logo";
+      img.parentNode.insertBefore(wrap, img);
+      wrap.appendChild(img);
+    }
+
+    if (!img) return;
+
+    // Keep LCC logo only inside courses — if somehow under volunteer, move back is not needed;
+    // volunteer cleaner handles volunteer-side duplicates only.
+    if (kind === "lansing" && img.closest(".volunteer-card, .bp-fused-volunteer")) {
+      // Do not keep LCC inside volunteer; courses restore below owns the canonical one.
+      return;
+    }
+
+    sizeLogo(img, wrap || img.closest(".job-logo"));
+
+    // Place logo as first child of the group for consistent grid column 1
+    wrap = img.closest(".job-logo") || wrap;
+    if (wrap && wrap.parentNode === group && group.firstElementChild !== wrap) {
+      group.insertBefore(wrap, group.firstElementChild);
+    }
+
+    group.classList.add("bp-course-logo-row");
+    setImp(group, "display", "grid");
+    setImp(group, "grid-template-columns", "46px minmax(0, 1fr)");
+    setImp(group, "column-gap", "0.72rem");
+    setImp(group, "align-items", "start");
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent") || document;
+    var lccSrc = findLccSrc(root);
+    var areas = findCoursesRoot(root);
+
+    Array.prototype.forEach.call(areas, function (area) {
+      var groups = area.querySelectorAll(".course-group, .job-layout");
+      if (!groups.length) {
+        // treat direct children that look like school blocks
+        groups = area.querySelectorAll(":scope > div, :scope > article");
+      }
+      Array.prototype.forEach.call(groups, function (group) {
+        var kind = classifyGroup(group);
+        if (!kind) return;
+        ensureGroupLogo(group, kind, lccSrc);
+      });
+    });
+
+    // Explicit pass: any course-grid image for the three schools
+    Array.prototype.forEach.call(
+      root.querySelectorAll(".course-grid img, .courses-card img"),
+      function (img) {
+        var hay = lower((img.getAttribute("alt") || "") + " " + (img.getAttribute("src") || ""));
+        if (
+          hay.indexOf("lansing") !== -1 ||
+          hay.indexOf("community college") !== -1 ||
+          hay.indexOf("lcclogo") !== -1 ||
+          hay.indexOf("mongo") !== -1 ||
+          hay.indexOf("cloud u") !== -1 ||
+          hay.indexOf("rackspace cloud") !== -1 ||
+          hay.indexOf("cloud university") !== -1
+        ) {
+          sizeLogo(img, img.closest(".job-logo"));
+          // Ensure visible
+          setImp(img, "visibility", "visible");
+          setImp(img, "opacity", "1");
+          setImp(img, "display", "block");
+        }
+      }
+    );
+  }
+
+  function schedule() {
+    run();
+    [150, 400, 900, 1600, 2800, 4500, 7000, 10000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () {
+      run();
+    });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () {
+      try {
+        mo.disconnect();
+      } catch (e) {}
+    }, 16000);
+  }
+})();
+</script>
+
+<!-- =========================================================
+     RE-MERGE — prior user requests preserved
+     1) Uniform job spacing
+     2) +/- full-width left, expand/collapse per job role
+     3) Technical training left text
+     4) Remove CERTIFICATES / Coursera label wording
+     5) LCC / MongoDB University / Rackspace Cloud University titles white
+     6) Marquee circular buffer (no blank trail on touch end)
+========================================================= -->
+<style id="bp-remerge-job-spacing-toggle-training-titles">
+  body.bp-mobile-page #mobileContent .bp-fused-top-card .bp-fused-experience .timeline-item,
+  body.bp-mobile-page #mobileContent .bp-fused-experience .timeline-item,
+  body.bp-mobile-page #mobileContent .resume-sections .timeline-item {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  body.bp-mobile-page #mobileContent .bp-fused-top-card .bp-fused-experience .timeline-item:not(:first-of-type),
+  body.bp-mobile-page #mobileContent .bp-fused-experience .timeline-item:not(:first-of-type),
+  body.bp-mobile-page #mobileContent .resume-sections .timeline-item:not(:first-of-type) {
+    margin-top: 2.1rem !important;
+  }
+  body.bp-mobile-page #mobileContent .bp-fused-top-card .bp-fused-experience .timeline-item:last-of-type,
+  body.bp-mobile-page #mobileContent .bp-fused-experience .timeline-item:last-of-type {
+    margin-bottom: 0.65rem !important;
+  }
+
+  body.bp-mobile-page #mobileContent .job-click,
+  body.bp-mobile-page #mobileContent .job-toggle-row,
+  body.bp-mobile-page #mobileContent .bp-fused-top-card .bp-fused-experience .job-click {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    text-align: left !important;
+    clear: both !important;
+    float: none !important;
+    align-self: stretch !important;
+  }
+  body.bp-mobile-page #mobileContent .job-click h3,
+  body.bp-mobile-page #mobileContent .job-click h4,
+  body.bp-mobile-page #mobileContent .job-toggle-row h3,
+  body.bp-mobile-page #mobileContent .job-toggle-row h4 {
+    text-align: left !important;
+    margin: 0 !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  body.bp-mobile-page #mobileContent .job-plus,
+  body.bp-mobile-page #mobileContent .job-expand-btn {
+    flex: 0 0 28px !important;
+    margin: 0 10px 0 0 !important;
+  }
+  body.bp-mobile-page #mobileContent .job-list-collapsible,
+  body.bp-mobile-page #mobileContent .job-list-collapsible.expanded {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left !important;
+    clear: both !important;
+  }
+
+  body.bp-mobile-page #mobileContent .courses-card,
+  body.bp-mobile-page #mobileContent .course-grid,
+  body.bp-mobile-page #mobileContent .courses-card *,
+  body.bp-mobile-page #mobileContent .course-grid * {
+    text-align: left !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-title.lcc,
+  body.bp-mobile-page #mobileContent .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .course-title.rackspace,
+  body.bp-mobile-page #mobileContent .course-title.cloudtech,
+  body.bp-mobile-page #mobileContent .course-grid .course-title.lcc,
+  body.bp-mobile-page #mobileContent .course-grid .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .course-grid .course-title.rackspace,
+  body.bp-mobile-page #mobileContent .courses-card .course-title.lcc,
+  body.bp-mobile-page #mobileContent .courses-card .course-title.mongodb,
+  body.bp-mobile-page #mobileContent .courses-card .course-title.rackspace {
+    color: var(--text-light, #f0eff4) !important;
+  }
+</style>
+
+<script id="bp-remerge-job-spacing-toggle-training-titles-script">
+(function () {
+  "use strict";
+
+  function setImportant(el, prop, value) {
+    if (el && el.style) el.style.setProperty(prop, value, "important");
+  }
+  function norm(s) { return (s || "").replace(/\s+/g, " ").trim(); }
+  function lower(s) { return norm(s).toLowerCase(); }
+  function isSelectedProjects(el) {
+    return lower(el && el.textContent).indexOf("selected projects") !== -1;
+  }
+
+  function uniformJobSpacing(root) {
+    var items = root.querySelectorAll(
+      ".bp-fused-experience .timeline-item, .bp-fused-top-card .bp-fused-experience .timeline-item"
+    );
+    Array.prototype.forEach.call(items, function (item, idx) {
+      setImportant(item, "margin-bottom", "0");
+      setImportant(item, "padding-top", "0");
+      setImportant(item, "padding-bottom", "0");
+      setImportant(item, "margin-top", idx === 0 ? "0" : "2.1rem");
+    });
+    if (items.length) setImportant(items[items.length - 1], "margin-bottom", "0.65rem");
+  }
+
+  function leftFullWidthJobClicks(root) {
+    Array.prototype.forEach.call(root.querySelectorAll(".job-click, .job-toggle-row"), function (row) {
+      setImportant(row, "display", "flex");
+      setImportant(row, "flex-direction", "row");
+      setImportant(row, "align-items", "center");
+      setImportant(row, "justify-content", "flex-start");
+      setImportant(row, "width", "100%");
+      setImportant(row, "max-width", "100%");
+      setImportant(row, "min-width", "0");
+      setImportant(row, "box-sizing", "border-box");
+      setImportant(row, "margin-left", "0");
+      setImportant(row, "padding-left", "0");
+      setImportant(row, "text-align", "left");
+      setImportant(row, "clear", "both");
+      setImportant(row, "float", "none");
+    });
+  }
+
+  function setIcon(icon, open) {
+    if (!icon) return;
+    icon.textContent = open ? "−" : "+";
+  }
+
+  function wireOneToggle(row, list) {
+    if (!row || !list) return;
+    if (row.dataset.bpRemergeToggleWired === "true") return;
+    row.dataset.bpRemergeToggleWired = "true";
+
+    list.classList.add("job-list-collapsible");
+    if (!list.classList.contains("expanded")) {
+      list.hidden = true;
+      setImportant(list, "display", "none");
+      row.setAttribute("aria-expanded", "false");
+    }
+
+    var icon = row.querySelector(".job-plus, .job-expand-btn, .expand-icon");
+    if (!icon) {
+      icon = document.createElement("span");
+      icon.className = "job-plus";
+      icon.setAttribute("aria-hidden", "true");
+      row.insertBefore(icon, row.firstChild);
+    }
+    setIcon(icon, row.getAttribute("aria-expanded") === "true");
+
+    function toggle(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      var open = row.getAttribute("aria-expanded") !== "true";
+      row.setAttribute("aria-expanded", String(open));
+      list.classList.toggle("expanded", open);
+      list.hidden = !open;
+      setImportant(list, "display", open ? "block" : "none");
+      setIcon(icon, open);
+      setImportant(row, "background", open ? "rgba(158,130,156,0.10)" : "transparent");
+    }
+
+    row.addEventListener("click", toggle, true);
+    row.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      toggle(e);
+    }, true);
+  }
+
+  function ensureJobToggles(root) {
+    Array.prototype.forEach.call(root.querySelectorAll(".job-details"), function (job) {
+      Array.prototype.forEach.call(job.querySelectorAll(":scope > .job-click"), function (row) {
+        var list = row.nextElementSibling;
+        while (list && list.tagName !== "UL") list = list.nextElementSibling;
+        if (!list) return;
+        var titleEl = row.querySelector("h4, h3");
+        if (titleEl && isSelectedProjects(titleEl)) {
+          list.classList.add("expanded");
+          list.hidden = false;
+          setImportant(list, "display", "block");
+          row.setAttribute("aria-expanded", "true");
+          setIcon(row.querySelector(".job-plus, .job-expand-btn, .expand-icon"), true);
+          return;
+        }
+        wireOneToggle(row, list);
+      });
+
+      Array.prototype.forEach.call(job.querySelectorAll(":scope > h4, :scope > h3"), function (heading) {
+        if (heading.closest(".job-click")) return;
+        if (isSelectedProjects(heading)) {
+          var keep = heading.nextElementSibling;
+          while (keep && keep.tagName !== "UL") keep = keep.nextElementSibling;
+          if (keep) {
+            keep.classList.add("expanded");
+            keep.hidden = false;
+            setImportant(keep, "display", "block");
+          }
+          return;
+        }
+        var list = heading.nextElementSibling;
+        while (list && list.tagName !== "UL") list = list.nextElementSibling;
+        if (!list) return;
+
+        var row = document.createElement("div");
+        row.className = "job-click";
+        row.tabIndex = 0;
+        row.setAttribute("role", "button");
+        row.setAttribute("aria-expanded", "false");
+        var icon = document.createElement("span");
+        icon.className = "job-plus";
+        icon.setAttribute("aria-hidden", "true");
+        icon.textContent = "+";
+        list.parentNode.insertBefore(row, list);
+        row.appendChild(icon);
+        row.appendChild(heading);
+        list.classList.add("job-list-collapsible");
+        list.classList.remove("expanded");
+        list.hidden = true;
+        setImportant(list, "display", "none");
+        wireOneToggle(row, list);
+      });
+    });
+  }
+
+  function whiteUniversityTitles(root) {
+    [".course-title.lcc", ".course-title.mongodb", ".course-title.rackspace", ".course-title.cloudtech"].forEach(function (sel) {
+      Array.prototype.forEach.call(root.querySelectorAll(sel), function (el) {
+        setImportant(el, "color", "var(--text-light, #f0eff4)");
+      });
+    });
+    Array.prototype.forEach.call(
+      root.querySelectorAll(".course-title, .course-header h3, .course-header h4, .course-group h3, .course-group h4"),
+      function (el) {
+        var t = lower(el.textContent);
+        if (
+          t.indexOf("lansing community college") !== -1 ||
+          t.indexOf("mongodb university") !== -1 ||
+          t.indexOf("rackspace cloud university") !== -1 ||
+          t.indexOf("cloud university") !== -1
+        ) {
+          setImportant(el, "color", "var(--text-light, #f0eff4)");
+        }
+      }
+    );
+  }
+
+  function removeCourseraCertificatesWording(root) {
+    Array.prototype.forEach.call(
+      root.querySelectorAll("h2, h3, h4, p, span, div, small, label"),
+      function (el) {
+        var t = lower(el.textContent);
+        if (
+          (t === "certificates" || t === "coursera" || t === "certificates coursera" || t === "certificate coursera") &&
+          (el.textContent || "").length < 40
+        ) {
+          el.style.setProperty("display", "none", "important");
+        }
+      }
+    );
+    Array.prototype.forEach.call(root.querySelectorAll(".course-grid, .courses-card, .course-group, .course-header"), function (el) {
+      Array.prototype.forEach.call(el.childNodes, function (n) {
+        if (n.nodeType !== 3) return;
+        var v = n.nodeValue || "";
+        var cleaned = v.replace(/\bCERTIFICATES\b/gi, "").replace(/\bCoursera\b/gi, "").replace(/\s{2,}/g, " ");
+        if (cleaned !== v) n.nodeValue = cleaned;
+      });
+    });
+  }
+
+  function technicalTrainingLeft(root) {
+    Array.prototype.forEach.call(
+      root.querySelectorAll(".courses-card, .course-grid, .course-group, .course-header, .courses-card *, .course-grid *"),
+      function (el) { setImportant(el, "text-align", "left"); }
+    );
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    try {
+      uniformJobSpacing(root);
+      leftFullWidthJobClicks(root);
+      ensureJobToggles(root);
+      whiteUniversityTitles(root);
+      removeCourseraCertificatesWording(root);
+      technicalTrainingLeft(root);
+    } catch (e) {}
+  }
+
+  function schedule() {
+    run();
+    [120, 350, 700, 1200, 2000, 3500, 5500, 8000, 11000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () { run(); });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 16000);
+  }
+})();
+</script>
+
+<script id="bp-remerge-marquee-circular-buffer">
+(function () {
+  "use strict";
+
+  function ensureDualSets(track) {
+    if (!track) return null;
+    var sets = track.querySelectorAll(":scope > .enterprise-brand-slider__set");
+    if (!sets.length) return null;
+    while (sets.length < 2) {
+      var clone = sets[0].cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      track.appendChild(clone);
+      sets = track.querySelectorAll(":scope > .enterprise-brand-slider__set");
+    }
+    return sets[0];
+  }
+
+  function bindCircular(viewport, track) {
+    if (!viewport || !track) return;
+    if (viewport.getAttribute("data-bp-circular-bound") === "yes") return;
+    viewport.setAttribute("data-bp-circular-bound", "yes");
+
+    var wrapping = false;
+
+    function setWidth() {
+      var first = ensureDualSets(track);
+      if (!first) return 0;
+      return first.offsetWidth || first.scrollWidth || 0;
+    }
+
+    function wrapScroll() {
+      if (wrapping) return;
+      var w = setWidth();
+      if (w <= 0) return;
+      var sl = viewport.scrollLeft;
+      if (sl >= w) {
+        wrapping = true;
+        viewport.scrollLeft = sl - w;
+        wrapping = false;
+        return;
+      }
+      if (sl <= 0) {
+        wrapping = true;
+        viewport.scrollLeft = sl + w;
+        wrapping = false;
+      }
+    }
+
+    viewport.addEventListener("scroll", wrapScroll, { passive: true });
+    ["touchend", "touchcancel", "pointerup", "mouseup"].forEach(function (evt) {
+      viewport.addEventListener(evt, function () {
+        requestAnimationFrame(function () {
+          wrapScroll();
+          setTimeout(wrapScroll, 50);
+          setTimeout(wrapScroll, 180);
+        });
+      }, { passive: true });
+    });
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    var slider = root.querySelector(".enterprise-brand-slider");
+    if (!slider) return;
+    var viewport = slider.querySelector(".enterprise-brand-slider__viewport") || slider;
+    var track = slider.querySelector(".enterprise-brand-slider__track");
+    if (!track) return;
+    ensureDualSets(track);
+    bindCircular(viewport, track);
+  }
+
+  function schedule() {
+    run();
+    [200, 500, 1000, 2000, 3500, 5500, 8000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () { run(); });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 16000);
   }
 })();
 </script>
