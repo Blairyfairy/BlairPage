@@ -11318,3 +11318,319 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 })();
 </script>
+
+<!-- =========================================================
+     DEFINITIVE FIX
+     1) Everything under the marque fits the mobile screen
+     2) Marquee actually scrolls like index.html (52s / -50%)
+        via CSS + JS driver (index styles never load on mobile)
+========================================================= -->
+<style id="bp-definitive-fit-and-marque">
+  /* ---- Screen fit: nothing wider than viewport ---- */
+  html, body, body.bp-mobile-page {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    overscroll-behavior-x: none !important;
+  }
+
+  body.bp-mobile-page .mobile-shell,
+  body.bp-mobile-page #mobileShell,
+  body.bp-mobile-page #mobileContent {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page #mobileContent .resume-shell,
+  body.bp-mobile-page #mobileContent .container,
+  body.bp-mobile-page #mobileContent .bp-fused-top-card,
+  body.bp-mobile-page #mobileContent .identity-row,
+  body.bp-mobile-page #mobileContent .identity-info,
+  body.bp-mobile-page #mobileContent .profile-matrix,
+  body.bp-mobile-page #mobileContent .matrix-grid,
+  body.bp-mobile-page #mobileContent .matrix-card,
+  body.bp-mobile-page #mobileContent .card-content,
+  body.bp-mobile-page #mobileContent .timeline,
+  body.bp-mobile-page #mobileContent .timeline-item,
+  body.bp-mobile-page #mobileContent .job-layout,
+  body.bp-mobile-page #mobileContent .job-details,
+  body.bp-mobile-page #mobileContent .education-wrapper,
+  body.bp-mobile-page #mobileContent .edu-card,
+  body.bp-mobile-page #mobileContent .course-grid,
+  body.bp-mobile-page #mobileContent .courses-card,
+  body.bp-mobile-page #mobileContent .certification-list,
+  body.bp-mobile-page #mobileContent .cert-card,
+  body.bp-mobile-page #mobileContent .certification-card,
+  body.bp-mobile-page #mobileContent .volunteer-grid,
+  body.bp-mobile-page #mobileContent .volunteer-card,
+  body.bp-mobile-page #mobileContent .resume-sections,
+  body.bp-mobile-page #mobileContent section {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  body.bp-mobile-page #mobileContent table {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+
+  body.bp-mobile-page #mobileContent img:not(.bp-hardcoded-badge-row img) {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* ---- Marquee structure (desktop parity) ---- */
+  @keyframes enterpriseBrandScroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider,
+  body.bp-mobile-page #mobileContent section.enterprise-brand-slider {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    padding: 14px 0 !important;
+    margin: 0.35rem 0 0.55rem !important;
+    background: transparent !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__viewport {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__track {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    width: max-content !important;
+    max-width: none !important;
+    animation: enterpriseBrandScroll 52s linear infinite !important;
+    will-change: transform !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__set {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item {
+    flex: 0 0 auto !important;
+    width: 150px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
+    height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 12px !important;
+    box-sizing: border-box !important;
+    color: #fff !important;
+    opacity: 0.92 !important;
+    overflow: visible !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item span,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-mark,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-airbnb {
+    white-space: nowrap !important;
+    font-size: 14px !important;
+    color: #fff !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item svg {
+    width: 22px !important;
+    height: 22px !important;
+    flex-shrink: 0 !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider__track {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script id="bp-definitive-fit-and-marque-script">
+(function () {
+  "use strict";
+
+  var marqueRaf = null;
+  var marqueStarted = false;
+
+  function fitWidths(root) {
+    if (!root) return;
+    [document.documentElement, document.body, document.getElementById("mobileShell"), root].forEach(function (el) {
+      if (!el || !el.style) return;
+      el.style.setProperty("width", "100%", "important");
+      el.style.setProperty("max-width", el === document.documentElement || el === document.body ? "100vw" : "100%", "important");
+      el.style.setProperty("overflow-x", "hidden", "important");
+      el.style.setProperty("min-width", "0", "important");
+    });
+
+    var blocks = root.querySelectorAll(
+      ".resume-shell, .container, .bp-fused-top-card, .identity-row, .identity-info, " +
+      ".profile-matrix, .matrix-grid, .matrix-card, .card-content, .timeline, .timeline-item, " +
+      ".job-layout, .job-details, .education-wrapper, .edu-card, .course-grid, .courses-card, " +
+      ".certification-list, .cert-card, .certification-card, .volunteer-grid, .volunteer-card, " +
+      ".resume-sections, section"
+    );
+    Array.prototype.forEach.call(blocks, function (el) {
+      if (el.classList && el.classList.contains("enterprise-brand-slider")) {
+        // marque: clip only, do not force children widths here
+        el.style.setProperty("width", "100%", "important");
+        el.style.setProperty("max-width", "100%", "important");
+        el.style.setProperty("overflow", "hidden", "important");
+        return;
+      }
+      if (el.closest && el.closest(".enterprise-brand-slider")) return;
+      if (el.closest && el.closest(".bp-hardcoded-badge-row")) return;
+      el.style.setProperty("width", "100%", "important");
+      el.style.setProperty("max-width", "100%", "important");
+      el.style.setProperty("min-width", "0", "important");
+      el.style.setProperty("overflow-x", "hidden", "important");
+      el.style.setProperty("box-sizing", "border-box", "important");
+    });
+  }
+
+  function setupMarque(root) {
+    if (!root) return;
+    var slider = root.querySelector(".enterprise-brand-slider");
+    if (!slider) return;
+
+    var viewport = slider.querySelector(".enterprise-brand-slider__viewport") || slider;
+    var track = slider.querySelector(".enterprise-brand-slider__track");
+    if (!track) return;
+
+    var sets = track.querySelectorAll(":scope > .enterprise-brand-slider__set");
+    // Ensure at least 2 sets for seamless -50% loop (clone if only one)
+    if (sets.length === 1) {
+      var clone = sets[0].cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      track.appendChild(clone);
+      sets = track.querySelectorAll(":scope > .enterprise-brand-slider__set");
+    }
+
+    // Layout
+    slider.style.setProperty("width", "100%", "important");
+    slider.style.setProperty("max-width", "100%", "important");
+    slider.style.setProperty("overflow", "hidden", "important");
+    viewport.style.setProperty("width", "100%", "important");
+    viewport.style.setProperty("overflow", "hidden", "important");
+    track.style.setProperty("display", "flex", "important");
+    track.style.setProperty("flex-wrap", "nowrap", "important");
+    track.style.setProperty("width", "max-content", "important");
+    track.style.setProperty("align-items", "center", "important");
+
+    Array.prototype.forEach.call(sets, function (set) {
+      set.style.setProperty("display", "flex", "important");
+      set.style.setProperty("flex-wrap", "nowrap", "important");
+      set.style.setProperty("flex-shrink", "0", "important");
+      set.style.setProperty("align-items", "center", "important");
+    });
+
+    Array.prototype.forEach.call(track.querySelectorAll(".enterprise-brand-slider__item"), function (item) {
+      item.style.setProperty("flex", "0 0 150px", "important");
+      item.style.setProperty("width", "150px", "important");
+      item.style.setProperty("min-width", "150px", "important");
+      item.style.setProperty("height", "52px", "important");
+    });
+
+    // Prefer CSS animation at exact desktop speed
+    track.style.setProperty("animation-name", "enterpriseBrandScroll", "important");
+    track.style.setProperty("animation-duration", "52s", "important");
+    track.style.setProperty("animation-timing-function", "linear", "important");
+    track.style.setProperty("animation-iteration-count", "infinite", "important");
+    track.style.setProperty("animation-play-state", "running", "important");
+
+    // JS fallback driver if CSS animation is not applying (e.g. overridden)
+    if (marqueStarted) return;
+    marqueStarted = true;
+
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    // After a moment, if computed animation is none, drive with rAF
+    setTimeout(function () {
+      var cs = window.getComputedStyle(track);
+      var name = (cs.animationName || cs.webkitAnimationName || "").toString();
+      if (name && name !== "none") return; // CSS animation is active
+
+      // JS seamless scroll: full -50% in 52 seconds
+      var start = null;
+      var duration = 52000;
+
+      function frame(ts) {
+        if (start === null) start = ts;
+        var elapsed = (ts - start) % duration;
+        var pct = elapsed / duration; // 0..1
+        track.style.setProperty("animation", "none", "important");
+        track.style.setProperty("transform", "translate3d(" + (-pct * 50) + "%, 0, 0)", "important");
+        marqueRaf = requestAnimationFrame(frame);
+      }
+      if (marqueRaf) cancelAnimationFrame(marqueRaf);
+      marqueRaf = requestAnimationFrame(frame);
+    }, 400);
+  }
+
+  function stripBrandBadgeKeepHardcoded(root) {
+    if (!root) return;
+    root.querySelectorAll(".brand-badge-row").forEach(function (el) {
+      try { el.remove(); } catch (e) {}
+    });
+    if (typeof injectHardcodedPortfolioRow === "function") {
+      try { injectHardcodedPortfolioRow(root); } catch (e) {}
+    }
+  }
+
+  function run() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    stripBrandBadgeKeepHardcoded(root);
+    fitWidths(root);
+    setupMarque(root);
+  }
+
+  function schedule() {
+    run();
+    [150, 400, 900, 1600, 2800, 4500, 7000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () { run(); });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 14000);
+  }
+})();
+</script>
