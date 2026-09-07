@@ -14872,3 +14872,103 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   setInterval(heal, 5000);
 })();
 </script>
+
+<!-- ---------- Cleanup: remove stray/duplicate Lansing Community College logos ---------- -->
+<!-- Additive only — does not modify any existing code. Keeps exactly one LCC logo: the
+     one inside the real Courses card (.course-title.lcc). Any other Lansing logo that
+     shows up elsewhere in the Courses/Certifications area (a leftover from older fixes
+     re-inserting it in the wrong spot) gets removed. The Education section's own LCC
+     logo is explicitly left alone. -->
+<script id="bp-lcc-stray-logo-cleanup">
+(function () {
+  "use strict";
+
+  function norm(v) {
+    return (v || "").toLowerCase();
+  }
+
+  function isLansingImg(img) {
+    var alt = norm(img.getAttribute("alt"));
+    var src = norm(img.getAttribute("src"));
+    return alt.indexOf("lansing") !== -1 ||
+           alt.indexOf("community college") !== -1 ||
+           src.indexOf("lcclogo") !== -1;
+  }
+
+  function isProtected(img) {
+    return !!img.closest(".education-wrapper, .edu-card, .edu-header, .education-section");
+  }
+
+  function findAuthoritativeGroup(root) {
+    var lccTitle = root.querySelector(".course-title.lcc");
+    if (!lccTitle) {
+      var titles = root.querySelectorAll(".course-title, .course-group h3, .course-group h4");
+      for (var i = 0; i < titles.length; i++) {
+        if (norm(titles[i].textContent).indexOf("lansing community college") !== -1) {
+          lccTitle = titles[i];
+          break;
+        }
+      }
+    }
+    if (!lccTitle) return null;
+    return lccTitle.closest(".course-group") || lccTitle.closest(".job-layout") || lccTitle.parentElement;
+  }
+
+  function cleanup() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+
+    var authoritative = findAuthoritativeGroup(root);
+
+    var imgs = Array.prototype.slice.call(root.querySelectorAll("img"));
+    imgs.forEach(function (img) {
+      if (!isLansingImg(img)) return;
+      if (isProtected(img)) return;
+      if (authoritative && authoritative.contains(img)) return;
+
+      var wrap = img.closest(".job-logo");
+      if (img.parentNode) img.parentNode.removeChild(img);
+      if (wrap && wrap.parentNode && !wrap.querySelector("img")) {
+        wrap.parentNode.removeChild(wrap);
+      }
+    });
+  }
+
+  function scheduleCleanup() {
+    cleanup();
+    [150, 400, 800, 1500, 2500, 4000, 6000].forEach(function (ms) {
+      setTimeout(cleanup, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scheduleCleanup);
+  } else {
+    scheduleCleanup();
+  }
+  window.addEventListener("load", scheduleCleanup, { passive: true });
+
+  var lastCheck = 0;
+  function throttledCleanup() {
+    var now = Date.now();
+    if (now - lastCheck < 400) return;
+    lastCheck = now;
+    cleanup();
+  }
+
+  function startObserving() {
+    var target = document.getElementById("mobileContent") || document.body;
+    if (!target || !window.MutationObserver) return;
+    var mo = new MutationObserver(throttledCleanup);
+    mo.observe(target, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startObserving);
+  } else {
+    startObserving();
+  }
+
+  setInterval(cleanup, 5000);
+})();
+</script>
