@@ -14427,6 +14427,14 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
       if (!el) return;
       setImp(el, "color", "#ffffff");
       setImp(el, "-webkit-text-fill-color", "#ffffff");
+      setImp(el, "color", "white");
+      setImp(el.parentElement, "color", "#ffffff");
+      if (el.querySelector) {
+        Array.prototype.forEach.call(el.querySelectorAll("*"), function(child) {
+          setImp(child, "color", "#ffffff");
+          setImp(child, "-webkit-text-fill-color", "#ffffff");
+        });
+      }
     });
 
     area.setAttribute("data-bp-courses-once", "yes");
@@ -14506,6 +14514,9 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     transform: none !important;
     animation: none !important;
     transition: none !important;
+    background-color: transparent !important;
+    clip: auto !important;
+    clip-path: none !important;
   }
 
   body.bp-mobile-page #mobileContent .course-grid .course-group .bp-final-lcc-logo,
@@ -14524,6 +14535,13 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     object-position: center center !important;
     margin: 0 !important;
     padding: 0 !important;
+  }
+  
+  body.bp-mobile-page #mobileContent .course-title:has-text("Lansing Community College"),
+  body.bp-mobile-page #mobileContent .course-title:has-text("MongoDB University"),
+  body.bp-mobile-page #mobileContent .course-title:has-text("Rackspace Cloud University") {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
   }
 </style>
 
