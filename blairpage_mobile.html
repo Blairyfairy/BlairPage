@@ -10914,3 +10914,199 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 
 
 
+
+<!-- =========================================================
+     FINAL NON-DESTRUCTIVE RESTORE — MARQUE / BRANDING ROW FROM INDEX
+     After marque branding was added to index.html the mobile clone
+     layout broke. This patch ONLY:
+       1. Strips any brand / marque / scrolling branding rows that
+          arrive from the live index.html fetch
+       2. Re-injects the already-defined HARD_CODED_PORTFOLIO_BADGE_ROW
+          in the same place as before
+       3. Forces the previous badge-row grid + sizing rules
+       4. Leaves every earlier line of CSS/JS/HTML completely unchanged
+========================================================= -->
+<style id="bp-final-marque-branding-restore">
+  /* Hide any marque / brand rows that may have been pulled from index */
+  body.bp-mobile-page #mobileContent .brand-badge-row,
+  body.bp-mobile-page #mobileContent .marque-branding,
+  body.bp-mobile-page #mobileContent .marque-row,
+  body.bp-mobile-page #mobileContent .branding-row,
+  body.bp-mobile-page #mobileContent [class*="marque"],
+  body.bp-mobile-page #mobileContent [class*="marquee"],
+  body.bp-mobile-page #mobileContent .scrolling-brand,
+  body.bp-mobile-page #mobileContent .brand-marquee {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Guarantee the hardcoded portfolio badge row keeps the exact prior
+     2-row / 4-column compact layout that existed before the index change */
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
+    align-items: stretch !important;
+    justify-items: stretch !important;
+    justify-content: center !important;
+    align-content: center !important;
+    gap: 0.42rem 0.22rem !important;
+    width: 100% !important;
+    max-width: 332px !important;
+    margin: 0.45rem auto 0.65rem !important;
+    overflow: visible !important;
+  }
+
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 30px !important;
+    height: 30px !important;
+    max-height: 30px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    flex: none !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+  }
+
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .icon-wrap,
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .icon-wrap svg {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    flex: 0 0 18px !important;
+  }
+
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .copy {
+    min-width: 0 !important;
+    max-width: calc(100% - 22px) !important;
+    margin-left: 0.18rem !important;
+    overflow: hidden !important;
+  }
+
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .label {
+    display: block !important;
+    color: var(--dusty-mauve) !important;
+    font-size: 0.50rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.035em !important;
+    line-height: 1 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+  }
+
+  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .sub {
+    display: block !important;
+    color: var(--dusty-mauve) !important;
+    opacity: 0.82 !important;
+    font-size: 0.43rem !important;
+    letter-spacing: -0.03em !important;
+    line-height: 1.05 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+  }
+
+  @media (max-width: 360px) {
+    body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row {
+      max-width: 304px !important;
+      gap: 0.38rem 0.12rem !important;
+    }
+    body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .label {
+      font-size: 0.46rem !important;
+      letter-spacing: -0.06em !important;
+    }
+    body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .sub {
+      font-size: 0.35rem !important;
+      letter-spacing: -0.055em !important;
+    }
+  }
+</style>
+
+<script id="bp-final-marque-branding-restore-script">
+(function () {
+  "use strict";
+
+  function stripPulledBranding(root) {
+    if (!root) return;
+    var selectors = [
+      ".brand-badge-row",
+      ".marque-branding",
+      ".marque-row",
+      ".branding-row",
+      "[class*='marque']",
+      "[class*='marquee']",
+      ".scrolling-brand",
+      ".brand-marquee"
+    ];
+    selectors.forEach(function (sel) {
+      Array.prototype.forEach.call(root.querySelectorAll(sel), function (el) {
+        if (el.classList && el.classList.contains("bp-hardcoded-badge-row")) return;
+        try { el.remove(); } catch (e) {}
+      });
+    });
+  }
+
+  function ensureHardcodedRow(root) {
+    if (!root || typeof injectHardcodedPortfolioRow !== "function") return;
+    // Re-use the already-defined injector that lives earlier in this file.
+    // It removes any prior .bp-hardcoded-badge-row then inserts the constant.
+    try {
+      injectHardcodedPortfolioRow(root);
+    } catch (e) {}
+  }
+
+  function restore() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    stripPulledBranding(root);
+    ensureHardcodedRow(root);
+  }
+
+  function schedule() {
+    restore();
+    [120, 350, 700, 1200, 2000, 3500, 5500, 8000].forEach(function (ms) {
+      setTimeout(restore, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+
+  // Also watch for the late content injection that the main mobile loader performs
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () {
+      restore();
+    });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () {
+      try { mo.disconnect(); } catch (e) {}
+    }, 15000);
+  }
+})();
+</script>
