@@ -14714,3 +14714,161 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 })();
 </script>
+
+<!-- ---------- Self-healing fix: keep the Lansing Community College course logo present ---------- -->
+<!-- Additive only — does not modify any existing code. Continuously watches the Courses
+     card and re-inserts the LCC logo (cloned from the matching MongoDB/Rackspace logo
+     markup so sizing/styling stays identical) whenever it goes missing. -->
+<script id="bp-lcc-course-logo-self-heal">
+(function () {
+  "use strict";
+
+  function norm(v) {
+    return (v || "").toLowerCase();
+  }
+
+  function isLansingImg(img) {
+    var alt = norm(img.getAttribute("alt"));
+    var src = norm(img.getAttribute("src"));
+    return alt.indexOf("lansing") !== -1 ||
+           alt.indexOf("community college") !== -1 ||
+           src.indexOf("lcclogo") !== -1;
+  }
+
+  function isWorkingImg(img) {
+    if (!img || !img.isConnected) return false;
+    if (img.style && img.style.display === "none") return false;
+    var rect = img.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) return true;
+    // Not yet laid out / not yet loaded — still count it as present if it hasn't errored.
+    return img.complete !== true || img.naturalWidth !== 0;
+  }
+
+  function findLccGroup(root) {
+    var titles = root.querySelectorAll(".course-title, .course-group h3, .course-group h4");
+    for (var i = 0; i < titles.length; i++) {
+      var text = norm(titles[i].textContent).replace(/\s+/g, " ").trim();
+      if (text.indexOf("lansing community college") !== -1) {
+        return {
+          title: titles[i],
+          group: titles[i].closest(".course-group") || titles[i].closest(".job-layout") || titles[i].parentElement
+        };
+      }
+    }
+    return null;
+  }
+
+  function findSiblingLogoWrapper(area) {
+    // Grab a MongoDB or Rackspace logo wrapper from the Courses area to clone its
+    // structure/classes/styling exactly, so the restored LCC logo matches pixel-for-pixel.
+    var imgs = area.querySelectorAll("img");
+    for (var i = 0; i < imgs.length; i++) {
+      var alt = norm(imgs[i].getAttribute("alt"));
+      var src = norm(imgs[i].getAttribute("src"));
+      if (alt.indexOf("mongodb") !== -1 || src.indexOf("mongo") !== -1 ||
+          alt.indexOf("rackspace") !== -1 || alt.indexOf("cloud u") !== -1 || src.indexOf("cloud") !== -1) {
+        return imgs[i].closest(".job-logo") || imgs[i];
+      }
+    }
+    return null;
+  }
+
+  function findAnyLansingImgInDocument() {
+    var all = document.querySelectorAll("#mobileContent img");
+    for (var i = 0; i < all.length; i++) {
+      if (isLansingImg(all[i])) return all[i];
+    }
+    return null;
+  }
+
+  function heal() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+
+    var found = findLccGroup(root);
+    if (!found || !found.group) return;
+
+    var group = found.group;
+    var title = found.title;
+
+    var existing = null;
+    Array.prototype.forEach.call(group.querySelectorAll("img"), function (img) {
+      if (!existing && isLansingImg(img)) existing = img;
+    });
+
+    if (existing && isWorkingImg(existing)) return; // already fine, do nothing
+
+    var area = group.closest(".course-grid, .courses-card") || root;
+    var siblingWrapper = findSiblingLogoWrapper(area);
+    var referenceImg = findAnyLansingImgInDocument();
+
+    var newImg;
+    var newWrapper = null;
+
+    if (siblingWrapper && siblingWrapper.tagName === "DIV") {
+      newWrapper = siblingWrapper.cloneNode(true);
+      newImg = newWrapper.querySelector("img");
+      if (!newImg) {
+        newImg = document.createElement("img");
+        newWrapper.appendChild(newImg);
+      }
+    } else if (siblingWrapper && siblingWrapper.tagName === "IMG") {
+      newImg = siblingWrapper.cloneNode(true);
+    } else {
+      newImg = document.createElement("img");
+    }
+
+    newImg.setAttribute("src", referenceImg ? referenceImg.getAttribute("src") : "lcclogo.jpg");
+    newImg.setAttribute("alt", "Lansing Community College");
+    newImg.style.setProperty("display", "block", "important");
+    newImg.style.setProperty("visibility", "visible", "important");
+    newImg.style.setProperty("opacity", "1", "important");
+
+    var toInsert = newWrapper || newImg;
+
+    if (existing && existing.parentNode) {
+      existing.parentNode.replaceChild(toInsert, existing);
+    } else {
+      group.insertBefore(toInsert, title);
+    }
+  }
+
+  function scheduleHeal() {
+    heal();
+    [100, 300, 600, 1000, 1600, 2500, 4000].forEach(function (ms) {
+      setTimeout(heal, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scheduleHeal);
+  } else {
+    scheduleHeal();
+  }
+  window.addEventListener("load", scheduleHeal, { passive: true });
+
+  // Ongoing safety net: the resume content can reload/re-render later, so keep watching.
+  var lastCheck = 0;
+  function throttledHeal() {
+    var now = Date.now();
+    if (now - lastCheck < 400) return;
+    lastCheck = now;
+    heal();
+  }
+
+  function startObserving() {
+    var target = document.getElementById("mobileContent") || document.body;
+    if (!target || !window.MutationObserver) return;
+    var mo = new MutationObserver(throttledHeal);
+    mo.observe(target, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startObserving);
+  } else {
+    startObserving();
+  }
+
+  setInterval(heal, 5000);
+})();
+</script>
