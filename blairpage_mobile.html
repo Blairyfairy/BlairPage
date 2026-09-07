@@ -14616,6 +14616,12 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
       group.insertBefore(logoSlot, group.firstElementChild);
     }
 
+    /* Force the group to display logo first */
+    group.style.setProperty("display", "flex", "important");
+    group.style.setProperty("flex-direction", "row", "important");
+    group.style.setProperty("flex-wrap", "wrap", "important");
+    group.style.setProperty("align-items", "flex-start", "important");
+
     /* Preserve the existing rounded logo-slot behavior. */
     [
       ["display", "flex"],
@@ -14632,7 +14638,11 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
       ["flex", "0 0 46px"],
       ["margin", "0 0.7rem 0 0"],
       ["padding", "0"],
-      ["overflow", "visible"]
+      ["overflow", "visible"],
+      ["background", "transparent"],
+      ["border", "none"],
+      ["order", "-999"],
+      ["z-index", "10"]
     ].forEach(function (rule) {
       logoSlot.style.setProperty(rule[0], rule[1], "important");
     });
@@ -14657,7 +14667,12 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
       ["animation", "none"],
       ["transition", "none"],
       ["filter", "none"],
-      ["will-change", "auto"]
+      ["will-change", "auto"],
+      ["background", "transparent"],
+      ["border", "none"],
+      ["clip", "auto"],
+      ["clip-path", "none"],
+      ["z-index", "10"]
     ].forEach(function (rule) {
       logo.style.setProperty(rule[0], rule[1], "important");
     });
