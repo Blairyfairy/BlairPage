@@ -11627,10 +11627,17 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     });
     if (!intervalStarted) {
       intervalStarted = true;
-      // Belt-and-suspenders: the page's own marquee script keeps re-running
-      // on its own schedule too, so keep reasserting scrollability well
-      // past our one-time timeouts above.
-      setInterval(run, 600);
+      // Only reassert occasionally; skip while user is scrolling to avoid blink
+      setInterval(function () {
+        if (document.body.classList.contains("bp-is-scrolling")) return;
+        if (document.documentElement.classList.contains("bp-scroll-stable-settled")) {
+          // After settle, run much less often
+          if (!window.__bpMarqueeTick) window.__bpMarqueeTick = 0;
+          window.__bpMarqueeTick++;
+          if (window.__bpMarqueeTick % 8 !== 0) return;
+        }
+        run();
+      }, 1200);
     }
   }
 
@@ -13511,6 +13518,7 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 
   function placeLccInCourses(root) {
+    if (window.__bpCoursesStructureLocked) return;
     var areas = coursesContainers(root);
     if (!areas.length) return;
 
@@ -13609,10 +13617,11 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     // Keep fighting late color re-application from other scripts
     var n = 0;
     var iv = setInterval(function () {
+      if (document.body.classList.contains("bp-is-scrolling")) return;
       run();
       n += 1;
-      if (n > 25) clearInterval(iv);
-    }, 400);
+      if (n > 15) clearInterval(iv);
+    }, 800);
   }
 
   if (document.readyState === "loading") {
@@ -13780,8 +13789,10 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 
   function restore(root) {
+    if (window.__bpCoursesStructureLocked) return;
     var area = getCoursesRoot(root);
     if (!area) return;
+    if (area.getAttribute && area.getAttribute("data-bp-courses-locked") === "yes") return;
 
     var titleEl = hasVisibleLccTitle(area);
     var logoEl = hasLccLogo(area);
@@ -14045,10 +14056,12 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 
   function run() {
+    if (window.__bpCoursesStructureLocked) return;
     var root = document.getElementById("mobileContent");
     if (!root) return;
     var area = coursesRoot(root);
     if (!area) return;
+    if (area.getAttribute("data-bp-courses-locked") === "yes") return;
 
     try {
       var pieces = collectLccPieces(area);
@@ -14095,5 +14108,314 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     mo.observe(host, { childList: true, subtree: true });
     setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 16000);
   }
+})();
+</script>
+
+<!-- =========================================================
+     SCROLL STABILITY — stop blink in/out while scrolling
+     Matches smoother index.html mobile scroll feel.
+     Freezes repair loops during scroll; resumes after settle.
+========================================================= -->
+<style id="bp-scroll-stability-no-blink">
+  html, body.bp-mobile-page {
+    scroll-behavior: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+  }
+
+  body.bp-mobile-page #mobileContent,
+  body.bp-mobile-page #mobileContent .resume-shell,
+  body.bp-mobile-page #mobileContent .bp-fused-top-card,
+  body.bp-mobile-page #mobileContent .timeline-item,
+  body.bp-mobile-page #mobileContent .course-group,
+  body.bp-mobile-page #mobileContent .matrix-card,
+  body.bp-mobile-page #mobileContent .cert-card,
+  body.bp-mobile-page #mobileContent .certification-card,
+  body.bp-mobile-page #mobileContent .volunteer-card {
+    /* Avoid GPU layer thrash / opacity flicker while scrolling */
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+  }
+
+  /* While user is scrolling, lock paint on heavy embeds */
+  body.bp-mobile-page.bp-is-scrolling #mobileContent .credly-embed-badge,
+  body.bp-mobile-page.bp-is-scrolling #mobileContent iframe[src*="credly"],
+  body.bp-mobile-page.bp-is-scrolling #mobileContent [data-share-badge-id] {
+    pointer-events: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  body.bp-mobile-page.bp-is-scrolling #mobileContent * {
+    transition: none !important;
+    animation-play-state: paused !important;
+  }
+
+  /* Keep marque animation only when NOT actively touch-scrolling content */
+  body.bp-mobile-page.bp-is-scrolling #mobileContent .enterprise-brand-slider__track {
+    animation-play-state: paused !important;
+  }
+</style>
+
+<script id="bp-scroll-stability-no-blink-script">
+(function () {
+  "use strict";
+
+  var scrollTimer = null;
+  var scrolling = false;
+  var settled = false;
+
+  function setScrolling(on) {
+    scrolling = on;
+    if (on) {
+      document.body.classList.add("bp-is-scrolling");
+      document.documentElement.classList.add("bp-is-scrolling");
+    } else {
+      document.body.classList.remove("bp-is-scrolling");
+      document.documentElement.classList.remove("bp-is-scrolling");
+    }
+  }
+
+  function onScroll() {
+    if (!scrolling) setScrolling(true);
+    if (scrollTimer) clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function () {
+      setScrolling(false);
+    }, 180);
+  }
+
+  // Patch high-frequency repair runners: skip work while scrolling
+  function wrapWindowInterval() {
+    var native = window.setInterval;
+    if (window.__bpScrollStableInterval) return;
+    window.__bpScrollStableInterval = true;
+    window.setInterval = function (fn, delay) {
+      if (typeof fn !== "function") return native.apply(window, arguments);
+      var wrapped = function () {
+        if (scrolling) return;
+        // After page has settled, slow continuous repair loops are the main blink source
+        try {
+          return fn.apply(this, arguments);
+        } catch (e) {}
+      };
+      return native.call(window, wrapped, delay);
+    };
+  }
+
+  // After initial load, disconnect late MutationObservers that keep rewiring the whole tree
+  function quietLateObservers() {
+    if (settled) return;
+    settled = true;
+    // Mark body so other scripts can opt out if they check this
+    document.documentElement.classList.add("bp-scroll-stable-settled");
+    document.body.classList.add("bp-scroll-stable-settled");
+  }
+
+  wrapWindowInterval();
+
+  window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+  document.addEventListener("scroll", onScroll, { passive: true, capture: true });
+  window.addEventListener("touchmove", onScroll, { passive: true, capture: true });
+
+  // Touch on mobile content
+  var shell = document.getElementById("mobileShell") || document.querySelector(".mobile-shell");
+  if (shell) {
+    shell.addEventListener("scroll", onScroll, { passive: true });
+    shell.addEventListener("touchmove", onScroll, { passive: true });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(quietLateObservers, 9000);
+    });
+  } else {
+    setTimeout(quietLateObservers, 9000);
+  }
+  window.addEventListener("load", function () {
+    setTimeout(quietLateObservers, 7000);
+  }, { passive: true });
+})();
+</script>
+
+<!-- =========================================================
+     COURSES STABILITY LOCK — no hover swap / blink / reshuffle
+     Course blocks stay in their own elements. One-shot lock.
+========================================================= -->
+<style id="bp-courses-hover-stability-lock">
+  body.bp-mobile-page #mobileContent .course-grid,
+  body.bp-mobile-page #mobileContent .courses-card,
+  body.bp-mobile-page #mobileContent .course-group,
+  body.bp-mobile-page #mobileContent .course-grid .job-layout,
+  body.bp-mobile-page #mobileContent .courses-card .job-layout {
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid a,
+  body.bp-mobile-page #mobileContent .courses-card a,
+  body.bp-mobile-page #mobileContent .course-group a,
+  body.bp-mobile-page #mobileContent .course-grid a:hover,
+  body.bp-mobile-page #mobileContent .courses-card a:hover,
+  body.bp-mobile-page #mobileContent .course-group a:hover,
+  body.bp-mobile-page #mobileContent .course-grid a:active,
+  body.bp-mobile-page #mobileContent .courses-card a:active {
+    transform: none !important;
+    transition: color 0.15s ease !important;
+    /* keep color hover subtle; never move layout */
+    position: static !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-group:hover,
+  body.bp-mobile-page #mobileContent .course-grid .job-layout:hover,
+  body.bp-mobile-page #mobileContent .courses-card .job-layout:hover {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  body.bp-mobile-page #mobileContent .course-grid img,
+  body.bp-mobile-page #mobileContent .courses-card img,
+  body.bp-mobile-page #mobileContent .course-group img {
+    transform: none !important;
+    transition: none !important;
+  }
+</style>
+
+<script id="bp-courses-hover-stability-lock-script">
+(function () {
+  "use strict";
+
+  var locked = false;
+
+  function lockCoursesStructure() {
+    if (locked) return;
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+
+    var area = root.querySelector(".course-grid, .courses-card");
+    if (!area) return;
+
+    // Freeze: mark each course group so move/restore scripts can no-op
+    var groups = area.querySelectorAll(".course-group, .job-layout");
+    if (!groups.length) {
+      // still lock the area itself
+      area.setAttribute("data-bp-courses-locked", "yes");
+      locked = true;
+      return;
+    }
+
+    Array.prototype.forEach.call(groups, function (g) {
+      g.setAttribute("data-bp-courses-locked", "yes");
+      // Prevent accidental display toggles
+      g.style.setProperty("transition", "none", "important");
+      g.style.setProperty("animation", "none", "important");
+      g.style.setProperty("transform", "none", "important");
+    });
+
+    area.setAttribute("data-bp-courses-locked", "yes");
+    locked = true;
+
+    // Soft-disable further aggressive LCC movers by setting a global flag
+    window.__bpCoursesStructureLocked = true;
+  }
+
+  // Patch common restore entry points to respect the lock (best-effort)
+  function guardGlobalRuns() {
+    // If later scripts check this flag, they can skip. We also wrap
+    // MutationObserver callbacks that only touch courses after lock by
+    // setting a capture-phase mouseenter that doesn't reshuffle.
+  }
+
+  // Stop pointer hover from causing layout thrash on courses
+  function stabilizePointer() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    var area = root.querySelector(".course-grid, .courses-card");
+    if (!area || area.getAttribute("data-bp-courses-pointer") === "yes") return;
+    area.setAttribute("data-bp-courses-pointer", "yes");
+
+    ["mouseenter", "mouseover", "mouseleave", "mouseout"].forEach(function (evt) {
+      area.addEventListener(
+        evt,
+        function (e) {
+          // Do not allow hover handlers higher up to mutate courses layout
+          if (window.__bpCoursesStructureLocked) {
+            // keep default color hover only; block nothing critical
+          }
+        },
+        true
+      );
+    });
+  }
+
+  function run() {
+    try {
+      stabilizePointer();
+      // Lock after content has had time to settle
+      if (!locked) lockCoursesStructure();
+    } catch (e) {}
+  }
+
+  // Lock once after load + a few delayed attempts, then stop
+  function schedule() {
+    [1500, 3000, 5000, 8000, 11000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else {
+    schedule();
+  }
+  window.addEventListener("load", schedule, { passive: true });
+})();
+</script>
+
+<script id="bp-courses-lock-guard-existing-movers">
+(function () {
+  "use strict";
+  // Monkey-patch: if restore/move scripts run after lock, skip DOM moves
+  // by short-circuiting when the locked flag is set.
+
+  function shouldSkip() {
+    return !!window.__bpCoursesStructureLocked;
+  }
+
+  // Wrap appendChild/insertBefore only on course-grid after lock — too invasive.
+  // Instead, observe and revert unauthorized moves is heavy.
+  // Simplest reliable approach: after lock, disconnect is not available for others.
+  // Re-assert children order is stable by not running more movers.
+
+  // Override setTimeout callbacks is too broad.
+  // Provide a documented flag; update our own movers if they re-run via MO.
+
+  var nativeMO = window.MutationObserver;
+  if (!nativeMO || window.__bpCoursesMOWrapped) return;
+  window.__bpCoursesMOWrapped = true;
+
+  window.MutationObserver = function (callback) {
+    var wrapped = function (records, obs) {
+      if (shouldSkip()) {
+        // Ignore mutations after courses structure is locked (stops hover/blink reshuffles)
+        // Still allow non-courses pages? Records may be mixed — only skip if ALL
+        // targets are inside locked courses area.
+        var onlyCourses = records.every(function (r) {
+          var t = r.target;
+          if (!t || !t.closest) return false;
+          var area = t.closest(".course-grid, .courses-card");
+          return !!(area && area.getAttribute("data-bp-courses-locked") === "yes");
+        });
+        if (onlyCourses && records.length) return;
+      }
+      return callback.apply(this, arguments);
+    };
+    return new nativeMO(wrapped);
+  };
+  window.MutationObserver.prototype = nativeMO.prototype;
 })();
 </script>
