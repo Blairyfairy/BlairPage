@@ -10912,184 +10912,223 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 </html>
 
 <!-- =========================================================
-     FINAL NON-DESTRUCTIVE RESTORE — MARQUE / BRANDING ROW FROM INDEX
-     Strips any brand/marque rows pulled from index.html and
-     re-applies the existing hardcoded badge row. Leaves all
-     earlier code untouched.
+     FINAL — ENTERPRISE BRAND MARQUEE MOBILE FIT
+     The marque logos/items from index.html were oversized /
+     overflowing on mobile. Style them to fit the screen and
+     look clean (desktop-like seamless row) WITHOUT touching
+     the hardcoded portfolio badge row (Linktree / Discord /
+     DeviantArt / 666 AWS / etc — those stay as they were).
 ========================================================= -->
-<style id="bp-final-marque-branding-restore">
-  body.bp-mobile-page #mobileContent .brand-badge-row,
-  body.bp-mobile-page #mobileContent .marque-branding,
-  body.bp-mobile-page #mobileContent .marque-row,
-  body.bp-mobile-page #mobileContent .branding-row,
-  body.bp-mobile-page #mobileContent [class*="marque"],
-  body.bp-mobile-page #mobileContent [class*="marquee"],
-  body.bp-mobile-page #mobileContent .scrolling-brand,
-  body.bp-mobile-page #mobileContent .brand-marquee {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    max-height: 0 !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-
-  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row {
-    display: grid !important;
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    grid-auto-flow: row !important;
-    align-items: stretch !important;
-    justify-items: stretch !important;
-    justify-content: center !important;
-    align-content: center !important;
-    gap: 0.42rem 0.22rem !important;
+<style id="bp-final-enterprise-marque-mobile-fit">
+  /* --- Contain the marque so it never widens the page --- */
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider,
+  body.bp-mobile-page #mobileContent section.enterprise-brand-slider {
     width: 100% !important;
-    max-width: 332px !important;
-    margin: 0.45rem auto 0.65rem !important;
-    overflow: visible !important;
-  }
-
-  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge {
-    width: 100% !important;
-    min-width: 0 !important;
     max-width: 100% !important;
-    min-height: 30px !important;
-    height: 30px !important;
-    max-height: 30px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    display: inline-flex !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    padding: 10px 0 !important;
+    margin: 0.35rem 0 0.55rem !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__viewport {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__track {
+    display: flex !important;
+    width: max-content !important;
+    align-items: center !important;
+    animation: enterpriseBrandScroll 52s linear infinite !important;
+    will-change: transform !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__set {
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Smaller, uniform logo tiles on mobile */
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item {
+    width: 118px !important;
+    min-width: 118px !important;
+    max-width: 118px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+    padding: 6px 10px !important;
+    display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 0 !important;
-    flex: none !important;
+    flex-shrink: 0 !important;
+    opacity: 0.92 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item:hover {
+    opacity: 1 !important;
+    transform: scale(1.03) !important;
+  }
+
+  /* Text logos: single line, scaled down */
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-mark,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit,
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item span {
+    font-size: 13px !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.4px !important;
     white-space: nowrap !important;
     overflow: hidden !important;
-  }
-
-  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .icon-wrap,
-  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .icon-wrap svg {
-    width: 18px !important;
-    height: 18px !important;
-    min-width: 18px !important;
-    min-height: 18px !important;
-    max-width: 18px !important;
-    max-height: 18px !important;
-    flex: 0 0 18px !important;
-  }
-
-  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .copy {
-    min-width: 0 !important;
-    max-width: calc(100% - 22px) !important;
-    margin-left: 0.18rem !important;
-    overflow: hidden !important;
-  }
-
-  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .label {
-    display: block !important;
-    color: var(--dusty-mauve) !important;
-    font-size: 0.50rem !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.035em !important;
-    line-height: 1 !important;
+    text-overflow: ellipsis !important;
     max-width: 100% !important;
-    overflow: hidden !important;
-    text-overflow: clip !important;
-    white-space: nowrap !important;
   }
 
-  body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .sub {
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-heart {
+    font-size: 14px !important;
+  }
+
+  /* SVG / icon marks inside marque items */
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item svg {
+    width: 22px !important;
+    height: 22px !important;
+    max-width: 22px !important;
+    max-height: 22px !important;
     display: block !important;
-    color: var(--dusty-mauve) !important;
-    opacity: 0.82 !important;
-    font-size: 0.43rem !important;
-    letter-spacing: -0.03em !important;
-    line-height: 1.05 !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-    text-overflow: clip !important;
-    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
 
+  body.bp-mobile-page #mobileContent .enterprise-brand-slider__item img {
+    max-width: 90px !important;
+    max-height: 28px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider__track {
+      animation: none !important;
+    }
+  }
+
+  /* Extra-narrow phones */
   @media (max-width: 360px) {
-    body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row {
-      max-width: 304px !important;
-      gap: 0.38rem 0.12rem !important;
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider__item {
+      width: 102px !important;
+      min-width: 102px !important;
+      max-width: 102px !important;
+      height: 40px !important;
+      padding: 5px 8px !important;
     }
-    body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .label {
-      font-size: 0.46rem !important;
-      letter-spacing: -0.06em !important;
-    }
-    body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item.compact-badge .sub {
-      font-size: 0.35rem !important;
-      letter-spacing: -0.055em !important;
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-givewp-mark,
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider .brand-fitbit,
+    body.bp-mobile-page #mobileContent .enterprise-brand-slider__item span {
+      font-size: 12px !important;
     }
   }
+
+  /* =========================================================
+     DO NOT touch the hardcoded portfolio badge row
+     (Linktree, Discord, WhatsApp, DeviantArt, 666 AWS, etc.)
+     Leave those styles exactly as the earlier mobile CSS had them.
+     ========================================================= */
 </style>
 
-<script id="bp-final-marque-branding-restore-script">
+<script id="bp-final-enterprise-marque-mobile-fit-script">
 (function () {
   "use strict";
-  function stripPulledBranding(root) {
+
+  function fitMarque() {
+    var root = document.getElementById("mobileContent");
     if (!root) return;
-    [".brand-badge-row",".marque-branding",".marque-row",".branding-row",
-     "[class*='marque']","[class*='marquee']",".scrolling-brand",".brand-marquee"
-    ].forEach(function (sel) {
-      Array.prototype.forEach.call(root.querySelectorAll(sel), function (el) {
-        if (el.classList && el.classList.contains("bp-hardcoded-badge-row")) return;
-        try { el.remove(); } catch (e) {}
+
+    var sliders = root.querySelectorAll(".enterprise-brand-slider, section.enterprise-brand-slider");
+    Array.prototype.forEach.call(sliders, function (slider) {
+      slider.style.setProperty("width", "100%", "important");
+      slider.style.setProperty("max-width", "100%", "important");
+      slider.style.setProperty("overflow", "hidden", "important");
+      slider.style.setProperty("padding", "10px 0", "important");
+
+      var items = slider.querySelectorAll(".enterprise-brand-slider__item");
+      Array.prototype.forEach.call(items, function (item) {
+        item.style.setProperty("width", "118px", "important");
+        item.style.setProperty("min-width", "118px", "important");
+        item.style.setProperty("max-width", "118px", "important");
+        item.style.setProperty("height", "44px", "important");
+        item.style.setProperty("padding", "6px 10px", "important");
+        item.style.setProperty("overflow", "hidden", "important");
+      });
+
+      slider.querySelectorAll("svg").forEach(function (svg) {
+        svg.style.setProperty("width", "22px", "important");
+        svg.style.setProperty("height", "22px", "important");
+        svg.style.setProperty("max-width", "22px", "important");
+        svg.style.setProperty("max-height", "22px", "important");
+      });
+
+      slider.querySelectorAll("img").forEach(function (img) {
+        img.style.setProperty("max-width", "90px", "important");
+        img.style.setProperty("max-height", "28px", "important");
+        img.style.setProperty("object-fit", "contain", "important");
       });
     });
   }
-  function ensureHardcodedRow(root) {
-    if (!root || typeof injectHardcodedPortfolioRow !== "function") return;
-    try { injectHardcodedPortfolioRow(root); } catch (e) {}
-  }
-  function restore() {
+
+  // Still strip desktop brand-badge-row (not the marque) and keep hardcoded portfolio row
+  function stripAndKeepHardcoded() {
     var root = document.getElementById("mobileContent");
     if (!root) return;
-    stripPulledBranding(root);
-    ensureHardcodedRow(root);
+    root.querySelectorAll(".brand-badge-row").forEach(function (el) {
+      try { el.remove(); } catch (e) {}
+    });
+    if (typeof injectHardcodedPortfolioRow === "function") {
+      try { injectHardcodedPortfolioRow(root); } catch (e) {}
+    }
   }
+
+  function run() {
+    stripAndKeepHardcoded();
+    fitMarque();
+  }
+
   function schedule() {
-    restore();
-    [120, 350, 700, 1200, 2000, 3500, 5500, 8000].forEach(function (ms) {
-      setTimeout(restore, ms);
+    run();
+    [150, 400, 900, 1600, 2800, 4500, 7000].forEach(function (ms) {
+      setTimeout(run, ms);
     });
   }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", schedule);
-  } else { schedule(); }
+  } else {
+    schedule();
+  }
   window.addEventListener("load", schedule, { passive: true });
+
   var host = document.getElementById("mobileContent");
   if (host && window.MutationObserver) {
-    var mo = new MutationObserver(function () { restore(); });
+    var mo = new MutationObserver(function () { run(); });
     mo.observe(host, { childList: true, subtree: true });
-    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 15000);
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 12000);
   }
 })();
 </script>
 
-<!-- =========================================================
-     FINAL SCREEN-FIT RESTORE — CONTENT BELOW BRANDING ROW ONLY
-     Keeps the branding/badge row behaving exactly the same.
-     Forces every section under it back to true viewport width
-     so nothing is wider than the screen (pre-marque state).
-     All content remains unchanged.
-========================================================= -->
-<style id="bp-final-screen-fit-below-branding">
-  html,
-  body.bp-mobile-page {
+<!-- Screen-fit for the rest of the page (does not target badge row or marque items specially) -->
+<style id="bp-final-screen-fit-rest">
+  html, body.bp-mobile-page {
     width: 100% !important;
     max-width: 100vw !important;
     overflow-x: hidden !important;
     box-sizing: border-box !important;
   }
-
   body.bp-mobile-page .mobile-shell,
   body.bp-mobile-page #mobileShell,
   body.bp-mobile-page #mobileContent {
@@ -11099,126 +11138,13 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     overflow-x: hidden !important;
     box-sizing: border-box !important;
   }
-
-  body.bp-mobile-page #mobileContent *:not(.bp-hardcoded-badge-row):not(.bp-hardcoded-badge-row *) {
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
   body.bp-mobile-page #mobileContent .resume-shell,
   body.bp-mobile-page #mobileContent .container,
   body.bp-mobile-page #mobileContent .bp-fused-top-card,
-  body.bp-mobile-page #mobileContent .identity-row,
-  body.bp-mobile-page #mobileContent .identity-info,
-  body.bp-mobile-page #mobileContent .profile-matrix,
-  body.bp-mobile-page #mobileContent .matrix-grid,
-  body.bp-mobile-page #mobileContent .matrix-card,
-  body.bp-mobile-page #mobileContent .card-content,
-  body.bp-mobile-page #mobileContent .timeline-item,
-  body.bp-mobile-page #mobileContent .job-layout,
-  body.bp-mobile-page #mobileContent .job-details,
-  body.bp-mobile-page #mobileContent .education-wrapper,
-  body.bp-mobile-page #mobileContent .edu-card,
-  body.bp-mobile-page #mobileContent .course-grid,
-  body.bp-mobile-page #mobileContent .courses-card,
-  body.bp-mobile-page #mobileContent .certification-list,
-  body.bp-mobile-page #mobileContent .cert-card,
-  body.bp-mobile-page #mobileContent .certification-card,
-  body.bp-mobile-page #mobileContent .volunteer-grid,
-  body.bp-mobile-page #mobileContent .volunteer-card,
-  body.bp-mobile-page #mobileContent .resume-sections,
   body.bp-mobile-page #mobileContent section {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
-    overflow-x: hidden !important;
     box-sizing: border-box !important;
   }
-
-  body.bp-mobile-page #mobileContent p,
-  body.bp-mobile-page #mobileContent li,
-  body.bp-mobile-page #mobileContent h1,
-  body.bp-mobile-page #mobileContent h2,
-  body.bp-mobile-page #mobileContent h3,
-  body.bp-mobile-page #mobileContent h4,
-  body.bp-mobile-page #mobileContent span,
-  body.bp-mobile-page #mobileContent a,
-  body.bp-mobile-page #mobileContent td,
-  body.bp-mobile-page #mobileContent th,
-  body.bp-mobile-page #mobileContent div {
-    overflow-wrap: anywhere !important;
-    word-break: break-word !important;
-    max-width: 100% !important;
-  }
-
-  body.bp-mobile-page #mobileContent table {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  body.bp-mobile-page #mobileContent img:not(.bp-hardcoded-badge-row img) {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  body.bp-mobile-page #mobileContent .credly-embed-badge,
-  body.bp-mobile-page #mobileContent [data-share-badge-id],
-  body.bp-mobile-page #mobileContent iframe[src*="credly"] {
-    max-width: 100% !important;
-    width: 100% !important;
-  }
 </style>
-
-<script id="bp-final-screen-fit-below-branding-script">
-(function () {
-  "use strict";
-  function forceFit(root) {
-    if (!root) return;
-    [document.documentElement, document.body, root.closest(".mobile-shell"), root].forEach(function (el) {
-      if (!el || !el.style) return;
-      el.style.setProperty("width", "100%", "important");
-      el.style.setProperty("max-width", "100%", "important");
-      el.style.setProperty("min-width", "0", "important");
-      el.style.setProperty("overflow-x", "hidden", "important");
-      el.style.setProperty("box-sizing", "border-box", "important");
-    });
-    var blocks = root.querySelectorAll(
-      ".resume-shell, .container, .bp-fused-top-card, .identity-row, .identity-info, " +
-      ".profile-matrix, .matrix-grid, .matrix-card, .card-content, .timeline-item, " +
-      ".job-layout, .job-details, .education-wrapper, .edu-card, .course-grid, " +
-      ".courses-card, .certification-list, .cert-card, .certification-card, " +
-      ".volunteer-grid, .volunteer-card, .resume-sections, section"
-    );
-    Array.prototype.forEach.call(blocks, function (el) {
-      if (el.closest && el.closest(".bp-hardcoded-badge-row")) return;
-      el.style.setProperty("width", "100%", "important");
-      el.style.setProperty("max-width", "100%", "important");
-      el.style.setProperty("min-width", "0", "important");
-      el.style.setProperty("overflow-x", "hidden", "important");
-      el.style.setProperty("box-sizing", "border-box", "important");
-    });
-  }
-  function run() {
-    forceFit(document.getElementById("mobileContent"));
-  }
-  function schedule() {
-    run();
-    [150, 400, 900, 1600, 2800, 4500, 7000].forEach(function (ms) {
-      setTimeout(run, ms);
-    });
-  }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", schedule);
-  } else { schedule(); }
-  window.addEventListener("load", schedule, { passive: true });
-  var host = document.getElementById("mobileContent");
-  if (host && window.MutationObserver) {
-    var mo = new MutationObserver(function () { run(); });
-    mo.observe(host, { childList: true, subtree: true });
-    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 12000);
-  }
-})();
-</script>
