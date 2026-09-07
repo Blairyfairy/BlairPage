@@ -14558,13 +14558,23 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 </script>
 
 
-<!-- Force white text ONLY for the three institution names -->
+<!-- Force white text ONLY for the three institution names and their course items -->
 <style id="bp-institution-names-white">
   /* Target only the specific three institution titles */
   .bp-mobile-page #mobileContent .course-title:contains("Lansing Community College"),
   .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Lansing Community College")) .course-title,
   .bp-mobile-page #mobileContent .course-group:has(h3:contains("Lansing Community College")) .course-title,
   .bp-mobile-page #mobileContent .course-group:has(h4:contains("Lansing Community College")) .course-title {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+  
+  /* All course items under Lansing Community College */
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Lansing Community College")) li,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Lansing Community College")) .course-description,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Lansing Community College")) span,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Lansing Community College")) p,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Lansing Community College")) div {
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
   }
@@ -14577,10 +14587,30 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     -webkit-text-fill-color: #ffffff !important;
   }
   
+  /* All course items under MongoDB University */
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("MongoDB University")) li,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("MongoDB University")) .course-description,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("MongoDB University")) span,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("MongoDB University")) p,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("MongoDB University")) div {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+  
   .bp-mobile-page #mobileContent .course-title:contains("Rackspace Cloud University"),
   .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Rackspace Cloud University")) .course-title,
   .bp-mobile-page #mobileContent .course-group:has(h3:contains("Rackspace Cloud University")) .course-title,
   .bp-mobile-page #mobileContent .course-group:has(h4:contains("Rackspace Cloud University")) .course-title {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+  
+  /* All course items under Rackspace Cloud University */
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Rackspace Cloud University")) li,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Rackspace Cloud University")) .course-description,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Rackspace Cloud University")) span,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Rackspace Cloud University")) p,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title:contains("Rackspace Cloud University")) div {
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
   }
@@ -14597,8 +14627,32 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     if (text.indexOf("lansing community college") !== -1 || 
         text.indexOf("mongodb university") !== -1 ||
         text.indexOf("rackspace cloud university") !== -1) {
+      // Make the title white
       el.style.setProperty("color", "#ffffff", "important");
       el.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+      
+      // Find the course group and make all course items white
+      var courseGroup = el.closest(".course-group");
+      if (courseGroup) {
+        // Make all li elements white
+        courseGroup.querySelectorAll("li").forEach(function(li) {
+          li.style.setProperty("color", "#ffffff", "important");
+          li.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+        });
+        
+        // Make all text nodes and elements white
+        courseGroup.querySelectorAll("span, p, div, a").forEach(function(el2) {
+          el2.style.setProperty("color", "#ffffff", "important");
+          el2.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+        });
+        
+        // Make course-description white
+        var desc = courseGroup.querySelector(".course-description");
+        if (desc) {
+          desc.style.setProperty("color", "#ffffff", "important");
+          desc.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+        }
+      }
     }
   });
 })();
