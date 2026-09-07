@@ -10911,23 +10911,13 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 </body>
 </html>
 
-
-
-
-
 <!-- =========================================================
      FINAL NON-DESTRUCTIVE RESTORE — MARQUE / BRANDING ROW FROM INDEX
-     After marque branding was added to index.html the mobile clone
-     layout broke. This patch ONLY:
-       1. Strips any brand / marque / scrolling branding rows that
-          arrive from the live index.html fetch
-       2. Re-injects the already-defined HARD_CODED_PORTFOLIO_BADGE_ROW
-          in the same place as before
-       3. Forces the previous badge-row grid + sizing rules
-       4. Leaves every earlier line of CSS/JS/HTML completely unchanged
+     Strips any brand/marque rows pulled from index.html and
+     re-applies the existing hardcoded badge row. Leaves all
+     earlier code untouched.
 ========================================================= -->
 <style id="bp-final-marque-branding-restore">
-  /* Hide any marque / brand rows that may have been pulled from index */
   body.bp-mobile-page #mobileContent .brand-badge-row,
   body.bp-mobile-page #mobileContent .marque-branding,
   body.bp-mobile-page #mobileContent .marque-row,
@@ -10948,8 +10938,6 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     pointer-events: none !important;
   }
 
-  /* Guarantee the hardcoded portfolio badge row keeps the exact prior
-     2-row / 4-column compact layout that existed before the index change */
   body.bp-mobile-page #mobileContent .bp-hardcoded-badge-row {
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
@@ -11046,67 +11034,191 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 <script id="bp-final-marque-branding-restore-script">
 (function () {
   "use strict";
-
   function stripPulledBranding(root) {
     if (!root) return;
-    var selectors = [
-      ".brand-badge-row",
-      ".marque-branding",
-      ".marque-row",
-      ".branding-row",
-      "[class*='marque']",
-      "[class*='marquee']",
-      ".scrolling-brand",
-      ".brand-marquee"
-    ];
-    selectors.forEach(function (sel) {
+    [".brand-badge-row",".marque-branding",".marque-row",".branding-row",
+     "[class*='marque']","[class*='marquee']",".scrolling-brand",".brand-marquee"
+    ].forEach(function (sel) {
       Array.prototype.forEach.call(root.querySelectorAll(sel), function (el) {
         if (el.classList && el.classList.contains("bp-hardcoded-badge-row")) return;
         try { el.remove(); } catch (e) {}
       });
     });
   }
-
   function ensureHardcodedRow(root) {
     if (!root || typeof injectHardcodedPortfolioRow !== "function") return;
-    // Re-use the already-defined injector that lives earlier in this file.
-    // It removes any prior .bp-hardcoded-badge-row then inserts the constant.
-    try {
-      injectHardcodedPortfolioRow(root);
-    } catch (e) {}
+    try { injectHardcodedPortfolioRow(root); } catch (e) {}
   }
-
   function restore() {
     var root = document.getElementById("mobileContent");
     if (!root) return;
     stripPulledBranding(root);
     ensureHardcodedRow(root);
   }
-
   function schedule() {
     restore();
     [120, 350, 700, 1200, 2000, 3500, 5500, 8000].forEach(function (ms) {
       setTimeout(restore, ms);
     });
   }
-
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", schedule);
-  } else {
-    schedule();
-  }
+  } else { schedule(); }
   window.addEventListener("load", schedule, { passive: true });
-
-  // Also watch for the late content injection that the main mobile loader performs
   var host = document.getElementById("mobileContent");
   if (host && window.MutationObserver) {
-    var mo = new MutationObserver(function () {
-      restore();
-    });
+    var mo = new MutationObserver(function () { restore(); });
     mo.observe(host, { childList: true, subtree: true });
-    setTimeout(function () {
-      try { mo.disconnect(); } catch (e) {}
-    }, 15000);
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 15000);
+  }
+})();
+</script>
+
+<!-- =========================================================
+     FINAL SCREEN-FIT RESTORE — CONTENT BELOW BRANDING ROW ONLY
+     Keeps the branding/badge row behaving exactly the same.
+     Forces every section under it back to true viewport width
+     so nothing is wider than the screen (pre-marque state).
+     All content remains unchanged.
+========================================================= -->
+<style id="bp-final-screen-fit-below-branding">
+  html,
+  body.bp-mobile-page {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page .mobile-shell,
+  body.bp-mobile-page #mobileShell,
+  body.bp-mobile-page #mobileContent {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page #mobileContent *:not(.bp-hardcoded-badge-row):not(.bp-hardcoded-badge-row *) {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page #mobileContent .resume-shell,
+  body.bp-mobile-page #mobileContent .container,
+  body.bp-mobile-page #mobileContent .bp-fused-top-card,
+  body.bp-mobile-page #mobileContent .identity-row,
+  body.bp-mobile-page #mobileContent .identity-info,
+  body.bp-mobile-page #mobileContent .profile-matrix,
+  body.bp-mobile-page #mobileContent .matrix-grid,
+  body.bp-mobile-page #mobileContent .matrix-card,
+  body.bp-mobile-page #mobileContent .card-content,
+  body.bp-mobile-page #mobileContent .timeline-item,
+  body.bp-mobile-page #mobileContent .job-layout,
+  body.bp-mobile-page #mobileContent .job-details,
+  body.bp-mobile-page #mobileContent .education-wrapper,
+  body.bp-mobile-page #mobileContent .edu-card,
+  body.bp-mobile-page #mobileContent .course-grid,
+  body.bp-mobile-page #mobileContent .courses-card,
+  body.bp-mobile-page #mobileContent .certification-list,
+  body.bp-mobile-page #mobileContent .cert-card,
+  body.bp-mobile-page #mobileContent .certification-card,
+  body.bp-mobile-page #mobileContent .volunteer-grid,
+  body.bp-mobile-page #mobileContent .volunteer-card,
+  body.bp-mobile-page #mobileContent .resume-sections,
+  body.bp-mobile-page #mobileContent section {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  body.bp-mobile-page #mobileContent p,
+  body.bp-mobile-page #mobileContent li,
+  body.bp-mobile-page #mobileContent h1,
+  body.bp-mobile-page #mobileContent h2,
+  body.bp-mobile-page #mobileContent h3,
+  body.bp-mobile-page #mobileContent h4,
+  body.bp-mobile-page #mobileContent span,
+  body.bp-mobile-page #mobileContent a,
+  body.bp-mobile-page #mobileContent td,
+  body.bp-mobile-page #mobileContent th,
+  body.bp-mobile-page #mobileContent div {
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    max-width: 100% !important;
+  }
+
+  body.bp-mobile-page #mobileContent table {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body.bp-mobile-page #mobileContent img:not(.bp-hardcoded-badge-row img) {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  body.bp-mobile-page #mobileContent .credly-embed-badge,
+  body.bp-mobile-page #mobileContent [data-share-badge-id],
+  body.bp-mobile-page #mobileContent iframe[src*="credly"] {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+</style>
+
+<script id="bp-final-screen-fit-below-branding-script">
+(function () {
+  "use strict";
+  function forceFit(root) {
+    if (!root) return;
+    [document.documentElement, document.body, root.closest(".mobile-shell"), root].forEach(function (el) {
+      if (!el || !el.style) return;
+      el.style.setProperty("width", "100%", "important");
+      el.style.setProperty("max-width", "100%", "important");
+      el.style.setProperty("min-width", "0", "important");
+      el.style.setProperty("overflow-x", "hidden", "important");
+      el.style.setProperty("box-sizing", "border-box", "important");
+    });
+    var blocks = root.querySelectorAll(
+      ".resume-shell, .container, .bp-fused-top-card, .identity-row, .identity-info, " +
+      ".profile-matrix, .matrix-grid, .matrix-card, .card-content, .timeline-item, " +
+      ".job-layout, .job-details, .education-wrapper, .edu-card, .course-grid, " +
+      ".courses-card, .certification-list, .cert-card, .certification-card, " +
+      ".volunteer-grid, .volunteer-card, .resume-sections, section"
+    );
+    Array.prototype.forEach.call(blocks, function (el) {
+      if (el.closest && el.closest(".bp-hardcoded-badge-row")) return;
+      el.style.setProperty("width", "100%", "important");
+      el.style.setProperty("max-width", "100%", "important");
+      el.style.setProperty("min-width", "0", "important");
+      el.style.setProperty("overflow-x", "hidden", "important");
+      el.style.setProperty("box-sizing", "border-box", "important");
+    });
+  }
+  function run() {
+    forceFit(document.getElementById("mobileContent"));
+  }
+  function schedule() {
+    run();
+    [150, 400, 900, 1600, 2800, 4500, 7000].forEach(function (ms) {
+      setTimeout(run, ms);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", schedule);
+  } else { schedule(); }
+  window.addEventListener("load", schedule, { passive: true });
+  var host = document.getElementById("mobileContent");
+  if (host && window.MutationObserver) {
+    var mo = new MutationObserver(function () { run(); });
+    mo.observe(host, { childList: true, subtree: true });
+    setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 12000);
   }
 })();
 </script>
