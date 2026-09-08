@@ -14849,3 +14849,27 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 })();
 </script>
+
+<!-- ---------- Lock the Linktree-through-Gardening icon row in its resting state ---------- -->
+<!-- Additive only — does not modify any existing code. Pure CSS, no JS, so it can't
+     introduce any new flicker on its own. The row's existing style has a hover effect
+     (lifts 4px + adds a shadow on :hover/:active). On mobile, a tap simulates that
+     hover/active state, and since it doesn't reliably "let go," the icons look like
+     they jump and never settle. This matches that same selector chain (so it wins the
+     same specificity tie, and being later in the file it wins the cascade) and removes
+     the lift/shadow + the tap highlight flash, so the row only ever shows its normal,
+     settled appearance. -->
+<style id="bp-badge-row-no-jump">
+  .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item {
+    -webkit-tap-highlight-color: transparent !important;
+    touch-action: manipulation !important;
+  }
+
+  .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item:hover,
+  .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item:active,
+  .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item:focus,
+  .bp-mobile-page #mobileContent .bp-hardcoded-badge-row .badge-item:focus-visible {
+    transform: none !important;
+    filter: none !important;
+  }
+</style>
