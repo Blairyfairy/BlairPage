@@ -14893,3 +14893,462 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     box-sizing: border-box !important;
   }
 </style>
+
+<!-- =========================================================
+     FINAL FIX PASS (additive only — does not alter any prior lines)
+     1) Credly badges: single full centered badge, no split halves, no blink
+     2) LCC logo: hard-coded static path, forced above courses description
+     3) Job +/- expanders: working, left-aligned under logo, full-width description
+========================================================= -->
+<style id="bp-final-credly-single-badge-fix">
+  /* Force each Credly badge container to one clean centered badge */
+  .bp-mobile-page #mobileContent .bp-credly-original-shell,
+  .bp-mobile-page #mobileContent [data-share-badge-id],
+  .bp-mobile-page #mobileContent .credly-embed-badge {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 280px !important;
+    min-width: 180px !important;
+    margin: 0 auto 16px auto !important;
+    padding: 8px !important;
+    overflow: visible !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    position: relative !important;
+  }
+
+  .bp-mobile-page #mobileContent [data-share-badge-id] iframe,
+  .bp-mobile-page #mobileContent .credly-embed-badge iframe,
+  .bp-mobile-page #mobileContent iframe[src*="credly.com"],
+  .bp-mobile-page #mobileContent iframe[src*="credly"] {
+    display: block !important;
+    width: 200px !important;
+    max-width: 200px !important;
+    min-width: 150px !important;
+    height: 270px !important;
+    min-height: 270px !important;
+    max-height: 300px !important;
+    margin: 0 auto !important;
+    border: 0 !important;
+    overflow: visible !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    clip: auto !important;
+    clip-path: none !important;
+  }
+
+  /* Kill any half-width / split layout that can produce two cut-off halves */
+  .bp-mobile-page #mobileContent .bp-credly-original-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.25rem !important;
+    width: 100% !important;
+  }
+
+  .bp-mobile-page #mobileContent .bp-credly-original-shell {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 280px !important;
+  }
+
+  /* Prevent duplicate / stacked half badges */
+  .bp-mobile-page #mobileContent [data-share-badge-id] > iframe + iframe,
+  .bp-mobile-page #mobileContent .credly-embed-badge > iframe + iframe {
+    display: none !important;
+  }
+</style>
+
+<style id="bp-final-lcc-logo-static-hardcode">
+  /* Hard-coded LCC logo visibility and placement in courses */
+  .bp-mobile-page #mobileContent .course-group:has(.course-title.lcc) .job-logo,
+  .bp-mobile-page #mobileContent .course-group:has(.course-title.lcc) .course-logo,
+  .bp-mobile-page #mobileContent .courses-card .course-group:has(.course-title.lcc) .job-logo,
+  .bp-mobile-page #mobileContent .course-grid .course-group:has(.course-title.lcc) .job-logo {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 64px !important;
+    min-width: 64px !important;
+    max-width: 64px !important;
+    height: 64px !important;
+    margin: 0 0.8rem 0 0 !important;
+    align-self: flex-start !important;
+  }
+
+  .bp-mobile-page #mobileContent .course-group:has(.course-title.lcc) img[alt*="Lansing" i],
+  .bp-mobile-page #mobileContent .course-group:has(.course-title.lcc) img[src*="lcclogo" i],
+  .bp-mobile-page #mobileContent .course-group:has(.course-title.lcc) img.bp-final-lcc-logo,
+  .bp-mobile-page #mobileContent img.bp-final-lcc-logo {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+    object-fit: contain !important;
+    border-radius: 16px !important;
+  }
+
+  .bp-mobile-page #mobileContent .course-title.lcc {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+</style>
+
+<style id="bp-final-job-expand-fullwidth-left">
+  /* Job +/- full width under logo, left aligned */
+  .bp-mobile-page #mobileContent .timeline-item .job-layout,
+  .bp-mobile-page #mobileContent .bp-fused-experience .job-layout,
+  .bp-mobile-page #mobileContent .job-layout {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    width: 100% !important;
+  }
+
+  .bp-mobile-page #mobileContent .timeline-item .job-details,
+  .bp-mobile-page #mobileContent .bp-fused-experience .job-details,
+  .bp-mobile-page #mobileContent .job-details {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .bp-mobile-page #mobileContent .job-click {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0.25rem 0 0.5rem 0 !important;
+    padding: 6px 8px !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+  }
+
+  .bp-mobile-page #mobileContent .job-plus {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    margin-right: 10px !important;
+    flex-shrink: 0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #f0eff4 !important;
+    font-weight: 700 !important;
+  }
+
+  .bp-mobile-page #mobileContent .job-list-collapsible {
+    display: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .bp-mobile-page #mobileContent .job-list-collapsible.expanded {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .bp-mobile-page #mobileContent .job-details ul,
+  .bp-mobile-page #mobileContent .job-details li,
+  .bp-mobile-page #mobileContent .job-list-collapsible ul,
+  .bp-mobile-page #mobileContent .job-list-collapsible li {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+</style>
+
+<script id="bp-final-triple-fix-script">
+(function () {
+  "use strict";
+
+  var LCC_SRC = "BlairPageImages/lcclogo.jpg";
+  var LCC_ALT = "Lansing Community College";
+  var wiredJobs = new WeakSet();
+
+  function lower(s) {
+    return (s || "").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+
+  function setImp(el, prop, val) {
+    if (el && el.style) el.style.setProperty(prop, val, "important");
+  }
+
+  /* ---------- 1) CREDLY: one full centered badge, kill splits / duplicates ---------- */
+  function fixCredlyOnce(root) {
+    if (!root) return;
+
+    root.querySelectorAll("[data-share-badge-id], .credly-embed-badge").forEach(function (node) {
+      if (!node.getAttribute("data-share-badge-host")) {
+        node.setAttribute("data-share-badge-host", "https://www.credly.com");
+      }
+      if (!node.getAttribute("data-iframe-width")) node.setAttribute("data-iframe-width", "200");
+      if (!node.getAttribute("data-iframe-height")) node.setAttribute("data-iframe-height", "270");
+
+      setImp(node, "display", "flex");
+      setImp(node, "justify-content", "center");
+      setImp(node, "align-items", "center");
+      setImp(node, "width", "100%");
+      setImp(node, "max-width", "280px");
+      setImp(node, "margin", "0 auto 16px auto");
+      setImp(node, "overflow", "visible");
+      setImp(node, "visibility", "visible");
+      setImp(node, "opacity", "1");
+
+      var frames = node.querySelectorAll("iframe");
+      if (frames.length > 1) {
+        for (var i = 1; i < frames.length; i++) {
+          try { frames[i].parentNode.removeChild(frames[i]); } catch (e) {}
+        }
+      }
+    });
+
+    root.querySelectorAll("iframe[src*='credly.com'], iframe[src*='credly']").forEach(function (frame) {
+      setImp(frame, "display", "block");
+      setImp(frame, "width", "200px");
+      setImp(frame, "max-width", "200px");
+      setImp(frame, "height", "270px");
+      setImp(frame, "min-height", "270px");
+      setImp(frame, "margin", "0 auto");
+      setImp(frame, "border", "0");
+      setImp(frame, "visibility", "visible");
+      setImp(frame, "opacity", "1");
+      setImp(frame, "transform", "none");
+      setImp(frame, "clip", "auto");
+      setImp(frame, "clip-path", "none");
+    });
+
+    if (!document.querySelector('script[src*="credly.com/assets/utilities/embed.js"]')) {
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://cdn.credly.com/assets/utilities/embed.js";
+      document.head.appendChild(s);
+    }
+
+    try {
+      if (window.Credly && typeof window.Credly.process === "function") {
+        window.Credly.process();
+      }
+    } catch (e) {}
+  }
+
+  /* ---------- 2) LCC LOGO: hard-coded static path above description ---------- */
+  function forceLccLogo(root) {
+    if (!root) return;
+
+    var title = null;
+    var candidates = root.querySelectorAll(".course-title, h3, h4, .course-card-title");
+    for (var i = 0; i < candidates.length; i++) {
+      if (lower(candidates[i].textContent).indexOf("lansing community college") !== -1) {
+        title = candidates[i];
+        break;
+      }
+    }
+    if (!title) return;
+
+    var group =
+      title.closest(".course-group") ||
+      title.closest(".course-card") ||
+      title.closest(".job-layout") ||
+      title.parentElement;
+    if (!group) return;
+
+    var logoWrap = group.querySelector(".job-logo, .course-logo, .course-logo-wrapper");
+    var img = group.querySelector('img[alt*="Lansing" i], img[src*="lcclogo" i], img.bp-final-lcc-logo');
+
+    if (!img) {
+      img = document.createElement("img");
+      img.className = "bp-final-lcc-logo logo-img";
+      img.setAttribute("alt", LCC_ALT);
+      img.setAttribute("src", LCC_SRC);
+
+      if (logoWrap) {
+        logoWrap.innerHTML = "";
+        logoWrap.appendChild(img);
+      } else {
+        logoWrap = document.createElement("div");
+        logoWrap.className = "job-logo";
+        logoWrap.appendChild(img);
+        group.insertBefore(logoWrap, group.firstChild);
+      }
+    } else {
+      img.setAttribute("src", LCC_SRC);
+      img.setAttribute("alt", LCC_ALT);
+      img.classList.add("bp-final-lcc-logo");
+      if (logoWrap && !logoWrap.contains(img)) {
+        logoWrap.innerHTML = "";
+        logoWrap.appendChild(img);
+      } else if (!logoWrap) {
+        group.insertBefore(img, group.firstChild);
+      }
+    }
+
+    setImp(img, "display", "block");
+    setImp(img, "visibility", "visible");
+    setImp(img, "opacity", "1");
+    setImp(img, "width", "64px");
+    setImp(img, "height", "64px");
+    setImp(img, "object-fit", "contain");
+    setImp(img, "border-radius", "16px");
+
+    if (logoWrap) {
+      setImp(logoWrap, "display", "flex");
+      setImp(logoWrap, "visibility", "visible");
+      setImp(logoWrap, "opacity", "1");
+      setImp(logoWrap, "width", "64px");
+      setImp(logoWrap, "min-width", "64px");
+    }
+
+    setImp(title, "color", "#ffffff");
+    setImp(title, "-webkit-text-fill-color", "#ffffff");
+  }
+
+  /* ---------- 3) JOB +/- : rewire so expand works, full width under logo ---------- */
+  function wireJobExpanders(root) {
+    if (!root) return;
+
+    root.querySelectorAll(".job-details").forEach(function (job) {
+      if (wiredJobs.has(job)) return;
+
+      var title = job.querySelector("h4, h3");
+      var ul = job.querySelector("ul");
+      if (!title || !ul) return;
+
+      if (lower(title.textContent).indexOf("selected projects") !== -1) {
+        ul.classList.add("expanded");
+        setImp(ul, "display", "block");
+        return;
+      }
+
+      var prev = ul.previousElementSibling;
+      if (prev && prev.classList && prev.classList.contains("job-click")) {
+        try { prev.parentNode.removeChild(prev); } catch (e) {}
+      }
+
+      var parentClick = title.closest(".job-click");
+      if (parentClick && parentClick !== job) {
+        try {
+          parentClick.parentNode.insertBefore(title, parentClick);
+          parentClick.parentNode.removeChild(parentClick);
+        } catch (e) {}
+      }
+
+      var clickable = document.createElement("div");
+      clickable.className = "job-click";
+      clickable.setAttribute("role", "button");
+      clickable.setAttribute("tabindex", "0");
+      clickable.setAttribute("aria-expanded", "false");
+
+      var plus = document.createElement("span");
+      plus.className = "job-plus";
+      plus.textContent = "+";
+
+      clickable.appendChild(plus);
+      clickable.appendChild(title);
+
+      ul.parentNode.insertBefore(clickable, ul);
+
+      ul.classList.add("job-list-collapsible");
+      ul.classList.remove("expanded");
+      setImp(ul, "display", "none");
+      setImp(ul, "width", "100%");
+
+      function toggleJob(e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        var open = ul.classList.contains("expanded");
+        if (open) {
+          ul.classList.remove("expanded");
+          setImp(ul, "display", "none");
+          clickable.setAttribute("aria-expanded", "false");
+          plus.textContent = "+";
+          setImp(clickable, "background", "transparent");
+        } else {
+          ul.classList.add("expanded");
+          setImp(ul, "display", "block");
+          clickable.setAttribute("aria-expanded", "true");
+          plus.textContent = "−";
+          setImp(clickable, "background", "rgba(158,130,156,0.1)");
+        }
+      }
+
+      clickable.addEventListener("click", toggleJob);
+      clickable.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          toggleJob(e);
+        }
+      });
+
+      setImp(job, "width", "100%");
+      setImp(clickable, "width", "100%");
+      setImp(ul, "width", "100%");
+
+      wiredJobs.add(job);
+    });
+  }
+
+  function runAll() {
+    var root = document.getElementById("mobileContent") || document;
+    try {
+      fixCredlyOnce(root);
+      forceLccLogo(root);
+      wireJobExpanders(root);
+    } catch (err) {}
+  }
+
+  var times = [0, 200, 500, 900, 1500, 2500, 4000, 6000, 9000, 12000, 16000, 20000];
+  times.forEach(function (ms) {
+    setTimeout(runAll, ms);
+  });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runAll);
+  } else {
+    runAll();
+  }
+  window.addEventListener("load", function () {
+    setTimeout(runAll, 300);
+  }, { passive: true });
+
+  var last = 0;
+  function throttled() {
+    var now = Date.now();
+    if (now - last < 800) return;
+    last = now;
+    runAll();
+  }
+  if (window.MutationObserver) {
+    var target = document.getElementById("mobileContent") || document.body;
+    if (target) {
+      var mo = new MutationObserver(throttled);
+      mo.observe(target, { childList: true, subtree: true });
+      setTimeout(function () {
+        try { mo.disconnect(); } catch (e) {}
+      }, 25000);
+    }
+  }
+})();
+</script>
