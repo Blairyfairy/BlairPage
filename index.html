@@ -7751,8 +7751,16 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
     function openMuted() {
       phase = 'muted';
       player.style.setProperty('display', 'block', 'important');
+      /* Prefer CSS bottom band on open if top was never set usefully. */
+      if (!player.style.top || player.style.top === 'auto') {
+        player.style.left = '20px';
+        player.style.bottom = '70px';
+        player.style.top = 'auto';
+      }
       renderIframe(true);
       updateButtonVisual();
+      const rect = player.getBoundingClientRect();
+      placeButton(rect.left, rect.top);
     }
 
     function unmute() {
@@ -7774,9 +7782,22 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
       player.innerHTML = '';
       player.style.setProperty('display', 'none', 'important');
       updateButtonVisual();
+      /* Pin control to bottom-left corner of the viewport. */
+      button.style.left = '20px';
+      button.style.right = 'auto';
+      button.style.bottom = '20px';
+      button.style.top = 'auto';
     }
 
     function placeButton(left, top) {
+      /* Closed state: always true bottom-left corner (matches chevron bottom band). */
+      if (phase === 'closed') {
+        button.style.left = '20px';
+        button.style.right = 'auto';
+        button.style.bottom = '20px';
+        button.style.top = 'auto';
+        return;
+      }
       const rect = player.getBoundingClientRect();
       button.style.left = left + 'px';
       button.style.top = (top + rect.height + 8) + 'px';
@@ -7849,12 +7870,12 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
     document.body.appendChild(button);
 
     if (window.innerWidth <= MOBILE_BP) {
+      /* Park closed player off the default band; button is pinned bottom-left. */
       const left = 12;
-      const top = window.innerHeight - 220;
+      const top = Math.max(8, window.innerHeight - 220);
       player.style.left = left + 'px';
       player.style.top = top + 'px';
       player.style.bottom = 'auto';
-      placeButton(left, top);
     }
 
     closeCompletely();
@@ -13975,5 +13996,153 @@ html.desktop-resize-lock body .edu-card,
   }
 }
 </style>
+
+
+<!-- =========================================================
+     MOBILE: NO FOOTER BLACK BLIP + YT BUTTON TRUE BOTTOM-LEFT
+     Append-only. Keeps all prior lines. Chevron stays as-is.
+     ========================================================= -->
+<style id="final-mobile-footer-no-black-blip-and-yt-corner">
+/* YouTube control: true bottom-left corner (same bottom band as chevron). */
+#left-floating-button-2 {
+  position: fixed !important;
+  left: 20px !important;
+  bottom: 20px !important;
+  right: auto !important;
+  z-index: 10001 !important;
+}
+
+/* When closed, never leave a black player ghost rectangle. */
+#left-floating-player-2[style*="display: none"],
+#left-floating-player-2[style*="display:none"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+  /* Snug full-bleed background — no black strip / flash at footer while scrolling. */
+  html,
+  body {
+    min-height: 100% !important;
+    min-height: 100dvh !important;
+    background-color: #000000 !important;
+    background-attachment: scroll !important;
+    overscroll-behavior-y: none !important;
+    overscroll-behavior: none !important;
+  }
+
+  body::before {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    min-height: 100% !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border: 0 !important;
+  }
+
+  body::after {
+    display: none !important;
+    content: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Footer visitor counter: no shadow rectangle that blips on scroll. */
+  .footer-counter,
+  .footer-counter img {
+    box-shadow: none !important;
+    filter: none !important;
+    outline: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  .footer-counter {
+    margin-top: 0.75rem !important;
+    margin-bottom: 0 !important;
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px)) !important;
+    overflow: visible !important;
+    contain: none !important;
+  }
+
+  /* End of page content sits flush — no extra black band under the shell. */
+  .container,
+  .resume-shell {
+    margin-bottom: 0 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28) !important;
+  }
+
+  main.container {
+    padding-bottom: 0.75rem !important;
+  }
+
+  /* Avoid mid-scroll paint of heavy shadows that read as a black rectangle. */
+  html.bp-scrolling .resume-shell,
+  html.bp-scrolling .timeline-item,
+  html.bp-scrolling .edu-card,
+  html.bp-scrolling .matrix-card,
+  html.bp-scrolling .cert-card,
+  html.bp-scrolling .certification-card,
+  html.bp-scrolling .volunteer-card {
+    box-shadow: none !important;
+    filter: none !important;
+  }
+
+  /* Safe area: keep fixed controls above home indicator, still bottom corners. */
+  #left-floating-button-2 {
+    left: max(16px, env(safe-area-inset-left, 0px)) !important;
+    bottom: max(16px, env(safe-area-inset-bottom, 0px)) !important;
+    top: auto !important;
+  }
+
+  #pageScrollTop.page-scroll-top,
+  #globalScrollTop,
+  .page-scroll-top {
+    right: max(16px, env(safe-area-inset-right, 0px)) !important;
+    bottom: max(16px, env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+</style>
+
+<script id="final-yt-button-bottom-left-lock">
+(function () {
+  'use strict';
+  function pinYtButtonIfClosed() {
+    var btn = document.getElementById('left-floating-button-2');
+    var player = document.getElementById('left-floating-player-2');
+    if (!btn) return;
+    var closed = !player || player.style.display === 'none' || getComputedStyle(player).display === 'none';
+    if (closed) {
+      btn.style.setProperty('left', '20px', 'important');
+      btn.style.setProperty('right', 'auto', 'important');
+      btn.style.setProperty('bottom', '20px', 'important');
+      btn.style.setProperty('top', 'auto', 'important');
+    }
+  }
+  function run() {
+    pinYtButtonIfClosed();
+    setTimeout(pinYtButtonIfClosed, 50);
+    setTimeout(pinYtButtonIfClosed, 250);
+    setTimeout(pinYtButtonIfClosed, 800);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+  window.addEventListener('load', run, { passive: true });
+  window.addEventListener('resize', pinYtButtonIfClosed, { passive: true });
+  window.addEventListener('orientationchange', pinYtButtonIfClosed, { passive: true });
+})();
+</script>
 
 </body>
