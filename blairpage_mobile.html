@@ -14873,3 +14873,23 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     filter: none !important;
   }
 </style>
+
+<!-- ---------- Job descriptions: force full width of their container ---------- -->
+<!-- Additive only — does not modify any existing code. Pure CSS, no JS. Applies to the
+     description content (paragraphs/lists) inside every job entry, whether it's behind
+     a +/- toggle or the always-open Selected Projects block — the toggle button itself
+     (.job-click / .job-plus) is untouched, and nothing about Selected Projects' content
+     or always-expanded behavior is changed, only its width. -->
+<style id="bp-job-description-full-width">
+  .bp-mobile-page #mobileContent .job-details,
+  .bp-mobile-page #mobileContent .job-details p,
+  .bp-mobile-page #mobileContent .job-details ul,
+  .bp-mobile-page #mobileContent .job-details li,
+  .bp-mobile-page #mobileContent .job-list-collapsible,
+  .bp-mobile-page #mobileContent .job-list-collapsible ul,
+  .bp-mobile-page #mobileContent .job-list-collapsible li {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+</style>
