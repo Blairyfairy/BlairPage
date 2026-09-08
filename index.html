@@ -50,9 +50,9 @@ body::before{
 <script>
 (function () {
   /* Keep desktop-browser resizing on THIS index.html.
-     Only send real phone/tablet-style touch devices to blairpage_mobile.html.
-     This is the single source of truth for the desktop-resize-lock /
-     mobile-device-route routing classes that the CSS below keys off of. */
+     blairpage_mobile.html redirect DISABLED — use responsive resize on this
+     same index.html for all sizes (including phone/tablet touch devices).
+     Routing classes are still applied for any CSS that keys off them. */
   var widthMobile = window.innerWidth <= 900;
   var touchMobile = (navigator.maxTouchPoints || 0) > 0;
   var coarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
@@ -61,11 +61,18 @@ body::before{
   var isAlreadyMobile =
     /blairpage_mobile\.html$/i.test(window.location.pathname);
 
+  /* Always prefer resize path on this page; still mark class for CSS hooks. */
   document.documentElement.classList.add(isMobile ? 'mobile-device-route' : 'desktop-resize-lock');
+  /* Also keep desktop-resize-lock so existing resize CSS continues to apply. */
+  if (isMobile) {
+    document.documentElement.classList.add('desktop-resize-lock');
+  }
 
+  /* COMMENTED OUT — do not redirect to blairpage_mobile.html; use resize instead.
   if (isMobile && !isAlreadyMobile) {
     window.location.replace('./blairpage_mobile.html');
   }
+  */
 })();
 </script>
 
@@ -13688,5 +13695,285 @@ html.desktop-resize-lock body .job-projects .project-url,
 </script>
 
 
+
+
+<!-- =========================================================
+     SMALLER RESIZE: LESS BUSY SHADING (look unchanged at full desktop)
+     Append-only. Removes extra box-shadow / heavy glass blur / glow on
+     intermediate and small browser widths so the page is less busy while
+     keeping the same layout, colors, and Selected Projects behavior.
+     ========================================================= -->
+<style id="final-smaller-resize-less-busy-shading">
+/* Full desktop (wide) keeps original shading. Below that, tone it down. */
+@media (max-width: 1279px) {
+  html body .resume-shell,
+  html.desktop-resize-lock body .resume-shell,
+  .resume-shell {
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45) !important;
+  }
+
+  html body .timeline-enhanced .timeline-item,
+  html body .timeline-item,
+  html body .matrix-card,
+  html body .edu-card,
+  html body .courses-card,
+  html body .certs-card,
+  html body .cert-card,
+  html body .certification-card,
+  html body .volunteer-card,
+  html.desktop-resize-lock body .timeline-enhanced .timeline-item,
+  html.desktop-resize-lock body .timeline-item,
+  html.desktop-resize-lock body .matrix-card,
+  html.desktop-resize-lock body .edu-card,
+  html.desktop-resize-lock body .courses-card,
+  html.desktop-resize-lock body .certs-card,
+  html.desktop-resize-lock body .cert-card,
+  html.desktop-resize-lock body .certification-card,
+  html.desktop-resize-lock body .volunteer-card {
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  html body .timeline-enhanced .timeline-item:hover,
+  html body .timeline-item:hover,
+  html body .matrix-card:hover,
+  html body .cert-card:hover,
+  html body .certification-card:hover,
+  html body .volunteer-card:hover,
+  html.desktop-resize-lock body .timeline-enhanced .timeline-item:hover,
+  html.desktop-resize-lock body .matrix-card:hover {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.42) !important;
+    transform: none !important;
+  }
+
+  html body .theme-btn,
+  html body #themeToggle,
+  html.desktop-resize-lock body .theme-btn,
+  html.desktop-resize-lock body #themeToggle {
+    box-shadow: none !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+
+  html body .theme-btn:hover,
+  html body #themeToggle:hover,
+  html.desktop-resize-lock body .theme-btn:hover,
+  html.desktop-resize-lock body #themeToggle:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28) !important;
+  }
+
+  html body .job-projects .project-list li a,
+  html.desktop-resize-lock body .job-projects .project-list li a,
+  .job-projects .project-list li a {
+    box-shadow: none !important;
+  }
+
+  html body .job-projects .project-list li a:hover,
+  html.desktop-resize-lock body .job-projects .project-list li a:hover,
+  .job-projects .project-list li a:hover {
+    box-shadow: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  html body .badge-item:hover,
+  html.desktop-resize-lock body .badge-item:hover,
+  .badge-item:hover {
+    filter: none !important;
+    transform: none !important;
+  }
+
+  html body .fashion-profile-link:hover,
+  html.desktop-resize-lock body .fashion-profile-link:hover,
+  .fashion-profile-link:hover {
+    filter: none !important;
+  }
+
+  html body .special-project-btn,
+  html body .fashion-profile-link,
+  html.desktop-resize-lock body .special-project-btn,
+  html.desktop-resize-lock body .fashion-profile-link {
+    box-shadow: none !important;
+  }
+}
+
+/* Phone / narrow: even flatter — less visual noise */
+@media (max-width: 900px) {
+  html body .resume-shell,
+  html.desktop-resize-lock body .resume-shell,
+  .resume-shell {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  html body .timeline-enhanced .timeline-item,
+  html body .timeline-item,
+  html body .matrix-card,
+  html body .edu-card,
+  html body .courses-card,
+  html body .certs-card,
+  html body .cert-card,
+  html body .certification-card,
+  html body .volunteer-card,
+  html.desktop-resize-lock body .timeline-item,
+  html.desktop-resize-lock body .matrix-card,
+  html.desktop-resize-lock body .edu-card,
+  html.desktop-resize-lock body .courses-card,
+  html.desktop-resize-lock body .certs-card,
+  html.desktop-resize-lock body .cert-card,
+  html.desktop-resize-lock body .certification-card,
+  html.desktop-resize-lock body .volunteer-card {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  html body a:hover,
+  html.desktop-resize-lock body a:hover {
+    text-shadow: none !important;
+  }
+
+  html body .site-nav a:hover,
+  html.desktop-resize-lock body .site-nav a:hover {
+    text-shadow: none !important;
+  }
+}
+</style>
+
+
+<!-- =========================================================
+     UDACITY × ACCENTURE TITLE — VISIBLE ON ALL RESIZES
+     Append-only. Does not restyle the page; only prevents the
+     gradient school name from disappearing/collapsing when the
+     browser window shrinks from full desktop.
+     ========================================================= -->
+<style id="final-udacity-accenture-title-resize-visibility">
+/* Keep the original cyan→purple gradient title readable at every width. */
+html body .uda-acc-color,
+html.desktop-resize-lock body .uda-acc-color,
+html.mobile-device-route body .uda-acc-color,
+.uda-acc-color {
+  display: inline !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: linear-gradient(90deg, #02B3E4, #A100FF) !important;
+  background-image: linear-gradient(90deg, #02B3E4, #A100FF) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  font-weight: 700 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  line-height: 1.25 !important;
+  font-size: inherit !important;
+}
+
+/* Education header row: never clip or collapse the school title. */
+html body .education-wrapper .edu-header,
+html.desktop-resize-lock body .education-wrapper .edu-header,
+html body .edu-card .edu-header,
+html.desktop-resize-lock body .edu-card .edu-header,
+.edu-header {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+  min-height: 0 !important;
+  contain: none !important;
+  content-visibility: visible !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+html body .education-wrapper .edu-header > div:not(.job-logo),
+html.desktop-resize-lock body .education-wrapper .edu-header > div:not(.job-logo),
+html body .edu-card .edu-header > div:not(.job-logo),
+.edu-header > div:not(.job-logo) {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  width: auto !important;
+}
+
+html body .education-wrapper .edu-school,
+html.desktop-resize-lock body .education-wrapper .edu-school,
+html body .edu-card .edu-school,
+html body h3.edu-school,
+.edu-school {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  line-height: 1.25 !important;
+  font-size: clamp(0.95rem, 1.35vw, 1.25rem) !important;
+  margin: 0 !important;
+}
+
+/* Anchor target and surrounding Udacity block stay in normal flow. */
+html body #udacity-section,
+html.desktop-resize-lock body #udacity-section,
+#udacity-section {
+  display: block !important;
+  visibility: visible !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html body .edu-card,
+html.desktop-resize-lock body .edu-card,
+.edu-card {
+  overflow: visible !important;
+  contain: none !important;
+  content-visibility: visible !important;
+}
+
+/* Narrower windows: keep title legible, still proportionally sized. */
+@media (max-width: 1279px) {
+  html body .education-wrapper .edu-school,
+  html body .edu-card .edu-school,
+  .edu-school {
+    font-size: clamp(0.9rem, 1.6vw, 1.15rem) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  html body .education-wrapper .edu-school,
+  html body .edu-card .edu-school,
+  .edu-school {
+    font-size: clamp(0.88rem, 3.6vw, 1.05rem) !important;
+  }
+
+  html body .education-wrapper .edu-header,
+  html body .edu-card .edu-header,
+  .edu-header {
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (max-width: 480px) {
+  html body .education-wrapper .edu-school,
+  html body .edu-card .edu-school,
+  .edu-school {
+    font-size: 0.92rem !important;
+  }
+}
+</style>
 
 </body>
