@@ -14658,25 +14658,25 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 })();
 </script>
 
-<!-- ---------- Courses card: LCC logo hardcoded to its real known source ---------- -->
-<!-- Additive only — does not modify any existing code. index.html confirms the real,
-     correct logo file is at BlairPageImages/lcclogo.jpg (previous auto-detection logic
-     was guessing at a bare "lcclogo.jpg" path, which is why it kept failing). This
-     version hardcodes that exact known-good path instead of guessing, runs a short,
-     bounded number of times while the resume content loads in, and then stops
-     completely — no permanent observer, no polling loop — so nothing else on the page
-     (including the Credly badges) gets disturbed. -->
-<script id="bp-lcc-logo-hardcoded">
+<!-- ---------- Courses card: LCC logo (hardcoded real path) + white text + light Credly watchdog ---------- -->
+<!-- Additive only — does not modify any existing code. Key points:
+     - The real logo file is BlairPageImages/lcclogo.jpg (confirmed from index.html), so
+       that exact path is hardcoded rather than guessed.
+     - The mobile page re-fetches index.html live and this file's own existing scripts
+       keep fixing/undoing things on their own delayed schedules (some run out to 9-14s),
+       so this runs across a longer window (up to 20s) instead of stopping early.
+     - After that window, a cheap watchdog keeps checking, but it only ever writes to the
+       DOM when something is actually wrong. If nothing needs fixing it does nothing at
+       all, which is what keeps it from causing any flicker (that's what a previous,
+       overly-aggressive version of this script got wrong). -->
+<script id="bp-lcc-and-credly-stability">
 (function () {
   "use strict";
 
   var LCC_LOGO_SRC = "BlairPageImages/lcclogo.jpg";
   var LCC_LOGO_ALT = "Lansing Community College";
-  var done = false;
 
-  function norm(v) {
-    return (v || "").toLowerCase();
-  }
+  function norm(v) { return (v || "").toLowerCase(); }
 
   function isLansingImg(img) {
     var alt = norm(img.getAttribute("alt"));
@@ -14713,38 +14713,39 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     return null;
   }
 
-  function run() {
-    if (done) return true;
+  function ensureWhite(el) {
+    if (el.style.color !== "rgb(255, 255, 255)") {
+      el.style.setProperty("color", "#ffffff", "important");
+      el.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+    }
+  }
 
-    var root = document.getElementById("mobileContent");
-    if (!root) return false;
+  function whitenAllThreeCourseBlocks(root) {
+    root.querySelectorAll(".course-title.lcc, .course-title.mongodb, .course-title.rackspace").forEach(function (t) {
+      ensureWhite(t);
+      var g = t.closest(".course-group") || t.closest(".job-layout") || t.parentElement;
+      if (g) g.querySelectorAll("li, span, p, div, a, strong, .course-description").forEach(ensureWhite);
+    });
+  }
 
+  function fixLccLogo(root) {
     var title = findLccTitle(root);
-    if (!title) return false;
+    if (!title) return;
 
     var group = title.closest(".course-group") || title.closest(".job-layout") || title.parentElement;
-    if (!group) return false;
+    if (!group) return;
 
-    // Whiten the title + course items (same as before).
-    title.style.setProperty("color", "#ffffff", "important");
-    title.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
-    group.querySelectorAll("li, span, p, div, a, strong, .course-description").forEach(function (child) {
-      child.style.setProperty("color", "#ffffff", "important");
-      child.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
-    });
-
-    // Hardcode the logo to the real, known-good file path.
     var existing = null;
     group.querySelectorAll("img").forEach(function (img) {
       if (!existing && isLansingImg(img)) existing = img;
     });
 
-    if (existing && !isBroken(existing) && existing.getAttribute("src")) {
-      // A working logo is already there — just make sure the path is the real one.
-      existing.setAttribute("src", LCC_LOGO_SRC);
-      existing.setAttribute("alt", LCC_LOGO_ALT);
-      done = true;
-      return true;
+    if (existing && !isBroken(existing)) {
+      if (existing.getAttribute("src") !== LCC_LOGO_SRC) {
+        existing.setAttribute("src", LCC_LOGO_SRC);
+        existing.setAttribute("alt", LCC_LOGO_ALT);
+      }
+      return;
     }
 
     var area = group.closest(".course-grid, .courses-card") || root;
@@ -14775,26 +14776,76 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     } else {
       group.insertBefore(toInsert, title);
     }
-
-    done = true;
-    return true;
   }
 
-  // Short, bounded attempts while the resume content loads in — then stop completely.
-  // No MutationObserver, no setInterval: this cannot interfere with the Credly badges
-  // or anything else on the page once it's finished.
-  var delays = [0, 250, 600, 1200, 2200, 3500];
-  delays.forEach(function (ms) {
-    setTimeout(function () {
-      if (!done) run();
-    }, ms);
-  });
+  function removeStrayLccLogos(root) {
+    var title = findLccTitle(root);
+    var authoritative = title ? (title.closest(".course-group") || title.closest(".job-layout") || title.parentElement) : null;
+
+    root.querySelectorAll("img").forEach(function (img) {
+      if (!isLansingImg(img)) return;
+      if (img.closest(".education-wrapper, .edu-card, .edu-header, .education-section")) return;
+      if (authoritative && authoritative.contains(img)) return;
+      var wrap = img.closest(".job-logo");
+      if (img.parentNode) img.parentNode.removeChild(img);
+      if (wrap && wrap.parentNode && !wrap.querySelector("img")) {
+        wrap.parentNode.removeChild(wrap);
+      }
+    });
+  }
+
+  function credlyWatchdog(root) {
+    var nodes = root.querySelectorAll(".credly-embed-badge, [data-share-badge-id], iframe[src*='credly']");
+    nodes.forEach(function (node) {
+      var hiddenByStyle = node.style.display === "none" || node.style.visibility === "hidden" || node.style.opacity === "0";
+      if (!hiddenByStyle) return; // don't force a layout read unless something already looks wrong
+      node.style.setProperty("display", "block", "important");
+      node.style.setProperty("visibility", "visible", "important");
+      node.style.setProperty("opacity", "1", "important");
+    });
+  }
+
+  function pass() {
+    var root = document.getElementById("mobileContent");
+    if (!root) return;
+    whitenAllThreeCourseBlocks(root);
+    fixLccLogo(root);
+    removeStrayLccLogos(root);
+    credlyWatchdog(root);
+  }
+
+  // Bounded burst across a longer window (the resume content is fetched live over the
+  // network, and this file's own existing scripts keep re-touching things on their own
+  // delayed schedules out to ~14s), so this checks well past that before settling down.
+  var burst = [0, 300, 700, 1200, 2000, 3200, 5000, 7500, 10000, 13000, 16000, 20000];
+  burst.forEach(function (ms) { setTimeout(pass, ms); });
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () { if (!done) run(); });
+    document.addEventListener("DOMContentLoaded", pass);
   }
-  window.addEventListener("load", function () {
-    setTimeout(function () { if (!done) run(); }, 300);
-  }, { passive: true });
+  window.addEventListener("load", function () { setTimeout(pass, 300); }, { passive: true });
+
+  // Long-term watchdog: throttled to at most once a second, and each run is a no-op
+  // (zero DOM writes) unless something is actually broken -- so it can't cause flicker.
+  var lastRun = 0;
+  function throttledPass() {
+    var now = Date.now();
+    if (now - lastRun < 1000) return;
+    lastRun = now;
+    pass();
+  }
+
+  function startObserving() {
+    var target = document.getElementById("mobileContent") || document.body;
+    if (!target || !window.MutationObserver) return;
+    var mo = new MutationObserver(throttledPass);
+    mo.observe(target, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startObserving);
+  } else {
+    startObserving();
+  }
 })();
 </script>
