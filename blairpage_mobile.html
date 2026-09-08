@@ -14658,14 +14658,21 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
 })();
 </script>
 
-<!-- ---------- Courses card: LCC logo + white text (settled, non-flickering version) ---------- -->
-<!-- Additive only — does not modify any existing code. Runs a bounded number of times
-     right after the resume content loads, then stops, instead of polling forever.
-     This avoids the constant re-checking that was causing unrelated parts of the page
-     (like the Credly badges) to flicker. -->
-<script id="bp-lcc-courses-fix-settled">
+<!-- ---------- Courses card: LCC logo hardcoded to its real known source ---------- -->
+<!-- Additive only — does not modify any existing code. index.html confirms the real,
+     correct logo file is at BlairPageImages/lcclogo.jpg (previous auto-detection logic
+     was guessing at a bare "lcclogo.jpg" path, which is why it kept failing). This
+     version hardcodes that exact known-good path instead of guessing, runs a short,
+     bounded number of times while the resume content loads in, and then stops
+     completely — no permanent observer, no polling loop — so nothing else on the page
+     (including the Credly badges) gets disturbed. -->
+<script id="bp-lcc-logo-hardcoded">
 (function () {
   "use strict";
+
+  var LCC_LOGO_SRC = "BlairPageImages/lcclogo.jpg";
+  var LCC_LOGO_ALT = "Lansing Community College";
+  var done = false;
 
   function norm(v) {
     return (v || "").toLowerCase();
@@ -14680,13 +14687,7 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
   }
 
   function isBroken(img) {
-    // Only treat it as broken once the browser has actually tried and failed to load it.
-    // (Avoids false positives from transient zero-size layout, which caused flicker.)
     return img.complete === true && img.naturalWidth === 0;
-  }
-
-  function isProtected(img) {
-    return !!img.closest(".education-wrapper, .edu-card, .edu-header, .education-section");
   }
 
   function findLccTitle(root) {
@@ -14712,40 +14713,42 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     return null;
   }
 
-  function findAnyLansingSrc(root) {
-    var all = root.querySelectorAll("img");
-    for (var i = 0; i < all.length; i++) {
-      if (isLansingImg(all[i]) && !isBroken(all[i])) return all[i].getAttribute("src");
-    }
-    return "lcclogo.jpg";
-  }
+  function run() {
+    if (done) return true;
 
-  function whitenText(title) {
-    if (!title) return;
+    var root = document.getElementById("mobileContent");
+    if (!root) return false;
+
+    var title = findLccTitle(root);
+    if (!title) return false;
+
+    var group = title.closest(".course-group") || title.closest(".job-layout") || title.parentElement;
+    if (!group) return false;
+
+    // Whiten the title + course items (same as before).
     title.style.setProperty("color", "#ffffff", "important");
     title.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
-    var group = title.closest(".course-group") || title.closest(".job-layout") || title.parentElement;
-    if (!group) return;
     group.querySelectorAll("li, span, p, div, a, strong, .course-description").forEach(function (child) {
       child.style.setProperty("color", "#ffffff", "important");
       child.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
     });
-    return group;
-  }
 
-  function ensureLogo(group, title, root) {
-    if (!group) return;
-
+    // Hardcode the logo to the real, known-good file path.
     var existing = null;
     group.querySelectorAll("img").forEach(function (img) {
       if (!existing && isLansingImg(img)) existing = img;
     });
 
-    if (existing && !isBroken(existing)) return; // already fine
+    if (existing && !isBroken(existing) && existing.getAttribute("src")) {
+      // A working logo is already there — just make sure the path is the real one.
+      existing.setAttribute("src", LCC_LOGO_SRC);
+      existing.setAttribute("alt", LCC_LOGO_ALT);
+      done = true;
+      return true;
+    }
 
     var area = group.closest(".course-grid, .courses-card") || root;
     var siblingWrapper = findSiblingLogoWrapper(area);
-    var goodSrc = findAnyLansingSrc(root);
 
     var newImg, newWrapper = null;
     if (siblingWrapper && siblingWrapper.tagName === "DIV") {
@@ -14756,10 +14759,15 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
       newImg = siblingWrapper.cloneNode(true);
     } else {
       newImg = document.createElement("img");
+      newImg.style.setProperty("display", "block", "important");
+      newImg.style.setProperty("width", "56px", "important");
+      newImg.style.setProperty("height", "56px", "important");
+      newImg.style.setProperty("object-fit", "contain", "important");
+      newImg.style.setProperty("margin", "0 0.8rem 0 0", "important");
     }
 
-    newImg.setAttribute("src", goodSrc);
-    newImg.setAttribute("alt", "Lansing Community College");
+    newImg.setAttribute("src", LCC_LOGO_SRC);
+    newImg.setAttribute("alt", LCC_LOGO_ALT);
 
     var toInsert = newWrapper || newImg;
     if (existing && existing.parentNode) {
@@ -14767,43 +14775,26 @@ body.bp-mobile-page #mobileContent .matrix-card.open .card-content {
     } else {
       group.insertBefore(toInsert, title);
     }
+
+    done = true;
+    return true;
   }
 
-  function removeStrayLogos(root, authoritativeGroup) {
-    root.querySelectorAll("img").forEach(function (img) {
-      if (!isLansingImg(img)) return;
-      if (isProtected(img)) return;
-      if (authoritativeGroup && authoritativeGroup.contains(img)) return;
-      var wrap = img.closest(".job-logo");
-      if (img.parentNode) img.parentNode.removeChild(img);
-      if (wrap && wrap.parentNode && !wrap.querySelector("img")) {
-        wrap.parentNode.removeChild(wrap);
-      }
-    });
-  }
-
-  function run() {
-    var root = document.getElementById("mobileContent");
-    if (!root) return;
-    var title = findLccTitle(root);
-    if (!title) return;
-    var group = whitenText(title);
-    ensureLogo(group, title, root);
-    removeStrayLogos(root, group);
-  }
-
-  // Run a small, bounded number of times while the resume content settles in,
-  // then stop — no indefinite polling, no permanent MutationObserver.
-  var attempts = [0, 200, 500, 1000, 1800, 3000, 5000];
-  function scheduleRuns() {
-    attempts.forEach(function (ms) { setTimeout(run, ms); });
-  }
+  // Short, bounded attempts while the resume content loads in — then stop completely.
+  // No MutationObserver, no setInterval: this cannot interfere with the Credly badges
+  // or anything else on the page once it's finished.
+  var delays = [0, 250, 600, 1200, 2200, 3500];
+  delays.forEach(function (ms) {
+    setTimeout(function () {
+      if (!done) run();
+    }, ms);
+  });
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", scheduleRuns);
-  } else {
-    scheduleRuns();
+    document.addEventListener("DOMContentLoaded", function () { if (!done) run(); });
   }
-  window.addEventListener("load", function () { setTimeout(run, 300); }, { passive: true });
+  window.addEventListener("load", function () {
+    setTimeout(function () { if (!done) run(); }, 300);
+  }, { passive: true });
 })();
 </script>
