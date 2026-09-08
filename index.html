@@ -14024,15 +14024,20 @@ html.desktop-resize-lock body .edu-card,
 }
 
 @media (max-width: 900px), (hover: none) and (pointer: coarse) {
-  /* Snug full-bleed background — no black strip / flash at footer while scrolling. */
+  /* Snug full-bleed background — no black strip / flash at footer while scrolling.
+     Keep vertical page scroll fully enabled (touch + mouse wheel). */
   html,
   body {
     min-height: 100% !important;
-    min-height: 100dvh !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
     background-color: #000000 !important;
     background-attachment: scroll !important;
-    overscroll-behavior-y: none !important;
-    overscroll-behavior: none !important;
+    overscroll-behavior-y: auto !important;
+    overscroll-behavior: auto !important;
+    touch-action: manipulation !important;
   }
 
   body::before {
@@ -14142,6 +14147,319 @@ html.desktop-resize-lock body .edu-card,
   window.addEventListener('load', run, { passive: true });
   window.addEventListener('resize', pinYtButtonIfClosed, { passive: true });
   window.addEventListener('orientationchange', pinYtButtonIfClosed, { passive: true });
+})();
+</script>
+
+
+<!-- =========================================================
+     PAGE SCROLL RESTORE (MOBILE RESIZE) + BRAND ROW CIRCULAR BUFFER
+     Append-only. All prior lines kept.
+     - Guarantees vertical scroll on mobile / resized mobile widths
+     - Branding SVG row: seamless circular buffer, touch + mouse drag
+       left/right, never a blank gap while rotating
+     ========================================================= -->
+<style id="final-mobile-scroll-and-brand-circular-buffer">
+/* ---- Always allow vertical page scrolling ---- */
+html,
+body {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  touch-action: manipulation !important;
+}
+
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+  html,
+  body {
+    overflow-y: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overscroll-behavior-y: auto !important;
+    touch-action: manipulation !important;
+  }
+
+  /* Fixed layers must never capture vertical scroll */
+  body::before,
+  body::after {
+    pointer-events: none !important;
+  }
+}
+
+/* ---- Brand row: seamless circular track, drag-friendly ---- */
+.enterprise-brand-slider {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  touch-action: pan-y !important; /* page can still scroll vertically through empty areas */
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.enterprise-brand-slider__viewport {
+  width: 100% !important;
+  overflow: hidden !important;
+  cursor: grab !important;
+  touch-action: pan-x !important; /* horizontal drag on the strip */
+  position: relative !important;
+}
+
+.enterprise-brand-slider__viewport.is-dragging {
+  cursor: grabbing !important;
+}
+
+.enterprise-brand-slider__track {
+  display: flex !important;
+  width: max-content !important;
+  align-items: center !important;
+  will-change: transform !important;
+  /* Default CSS loop still runs until JS takes over / pauses on drag */
+}
+
+.enterprise-brand-slider__track.is-manual {
+  animation: none !important;
+}
+
+.enterprise-brand-slider__set {
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+}
+
+/* No extra side padding gaps that read as blank space in the loop */
+.enterprise-brand-slider__item {
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+}
+</style>
+
+<script id="final-brand-circular-buffer-drag">
+(function () {
+  'use strict';
+
+  function initBrandCircularBuffer() {
+    var root = document.querySelector('.enterprise-brand-slider');
+    if (!root || root.dataset.circularReady === '1') return;
+    root.dataset.circularReady = '1';
+
+    var viewport = root.querySelector('.enterprise-brand-slider__viewport');
+    var track = root.querySelector('.enterprise-brand-slider__track');
+    if (!viewport || !track) return;
+
+    /* Ensure at least two identical sets for seamless wrap (circular buffer). */
+    var sets = track.querySelectorAll('.enterprise-brand-slider__set');
+    if (sets.length === 1) {
+      track.appendChild(sets[0].cloneNode(true));
+      sets = track.querySelectorAll('.enterprise-brand-slider__set');
+    }
+    /* If only two, keep them; if more, still use first set width for wrap. */
+
+    var offset = 0;
+    var setWidth = 0;
+    var dragging = false;
+    var lastX = 0;
+    var velocity = 0;
+    var lastMoveT = 0;
+    var rafId = null;
+    var autoDir = -1; /* scroll leftward like original marquee */
+    var autoSpeed = 0.45; /* px per frame ~ same visual pace as ~40–52s loop */
+    var resumeTimer = null;
+    var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function measure() {
+      var first = track.querySelector('.enterprise-brand-slider__set');
+      if (!first) return;
+      setWidth = first.getBoundingClientRect().width;
+      if (setWidth < 1) setWidth = first.scrollWidth || 1;
+    }
+
+    function normalize() {
+      if (setWidth < 1) return;
+      /* Circular buffer: keep offset in (-setWidth, 0] so content always fills viewport */
+      while (offset <= -setWidth) offset += setWidth;
+      while (offset > 0) offset -= setWidth;
+    }
+
+    function apply() {
+      normalize();
+      track.style.transform = 'translate3d(' + offset + 'px,0,0)';
+    }
+
+    function stopCssAnim() {
+      track.classList.add('is-manual');
+      track.style.animation = 'none';
+    }
+
+    function startAuto() {
+      if (reducedMotion) {
+        stopCssAnim();
+        apply();
+        return;
+      }
+      stopCssAnim();
+      if (rafId != null) return;
+      function tick() {
+        if (!dragging) {
+          offset += autoDir * autoSpeed;
+          apply();
+        }
+        rafId = requestAnimationFrame(tick);
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function stopAuto() {
+      if (rafId != null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    }
+
+    function scheduleResume() {
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function () {
+        if (!dragging) startAuto();
+      }, 900);
+    }
+
+    function onPointerDown(clientX, targetIsViewport) {
+      if (!targetIsViewport) return;
+      dragging = true;
+      viewport.classList.add('is-dragging');
+      lastX = clientX;
+      velocity = 0;
+      lastMoveT = performance.now();
+      stopAuto();
+      stopCssAnim();
+      measure();
+    }
+
+    function onPointerMove(clientX) {
+      if (!dragging) return;
+      var now = performance.now();
+      var dx = clientX - lastX;
+      var dt = Math.max(1, now - lastMoveT);
+      velocity = dx / dt; /* px/ms */
+      offset += dx;
+      lastX = clientX;
+      lastMoveT = now;
+      apply();
+    }
+
+    function onPointerUp() {
+      if (!dragging) return;
+      dragging = false;
+      viewport.classList.remove('is-dragging');
+      /* light inertia */
+      var frames = 18;
+      var v = velocity * 16; /* approx px/frame */
+      function coast() {
+        if (Math.abs(v) < 0.15 || frames-- <= 0) {
+          scheduleResume();
+          return;
+        }
+        offset += v;
+        v *= 0.92;
+        apply();
+        requestAnimationFrame(coast);
+      }
+      requestAnimationFrame(coast);
+    }
+
+    /* Mouse */
+    viewport.addEventListener('mousedown', function (e) {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      onPointerDown(e.clientX, true);
+    });
+    window.addEventListener('mousemove', function (e) {
+      if (!dragging) return;
+      e.preventDefault();
+      onPointerMove(e.clientX);
+    });
+    window.addEventListener('mouseup', onPointerUp);
+    window.addEventListener('mouseleave', onPointerUp);
+
+    /* Touch — only claim horizontal; vertical page scroll stays free */
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var axisLocked = null; /* 'x' | 'y' | null */
+
+    viewport.addEventListener('touchstart', function (e) {
+      if (!e.touches || !e.touches.length) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      axisLocked = null;
+      onPointerDown(touchStartX, true);
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', function (e) {
+      if (!e.touches || !e.touches.length) return;
+      var x = e.touches[0].clientX;
+      var y = e.touches[0].clientY;
+      if (axisLocked == null) {
+        var adx = Math.abs(x - touchStartX);
+        var ady = Math.abs(y - touchStartY);
+        if (adx < 4 && ady < 4) return;
+        axisLocked = adx > ady ? 'x' : 'y';
+        if (axisLocked === 'y') {
+          /* Let the page scroll; cancel brand drag */
+          dragging = false;
+          viewport.classList.remove('is-dragging');
+          return;
+        }
+      }
+      if (axisLocked === 'x') {
+        if (e.cancelable) e.preventDefault();
+        onPointerMove(x);
+      }
+    }, { passive: false });
+
+    viewport.addEventListener('touchend', onPointerUp, { passive: true });
+    viewport.addEventListener('touchcancel', onPointerUp, { passive: true });
+
+    window.addEventListener('resize', function () {
+      measure();
+      apply();
+    }, { passive: true });
+
+    /* Kick off seamless loop under JS control (circular, no blank gap) */
+    measure();
+    stopCssAnim();
+    apply();
+    startAuto();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBrandCircularBuffer);
+  } else {
+    initBrandCircularBuffer();
+  }
+  window.addEventListener('load', initBrandCircularBuffer, { passive: true });
+})();
+</script>
+
+<script id="final-ensure-mobile-page-scroll">
+(function () {
+  'use strict';
+  function unlockPageScroll() {
+    try {
+      document.documentElement.style.setProperty('overflow-y', 'auto', 'important');
+      document.documentElement.style.setProperty('height', 'auto', 'important');
+      document.documentElement.style.setProperty('max-height', 'none', 'important');
+      document.body.style.setProperty('overflow-y', 'auto', 'important');
+      document.body.style.setProperty('height', 'auto', 'important');
+      document.body.style.setProperty('max-height', 'none', 'important');
+      document.body.style.setProperty('touch-action', 'manipulation', 'important');
+    } catch (e) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', unlockPageScroll);
+  } else {
+    unlockPageScroll();
+  }
+  window.addEventListener('load', unlockPageScroll, { passive: true });
+  window.addEventListener('resize', unlockPageScroll, { passive: true });
 })();
 </script>
 
