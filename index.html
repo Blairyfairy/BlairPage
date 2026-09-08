@@ -13509,4 +13509,262 @@ a, button, input, textarea, select, [role="button"] {
   window.addEventListener('resize', updateBackToTop, { passive: true });
 })();
 </script>
+
+<!-- =========================================================
+     FINAL RESIZE: JOB PROJECTS VISIBILITY + MATRIX STACK FIT
+     Append-only: keeps every existing line/content intact.
+     - Special projects inside each job description stay visible
+       when the browser is resized smaller than full desktop.
+     - Profile matrix (+/− hamburger rectangles) stacks to a single
+       column below desktop width instead of a squeezed 2-column grid,
+       with tighter readable text so content fits cleanly.
+     ========================================================= -->
+<style id="final-job-projects-visible-and-matrix-stack-fit">
+/* ---- Job special projects always visible / not clipped on resize ---- */
+html body .timeline-item .job-projects,
+html.desktop-resize-lock body .timeline-item .job-projects,
+html body .job-details .job-projects,
+html.desktop-resize-lock body .job-details .job-projects,
+html body .job-projects,
+html.desktop-resize-lock body .job-projects,
+.job-projects {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin-top: 1rem !important;
+  box-sizing: border-box !important;
+}
+
+html body .job-projects .projects-heading,
+html.desktop-resize-lock body .job-projects .projects-heading,
+.job-projects .projects-heading {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin: 0 0 0.55rem 0 !important;
+  font-size: clamp(0.88rem, 1.05vw, 1.05rem) !important;
+  line-height: 1.25 !important;
+  color: var(--ghost-white, #f0eff4) !important;
+}
+
+html body .job-projects .project-list,
+html.desktop-resize-lock body .job-projects .project-list,
+.job-projects .project-list {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding-left: 1.1rem !important;
+  list-style: disc !important;
+}
+
+html body .job-projects .project-list li,
+html.desktop-resize-lock body .job-projects .project-list li,
+.job-projects .project-list li {
+  display: list-item !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 0 0.45rem 0 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  line-height: 1.35 !important;
+  font-size: clamp(0.78rem, 0.95vw, 0.92rem) !important;
+}
+
+html body .job-projects .project-list li a,
+html.desktop-resize-lock body .job-projects .project-list li a,
+.job-projects .project-list li a {
+  display: inline !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: var(--bp-link-mauve, #9e829c) !important;
+  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
+  text-decoration: none !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+html body .job-projects .project-list li a:hover,
+html.desktop-resize-lock body .job-projects .project-list li a:hover,
+.job-projects .project-list li a:hover {
+  color: var(--bp-link-white, #f0eff4) !important;
+  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
+  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
+}
+
+html body .job-projects .project-url,
+html.desktop-resize-lock body .job-projects .project-url,
+.job-projects .project-url {
+  display: inline !important;
+  visibility: visible !important;
+  opacity: 0.85 !important;
+  font-size: 0.85em !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+/* Timeline / job cards must not clip expanded project content while resizing */
+html body .timeline-item,
+html.desktop-resize-lock body .timeline-item,
+html body .timeline-content,
+html.desktop-resize-lock body .timeline-content,
+html body .job-layout,
+html.desktop-resize-lock body .job-layout,
+html body .job-details,
+html.desktop-resize-lock body .job-details {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+/* ---- Matrix (+/−) rectangles: stack below desktop instead of 2-col squeeze ---- */
+@media (max-width: 1279px) {
+  html body .profile-matrix .matrix-grid,
+  html.desktop-resize-lock body .profile-matrix .matrix-grid,
+  html.mobile-device-route body .profile-matrix .matrix-grid,
+  section.profile-matrix .matrix-grid,
+  .profile-matrix .matrix-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-flow: row !important;
+    gap: clamp(0.75rem, 1.6vw, 1.15rem) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    align-items: stretch !important;
+    justify-items: stretch !important;
+  }
+
+  html body .profile-matrix .matrix-card,
+  html.desktop-resize-lock body .profile-matrix .matrix-card,
+  html.mobile-device-route body .profile-matrix .matrix-card,
+  .profile-matrix .matrix-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    grid-column: 1 / -1 !important;
+    overflow: visible !important;
+  }
+
+  html body .profile-matrix .matrix-card .card-toggle,
+  html.desktop-resize-lock body .profile-matrix .matrix-card .card-toggle,
+  .profile-matrix .matrix-card .card-toggle {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    gap: 0.5rem !important;
+    padding: 0.7rem 0.85rem !important;
+  }
+
+  html body .profile-matrix .matrix-card .card-toggle > span:first-child,
+  html.desktop-resize-lock body .profile-matrix .matrix-card .card-toggle > span:first-child,
+  .profile-matrix .matrix-card .card-toggle > span:first-child {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    font-size: clamp(0.78rem, 1.05vw, 0.95rem) !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  html body .profile-matrix .matrix-card .card-content,
+  html.desktop-resize-lock body .profile-matrix .matrix-card .card-content,
+  .profile-matrix .matrix-card .card-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 0.85rem 1rem 0.85rem !important;
+    font-size: clamp(0.78rem, 0.98vw, 0.9rem) !important;
+    line-height: 1.4 !important;
+    overflow: visible !important;
+  }
+
+  html body .profile-matrix .matrix-card .card-content p,
+  html body .profile-matrix .matrix-card .card-content li,
+  html body .profile-matrix .matrix-card .card-content td,
+  html body .profile-matrix .matrix-card .card-content th,
+  html.desktop-resize-lock body .profile-matrix .matrix-card .card-content p,
+  html.desktop-resize-lock body .profile-matrix .matrix-card .card-content li,
+  html.desktop-resize-lock body .profile-matrix .matrix-card .card-content td,
+  html.desktop-resize-lock body .profile-matrix .matrix-card .card-content th,
+  .profile-matrix .matrix-card .card-content p,
+  .profile-matrix .matrix-card .card-content li,
+  .profile-matrix .matrix-card .card-content td,
+  .profile-matrix .matrix-card .card-content th {
+    font-size: clamp(0.74rem, 0.92vw, 0.88rem) !important;
+    line-height: 1.35 !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  html body .profile-matrix .matrix-card .card-content table,
+  html.desktop-resize-lock body .profile-matrix .matrix-card .card-content table,
+  .profile-matrix .matrix-card .card-content table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: auto !important;
+    font-size: clamp(0.7rem, 0.88vw, 0.84rem) !important;
+  }
+}
+
+/* Slightly tighter stack on tablet / small desktop slider widths */
+@media (min-width: 901px) and (max-width: 1180px) {
+  html body .profile-matrix .matrix-grid,
+  html.desktop-resize-lock body .profile-matrix .matrix-grid,
+  .profile-matrix .matrix-grid {
+    gap: 0.7rem !important;
+  }
+
+  html body .profile-matrix .matrix-card .card-toggle > span:first-child,
+  html.desktop-resize-lock body .profile-matrix .matrix-card .card-toggle > span:first-child,
+  .profile-matrix .matrix-card .card-toggle > span:first-child {
+    font-size: 0.82rem !important;
+  }
+
+  html body .profile-matrix .matrix-card .card-content,
+  html.desktop-resize-lock body .profile-matrix .matrix-card .card-content,
+  .profile-matrix .matrix-card .card-content {
+    font-size: 0.82rem !important;
+  }
+}
+
+/* Narrow phone: keep single column, readable, no horizontal clip */
+@media (max-width: 640px) {
+  html body .profile-matrix .matrix-grid,
+  html.desktop-resize-lock body .profile-matrix .matrix-grid,
+  .profile-matrix .matrix-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.65rem !important;
+  }
+
+  html body .job-projects .project-list li,
+  html.desktop-resize-lock body .job-projects .project-list li,
+  .job-projects .project-list li {
+    font-size: 0.8rem !important;
+  }
+}
+</style>
+
 </body>
