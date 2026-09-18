@@ -6743,108 +6743,84 @@ html.bp-scrolling body{
         </div>
       <div class="certificate-list">
 <style>
-/* =========================================================
-   LUXURY GOLD CERTIFICATE HOVER
-   ========================================================= */
-
-a.certificate-link {
+.certificate-link {
     position: relative !important;
     display: inline-block !important;
-    transition:
-        color 0.3s ease,
-        transform 0.3s ease,
-        text-shadow 0.3s ease !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out !important;
 }
 
-/* Certificate title */
-a.certificate-link strong {
+.certificate-link strong {
     color: #f0eff4 !important;
-    transition:
-        color 0.3s ease,
-        text-shadow 0.3s ease !important;
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out !important;
 }
 
-/* Certificate issuer */
-a.certificate-link span {
+.certificate-link span {
     color: #9e829c !important;
-    transition:
-        color 0.3s ease,
-        text-shadow 0.3s ease !important;
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out !important;
 }
 
-/* =========================================================
-   FORCE LUXURY GOLD ON HOVER
-   ========================================================= */
-
-a.certificate-link:hover,
-a.certificate-link:hover strong,
-a.certificate-link:hover span,
-a.certificate-link:focus,
-a.certificate-link:focus strong,
-a.certificate-link:focus span {
+.certificate-link:hover,
+.certificate-link:hover strong,
+.certificate-link:hover span,
+.certificate-link:focus,
+.certificate-link:focus strong,
+.certificate-link:focus span {
     color: #FFD700 !important;
     -webkit-text-fill-color: #FFD700 !important;
 }
 
-/* Luxury glow + subtle elevation */
-a.certificate-link:hover {
+.certificate-link:hover {
     transform: translateY(-2px) !important;
     text-shadow:
-        0 0 5px rgba(255, 215, 0, 0.45),
-        0 0 12px rgba(255, 215, 0, 0.25) !important;
+        0 0 5px rgba(255, 215, 0, 0.55),
+        0 0 12px rgba(255, 215, 0, 0.35),
+        0 0 20px rgba(255, 215, 0, 0.15) !important;
 }
 
-a.certificate-link:hover strong {
+.certificate-link:hover strong {
     text-shadow:
-        0 0 6px rgba(255, 215, 0, 0.65),
-        0 0 14px rgba(255, 215, 0, 0.35) !important;
+        0 0 6px rgba(255, 215, 0, 0.8),
+        0 0 14px rgba(255, 215, 0, 0.45) !important;
 }
 
-/* =========================================================
-   GOLD LUXURY UNDERLINE
-   ========================================================= */
-
-a.certificate-link::after {
-    content: "" !important;
-    position: absolute !important;
-    left: 0 !important;
-    bottom: -4px !important;
-    width: 0 !important;
-    height: 2px !important;
+.certificate-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
     background: #FFD700 !important;
     box-shadow:
-        0 0 5px rgba(255, 215, 0, 0.8),
-        0 0 10px rgba(255, 215, 0, 0.45) !important;
-    transition: width 0.35s ease !important;
+        0 0 5px rgba(255, 215, 0, 0.9),
+        0 0 12px rgba(255, 215, 0, 0.5);
+    transition: width 0.35s ease-in-out;
 }
 
-a.certificate-link:hover::after {
-    width: 100% !important;
+.certificate-link:hover::after {
+    width: 100%;
 }
 
-/* =========================================================
-   OVERRIDE OTHER LINK HOVER COLORS
-   ========================================================= */
-
-a.certificate-link:hover *,
-a.certificate-link:focus * {
+.certificate-link:hover *,
+.certificate-link:focus * {
     color: #FFD700 !important;
     -webkit-text-fill-color: #FFD700 !important;
 }
 </style>
 
-<a href="https://www.coursera.org/account/accomplishments/professional-cert/1617WYZKBOMY"
-     target="_blank"
-     rel="noopener noreferrer"
-     class="certificate-link">
+<a href="https://www.coursera.org/account/accomplishments/professional-cert/1617WYZKBOM"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="certificate-link">
     <strong>Xbox Product Manager Professional Certificate</strong>
     <span>Xbox</span>
 </a>
 
 <a href="https://www.coursera.org/account/accomplishments/specialization/DDISVFOXN9FS"
-     target="_blank"
-     rel="noopener noreferrer"
-     class="certificate-link">
+   target="_blank"
+   rel="noopener noreferrer"
+   class="certificate-link">
     <strong>Akamai Network Engineering Professional Certificate</strong>
     <span>Akamai Technologies, Inc.</span>
 </a>
