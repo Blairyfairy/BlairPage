@@ -6742,49 +6742,95 @@ html.bp-scrolling body{
           <h3>Coursera</h3>
         </div>
       <div class="certificate-list">
-<style>
-.certificate-link {
-    position: relative !important;
-    display: inline-block !important;
-    text-decoration: none !important;
-    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out !important;
+
+      <style>
+/* =========================================================
+   LUXURY GOLD HOVER
+   ONLY FOR XBOX + AKAMAI NETWORK ENGINEERING
+   ========================================================= */
+
+/* Xbox */
+#xbox-product-manager-cert,
+#xbox-product-manager-cert strong,
+#xbox-product-manager-cert span,
+
+/* Akamai Network Engineering */
+#akamai-network-engineering-cert,
+#akamai-network-engineering-cert strong,
+#akamai-network-engineering-cert span {
+    transition:
+        color 0.3s ease-in-out,
+        text-shadow 0.3s ease-in-out,
+        transform 0.3s ease-in-out !important;
 }
 
-.certificate-link strong {
+/* Normal appearance */
+#xbox-product-manager-cert strong,
+#akamai-network-engineering-cert strong {
     color: #f0eff4 !important;
-    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out !important;
 }
 
-.certificate-link span {
+#xbox-product-manager-cert span,
+#akamai-network-engineering-cert span {
     color: #9e829c !important;
-    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out !important;
 }
 
-.certificate-link:hover,
-.certificate-link:hover strong,
-.certificate-link:hover span,
-.certificate-link:focus,
-.certificate-link:focus strong,
-.certificate-link:focus span {
+/* =========================================================
+   XBOX — GOLD HOVER
+   ========================================================= */
+
+#xbox-product-manager-cert:hover,
+#xbox-product-manager-cert:hover strong,
+#xbox-product-manager-cert:hover span {
     color: #FFD700 !important;
     -webkit-text-fill-color: #FFD700 !important;
 }
 
-.certificate-link:hover {
+#xbox-product-manager-cert:hover {
     transform: translateY(-2px) !important;
     text-shadow:
-        0 0 5px rgba(255, 215, 0, 0.55),
-        0 0 12px rgba(255, 215, 0, 0.35),
-        0 0 20px rgba(255, 215, 0, 0.15) !important;
+        0 0 6px rgba(255, 215, 0, 0.65),
+        0 0 14px rgba(255, 215, 0, 0.4),
+        0 0 22px rgba(255, 215, 0, 0.2) !important;
 }
 
-.certificate-link:hover strong {
+#xbox-product-manager-cert:hover strong {
     text-shadow:
-        0 0 6px rgba(255, 215, 0, 0.8),
-        0 0 14px rgba(255, 215, 0, 0.45) !important;
+        0 0 7px rgba(255, 215, 0, 0.85),
+        0 0 16px rgba(255, 215, 0, 0.45) !important;
 }
 
-.certificate-link::after {
+/* =========================================================
+   AKAMAI — GOLD HOVER
+   ========================================================= */
+
+#akamai-network-engineering-cert:hover,
+#akamai-network-engineering-cert:hover strong,
+#akamai-network-engineering-cert:hover span {
+    color: #FFD700 !important;
+    -webkit-text-fill-color: #FFD700 !important;
+}
+
+#akamai-network-engineering-cert:hover {
+    transform: translateY(-2px) !important;
+    text-shadow:
+        0 0 6px rgba(255, 215, 0, 0.65),
+        0 0 14px rgba(255, 215, 0, 0.4),
+        0 0 22px rgba(255, 215, 0, 0.2) !important;
+}
+
+#akamai-network-engineering-cert:hover strong {
+    text-shadow:
+        0 0 7px rgba(255, 215, 0, 0.85),
+        0 0 16px rgba(255, 215, 0, 0.45) !important;
+}
+
+/* =========================================================
+   GOLD UNDERLINE — ONLY THESE TWO
+   ========================================================= */
+
+#xbox-product-manager-cert::after,
+#akamai-network-engineering-cert::after {
     content: "";
     position: absolute;
     left: 0;
@@ -6798,18 +6844,19 @@ html.bp-scrolling body{
     transition: width 0.35s ease-in-out;
 }
 
-.certificate-link:hover::after {
+#xbox-product-manager-cert:hover::after,
+#akamai-network-engineering-cert:hover::after {
     width: 100%;
-}
-
-.certificate-link:hover *,
-.certificate-link:focus * {
-    color: #FFD700 !important;
-    -webkit-text-fill-color: #FFD700 !important;
 }
 </style>
 
-<a href="https://www.coursera.org/account/accomplishments/professional-cert/1617WYZKBOM"
+
+<!-- =======================================================
+     XBOX PRODUCT MANAGER PROFESSIONAL CERTIFICATE
+     ======================================================= -->
+
+<a id="xbox-product-manager-cert"
+   href="https://www.coursera.org/account/accomplishments/professional-cert/1617WYZKBOM"
    target="_blank"
    rel="noopener noreferrer"
    class="certificate-link">
@@ -6817,13 +6864,20 @@ html.bp-scrolling body{
     <span>Xbox</span>
 </a>
 
-<a href="https://www.coursera.org/account/accomplishments/specialization/DDISVFOXN9FS"
+
+<!-- =======================================================
+     AKAMAI NETWORK ENGINEERING PROFESSIONAL CERTIFICATE
+     ======================================================= -->
+
+<a id="akamai-network-engineering-cert"
+   href="https://www.coursera.org/account/accomplishments/specialization/DDISVFOXN9FS"
    target="_blank"
    rel="noopener noreferrer"
    class="certificate-link">
     <strong>Akamai Network Engineering Professional Certificate</strong>
     <span>Akamai Technologies, Inc.</span>
 </a>
+
         <a href="https://www.coursera.org/account/accomplishments/verify/NTLKUIPWI8L6"
            target="_blank"
            rel="noopener noreferrer"
