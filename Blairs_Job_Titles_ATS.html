@@ -239,7 +239,6 @@ th { color:var(--dusty-mauve); letter-spacing:.08em; text-transform:uppercase; f
 </section>
 
 <section class="hero-badges">
-  <article class="badge-card"><h3>Resume variants scored</h3><div class="metric" id="roleCount">0</div><p>Job titles with tailored-resume ATS potential estimated from index.html source facts.</p></article>
   <article class="badge-card"><h3>Score meaning</h3><div class="metric">Resume → ATS</div><p>Potential match if a targeted resume is cut from portfolio content for that role.</p></article>
   <article class="badge-card"><h3>Median potential</h3><div class="metric" id="medianScore">—</div><p>Median estimated ATS % across all tailored-resume scenarios.</p></article>
   <article class="badge-card"><h3>Live signals</h3><div class="metric" id="liveFeedsCount">0</div><p>No-key public feeds for market context only (not resume facts).</p></article>
@@ -557,7 +556,6 @@ function buildJobCards() {
 }
 
 function updateHeroMetrics() {
-  document.getElementById('roleCount').textContent = String(jobData.length);
   const scores = jobData.map(j => j.score).sort((a,b) => a-b);
   document.getElementById('medianScore').textContent = scores[Math.floor(scores.length/2)] + '%';
   document.getElementById('liveFeedsCount').textContent = String(liveState.feedsConnected || 0);
