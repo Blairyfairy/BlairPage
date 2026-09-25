@@ -135,7 +135,7 @@ tr.featured-row{background:rgba(152,255,152,.06)}
   <article class="badge-card"><h3>Peak score</h3><div class="metric" id="peakScore">—</div><p>Highest tailored-resume ATS potential.</p></article>
   <article class="badge-card"><h3>95–100% titles</h3><div class="metric" id="topBandCount">0</div><p>Roles in the featured high band.</p></article>
   <article class="badge-card"><h3>Manager &amp; luxury</h3><div class="metric" id="mgrCount">0</div><p>Manager, luxury, stock, product titles.</p></article>
-  <article class="badge-card"><h3>Live signals</h3><div class="metric" id="liveFeedsCount">0</div><p>No-key public context feeds.</p></article>
+  <article class="badge-card"><h3>Portfolio anchors</h3><div class="metric">20y+</div><p>Servers · 13y cloud · L3 · DBA · PM · LVMH.</p></article>
 </section>
 
 <section class="summary-strip">
@@ -145,7 +145,7 @@ tr.featured-row{background:rgba(152,255,152,.06)}
         <h2>Featured high band</h2>
         <p>Densest portfolio facts → strongest tailored resumes. Manager / luxury / stock included where evidence supports 95%+.</p>
       </div>
-      <button class="action-btn" id="manualRefresh">Refresh signals</button>
+      <button class="action-btn" id="manualRefresh">Refresh charts</button>
     </div>
     <div class="featured-strip">
       <h3>Top 95–100% titles</h3>
@@ -204,8 +204,27 @@ tr.featured-row{background:rgba(152,255,152,.06)}
   <div class="section-title"><div><h2>Role cards</h2><p>Expand any card for full tailored-resume analysis.</p></div></div>
   <section class="job-grid" id="jobGrid"></section>
 
-  <div class="section-title"><div><h2>Live context</h2><p>No-key public signals for market context.</p></div></div>
-  <section class="live-feed-grid" id="feedGrid"></section>
+  <div class="section-title"><div><h2>Portfolio facts from index.html</h2><p>Tenure, stack, certs, education, and enterprise signals used for tailored-resume ATS scores.</p></div></div>
+  <section class="chart-grid" id="factsCharts">
+    <article class="dashboard-card medium">
+      <div class="chart-head"><h3>Experience tenure (years)</h3><p>From professional summary on index.html.</p></div>
+      <div class="chart-wrap"><canvas id="tenureChart"></canvas></div>
+    </article>
+    <article class="dashboard-card medium">
+      <div class="chart-head"><h3>Core stack signals</h3><p>Relative emphasis of skills/roles on the portfolio.</p></div>
+      <div class="chart-wrap"><canvas id="stackChart"></canvas></div>
+    </article>
+    <article class="dashboard-card medium">
+      <div class="chart-head"><h3>Certifications &amp; education</h3><p>Credentials listed on index.html.</p></div>
+      <div class="chart-wrap"><canvas id="certChart"></canvas></div>
+    </article>
+    <article class="dashboard-card medium">
+      <div class="chart-head"><h3>Role-family density</h3><p>How many 95–100% titles sit in each family.</p></div>
+      <div class="chart-wrap"><canvas id="familyDensityChart"></canvas></div>
+    </article>
+  </section>
+
+  <section class="live-feed-grid" id="factCards" style="margin-top:1.2rem"></section>
 
   <div class="section-title"><div><h2>Full table</h2><p>All 95–100% titles with source notes.</p></div></div>
   <article class="dashboard-card">
@@ -291,7 +310,7 @@ function updateHero(){
   document.getElementById('peakScore').textContent=Math.max(...jobData.map(j=>j.score))+'%';
   document.getElementById('topBandCount').textContent=String(jobData.length);
   document.getElementById('mgrCount').textContent=String(jobData.filter(isMgrTrack).length);
-  document.getElementById('liveFeedsCount').textContent=String(liveState.feedsConnected||0);
+  
   const cats={};
   jobData.forEach(j=>cats[j.category]=(cats[j.category]||0)+1);
   document.getElementById('catPills').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([c,n])=>`<span>${escapeHtml(c)} · ${n}</span>`).join('');
@@ -359,19 +378,29 @@ function renderTable(){
     </tr>`).join('');
 }
 
+
 function renderFeeds(){
-  const items=[
-    {n:'Cloudflare',b:liveState.signals.cloudflare||'Refresh for live status'},
-    {n:'DigitalOcean',b:liveState.signals.digitalocean||'Refresh for live status'},
-    {n:'GitHub k0s',b:liveState.signals.k0s||'Optional ecosystem signal'},
-    {n:'Kubernetes',b:liveState.signals.k8s||'Public repo signal'},
-    {n:'Percona PXC',b:liveState.signals.pxc||'Public repo signal'},
-    {n:'High band',b:`${jobData.length} titles at 95–100% tailored-resume ATS potential`},
-    {n:'Manager tracks',b:`${jobData.filter(isMgrTrack).length} manager / luxury / stock / product titles`},
-    {n:'Anchors',b:'LVMH training · BSBA · AWS · RHCE6 · L3 · Percona · WP/Magento'}
+  const facts = [
+    {n:'Servers', b:'20+ years designing, deploying, and optimizing high-performance servers (index.html summary).'},
+    {n:'Cloud', b:'13+ years cloud experience — AWS, OpenStack, Rackspace, hybrid cloud data ops.'},
+    {n:'L3 Hosting', b:'Liquid Web / Nexcess L3 Managed Applications Support — primary production narrative.'},
+    {n:'Databases', b:'MySQL · Percona · Galera · PXC · XtraBackup · PMM · Associate DBA TSE · MongoDB · Redis.'},
+    {n:'CMS / E-comm', b:'WordPress · WooCommerce · Magento full-stack on managed hosting and AWS.'},
+    {n:'Linux', b:'RHCE6 · LEMP/LAMP · enterprise Linux ops across hosting and cloud.'},
+    {n:'Certs', b:'AWS CCP · AWS SAA (renew in progress) · RHCE6 · Xbox Product Manager Professional Certificate.'},
+    {n:'Education', b:'BSBA completed · ASBA · Udacity × Accenture MBA AI Product Management (in progress).'},
+    {n:'Product', b:'Shock Therapy Product Manager · Front-End Modernization · product strategy & roadmapping.'},
+    {n:'Luxury / Brand', b:'Inside LVMH (in training) · Kate Spade · Rent the Runway · luxury e-commerce platform signals.'},
+    {n:'Sales / TAM', b:'Technical sales · solutions consulting · opportunity qualification · account expansion · TAM.'},
+    {n:'Ops / Inventory', b:'Inventory coordination · POS operations · visual merchandising · direct retail sales.'},
+    {n:'Remote', b:'10+ years remote / hybrid delivery.'},
+    {n:'Enterprise logos', b:'Fitbit · Vimeo · Airbnb · Kate Spade · Rent the Runway and other brand platforms on portfolio.'}
   ];
-  document.getElementById('feedGrid').innerHTML=items.map(p=>`<article class="feed-card"><h3>${escapeHtml(p.n)}</h3><p>${escapeHtml(p.b)}</p></article>`).join('');
+  const el = document.getElementById('factCards');
+  if(!el) return;
+  el.innerHTML = facts.map(p => `<article class="feed-card"><h3>${escapeHtml(p.n)}</h3><p>${escapeHtml(p.b)}</p></article>`).join('');
 }
+
 
 function renderRefs(){
   document.getElementById('referenceGrid').innerHTML=references.map(r=>`
@@ -423,6 +452,15 @@ function createCharts(){
       backgroundColor:'rgba(158,130,156,.78)',pointRadius:5}]},
     options:{maintainAspectRatio:false,scales:{x:{min:8,max:10.2,title:{display:true,text:'Fact density'}},y:{min:8,max:10,title:{display:true,text:'Demand weight'}}},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw.label}: ${c.raw.score}%`}}}}
+  const tenureEl=document.getElementById('tenureChart');
+  if(tenureEl){chartInstances.push(new Chart(tenureEl,{type:'bar',data:{labels:['Servers','Cloud','Remote / Hybrid'],datasets:[{label:'Years',data:[20,13,10],backgroundColor:['rgba(152,255,152,0.65)','rgba(158,130,156,0.65)','rgba(240,239,244,0.35)'],borderRadius:8}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:25}}}}));}
+  const stackEl=document.getElementById('stackChart');
+  if(stackEl){chartInstances.push(new Chart(stackEl,{type:'radar',data:{labels:['Linux / RHCE','L3 Hosting','MySQL / Percona','WP / Woo / Magento','AWS / OpenStack','TAM / Solutions','Product Mgmt','Luxury / Brand'],datasets:[{label:'Emphasis',data:[95,98,92,90,88,86,84,82],backgroundColor:'rgba(158,130,156,0.25)',borderColor:'rgba(152,255,152,0.7)',pointBackgroundColor:'rgba(240,239,244,0.9)'}]},options:{maintainAspectRatio:false,scales:{r:{min:50,max:100,ticks:{display:false}}},plugins:{legend:{display:false}}}}));}
+  const certEl=document.getElementById('certChart');
+  if(certEl){chartInstances.push(new Chart(certEl,{type:'doughnut',data:{labels:['AWS CCP','AWS SAA (renew)','RHCE6','Xbox PM Cert','BSBA','MBA AI PM (in progress)'],datasets:[{data:[1,1,1,1,1,1],backgroundColor:['rgba(152,255,152,0.7)','rgba(152,255,152,0.5)','rgba(158,130,156,0.7)','rgba(240,239,244,0.45)','rgba(158,130,156,0.45)','rgba(255,211,122,0.55)']}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}}));}
+  const famEl=document.getElementById('familyDensityChart');
+  if(famEl){const famCounts={};jobData.forEach(j=>{famCounts[j.category]=(famCounts[j.category]||0)+1;});const famLabels=Object.keys(famCounts).sort((a,b)=>famCounts[b]-famCounts[a]);chartInstances.push(new Chart(famEl,{type:'bar',data:{labels:famLabels.map(c=>c.length>18?c.slice(0,16)+'…':c),datasets:[{data:famLabels.map(c=>famCounts[c]),backgroundColor:'rgba(152,255,152,0.45)',borderRadius:8}]},options:{maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}}));}
+
   }));
 }
 
@@ -447,11 +485,11 @@ document.getElementById('filterRow').addEventListener('click',e=>{
   btn.classList.add('active');activeFilter=btn.dataset.filter;renderCards();renderTable();
 });
 document.getElementById('jobSearch').addEventListener('input',e=>{searchQuery=e.target.value||'';renderCards();renderTable()});
-document.getElementById('manualRefresh').addEventListener('click',async()=>{
-  const b=document.getElementById('manualRefresh');b.textContent='Refreshing…';b.disabled=true;await hydrate();b.textContent='Refresh signals';b.disabled=false;
+document.getElementById('manualRefresh').addEventListener('click',()=>{
+  renderFeeds();createCharts();
 });
 
-applyThemeIcon();updateHero();buildFeatured();renderCards();renderTable();createCharts();renderFeeds();renderRefs();hydrate();
+applyThemeIcon();updateHero();buildFeatured();renderCards();renderTable();createCharts();renderFeeds();renderRefs();
 
 const st=document.getElementById('pageScrollTop');
 window.addEventListener('scroll',()=>{st.classList.toggle('show',(window.scrollY||0)>180)});
