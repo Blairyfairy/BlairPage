@@ -15090,27 +15090,33 @@ html body .edu-card .edu-header .edu-school,
     -webkit-backface-visibility: hidden !important;
   }
 
+  /* 2) Fixed background layers must never capture touch / scroll. */
+  body::before,
   #bpPaintShield {
-    height: 140vh !important;
-    height: 100lvh !important;
-    transform: translate3d(0, 0, 0) !important;
+    pointer-events: none !important;
+    touch-action: none !important;
   }
 
-  /* 2) No rubber-band overscroll gap (shows as a dark band at the footer). */
+  /* 3) Make sure vertical page scrolling is always available. */
   html,
   body {
-    overscroll-behavior-y: none !important;
-    -webkit-tap-highlight-color: transparent !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overscroll-behavior-y: auto !important;
+    touch-action: manipulation !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
-  /* 3) No backdrop blur layers on mobile: they paint a dark rectangle
-        that flashes while scrolling near fixed buttons / the footer. */
-  html body *,
-  html body *::before,
-  html body *::after {
+  /* Blur layers on fixed controls paint a dark rectangle while scrolling. */
+  html body #left-floating-button-2,
+  html body #pageScrollTop,
+  html body .page-scroll-top,
+  html body .theme-btn,
+  html body #themeToggle {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
-    -webkit-tap-highlight-color: transparent !important;
   }
 
   /* 4) Shadows that were switched on/off by the scroll class made a
