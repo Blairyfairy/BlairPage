@@ -15062,4 +15062,153 @@ html body .edu-card .edu-header .edu-school,
 }
 </style>
 
+
+<!-- =========================================================
+     MOBILE FIX: NO FOOTER BLACK RECTANGLE FLASH + FULL PERCONA LOGO
+     Append-only. Every prior line above is untouched.
+     Mobile / touch only (desktop is unchanged).
+     ========================================================= -->
+<style id="final-mobile-footer-rectangle-and-percona-logo-fix">
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+
+  /* 1) Fixed background layer: size to the LARGE viewport so it never
+        resizes when the mobile browser toolbar shows/hides (that resize
+        exposed a black strip at the bottom while scrolling). */
+  body::before {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    inset: 0 0 auto 0 !important;
+    width: 100% !important;
+    height: 120vh !important;
+    height: 100lvh !important;
+    min-height: 100vh !important;
+    transform: translate3d(0, 0, 0) !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+  }
+
+  #bpPaintShield {
+    height: 140vh !important;
+    height: 100lvh !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  /* 2) No rubber-band overscroll gap (shows as a dark band at the footer). */
+  html,
+  body {
+    overscroll-behavior-y: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  /* 3) No backdrop blur layers on mobile: they paint a dark rectangle
+        that flashes while scrolling near fixed buttons / the footer. */
+  html body *,
+  html body *::before,
+  html body *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  /* 4) Shadows that were switched on/off by the scroll class made a
+        dark band flash under the shell / footer. Keep them constant. */
+  html body .container,
+  html body main.container,
+  html body .resume-shell,
+  html.bp-scrolling body .container,
+  html.bp-scrolling body .resume-shell,
+  html.bp-scrolling body .timeline-item,
+  html.bp-scrolling body .edu-card,
+  html.bp-scrolling body .courses-card,
+  html.bp-scrolling body .certs-card,
+  html.bp-scrolling body .cert-card,
+  html.bp-scrolling body .certification-card,
+  html.bp-scrolling body .volunteer-card,
+  html.bp-scrolling body .matrix-card,
+  html body .footer-counter,
+  html body .footer-counter img {
+    box-shadow: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+
+  html body .footer-counter {
+    background: transparent !important;
+    overflow: visible !important;
+    transform: none !important;
+  }
+
+  /* Floating video / scroll-top controls: no big dark shadow rectangle. */
+  html body #left-floating-button-2 {
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  html body #left-floating-player-2[style*="display: none"],
+  html body #left-floating-player-2[style*="display:none"] {
+    display: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  /* 5) Percona: show the FULL logo (nothing clipped). The generic
+        .job-logo / .job-logo img rules forced a fixed small box and
+        a nested wrapper that cut the logo off. */
+  html body .job-logo:has(> .percona-logo-wrap),
+  html.desktop-resize-lock body .job-logo:has(> .percona-logo-wrap) {
+    flex: 0 0 auto !important;
+    width: clamp(64px, 20vw, 90px) !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+
+  html body .job-logo.percona-logo-wrap,
+  html.desktop-resize-lock body .job-logo.percona-logo-wrap {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  html body .job-logo.percona-logo-wrap img.percona-logo-clean,
+  html.desktop-resize-lock body .job-logo.percona-logo-wrap img.percona-logo-clean {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    object-fit: contain !important;
+    object-position: left center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    aspect-ratio: auto !important;
+    clip-path: none !important;
+  }
+
+  html body .timeline-item:has(.percona-logo-wrap),
+  html body .timeline-content:has(.percona-logo-wrap),
+  html body .job-layout:has(.percona-logo-wrap) {
+    overflow: visible !important;
+  }
+}
+</style>
+
 </body>
