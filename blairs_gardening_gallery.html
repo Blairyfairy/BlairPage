@@ -2168,5 +2168,489 @@ html, body {
 })();
 </script>
 
+<!-- =========================================================
+     FORCE-LOAD EVERY IMAGE IN THE FOLDER + SNUG MOBILE FIT
+     Append-only. Every prior line above is untouched.
+     1) Finds every image in BlairsGardeningGallery/ any way it can
+        (images3.json, other manifests, folder listing, GitHub folder
+        listing, numbered-name probing) and loads them all in parallel,
+        in every image file type, with fallbacks across extensions,
+        case variants and folder prefixes.
+     2) Mobile: vertical scroll only, snug to the screen.
+     ========================================================= -->
+<style id="final-mobile-snug-no-sideways-scroll">
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+
+  /* Vertical scroll only. Nothing may be wider than the screen. */
+  html {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+    overscroll-behavior-x: none !important;
+    touch-action: pan-y pinch-zoom !important;
+  }
+  body {
+    overflow-x: clip !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative !important;
+    overscroll-behavior-x: none !important;
+    touch-action: pan-y pinch-zoom !important;
+  }
+
+  /* The decorative glow hung 110px off the right edge and created the
+     sideways scroll. Keep it inside the card. */
+  .hero { overflow-x: clip; }
+  .hero::after {
+    right: 0 !important;
+    top: -60px !important;
+    width: 220px !important;
+    height: 220px !important;
+  }
+
+  /* Grid tracks may shrink below their content so nothing pushes wide. */
+  .hero-grid,
+  .hero-grid > div { min-width: 0 !important; }
+  img, video, iframe { max-width: 100%; }
+  h1, h2, h3, p { overflow-wrap: anywhere; }
+}
+
+@media (max-width: 768px) {
+  .page {
+    width: calc(100% - 16px) !important;
+    padding: 10px 0 56px !important;
+  }
+  .hero {
+    padding: 16px !important;
+    border-radius: 24px !important;
+  }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .hero-overlay { left: 18px !important; right: 18px !important; bottom: 18px !important; }
+  .gallery-container { margin-top: 28px !important; }
+  .gallery-header { margin-bottom: 22px !important; }
+  .gallery-item { border-radius: 16px !important; }
+}
+
+@media (max-width: 600px) {
+  /* Two snug columns that always fit the screen width. */
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .metric-grid { grid-template-columns: minmax(0, 1fr) !important; }
+}
+</style>
+
+<script id="force-load-every-folder-image">
+(function () {
+  'use strict';
+  if (typeof GardenGallery === 'undefined') return;
+
+  var P = GardenGallery.prototype;
+  var FOLDER = 'BlairsGardeningGallery/';
+  var MAX_IMAGES = 5000;
+
+  // Every browser-displayable image type (plus Safari-only ones).
+  var EXTS = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif', 'bmp', 'svg', 'jfif',
+              'pjpeg', 'pjp', 'apng', 'tif', 'tiff', 'heic', 'heif', 'ico'];
+  // Upper-case variants for case-sensitive hosts (GitHub Pages, Linux).
+  var TRY_EXTS = EXTS.concat(['JPG', 'JPEG', 'PNG', 'GIF', 'WEBP', 'AVIF']);
+  var EXT_RE = new RegExp('\\.(' + EXTS.join('|') + ')$', 'i');
+  var PROBE_EXTS = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'JPG', 'JPEG', 'PNG', 'avif', 'jfif'];
+  var MANIFESTS = [
+    FOLDER + 'images3.json', FOLDER + 'images.json', FOLDER + 'images2.json',
+    FOLDER + 'manifest.json', FOLDER + 'index.json', FOLDER + 'gallery.json',
+    FOLDER + 'files.json', FOLDER + 'list.json',
+    'images.json', 'images2.json', 'gallery.json', 'manifest.json'
+  ];
+  var CACHE_KEY = 'bgg_folder_images_v1';
+  var learned = null;
+
+  /* ---------- small helpers ---------- */
+  function decodeSafe(s) { try { return decodeURIComponent(s); } catch (e) { return s; } }
+  function lastSeg(u) { return String(u).split('#')[0].split('?')[0].split('/').pop(); }
+  function isAbs(u) { return /^(?:[a-z][a-z0-9+.-]*:)?\/\//i.test(u) || /^(?:data|blob):/i.test(u); }
+  function delay(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function natural(a, b) { return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }); }
+
+  function norm(entry) {
+    if (typeof entry === 'string') return entry.trim();
+    if (entry && typeof entry === 'object') {
+      var v = entry.src || entry.url || entry.path || entry.file ||
+              entry.filename || entry.name || entry.image;
+      return typeof v === 'string' ? v.trim() : '';
+    }
+    return '';
+  }
+
+  function fwt(url, ms, opts) {
+    var ctl = ('AbortController' in window) ? new AbortController() : null;
+    var t = setTimeout(function () { if (ctl) ctl.abort(); }, ms);
+    var o = Object.assign({ cache: 'no-cache' }, opts || {});
+    if (ctl) o.signal = ctl.signal;
+    return fetch(url, o).then(
+      function (r) { clearTimeout(t); return r; },
+      function (e) { clearTimeout(t); throw e; }
+    );
+  }
+
+  /* ---------- de-duplication (same file listed twice = one tile) ---------- */
+  function seen(self) {
+    if (!self.__seen) self.__seen = { full: {}, extless: {}, stems: {} };
+    return self.__seen;
+  }
+  function claim(self, name) {
+    var s = seen(self);
+    var seg = decodeSafe(lastSeg(name)).toLowerCase();
+    if (!seg) return false;
+    var hasExt = EXT_RE.test(seg);
+    var stem = seg.replace(EXT_RE, '');
+    if (hasExt) {
+      if (s.full[seg] || s.extless[stem]) return false;
+      s.full[seg] = 1; s.stems[stem] = 1;
+    } else {
+      if (s.extless[seg] || s.stems[seg]) return false;
+      s.extless[seg] = 1;
+    }
+    return true;
+  }
+
+  /* ---------- candidate URLs for one entry ---------- */
+  function candidatesFor(raw) {
+    var m = raw.match(EXT_RE);
+    var base = m ? raw.slice(0, -m[0].length) : raw;
+    var known = m ? m[1] : null;
+    var bases = [];
+    if (isAbs(base)) {
+      bases.push(base);
+    } else if (base.indexOf('/') === -1) {
+      bases.push(FOLDER + base, base);
+    } else {
+      bases.push(base);
+      var alt = FOLDER + lastSeg(base);
+      if (alt !== base) bases.push(alt);
+    }
+    var order = [];
+    function add(e) { if (e && order.indexOf(e) === -1) order.push(e); }
+    add(known); add(learned);
+    TRY_EXTS.forEach(add);
+    var urls = [];
+    order.forEach(function (e) {
+      bases.forEach(function (b) { urls.push(b + '.' + e); });
+    });
+    var firstWave = known ? bases.length : bases.length * 6;
+    return { wave1: urls.slice(0, firstWave), wave2: urls.slice(firstWave) };
+  }
+
+  /* ---------- race several URLs at once, first to load wins ---------- */
+  function race(urls, high) {
+    return new Promise(function (resolve) {
+      if (!urls.length) { resolve(null); return; }
+      var imgs = [], left = urls.length, done = false;
+      urls.forEach(function (u) {
+        var im = new Image();
+        im.decoding = 'async';
+        try { im.fetchPriority = high ? 'high' : 'auto'; } catch (e) {}
+        im.onload = function () {
+          if (done) return;
+          done = true;
+          imgs.forEach(function (o) {
+            if (o !== im) { o.onload = o.onerror = null; o.removeAttribute('src'); }
+          });
+          resolve(im);
+        };
+        im.onerror = function () {
+          if (done) return;
+          if (--left === 0) resolve(null);
+        };
+        imgs.push(im);
+        im.src = u;
+      });
+    });
+  }
+
+  /* ---------- stronger tile loader (replaces the per-tile loader) ---------- */
+  P.loadImageForItem = function (index, item, priority) {
+    var self = this;
+    return new Promise(function (resolve) {
+      var raw = String(self.images[index]);
+      var c = candidatesFor(raw);
+      var high = index < 24;
+
+      function cleanup() { item.dataset.loading = 'false'; }
+      function showError() {
+        cleanup();
+        item.classList.add('error');
+        self.failed++;
+        resolve();
+      }
+      function success(img) {
+        var mm = (img.currentSrc || img.src).match(EXT_RE);
+        if (mm) learned = mm[1];
+        img.alt = 'Garden image ' + (index + 1);
+        img.width = 100;
+        img.height = 100;
+        function finish() {
+          cleanup();
+          item.classList.remove('loading');
+          item.replaceChildren(img);
+          item.dataset.loaded = 'true';
+          var open = function () { self.openModal(img.currentSrc || img.src); };
+          item.addEventListener('click', open, { passive: true });
+          item.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+          });
+          self.loaded++;
+          resolve();
+        }
+        if (typeof img.decode === 'function') img.decode().then(finish, finish);
+        else finish();
+      }
+
+      race(c.wave1, high)
+        .then(function (img) { return img || race(c.wave2, high); })
+        .then(function (img) {
+          if (img) return img;
+          // One last retry (cache-busted) in case of a transient network error.
+          return delay(1200).then(function () {
+            var bust = '?r=' + Date.now();
+            return race(c.wave1.map(function (u) { return u + bust; }), true);
+          });
+        })
+        .then(function (img) { if (img) success(img); else showError(); });
+    });
+  };
+
+  /* ---------- discovery sources ---------- */
+  function fromManifests() {
+    return Promise.all(MANIFESTS.map(function (url) {
+      return fwt(url, 5000, { cache: 'default' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data) return [];
+          var arr = Array.isArray(data) ? data
+                  : (data && Array.isArray(data.images)) ? data.images
+                  : (data && typeof data === 'object') ? Object.values(data) : [];
+          return arr.map(norm).filter(Boolean);
+        })
+        .catch(function () { return []; });
+    })).then(function (lists) { return [].concat.apply([], lists); });
+  }
+
+  function fromDirectoryListing() {
+    return fwt(FOLDER, 4000)
+      .then(function (r) { if (!r.ok) throw 0; return r.text(); })
+      .then(function (html) {
+        var out = [], re = /href\s*=\s*["']([^"'#?]+)["']/gi, m;
+        while ((m = re.exec(html))) {
+          if (EXT_RE.test(m[1])) out.push(FOLDER + lastSeg(m[1]));
+        }
+        return out;
+      })
+      .catch(function () { return []; });
+  }
+
+  function fromGitHub() {
+    var host = location.hostname;
+    if (!/\.github\.io$/i.test(host)) return Promise.resolve([]);
+    var owner = host.split('.')[0];
+    var segs = location.pathname.split('/').filter(Boolean);
+    if (segs.length && /\.[a-z0-9]+$/i.test(segs[segs.length - 1])) segs.pop();
+    var combos = [];
+    if (segs.length) combos.push({ repo: segs[0], dir: segs.slice(1).join('/') });
+    combos.push({ repo: owner + '.github.io', dir: segs.join('/') });
+    var folderName = FOLDER.replace(/\/$/, '');
+    return Promise.all(combos.map(function (c) {
+      var path = (c.dir ? c.dir + '/' : '') + folderName;
+      var url = 'https://api.github.com/repos/' + owner + '/' + encodeURIComponent(c.repo) +
+                '/contents/' + path.split('/').map(encodeURIComponent).join('/');
+      return fwt(url, 7000, { cache: 'default' })
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (list) {
+          if (!Array.isArray(list)) return [];
+          return list
+            .filter(function (f) { return f && f.type === 'file' && EXT_RE.test(f.name); })
+            .map(function (f) { return f.name; })
+            .sort(natural)
+            .map(function (n) { return FOLDER + encodeURIComponent(n); });
+        })
+        .catch(function () { return []; });
+    })).then(function (lists) { return [].concat.apply([], lists); });
+  }
+
+  // Last resort: probe numbered names (img1, img2, ...) in every common type.
+  function probe(self, onFound) {
+    var prefixes = { img: 0 };
+    (self.images || []).concat(self.__pre || []).forEach(function (n) {
+      var seg = decodeSafe(lastSeg(n)).replace(EXT_RE, '');
+      var m = seg.match(/^(.*?)(\d+)$/);
+      if (m) prefixes[m[1]] = (m[2].length > 1 && m[2].charAt(0) === '0') ? m[2].length : 0;
+    });
+    var names = Object.keys(prefixes);
+    function pad(n, w) { var s = String(n); while (s.length < w) s = '0' + s; return s; }
+
+    function run(prefix) {
+      var w = prefixes[prefix], n = 0, misses = 0;
+      function batch() {
+        if (misses >= 12 || n > 1500) return Promise.resolve();
+        var jobs = [];
+        for (var i = 0; i < 8; i++, n++) {
+          (function (num) {
+            var stem = FOLDER + prefix + pad(num, w);
+            jobs.push(race(PROBE_EXTS.map(function (e) { return stem + '.' + e; }), false)
+              .then(function (im) { return im ? im.getAttribute('src') : null; }));
+          })(n);
+        }
+        return Promise.all(jobs).then(function (hits) {
+          hits.forEach(function (h) { if (h) { misses = 0; onFound([h]); } else { misses++; } });
+          return batch();
+        });
+      }
+      return batch();
+    }
+    return Promise.all(names.map(run));
+  }
+
+  function readCache() {
+    try {
+      var o = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+      if (o && Array.isArray(o.list) && Date.now() - o.t < 864e5) return o.list;
+    } catch (e) {}
+    return [];
+  }
+  function writeCache(list) {
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), list: list })); } catch (e) {}
+  }
+
+  function startDiscovery(self) {
+    var firstResolve, first = new Promise(function (r) { firstResolve = r; });
+    function emit(list) {
+      if (list && list.length) { self.addImages(list); firstResolve(); }
+      return list || [];
+    }
+    var cached = readCache();
+    if (cached.length) emit(cached);
+
+    var gh = fromGitHub().then(emit);
+    var dl = fromDirectoryListing().then(emit);
+    var mf = fromManifests().then(emit);
+
+    var done = Promise.all([gh, dl, mf]).then(function (r) {
+      var authoritative = r[0].concat(r[1]);
+      if (authoritative.length) { writeCache(authoritative); return; }
+      return probe(self, emit);
+    }).catch(function () {}).then(function () { firstResolve(); });
+
+    return { first: first, done: done };
+  }
+
+  /* ---------- add tiles for newly found images ---------- */
+  P.addImages = function (list) {
+    var self = this;
+    var fresh = [];
+    list.forEach(function (e) {
+      var n = norm(e);
+      if (n && self.images.length + (self.__pre || []).length + fresh.length < MAX_IMAGES && claim(self, n)) fresh.push(n);
+    });
+    if (!fresh.length) return;
+
+    if (!self.__rendered) {
+      self.__pre = (self.__pre || []).concat(fresh);
+      return;
+    }
+
+    var grid = document.getElementById('galleryGrid');
+    var loader = document.getElementById('galleryLoader');
+    if (!grid) return;
+    if (!self.items) self.items = [];
+
+    var frag = document.createDocumentFragment(), created = [];
+    fresh.forEach(function (name) {
+      var index = self.images.length;
+      self.images.push(name);
+      var item = document.createElement('div');
+      item.className = 'gallery-item loading';
+      item.id = 'gallery-item-' + index;
+      item.dataset.index = String(index);
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('aria-label', 'Open garden image ' + (index + 1));
+      frag.appendChild(item);
+      self.items.push(item);
+      created.push([index, item]);
+    });
+    if (loader) loader.style.display = 'none';
+    grid.style.display = 'grid';
+    grid.appendChild(frag);
+    created.forEach(function (p) { self.enqueueLoad(p[0], p[1], false); });
+  };
+
+  /* ---------- JSON loader: no 300 cap, discovery runs in parallel ---------- */
+  P.loadJSON = async function () {
+    var self = this;
+    self.images = [];
+    self.__pre = [];
+    self.__rendered = false;
+    self.__seen = null;
+    self.imageFormats = TRY_EXTS.slice();
+
+    var disc = startDiscovery(self);
+    self.__discovery = disc.done;
+
+    try {
+      var response = await fetch('images3.json', { cache: 'default' });
+      if (!response.ok) throw new Error('Failed to load images3.json');
+      var data = await response.json();
+      var arr = Array.isArray(data) ? data
+              : (data && Array.isArray(data.images)) ? data.images
+              : (data && typeof data === 'object') ? Object.values(data) : [];
+      arr.forEach(function (e) {
+        var n = norm(e);
+        if (n && self.images.length < MAX_IMAGES && claim(self, n)) self.images.push(n);
+      });
+    } catch (error) {
+      console.error('Error loading JSON:', error);
+    }
+
+    // Nothing from the JSON? Give discovery a moment so the first paint has tiles.
+    if (!self.images.length && !self.__pre.length) {
+      await Promise.race([disc.first, delay(6000)]);
+    }
+  };
+
+  var origRender = P.renderGallery;
+  P.renderGallery = function () {
+    if (this.__pre && this.__pre.length) {
+      this.images = this.images.concat(this.__pre);
+      this.__pre = [];
+    }
+    var r = origRender.apply(this, arguments);
+    this.__rendered = true;
+    return r;
+  };
+
+  /* ---------- featured hero image: same any-extension fallback ---------- */
+  function fixHero() {
+    var hero = document.querySelector('.hero-feature img');
+    if (!hero || hero.__fixed) return;
+    if (!(hero.complete && hero.naturalWidth === 0)) return;
+    hero.__fixed = true;
+    var base = (hero.getAttribute('src') || '').replace(EXT_RE, '');
+    race(TRY_EXTS.map(function (e) { return base + '.' + e; }), true).then(function (im) {
+      if (im) hero.src = im.getAttribute('src');
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    var hero = document.querySelector('.hero-feature img');
+    if (hero) hero.addEventListener('error', fixHero);
+    fixHero();
+  });
+  window.addEventListener('load', fixHero);
+})();
+</script>
+
 </body>
 </html>
