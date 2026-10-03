@@ -15241,4 +15241,40 @@ html body .edu-card .edu-header .edu-school,
 }
 </style>
 
+
+<!-- =========================================================
+     KATE SPADE — spade symbol above the "kate spade" text (all versions)
+     Append-only. Every prior line above is untouched.
+     Added with CSS only (no markup changes), applies to both slider copies.
+     ========================================================= -->
+<style id="final-katespade-spade-above-text">
+html body .brand-katespade::before {
+  content: "\2660\FE0E" !important;
+  display: block !important;
+  font-family: "Segoe UI Symbol", "Apple Symbols", "DejaVu Sans", Arial, sans-serif !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: clamp(13px, 1.1vw, 17px) !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  color: #ffffff !important;
+  margin: 0 0 3px 0 !important;
+  text-align: center !important;
+}
+
+@media (max-width: 768px) {
+  html body .brand-katespade::before {
+    font-size: 13px !important;
+    margin-bottom: 2px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  html body .brand-katespade::before {
+    font-size: 11px !important;
+    margin-bottom: 2px !important;
+  }
+}
+</style>
+
 </body>
