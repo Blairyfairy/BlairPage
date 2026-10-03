@@ -2171,8 +2171,8 @@ html, body {
 <!-- =========================================================
      FORCE-LOAD EVERY IMAGE IN THE FOLDER + SNUG MOBILE FIT
      Append-only. Every prior line above is untouched.
-     1) Finds every image in BlairsGardeningGallery/ any way it can
-        (images3.json, other manifests, folder listing, GitHub folder
+     1) Finds every image in BlairsGardeningGallery/ ONLY (images3.json,
+        manifests inside that folder, folder listing, GitHub folder
         listing, numbered-name probing) and loads them all in parallel,
         in every image file type, with fallbacks across extensions,
         case variants and folder prefixes.
@@ -2260,13 +2260,16 @@ html, body {
   var TRY_EXTS = EXTS.concat(['JPG', 'JPEG', 'PNG', 'GIF', 'WEBP', 'AVIF']);
   var EXT_RE = new RegExp('\\.(' + EXTS.join('|') + ')$', 'i');
   var PROBE_EXTS = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'JPG', 'JPEG', 'PNG', 'avif', 'jfif'];
+  // Only manifests that live INSIDE the gardening folder. Page-level lists
+  // such as images.json / gallery.json can belong to other galleries, so
+  // they are never read (images3.json is read by the page's own loader).
   var MANIFESTS = [
     FOLDER + 'images3.json', FOLDER + 'images.json', FOLDER + 'images2.json',
     FOLDER + 'manifest.json', FOLDER + 'index.json', FOLDER + 'gallery.json',
-    FOLDER + 'files.json', FOLDER + 'list.json',
-    'images.json', 'images2.json', 'gallery.json', 'manifest.json'
+    FOLDER + 'files.json', FOLDER + 'list.json'
   ];
-  var CACHE_KEY = 'bgg_folder_images_v1';
+  var CACHE_KEY = 'bgg_folder_images_v2';
+  try { localStorage.removeItem('bgg_folder_images_v1'); } catch (e) {}
   var learned = null;
 
   /* ---------- small helpers ---------- */
@@ -2275,6 +2278,15 @@ html, body {
   function isAbs(u) { return /^(?:[a-z][a-z0-9+.-]*:)?\/\//i.test(u) || /^(?:data|blob):/i.test(u); }
   function delay(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
   function natural(a, b) { return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }); }
+
+  // True only for a bare filename or a path inside the gardening folder.
+  function inFolder(n) {
+    if (!n || isAbs(n)) return false;
+    var d = decodeSafe(n).replace(/^\.\//, '');
+    if (d.indexOf('..') !== -1) return false;
+    if (d.indexOf('/') === -1) return true;
+    return d.toLowerCase().indexOf(FOLDER.toLowerCase()) === 0;
+  }
 
   function norm(entry) {
     if (typeof entry === 'string') return entry.trim();
@@ -2319,30 +2331,34 @@ html, body {
   }
 
   /* ---------- candidate URLs for one entry ---------- */
-  function candidatesFor(raw) {
+  // Files listed in images3.json are tried exactly as listed (like the
+  // original page). Files found by discovery are only ever tried inside
+  // the gardening folder, never at page level or in any other folder.
+  function candidatesFor(raw, fromJson) {
     var m = raw.match(EXT_RE);
     var base = m ? raw.slice(0, -m[0].length) : raw;
     var known = m ? m[1] : null;
     var bases = [];
-    if (isAbs(base)) {
+    if (isAbs(base) || base.indexOf('/') !== -1) {
       bases.push(base);
-    } else if (base.indexOf('/') === -1) {
-      bases.push(FOLDER + base, base);
+    } else if (fromJson) {
+      bases.push(base, FOLDER + base);
     } else {
-      bases.push(base);
-      var alt = FOLDER + lastSeg(base);
-      if (alt !== base) bases.push(alt);
+      bases.push(FOLDER + base);
     }
     var order = [];
     function add(e) { if (e && order.indexOf(e) === -1) order.push(e); }
     add(known); add(learned);
     TRY_EXTS.forEach(add);
-    var urls = [];
-    order.forEach(function (e) {
-      bases.forEach(function (b) { urls.push(b + '.' + e); });
-    });
-    var firstWave = known ? bases.length : bases.length * 6;
-    return { wave1: urls.slice(0, firstWave), wave2: urls.slice(firstWave) };
+    var first = known ? 1 : 6;
+    var waves = [
+      order.slice(0, first).map(function (e) { return bases[0] + '.' + e; }),
+      order.slice(first).map(function (e) { return bases[0] + '.' + e; })
+    ];
+    if (bases.length > 1) {
+      waves.push(order.map(function (e) { return bases[1] + '.' + e; }));
+    }
+    return { waves: waves.filter(function (w) { return w.length; }) };
   }
 
   /* ---------- race several URLs at once, first to load wins ---------- */
@@ -2377,7 +2393,7 @@ html, body {
     var self = this;
     return new Promise(function (resolve) {
       var raw = String(self.images[index]);
-      var c = candidatesFor(raw);
+      var c = candidatesFor(raw, !!(self.__json && self.__json[raw]));
       var high = index < 24;
 
       function cleanup() { item.dataset.loading = 'false'; }
@@ -2410,14 +2426,18 @@ html, body {
         else finish();
       }
 
-      race(c.wave1, high)
-        .then(function (img) { return img || race(c.wave2, high); })
+      var wi = 0;
+      function nextWave() {
+        if (wi >= c.waves.length) return Promise.resolve(null);
+        return race(c.waves[wi++], high).then(function (img) { return img || nextWave(); });
+      }
+      nextWave()
         .then(function (img) {
           if (img) return img;
           // One last retry (cache-busted) in case of a transient network error.
           return delay(1200).then(function () {
             var bust = '?r=' + Date.now();
-            return race(c.wave1.map(function (u) { return u + bust; }), true);
+            return race(c.waves[0].map(function (u) { return u + bust; }), true);
           });
         })
         .then(function (img) { if (img) success(img); else showError(); });
@@ -2434,7 +2454,7 @@ html, body {
           var arr = Array.isArray(data) ? data
                   : (data && Array.isArray(data.images)) ? data.images
                   : (data && typeof data === 'object') ? Object.values(data) : [];
-          return arr.map(norm).filter(Boolean);
+          return arr.map(norm).filter(inFolder);
         })
         .catch(function () { return []; });
     })).then(function (lists) { return [].concat.apply([], lists); });
@@ -2446,7 +2466,7 @@ html, body {
       .then(function (html) {
         var out = [], re = /href\s*=\s*["']([^"'#?]+)["']/gi, m;
         while ((m = re.exec(html))) {
-          if (EXT_RE.test(m[1])) out.push(FOLDER + lastSeg(m[1]));
+          if (EXT_RE.test(m[1]) && inFolder(m[1])) out.push(FOLDER + lastSeg(m[1]));
         }
         return out;
       })
@@ -2484,7 +2504,7 @@ html, body {
   // Last resort: probe numbered names (img1, img2, ...) in every common type.
   function probe(self, onFound) {
     var prefixes = { img: 0 };
-    (self.images || []).concat(self.__pre || []).forEach(function (n) {
+    (self.images || []).concat(self.__pre || []).filter(inFolder).forEach(function (n) {
       var seg = decodeSafe(lastSeg(n)).replace(EXT_RE, '');
       var m = seg.match(/^(.*?)(\d+)$/);
       if (m) prefixes[m[1]] = (m[2].length > 1 && m[2].charAt(0) === '0') ? m[2].length : 0;
@@ -2517,7 +2537,7 @@ html, body {
   function readCache() {
     try {
       var o = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      if (o && Array.isArray(o.list) && Date.now() - o.t < 864e5) return o.list;
+      if (o && Array.isArray(o.list) && Date.now() - o.t < 864e5) return o.list.filter(inFolder);
     } catch (e) {}
     return [];
   }
@@ -2553,7 +2573,7 @@ html, body {
     var fresh = [];
     list.forEach(function (e) {
       var n = norm(e);
-      if (n && self.images.length + (self.__pre || []).length + fresh.length < MAX_IMAGES && claim(self, n)) fresh.push(n);
+      if (n && inFolder(n) && self.images.length + (self.__pre || []).length + fresh.length < MAX_IMAGES && claim(self, n)) fresh.push(n);
     });
     if (!fresh.length) return;
 
@@ -2595,6 +2615,7 @@ html, body {
     self.__pre = [];
     self.__rendered = false;
     self.__seen = null;
+    self.__json = {};
     self.imageFormats = TRY_EXTS.slice();
 
     var disc = startDiscovery(self);
@@ -2609,7 +2630,7 @@ html, body {
               : (data && typeof data === 'object') ? Object.values(data) : [];
       arr.forEach(function (e) {
         var n = norm(e);
-        if (n && self.images.length < MAX_IMAGES && claim(self, n)) self.images.push(n);
+        if (n && self.images.length < MAX_IMAGES && claim(self, n)) { self.images.push(n); self.__json[n] = 1; }
       });
     } catch (error) {
       console.error('Error loading JSON:', error);
