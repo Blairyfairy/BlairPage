@@ -457,5 +457,338 @@ const st=document.getElementById('pageScrollTop');
 window.addEventListener('scroll',()=>{st.classList.toggle('show',(window.scrollY||0)>180)});
 st.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 </script>
+<!-- ISOLATED FLOATING VIDEO BUTTON / PLAYER -->
+<script>
+(function () {
+  const VIDEO_ID = 'pt8VYOfr8To';
+  const MOBILE_BP = 900;
+
+  const PLAYER_ID = 'left-floating-player-2';
+  const BUTTON_ID = 'left-floating-button-2';
+  const FRAME_ID = 'left-floating-frame-2';
+  const STYLE_ID = 'left-floating-player-style-2';
+
+  function buildSrc(muted) {
+    return (
+      'https://www.youtube.com/embed/' + VIDEO_ID +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&loop=1' +
+      '&playlist=' + VIDEO_ID +
+      '&playsinline=1'
+    );
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function removeOld() {
+    document.getElementById(PLAYER_ID)?.remove();
+    document.getElementById(BUTTON_ID)?.remove();
+    document.getElementById(STYLE_ID)?.remove();
+  }
+
+  function injectStyle() {
+    const style = document.createElement('style');
+    style.id = STYLE_ID;
+
+    style.textContent = `
+      #${PLAYER_ID} {
+        position: fixed !important;
+        left: 20px !important;
+        bottom: 70px !important;
+        width: 260px !important;
+        height: 150px !important;
+        z-index: 10000 !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.6) !important;
+        background: #000 !important;
+        touch-action: none !important;
+        display: none !important;
+      }
+
+      #${BUTTON_ID} {
+        position: fixed !important;
+        left: 20px !important;
+        bottom: 20px !important;
+        width: 52px !important;
+        height: 52px !important;
+        z-index: 10001 !important;
+        border-radius: 50% !important;
+        border: 1px solid rgba(240,239,244,0.35) !important;
+        background: rgba(58,62,59,0.72) !important;
+        color: #fff !important;
+        cursor: pointer !important;
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.45) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+      }
+
+      @media (max-width: 900px) {
+        #${PLAYER_ID} {
+          width: min(260px, calc(100vw - 24px)) !important;
+          max-width: calc(100vw - 24px) !important;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
+  function create() {
+    removeOld();
+    injectStyle();
+
+    const player = document.createElement('div');
+    player.id = PLAYER_ID;
+
+    const button = document.createElement('button');
+    button.id = BUTTON_ID;
+    button.type = 'button';
+
+    let phase = 'closed';
+
+    let dragging = false;
+    let startX = 0;
+    let startY = 0;
+    let originLeft = 0;
+    let originTop = 0;
+
+    function updateButtonVisual() {
+      if (phase === 'closed') {
+        button.textContent = '▶';
+        button.setAttribute('aria-label', 'Open and play video');
+        button.setAttribute('title', 'Open and play video');
+      }
+
+      if (phase === 'muted') {
+        button.textContent = '🔊';
+        button.setAttribute('aria-label', 'Unmute video');
+        button.setAttribute('title', 'Unmute video');
+      }
+
+      if (phase === 'unmuted') {
+        button.textContent = '🔇';
+        button.setAttribute('aria-label', 'Mute video');
+        button.setAttribute('title', 'Mute video');
+      }
+
+      if (phase === 'muted-ready-close') {
+        button.textContent = '✕';
+        button.setAttribute('aria-label', 'Close video');
+        button.setAttribute('title', 'Close video');
+      }
+    }
+
+    function renderIframe(muted) {
+      player.innerHTML = `
+        <iframe
+          id="${FRAME_ID}"
+          width="100%"
+          height="100%"
+          src="${buildSrc(muted)}"
+          frameborder="0"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      `;
+    }
+
+    function openMuted() {
+      phase = 'muted';
+
+      player.style.setProperty('display', 'block', 'important');
+
+      if (!player.style.top || player.style.top === 'auto') {
+        player.style.left = '20px';
+        player.style.bottom = '70px';
+        player.style.top = 'auto';
+      }
+
+      renderIframe(true);
+      updateButtonVisual();
+
+      const rect = player.getBoundingClientRect();
+      placeButton(rect.left, rect.top);
+    }
+
+    function unmute() {
+      phase = 'unmuted';
+
+      player.style.setProperty('display', 'block', 'important');
+
+      renderIframe(false);
+      updateButtonVisual();
+    }
+
+    function muteReadyClose() {
+      phase = 'muted-ready-close';
+
+      player.style.setProperty('display', 'block', 'important');
+
+      renderIframe(true);
+      updateButtonVisual();
+    }
+
+    function closeCompletely() {
+      phase = 'closed';
+
+      player.innerHTML = '';
+      player.style.setProperty('display', 'none', 'important');
+
+      updateButtonVisual();
+
+      button.style.left = '20px';
+      button.style.right = 'auto';
+      button.style.bottom = '20px';
+      button.style.top = 'auto';
+    }
+
+    function placeButton(left, top) {
+      if (phase === 'closed') {
+        button.style.left = '20px';
+        button.style.right = 'auto';
+        button.style.bottom = '20px';
+        button.style.top = 'auto';
+        return;
+      }
+
+      const rect = player.getBoundingClientRect();
+
+      button.style.left = left + 'px';
+      button.style.top = (top + rect.height + 8) + 'px';
+      button.style.bottom = 'auto';
+    }
+
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (phase === 'closed') {
+        openMuted();
+        return;
+      }
+
+      if (phase === 'muted') {
+        unmute();
+        return;
+      }
+
+      if (phase === 'unmuted') {
+        muteReadyClose();
+        return;
+      }
+
+      if (phase === 'muted-ready-close') {
+        closeCompletely();
+        return;
+      }
+    });
+
+    function startDrag(x, y) {
+      if (window.innerWidth > MOBILE_BP || phase === 'closed') return;
+
+      const rect = player.getBoundingClientRect();
+
+      dragging = true;
+      startX = x;
+      startY = y;
+      originLeft = rect.left;
+      originTop = rect.top;
+    }
+
+    function moveDrag(x, y) {
+      if (!dragging) return;
+
+      const rect = player.getBoundingClientRect();
+
+      const nextLeft = clamp(
+        originLeft + (x - startX),
+        8,
+        window.innerWidth - rect.width - 8
+      );
+
+      const nextTop = clamp(
+        originTop + (y - startY),
+        8,
+        window.innerHeight - rect.height - 56
+      );
+
+      player.style.left = nextLeft + 'px';
+      player.style.top = nextTop + 'px';
+      player.style.bottom = 'auto';
+
+      placeButton(nextLeft, nextTop);
+    }
+
+    function endDrag() {
+      dragging = false;
+    }
+
+    player.addEventListener(
+      'touchstart',
+      e => startDrag(
+        e.touches[0].clientX,
+        e.touches[0].clientY
+      ),
+      { passive: true }
+    );
+
+    player.addEventListener(
+      'touchmove',
+      e => moveDrag(
+        e.touches[0].clientX,
+        e.touches[0].clientY
+      ),
+      { passive: true }
+    );
+
+    player.addEventListener('touchend', endDrag);
+    player.addEventListener('touchcancel', endDrag);
+
+    player.addEventListener(
+      'mousedown',
+      e => startDrag(e.clientX, e.clientY)
+    );
+
+    window.addEventListener(
+      'mousemove',
+      e => moveDrag(e.clientX, e.clientY)
+    );
+
+    window.addEventListener('mouseup', endDrag);
+
+    document.body.appendChild(player);
+    document.body.appendChild(button);
+
+    if (window.innerWidth <= MOBILE_BP) {
+      const left = 12;
+      const top = Math.max(8, window.innerHeight - 220);
+
+      player.style.left = left + 'px';
+      player.style.top = top + 'px';
+      player.style.bottom = 'auto';
+    }
+
+    closeCompletely();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', create);
+  } else {
+    create();
+  }
+})();
+</script>
+
+
 </body>
 </html>
