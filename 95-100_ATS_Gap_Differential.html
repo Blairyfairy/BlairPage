@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blair Page | 95%–100% ATS Gap Differential</title>
+<style>
+:root {
+  --black:#000000ff; --midnight-violet:#291528ff; --charcoal-brown:#3a3e3bff;
+  --ghost-white:#f0eff4ff; --dusty-mauve:#9e829cff; --text-light:var(--ghost-white);
+  --bg-light:linear-gradient(135deg,#000000ff 0%,#291528ff 30%,#3a3e3bff 60%,#9e829cff 85%,#f0eff4ff 100%);
+  --glass-bg:rgba(58,62,59,0.15); --glass-border:rgba(240,239,244,0.22);
+  --shadow-strong:0 18px 40px rgba(0,0,0,.55); --shadow-soft:0 10px 26px rgba(0,0,0,.35);
+  --accent-green:rgba(152,255,152,0.75);
+}
+body.dark {
+  --bg-light:linear-gradient(135deg,#050507 0%,#0d0f16 25%,#141824 55%,#1c1f2b 78%,#26212d 100%);
+  --glass-bg:rgba(8,10,14,0.42); --glass-border:rgba(240,239,244,0.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%;background:var(--bg-light);background-image:var(--bg-light);overflow-x:hidden;scroll-behavior:smooth}
+body{position:relative;color:var(--text-light);font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(158,130,156,.75),rgba(240,239,244,.55));border-radius:10px}
+.top-bar{position:absolute!important;top:0!important;left:0!important;width:100%!important;z-index:100!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"cred toggle" "nav toggle"!important;align-items:start!important;row-gap:2px!important;padding:1rem 2rem!important;font-size:.85rem!important}
+.credential-header{grid-area:cred!important;max-width:calc(100% - 92px)!important;line-height:1.05!important}
+.site-nav{grid-area:nav!important;display:flex!important;flex-wrap:wrap!important;margin:2px 0 0!important;padding:0!important}
+.site-nav a{margin:0 1rem 0 0!important;color:var(--dusty-mauve);text-decoration:none;font-weight:600}
+.site-nav a:hover,.site-nav a.active{text-decoration:underline;color:var(--text-light)}
+.theme-btn,.action-btn,.job-toggle,.filter-btn{display:inline-flex;align-items:center;justify-content:center;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:20px;padding:.45rem 1rem;min-height:34px;color:var(--text-light);cursor:pointer;backdrop-filter:blur(10px);font-size:.85rem}
+.filter-btn.active{background:rgba(158,130,156,.28);border-color:rgba(240,239,244,.4)}
+#themeToggle{grid-area:toggle!important;justify-self:end!important;align-self:start!important}
+.hero{position:fixed;inset:0;z-index:-2;background:var(--bg-light)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 15%,rgba(240,239,244,.09),transparent 22%),radial-gradient(circle at 78% 28%,rgba(158,130,156,.2),transparent 24%),linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.35))}
+.logo-top-left{position:absolute;top:100px;left:16px;z-index:1000;width:60px;height:60px;border-radius:50%;overflow:hidden;border:3px solid rgba(240,239,244,.45)}
+.logo-top-left img{width:100%;height:100%;object-fit:cover}
+.page-title-shell{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:19vh 2rem 1rem}
+.blog-page-title{text-align:center;font-size:clamp(2rem,5.5vw,3.5rem);font-weight:700;margin:0 0 1rem;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.hero-subtitle{max-width:1000px;margin:0 auto 1.4rem;text-align:center;font-size:1.02rem;line-height:1.75;color:rgba(240,239,244,.92)}
+.hero-badges,.summary-strip,.chart-grid,.job-grid,.glossary-grid,.reference-grid,.live-feed-grid,.pad{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding-left:2rem;padding-right:2rem}
+.hero-badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-bottom:1.4rem}
+.badge-card,.dashboard-card,.job-card,.glossary-card,.reference-card,.feed-card{position:relative;background:var(--glass-bg);backdrop-filter:blur(14px);border-radius:18px;padding:1.2rem;box-shadow:var(--shadow-soft);border:1px solid var(--glass-border);overflow:hidden}
+.badge-card h3{margin:0 0 .35rem;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--dusty-mauve)}
+.badge-card .metric{font-size:1.7rem;font-weight:800}
+.badge-card p{margin:.4rem 0 0;font-size:.88rem;color:rgba(240,239,244,.82);line-height:1.45}
+main{position:relative;z-index:2;max-width:1280px;margin:auto;padding:0 2rem 4rem}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:2rem 0 1rem;flex-wrap:wrap}
+.section-title h2{margin:0;font-size:clamp(1.25rem,2vw,1.9rem)}
+.section-title p{margin:0;color:rgba(240,239,244,.8);font-size:.94rem;line-height:1.55;max-width:760px}
+.chart-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.15rem;padding-top:.4rem;padding-bottom:.4rem}
+.chart-grid .dashboard-card.large{grid-column:span 8}
+.chart-grid .dashboard-card.medium{grid-column:span 6}
+.chart-grid .dashboard-card.small{grid-column:span 4}
+.chart-head h3{margin:0;font-size:1rem}
+.chart-head p{margin:.3rem 0 0;font-size:.88rem;color:rgba(240,239,244,.8);line-height:1.45}
+.chart-wrap{position:relative;min-height:300px}
+.chart-legend-note{margin-top:.7rem;font-size:.84rem;color:rgba(240,239,244,.72)}
+.filter-row{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.search-box{width:100%;max-width:420px;padding:.65rem 1rem;border-radius:14px;border:1px solid var(--glass-border);background:rgba(0,0,0,.25);color:var(--text-light);font-size:.95rem}
+.job-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.15rem}
+.job-card{transition:transform .24s ease,box-shadow .24s ease}
+.job-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-strong)}
+.job-card.featured{border-color:rgba(152,255,152,.45);background:linear-gradient(160deg,rgba(152,255,152,.08),var(--glass-bg) 42%);box-shadow:0 12px 32px rgba(152,255,152,.1),var(--shadow-soft)}
+.job-header{display:flex;justify-content:space-between;align-items:start;gap:.75rem;margin-bottom:.45rem}
+.job-header h3{margin:0 0 .3rem;font-size:1.05rem}
+.category{display:inline-block;font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dusty-mauve);margin-bottom:.35rem}
+.featured-tag{display:inline-block;margin-left:.35rem;padding:.12rem .45rem;border-radius:999px;background:rgba(152,255,152,.18);border:1px solid rgba(152,255,152,.4);color:#b8ffb8;font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;font-weight:700}
+.score-pill{white-space:nowrap;padding:.42rem .68rem;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:.8rem;font-weight:700}
+.score-pill.perfect{background:rgba(152,255,152,.22);border-color:rgba(152,255,152,.55);color:#c8ffc8}
+.score-pill.high{background:rgba(152,255,152,.12);border-color:rgba(152,255,152,.35);color:#b8ffb8}
+.job-preview,.job-detail{line-height:1.65;color:rgba(240,239,244,.92);font-size:.95rem}
+.job-detail{display:none;margin-top:.85rem;border-top:1px solid rgba(240,239,244,.14);padding-top:.85rem}
+.job-card.active .job-detail{display:block}
+.job-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin:1rem 0}
+.meta-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:.75rem}
+.meta-box .label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--dusty-mauve);margin-bottom:.15rem}
+.meta-box .value{font-size:.92rem;font-weight:700;line-height:1.35}
+.featured-strip{margin:0 0 1.1rem;padding:1rem 1.1rem;border-radius:16px;background:linear-gradient(135deg,rgba(152,255,152,.12),rgba(158,130,156,.1));border:1px solid rgba(152,255,152,.35)}
+.featured-strip h3{margin:0 0 .45rem;font-size:1.02rem;color:#c8ffc8}
+.featured-strip ol{margin:.35rem 0 0 1.15rem;padding:0;line-height:1.65;columns:2;column-gap:2rem}
+.featured-strip li{break-inside:avoid;margin-bottom:.25rem}
+.featured-strip li strong{color:#c8ffc8}
+.table-wrap{overflow-x:auto;max-height:640px;overflow-y:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:900px}
+th,td{border-bottom:1px solid rgba(240,239,244,.14);padding:.62rem .45rem;text-align:left;vertical-align:top}
+th{color:var(--dusty-mauve);letter-spacing:.07em;text-transform:uppercase;font-size:.72rem;position:sticky;top:0;background:rgba(20,20,28,.95);backdrop-filter:blur(8px)}
+tr.featured-row{background:rgba(152,255,152,.06)}
+.keyword-cloud{display:flex;flex-wrap:wrap;gap:.5rem}
+.keyword-cloud span{padding:.42rem .65rem;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);font-size:.82rem}
+.live-feed-grid,.glossary-grid,.reference-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem}
+.inline-link{color:var(--dusty-mauve);text-decoration:none}
+.inline-link:hover{color:var(--text-light);text-decoration:underline}
+.page-scroll-top{position:fixed;right:18px;bottom:18px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer;z-index:10050;opacity:0;visibility:hidden}
+.page-scroll-top.show{opacity:1;visibility:visible}
+.callout{margin:0 0 1rem;padding:.8rem 1rem;border-radius:14px;background:rgba(152,255,152,.1);border:1px solid rgba(152,255,152,.28);font-size:.94rem;line-height:1.55}
+.cat-pills{display:flex;flex-wrap:wrap;gap:.45rem;margin:.6rem 0 0}
+.cat-pills span{padding:.35rem .6rem;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-size:.8rem}
+@media(max-width:1100px){.chart-grid .dashboard-card.large,.chart-grid .dashboard-card.medium,.chart-grid .dashboard-card.small{grid-column:span 12}.featured-strip ol{columns:1}}
+@media(max-width:900px){
+  .top-bar{padding:10px 16px 0!important}.credential-header{font-size:.55rem!important}
+  .page-title-shell,.hero-badges,.summary-strip,.chart-grid,.job-grid,.glossary-grid,.reference-grid,.live-feed-grid,main,.pad{padding-left:1rem;padding-right:1rem}
+  .page-title-shell{padding-top:18vh}.job-meta{grid-template-columns:1fr}.chart-wrap{min-height:260px}
+  .site-nav a{margin:0 .55rem 0 0!important;font-size:.74rem!important}
+}
+.chip-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
+.chip{font-size:.78rem;padding:.25rem .6rem;border-radius:12px;border:1px solid var(--glass-border);background:rgba(152,255,152,.10)}
+.chip.miss{background:rgba(255,120,120,.18);border-color:rgba(255,120,120,.55)}
+.chip.thin{background:rgba(255,205,110,.16);border-color:rgba(255,205,110,.5)}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.84rem;margin:.6rem 0}
+.bar{height:8px;border-radius:6px;background:rgba(240,239,244,.15);overflow:hidden;margin-top:.5rem}
+.bar i{display:block;height:100%;background:var(--accent-green)}
+td.m{color:#ffa0a0}
+</style>
+</head>
+<body>
+<header class="top-bar">
+  <div class="credential-header">Inside LVMH (In Training) · AWS Certified</div>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a href="enterprise_clients_infographic.html">Enterprise Info</a>
+    <a href="cloud_providers_infographic.html">Cloud Info</a>
+    <a href="live_cloud_provider_signal_board.html">Live Info</a>
+    <a href="Blairs_Job_Titles_ATS.html">ATS Jobs</a>
+    <a href="Blairs_ATS_Skills_Gap.html">Skills Gap</a>
+    <a href="95-100_ATS_Gap_Differential.html" class="active">95–100% Gap</a>
+  </nav>
+  <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+</header>
+<a href="index.html" class="logo-top-left" aria-label="Home"><img src="BlairPageImages/blog.jpg" alt="Blair Page" onerror="this.style.display='none'"></a>
+<div class="hero"></div>
+<section class="page-title-shell">
+  <h1 class="blog-page-title">95%–100% ATS Gap Differential</h1>
+  <p class="hero-subtitle">Skills-gap analysis for <strong>all 327 titles scored 95–100%</strong> in <code>Blairs_Job_Titles_ATS.html</code>, measured against the same L3 hosting checklist tested on <code>index.html</code>. Mentoring / team lead is required only for Lead, Principal, Staff, Senior, Manager, Director, and Head titles.</p>
+</section>
+<section class="hero-badges">
+  <article class="badge-card"><h3>95–100% titles</h3><div class="metric" id="mTitles">327</div><p>All high-band ATS potentials.</p></article>
+  <article class="badge-card"><h3>Skills checked</h3><div class="metric" id="mTotal">—</div><p>L3 hosting &amp; managed-apps checklist.</p></article>
+  <article class="badge-card"><h3>Found in index.html</h3><div class="metric" id="mFound">—</div><p>Skills with direct evidence on the page.</p></article>
+  <article class="badge-card"><h3>Avg % missing</h3><div class="metric" id="mMiss">—</div><p>Average across all 327 titles.</p></article>
+</section>
+<section class="summary-strip"><article class="dashboard-card">
+  <div class="section-title" style="margin-top:0"><div><h2>Missing from index.html</h2><p>Only two checklist items have no support on the page (same baseline as the 100% Skills Gap page).</p></div></div>
+  <div class="featured-strip"><ol id="missList"></ol></div>
+  <p class="callout">Method: keyword presence in index.html, with weak hits checked in context. Presence is not depth. The checklist is an L3 hosting / managed-apps estimate applied uniformly; ATS data has no per-title skill lists. Mentoring / team lead applies only to Lead, Principal, Staff, Senior, Manager, Director, and Head titles. Thin skills (Bash / Python scripting, Root-cause analysis) are counted as found but flagged.</p>
+</article></section>
+<main>
+  <div class="section-title"><div><h2>Charts</h2><p>Coverage by skill family, overall split, and average gap by ATS score band.</p></div></div>
+  <section class="chart-grid">
+    <article class="dashboard-card large"><div class="chart-head"><h3>Coverage by skill family</h3><p>% of checklist skills found in index.html.</p></div><div class="chart-wrap"><canvas id="catChart"></canvas></div></article>
+    <article class="dashboard-card small"><div class="chart-head"><h3>Overall split</h3><p>Found vs thin vs missing.</p></div><div class="chart-wrap"><canvas id="splitChart"></canvas></div></article>
+    <article class="dashboard-card medium"><div class="chart-head"><h3>Avg % missing by ATS band</h3><p>Mean gap for titles at each score.</p></div><div class="chart-wrap"><canvas id="bandGapChart"></canvas></div></article>
+    <article class="dashboard-card medium"><div class="chart-head"><h3>Avg % missing by family</h3><p>Mean gap for titles in each job family.</p></div><div class="chart-wrap"><canvas id="famGapChart"></canvas></div></article>
+  </section>
+  <div class="section-title"><div><h2>Skill families</h2><p>Green = found, amber = found but thin, red = missing.</p></div></div>
+  <div class="legend"><span class="chip">Found</span><span class="chip thin">Thin</span><span class="chip miss">Missing</span></div>
+  <section class="job-grid" id="catGrid"></section>
+  <div class="section-title"><div><h2>Filter &amp; search</h2><p>Filter by ATS band or family; search titles.</p></div></div>
+  <div class="filter-row" id="filterRow">
+    <button class="filter-btn active" data-filter="all">All 95–100%</button>
+    <button class="filter-btn" data-filter="100">100%</button>
+    <button class="filter-btn" data-filter="99">99%</button>
+    <button class="filter-btn" data-filter="98">98%</button>
+    <button class="filter-btn" data-filter="97">97%</button>
+    <button class="filter-btn" data-filter="96">96%</button>
+    <button class="filter-btn" data-filter="95">95%</button>
+  </div>
+  <div class="filter-row" id="catFilterRow"></div>
+  <div class="filter-row"><input type="search" id="jobSearch" class="search-box" placeholder="Search titles or families…"></div>
+  <div class="section-title"><div><h2>Per-title gap</h2><p>All 327 titles scored 95–100% in the ATS data, with checklist gap vs index.html.</p></div></div>
+  <article class="dashboard-card"><div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>Title</th><th>Family</th><th>ATS %</th><th>Skills required</th><th>Missing</th><th>% missing</th></tr></thead>
+    <tbody id="titleTable"></tbody></table></div></article>
+</main>
+<button id="pageScrollTop" class="page-scroll-top" aria-label="Top">▲</button>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const D={"cats": {"OS & Hosting": ["Linux administration", "RHEL / RHCE / CentOS", "Debian / Ubuntu", "Windows Server / IIS", "Apache", "NGINX", "PHP / PHP-FPM", "cPanel / WHM", "Plesk", "InterWorx", "LAMP / LEMP stacks", "OpenStack", "Virtualization"], "Databases & Caching": ["MySQL / MariaDB", "MySQL query tuning", "Percona / PXC / Galera HA", "Replication / failover", "PostgreSQL", "MongoDB", "Redis / Memcached", "Elasticsearch", "ProxySQL / HAProxy", "Varnish"], "Apps & CMS": ["WordPress / WP-CLI", "WooCommerce", "Magento", "Django", "Node.js", "Drupal / Joomla", "CMS security (PCI-DSS / OWASP)"], "Networking": ["DNS", "Email / mail services", "SSL / TLS", "TCP/IP", "MTR / traceroute", "Cloudflare / CDN", "Load balancing", "Firewalls", "SSH / FTP"], "Cloud & DevOps": ["AWS (EC2 / S3 / RDS)", "AWS certification", "Docker", "Docker Swarm / containers", "Kubernetes", "Terraform / IaC", "Ansible / Puppet / Chef", "Git", "CI/CD", "Cron automation", "Bash / Python scripting"], "Monitoring & Security": ["Monitoring (Nagios / Datadog / Grafana)", "Security hardening", "Backup / DR", "High availability"], "L3 Process & Soft Skills": ["L3 / Tier-3 escalation", "SLA-driven incident response", "Ticketing / CRM (Zendesk, Jira, Salesforce)", "On-call / PagerDuty", "Customer communication / CSAT", "Technical documentation / KB", "Enterprise customer support", "Mentoring / team lead", "Root-cause analysis", "ITIL", "Bachelor degree (BSBA)"]}, "missing": ["ITIL", "Mentoring / team lead"], "thin": ["Bash / Python scripting", "Root-cause analysis"]};
+const titles=[{"t":"Enterprise L3 Support Engineer","c":"Managed Hosting / L3","s":100,"sr":0},{"t":"Escalation L3 Support Engineer","c":"Managed Hosting / L3","s":100,"sr":0},{"t":"Global L3 Support Engineer","c":"Managed Hosting / L3","s":100,"sr":0},{"t":"L3 Linux Managed Applications Support Engineer","c":"Managed Hosting / L3","s":100,"sr":0},{"t":"Lead L3 Support Engineer","c":"Managed Hosting / L3","s":100,"sr":1},{"t":"Liquid Web L3 Support Engineer","c":"Managed Hosting / L3","s":100,"sr":0},{"t":"Principal L3 Support Engineer","c":"Managed Hosting / L3","s":100,"sr":1},{"t":"Production L3 Support Engineer","c":"Managed Hosting / L3","s":100,"sr":0},{"t":"Senior L3 Support Engineer","c":"Managed Hosting / L3","s":100,"sr":1},{"t":"Staff L3 Support Engineer","c":"Managed Hosting / L3","s":100,"sr":1},{"t":"Tier-3 L3 Support Engineer","c":"Managed Hosting / L3","s":100,"sr":0},{"t":"Tier-3 Managed Applications Support Engineer","c":"Managed Hosting / L3","s":100,"sr":0},{"t":"Enterprise Managed Applications Support Engineer","c":"Managed Hosting / L3","s":99,"sr":0},{"t":"Enterprise RHCE Linux Engineer","c":"Linux Ops","s":99,"sr":0},{"t":"Escalation Engineer \u2014 Managed Hosting","c":"Managed Hosting / L3","s":99,"sr":0},{"t":"Escalation Managed Applications Support Engineer","c":"Managed Hosting / L3","s":99,"sr":0},{"t":"Escalation RHCE Linux Engineer","c":"Linux Ops","s":99,"sr":0},{"t":"Global Managed Applications Support Engineer","c":"Managed Hosting / L3","s":99,"sr":0},{"t":"Global RHCE Linux Engineer","c":"Linux Ops","s":99,"sr":0},{"t":"Lead Managed Applications Support Engineer","c":"Managed Hosting / L3","s":99,"sr":1},{"t":"Lead RHCE Linux Engineer","c":"Linux Ops","s":99,"sr":1},{"t":"Nexcess CloudSites Support Specialist","c":"Managed Hosting / L3","s":99,"sr":0},{"t":"Principal Managed Applications Support Engineer","c":"Managed Hosting / L3","s":99,"sr":1},{"t":"Principal RHCE Linux Engineer","c":"Linux Ops","s":99,"sr":1},{"t":"Production Managed Applications Support Engineer","c":"Managed Hosting / L3","s":99,"sr":0},{"t":"Production RHCE Linux Engineer","c":"Linux Ops","s":99,"sr":0},{"t":"RHCE Linux Systems Engineer","c":"Linux Ops","s":99,"sr":0},{"t":"Remote L3 Support Engineer","c":"Managed Hosting / L3","s":99,"sr":0},{"t":"Senior Linux Systems Administrator","c":"Linux Ops","s":99,"sr":1},{"t":"Senior Managed Applications Support Engineer","c":"Managed Hosting / L3","s":99,"sr":1},{"t":"Senior Managed Hosting Support Engineer","c":"Managed Hosting / L3","s":99,"sr":1},{"t":"Senior RHCE Linux Engineer","c":"Linux Ops","s":99,"sr":1},{"t":"Staff Managed Applications Support Engineer","c":"Managed Hosting / L3","s":99,"sr":1},{"t":"Staff RHCE Linux Engineer","c":"Linux Ops","s":99,"sr":1},{"t":"Tier-3 RHCE Linux Engineer","c":"Linux Ops","s":99,"sr":0},{"t":"Enterprise Hosting Support Engineer","c":"Managed Hosting / L3","s":98,"sr":0},{"t":"Enterprise Linux Systems Administrator","c":"Linux Ops","s":98,"sr":0},{"t":"Enterprise MySQL DBA","c":"Database / DBA","s":98,"sr":0},{"t":"Enterprise Percona DBA","c":"Database / DBA","s":98,"sr":0},{"t":"Escalation Hosting Support Engineer","c":"Managed Hosting / L3","s":98,"sr":0},{"t":"Escalation Linux Systems Administrator","c":"Linux Ops","s":98,"sr":0},{"t":"Escalation MySQL DBA","c":"Database / DBA","s":98,"sr":0},{"t":"Escalation Percona DBA","c":"Database / DBA","s":98,"sr":0},{"t":"Global Hosting Support Engineer","c":"Managed Hosting / L3","s":98,"sr":0},{"t":"Global Linux Systems Administrator","c":"Linux Ops","s":98,"sr":0},{"t":"Global MySQL DBA","c":"Database / DBA","s":98,"sr":0},{"t":"Global Percona DBA","c":"Database / DBA","s":98,"sr":0},{"t":"Lead Hosting Support Engineer","c":"Managed Hosting / L3","s":98,"sr":1},{"t":"Lead Linux Systems Administrator","c":"Linux Ops","s":98,"sr":1},{"t":"Lead MySQL DBA","c":"Database / DBA","s":98,"sr":1},{"t":"Lead Percona DBA","c":"Database / DBA","s":98,"sr":1},{"t":"MySQL / Percona Database Administrator","c":"Database / DBA","s":98,"sr":0},{"t":"Percona XtraDB Cluster / Galera HA Specialist","c":"Database / DBA","s":98,"sr":0},{"t":"Principal Hosting Support Engineer","c":"Managed Hosting / L3","s":98,"sr":1},{"t":"Principal Linux Systems Administrator","c":"Linux Ops","s":98,"sr":1},{"t":"Principal MySQL DBA","c":"Database / DBA","s":98,"sr":1},{"t":"Principal Percona DBA","c":"Database / DBA","s":98,"sr":1},{"t":"Production Hosting Support Engineer","c":"Managed Hosting / L3","s":98,"sr":0},{"t":"Production Linux Systems Administrator","c":"Linux Ops","s":98,"sr":0},{"t":"Production MySQL DBA","c":"Database / DBA","s":98,"sr":0},{"t":"Production Percona DBA","c":"Database / DBA","s":98,"sr":0},{"t":"Production Support Engineer \u2014 Managed Apps","c":"Managed Hosting / L3","s":98,"sr":0},{"t":"Remote Managed Applications Support Engineer","c":"Managed Hosting / L3","s":98,"sr":0},{"t":"Remote RHCE Linux Engineer","c":"Linux Ops","s":98,"sr":0},{"t":"Senior Hosting Support Engineer","c":"Managed Hosting / L3","s":98,"sr":1},{"t":"Senior Managed Services Engineer","c":"Managed Hosting / L3","s":98,"sr":1},{"t":"Senior MySQL DBA","c":"Database / DBA","s":98,"sr":1},{"t":"Senior Percona DBA","c":"Database / DBA","s":98,"sr":1},{"t":"Staff Hosting Support Engineer","c":"Managed Hosting / L3","s":98,"sr":1},{"t":"Staff Linux Systems Administrator","c":"Linux Ops","s":98,"sr":1},{"t":"Staff MySQL DBA","c":"Database / DBA","s":98,"sr":1},{"t":"Staff Percona DBA","c":"Database / DBA","s":98,"sr":1},{"t":"Tier-3 Hosting Support Engineer","c":"Managed Hosting / L3","s":98,"sr":0},{"t":"Tier-3 Linux Systems Administrator","c":"Linux Ops","s":98,"sr":0},{"t":"Tier-3 MySQL DBA","c":"Database / DBA","s":98,"sr":0},{"t":"Tier-3 Percona DBA","c":"Database / DBA","s":98,"sr":0},{"t":"AI Product Manager (MBA Track)","c":"Product / Digital Mgmt","s":97,"sr":1},{"t":"Enterprise AI Product Manager","c":"Product / Digital Mgmt","s":97,"sr":1},{"t":"Enterprise Linux Administrator","c":"Linux Ops","s":97,"sr":0},{"t":"Enterprise Luxury Brand Technical Account Manager","c":"Luxury / Brand Ops","s":97,"sr":1},{"t":"Enterprise Managed Services Engineer","c":"Managed Hosting / L3","s":97,"sr":0},{"t":"Enterprise OpenStack Administrator","c":"OpenStack / Private Cloud","s":97,"sr":0},{"t":"Enterprise Product Manager \u2014 Front-End Modernization","c":"Product / Digital Mgmt","s":97,"sr":1},{"t":"Enterprise WooCommerce Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"Enterprise WordPress Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"Escalation Managed Services Engineer","c":"Managed Hosting / L3","s":97,"sr":0},{"t":"Escalation OpenStack Administrator","c":"OpenStack / Private Cloud","s":97,"sr":0},{"t":"Escalation WooCommerce Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"Escalation WordPress Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"Galera Cluster Database Engineer","c":"Database / DBA","s":97,"sr":0},{"t":"Global AI Product Manager","c":"Product / Digital Mgmt","s":97,"sr":1},{"t":"Global Luxury Brand Technical Account Manager","c":"Luxury / Brand Ops","s":97,"sr":1},{"t":"Global Managed Services Engineer","c":"Managed Hosting / L3","s":97,"sr":0},{"t":"Global OpenStack Administrator","c":"OpenStack / Private Cloud","s":97,"sr":0},{"t":"Global Product Manager \u2014 Front-End Modernization","c":"Product / Digital Mgmt","s":97,"sr":1},{"t":"Global WooCommerce Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"Global WordPress Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"Lead AI Product Manager","c":"Product / Digital Mgmt","s":97,"sr":1},{"t":"Lead Managed Services Engineer","c":"Managed Hosting / L3","s":97,"sr":1},{"t":"Lead OpenStack Administrator","c":"OpenStack / Private Cloud","s":97,"sr":1},{"t":"Lead Product Manager \u2014 Front-End Modernization","c":"Product / Digital Mgmt","s":97,"sr":1},{"t":"Lead WooCommerce Support Engineer","c":"CMS / E-commerce","s":97,"sr":1},{"t":"Lead WordPress Support Engineer","c":"CMS / E-commerce","s":97,"sr":1},{"t":"MySQL HA / Replication Specialist","c":"Database / DBA","s":97,"sr":0},{"t":"OpenStack Cloud Operations Engineer","c":"OpenStack / Private Cloud","s":97,"sr":0},{"t":"Principal Managed Services Engineer","c":"Managed Hosting / L3","s":97,"sr":1},{"t":"Principal OpenStack Administrator","c":"OpenStack / Private Cloud","s":97,"sr":1},{"t":"Principal WooCommerce Support Engineer","c":"CMS / E-commerce","s":97,"sr":1},{"t":"Principal WordPress Support Engineer","c":"CMS / E-commerce","s":97,"sr":1},{"t":"Product Manager \u2014 Front-End Modernization","c":"Product / Digital Mgmt","s":97,"sr":1},{"t":"Production Managed Services Engineer","c":"Managed Hosting / L3","s":97,"sr":0},{"t":"Production OpenStack Administrator","c":"OpenStack / Private Cloud","s":97,"sr":0},{"t":"Production WooCommerce Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"Production WordPress Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"Regional Luxury Brand Technical Account Manager","c":"Luxury / Brand Ops","s":97,"sr":1},{"t":"Remote Hosting Support Engineer","c":"Managed Hosting / L3","s":97,"sr":0},{"t":"Remote Linux Systems Administrator","c":"Linux Ops","s":97,"sr":0},{"t":"Remote MySQL DBA","c":"Database / DBA","s":97,"sr":0},{"t":"Remote Percona DBA","c":"Database / DBA","s":97,"sr":0},{"t":"Senior AI Product Manager","c":"Product / Digital Mgmt","s":97,"sr":1},{"t":"Senior Linux Operations Engineer","c":"Linux Ops","s":97,"sr":1},{"t":"Senior Luxury Brand Technical Account Manager","c":"Luxury / Brand Ops","s":97,"sr":1},{"t":"Senior OpenStack Administrator","c":"OpenStack / Private Cloud","s":97,"sr":1},{"t":"Senior Product Manager \u2014 Front-End Modernization","c":"Product / Digital Mgmt","s":97,"sr":1},{"t":"Senior WooCommerce Support Engineer","c":"CMS / E-commerce","s":97,"sr":1},{"t":"Senior WordPress Support Engineer","c":"CMS / E-commerce","s":97,"sr":1},{"t":"Staff Managed Services Engineer","c":"Managed Hosting / L3","s":97,"sr":1},{"t":"Staff OpenStack Administrator","c":"OpenStack / Private Cloud","s":97,"sr":1},{"t":"Staff WooCommerce Support Engineer","c":"CMS / E-commerce","s":97,"sr":1},{"t":"Staff WordPress Support Engineer","c":"CMS / E-commerce","s":97,"sr":1},{"t":"Tier-3 Managed Services Engineer","c":"Managed Hosting / L3","s":97,"sr":0},{"t":"Tier-3 OpenStack Administrator","c":"OpenStack / Private Cloud","s":97,"sr":0},{"t":"Tier-3 WooCommerce Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"Tier-3 WordPress Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"WooCommerce Hosting Support Engineer","c":"CMS / E-commerce","s":97,"sr":0},{"t":"WordPress Hosting Support Specialist","c":"CMS / E-commerce","s":97,"sr":0},{"t":"AWS Infrastructure Support Engineer","c":"AWS / Cloud Ops","s":96,"sr":0},{"t":"AWS Solutions Architect Associate (Practice Track)","c":"AWS / Cloud Ops","s":96,"sr":0},{"t":"AWS Support Engineer \u2014 Infrastructure","c":"AWS / Cloud Ops","s":96,"sr":0},{"t":"Associate AI Product Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Associate DBA / Database Support Engineer","c":"Database / DBA","s":96,"sr":0},{"t":"Associate Product Manager \u2014 Front-End Modernization","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Consultative Solutions Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Digital Product Manager \u2014 E-Commerce Platforms","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"E-Commerce Platform Support Engineer","c":"CMS / E-commerce","s":96,"sr":0},{"t":"Enterprise AWS Support Engineer","c":"AWS / Cloud Ops","s":96,"sr":0},{"t":"Enterprise Consultative Solutions Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Enterprise Digital Operations Manager \u2014 Luxury","c":"Luxury / Brand Ops","s":96,"sr":1},{"t":"Enterprise Digital Product Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Enterprise E-Commerce Operations Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Enterprise IaaS Support Engineer","c":"IaaS Support","s":96,"sr":0},{"t":"Enterprise Inventory Coordination Specialist","c":"Stock / Inventory Ops","s":96,"sr":0},{"t":"Enterprise Inventory Operations Manager","c":"Stock / Inventory Ops","s":96,"sr":1},{"t":"Enterprise Managed Hosting Support Manager","c":"Managed Hosting / L3","s":96,"sr":1},{"t":"Enterprise Service Delivery Manager","c":"Managed Hosting / L3","s":96,"sr":1},{"t":"Enterprise Solutions Engineer","c":"TAM / Solutions","s":96,"sr":0},{"t":"Enterprise Stock Manager \u2014 Digital Commerce","c":"Stock / Inventory Ops","s":96,"sr":1},{"t":"Enterprise Technical Account Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Enterprise Technical Product Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Escalation AWS Support Engineer","c":"AWS / Cloud Ops","s":96,"sr":0},{"t":"Escalation IaaS Support Engineer","c":"IaaS Support","s":96,"sr":0},{"t":"Escalation Solutions Engineer","c":"TAM / Solutions","s":96,"sr":0},{"t":"Escalation Technical Account Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Global AWS Support Engineer","c":"AWS / Cloud Ops","s":96,"sr":0},{"t":"Global Consultative Solutions Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Global Digital Operations Manager \u2014 Luxury","c":"Luxury / Brand Ops","s":96,"sr":1},{"t":"Global Digital Product Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Global E-Commerce Operations Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Global IaaS Support Engineer","c":"IaaS Support","s":96,"sr":0},{"t":"Global Inventory Coordination Specialist","c":"Stock / Inventory Ops","s":96,"sr":0},{"t":"Global Inventory Operations Manager","c":"Stock / Inventory Ops","s":96,"sr":1},{"t":"Global Service Delivery Manager","c":"Managed Hosting / L3","s":96,"sr":1},{"t":"Global Solutions Engineer","c":"TAM / Solutions","s":96,"sr":0},{"t":"Global Stock Manager \u2014 Digital Commerce","c":"Stock / Inventory Ops","s":96,"sr":1},{"t":"Global Technical Account Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Global Technical Product Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Inventory Coordination Specialist","c":"Stock / Inventory Ops","s":96,"sr":0},{"t":"Lead AWS Support Engineer","c":"AWS / Cloud Ops","s":96,"sr":1},{"t":"Lead Consultative Solutions Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Lead Digital Product Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Lead IaaS Support Engineer","c":"IaaS Support","s":96,"sr":1},{"t":"Lead Inventory Coordination Specialist","c":"Stock / Inventory Ops","s":96,"sr":1},{"t":"Lead Solutions Engineer","c":"TAM / Solutions","s":96,"sr":1},{"t":"Lead Technical Account Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Lead Technical Product Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Luxury Brand Technical Account Manager","c":"Luxury / Brand Ops","s":96,"sr":1},{"t":"Luxury E-Commerce Platform Support Manager","c":"Luxury / Brand Ops","s":96,"sr":1},{"t":"MBA AI Product Management Associate","c":"Product / Digital Mgmt","s":96,"sr":0},{"t":"Magento Support Engineer","c":"CMS / E-commerce","s":96,"sr":0},{"t":"MySQL Performance Tuning Engineer","c":"Database / DBA","s":96,"sr":0},{"t":"OpenStack Support Engineer","c":"OpenStack / Private Cloud","s":96,"sr":0},{"t":"Pre-Sales Technical Solutions Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Principal AWS Support Engineer","c":"AWS / Cloud Ops","s":96,"sr":1},{"t":"Principal IaaS Support Engineer","c":"IaaS Support","s":96,"sr":1},{"t":"Principal Solutions Engineer","c":"TAM / Solutions","s":96,"sr":1},{"t":"Principal Technical Account Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Private Cloud Operations Engineer","c":"OpenStack / Private Cloud","s":96,"sr":0},{"t":"Product Manager \u2014 AI-Driven Products","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Production AWS Support Engineer","c":"AWS / Cloud Ops","s":96,"sr":0},{"t":"Production IaaS Support Engineer","c":"IaaS Support","s":96,"sr":0},{"t":"Production Solutions Engineer","c":"TAM / Solutions","s":96,"sr":0},{"t":"Production Technical Account Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Regional Digital Operations Manager \u2014 Luxury","c":"Luxury / Brand Ops","s":96,"sr":1},{"t":"Regional E-Commerce Operations Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Regional Inventory Operations Manager","c":"Stock / Inventory Ops","s":96,"sr":1},{"t":"Regional Service Delivery Manager","c":"Managed Hosting / L3","s":96,"sr":1},{"t":"Regional Stock Manager \u2014 Digital Commerce","c":"Stock / Inventory Ops","s":96,"sr":1},{"t":"Remote Managed Services Engineer","c":"Managed Hosting / L3","s":96,"sr":0},{"t":"Remote OpenStack Administrator","c":"OpenStack / Private Cloud","s":96,"sr":0},{"t":"Remote WooCommerce Support Engineer","c":"CMS / E-commerce","s":96,"sr":0},{"t":"Remote WordPress Support Engineer","c":"CMS / E-commerce","s":96,"sr":0},{"t":"SMB & Enterprise Client Solutions Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Senior AWS Support Engineer","c":"AWS / Cloud Ops","s":96,"sr":1},{"t":"Senior Consultative Solutions Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Senior Digital Operations Manager \u2014 Luxury","c":"Luxury / Brand Ops","s":96,"sr":1},{"t":"Senior Digital Product Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Senior E-Commerce Operations Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Senior IaaS Support Engineer","c":"IaaS Support","s":96,"sr":1},{"t":"Senior Inventory Coordination Specialist","c":"Stock / Inventory Ops","s":96,"sr":1},{"t":"Senior Inventory Operations Manager","c":"Stock / Inventory Ops","s":96,"sr":1},{"t":"Senior Service Delivery Manager","c":"Managed Hosting / L3","s":96,"sr":1},{"t":"Senior Solutions Engineer","c":"TAM / Solutions","s":96,"sr":1},{"t":"Senior Stock Manager \u2014 Digital Commerce","c":"Stock / Inventory Ops","s":96,"sr":1},{"t":"Senior Technical Account Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Senior Technical Account Manager \u2014 Hosting","c":"TAM / Solutions","s":96,"sr":1},{"t":"Senior Technical Product Manager","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"Staff AWS Support Engineer","c":"AWS / Cloud Ops","s":96,"sr":1},{"t":"Staff IaaS Support Engineer","c":"IaaS Support","s":96,"sr":1},{"t":"Staff Solutions Engineer","c":"TAM / Solutions","s":96,"sr":1},{"t":"Staff Technical Account Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"Technical Account Manager \u2014 Managed Hosting","c":"TAM / Solutions","s":96,"sr":1},{"t":"Tier-3 AWS Support Engineer","c":"AWS / Cloud Ops","s":96,"sr":0},{"t":"Tier-3 IaaS Support Engineer","c":"IaaS Support","s":96,"sr":0},{"t":"Tier-3 Solutions Engineer","c":"TAM / Solutions","s":96,"sr":0},{"t":"Tier-3 Technical Account Manager","c":"TAM / Solutions","s":96,"sr":1},{"t":"WordPress Full Stack Support Specialist","c":"CMS / E-commerce","s":96,"sr":0},{"t":"Xbox Product Manager (Certificate Track)","c":"Product / Digital Mgmt","s":96,"sr":1},{"t":"AI-First Market Analysis Product Associate","c":"Product / Digital Mgmt","s":95,"sr":0},{"t":"AWS Cloud Operations Engineer","c":"AWS / Cloud Ops","s":95,"sr":0},{"t":"Agile Product Development Manager","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Associate Consultative Solutions Manager","c":"TAM / Solutions","s":95,"sr":1},{"t":"Associate Digital Product Manager","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Associate Inventory Coordination Specialist","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"Associate Technical Product Manager","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Audience Engagement Technology Specialist","c":"Product / Digital Mgmt","s":95,"sr":0},{"t":"Brand Infrastructure Support Manager","c":"Luxury / Brand Ops","s":95,"sr":1},{"t":"Brand Platform Solutions Consultant","c":"Luxury / Brand Ops","s":95,"sr":0},{"t":"Client Delivery Manager \u2014 Hosting","c":"TAM / Solutions","s":95,"sr":1},{"t":"Cloud Linux Administrator","c":"Linux Ops","s":95,"sr":0},{"t":"Cloud Solutions Architecture Support Engineer","c":"AWS / Cloud Ops","s":95,"sr":0},{"t":"Cloud Support Engineer \u2014 AWS & OpenStack","c":"AWS / Cloud Ops","s":95,"sr":0},{"t":"Cloud Support Manager","c":"AWS / Cloud Ops","s":95,"sr":1},{"t":"Commerce Inventory Support Engineer","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"Cross-Functional Product Delivery Manager","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Customer Experience Technology Manager \u2014 Luxury","c":"Luxury / Brand Ops","s":95,"sr":1},{"t":"Customer Success Engineer \u2014 Hosting Platforms","c":"TAM / Solutions","s":95,"sr":0},{"t":"Customer Value Communication Specialist","c":"TAM / Solutions","s":95,"sr":0},{"t":"Data-Driven Product Manager","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Database Operations Manager","c":"Database / DBA","s":95,"sr":1},{"t":"Database Reliability Engineer \u2014 MySQL","c":"Database / DBA","s":95,"sr":0},{"t":"DevOps Support Engineer \u2014 Linux & Cloud","c":"DevOps / Platform","s":95,"sr":0},{"t":"Digital Branding & Inventory Systems Analyst","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"Digital Operations Manager","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Digital Operations Manager \u2014 Luxury Brands","c":"Luxury / Brand Ops","s":95,"sr":1},{"t":"Digital Product Manager \u2014 E-Commerce","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Digital Stock Operations Lead","c":"Stock / Inventory Ops","s":95,"sr":1},{"t":"Direct Retail Sales & Inventory Support","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"E-Commerce Operations Manager","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"E-Commerce Platform Support Manager","c":"CMS / E-commerce","s":95,"sr":1},{"t":"End-to-End Solutions Delivery Consultant","c":"TAM / Solutions","s":95,"sr":0},{"t":"Enterprise AI Product Analyst","c":"Product / Digital Mgmt","s":95,"sr":0},{"t":"Enterprise Architecture Support Analyst","c":"AWS / Cloud Ops","s":95,"sr":0},{"t":"Enterprise Support Manager","c":"Managed Hosting / L3","s":95,"sr":1},{"t":"Ethical AI / AI Governance Product Associate","c":"Product / Digital Mgmt","s":95,"sr":0},{"t":"Experimentation & Analytics Product Manager","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Fashion E-Commerce Technology Manager","c":"Luxury / Brand Ops","s":95,"sr":1},{"t":"Hosting Operations Manager","c":"Managed Hosting / L3","s":95,"sr":1},{"t":"Hosting Platform Support Manager","c":"Managed Hosting / L3","s":95,"sr":1},{"t":"Hybrid Cloud Operations Manager","c":"AWS / Cloud Ops","s":95,"sr":1},{"t":"IaaS Support Manager","c":"IaaS Support","s":95,"sr":1},{"t":"Inventory Control Analyst \u2014 Digital","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"Inventory Operations Manager","c":"Stock / Inventory Ops","s":95,"sr":1},{"t":"Inventory Systems Support Specialist","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"Linux Infrastructure Manager","c":"Linux Ops","s":95,"sr":1},{"t":"Linux Platform Administrator","c":"Linux Ops","s":95,"sr":0},{"t":"Luxury Client Technical Success Manager","c":"Luxury / Brand Ops","s":95,"sr":1},{"t":"Luxury Digital Experience Manager","c":"Luxury / Brand Ops","s":95,"sr":1},{"t":"Luxury Retail Technology Support Specialist","c":"Luxury / Brand Ops","s":95,"sr":0},{"t":"Merchandise Systems Support Analyst","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"NOC Tier-3 / Escalation Reliability Engineer","c":"SRE / Reliability","s":95,"sr":0},{"t":"Omnichannel Systems Support Specialist","c":"Luxury / Brand Ops","s":95,"sr":0},{"t":"Opportunity Qualification Specialist","c":"TAM / Solutions","s":95,"sr":0},{"t":"POS Operations Specialist","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"Pipeline Development & Account Expansion Manager","c":"TAM / Solutions","s":95,"sr":1},{"t":"Platform Product Manager \u2014 Hosting & Cloud","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Platform Support Engineer \u2014 Managed Hosting","c":"DevOps / Platform","s":95,"sr":0},{"t":"Pre-Sales Solutions Consultant \u2014 Cloud","c":"TAM / Solutions","s":95,"sr":0},{"t":"Product Lifecycle Manager \u2014 Digital","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Product Management Fundamentals Lead","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Product Manager \u2014 Technical Sales Adjacent","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Product Strategy & Roadmapping Specialist","c":"Product / Digital Mgmt","s":95,"sr":0},{"t":"Remote AWS Support Engineer","c":"AWS / Cloud Ops","s":95,"sr":0},{"t":"Remote IaaS Support Engineer","c":"IaaS Support","s":95,"sr":0},{"t":"Remote Solutions Engineer","c":"TAM / Solutions","s":95,"sr":0},{"t":"Remote Technical Account Manager","c":"TAM / Solutions","s":95,"sr":1},{"t":"Revenue Forecasting Support Analyst","c":"TAM / Solutions","s":95,"sr":0},{"t":"Senior Solutions Engineer \u2014 Hosting Platforms","c":"TAM / Solutions","s":95,"sr":1},{"t":"Senior WooCommerce Engineer","c":"CMS / E-commerce","s":95,"sr":1},{"t":"Service Delivery Manager \u2014 Managed Cloud","c":"Managed Hosting / L3","s":95,"sr":1},{"t":"Site Reliability Support Engineer \u2014 Hosting","c":"SRE / Reliability","s":95,"sr":0},{"t":"Solution Positioning Consultant","c":"TAM / Solutions","s":95,"sr":0},{"t":"Solutions Consultant \u2014 Cloud & Hosting","c":"TAM / Solutions","s":95,"sr":0},{"t":"Solutions Engineer \u2014 Managed Hosting","c":"TAM / Solutions","s":95,"sr":0},{"t":"Stakeholder Alignment Product Manager","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Stakeholder Discovery Solutions Consultant","c":"TAM / Solutions","s":95,"sr":0},{"t":"Stock Control Systems Analyst","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"Stock Manager \u2014 Digital Commerce Platforms","c":"Stock / Inventory Ops","s":95,"sr":1},{"t":"Stock Systems Administrator","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"Supply Systems Support Analyst","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"Technical Product Manager \u2014 Digital Platforms","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Technical Program Manager \u2014 Platforms","c":"Product / Digital Mgmt","s":95,"sr":1},{"t":"Technical Sales Manager \u2014 Cloud & Hosting","c":"TAM / Solutions","s":95,"sr":1},{"t":"Technical Support Engineer \u2014 IaaS","c":"IaaS Support","s":95,"sr":0},{"t":"Technology-Enabled Live Events Support Specialist","c":"Product / Digital Mgmt","s":95,"sr":0},{"t":"Virtual & Hybrid Experience Technology Associate","c":"Product / Digital Mgmt","s":95,"sr":0},{"t":"Visual Merchandising & Inventory Coordinator","c":"Stock / Inventory Ops","s":95,"sr":0},{"t":"WordPress Systems Administrator","c":"CMS / E-commerce","s":95,"sr":0}];
+const all=Object.values(D.cats).flat();
+const stat=n=>D.missing.includes(n)?'miss':D.thin.includes(n)?'thin':'ok';
+const found=all.filter(n=>stat(n)!=='miss').length;
+const rows=titles.map(({t,c,s,sr})=>{
+  const req=sr?all.length:all.length-1;
+  const miss=D.missing.filter(m=>sr||m!=='Mentoring / team lead');
+  return{t,c,s,req,miss,pct:miss.length/req*100,sr};
+});
+const avg=rows.reduce((a,r)=>a+r.pct,0)/rows.length;
+mTotal.textContent=all.length;
+mFound.textContent=found+' / '+all.length;
+mMiss.textContent=avg.toFixed(1)+'%';
+missList.innerHTML=D.missing.map(m=>'<li>'+m+'</li>').join('');
+catGrid.innerHTML=Object.entries(D.cats).map(([c,l])=>{
+  const f=l.filter(n=>stat(n)!=='miss').length;
+  return '<article class="job-card"><h3 style="margin:0">'+c+'</h3><p style="margin:.3rem 0 0;font-size:.88rem">'+f+' of '+l.length+' found ('+Math.round(f/l.length*100)+'%)</p><div class="bar"><i style="width:'+f/l.length*100+'%"></i></div><div class="chip-row">'+l.map(n=>'<span class="chip '+(stat(n)==='ok'?'':stat(n))+'">'+n+'</span>').join('')+'</div></article>';
+}).join('');
+
+let activeFilter='all', activeCat='all', searchQuery='';
+function filtered(){
+  return rows.filter(r=>{
+    if(['100','99','98','97','96','95'].includes(activeFilter) && String(r.s)!==activeFilter) return false;
+    if(activeCat!=='all' && r.c!==activeCat) return false;
+    if(searchQuery){
+      const q=searchQuery.toLowerCase();
+      if(!(r.t+' '+r.c).toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+}
+function renderTable(){
+  const f=filtered();
+  titleTable.innerHTML=f.map((r,i)=>'<tr class="'+(r.s>=98?'featured-row':'')+'"><td>'+(i+1)+'</td><td>'+r.t+(r.sr?' <span class="featured-tag">Lead/Mgr</span>':'')+'</td><td>'+r.c+'</td><td><strong>'+r.s+'%</strong></td><td>'+r.req+'</td><td class="m">'+(r.miss.length?r.miss.join(', '):'—')+'</td><td>'+r.pct.toFixed(1)+'%</td></tr>').join('');
+}
+const cats={};
+rows.forEach(r=>cats[r.c]=(cats[r.c]||0)+1);
+const catRow=document.getElementById('catFilterRow');
+catRow.innerHTML='<button class="filter-btn active" data-cat="all">All families</button>'+
+  Object.keys(cats).sort().map(c=>'<button class="filter-btn" data-cat="'+c+'">'+c+' · '+cats[c]+'</button>').join('');
+catRow.querySelectorAll('.filter-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  activeCat=btn.getAttribute('data-cat')||'all';
+  catRow.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-cat')===activeCat));
+  renderTable();
+}));
+document.getElementById('filterRow').addEventListener('click',e=>{
+  const btn=e.target.closest('.filter-btn');if(!btn||!btn.dataset.filter)return;
+  document.querySelectorAll('#filterRow .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');activeFilter=btn.dataset.filter;renderTable();
+});
+document.getElementById('jobSearch').addEventListener('input',e=>{searchQuery=e.target.value||'';renderTable()});
+renderTable();
+
+const tc='#f0eff4';Chart.defaults.color=tc;
+new Chart(catChart,{type:'bar',data:{labels:Object.keys(D.cats),datasets:[{label:'% found',data:Object.values(D.cats).map(l=>Math.round(l.filter(n=>stat(n)!=='miss').length/l.length*100)),backgroundColor:'rgba(152,255,152,.65)'}]},options:{indexAxis:'y',scales:{x:{min:0,max:100}},plugins:{legend:{display:false}},maintainAspectRatio:false}});
+const th=all.filter(n=>stat(n)==='thin').length;
+new Chart(splitChart,{type:'doughnut',data:{labels:['Found','Thin','Missing'],datasets:[{data:[found-th,th,all.length-found],backgroundColor:['rgba(152,255,152,.7)','rgba(255,205,110,.7)','rgba(255,120,120,.8)']}]},options:{maintainAspectRatio:false}});
+
+const bandMap={100:[],99:[],98:[],97:[],96:[],95:[]};
+rows.forEach(r=>{if(bandMap[r.s])bandMap[r.s].push(r.pct)});
+const bandLabels=['100','99','98','97','96','95'];
+new Chart(bandGapChart,{type:'bar',data:{labels:bandLabels.map(b=>b+'%'),datasets:[{label:'Avg % missing',data:bandLabels.map(b=>{const a=bandMap[b];return a.length?(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2):0}),backgroundColor:'rgba(255,120,120,.55)',borderRadius:8}]},options:{maintainAspectRatio:false,scales:{y:{min:0,max:5}},plugins:{legend:{display:false}}}});
+
+const famMap={};
+rows.forEach(r=>{if(!famMap[r.c])famMap[r.c]=[];famMap[r.c].push(r.pct)});
+const famKeys=Object.keys(famMap).sort((a,b)=>famMap[b].reduce((x,y)=>x+y,0)/famMap[b].length - famMap[a].reduce((x,y)=>x+y,0)/famMap[a].length);
+new Chart(famGapChart,{type:'bar',data:{labels:famKeys.map(c=>c.length>18?c.slice(0,16)+'…':c),datasets:[{label:'Avg % missing',data:famKeys.map(c=>(famMap[c].reduce((x,y)=>x+y,0)/famMap[c].length).toFixed(2)),backgroundColor:'rgba(158,130,156,.55)',borderRadius:8}]},options:{maintainAspectRatio:false,indexAxis:'y',scales:{x:{min:0,max:5}},plugins:{legend:{display:false}}}});
+
+document.getElementById('themeToggle').addEventListener('click',()=>document.body.classList.toggle('dark'));
+const st=document.getElementById('pageScrollTop');
+window.addEventListener('scroll',()=>{st.classList.toggle('show',(window.scrollY||0)>180)});
+st.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>
