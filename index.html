@@ -5523,56 +5523,55 @@ html.bp-scrolling body{
 
 <!-- =====================
      RED HAT CERTIFICATIONS BANNER (sits directly under the Asana certification)
-     RHCSA 6 + RHCE 6 with full credential codes
+     RHCSA 6 + RHCE 6 with full credential codes — same rectangle family as Asana
      ===================== -->
-<div id="redhat-certifications-section" class="redhat-cert-banner" role="region" aria-label="Red Hat Certifications">
+<div id="redhat-certifications-section"
+     class="redhat-cert-banner"
+     role="region"
+     aria-label="Red Hat Certifications">
   <div class="redhat-banner-inner">
     <div class="redhat-banner-icon-wrap" aria-hidden="true">
-      <!-- Red Hat fedora-style mark -->
-      <svg viewBox="0 0 64 64" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="rhHatGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#EE0000"/>
-            <stop offset="100%" stop-color="#9e0000"/>
-          </linearGradient>
-        </defs>
-        <circle cx="32" cy="32" r="28" fill="url(#rhHatGrad)" opacity="0.95"/>
-        <path d="M18 38c4-10 10-16 14-18 4 2 10 8 14 18-6 4-10 6-14 6s-8-2-14-6z" fill="#f0eff4" opacity="0.92"/>
-        <ellipse cx="32" cy="28" rx="10" ry="6" fill="#f0eff4" opacity="0.85"/>
-        <path d="M22 28c2-6 6-10 10-10s8 4 10 10" fill="none" stroke="#EE0000" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Red Hat logo — classic red fedora brand mark -->
+      <svg class="redhat-logo-svg" viewBox="0 0 64 64" width="34" height="34" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Red Hat">
+        <title>Red Hat</title>
+        <!-- outer brim -->
+        <path fill="#EE0000" d="M6 44.5c0-3.2 11.6-5.8 26-5.8s26 2.6 26 5.8c0 3.2-11.6 5.8-26 5.8S6 47.7 6 44.5z"/>
+        <!-- brim top edge highlight -->
+        <path fill="#FF1A1A" d="M8 43.2c0-2.4 10.7-4.4 24-4.4s24 2 24 4.4c0 .6-1.2 1.2-3.2 1.8-4.2-1.6-12-2.6-20.8-2.6S15.4 43.4 11.2 45c-2-.6-3.2-1.2-3.2-1.8z"/>
+        <!-- crown body -->
+        <path fill="#EE0000" d="M16 41c1.2-12 6.5-22 16-24 9.5 2 14.8 12 16 24-5.5-2.2-10.2-3.2-16-3.2S21.5 38.8 16 41z"/>
+        <!-- crown top highlight -->
+        <path fill="#FF3333" d="M22 39c1.2-9.5 5-17 10-18.5 5 1.5 8.8 9 10 18.5-3.5-1.4-6.5-2-10-2s-6.5.6-10 2z"/>
+        <!-- black hatband -->
+        <path fill="#1A1A1A" d="M18 35.2h28c.8 0 1.4.6 1.4 1.4v1.4c0 .8-.6 1.4-1.4 1.4H18c-.8 0-1.4-.6-1.4-1.4v-1.4c0-.8.6-1.4 1.4-1.4z"/>
+        <!-- band shine -->
+        <path fill="#3A3A3A" d="M18 35.2h28c.4 0 .8.2 1.1.4H16.9c.3-.2.7-.4 1.1-.4z"/>
       </svg>
     </div>
 
     <div class="redhat-banner-details">
       <div class="redhat-tag-row">
-        <span class="redhat-badge-tag">Red Hat &times; Enterprise Linux Certifications</span>
+        <span class="redhat-badge-tag">Red Hat &times; RHCSA 6 &amp; RHCE 6</span>
         <span class="redhat-secure-tag">Credential ID 140-075-227</span>
       </div>
-      <h4>RHCSA 6 &amp; RHCE 6</h4>
-      <p>Red Hat Certified System Administrator (RHCSA) 6 and Red Hat Certified Engineer (RHCE) 6 — hands-on enterprise Linux administration and engineering credentials with full verification codes.</p>
-
-      <div class="redhat-cert-pair">
-        <div class="redhat-cert-item">
-          <span class="redhat-cert-name">Red Hat Certified System Administrator (RHCSA) 6</span>
-          <span class="redhat-cert-id"><strong>Credential ID:</strong> 140-075-227</span>
-        </div>
-        <div class="redhat-cert-item">
-          <span class="redhat-cert-name">Red Hat Certified Engineer (RHCE) 6</span>
-          <span class="redhat-cert-id"><strong>Credential ID:</strong> 140-075-227</span>
-        </div>
-      </div>
+      <h4>Red Hat Certified System Administrator &amp; Engineer</h4>
+      <p>
+        <strong>RHCSA 6</strong> — Red Hat Certified System Administrator &nbsp;·&nbsp;
+        <strong>RHCE 6</strong> — Red Hat Certified Engineer.
+        Credential ID: <strong>140-075-227</strong> (both certifications).
+      </p>
     </div>
 
     <div class="redhat-banner-cta">
       <span class="redhat-cta-pill">Verified Credentials</span>
-      <span class="redhat-cta-status">RED HAT CERTIFICATION ID 140-075-227</span>
+      <span class="redhat-cta-status">RED HAT ID 140-075-227</span>
     </div>
   </div>
 </div>
 
 <style>
 /* =========================================================
-   RED HAT CERTIFICATIONS BANNER — same family/size as Asana banner
+   RED HAT CERTIFICATIONS BANNER — mirrors Asana rectangle layout
    ========================================================= */
 .redhat-cert-banner {
   position: relative !important;
@@ -5585,8 +5584,8 @@ html.bp-scrolling body{
   color: inherit !important;
   text-decoration: none !important;
 
-  background: linear-gradient(100deg, rgba(238,0,0,0.12) 0%, rgba(158,0,0,0.07) 38%, transparent 75%) !important;
-  border: 1.5px solid rgba(238,0,0,0.42) !important;
+  background: linear-gradient(100deg, rgba(238,0,0,0.10) 0%, rgba(158,0,0,0.07) 38%, transparent 75%) !important;
+  border: 1.5px solid rgba(238,0,0,0.45) !important;
   border-radius: 22px !important;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
   overflow: hidden !important;
@@ -5628,9 +5627,16 @@ html.bp-scrolling body{
   height: 52px !important;
   min-width: 52px !important;
   border-radius: 14px !important;
-  background: rgba(238,0,0,0.14) !important;
+  background: #ffffff !important;
   border: 1px solid rgba(238,0,0,0.35) !important;
   flex: 0 0 auto !important;
+  box-shadow: 0 4px 12px rgba(238,0,0,0.18) !important;
+}
+
+.redhat-logo-svg {
+  display: block !important;
+  width: 34px !important;
+  height: 34px !important;
 }
 
 .redhat-banner-details {
@@ -5651,7 +5657,7 @@ html.bp-scrolling body{
   font-weight: 800 !important;
   letter-spacing: 0.04em !important;
   text-transform: uppercase !important;
-  color: #ff6b6b !important;
+  color: #ff4d4d !important;
 }
 
 .redhat-secure-tag {
@@ -5673,43 +5679,17 @@ html.bp-scrolling body{
   letter-spacing: -0.01em !important;
 }
 
-.redhat-banner-details > p {
-  margin: 0 0 0.85rem 0 !important;
+.redhat-banner-details p {
+  margin: 0 !important;
   font-size: 0.84rem !important;
   color: rgba(240,239,244,0.78) !important;
   line-height: 1.45 !important;
   overflow-wrap: anywhere !important;
 }
 
-.redhat-cert-pair {
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 0.65rem !important;
-  width: 100% !important;
-}
-
-.redhat-cert-item {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0.2rem !important;
-  padding: 0.55rem 0.75rem !important;
-  border-radius: 12px !important;
-  background: rgba(238,0,0,0.08) !important;
-  border: 1px solid rgba(238,0,0,0.22) !important;
-}
-
-.redhat-cert-name {
-  font-size: 0.78rem !important;
-  font-weight: 700 !important;
+.redhat-banner-details p strong {
   color: var(--text-light, #f0eff4) !important;
-  line-height: 1.25 !important;
-}
-
-.redhat-cert-id {
-  font-size: 0.72rem !important;
-  color: rgba(240,239,244,0.78) !important;
-  line-height: 1.3 !important;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important;
+  font-weight: 700 !important;
 }
 
 .redhat-banner-cta {
@@ -5757,10 +5737,6 @@ html.bp-scrolling body{
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 1.1rem !important;
-  }
-
-  .redhat-cert-pair {
-    grid-template-columns: 1fr !important;
   }
 
   .redhat-banner-cta {
