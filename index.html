@@ -7263,6 +7263,82 @@ html.bp-scrolling body{
         <span>Enterprise Operations</span>
       </div>
     </article>
+
+    <!-- Asana Certification (full-width link under Linux Academy) -->
+    <a id="asana-certification-link"
+       href="https://certifications.asana.com/0d743203-f74e-4026-99e0-14d485615561"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="certificate-link asana-cert-link">
+      <div class="asana-cert-text">
+        <span class="asana-cert-type">VERIFIED CREDENTIAL</span>
+        <strong>Asana Certification</strong>
+        <span class="asana-cert-issuer">Asana</span>
+      </div>
+      <span class="asana-cert-cta">View Credential &#8599;</span>
+    </a>
+
+    <style>
+    /* ASANA CERTIFICATION — full-width rectangle, matches certificate-link / training-card look */
+    .asana-cert-link {
+      grid-column: span 2;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 25px;
+      border-radius: 18px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .asana-cert-link .asana-cert-text {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .asana-cert-link .asana-cert-type {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .asana-cert-link strong {
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .asana-cert-link .asana-cert-issuer {
+      font-size: 12px;
+      line-height: 1.4;
+      opacity: 0.6;
+    }
+
+    .asana-cert-link .asana-cert-cta {
+      flex: 0 0 auto;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0.65;
+    }
+
+    .asana-cert-link:hover .asana-cert-cta {
+      opacity: 1;
+    }
+
+    @media (max-width: 760px) {
+      .asana-cert-link {
+        grid-column: span 1;
+        padding: 18px 20px;
+      }
+    }
+    </style>
 </section>
 <!-- =====================
      TRANSPARENT UNIFORM-BORDER LINUX ACADEMY VALUE BANNER
