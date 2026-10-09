@@ -5558,7 +5558,7 @@ html.bp-scrolling body{
       <p>
         <strong>RHCSA 6</strong> — Red Hat Certified System Administrator &nbsp;·&nbsp;
         <strong>RHCE 6</strong> — Red Hat Certified Engineer.
-        Credential ID: <strong>140-075-227</strong> (both certifications).
+        Credential ID: <strong>140-075-227</strong>
       </p>
     </div>
 
@@ -5746,14 +5746,18 @@ html.bp-scrolling body{
   font-size: 0.78rem !important;
   font-weight: 800 !important;
   letter-spacing: 0.04em !important;
-  color: #f0eff4 !important;
+  color: var(--bp-link-mauve, #9e829c) !important;
+  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
   background: linear-gradient(135deg, rgba(238,0,0,0.4), rgba(158,0,0,0.32)) !important;
   border: 1px solid rgba(238,0,0,0.55) !important;
-  text-shadow: 0 0 12px rgba(240,239,244,0.3) !important;
-  transition: all 0.3s ease !important;
+  text-shadow: none !important;
+  transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease, background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
 }
 
 .redhat-cert-banner:hover .redhat-cta-pill {
+  color: var(--bp-link-white, #f0eff4) !important;
+  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
+  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
   box-shadow: 0 0 18px rgba(238,0,0,0.4) !important;
   background: linear-gradient(135deg, rgba(238,0,0,0.55), rgba(158,0,0,0.42)) !important;
 }
