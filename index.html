@@ -5274,6 +5274,7 @@ html.bp-scrolling body{
            data-share-badge-host="https://www.credly.com">
       </div>
     </div>
+
     <!-- Badge -->
     <div class="bp-credly-original-shell" style="
       flex:0 1 260px;
@@ -5297,6 +5298,7 @@ html.bp-scrolling body{
            data-share-badge-host="https://www.credly.com">
       </div>
     </div>
+
   </div>
 
 </section>
@@ -5570,6 +5572,10 @@ html.bp-scrolling body{
     grid.setAttribute('data-final-transparent-real-logo-cards', 'true');
     grid.classList.add('bp-credly-clean-grid');
 
+    /* keep the 4th (live Credly embed) badge so the rebuild below doesn't wipe it */
+    var fourthBadgeEl = grid.querySelector('[data-share-badge-id="cb518690-8d82-4fef-a1f6-f2cc363f9ef8"]');
+    var fourthBadgeShell = fourthBadgeEl ? fourthBadgeEl.closest('.bp-credly-original-shell') : null;
+
     grid.innerHTML = credlyCards.map(function (badge) {
       return '' +
         '<a class="bp-credly-clean-card" href="' + badge.url + '" target="_blank" rel="noopener" aria-label="Open ' + badge.title.replace(/"/g, '&quot;') + ' on Credly">' +
@@ -5580,6 +5586,9 @@ html.bp-scrolling body{
           '<div class="bp-credly-clean-footer">Provided by <strong>Credly</strong></div>' +
         '</a>';
     }).join('');
+
+    /* re-attach the 4th badge as the last card */
+    if (fourthBadgeShell) grid.appendChild(fourthBadgeShell);
   }
 
   if (document.readyState === 'loading') {
