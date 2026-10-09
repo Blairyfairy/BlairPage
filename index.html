@@ -5532,20 +5532,9 @@ html.bp-scrolling body{
   <div class="redhat-banner-inner">
     <div class="redhat-banner-icon-wrap" aria-hidden="true">
       <!-- Red Hat logo — classic red fedora brand mark -->
-      <svg class="redhat-logo-svg" viewBox="0 0 64 64" width="34" height="34" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Red Hat">
+      <svg class="redhat-logo-svg" role="img" viewBox="0 0 24 24" width="32" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <title>Red Hat</title>
-        <!-- outer brim -->
-        <path fill="#EE0000" d="M6 44.5c0-3.2 11.6-5.8 26-5.8s26 2.6 26 5.8c0 3.2-11.6 5.8-26 5.8S6 47.7 6 44.5z"/>
-        <!-- brim top edge highlight -->
-        <path fill="#FF1A1A" d="M8 43.2c0-2.4 10.7-4.4 24-4.4s24 2 24 4.4c0 .6-1.2 1.2-3.2 1.8-4.2-1.6-12-2.6-20.8-2.6S15.4 43.4 11.2 45c-2-.6-3.2-1.2-3.2-1.8z"/>
-        <!-- crown body -->
-        <path fill="#EE0000" d="M16 41c1.2-12 6.5-22 16-24 9.5 2 14.8 12 16 24-5.5-2.2-10.2-3.2-16-3.2S21.5 38.8 16 41z"/>
-        <!-- crown top highlight -->
-        <path fill="#FF3333" d="M22 39c1.2-9.5 5-17 10-18.5 5 1.5 8.8 9 10 18.5-3.5-1.4-6.5-2-10-2s-6.5.6-10 2z"/>
-        <!-- black hatband -->
-        <path fill="#1A1A1A" d="M18 35.2h28c.8 0 1.4.6 1.4 1.4v1.4c0 .8-.6 1.4-1.4 1.4H18c-.8 0-1.4-.6-1.4-1.4v-1.4c0-.8.6-1.4 1.4-1.4z"/>
-        <!-- band shine -->
-        <path fill="#3A3A3A" d="M18 35.2h28c.4 0 .8.2 1.1.4H16.9c.3-.2.7-.4 1.1-.4z"/>
+        <path fill="#EE0000" d="M16.009 13.386c1.577 0 3.86-.326 3.86-2.202a1.765 1.765 0 0 0-.04-.431l-.94-4.08c-.216-.898-.406-1.305-1.982-2.093-1.223-.625-3.888-1.658-4.676-1.658-.733 0-.947.946-1.822.946-.842 0-1.467-.706-2.255-.706-.757 0-1.25.515-1.63 1.576 0 0-1.06 2.99-1.197 3.424a.81.81 0 0 0-.028.245c0 1.162 4.577 4.974 10.71 4.974m4.101-1.435c.218 1.032.218 1.14.218 1.277 0 1.765-1.984 2.745-4.593 2.745-5.895.004-11.06-3.451-11.06-5.734a2.326 2.326 0 0 1 .19-.925C2.746 9.415 0 9.794 0 12.217c0 3.969 9.405 8.861 16.851 8.861 5.71 0 7.149-2.582 7.149-4.62 0-1.605-1.387-3.425-3.887-4.512"/>
       </svg>
     </div>
 
@@ -5556,9 +5545,7 @@ html.bp-scrolling body{
       </div>
       <h4>Red Hat Certified System Administrator &amp; Engineer</h4>
       <p>
-        <strong>RHCSA 6</strong> — Red Hat Certified System Administrator &nbsp;·&nbsp;
-        <strong>RHCE 6</strong> — Red Hat Certified Engineer.
-        Credential ID: <strong>140-075-227</strong>
+        <strong>RHCSA 6</strong> — Red Hat Certified System Administrator · <strong>RHCE 6</strong> — Red Hat Certified Engineer · Credential ID: <strong>140-075-227</strong>
       </p>
     </div>
 
@@ -5571,7 +5558,7 @@ html.bp-scrolling body{
 
 <style>
 /* =========================================================
-   RED HAT CERTIFICATIONS BANNER — mirrors Asana rectangle layout
+   RED HAT CERTIFICATIONS BANNER — same dimensions as Asana rectangle
    ========================================================= */
 .redhat-cert-banner {
   position: relative !important;
@@ -5583,6 +5570,7 @@ html.bp-scrolling body{
   box-sizing: border-box !important;
   color: inherit !important;
   text-decoration: none !important;
+  min-height: 0 !important;
 
   background: linear-gradient(100deg, rgba(238,0,0,0.10) 0%, rgba(158,0,0,0.07) 38%, transparent 75%) !important;
   border: 1.5px solid rgba(238,0,0,0.45) !important;
@@ -5626,18 +5614,19 @@ html.bp-scrolling body{
   width: 52px !important;
   height: 52px !important;
   min-width: 52px !important;
+  max-width: 52px !important;
   border-radius: 14px !important;
   background: transparent !important;
   background-color: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
-  flex: 0 0 auto !important;
+  flex: 0 0 52px !important;
 }
 
 .redhat-logo-svg {
   display: block !important;
-  width: 34px !important;
-  height: 34px !important;
+  width: 32px !important;
+  height: 32px !important;
 }
 
 .redhat-banner-details {
@@ -5647,17 +5636,17 @@ html.bp-scrolling body{
 
 .redhat-tag-row {
   display: flex !important;
-  flex-wrap: wrap !important;
   align-items: center !important;
-  gap: 0.45rem 0.65rem !important;
+  gap: 0.6rem !important;
   margin-bottom: 0.35rem !important;
+  flex-wrap: wrap !important;
 }
 
 .redhat-badge-tag {
-  font-size: 0.72rem !important;
+  font-size: 0.68rem !important;
   font-weight: 800 !important;
-  letter-spacing: 0.04em !important;
   text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
   color: var(--bp-link-mauve, #9e829c) !important;
   -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
   transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease !important;
@@ -5669,13 +5658,13 @@ html.bp-scrolling body{
 }
 
 .redhat-secure-tag {
-  font-size: 0.68rem !important;
+  font-size: 0.58rem !important;
   font-weight: 700 !important;
+  padding: 0.1rem 0.45rem !important;
+  border-radius: 4px !important;
+  background: rgba(158,130,156,0.12) !important;
   color: var(--bp-link-mauve, #9e829c) !important;
   -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
-  padding: 0.15rem 0.55rem !important;
-  border-radius: 999px !important;
-  background: rgba(158,130,156,0.12) !important;
   border: 1px solid rgba(158,130,156,0.3) !important;
   transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease !important;
 }
@@ -5712,13 +5701,11 @@ html.bp-scrolling body{
   overflow-wrap: anywhere !important;
   transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease !important;
 }
-
 .redhat-banner-details p strong {
   color: inherit !important;
   -webkit-text-fill-color: inherit !important;
   font-weight: 700 !important;
 }
-
 .redhat-cert-banner:hover .redhat-banner-details p,
 .redhat-cert-banner:hover .redhat-banner-details p strong {
   color: var(--bp-link-white, #f0eff4) !important;
@@ -5748,7 +5735,7 @@ html.bp-scrolling body{
   letter-spacing: 0.04em !important;
   color: var(--bp-link-mauve, #9e829c) !important;
   -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
-  background: linear-gradient(135deg, rgba(238,0,0,0.4), rgba(158,0,0,0.32)) !important;
+  background: linear-gradient(135deg, rgba(238,0,0,0.35), rgba(158,0,0,0.3)) !important;
   border: 1px solid rgba(238,0,0,0.55) !important;
   text-shadow: none !important;
   transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease, background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
@@ -5759,7 +5746,7 @@ html.bp-scrolling body{
   -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
   text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
   box-shadow: 0 0 18px rgba(238,0,0,0.4) !important;
-  background: linear-gradient(135deg, rgba(238,0,0,0.55), rgba(158,0,0,0.42)) !important;
+  background: linear-gradient(135deg, rgba(238,0,0,0.5), rgba(158,0,0,0.4)) !important;
 }
 
 .redhat-cta-status {
