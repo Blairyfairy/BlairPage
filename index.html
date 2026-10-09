@@ -7263,82 +7263,6 @@ html.bp-scrolling body{
         <span>Enterprise Operations</span>
       </div>
     </article>
-
-    <!-- Asana Certification (full-width link under Linux Academy) -->
-    <a id="asana-certification-link"
-       href="https://certifications.asana.com/0d743203-f74e-4026-99e0-14d485615561"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="certificate-link asana-cert-link">
-      <div class="asana-cert-text">
-        <span class="asana-cert-type">VERIFIED CREDENTIAL</span>
-        <strong>Asana Certification</strong>
-        <span class="asana-cert-issuer">Asana</span>
-      </div>
-      <span class="asana-cert-cta">View Credential &#8599;</span>
-    </a>
-
-    <style>
-    /* ASANA CERTIFICATION — full-width rectangle, matches certificate-link / training-card look */
-    .asana-cert-link {
-      grid-column: span 2;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 20px 25px;
-      border-radius: 18px;
-      box-sizing: border-box;
-      width: 100%;
-    }
-
-    .asana-cert-link .asana-cert-text {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      min-width: 0;
-    }
-
-    .asana-cert-link .asana-cert-type {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      opacity: 0.5;
-    }
-
-    .asana-cert-link strong {
-      font-size: 20px;
-      line-height: 1.2;
-    }
-
-    .asana-cert-link .asana-cert-issuer {
-      font-size: 12px;
-      line-height: 1.4;
-      opacity: 0.6;
-    }
-
-    .asana-cert-link .asana-cert-cta {
-      flex: 0 0 auto;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      opacity: 0.65;
-    }
-
-    .asana-cert-link:hover .asana-cert-cta {
-      opacity: 1;
-    }
-
-    @media (max-width: 760px) {
-      .asana-cert-link {
-        grid-column: span 1;
-        padding: 18px 20px;
-      }
-    }
-    </style>
 </section>
 <!-- =====================
      TRANSPARENT UNIFORM-BORDER LINUX ACADEMY VALUE BANNER
@@ -7373,6 +7297,224 @@ html.bp-scrolling body{
     </div>
   </div>
 </div>
+
+<!-- =====================
+     ASANA CERTIFICATION BANNER (sits directly under the Linux Academy value banner)
+     ===================== -->
+<a id="asana-certification-link"
+   class="asana-cert-banner"
+   href="https://certifications.asana.com/0d743203-f74e-4026-99e0-14d485615561"
+   target="_blank"
+   rel="noopener noreferrer">
+  <div class="asana-banner-inner">
+    <div class="asana-banner-icon-wrap">
+      <svg viewBox="0 0 64 64" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="asanaDotGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f06a6a"/>
+            <stop offset="100%" stop-color="#9e829c"/>
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="19" r="10" fill="url(#asanaDotGrad)"/>
+        <circle cx="17" cy="43" r="10" fill="url(#asanaDotGrad)"/>
+        <circle cx="47" cy="43" r="10" fill="url(#asanaDotGrad)"/>
+      </svg>
+    </div>
+
+    <div class="asana-banner-details">
+      <div class="asana-tag-row">
+        <span class="asana-badge-tag">Asana &times; Administrator Certification</span>
+        <span class="asana-secure-tag">Issued Oct 2026</span>
+      </div>
+      <h4>Asana Administrator Certificate</h4>
+      <p>Administrator-level certification from Asana, earned by completing the full course series, a capstone project, and a final exam. Open the credential page to view and verify it.</p>
+    </div>
+
+    <div class="asana-banner-cta">
+      <span class="asana-cta-pill">View Credential <b>&#8599;</b></span>
+      <span class="asana-cta-status">VERIFY AT CERTIFICATIONS.ASANA.COM</span>
+    </div>
+  </div>
+</a>
+
+<style>
+/* =========================================================
+   ASANA CERTIFICATION BANNER — own bold accent, same family as the Linux Academy cards
+   ========================================================= */
+.asana-cert-banner {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 1.75rem 0 !important;
+  padding: 1.35rem 1.6rem 1.35rem 1.9rem !important;
+  box-sizing: border-box !important;
+  color: inherit !important;
+  text-decoration: none !important;
+
+  background: linear-gradient(100deg, rgba(240,106,106,0.10) 0%, rgba(158,130,156,0.07) 38%, transparent 75%) !important;
+  border: 1.5px solid rgba(158,130,156,0.45) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+  overflow: hidden !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* bold glowing accent bar down the left edge */
+.asana-cert-banner::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 6px !important;
+  background: linear-gradient(180deg, #f06a6a 0%, #9e829c 100%) !important;
+  box-shadow: 0 0 18px rgba(240,106,106,0.55) !important;
+}
+
+.asana-cert-banner:hover {
+  transform: translateY(-3px) !important;
+  border-color: rgba(240,106,106,0.75) !important;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.35), 0 0 22px rgba(240,106,106,0.22) !important;
+}
+
+.asana-banner-inner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1.5rem !important;
+  width: 100% !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.asana-banner-icon-wrap {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 52px !important;
+  border-radius: 14px !important;
+  background: rgba(240,106,106,0.08) !important;
+  border: 1px solid rgba(240,106,106,0.35) !important;
+  box-shadow: 0 0 14px rgba(240,106,106,0.18) !important;
+}
+
+.asana-banner-details {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+.asana-tag-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  margin-bottom: 0.35rem !important;
+  flex-wrap: wrap !important;
+}
+
+.asana-badge-tag {
+  font-size: 0.68rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #f06a6a !important;
+}
+
+.asana-secure-tag {
+  font-size: 0.58rem !important;
+  font-weight: 700 !important;
+  padding: 0.1rem 0.45rem !important;
+  border-radius: 4px !important;
+  background: rgba(240,106,106,0.12) !important;
+  color: #f0eff4 !important;
+  border: 1px solid rgba(240,106,106,0.3) !important;
+}
+
+.asana-banner-details h4 {
+  margin: 0 0 0.3rem 0 !important;
+  font-size: 1.05rem !important;
+  font-weight: 800 !important;
+  color: var(--text-light, #f0eff4) !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.asana-banner-details p {
+  margin: 0 !important;
+  font-size: 0.84rem !important;
+  color: rgba(240,239,244,0.78) !important;
+  line-height: 1.45 !important;
+  overflow-wrap: anywhere !important;
+}
+
+.asana-banner-cta {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  padding-left: 1.25rem !important;
+  border-left: 1px solid rgba(240,239,244,0.12) !important;
+  text-align: right !important;
+}
+
+.asana-cta-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 999px !important;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  color: #f0eff4 !important;
+  background: linear-gradient(135deg, rgba(240,106,106,0.35), rgba(158,130,156,0.3)) !important;
+  border: 1px solid rgba(240,106,106,0.55) !important;
+  text-shadow: 0 0 12px rgba(240,239,244,0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.asana-cert-banner:hover .asana-cta-pill {
+  box-shadow: 0 0 18px rgba(240,106,106,0.4) !important;
+  background: linear-gradient(135deg, rgba(240,106,106,0.5), rgba(158,130,156,0.4)) !important;
+}
+
+.asana-cta-status {
+  margin-top: 0.4rem !important;
+  font-size: 0.52rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em !important;
+  color: #9e829c !important;
+}
+
+@media (max-width: 820px) {
+  .asana-banner-inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1.1rem !important;
+  }
+
+  .asana-banner-cta {
+    width: 100% !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    padding-left: 0 !important;
+    padding-top: 0.85rem !important;
+    border-left: none !important;
+    border-top: 1px solid rgba(240,239,244,0.12) !important;
+    text-align: left !important;
+  }
+
+  .asana-cta-status {
+    margin-top: 0 !important;
+  }
+}
+</style>
 
 <style>
 /* =========================================================
