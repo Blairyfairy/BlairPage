@@ -9222,7 +9222,10 @@ a.asana-cert-banner:hover {
 }
 
 /* logos: plain, own colors, no box, no filter */
-.lapx-marks {
+/* LOGO — same column size as Plesk/cPanel banners.
+   #id selectors out-rank the page's global [class*="cert"] img { max-width:48px } rule. */
+#linux-academy-pluralsight .lapx-marks,
+#linux-academy-pluralsight .lapx-head .lapx-marks {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -9240,7 +9243,10 @@ a.asana-cert-banner:hover {
   box-shadow: none !important;
   outline: 0 !important;
 }
-.lapx-mark {
+#linux-academy-pluralsight .lapx-mark,
+#linux-academy-pluralsight .lapx-marks img.lapx-mark,
+#linux-academy-pluralsight img.lapx-mark-linux,
+#linux-academy-pluralsight .lapx-head .lapx-marks img {
   display: block !important;
   width: 100% !important;
   max-width: 100% !important;
@@ -9258,6 +9264,7 @@ a.asana-cert-banner:hover {
   box-shadow: none !important;
   transform: none !important;
   transition: none !important;
+  vertical-align: baseline !important;
 }
 .lapx-times {
   font-size: 1.1rem !important;
@@ -9467,16 +9474,21 @@ a.asana-cert-banner:hover {
     gap: 1.2rem !important;
     flex-wrap: wrap !important;
   }
-  .lapx-marks {
+  #linux-academy-pluralsight .lapx-marks,
+  #linux-academy-pluralsight .lapx-head .lapx-marks {
     flex: 0 0 auto !important;
     width: min(340px, 86%) !important;
     max-width: 100% !important;
     align-self: center !important;
   }
-  .lapx-mark {
+  #linux-academy-pluralsight .lapx-mark,
+  #linux-academy-pluralsight .lapx-marks img.lapx-mark,
+  #linux-academy-pluralsight img.lapx-mark-linux,
+  #linux-academy-pluralsight .lapx-head .lapx-marks img {
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+    max-height: none !important;
   }
   .lapx-value {
     flex: 0 0 auto !important;
@@ -9495,16 +9507,21 @@ a.asana-cert-banner:hover {
 @media (max-width: 640px) {
   .lapx-fused { padding: 1.3rem 1.1rem 1.3rem 1.4rem !important; }
   .lapx-head { flex-wrap: wrap !important; gap: 0.9rem !important; }
-  .lapx-marks {
+  #linux-academy-pluralsight .lapx-marks,
+  #linux-academy-pluralsight .lapx-head .lapx-marks {
     flex: 0 0 auto !important;
     width: min(340px, 86%) !important;
     max-width: 100% !important;
     align-self: center !important;
   }
-  .lapx-mark {
+  #linux-academy-pluralsight .lapx-mark,
+  #linux-academy-pluralsight .lapx-marks img.lapx-mark,
+  #linux-academy-pluralsight img.lapx-mark-linux,
+  #linux-academy-pluralsight .lapx-head .lapx-marks img {
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+    max-height: none !important;
   }
   .lapx-fused h3 { font-size: 1.25rem !important; }
   .lapx-count { margin-left: auto !important; }
