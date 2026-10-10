@@ -10802,10 +10802,10 @@ a.certificate-link.akamai-cert:hover::after {
   transition:opacity .25s ease, filter .25s ease !important;
   pointer-events:none !important;
 }
-/* clear any leftover title logos on these three */
+/* clear any leftover title logos on these three (logo lives on kicker) */
 .tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-title::before,
 .tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-title::before,
-.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker::before{
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title::before{
   content:none !important;
   display:none !important;
   background:none !important;
@@ -10841,6 +10841,57 @@ a.certificate-link.akamai-cert:hover::after {
   filter:none !important;
   opacity:1 !important;
 }
+
+/* =========================================================
+   UDEMY — logo + structure fix (match cert banners)
+   Logo: purple ^ + white U, left of company name
+   ========================================================= */
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker::before {
+  content: "" !important;
+  display: inline-block !important;
+  width: 1.65em !important;
+  height: 1.65em !important;
+  margin-right: .5rem !important;
+  vertical-align: -0.32em !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23A435F0' d='M12 1.5L4.8 9h3.4L12 4.8 15.8 9h3.4L12 1.5z'/%3E%3Cpath fill='%23FFFFFF' d='M7 9.8h2.4v5.8c0 1.45 1.15 2.6 2.6 2.6s2.6-1.15 2.6-2.6V9.8H17v5.8c0 2.85-2.25 5.1-5 5.1s-5-2.25-5-5.1V9.8z'/%3E%3C/svg%3E") center / contain no-repeat !important;
+  opacity: 0.95 !important;
+  filter: none !important;
+  pointer-events: none !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kicker::before {
+  content: "" !important;
+  display: inline-block !important;
+  opacity: 1 !important;
+  filter: none !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23A435F0' d='M12 1.5L4.8 9h3.4L12 4.8 15.8 9h3.4L12 1.5z'/%3E%3Cpath fill='%23FFFFFF' d='M7 9.8h2.4v5.8c0 1.45 1.15 2.6 2.6 2.6s2.6-1.15 2.6-2.6V9.8H17v5.8c0 2.85-2.25 5.1-5 5.1s-5-2.25-5-5.1V9.8z'/%3E%3C/svg%3E") center / contain no-repeat !important;
+}
+/* Natural document order like Coursera: company line first, feature title second */
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title {
+  order: 0 !important;
+  font-size: 1.05rem !important;
+  font-weight: 800 !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker {
+  order: 0 !important;
+  display: block !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  margin: 0 0 0.25rem 0 !important;
+}
+/* Hover: company kicker + logo purple accent line; feature title white (cert-banner pattern) */
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kicker {
+  color: #A435F0 !important;
+  -webkit-text-fill-color: #A435F0 !important;
+  text-shadow: 0 0 12px rgba(164, 53, 240, 0.4) !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-title {
+  color: var(--bp-link-white, #f0eff4) !important;
+  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
+  text-shadow: 0 0 10px rgba(240, 239, 244, 0.35) !important;
+}
+
 
 
 @media (min-width:1000px){
