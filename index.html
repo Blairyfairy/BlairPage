@@ -10106,6 +10106,385 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
 @media (min-width:1000px){.tt-courses{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:.7rem}}
 @media (max-width:640px){.tt-year{grid-template-columns:28px minmax(0,1fr)}.tt-courses{grid-template-columns:1fr}.tt-title{font-size:.78rem}}
 </style>
+
+<!-- =========================================================
+     TECHNICAL TRAINING BRAND POLISH
+     Coursera · Pluralsight · Codecademy · Udemy
+     Append-only: keeps every link, word, and gold Xbox/Akamai hover.
+     ========================================================= -->
+<style id="tt-brand-polish">
+/* ---- Section frame ---- */
+.tt-section{
+  width:100% !important;
+  max-width:1100px !important;
+  margin:1.25rem auto 1rem !important;
+  padding:0 1rem !important;
+  box-sizing:border-box !important;
+}
+.tt-section > .section-title{
+  margin:0 0 .85rem !important;
+  font-size:clamp(1.15rem,2.2vw,1.45rem) !important;
+  font-weight:800 !important;
+  letter-spacing:.02em !important;
+  color:var(--text-light,#f0eff4) !important;
+}
+
+/* ---- Coursera certificates card ---- */
+.tt-section .training-card.certificates-card{
+  position:relative !important;
+  display:block !important;
+  width:100% !important;
+  margin:0 0 1.1rem 0 !important;
+  padding:1.35rem 1.4rem 1.45rem 1.55rem !important;
+  border-radius:18px !important;
+  border:1.5px solid rgba(0,86,210,.28) !important;
+  background:
+    radial-gradient(ellipse 420px 280px at 4% 18%, rgba(0,86,210,.10) 0%, transparent 68%),
+    linear-gradient(125deg, rgba(0,86,210,.06) 0%, rgba(58,62,59,.04) 42%, transparent 78%),
+    rgba(240,239,244,.04) !important;
+  box-shadow:0 10px 28px rgba(0,0,0,.22) !important;
+  overflow:hidden !important;
+  opacity:1 !important;
+  transition:border-color .3s ease, box-shadow .3s ease, transform .25s ease !important;
+}
+.tt-section .training-card.certificates-card::before{
+  content:"" !important;
+  position:absolute !important;
+  left:0 !important; top:0 !important; bottom:0 !important;
+  width:5px !important;
+  background:linear-gradient(180deg,#0056D2 0%,#003d99 100%) !important;
+  border-radius:18px 0 0 18px !important;
+  pointer-events:none !important;
+}
+.tt-section .training-card.certificates-card:hover{
+  transform:translateY(-2px) !important;
+  border-color:rgba(0,86,210,.55) !important;
+  box-shadow:0 14px 34px rgba(0,0,0,.32), 0 0 20px rgba(0,86,210,.14) !important;
+}
+
+.tt-section .certificates-card .training-card-header{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  gap:.85rem !important;
+  margin-bottom:0 !important;
+}
+.tt-section .certificates-card .training-type{
+  display:block !important;
+  font-size:.68rem !important;
+  font-weight:800 !important;
+  letter-spacing:.16em !important;
+  text-transform:uppercase !important;
+  color:#0056D2 !important;
+  -webkit-text-fill-color:#0056D2 !important;
+  opacity:1 !important;
+  margin-bottom:.2rem !important;
+}
+.tt-section .certificates-card h3{
+  margin:0 0 .15rem 0 !important;
+  font-size:1.35rem !important;
+  font-weight:800 !important;
+  line-height:1.15 !important;
+  color:var(--text-light,#f0eff4) !important;
+  -webkit-text-fill-color:var(--text-light,#f0eff4) !important;
+}
+
+/* Certificate grid — keep each link separate */
+.tt-section .certificate-list{
+  display:grid !important;
+  grid-template-columns:repeat(3, minmax(0,1fr)) !important;
+  gap:.7rem !important;
+  width:100% !important;
+  margin-top:.35rem !important;
+}
+.tt-section .certificate-link{
+  position:relative !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:.35rem !important;
+  padding:.85rem .9rem !important;
+  border-radius:12px !important;
+  border:1px solid rgba(240,239,244,.14) !important;
+  background:rgba(0,0,0,.22) !important;
+  color:inherit !important;
+  text-decoration:none !important;
+  opacity:1 !important;
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    transform .2s ease,
+    box-shadow .25s ease !important;
+}
+.tt-section .certificate-link:hover{
+  border-color:rgba(0,86,210,.45) !important;
+  background:rgba(0,86,210,.10) !important;
+  transform:translateY(-2px) !important;
+  box-shadow:0 8px 18px rgba(0,0,0,.28) !important;
+  opacity:1 !important;
+}
+.tt-section .certificate-link strong{
+  font-size:.82rem !important;
+  font-weight:700 !important;
+  line-height:1.3 !important;
+  color:var(--text-light,#f0eff4) !important;
+  -webkit-text-fill-color:var(--text-light,#f0eff4) !important;
+}
+.tt-section .certificate-link span{
+  font-size:.68rem !important;
+  line-height:1.35 !important;
+  opacity:.72 !important;
+  color:var(--dusty-mauve,#9e829c) !important;
+  -webkit-text-fill-color:var(--dusty-mauve,#9e829c) !important;
+}
+
+/* Preserve existing Xbox / Akamai gold hover (do not override those rules) */
+#xbox-product-manager-cert:hover,
+#akamai-network-engineering-cert:hover{
+  border-color:rgba(255,215,0,.5) !important;
+  background:rgba(255,215,0,.08) !important;
+}
+
+/* ---- Pluralsight / Codecademy / Udemy stack ---- */
+.tt-section .tt-stack{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:.75rem !important;
+}
+
+.tt-section .tt-card,
+.tt-section a.tt-card,
+.tt-section div.tt-card{
+  position:relative !important;
+  display:block !important;
+  text-decoration:none !important;
+  color:inherit !important;
+  padding:1rem 1.15rem 1.05rem 1.25rem !important;
+  border-radius:16px !important;
+  border:1.5px solid rgba(240,239,244,.16) !important;
+  background:
+    linear-gradient(125deg, rgba(240,239,244,.05) 0%, rgba(58,62,59,.04) 50%, transparent 85%),
+    rgba(0,0,0,.18) !important;
+  box-shadow:0 8px 22px rgba(0,0,0,.2) !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+  transition:border-color .3s ease, box-shadow .3s ease, transform .25s ease, background .3s ease !important;
+}
+.tt-section .tt-card::before{
+  content:"" !important;
+  position:absolute !important;
+  left:0 !important; top:0 !important; bottom:0 !important;
+  width:5px !important;
+  border-radius:16px 0 0 16px !important;
+  background:linear-gradient(180deg, rgba(158,130,156,.7), rgba(158,130,156,.35)) !important;
+  pointer-events:none !important;
+}
+.tt-section a.tt-card:hover,
+.tt-section .tt-card:hover{
+  transform:translateY(-2px) !important;
+  border-color:rgba(240,239,244,.28) !important;
+  box-shadow:0 12px 28px rgba(0,0,0,.3) !important;
+  background:
+    linear-gradient(125deg, rgba(240,239,244,.08) 0%, rgba(58,62,59,.05) 50%, transparent 85%),
+    rgba(0,0,0,.22) !important;
+}
+
+/* Platform accent bars — target by aria-label (stable, not order-dependent) */
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]::before{
+  background:linear-gradient(180deg,#EC008C 0%,#a00062 100%) !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]::before{
+  background:linear-gradient(180deg,#3A86FF 0%,#1d4ed8 100%) !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]::before{
+  background:linear-gradient(180deg,#A435F0 0%,#6b21a8 100%) !important;
+}
+
+.tt-section .tt-head{
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:space-between !important;
+  gap:.75rem !important;
+  margin:0 0 .55rem !important;
+}
+.tt-section .tt-kicker{
+  display:block !important;
+  font-size:.62rem !important;
+  font-weight:800 !important;
+  letter-spacing:.14em !important;
+  text-transform:uppercase !important;
+  opacity:.9 !important;
+  line-height:1.15 !important;
+  margin:0 0 .2rem 0 !important;
+  color:var(--dusty-mauve,#9e829c) !important;
+  -webkit-text-fill-color:var(--dusty-mauve,#9e829c) !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-kicker{ color:#EC008C !important; -webkit-text-fill-color:#EC008C !important; }
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-kicker{ color:#3A86FF !important; -webkit-text-fill-color:#3A86FF !important; }
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker{ color:#A435F0 !important; -webkit-text-fill-color:#A435F0 !important; }
+
+.tt-section .tt-title{
+  margin:0 !important;
+  font-size:1.05rem !important;
+  font-weight:800 !important;
+  line-height:1.2 !important;
+  color:var(--text-light,#f0eff4) !important;
+}
+.tt-section .tt-arrow{
+  flex:0 0 auto !important;
+  font-size:1rem !important;
+  opacity:.75 !important;
+  line-height:1 !important;
+  color:var(--text-light,#f0eff4) !important;
+}
+
+.tt-section .tt-summary{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:.35rem .55rem !important;
+  margin:0 0 .65rem !important;
+}
+.tt-section .tt-summary span{
+  display:inline-flex !important;
+  align-items:center !important;
+  font-size:.7rem !important;
+  line-height:1.2 !important;
+  opacity:1 !important;
+  padding:.22rem .55rem !important;
+  border-radius:999px !important;
+  border:1px solid rgba(240,239,244,.14) !important;
+  background:rgba(240,239,244,.05) !important;
+  color:var(--text-light,#f0eff4) !important;
+}
+.tt-section .tt-summary b{
+  font-weight:800 !important;
+  margin-right:.15rem !important;
+}
+
+.tt-section .tt-years{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:.55rem !important;
+}
+.tt-section .tt-year{
+  display:grid !important;
+  grid-template-columns:48px minmax(0,1fr) !important;
+  gap:.55rem !important;
+  align-items:start !important;
+  padding:.35rem 0 0 !important;
+  margin:0 !important;
+  border-top:1px solid rgba(240,239,244,.08) !important;
+}
+.tt-section .tt-year:first-child{ border-top:0 !important; padding-top:0 !important; }
+.tt-section .tt-year-title{
+  font-size:.72rem !important;
+  font-weight:800 !important;
+  opacity:.9 !important;
+  line-height:1.2 !important;
+  padding-top:.15rem !important;
+  color:var(--dusty-mauve,#9e829c) !important;
+  -webkit-text-fill-color:var(--dusty-mauve,#9e829c) !important;
+}
+.tt-section .tt-courses{
+  display:grid !important;
+  grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+  column-gap:.7rem !important;
+  row-gap:.28rem !important;
+  min-width:0 !important;
+}
+.tt-section .tt-course{
+  min-width:0 !important;
+  display:block !important;
+  text-decoration:none !important;
+  color:inherit !important;
+  margin:0 !important;
+  padding:.15rem 0 !important;
+  line-height:1.25 !important;
+  border-radius:6px !important;
+  transition:background .2s ease !important;
+}
+.tt-section a.tt-course:hover,
+.tt-section a.tt-course:focus{
+  background:rgba(240,239,244,.05) !important;
+}
+.tt-section a.tt-course:hover b,
+.tt-section a.tt-course:focus b{
+  color:var(--text-light,#f0eff4) !important;
+  text-shadow:0 0 10px rgba(240,239,244,.35) !important;
+}
+.tt-section .tt-course b{
+  display:inline !important;
+  font-size:.72rem !important;
+  font-weight:700 !important;
+  line-height:1.25 !important;
+  margin:0 !important;
+  color:var(--text-light,#f0eff4) !important;
+}
+.tt-section .tt-course span{
+  display:inline !important;
+  font-size:.62rem !important;
+  line-height:1.25 !important;
+  opacity:.7 !important;
+  margin:0 0 0 .28rem !important;
+  color:var(--dusty-mauve,#9e829c) !important;
+}
+.tt-section .tt-course span::before{
+  content:"· " !important;
+  opacity:.5 !important;
+}
+
+.tt-section .tt-footer{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  margin-top:.65rem !important;
+  padding-top:.55rem !important;
+  border-top:1px solid rgba(240,239,244,.12) !important;
+  font-size:.72rem !important;
+  font-weight:700 !important;
+  opacity:.9 !important;
+  line-height:1.2 !important;
+  color:var(--text-light,#f0eff4) !important;
+}
+
+@media (min-width:1000px){
+  .tt-section .tt-courses{
+    grid-template-columns:repeat(3, minmax(0,1fr)) !important;
+    column-gap:.85rem !important;
+  }
+  .tt-section .certificate-list{
+    grid-template-columns:repeat(3, minmax(0,1fr)) !important;
+  }
+}
+@media (max-width:900px){
+  .tt-section .certificate-list{
+    grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+  }
+}
+@media (max-width:640px){
+  .tt-section{
+    padding:0 .65rem !important;
+  }
+  .tt-section .training-card.certificates-card{
+    padding:1.1rem 1rem 1.15rem 1.15rem !important;
+  }
+  .tt-section .certificate-list{
+    grid-template-columns:1fr !important;
+  }
+  .tt-section .tt-year{
+    grid-template-columns:40px minmax(0,1fr) !important;
+  }
+  .tt-section .tt-courses{
+    grid-template-columns:1fr !important;
+  }
+  .tt-section .tt-title{
+    font-size:.95rem !important;
+  }
+  .tt-section .tt-card,
+  .tt-section a.tt-card{
+    padding:.9rem .95rem .9rem 1.05rem !important;
+  }
+}
+</style>
     </div>
   </div>
 </div>
