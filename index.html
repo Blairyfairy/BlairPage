@@ -7247,9 +7247,9 @@ a.asana-cert-banner:hover {
       </div>
       <h3 class="course-card-title mongodb">MongoDB University</h3>
     </div>
-    <ul class="course-list">
-      <li>University M102: MongoDB for DBAs (v3.2)<br><strong>Issued:</strong> Dec 2014 | <strong>Credential ID:</strong> MDBo1yonbmgzv</li>
-      <li>University M202: MongoDB Advanced Deployment & Operations (v4)<br><strong>Issued:</strong> Apr 2015 | <strong>Credential ID:</strong> MDB6g7ufwacu1</li>
+    <ul class="course-list mongodb-course-list">
+      <li>University M102: MongoDB for DBAs (v3.2)<small class="mongodb-cred-details"><b>Issued:</b> Dec 2014 | <b>Credential ID:</b> MDBo1yonbmgzv</small></li>
+      <li>University M202: MongoDB Advanced Deployment & Operations (v4)<small class="mongodb-cred-details"><b>Issued:</b> Apr 2015 | <b>Credential ID:</b> MDB6g7ufwacu1</small></li>
     </ul>
   </div>
 
@@ -7488,6 +7488,67 @@ a.asana-cert-banner:hover {
     font-size: 0.9rem;
     padding-left: 1.3rem;
   }
+}
+</style>
+
+<style id="mongodb-course-list-centering">
+/* =========================================================
+   MONGODB UNIVERSITY CARD — keep course text centered at every width.
+   Scoped to this one list only. Uses <b>/<small> (not <strong>/<span>) so the older
+   ".course-card strong / span" rules (tiny, no-wrap, ellipsis) don't hit the credential lines.
+   ========================================================= */
+.courses-container .course-card .course-list.mongodb-course-list {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+
+.courses-container .course-card .course-list.mongodb-course-list li {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  text-align: center !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  white-space: normal !important;
+}
+
+/* bullet rides inline with the first line so the whole entry stays centered */
+.courses-container .course-card .course-list.mongodb-course-list li::before {
+  position: static !important;
+  display: inline-block !important;
+  left: auto !important;
+  margin-right: 0.45rem !important;
+}
+
+.courses-container .course-card .course-list.mongodb-course-list li small.mongodb-cred-details {
+  display: block !important;
+  margin: 0.25rem auto 0 !important;
+  max-width: 100% !important;
+  font-size: 0.82em !important;
+  line-height: 1.5 !important;
+  opacity: 0.85 !important;
+  text-align: center !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  overflow-wrap: anywhere !important;
+}
+
+.courses-container .course-card .course-list.mongodb-course-list li small.mongodb-cred-details b {
+  font-size: inherit !important;
+  font-weight: 700 !important;
+  white-space: normal !important;
 }
 </style>
 
@@ -8309,7 +8370,7 @@ a.asana-cert-banner:hover {
       <div class="plesk-banner-details">
         <div class="plesk-tag-row">
           <span class="plesk-badge-tag">Plesk &times; Obsidian Certifications</span>
-          <span class="plesk-secure-tag">4 Credentials &middot; 2023&ndash;2026</span>
+          <span class="plesk-secure-tag">6 Credentials &middot; 2023&ndash;2026</span>
         </div>
         <h4>Plesk Obsidian Certified Professional &amp; Linux Expert</h4>
 
@@ -8335,6 +8396,15 @@ a.asana-cert-banner:hover {
 
           <div class="plesk-cert-item">
             <span class="plesk-cert-num" aria-hidden="true">03</span>
+            <span class="plesk-cert-title">SolusVM 2 Professional Certification</span>
+            <div class="plesk-cert-meta">
+              <span class="plesk-chip"><b>Issued</b> Oct 2026</span>
+            </div>
+            <span class="plesk-cert-id"><b>Credential ID</b><code>707fa282-d155-49c4-9bf7-3dc68ffeb526</code></span>
+          </div>
+
+          <div class="plesk-cert-item">
+            <span class="plesk-cert-num" aria-hidden="true">04</span>
             <span class="plesk-cert-title">Plesk Linux Expert Obsidian</span>
             <div class="plesk-cert-meta">
               <span class="plesk-chip"><b>Issued</b> Apr 2025</span>
@@ -8343,13 +8413,19 @@ a.asana-cert-banner:hover {
           </div>
 
           <div class="plesk-cert-item">
-            <span class="plesk-cert-num" aria-hidden="true">04</span>
+            <span class="plesk-cert-num" aria-hidden="true">05</span>
             <span class="plesk-cert-title">Plesk Obsidian Professional Certification (OBS-2-PRO-EXAM)</span>
             <div class="plesk-cert-meta">
               <span class="plesk-chip"><b>Issued</b> Sep 2023</span>
               <span class="plesk-chip"><b>Expires</b> Sep 2025</span>
             </div>
             <span class="plesk-cert-id"><b>Credential ID</b><code>OBS-2-PRO-EXAM</code></span>
+          </div>
+
+          <div class="plesk-cert-item">
+            <span class="plesk-cert-num" aria-hidden="true">06</span>
+            <span class="plesk-cert-title">Acronis Cloud Tech Associate Advanced Disaster Recovery</span>
+            <span class="plesk-cert-id"><b>Credential ID</b><code>C240499</code></span>
           </div>
 
         </div>
@@ -8706,19 +8782,6 @@ a.asana-cert-banner:hover {
   </style>
 
   <div class="certification-list">
-
-    <!-- NEW (Oct 2026): Plesk University / SolusVM -->
-    <div class="cert-card">
-      <h3><span class="course-title solusvm">SolusVM 2 Professional Certification</span></h3>
-      <p><strong>Issued:</strong> Oct 2026</p>
-      <p><strong>Credential ID:</strong> 707fa282-d155-49c4-9bf7-3dc68ffeb526</p>
-    </div>
-
-    <!-- Acronis -->
-    <div class="cert-card">
-      <h3><span class="course-title cloudtech">Acronis Cloud Tech Associate Advanced Disaster Recovery</span></h3>
-      <p><strong>Credential ID:</strong> C240499</p>
-    </div>
 
     <!-- cPanel -->
     <div class="cert-card">
