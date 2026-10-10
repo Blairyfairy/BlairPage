@@ -5344,7 +5344,7 @@ html.bp-scrolling body{
 
 <style>
 /* =========================================================
-   ASANA CERTIFICATION BANNER — own bold accent, same family as the Linux Academy cards
+   ASANA CERTIFICATION BANNER — muted until hover, then full color + white text
    ========================================================= */
 .asana-cert-banner {
   position: relative !important;
@@ -5354,18 +5354,19 @@ html.bp-scrolling body{
   margin: 1.75rem 0 !important;
   padding: 1.35rem 1.6rem 1.35rem 1.9rem !important;
   box-sizing: border-box !important;
-  color: inherit !important;
+  color: var(--bp-link-mauve, #9e829c) !important;
+  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
   text-decoration: none !important;
+  text-shadow: none !important;
 
-  background: linear-gradient(100deg, rgba(240,106,106,0.10) 0%, rgba(158,130,156,0.07) 38%, transparent 75%) !important;
-  border: 1.5px solid rgba(158,130,156,0.45) !important;
+  background: linear-gradient(100deg, rgba(158,130,156,0.06) 0%, rgba(58,62,59,0.04) 38%, transparent 75%) !important;
+  border: 1.5px solid rgba(158,130,156,0.28) !important;
   border-radius: 22px !important;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
   overflow: hidden !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* bold glowing accent bar down the left edge */
 .asana-cert-banner::before {
   content: "" !important;
   position: absolute !important;
@@ -5373,14 +5374,23 @@ html.bp-scrolling body{
   top: 0 !important;
   bottom: 0 !important;
   width: 6px !important;
-  background: linear-gradient(180deg, #f06a6a 0%, #9e829c 100%) !important;
-  box-shadow: 0 0 18px rgba(240,106,106,0.55) !important;
+  background: linear-gradient(180deg, rgba(158,130,156,0.55) 0%, rgba(158,130,156,0.25) 100%) !important;
+  box-shadow: none !important;
+  transition: background 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .asana-cert-banner:hover {
   transform: translateY(-3px) !important;
   border-color: rgba(240,106,106,0.75) !important;
   box-shadow: 0 15px 35px rgba(0,0,0,0.35), 0 0 22px rgba(240,106,106,0.22) !important;
+  background: linear-gradient(100deg, rgba(240,106,106,0.10) 0%, rgba(158,130,156,0.07) 38%, transparent 75%) !important;
+  color: var(--bp-link-white, #f0eff4) !important;
+  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
+}
+
+.asana-cert-banner:hover::before {
+  background: linear-gradient(180deg, #f06a6a 0%, #9e829c 100%) !important;
+  box-shadow: 0 0 18px rgba(240,106,106,0.55) !important;
 }
 
 .asana-banner-inner {
@@ -5401,9 +5411,34 @@ html.bp-scrolling body{
   height: 52px !important;
   min-width: 52px !important;
   border-radius: 14px !important;
+  background: rgba(158,130,156,0.08) !important;
+  border: 1px solid rgba(158,130,156,0.28) !important;
+  box-shadow: none !important;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+.asana-cert-banner:hover .asana-banner-icon-wrap {
   background: rgba(240,106,106,0.08) !important;
-  border: 1px solid rgba(240,106,106,0.35) !important;
+  border-color: rgba(240,106,106,0.35) !important;
   box-shadow: 0 0 14px rgba(240,106,106,0.18) !important;
+}
+
+/* Mute Asana SVG dots until hover */
+.asana-banner-icon-wrap svg stop {
+  stop-color: #9e829c !important;
+  transition: stop-color 0.3s ease !important;
+}
+.asana-cert-banner:hover .asana-banner-icon-wrap svg stop:first-child {
+  stop-color: #f06a6a !important;
+}
+.asana-cert-banner:hover .asana-banner-icon-wrap svg stop:last-child {
+  stop-color: #9e829c !important;
+}
+.asana-banner-icon-wrap svg circle {
+  fill: #9e829c !important;
+  transition: fill 0.3s ease !important;
+}
+.asana-cert-banner:hover .asana-banner-icon-wrap svg circle {
+  fill: url(#asanaDotGrad) !important;
 }
 
 .asana-banner-details {
@@ -5419,12 +5454,34 @@ html.bp-scrolling body{
   flex-wrap: wrap !important;
 }
 
+.asana-badge-tag,
+.asana-secure-tag,
+.asana-banner-details h4,
+.asana-banner-details p,
+.asana-cta-pill,
+.asana-cta-status {
+  color: var(--bp-link-mauve, #9e829c) !important;
+  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
+  text-shadow: none !important;
+  transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.asana-cert-banner:hover .asana-badge-tag,
+.asana-cert-banner:hover .asana-secure-tag,
+.asana-cert-banner:hover .asana-banner-details h4,
+.asana-cert-banner:hover .asana-banner-details p,
+.asana-cert-banner:hover .asana-cta-pill,
+.asana-cert-banner:hover .asana-cta-status {
+  color: var(--bp-link-white, #f0eff4) !important;
+  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
+  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
+}
+
 .asana-badge-tag {
   font-size: 0.68rem !important;
   font-weight: 800 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.08em !important;
-  color: #f06a6a !important;
 }
 
 .asana-secure-tag {
@@ -5432,16 +5489,18 @@ html.bp-scrolling body{
   font-weight: 700 !important;
   padding: 0.1rem 0.45rem !important;
   border-radius: 4px !important;
+  background: rgba(158,130,156,0.10) !important;
+  border: 1px solid rgba(158,130,156,0.28) !important;
+}
+.asana-cert-banner:hover .asana-secure-tag {
   background: rgba(240,106,106,0.12) !important;
-  color: #f0eff4 !important;
-  border: 1px solid rgba(240,106,106,0.3) !important;
+  border-color: rgba(240,106,106,0.35) !important;
 }
 
 .asana-banner-details h4 {
   margin: 0 0 0.3rem 0 !important;
   font-size: 1.05rem !important;
   font-weight: 800 !important;
-  color: var(--text-light, #f0eff4) !important;
   line-height: 1.25 !important;
   letter-spacing: -0.01em !important;
 }
@@ -5449,7 +5508,6 @@ html.bp-scrolling body{
 .asana-banner-details p {
   margin: 0 !important;
   font-size: 0.84rem !important;
-  color: rgba(240,239,244,0.78) !important;
   line-height: 1.45 !important;
   overflow-wrap: anywhere !important;
 }
@@ -5461,8 +5519,12 @@ html.bp-scrolling body{
   justify-content: center !important;
   flex: 0 0 auto !important;
   padding-left: 1.25rem !important;
-  border-left: 1px solid rgba(240,239,244,0.12) !important;
+  border-left: 1px solid rgba(158,130,156,0.22) !important;
   text-align: right !important;
+  transition: border-color 0.3s ease !important;
+}
+.asana-cert-banner:hover .asana-banner-cta {
+  border-left-color: rgba(240,239,244,0.18) !important;
 }
 
 .asana-cta-pill {
@@ -5474,16 +5536,13 @@ html.bp-scrolling body{
   font-size: 0.78rem !important;
   font-weight: 800 !important;
   letter-spacing: 0.04em !important;
-  color: #f0eff4 !important;
-  background: linear-gradient(135deg, rgba(240,106,106,0.35), rgba(158,130,156,0.3)) !important;
-  border: 1px solid rgba(240,106,106,0.55) !important;
-  text-shadow: 0 0 12px rgba(240,239,244,0.3) !important;
-  transition: all 0.3s ease !important;
+  background: rgba(158,130,156,0.12) !important;
+  border: 1px solid rgba(158,130,156,0.32) !important;
 }
-
 .asana-cert-banner:hover .asana-cta-pill {
-  box-shadow: 0 0 18px rgba(240,106,106,0.4) !important;
   background: linear-gradient(135deg, rgba(240,106,106,0.5), rgba(158,130,156,0.4)) !important;
+  border-color: rgba(240,106,106,0.55) !important;
+  box-shadow: 0 0 18px rgba(240,106,106,0.4) !important;
 }
 
 .asana-cta-status {
@@ -5491,7 +5550,20 @@ html.bp-scrolling body{
   font-size: 0.52rem !important;
   font-weight: 800 !important;
   letter-spacing: 0.06em !important;
-  color: #9e829c !important;
+}
+
+a.asana-cert-banner,
+a.asana-cert-banner:link,
+a.asana-cert-banner:visited,
+a.asana-cert-banner:active,
+a.asana-cert-banner:focus {
+  color: var(--bp-link-mauve, #9e829c) !important;
+  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+}
+a.asana-cert-banner:hover {
+  text-decoration: none !important;
 }
 
 @media (max-width: 820px) {
@@ -5500,7 +5572,6 @@ html.bp-scrolling body{
     align-items: flex-start !important;
     gap: 1.1rem !important;
   }
-
   .asana-banner-cta {
     width: 100% !important;
     flex-direction: row !important;
@@ -5511,10 +5582,12 @@ html.bp-scrolling body{
     padding-left: 0 !important;
     padding-top: 0.85rem !important;
     border-left: none !important;
-    border-top: 1px solid rgba(240,239,244,0.12) !important;
+    border-top: 1px solid rgba(158,130,156,0.22) !important;
     text-align: left !important;
   }
-
+  .asana-cert-banner:hover .asana-banner-cta {
+    border-top-color: rgba(240,239,244,0.18) !important;
+  }
   .asana-cta-status {
     margin-top: 0 !important;
   }
@@ -5558,7 +5631,7 @@ html.bp-scrolling body{
 
 <style>
 /* =========================================================
-   RED HAT CERTIFICATIONS BANNER — same dimensions as Asana rectangle
+   RED HAT CERTIFICATIONS BANNER — muted until hover, then full color + white text
    ========================================================= */
 .redhat-cert-banner {
   position: relative !important;
@@ -5568,12 +5641,13 @@ html.bp-scrolling body{
   margin: 1.75rem 0 !important;
   padding: 1.35rem 1.6rem 1.35rem 1.9rem !important;
   box-sizing: border-box !important;
-  color: inherit !important;
+  color: var(--bp-link-mauve, #9e829c) !important;
+  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
   text-decoration: none !important;
   min-height: 0 !important;
 
-  background: linear-gradient(100deg, rgba(238,0,0,0.10) 0%, rgba(158,0,0,0.07) 38%, transparent 75%) !important;
-  border: 1.5px solid rgba(238,0,0,0.45) !important;
+  background: linear-gradient(100deg, rgba(158,130,156,0.06) 0%, rgba(58,62,59,0.04) 38%, transparent 75%) !important;
+  border: 1.5px solid rgba(158,130,156,0.28) !important;
   border-radius: 22px !important;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
   overflow: hidden !important;
@@ -5587,14 +5661,23 @@ html.bp-scrolling body{
   top: 0 !important;
   bottom: 0 !important;
   width: 6px !important;
-  background: linear-gradient(180deg, #EE0000 0%, #9e0000 100%) !important;
-  box-shadow: 0 0 18px rgba(238,0,0,0.55) !important;
+  background: linear-gradient(180deg, rgba(158,130,156,0.55) 0%, rgba(158,130,156,0.25) 100%) !important;
+  box-shadow: none !important;
+  transition: background 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .redhat-cert-banner:hover {
   transform: translateY(-3px) !important;
   border-color: rgba(238,0,0,0.75) !important;
   box-shadow: 0 15px 35px rgba(0,0,0,0.35), 0 0 22px rgba(238,0,0,0.22) !important;
+  background: linear-gradient(100deg, rgba(238,0,0,0.10) 0%, rgba(158,0,0,0.07) 38%, transparent 75%) !important;
+  color: var(--bp-link-white, #f0eff4) !important;
+  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
+}
+
+.redhat-cert-banner:hover::before {
+  background: linear-gradient(180deg, #EE0000 0%, #9e0000 100%) !important;
+  box-shadow: 0 0 18px rgba(238,0,0,0.55) !important;
 }
 
 .redhat-banner-inner {
@@ -5628,6 +5711,14 @@ html.bp-scrolling body{
   width: 32px !important;
   height: 32px !important;
 }
+/* Mute logo red until hover */
+.redhat-logo-svg path {
+  fill: #9e829c !important;
+  transition: fill 0.3s ease !important;
+}
+.redhat-cert-banner:hover .redhat-logo-svg path {
+  fill: #EE0000 !important;
+}
 
 .redhat-banner-details {
   flex: 1 1 auto !important;
@@ -5642,19 +5733,36 @@ html.bp-scrolling body{
   flex-wrap: wrap !important;
 }
 
+.redhat-badge-tag,
+.redhat-secure-tag,
+.redhat-banner-details h4,
+.redhat-banner-details p,
+.redhat-banner-details p strong,
+.redhat-cta-pill,
+.redhat-cta-status {
+  color: var(--bp-link-mauve, #9e829c) !important;
+  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
+  text-shadow: none !important;
+  transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.redhat-cert-banner:hover .redhat-badge-tag,
+.redhat-cert-banner:hover .redhat-secure-tag,
+.redhat-cert-banner:hover .redhat-banner-details h4,
+.redhat-cert-banner:hover .redhat-banner-details p,
+.redhat-cert-banner:hover .redhat-banner-details p strong,
+.redhat-cert-banner:hover .redhat-cta-pill,
+.redhat-cert-banner:hover .redhat-cta-status {
+  color: var(--bp-link-white, #f0eff4) !important;
+  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
+  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
+}
+
 .redhat-badge-tag {
   font-size: 0.68rem !important;
   font-weight: 800 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.08em !important;
-  color: var(--bp-link-mauve, #9e829c) !important;
-  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
-  transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease !important;
-}
-.redhat-cert-banner:hover .redhat-badge-tag {
-  color: var(--bp-link-white, #f0eff4) !important;
-  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
-  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
 }
 
 .redhat-secure-tag {
@@ -5662,55 +5770,30 @@ html.bp-scrolling body{
   font-weight: 700 !important;
   padding: 0.1rem 0.45rem !important;
   border-radius: 4px !important;
-  background: rgba(158,130,156,0.12) !important;
-  color: var(--bp-link-mauve, #9e829c) !important;
-  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
-  border: 1px solid rgba(158,130,156,0.3) !important;
-  transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease !important;
+  background: rgba(158,130,156,0.10) !important;
+  border: 1px solid rgba(158,130,156,0.28) !important;
 }
 .redhat-cert-banner:hover .redhat-secure-tag {
-  color: var(--bp-link-white, #f0eff4) !important;
-  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
-  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
-  border-color: rgba(240,239,244,0.34) !important;
-  background: rgba(158,130,156,0.18) !important;
+  background: rgba(238,0,0,0.12) !important;
+  border-color: rgba(238,0,0,0.35) !important;
 }
 
 .redhat-banner-details h4 {
   margin: 0 0 0.3rem 0 !important;
   font-size: 1.05rem !important;
   font-weight: 800 !important;
-  color: var(--bp-link-mauve, #9e829c) !important;
-  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
   line-height: 1.25 !important;
   letter-spacing: -0.01em !important;
-  transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease !important;
-}
-.redhat-cert-banner:hover .redhat-banner-details h4 {
-  color: var(--bp-link-white, #f0eff4) !important;
-  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
-  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
 }
 
 .redhat-banner-details p {
   margin: 0 !important;
   font-size: 0.84rem !important;
-  color: var(--bp-link-mauve, #9e829c) !important;
-  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
   line-height: 1.45 !important;
   overflow-wrap: anywhere !important;
-  transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease !important;
 }
 .redhat-banner-details p strong {
-  color: inherit !important;
-  -webkit-text-fill-color: inherit !important;
   font-weight: 700 !important;
-}
-.redhat-cert-banner:hover .redhat-banner-details p,
-.redhat-cert-banner:hover .redhat-banner-details p strong {
-  color: var(--bp-link-white, #f0eff4) !important;
-  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
-  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
 }
 
 .redhat-banner-cta {
@@ -5720,8 +5803,12 @@ html.bp-scrolling body{
   justify-content: center !important;
   flex: 0 0 auto !important;
   padding-left: 1.25rem !important;
-  border-left: 1px solid rgba(240,239,244,0.12) !important;
+  border-left: 1px solid rgba(158,130,156,0.22) !important;
   text-align: right !important;
+  transition: border-color 0.3s ease !important;
+}
+.redhat-cert-banner:hover .redhat-banner-cta {
+  border-left-color: rgba(240,239,244,0.18) !important;
 }
 
 .redhat-cta-pill {
@@ -5733,20 +5820,13 @@ html.bp-scrolling body{
   font-size: 0.78rem !important;
   font-weight: 800 !important;
   letter-spacing: 0.04em !important;
-  color: var(--bp-link-mauve, #9e829c) !important;
-  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
-  background: linear-gradient(135deg, rgba(238,0,0,0.35), rgba(158,0,0,0.3)) !important;
-  border: 1px solid rgba(238,0,0,0.55) !important;
-  text-shadow: none !important;
-  transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease, background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+  background: rgba(158,130,156,0.12) !important;
+  border: 1px solid rgba(158,130,156,0.32) !important;
 }
-
 .redhat-cert-banner:hover .redhat-cta-pill {
-  color: var(--bp-link-white, #f0eff4) !important;
-  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
-  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
-  box-shadow: 0 0 18px rgba(238,0,0,0.4) !important;
   background: linear-gradient(135deg, rgba(238,0,0,0.5), rgba(158,0,0,0.4)) !important;
+  border-color: rgba(238,0,0,0.55) !important;
+  box-shadow: 0 0 18px rgba(238,0,0,0.4) !important;
 }
 
 .redhat-cta-status {
@@ -5754,14 +5834,6 @@ html.bp-scrolling body{
   font-size: 0.52rem !important;
   font-weight: 800 !important;
   letter-spacing: 0.06em !important;
-  color: var(--bp-link-mauve, #9e829c) !important;
-  -webkit-text-fill-color: var(--bp-link-mauve, #9e829c) !important;
-  transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, text-shadow 0.25s ease !important;
-}
-.redhat-cert-banner:hover .redhat-cta-status {
-  color: var(--bp-link-white, #f0eff4) !important;
-  -webkit-text-fill-color: var(--bp-link-white, #f0eff4) !important;
-  text-shadow: 0 0 5px rgba(240,239,244,0.30), 0 0 14px rgba(240,239,244,0.42) !important;
 }
 
 @media (max-width: 820px) {
@@ -5770,7 +5842,6 @@ html.bp-scrolling body{
     align-items: flex-start !important;
     gap: 1.1rem !important;
   }
-
   .redhat-banner-cta {
     width: 100% !important;
     flex-direction: row !important;
@@ -5781,10 +5852,12 @@ html.bp-scrolling body{
     padding-left: 0 !important;
     padding-top: 0.85rem !important;
     border-left: none !important;
-    border-top: 1px solid rgba(240,239,244,0.12) !important;
+    border-top: 1px solid rgba(158,130,156,0.22) !important;
     text-align: left !important;
   }
-
+  .redhat-cert-banner:hover .redhat-banner-cta {
+    border-top-color: rgba(240,239,244,0.18) !important;
+  }
   .redhat-cta-status {
     margin-top: 0 !important;
   }
