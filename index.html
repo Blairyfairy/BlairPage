@@ -15117,6 +15117,14 @@ html body .timeline-item > .timeline-content.job-layout > .job-logo,
 html.desktop-resize-lock body .timeline-item > .timeline-content.job-layout > .job-logo{
   zoom: 1.15;
 }
+
+/* Second +15% step (1.15 x 1.15 = 1.3225) for every Professional Experience
+   logo EXCEPT Upwork, Premium Technologies, Sydney Krey and Hot Topic,
+   which stay at the current size above. */
+html body .timeline-item > .timeline-content.job-layout > .job-logo:not(:has(img[alt="Upwork"])):not(:has(.pt-logo)):not(:has(img[alt="SydneyKrey"])):not(:has(img[alt="Hot Topic"])),
+html.desktop-resize-lock body .timeline-item > .timeline-content.job-layout > .job-logo:not(:has(img[alt="Upwork"])):not(:has(.pt-logo)):not(:has(img[alt="SydneyKrey"])):not(:has(img[alt="Hot Topic"])){
+  zoom: 1.3225;
+}
 </style>
 
 </body>
