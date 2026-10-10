@@ -9699,7 +9699,7 @@ a.asana-cert-banner:hover {
    href="https://www.coursera.org/account/accomplishments/specialization/DDISVFOXN9FS"
    target="_blank"
    rel="noopener noreferrer"
-   class="certificate-link">
+   class="certificate-link akamai-cert">
     <strong>Akamai Network Engineering Professional Certificate</strong>
     <span>Akamai Technologies, Inc.</span>
 </a>
@@ -9821,7 +9821,7 @@ a.asana-cert-banner:hover {
         <a href="https://www.coursera.org/account/accomplishments/verify/B4IJQFSYZQCY"
            target="_blank"
            rel="noopener noreferrer"
-           class="certificate-link">
+           class="certificate-link akamai-cert">
           <strong>Networking Fundamentals</strong>
           <span>Akamai Technologies, Inc.</span>
       </a>
@@ -9829,7 +9829,7 @@ a.asana-cert-banner:hover {
       <a href="https://www.coursera.org/account/accomplishments/verify/RPS5J44UOSIL"
            target="_blank"
            rel="noopener noreferrer"
-           class="certificate-link">
+           class="certificate-link akamai-cert">
           <strong>Introduction to IT Security</strong>
           <span>Akamai Technologies, Inc.</span>
       </a>
@@ -9837,7 +9837,7 @@ a.asana-cert-banner:hover {
        <a href="https://www.coursera.org/account/accomplishments/verify/RPS5J44UOSIL"
            target="_blank"
            rel="noopener noreferrer"
-           class="certificate-link">
+           class="certificate-link akamai-cert">
           <strong>Operating Systems Fundamentals</strong>
           <span>Akamai Technologies, Inc.</span>
       </a>
@@ -9845,7 +9845,7 @@ a.asana-cert-banner:hover {
        <a href="https://www.coursera.org/account/accomplishments/verify/9YW9D07QY0LP"
            target="_blank"
            rel="noopener noreferrer"
-           class="certificate-link">
+           class="certificate-link akamai-cert">
           <strong>Python Scripting Fundamentals</strong>
           <span>Akamai Technologies, Inc.</span>
       </a>
@@ -9853,7 +9853,7 @@ a.asana-cert-banner:hover {
       <a href="https://www.coursera.org/account/accomplishments/verify/0086JMDW1F7A"
            target="_blank"
            rel="noopener noreferrer"
-           class="certificate-link">
+           class="certificate-link akamai-cert">
           <strong>Managing Relational Databases</strong>
           <span>Akamai Technologies, Inc.</span>
       </a>
@@ -10334,16 +10334,54 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   -webkit-text-fill-color:#0056D2 !important;
 }
 
-/* Akamai keeps gold; Xbox green is handled in xbox-cert rules below */
-#akamai-network-engineering-cert:hover{
+/* Akamai gold glow — all Akamai certs (match Network Engineering treatment) */
+#akamai-network-engineering-cert,
+a.certificate-link.akamai-cert{
+  position:relative !important;
+  overflow:visible !important;
+}
+#akamai-network-engineering-cert::after,
+a.certificate-link.akamai-cert::after{
+  content:"" !important;
+  position:absolute !important;
+  left:12% !important;
+  right:12% !important;
+  bottom:4px !important;
+  height:2px !important;
+  width:auto !important;
+  border-radius:2px !important;
+  background:linear-gradient(90deg, transparent 0%, #FFD700 35%, #FFC107 65%, transparent 100%) !important;
+  box-shadow:0 0 8px rgba(255,215,0,.4) !important;
+  opacity:0 !important;
+  transform:scaleX(.4) !important;
+  transition:opacity .3s ease, transform .35s cubic-bezier(.16,1,.3,1) !important;
+  pointer-events:none !important;
+}
+#akamai-network-engineering-cert:hover::after,
+a.certificate-link.akamai-cert:hover::after{
+  opacity:1 !important;
+  transform:scaleX(1) !important;
+}
+#akamai-network-engineering-cert:hover,
+a.certificate-link.akamai-cert:hover{
   border-color:rgba(255,215,0,.55) !important;
-  background:transparent !important;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 120%, rgba(255,215,0,.10) 0%, transparent 55%),
+    transparent !important;
+  transform:translateY(-2px) !important;
+  box-shadow:
+    0 0 0 1px rgba(255,215,0,.12),
+    0 8px 22px rgba(255,193,7,.12) !important;
 }
 #akamai-network-engineering-cert:hover strong,
-#akamai-network-engineering-cert:hover span{
+#akamai-network-engineering-cert:hover span,
+a.certificate-link.akamai-cert:hover strong,
+a.certificate-link.akamai-cert:hover span{
   color:#FFD700 !important;
   -webkit-text-fill-color:#FFD700 !important;
-  text-shadow:0 0 8px rgba(255,215,0,.45) !important;
+  text-shadow:
+    0 0 8px rgba(255,215,0,.45),
+    0 0 18px rgba(255,193,7,.25) !important;
 }
 
 /* =========================================================
