@@ -9056,7 +9056,25 @@ a.asana-cert-banner:hover {
   }
   </style>
 
-    <!-- =====================
+
+
+  <div class="certification-list">
+
+  </div>
+</section>
+ <!-- TECHNICAL TRAINING & CERTIFICATIONS -->
+        <br>
+        <br>
+        <br>
+        <br>
+        <!-- =======================
+     TECHNICAL TRAINING — ultra-tight (Pluralsight · Codecademy · Udemy)
+     ======================= -->
+<section class="tt-section" aria-label="Technical Training">
+  <h2 class="section-title">Technical Training</h2>
+
+    
+<!-- =====================
          LINUX ACADEMY — fused training area (moved under the cPanel banner in Certifications)
          Linux Academy era (2014–2019). Uses the supplied Linux Academy shield artwork; brand remains distinct from Pluralsight.
          ===================== -->
@@ -9529,22 +9547,7 @@ a.asana-cert-banner:hover {
 }
 </style>
 
-  <div class="certification-list">
-
-  </div>
-</section>
- <!-- TECHNICAL TRAINING & CERTIFICATIONS -->
-        <br>
-        <br>
-        <br>
-        <br>
-        <!-- =======================
-     TECHNICAL TRAINING — ultra-tight (Pluralsight · Codecademy · Udemy)
-     ======================= -->
-<section class="tt-section" aria-label="Technical Training">
-  <h2 class="section-title">Technical Training</h2>
-
-    <!-- Fashion / Luxury -->
+<!-- Fashion / Luxury -->
     <article class="training-card certificates-card">
       <div class="training-card-header">
       <div>
@@ -9610,17 +9613,33 @@ a.asana-cert-banner:hover {
 }
 
 /* =========================================================
-   AKAMAI — GOLD HOVER
+   AKAMAI — GOLD HOVER (original Network Engineering behavior for ALL Akamai certs)
    ========================================================= */
+
+#akamai-network-engineering-cert,
+#akamai-network-engineering-cert strong,
+#akamai-network-engineering-cert span,
+a.certificate-link.akamai-cert,
+a.certificate-link.akamai-cert strong,
+a.certificate-link.akamai-cert span {
+    transition:
+        color 0.3s ease-in-out,
+        text-shadow 0.3s ease-in-out,
+        transform 0.3s ease-in-out !important;
+}
 
 #akamai-network-engineering-cert:hover,
 #akamai-network-engineering-cert:hover strong,
-#akamai-network-engineering-cert:hover span {
+#akamai-network-engineering-cert:hover span,
+a.certificate-link.akamai-cert:hover,
+a.certificate-link.akamai-cert:hover strong,
+a.certificate-link.akamai-cert:hover span {
     color: #FFD700 !important;
     -webkit-text-fill-color: #FFD700 !important;
 }
 
-#akamai-network-engineering-cert:hover {
+#akamai-network-engineering-cert:hover,
+a.certificate-link.akamai-cert:hover {
     transform: translateY(-2px) !important;
     text-shadow:
         0 0 6px rgba(255, 215, 0, 0.65),
@@ -9628,7 +9647,8 @@ a.asana-cert-banner:hover {
         0 0 22px rgba(255, 215, 0, 0.2) !important;
 }
 
-#akamai-network-engineering-cert:hover strong {
+#akamai-network-engineering-cert:hover strong,
+a.certificate-link.akamai-cert:hover strong {
     text-shadow:
         0 0 7px rgba(255, 215, 0, 0.85),
         0 0 16px rgba(255, 215, 0, 0.45) !important;
@@ -9658,21 +9678,34 @@ a.asana-cert-banner:hover {
     transform: scaleX(1);
     width: auto;
 }
-#akamai-network-engineering-cert::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 0;
-    height: 2px;
+#akamai-network-engineering-cert,
+a.certificate-link.akamai-cert {
+    position: relative !important;
+}
+#akamai-network-engineering-cert::after,
+a.certificate-link.akamai-cert::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    bottom: -5px !important;
+    width: 0 !important;
+    height: 2px !important;
     background: #FFD700 !important;
     box-shadow:
         0 0 5px rgba(255, 215, 0, 0.9),
-        0 0 12px rgba(255, 215, 0, 0.5);
-    transition: width 0.35s ease-in-out;
+        0 0 12px rgba(255, 215, 0, 0.5) !important;
+    transition: width 0.35s ease-in-out !important;
+    opacity: 1 !important;
+    transform: none !important;
+    right: auto !important;
+    border-radius: 0 !important;
+    pointer-events: none !important;
 }
-#akamai-network-engineering-cert:hover::after {
-    width: 100%;
+#akamai-network-engineering-cert:hover::after,
+a.certificate-link.akamai-cert:hover::after {
+    width: 100% !important;
+    opacity: 1 !important;
+    transform: none !important;
 }
 </style>
 
@@ -10334,54 +10367,57 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   -webkit-text-fill-color:#0056D2 !important;
 }
 
-/* Akamai gold glow — all Akamai certs (match Network Engineering treatment) */
+/* Akamai — use original Network Engineering gold behavior for all .akamai-cert */
 #akamai-network-engineering-cert,
-a.certificate-link.akamai-cert{
-  position:relative !important;
-  overflow:visible !important;
-}
-#akamai-network-engineering-cert::after,
-a.certificate-link.akamai-cert::after{
-  content:"" !important;
-  position:absolute !important;
-  left:12% !important;
-  right:12% !important;
-  bottom:4px !important;
-  height:2px !important;
-  width:auto !important;
-  border-radius:2px !important;
-  background:linear-gradient(90deg, transparent 0%, #FFD700 35%, #FFC107 65%, transparent 100%) !important;
-  box-shadow:0 0 8px rgba(255,215,0,.4) !important;
-  opacity:0 !important;
-  transform:scaleX(.4) !important;
-  transition:opacity .3s ease, transform .35s cubic-bezier(.16,1,.3,1) !important;
-  pointer-events:none !important;
-}
-#akamai-network-engineering-cert:hover::after,
-a.certificate-link.akamai-cert:hover::after{
-  opacity:1 !important;
-  transform:scaleX(1) !important;
+a.certificate-link.akamai-cert {
+    position: relative !important;
 }
 #akamai-network-engineering-cert:hover,
-a.certificate-link.akamai-cert:hover{
-  border-color:rgba(255,215,0,.55) !important;
-  background:
-    radial-gradient(ellipse 120% 90% at 50% 120%, rgba(255,215,0,.10) 0%, transparent 55%),
-    transparent !important;
-  transform:translateY(-2px) !important;
-  box-shadow:
-    0 0 0 1px rgba(255,215,0,.12),
-    0 8px 22px rgba(255,193,7,.12) !important;
+a.certificate-link.akamai-cert:hover {
+    border-color: rgba(255, 215, 0, 0.45) !important;
+    background: transparent !important;
+    box-shadow: none !important;
 }
 #akamai-network-engineering-cert:hover strong,
 #akamai-network-engineering-cert:hover span,
 a.certificate-link.akamai-cert:hover strong,
-a.certificate-link.akamai-cert:hover span{
-  color:#FFD700 !important;
-  -webkit-text-fill-color:#FFD700 !important;
-  text-shadow:
-    0 0 8px rgba(255,215,0,.45),
-    0 0 18px rgba(255,193,7,.25) !important;
+a.certificate-link.akamai-cert:hover span {
+    color: #FFD700 !important;
+    -webkit-text-fill-color: #FFD700 !important;
+    text-shadow:
+        0 0 6px rgba(255, 215, 0, 0.65),
+        0 0 14px rgba(255, 215, 0, 0.4),
+        0 0 22px rgba(255, 215, 0, 0.2) !important;
+}
+#akamai-network-engineering-cert:hover strong,
+a.certificate-link.akamai-cert:hover strong {
+    text-shadow:
+        0 0 7px rgba(255, 215, 0, 0.85),
+        0 0 16px rgba(255, 215, 0, 0.45) !important;
+}
+#akamai-network-engineering-cert::after,
+a.certificate-link.akamai-cert::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    bottom: -5px !important;
+    width: 0 !important;
+    height: 2px !important;
+    background: #FFD700 !important;
+    box-shadow:
+        0 0 5px rgba(255, 215, 0, 0.9),
+        0 0 12px rgba(255, 215, 0, 0.5) !important;
+    transition: width 0.35s ease-in-out !important;
+    opacity: 1 !important;
+    transform: none !important;
+    right: auto !important;
+    border-radius: 0 !important;
+}
+#akamai-network-engineering-cert:hover::after,
+a.certificate-link.akamai-cert:hover::after {
+    width: 100% !important;
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 /* =========================================================
@@ -10813,6 +10849,78 @@ a.certificate-link.xbox-cert:hover span{
 #xbox-product-manager-cert:hover span{
   /* green handled above; kill gold */
 }
+
+/* =========================================================
+   AKAMAI — exact original Network Engineering gold (all .akamai-cert)
+   Highest priority within brand polish; matches the original LUXURY GOLD block.
+   ========================================================= */
+#akamai-network-engineering-cert,
+a.certificate-link.akamai-cert {
+  position: relative !important;
+}
+#akamai-network-engineering-cert,
+#akamai-network-engineering-cert strong,
+#akamai-network-engineering-cert span,
+a.certificate-link.akamai-cert,
+a.certificate-link.akamai-cert strong,
+a.certificate-link.akamai-cert span {
+  transition:
+    color 0.3s ease-in-out,
+    text-shadow 0.3s ease-in-out,
+    transform 0.3s ease-in-out !important;
+}
+#akamai-network-engineering-cert:hover,
+#akamai-network-engineering-cert:hover strong,
+#akamai-network-engineering-cert:hover span,
+a.certificate-link.akamai-cert:hover,
+a.certificate-link.akamai-cert:hover strong,
+a.certificate-link.akamai-cert:hover span {
+  color: #FFD700 !important;
+  -webkit-text-fill-color: #FFD700 !important;
+}
+#akamai-network-engineering-cert:hover,
+a.certificate-link.akamai-cert:hover {
+  transform: translateY(-2px) !important;
+  text-shadow:
+    0 0 6px rgba(255, 215, 0, 0.65),
+    0 0 14px rgba(255, 215, 0, 0.4),
+    0 0 22px rgba(255, 215, 0, 0.2) !important;
+  border-color: rgba(255, 215, 0, 0.45) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#akamai-network-engineering-cert:hover strong,
+a.certificate-link.akamai-cert:hover strong {
+  text-shadow:
+    0 0 7px rgba(255, 215, 0, 0.85),
+    0 0 16px rgba(255, 215, 0, 0.45) !important;
+}
+#akamai-network-engineering-cert::after,
+a.certificate-link.akamai-cert::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  bottom: -5px !important;
+  width: 0 !important;
+  height: 2px !important;
+  background: #FFD700 !important;
+  box-shadow:
+    0 0 5px rgba(255, 215, 0, 0.9),
+    0 0 12px rgba(255, 215, 0, 0.5) !important;
+  transition: width 0.35s ease-in-out !important;
+  opacity: 1 !important;
+  transform: none !important;
+  right: auto !important;
+  border-radius: 0 !important;
+  pointer-events: none !important;
+}
+#akamai-network-engineering-cert:hover::after,
+a.certificate-link.akamai-cert:hover::after {
+  width: 100% !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 </style>
     </div>
   </div>
