@@ -15135,6 +15135,39 @@ html body .profile-matrix .matrix-grid:has(.matrix-card.open) .matrix-card:not(.
 }
 </style>
 
+
+<style id="job-logo-15pct-boost">
+/* Professional employment logos — force 15% larger than original 60px/70px */
+html body .timeline-item .job-logo,
+html body .timeline-content.job-layout .job-logo,
+html body .timeline-enhanced .timeline-item .job-logo,
+html.desktop-resize-lock body .timeline-item .job-logo,
+html.desktop-resize-lock body .timeline-content.job-layout .job-logo{
+  flex: 0 0 clamp(55px, 10.35vw, 104px) !important;
+  width: clamp(55px, 10.35vw, 104px) !important;
+  min-width: clamp(55px, 10.35vw, 104px) !important;
+  max-width: clamp(55px, 10.35vw, 104px) !important;
+}
+html body .timeline-item .job-logo img,
+html body .timeline-content.job-layout .job-logo img,
+html body .timeline-enhanced .timeline-item .job-logo img,
+html body .timeline-item .job-logo .logo-img,
+html body .timeline-item .job-logo img.logo-img,
+html.desktop-resize-lock body .timeline-item .job-logo img,
+html.desktop-resize-lock body .timeline-content.job-layout .job-logo img{
+  width: clamp(48px, 8.05vw, 69px) !important;
+  height: clamp(48px, 8.05vw, 69px) !important;
+  max-width: 69px !important;
+  max-height: 69px !important;
+  min-width: 48px !important;
+  object-fit: contain !important;
+}
+/* Fixed-size fallback used in some layout locks */
+html body .timeline-item .job-logo{
+  flex-basis: 80.5px !important;
+}
+</style>
+
 </body>
 </html>
 
