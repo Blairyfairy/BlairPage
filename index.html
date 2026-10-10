@@ -10108,11 +10108,15 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
 </style>
 
 <!-- =========================================================
-     TECHNICAL TRAINING BRAND POLISH
+     TECHNICAL TRAINING BRAND POLISH (v2)
      Coursera · Pluralsight · Codecademy · Udemy
-     Append-only: keeps every link, word, and gold Xbox/Akamai hover.
+     - Official brand colors
+     - Outer cards keep light glass; nested links/tiles are transparent
+     - Every link, URL, and text left untouched
      ========================================================= -->
 <style id="tt-brand-polish">
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@600;700;800&display=swap');
+
 /* ---- Section frame ---- */
 .tt-section{
   width:100% !important;
@@ -10129,7 +10133,9 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   color:var(--text-light,#f0eff4) !important;
 }
 
-/* ---- Coursera certificates card ---- */
+/* =========================================================
+   COURSERA — official blue #0056D2 · Source Sans
+   ========================================================= */
 .tt-section .training-card.certificates-card{
   position:relative !important;
   display:block !important;
@@ -10137,15 +10143,13 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   margin:0 0 1.1rem 0 !important;
   padding:1.35rem 1.4rem 1.45rem 1.55rem !important;
   border-radius:18px !important;
-  border:1.5px solid rgba(0,86,210,.28) !important;
-  background:
-    radial-gradient(ellipse 420px 280px at 4% 18%, rgba(0,86,210,.10) 0%, transparent 68%),
-    linear-gradient(125deg, rgba(0,86,210,.06) 0%, rgba(58,62,59,.04) 42%, transparent 78%),
-    rgba(240,239,244,.04) !important;
-  box-shadow:0 10px 28px rgba(0,0,0,.22) !important;
-  overflow:hidden !important;
+  border:1.5px solid rgba(0,86,210,.35) !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  overflow:visible !important;
   opacity:1 !important;
-  transition:border-color .3s ease, box-shadow .3s ease, transform .25s ease !important;
+  font-family:"Source Sans 3", "Source Sans Pro", system-ui, sans-serif !important;
+  transition:border-color .3s ease, box-shadow .25s ease, transform .25s ease !important;
 }
 .tt-section .training-card.certificates-card::before{
   content:"" !important;
@@ -10158,8 +10162,9 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
 }
 .tt-section .training-card.certificates-card:hover{
   transform:translateY(-2px) !important;
-  border-color:rgba(0,86,210,.55) !important;
-  box-shadow:0 14px 34px rgba(0,0,0,.32), 0 0 20px rgba(0,86,210,.14) !important;
+  border-color:rgba(0,86,210,.65) !important;
+  box-shadow:0 10px 28px rgba(0,86,210,.12) !important;
+  background:transparent !important;
 }
 
 .tt-section .certificates-card .training-card-header{
@@ -10168,6 +10173,7 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   align-items:stretch !important;
   gap:.85rem !important;
   margin-bottom:0 !important;
+  background:transparent !important;
 }
 .tt-section .certificates-card .training-type{
   display:block !important;
@@ -10182,44 +10188,46 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
 }
 .tt-section .certificates-card h3{
   margin:0 0 .15rem 0 !important;
-  font-size:1.35rem !important;
+  font-size:1.4rem !important;
   font-weight:800 !important;
   line-height:1.15 !important;
-  color:var(--text-light,#f0eff4) !important;
-  -webkit-text-fill-color:var(--text-light,#f0eff4) !important;
+  color:#0056D2 !important;
+  -webkit-text-fill-color:#0056D2 !important;
+  font-family:"Source Sans 3", "Source Sans Pro", system-ui, sans-serif !important;
 }
 
-/* Certificate grid — keep each link separate */
+/* Nested cert tiles — transparent, no stacked shade */
 .tt-section .certificate-list{
   display:grid !important;
   grid-template-columns:repeat(3, minmax(0,1fr)) !important;
-  gap:.7rem !important;
+  gap:.65rem !important;
   width:100% !important;
   margin-top:.35rem !important;
+  background:transparent !important;
 }
 .tt-section .certificate-link{
   position:relative !important;
   display:flex !important;
   flex-direction:column !important;
-  gap:.35rem !important;
-  padding:.85rem .9rem !important;
-  border-radius:12px !important;
-  border:1px solid rgba(240,239,244,.14) !important;
-  background:rgba(0,0,0,.22) !important;
+  gap:.3rem !important;
+  padding:.7rem .75rem !important;
+  border-radius:10px !important;
+  border:1px solid rgba(0,86,210,.22) !important;
+  background:transparent !important;
   color:inherit !important;
   text-decoration:none !important;
   opacity:1 !important;
+  box-shadow:none !important;
   transition:
     border-color .25s ease,
     background .25s ease,
-    transform .2s ease,
-    box-shadow .25s ease !important;
+    transform .2s ease !important;
 }
 .tt-section .certificate-link:hover{
-  border-color:rgba(0,86,210,.45) !important;
-  background:rgba(0,86,210,.10) !important;
-  transform:translateY(-2px) !important;
-  box-shadow:0 8px 18px rgba(0,0,0,.28) !important;
+  border-color:rgba(0,86,210,.55) !important;
+  background:transparent !important;
+  transform:translateY(-1px) !important;
+  box-shadow:none !important;
   opacity:1 !important;
 }
 .tt-section .certificate-link strong{
@@ -10228,23 +10236,27 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   line-height:1.3 !important;
   color:var(--text-light,#f0eff4) !important;
   -webkit-text-fill-color:var(--text-light,#f0eff4) !important;
+  font-family:"Source Sans 3", "Source Sans Pro", system-ui, sans-serif !important;
 }
 .tt-section .certificate-link span{
   font-size:.68rem !important;
   line-height:1.35 !important;
-  opacity:.72 !important;
+  opacity:.78 !important;
   color:var(--dusty-mauve,#9e829c) !important;
   -webkit-text-fill-color:var(--dusty-mauve,#9e829c) !important;
 }
 
-/* Preserve existing Xbox / Akamai gold hover (do not override those rules) */
+/* Keep Xbox / Akamai gold hover intact */
 #xbox-product-manager-cert:hover,
 #akamai-network-engineering-cert:hover{
-  border-color:rgba(255,215,0,.5) !important;
-  background:rgba(255,215,0,.08) !important;
+  border-color:rgba(255,215,0,.55) !important;
+  background:transparent !important;
 }
 
-/* ---- Pluralsight / Codecademy / Udemy stack ---- */
+/* =========================================================
+   PLURALSIGHT / CODECADEMY / UDEMY outer cards
+   Transparent nested rows; brand accent bars only
+   ========================================================= */
 .tt-section .tt-stack{
   display:flex !important;
   flex-direction:column !important;
@@ -10261,13 +10273,11 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   padding:1rem 1.15rem 1.05rem 1.25rem !important;
   border-radius:16px !important;
   border:1.5px solid rgba(240,239,244,.16) !important;
-  background:
-    linear-gradient(125deg, rgba(240,239,244,.05) 0%, rgba(58,62,59,.04) 50%, transparent 85%),
-    rgba(0,0,0,.18) !important;
-  box-shadow:0 8px 22px rgba(0,0,0,.2) !important;
+  background:transparent !important;
+  box-shadow:none !important;
   box-sizing:border-box !important;
-  overflow:hidden !important;
-  transition:border-color .3s ease, box-shadow .3s ease, transform .25s ease, background .3s ease !important;
+  overflow:visible !important;
+  transition:border-color .3s ease, transform .25s ease !important;
 }
 .tt-section .tt-card::before{
   content:"" !important;
@@ -10275,28 +10285,72 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   left:0 !important; top:0 !important; bottom:0 !important;
   width:5px !important;
   border-radius:16px 0 0 16px !important;
-  background:linear-gradient(180deg, rgba(158,130,156,.7), rgba(158,130,156,.35)) !important;
+  background:rgba(158,130,156,.55) !important;
   pointer-events:none !important;
 }
 .tt-section a.tt-card:hover,
 .tt-section .tt-card:hover{
   transform:translateY(-2px) !important;
   border-color:rgba(240,239,244,.28) !important;
-  box-shadow:0 12px 28px rgba(0,0,0,.3) !important;
-  background:
-    linear-gradient(125deg, rgba(240,239,244,.08) 0%, rgba(58,62,59,.05) 50%, transparent 85%),
-    rgba(0,0,0,.22) !important;
+  background:transparent !important;
+  box-shadow:none !important;
 }
 
-/* Platform accent bars — target by aria-label (stable, not order-dependent) */
+/* Pluralsight — official orange #F15B2A + magenta #EC008C */
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]{
+  border-color:rgba(241,91,42,.4) !important;
+}
 .tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]::before{
-  background:linear-gradient(180deg,#EC008C 0%,#a00062 100%) !important;
+  background:linear-gradient(180deg,#F15B2A 0%,#EC008C 100%) !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover{
+  border-color:rgba(241,91,42,.7) !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-kicker{
+  color:#F15B2A !important;
+  -webkit-text-fill-color:#F15B2A !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-title{
+  color:#F15B2A !important;
+  -webkit-text-fill-color:#F15B2A !important;
+}
+
+/* Codecademy — official indigo #3A10E5 */
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]{
+  border-color:rgba(58,16,229,.4) !important;
 }
 .tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]::before{
-  background:linear-gradient(180deg,#3A86FF 0%,#1d4ed8 100%) !important;
+  background:linear-gradient(180deg,#3A10E5 0%,#1a0a8f 100%) !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover{
+  border-color:rgba(58,16,229,.7) !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-kicker{
+  color:#3A10E5 !important;
+  -webkit-text-fill-color:#3A10E5 !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-title{
+  color:#3A10E5 !important;
+  -webkit-text-fill-color:#3A10E5 !important;
+}
+
+/* Udemy — official purple #A435F0 */
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]{
+  border-color:rgba(164,53,240,.4) !important;
 }
 .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]::before{
   background:linear-gradient(180deg,#A435F0 0%,#6b21a8 100%) !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover{
+  border-color:rgba(164,53,240,.7) !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker{
+  color:#A435F0 !important;
+  -webkit-text-fill-color:#A435F0 !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title{
+  color:#A435F0 !important;
+  -webkit-text-fill-color:#A435F0 !important;
 }
 
 .tt-section .tt-head{
@@ -10305,6 +10359,7 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   justify-content:space-between !important;
   gap:.75rem !important;
   margin:0 0 .55rem !important;
+  background:transparent !important;
 }
 .tt-section .tt-kicker{
   display:block !important;
@@ -10312,22 +10367,15 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   font-weight:800 !important;
   letter-spacing:.14em !important;
   text-transform:uppercase !important;
-  opacity:.9 !important;
+  opacity:.95 !important;
   line-height:1.15 !important;
   margin:0 0 .2rem 0 !important;
-  color:var(--dusty-mauve,#9e829c) !important;
-  -webkit-text-fill-color:var(--dusty-mauve,#9e829c) !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-kicker{ color:#EC008C !important; -webkit-text-fill-color:#EC008C !important; }
-.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-kicker{ color:#3A86FF !important; -webkit-text-fill-color:#3A86FF !important; }
-.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker{ color:#A435F0 !important; -webkit-text-fill-color:#A435F0 !important; }
-
 .tt-section .tt-title{
   margin:0 !important;
   font-size:1.05rem !important;
   font-weight:800 !important;
   line-height:1.2 !important;
-  color:var(--text-light,#f0eff4) !important;
 }
 .tt-section .tt-arrow{
   flex:0 0 auto !important;
@@ -10337,11 +10385,13 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   color:var(--text-light,#f0eff4) !important;
 }
 
+/* Summary chips — transparent, no fill stack */
 .tt-section .tt-summary{
   display:flex !important;
   flex-wrap:wrap !important;
-  gap:.35rem .55rem !important;
+  gap:.3rem .45rem !important;
   margin:0 0 .65rem !important;
+  background:transparent !important;
 }
 .tt-section .tt-summary span{
   display:inline-flex !important;
@@ -10349,10 +10399,10 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   font-size:.7rem !important;
   line-height:1.2 !important;
   opacity:1 !important;
-  padding:.22rem .55rem !important;
+  padding:.2rem .5rem !important;
   border-radius:999px !important;
-  border:1px solid rgba(240,239,244,.14) !important;
-  background:rgba(240,239,244,.05) !important;
+  border:1px solid rgba(240,239,244,.18) !important;
+  background:transparent !important;
   color:var(--text-light,#f0eff4) !important;
 }
 .tt-section .tt-summary b{
@@ -10360,19 +10410,22 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   margin-right:.15rem !important;
 }
 
+/* Year / course rows — transparent nesting */
 .tt-section .tt-years{
   display:flex !important;
   flex-direction:column !important;
-  gap:.55rem !important;
+  gap:.5rem !important;
+  background:transparent !important;
 }
 .tt-section .tt-year{
   display:grid !important;
   grid-template-columns:48px minmax(0,1fr) !important;
   gap:.55rem !important;
   align-items:start !important;
-  padding:.35rem 0 0 !important;
+  padding:.3rem 0 0 !important;
   margin:0 !important;
   border-top:1px solid rgba(240,239,244,.08) !important;
+  background:transparent !important;
 }
 .tt-section .tt-year:first-child{ border-top:0 !important; padding-top:0 !important; }
 .tt-section .tt-year-title{
@@ -10388,8 +10441,9 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   display:grid !important;
   grid-template-columns:repeat(2, minmax(0,1fr)) !important;
   column-gap:.7rem !important;
-  row-gap:.28rem !important;
+  row-gap:.22rem !important;
   min-width:0 !important;
+  background:transparent !important;
 }
 .tt-section .tt-course{
   min-width:0 !important;
@@ -10397,14 +10451,17 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   text-decoration:none !important;
   color:inherit !important;
   margin:0 !important;
-  padding:.15rem 0 !important;
+  padding:.12rem 0 !important;
   line-height:1.25 !important;
-  border-radius:6px !important;
-  transition:background .2s ease !important;
+  border-radius:4px !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  transition:opacity .2s ease !important;
 }
 .tt-section a.tt-course:hover,
 .tt-section a.tt-course:focus{
-  background:rgba(240,239,244,.05) !important;
+  background:transparent !important;
+  opacity:.95 !important;
 }
 .tt-section a.tt-course:hover b,
 .tt-section a.tt-course:focus b{
@@ -10444,6 +10501,45 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   opacity:.9 !important;
   line-height:1.2 !important;
   color:var(--text-light,#f0eff4) !important;
+  background:transparent !important;
+}
+
+/* Brand logo marks in headers (CSS-only, no link changes) */
+.tt-section .certificates-card h3::before{
+  content:"" !important;
+  display:inline-block !important;
+  width:1.15em !important;
+  height:1.15em !important;
+  margin-right:.4rem !important;
+  vertical-align:-.15em !important;
+  background:url("https://cdn.simpleicons.org/coursera/0056D2") center / contain no-repeat !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-title::before{
+  content:"" !important;
+  display:inline-block !important;
+  width:1.05em !important;
+  height:1.05em !important;
+  margin-right:.4rem !important;
+  vertical-align:-.12em !important;
+  background:url("https://cdn.simpleicons.org/pluralsight/F15B2A") center / contain no-repeat !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-title::before{
+  content:"" !important;
+  display:inline-block !important;
+  width:1.05em !important;
+  height:1.05em !important;
+  margin-right:.4rem !important;
+  vertical-align:-.12em !important;
+  background:url("https://cdn.simpleicons.org/codecademy/3A10E5") center / contain no-repeat !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title::before{
+  content:"" !important;
+  display:inline-block !important;
+  width:1.05em !important;
+  height:1.05em !important;
+  margin-right:.4rem !important;
+  vertical-align:-.12em !important;
+  background:url("https://cdn.simpleicons.org/udemy/A435F0") center / contain no-repeat !important;
 }
 
 @media (min-width:1000px){
@@ -10461,28 +10557,16 @@ a.tt-course:hover b,a.tt-course:focus b{color:var(--link-hover,#f0eff4);text-sha
   }
 }
 @media (max-width:640px){
-  .tt-section{
-    padding:0 .65rem !important;
-  }
+  .tt-section{ padding:0 .65rem !important; }
   .tt-section .training-card.certificates-card{
     padding:1.1rem 1rem 1.15rem 1.15rem !important;
   }
-  .tt-section .certificate-list{
-    grid-template-columns:1fr !important;
-  }
-  .tt-section .tt-year{
-    grid-template-columns:40px minmax(0,1fr) !important;
-  }
-  .tt-section .tt-courses{
-    grid-template-columns:1fr !important;
-  }
-  .tt-section .tt-title{
-    font-size:.95rem !important;
-  }
+  .tt-section .certificate-list{ grid-template-columns:1fr !important; }
+  .tt-section .tt-year{ grid-template-columns:40px minmax(0,1fr) !important; }
+  .tt-section .tt-courses{ grid-template-columns:1fr !important; }
+  .tt-section .tt-title{ font-size:.95rem !important; }
   .tt-section .tt-card,
-  .tt-section a.tt-card{
-    padding:.9rem .95rem .9rem 1.05rem !important;
-  }
+  .tt-section a.tt-card{ padding:.9rem .95rem .9rem 1.05rem !important; }
 }
 </style>
     </div>
