@@ -10735,16 +10735,27 @@ a.certificate-link.akamai-cert:hover::after {
 }
 
 /* Logo marks — only fully colored on hover (muted grayscale default) */
-.tt-section .certificates-card h3::before,
-.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-title::before,
-.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-title::before,
-.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title::before{
+.tt-section .certificates-card h3::before{
   content:"" !important;
   display:inline-block !important;
   width:1.05em !important;
   height:1.05em !important;
   margin-right:.4rem !important;
   vertical-align:-.12em !important;
+  opacity:.55 !important;
+  filter:grayscale(1) brightness(1.1) !important;
+  transition:opacity .25s ease, filter .25s ease !important;
+  pointer-events:none !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-title::before,
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-title::before,
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title::before{
+  content:"" !important;
+  display:inline-block !important;
+  width:1.55em !important;
+  height:1.55em !important;
+  margin-right:.5rem !important;
+  vertical-align:-.28em !important;
   opacity:.55 !important;
   filter:grayscale(1) brightness(1.1) !important;
   transition:opacity .25s ease, filter .25s ease !important;
@@ -10757,10 +10768,10 @@ a.certificate-link.akamai-cert:hover::after {
   background:url("https://cdn.simpleicons.org/pluralsight/F15B2A") center / contain no-repeat !important;
 }
 .tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-title::before{
-  background:url("https://cdn.simpleicons.org/codecademy/3A10E5") center / contain no-repeat !important;
+  background:url("https://cdn.simpleicons.org/codecademy/FFFFFF") center / contain no-repeat !important;
 }
 .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title::before{
-  background:url("https://cdn.simpleicons.org/udemy/FFFFFF") center / contain no-repeat !important;
+  background:url("https://cdn.simpleicons.org/udemy/A435F0") center / contain no-repeat !important;
 }
 .tt-section .certificates-card:hover h3::before,
 .tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-title::before,
