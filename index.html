@@ -10836,8 +10836,8 @@ a.certificate-link.akamai-cert:hover::after {
 }
 
 .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker::before{
-  filter:none !important;
-  opacity:.9 !important;
+  filter:grayscale(1) brightness(1.1) !important;
+  opacity:.55 !important;
   width:1.65em !important;
   height:1.65em !important;
   vertical-align:-.32em !important;
@@ -10858,6 +10858,8 @@ a.certificate-link.akamai-cert:hover::after {
   height: 1.65em !important;
   margin-right: .5rem !important;
   vertical-align: -0.32em !important;
+  opacity: 0.55 !important;
+  filter: grayscale(1) brightness(1.1) !important;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23A435F0' d='M12 1.5L4.8 9h3.4L12 4.8 15.8 9h3.4L12 1.5z'/%3E%3Cpath fill='%23FFFFFF' d='M7 9.8h2.4v5.8c0 1.45 1.15 2.6 2.6 2.6s2.6-1.15 2.6-2.6V9.8H17v5.8c0 2.85-2.25 5.1-5 5.1s-5-2.25-5-5.1V9.8z'/%3E%3C/svg%3E") center / contain no-repeat !important;
   opacity: 0.95 !important;
   filter: none !important;
@@ -12349,6 +12351,39 @@ html.desktop-resize-lock body.dark{
     max-width:60px !important;
     object-fit:contain !important;
   }
+
+/* Professional Experience job logos — 15% larger */
+html.desktop-resize-lock .job-logo,
+html body .timeline-enhanced .job-logo,
+html body .timeline .job-logo,
+.timeline-enhanced .job-logo,
+.timeline .job-logo,
+.timeline-item .job-logo{
+  flex: 0 0 clamp(55px, 10.35vw, 104px) !important;
+  width: clamp(55px, 10.35vw, 104px) !important;
+}
+html.desktop-resize-lock .job-logo img,
+html body .timeline-enhanced .job-logo img,
+html body .timeline .job-logo img,
+.timeline-enhanced .job-logo img,
+.timeline .job-logo img,
+.timeline-item .job-logo img,
+.timeline-item .job-logo .logo-img{
+  width: clamp(48px, 8.05vw, 69px) !important;
+  height: clamp(48px, 8.05vw, 69px) !important;
+  max-width: 69px !important;
+  max-height: 69px !important;
+}
+.job-logo{
+  flex: 0 0 80.5px !important;
+  width: 80.5px !important;
+}
+.job-logo img{
+  width: 69px !important;
+  height: 69px !important;
+  max-width: 69px !important;
+}
+
 
   html.desktop-resize-lock .job-details{
     flex:1 1 auto !important;
@@ -18486,6 +18521,16 @@ html body .brand-katespade::before {
     font-size: 11px !important;
     margin-bottom: 2px !important;
   }
+}
+
+/* Udemy logo: muted until card hover (match Coursera/PS/CC) */
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker::before{
+  filter:grayscale(1) brightness(1.1) !important;
+  opacity:.55 !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kicker::before{
+  filter:none !important;
+  opacity:1 !important;
 }
 </style>
 
