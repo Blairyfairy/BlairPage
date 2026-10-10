@@ -9070,7 +9070,7 @@ a.asana-cert-banner:hover {
 
       <div class="lapx-head">
         <div class="lapx-marks" role="group" aria-label="Linux brand logo">
-          <img class="lapx-mark lapx-mark-linux" src="BlairPageImages/Linux_Academy.png" alt="Linux Academy shield logo" width="140" height="140" loading="lazy" decoding="async" />
+          <img class="lapx-mark lapx-mark-linux" src="BlairPageImages/Linux_Academy.png" alt="Linux Academy shield logo" width="360" height="360" loading="lazy" decoding="async" />
         </div>
 
         <div class="lapx-titles">
@@ -9214,26 +9214,50 @@ a.asana-cert-banner:hover {
 .lapx-head {
   display: flex !important;
   align-items: center !important;
-  gap: 1.4rem !important;
+  justify-content: flex-start !important;
+  gap: 2rem !important;
   margin-bottom: 1.1rem !important;
+  width: 100% !important;
+  flex-wrap: nowrap !important;
 }
 
 /* logos: plain, own colors, no box, no filter */
 .lapx-marks {
   display: flex !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 0.7rem !important;
-  flex: 0 0 auto !important;
+  flex: 0 0 clamp(220px, 30%, 360px) !important;
+  width: clamp(220px, 30%, 360px) !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0.35rem !important;
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
 }
 .lapx-mark {
   display: block !important;
-  width: 140px !important;
-  height: 140px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  max-height: none !important;
   flex: 0 0 auto !important;
   filter: none !important;
   opacity: 1 !important;
   object-fit: contain !important;
   background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
 }
 .lapx-times {
   font-size: 1.1rem !important;
@@ -9437,6 +9461,23 @@ a.asana-cert-banner:hover {
 
 @media (max-width: 900px) {
   .lapx-inner { flex-direction: column !important; gap: 1.2rem !important; }
+  .lapx-head {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1.2rem !important;
+    flex-wrap: wrap !important;
+  }
+  .lapx-marks {
+    flex: 0 0 auto !important;
+    width: min(340px, 86%) !important;
+    max-width: 100% !important;
+    align-self: center !important;
+  }
+  .lapx-mark {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
   .lapx-value {
     flex: 0 0 auto !important;
     flex-direction: row !important;
@@ -9454,7 +9495,17 @@ a.asana-cert-banner:hover {
 @media (max-width: 640px) {
   .lapx-fused { padding: 1.3rem 1.1rem 1.3rem 1.4rem !important; }
   .lapx-head { flex-wrap: wrap !important; gap: 0.9rem !important; }
-  .lapx-mark { width: 96px !important; height: 96px !important; }
+  .lapx-marks {
+    flex: 0 0 auto !important;
+    width: min(340px, 86%) !important;
+    max-width: 100% !important;
+    align-self: center !important;
+  }
+  .lapx-mark {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
   .lapx-fused h3 { font-size: 1.25rem !important; }
   .lapx-count { margin-left: auto !important; }
   .lapx-count strong { font-size: 2rem !important; }
