@@ -10502,6 +10502,22 @@ a.certificate-link.akamai-cert:hover::after {
   transition:color .25s ease, -webkit-text-fill-color .25s ease, text-shadow .25s ease !important;
 }
 
+
+/* Title (brand color + logo) above; kicker (white on hover) below */
+.tt-section .tt-head > div{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  gap:.15rem !important;
+}
+.tt-section .tt-stack .tt-title{
+  order:-1 !important;
+}
+.tt-section .tt-stack .tt-kicker{
+  order:0 !important;
+  margin-top:.05rem !important;
+}
+
 .tt-section .tt-head{
   display:flex !important;
   align-items:flex-start !important;
@@ -10639,12 +10655,12 @@ a.certificate-link.akamai-cert:hover::after {
   background:linear-gradient(180deg,#F15B2A 0%,#EC008C 100%) !important;
   box-shadow:0 0 18px rgba(241,91,42,.5) !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-kicker{
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-title{
   color:#F15B2A !important;
   -webkit-text-fill-color:#F15B2A !important;
   text-shadow:0 0 12px rgba(241,91,42,.4) !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-title{
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-kicker{
   color:var(--bp-link-white,#f0eff4) !important;
   -webkit-text-fill-color:var(--bp-link-white,#f0eff4) !important;
   text-shadow:0 0 10px rgba(240,239,244,.35) !important;
@@ -10674,12 +10690,12 @@ a.certificate-link.akamai-cert:hover::after {
   background:linear-gradient(180deg,#3A10E5 0%,#1a0a8f 100%) !important;
   box-shadow:0 0 18px rgba(58,16,229,.5) !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-kicker{
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-title{
   color:#3A10E5 !important;
   -webkit-text-fill-color:#3A10E5 !important;
   text-shadow:0 0 12px rgba(58,16,229,.4) !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-title{
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-kicker{
   color:var(--bp-link-white,#f0eff4) !important;
   -webkit-text-fill-color:var(--bp-link-white,#f0eff4) !important;
   text-shadow:0 0 10px rgba(240,239,244,.35) !important;
@@ -10709,12 +10725,12 @@ a.certificate-link.akamai-cert:hover::after {
   background:linear-gradient(180deg,#A435F0 0%,#6b21a8 100%) !important;
   box-shadow:0 0 18px rgba(164,53,240,.5) !important;
 }
-.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kicker{
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-title{
   color:#A435F0 !important;
   -webkit-text-fill-color:#A435F0 !important;
   text-shadow:0 0 12px rgba(164,53,240,.4) !important;
 }
-.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-title{
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kicker{
   color:var(--bp-link-white,#f0eff4) !important;
   -webkit-text-fill-color:var(--bp-link-white,#f0eff4) !important;
   text-shadow:0 0 10px rgba(240,239,244,.35) !important;
@@ -10771,7 +10787,7 @@ a.certificate-link.akamai-cert:hover::after {
   background:url("https://cdn.simpleicons.org/codecademy/FFFFFF") center / contain no-repeat !important;
 }
 .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title::before{
-  background:url("https://cdn.simpleicons.org/udemy/A435F0") center / contain no-repeat !important;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23A435F0' d='M12 2.5c-1.2 0-2.2.7-2.6 1.7L7.5 9.2h9L14.6 4.2C14.2 3.2 13.2 2.5 12 2.5z'/%3E%3Cpath fill='%23FFFFFF' d='M6 10.5v4.2c0 3.3 2.7 6 6 6s6-2.7 6-6v-4.2h-2.4v4.2c0 2-1.6 3.6-3.6 3.6s-3.6-1.6-3.6-3.6v-4.2H6z'/%3E%3C/svg%3E") center / contain no-repeat !important;
 }
 .tt-section .certificates-card:hover h3::before,
 .tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-title::before,
