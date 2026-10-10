@@ -10503,20 +10503,6 @@ a.certificate-link.akamai-cert:hover::after {
 }
 
 
-/* Title (brand color + logo) above; kicker (white on hover) below */
-.tt-section .tt-head > div{
-  display:flex !important;
-  flex-direction:column !important;
-  align-items:flex-start !important;
-  gap:.15rem !important;
-}
-.tt-section .tt-stack .tt-title{
-  order:-1 !important;
-}
-.tt-section .tt-stack .tt-kicker{
-  order:0 !important;
-  margin-top:.05rem !important;
-}
 
 .tt-section .tt-head{
   display:flex !important;
@@ -10525,6 +10511,24 @@ a.certificate-link.akamai-cert:hover::after {
   gap:.75rem !important;
   margin:0 0 .55rem !important;
 }
+
+/* Company name row (kicker + logo) reads like Coursera h3; description title is secondary */
+.tt-section .tt-stack .tt-kicker{
+  font-size:.95rem !important;
+  font-weight:800 !important;
+  letter-spacing:.04em !important;
+  text-transform:uppercase !important;
+  line-height:1.25 !important;
+  margin:0 0 .2rem 0 !important;
+}
+.tt-section .tt-stack .tt-title{
+  font-size:.88rem !important;
+  font-weight:600 !important;
+  line-height:1.25 !important;
+  margin:0 !important;
+  letter-spacing:0 !important;
+}
+
 .tt-section .tt-kicker{
   display:block !important;
   font-size:.62rem !important;
@@ -10655,12 +10659,12 @@ a.certificate-link.akamai-cert:hover::after {
   background:linear-gradient(180deg,#F15B2A 0%,#EC008C 100%) !important;
   box-shadow:0 0 18px rgba(241,91,42,.5) !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-title{
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-kicker{
   color:#F15B2A !important;
   -webkit-text-fill-color:#F15B2A !important;
   text-shadow:0 0 12px rgba(241,91,42,.4) !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-kicker{
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-title{
   color:var(--bp-link-white,#f0eff4) !important;
   -webkit-text-fill-color:var(--bp-link-white,#f0eff4) !important;
   text-shadow:0 0 10px rgba(240,239,244,.35) !important;
@@ -10690,12 +10694,12 @@ a.certificate-link.akamai-cert:hover::after {
   background:linear-gradient(180deg,#3A10E5 0%,#1a0a8f 100%) !important;
   box-shadow:0 0 18px rgba(58,16,229,.5) !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-title{
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-kicker{
   color:#3A10E5 !important;
   -webkit-text-fill-color:#3A10E5 !important;
   text-shadow:0 0 12px rgba(58,16,229,.4) !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-kicker{
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-title{
   color:var(--bp-link-white,#f0eff4) !important;
   -webkit-text-fill-color:var(--bp-link-white,#f0eff4) !important;
   text-shadow:0 0 10px rgba(240,239,244,.35) !important;
@@ -10725,12 +10729,12 @@ a.certificate-link.akamai-cert:hover::after {
   background:linear-gradient(180deg,#A435F0 0%,#6b21a8 100%) !important;
   box-shadow:0 0 18px rgba(164,53,240,.5) !important;
 }
-.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-title{
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kicker{
   color:#A435F0 !important;
   -webkit-text-fill-color:#A435F0 !important;
   text-shadow:0 0 12px rgba(164,53,240,.4) !important;
 }
-.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kicker{
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-title{
   color:var(--bp-link-white,#f0eff4) !important;
   -webkit-text-fill-color:var(--bp-link-white,#f0eff4) !important;
   text-shadow:0 0 10px rgba(240,239,244,.35) !important;
@@ -10763,9 +10767,9 @@ a.certificate-link.akamai-cert:hover::after {
   transition:opacity .25s ease, filter .25s ease !important;
   pointer-events:none !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-title::before,
-.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-title::before,
-.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title::before{
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-kicker::before,
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-kicker::before,
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker::before{
   content:"" !important;
   display:inline-block !important;
   width:1.55em !important;
@@ -10777,22 +10781,30 @@ a.certificate-link.akamai-cert:hover::after {
   transition:opacity .25s ease, filter .25s ease !important;
   pointer-events:none !important;
 }
+/* clear any leftover title logos on these three */
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-title::before,
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-title::before,
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker::before{
+  content:none !important;
+  display:none !important;
+  background:none !important;
+}
 .tt-section .certificates-card h3::before{
   background:url("https://cdn.simpleicons.org/coursera/0056D2") center / contain no-repeat !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-title::before{
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-kicker::before{
   background:url("https://cdn.simpleicons.org/pluralsight/F15B2A") center / contain no-repeat !important;
 }
-.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-title::before{
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-kicker::before{
   background:url("https://cdn.simpleicons.org/codecademy/FFFFFF") center / contain no-repeat !important;
 }
-.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title::before{
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23A435F0' d='M12 2.5c-1.2 0-2.2.7-2.6 1.7L7.5 9.2h9L14.6 4.2C14.2 3.2 13.2 2.5 12 2.5z'/%3E%3Cpath fill='%23FFFFFF' d='M6 10.5v4.2c0 3.3 2.7 6 6 6s6-2.7 6-6v-4.2h-2.4v4.2c0 2-1.6 3.6-3.6 3.6s-3.6-1.6-3.6-3.6v-4.2H6z'/%3E%3C/svg%3E") center / contain no-repeat !important;
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker::before{
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23A435F0' d='M12 1.8L7.2 7.2h2.6L12 4.4l2.2 2.8h2.6L12 1.8z'/%3E%3Cpath fill='%23FFFFFF' d='M7.2 8.5h2.3v6.2c0 1.4 1.1 2.5 2.5 2.5s2.5-1.1 2.5-2.5V8.5h2.3v6.2c0 2.7-2.1 4.8-4.8 4.8s-4.8-2.1-4.8-4.8V8.5z'/%3E%3C/svg%3E") center / contain no-repeat !important;
 }
 .tt-section .certificates-card:hover h3::before,
-.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-title::before,
-.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-title::before,
-.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-title::before{
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-kicker::before,
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-kicker::before,
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kicker::before{
   opacity:1 !important;
   filter:none !important;
 }
