@@ -15137,34 +15137,103 @@ html body .profile-matrix .matrix-grid:has(.matrix-card.open) .matrix-card:not(.
 
 
 <style id="job-logo-15pct-boost">
-/* Professional employment logos — force 15% larger than original 60px/70px */
+/* =========================================================
+   Professional Experience job logos
+   Uniform box, object-fit contain, 15% larger than original
+   Original container ~70px / img ~60px  →  ~80.5px / ~69px
+   ========================================================= */
+
+/* Uniform logo column for all timeline job rows */
 html body .timeline-item .job-logo,
-html body .timeline-content.job-layout .job-logo,
-html body .timeline-enhanced .timeline-item .job-logo,
+html body .timeline-content.job-layout > .job-logo,
+html body .job-layout > .job-logo,
 html.desktop-resize-lock body .timeline-item .job-logo,
-html.desktop-resize-lock body .timeline-content.job-layout .job-logo{
-  flex: 0 0 clamp(55px, 10.35vw, 104px) !important;
-  width: clamp(55px, 10.35vw, 104px) !important;
-  min-width: clamp(55px, 10.35vw, 104px) !important;
-  max-width: clamp(55px, 10.35vw, 104px) !important;
+html.desktop-resize-lock body .timeline-content.job-layout > .job-logo{
+  flex: 0 0 80.5px !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  width: 80.5px !important;
+  min-width: 80.5px !important;
+  max-width: 80.5px !important;
+  height: 80.5px !important;
+  min-height: 80.5px !important;
+  max-height: 80.5px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
 }
+
+/* Every job logo image fills the same box, proportionally */
 html body .timeline-item .job-logo img,
-html body .timeline-content.job-layout .job-logo img,
-html body .timeline-enhanced .timeline-item .job-logo img,
+html body .timeline-content.job-layout > .job-logo img,
+html body .job-layout > .job-logo img,
 html body .timeline-item .job-logo .logo-img,
 html body .timeline-item .job-logo img.logo-img,
+html body .timeline-item .job-logo img.upcloud-logo,
+html body .timeline-item .job-logo img.crazylarry-logo,
+html body .timeline-item .job-logo img.rackspace-logo-fixed,
+html body .timeline-item .job-logo img.percona-logo-clean,
 html.desktop-resize-lock body .timeline-item .job-logo img,
-html.desktop-resize-lock body .timeline-content.job-layout .job-logo img{
-  width: clamp(48px, 8.05vw, 69px) !important;
-  height: clamp(48px, 8.05vw, 69px) !important;
+html.desktop-resize-lock body .timeline-content.job-layout > .job-logo img{
+  width: 69px !important;
+  height: 69px !important;
   max-width: 69px !important;
   max-height: 69px !important;
-  min-width: 48px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Nested logo wrappers (Percona etc.) also fill the same box */
+html body .timeline-item .job-logo > div,
+html body .timeline-item .job-logo .percona-logo-wrap{
+  width: 69px !important;
+  height: 69px !important;
+  max-width: 69px !important;
+  max-height: 69px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html body .timeline-item .job-logo > div img,
+html body .timeline-item .job-logo .percona-logo-wrap img{
+  width: 69px !important;
+  height: 69px !important;
+  max-width: 69px !important;
+  max-height: 69px !important;
   object-fit: contain !important;
 }
-/* Fixed-size fallback used in some layout locks */
-html body .timeline-item .job-logo{
-  flex-basis: 80.5px !important;
+
+@media (max-width: 640px){
+  html body .timeline-item .job-logo,
+  html body .timeline-content.job-layout > .job-logo,
+  html.desktop-resize-lock body .timeline-item .job-logo{
+    flex: 0 0 69px !important;
+    width: 69px !important;
+    min-width: 69px !important;
+    max-width: 69px !important;
+    height: 69px !important;
+  }
+  html body .timeline-item .job-logo img,
+  html body .timeline-item .job-logo .logo-img,
+  html.desktop-resize-lock body .timeline-item .job-logo img{
+    width: 58px !important;
+    height: 58px !important;
+    max-width: 58px !important;
+    max-height: 58px !important;
+  }
 }
 </style>
 
