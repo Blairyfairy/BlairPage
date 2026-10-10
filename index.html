@@ -11045,6 +11045,78 @@ a.certificate-link.akamai-cert:hover::after {
   transform: none !important;
 }
 
+
+/* =========================================================
+   PS / CC / Udemy text hierarchy (match Coursera readability)
+   TOP: feature title — brand color on hover
+   BOTTOM: [logo] BRAND · LABEL — white on hover
+   ========================================================= */
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-head > div,
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-head > div,
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-head > div{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  gap:.2rem !important;
+}
+/* feature title on top */
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-title,
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-title,
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title{
+  order:-1 !important;
+  font-family:"Source Sans 3","Source Sans Pro",system-ui,sans-serif !important;
+  font-size:1.15rem !important;
+  font-weight:800 !important;
+  line-height:1.2 !important;
+  margin:0 !important;
+  letter-spacing:0 !important;
+}
+/* brand name under title, logo sits left via ::before on kicker */
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"] .tt-kicker,
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"] .tt-kicker,
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker{
+  order:0 !important;
+  display:block !important;
+  font-family:"Source Sans 3","Source Sans Pro",system-ui,sans-serif !important;
+  font-size:.78rem !important;
+  font-weight:700 !important;
+  letter-spacing:.1em !important;
+  text-transform:uppercase !important;
+  margin:0 !important;
+  line-height:1.3 !important;
+}
+
+/* HOVER colors: title = brand color; kicker (brand name) = white */
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-title{
+  color:#F15B2A !important;
+  -webkit-text-fill-color:#F15B2A !important;
+  text-shadow:0 0 12px rgba(241,91,42,.4) !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-kicker{
+  color:var(--bp-link-white,#f0eff4) !important;
+  -webkit-text-fill-color:var(--bp-link-white,#f0eff4) !important;
+  text-shadow:0 0 10px rgba(240,239,244,.35) !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-title{
+  color:#3A10E5 !important;
+  -webkit-text-fill-color:#3A10E5 !important;
+  text-shadow:0 0 12px rgba(58,16,229,.4) !important;
+}
+.tt-section .tt-stack > a.tt-card[aria-label*="Codecademy"]:hover .tt-kicker{
+  color:var(--bp-link-white,#f0eff4) !important;
+  -webkit-text-fill-color:var(--bp-link-white,#f0eff4) !important;
+  text-shadow:0 0 10px rgba(240,239,244,.35) !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-title{
+  color:#A435F0 !important;
+  -webkit-text-fill-color:#A435F0 !important;
+  text-shadow:0 0 12px rgba(164,53,240,.4) !important;
+}
+.tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kicker{
+  color:var(--bp-link-white,#f0eff4) !important;
+  -webkit-text-fill-color:var(--bp-link-white,#f0eff4) !important;
+  text-shadow:0 0 10px rgba(240,239,244,.35) !important;
+}
 </style>
     </div>
   </div>
