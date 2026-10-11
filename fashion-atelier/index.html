@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blair's Atelier — Freedom, Beauty, Truth & Love</title>
-  <meta name="description" content="Blair's Atelier — Freedom, Beauty, Truth & Love. Luxury fashion intelligence: live wire, runway imagery, house cartography, market ledger, seasonal colour and horizon reads from maison to elevated outlet." />
+  <title>Blair's Atelier — Contemporary Luxury Intelligence</title>
+  <meta name="description" content="Blair's Atelier — Contemporary Luxury Intelligence. Luxury fashion intelligence: live wire, runway imagery, house cartography, market ledger, seasonal colour and horizon reads from maison to elevated outlet." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%232a1736'/><text x='50' y='68' font-family='Georgia,serif' font-size='48' fill='%23ffd28f' text-anchor='middle' font-weight='700'>BP</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -40,13 +40,13 @@
     <section id="hero" class="hero panel-like">
       <div class="hero-grid">
         <div class="title">
-          <p class="eyebrow">Freedom · Beauty · Truth · Love</p>
+          <p class="eyebrow">Contemporary luxury intelligence</p>
           <h1>Blair's <span>Atelier</span></h1>
           <p class="subtitle">
-            Freedom, Beauty, Truth &amp; Love. An editorial intelligence surface for contemporary luxury —
-            tracing maison codes, elevated diffusion, and the refined off-price corridor where desire
-            meets accessibility. Live fashion wire, open-licensed runway imagery, house cartography,
-            market ledger, seasonal colour doctrine, and a horizon of forward construction.
+            An editorial intelligence surface for contemporary luxury — mapping maison codes,
+            elevated diffusion and the refined off-price corridor. Live fashion wire, open-licensed
+            runway imagery, house cartography, market ledger, seasonal colour doctrine and a
+            forward construction horizon.
           </p>
           <div class="stats">
             <div class="stat"><strong id="liveClock">—</strong><small>Local time</small></div>
@@ -57,7 +57,7 @@
         <aside class="cover-card">
           <div class="cover-bg" id="heroBg"></div>
           <div class="cover-copy">
-            <h2>Freedom, Beauty, Truth &amp; Love</h2>
+            <h2>Desire, Craft &amp; Continuity</h2>
             <p>Maison restraint and expressive femininity; the long season and the short calendar; craft as the new scarcity — from couture ateliers to the elevated outlet floor.</p>
           </div>
         </aside>
@@ -109,6 +109,16 @@
       <div class="pulse-live" id="pulseLive"></div>
       <div class="chart-block" id="regionBars"></div>
       <div class="chart-block" id="categoryBars"></div>
+      <div class="pro-charts">
+        <div class="pro-chart-card">
+          <h3 class="chart-title">Regional posture</h3>
+          <canvas id="chartRegion" height="220"></canvas>
+        </div>
+        <div class="pro-chart-card">
+          <h3 class="chart-title">Category posture</h3>
+          <canvas id="chartCategory" height="220"></canvas>
+        </div>
+      </div>
     </section>
 
     <!-- HOUSES -->
@@ -159,10 +169,11 @@
 
 <footer class="foot">
       <p class="foot-brand">Blair's Atelier</p>
-      <p class="foot-note">Freedom, Beauty, Truth &amp; Love. A continuous editorial surface for luxury fashion intelligence — public fashion feeds, open-licensed runway imagery, and curated market reads. Attribution to source publications where headlines appear.</p>
+      <p class="foot-note">A continuous editorial surface for contemporary luxury intelligence — public fashion feeds, open-licensed runway imagery and curated market reads. Attribution to source publications where headlines appear.</p>
     </footer>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="atelier.js"></script>
 </body>
 </html>

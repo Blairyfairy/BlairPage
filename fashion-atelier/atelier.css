@@ -704,6 +704,60 @@ a:hover { color: var(--rose); text-decoration: underline; }
   margin: 0;
 }
 
+
+.pro-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 22px;
+}
+.pro-chart-card {
+  border-radius: 24px;
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(255,255,255,.72);
+  box-shadow: var(--shadow-soft);
+  padding: 20px 18px 16px;
+}
+@media (max-width: 700px) {
+  .pro-charts { grid-template-columns: 1fr; }
+}
+
+#toTop {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 300;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #c9b7dd;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 400;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(109, 59, 142, 0.28);
+  transition: transform 0.22s ease, opacity 0.25s, box-shadow 0.22s, background 0.2s;
+  opacity: 0;
+  pointer-events: none;
+  line-height: 1;
+  padding: 0;
+}
+#toTop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+#toTop:hover {
+  background: #b8a3d4;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(109, 59, 142, 0.35);
+  color: #ffffff;
+  filter: none;
+}
+
 /* ─── FOOTER ─── */
 .foot { margin-top: 36px; text-align: center; padding: 20px 12px 8px; }
 .foot-brand {
@@ -717,37 +771,9 @@ a:hover { color: var(--rose); text-decoration: underline; }
 }
 
 /* ─── PURPLE CHEVRON TO TOP ─── */
-#toTop {
-  position: fixed;
-  right: 22px;
-  bottom: 22px;
-  z-index: 300;
-  width: 54px; height: 54px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.4);
-  background: linear-gradient(145deg, #2a1736 0%, #5d3b72 45%, #6d3b8e 100%);
-  color: #ffd28f;
-  font-size: 1.05rem;
-  font-weight: 800;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 14px 36px rgba(42,23,54,.5), inset 0 1px 0 rgba(255,255,255,.15);
-  transition: transform .22s ease, filter .2s ease, opacity .25s, box-shadow .22s;
-  opacity: 0;
-  pointer-events: none;
-  line-height: 1;
-  letter-spacing: 0;
-}
-#toTop.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-#toTop:hover {
-  filter: brightness(1.1);
-  transform: translateY(-4px);
-  box-shadow: 0 18px 42px rgba(42,23,54,.55), inset 0 1px 0 rgba(255,255,255,.2);
-  color: #fff;
-}
+
+
+
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1100px) {
@@ -779,6 +805,26 @@ a:hover { color: var(--rose); text-decoration: underline; }
   .bar-row { grid-template-columns: 90px 1fr 40px; }
 }
 @media (max-width: 560px) {
+  
+.pro-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 22px;
+}
+.pro-chart-card {
+  border-radius: 24px;
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(255,255,255,.72);
+  box-shadow: var(--shadow-soft);
+  padding: 20px 18px 16px;
+}
+@media (max-width: 700px) {
+  .pro-charts { grid-template-columns: 1fr; }
+}
+
+#toTop { right: 14px; bottom: 14px; width: 44px; height: 44px; font-size: 0.8rem; }
+
   .page { width: min(100% - 20px, 1180px); }
   .panel, .hero { border-radius: 24px; padding: 18px; }
   .fashion-topline-nav { grid-template-columns: 1fr 1fr; }
@@ -787,5 +833,5 @@ a:hover { color: var(--rose); text-decoration: underline; }
   .mood-cell:nth-child(n) { grid-column: span 1 !important; }
   .section-title { font-size: 2.15rem; }
   .cover-card { min-height: 360px; }
-  #toTop { right: 14px; bottom: 14px; width: 48px; height: 48px; }
+  
 }

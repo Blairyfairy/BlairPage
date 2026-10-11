@@ -694,6 +694,68 @@
     fetchPulseLive();
   }
 
+
+  function renderProCharts() {
+    if (typeof Chart === "undefined") return;
+    var plum = "#5d3b72";
+    var rose = "#b86b8f";
+    var gold = "#c4a484";
+    var cobalt = "#2175a9";
+    var deep = "#2a1736";
+    var mint = "#2a9d8f";
+
+    function makeBar(id, labels, data) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      new Chart(el, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: [plum, rose, cobalt, mint, gold, deep, rose, plum],
+            borderWidth: 0,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: deep,
+              titleFont: { family: "Inter", weight: "700" },
+              bodyFont: { family: "Inter" }
+            }
+          },
+          scales: {
+            x: {
+              ticks: { font: { family: "Inter", size: 10, weight: "600" }, color: "#241825" },
+              grid: { display: false }
+            },
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: { font: { family: "Inter", size: 10 }, color: "rgba(36,24,37,.5)" },
+              grid: { color: "rgba(93,59,114,.12)" }
+            }
+          }
+        }
+      });
+    }
+
+    makeBar(
+      "chartRegion",
+      ["US", "China", "Europe", "SE Asia", "Resale", "Leather", "Outlet", "Beauty"],
+      [72, 68, 38, 78, 88, 82, 65, 84]
+    );
+    makeBar(
+      "chartCategory",
+      ["Bags", "RTW", "Footwear", "Beauty", "Jewellery", "Outerwear"],
+      [86, 48, 52, 80, 58, 42]
+    );
+  }
+
   function setupToTop() {
     var btn = document.getElementById("toTop");
     if (!btn) {
@@ -733,6 +795,7 @@
     tickClock();
     setInterval(tickClock, 30000);
     setupToTop();
+    renderProCharts();
     var btn = document.getElementById("refreshAll");
     if (btn) btn.addEventListener("click", refreshAll);
   }
