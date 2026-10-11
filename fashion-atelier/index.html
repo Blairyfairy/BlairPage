@@ -2,265 +2,142 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#291528" />
-  <meta name="description" content="Blair's Fashion Atelier — look analysis, press radar, brand intelligence, and seasonal forecasts." />
-  <title>Blair's Fashion Atelier · Trend Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blair · Fashion Atelier</title>
+  <meta name="description" content="Live fashion intelligence — mood, market, materials, and forward signals." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23111111'/><text x='50' y='68' font-family='Georgia,serif' font-size='52' fill='%23f5f0eb' text-anchor='middle' font-weight='600'>BP</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="atelier.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%29291528'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='14' fill='%23f0eff4' font-family='system-ui' font-weight='700'%3EBA%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
-  <header class="atelier-top">
-    <div class="brand-lockup">
-      <div class="brand-mark" aria-hidden="true">BA</div>
-      <div class="brand-text">
-        <strong>Blair's Fashion Atelier</strong>
-        <span>Trend lab · Brand intelligence</span>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="top">
+    <nav class="nav">
+      <a class="nav-brand" href="#hero">Atelier</a>
+      <div class="nav-links">
+        <a href="#mood">Mood</a>
+        <a href="#signals">Signals</a>
+        <a href="#brands">Houses</a>
+        <a href="#market">Market</a>
+        <a href="#forecast">Horizon</a>
+        <a href="#materials">Materials</a>
       </div>
-    </div>
-    <nav class="top-nav" aria-label="Atelier">
-      <a href="#analyzer">Analyze</a>
-      <a href="#signals">Signals</a>
-      <a href="#brands">Brands</a>
-      <a href="#feed">Press</a>
-      <a href="#forecast">Forecast</a>
-      <a class="home-chip" href="../index.html">← Portfolio Home</a>
+      <button class="nav-refresh" id="refreshAll" type="button" title="Refresh live layers">↻</button>
     </nav>
   </header>
 
-  <section class="hero">
-    <div class="hero-kicker">Fashion trend lab</div>
-    <h1>Read the season <em>as it forms</em>.</h1>
-    <p class="hero-lead">
-      Drop a look, pull a palette, and cross it with live fashion press —
-      then walk the house map from Hermès to outlet floors and the independents still climbing.
-    </p>
-    <div class="hero-stats">
-      <div class="stat-pill"><span class="dot" aria-hidden="true"></span><span id="liveStamp">Live</span></div>
-      <div class="stat-pill">Press · palette · brands</div>
-      <div class="stat-pill">Luxury → outlet → emerging</div>
-    </div>
-  </section>
-
-  <main class="app-shell">
-
-    <section class="card" id="analyzer" aria-labelledby="analyzer-title">
-      <div class="card-head">
-        <div>
-          <h2 id="analyzer-title">Look analyzer</h2>
-          <p>Upload a shot — colors, mood, and a short direction stay on your device</p>
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Live fashion intelligence · Updated continuously</p>
+        <h1>Fashion<br /><em>Atelier</em></h1>
+        <p class="lede">A working surface for mood, market moves, material shifts, and the quiet signals that shape the next season.</p>
+        <div class="hero-meta">
+          <span id="liveClock"></span>
+          <span class="dot">·</span>
+          <span id="seasonLabel">Autumn / Winter 26–27</span>
         </div>
-        <span class="badge">On-device</span>
       </div>
+      <div class="scroll-hint">Scroll the board</div>
+    </section>
 
-      <div class="upload-zone" id="uploadZone">
-        <input type="file" id="fileInput" accept="image/*" aria-label="Upload fashion image" />
-        <div class="upload-icon" aria-hidden="true">◇</div>
-        <strong>Drop a runway, street, or product shot</strong>
-        <span>PNG, JPG, WEBP</span>
+    <!-- SEASON STRIP -->
+    <section class="season-strip" aria-label="Season markers">
+      <div class="strip-inner" id="seasonStrip">
+        <div class="chip active">AW26</div>
+        <div class="chip">SS27</div>
+        <div class="chip">Transitional</div>
+        <div class="chip">Resort</div>
+        <div class="chip">Pre-Fall</div>
+        <div class="chip">Couture</div>
       </div>
+    </section>
 
-      <div class="btn-row">
-        <button type="button" class="btn btn-primary" id="sampleAnalyze">Try a sample look</button>
+    <!-- MOOD BOARD -->
+    <section id="mood" class="section mood">
+      <div class="section-head">
+        <h2>Mood Board</h2>
+        <p>Live visual field · images refresh with organic seeds</p>
       </div>
+      <div class="mood-grid" id="moodGrid">
+        <!-- filled by JS -->
+      </div>
+    </section>
 
-      <div class="preview-row" id="previewRow">
-        <div class="preview-frame">
-          <img id="previewImg" alt="Look preview" />
-        </div>
-        <div class="analysis-panel">
-          <div>
-            <div class="section-label">Palette</div>
-            <div class="palette-row" id="paletteRow"></div>
-          </div>
-          <div class="insight-grid">
-            <div class="insight-tile"><div class="t">Mood</div><div class="v" id="tileMood">—</div></div>
-            <div class="insight-tile"><div class="t">Season</div><div class="v" id="tileSeason">—</div></div>
-          </div>
-          <div class="insight-block" id="insightText">Upload an image to open a reading.</div>
-          <div class="insight-block"><strong>Direction</strong> — <span id="insightDirection">—</span></div>
-          <div class="tag-cloud" id="insightTags"></div>
+    <!-- SIGNALS -->
+    <section id="signals" class="section signals">
+      <div class="section-head">
+        <h2>Active Signals</h2>
+        <p>Organic ideas currently moving through the culture</p>
+      </div>
+      <div class="signal-grid" id="signalGrid">
+        <!-- filled by JS -->
+      </div>
+    </section>
+
+    <!-- BRAND MAP -->
+    <section id="brands" class="section brands">
+      <div class="section-head">
+        <h2>House Map</h2>
+        <p>Where value and velocity currently sit</p>
+      </div>
+      <div class="brand-tiers" id="brandTiers">
+        <!-- filled by JS -->
+      </div>
+    </section>
+
+    <!-- MARKET -->
+    <section id="market" class="section market">
+      <div class="section-head">
+        <h2>Market Notes</h2>
+        <p>Group dynamics · outlet resilience · M&amp;A tone · values shift</p>
+      </div>
+      <div class="market-layout">
+        <article class="market-card primary" id="marketPrimary">
+          <!-- filled by JS -->
+        </article>
+        <div class="market-side" id="marketSide">
+          <!-- filled by JS -->
         </div>
       </div>
     </section>
 
-    <section class="card" id="signals" aria-labelledby="signals-title">
-      <div class="card-head">
-        <div>
-          <h2 id="signals-title">Signal board</h2>
-          <p>Heat, retail readiness, runway echo, and fatigue risk from current headlines</p>
-        </div>
-        <span class="badge">Live model</span>
+    <!-- FORECAST -->
+    <section id="forecast" class="section forecast">
+      <div class="section-head">
+        <h2>Horizon</h2>
+        <p>Longer-range movements · 6–18 month view</p>
       </div>
-      <div class="signal-grid">
-        <div class="signal-card">
-          <div class="label">Social heat</div>
-          <div class="value" id="valSocial">—</div>
-          <div class="meta">Color &amp; micro-trend volume</div>
-          <div class="meter"><span id="sigSocial" style="width:0%"></span></div>
-        </div>
-        <div class="signal-card">
-          <div class="label">Retail readiness</div>
-          <div class="value" id="valRetail">—</div>
-          <div class="meta">Silhouette + sustainability</div>
-          <div class="meter"><span id="sigRetail" style="width:0%"></span></div>
-        </div>
-        <div class="signal-card">
-          <div class="label">Runway echo</div>
-          <div class="value" id="valRunway">—</div>
-          <div class="meta">Press coverage density</div>
-          <div class="meter"><span id="sigRunway" style="width:0%"></span></div>
-        </div>
-        <div class="signal-card">
-          <div class="label">Fatigue risk</div>
-          <div class="value" id="valRisk">—</div>
-          <div class="meta">Lower is a healthier cycle</div>
-          <div class="meter"><span id="sigRisk" style="width:0%"></span></div>
-        </div>
-      </div>
-
-      <div style="margin-top:1.2rem;">
-        <div class="section-label">Keyword radar</div>
-        <div class="radar-wrap" id="radarWrap">
-          <span class="radar-tag base">Loading…</span>
-        </div>
-      </div>
-
-      <div style="margin-top:1.2rem;">
-        <div class="section-label">Season strip</div>
-        <div class="season-strip">
-          <div class="season-chip">
-            <div class="sc-label">Color of the moment</div>
-            <div class="sc-value">Butter yellow</div>
-            <div class="sc-note">Warm neutrals and soft saturation across editorial and retail</div>
-          </div>
-          <div class="season-chip">
-            <div class="sc-label">Accent</div>
-            <div class="sc-value">Cherry red</div>
-            <div class="sc-note">Lip, bag, and heel accents cutting through neutrals</div>
-          </div>
-          <div class="season-chip">
-            <div class="sc-label">Silhouette</div>
-            <div class="sc-value">Soft structure</div>
-            <div class="sc-note">Tailoring with ease — not stiff, not sloppy</div>
-          </div>
-          <div class="season-chip">
-            <div class="sc-label">Material</div>
-            <div class="sc-value">Texture first</div>
-            <div class="sc-note">Matte leather, craft denim, sheer layering</div>
-          </div>
-        </div>
-        <div class="fabric-row">
-          <span class="fabric-pill">Silk</span>
-          <span class="fabric-pill">Matte leather</span>
-          <span class="fabric-pill">Craft denim</span>
-          <span class="fabric-pill">Crochet</span>
-          <span class="fabric-pill">Sheer mesh</span>
-          <span class="fabric-pill">Regenerative cotton</span>
-        </div>
+      <div class="forecast-track" id="forecastTrack">
+        <!-- filled by JS -->
       </div>
     </section>
 
-    <section class="card span-full" id="brands" aria-labelledby="brands-title">
-      <div class="card-head">
-        <div>
-          <h2 id="brands-title">Brand map</h2>
-          <p>High luxury, mid-tier, outlet and factory, and the independents still building heat</p>
-        </div>
-        <span class="badge">Intelligence</span>
+    <!-- MATERIALS -->
+    <section id="materials" class="section materials">
+      <div class="section-head">
+        <h2>Materials &amp; Construction</h2>
+        <p>Fabrics and finishes gaining weight</p>
       </div>
-      <div class="tier-tabs" role="tablist" aria-label="Brand tiers">
-        <button type="button" class="chip active" data-tier="luxury">High luxury</button>
-        <button type="button" class="chip" data-tier="mid">Mid-tier</button>
-        <button type="button" class="chip" data-tier="outlet">Outlet &amp; off-price</button>
-        <button type="button" class="chip" data-tier="emerging">Emerging &amp; independent</button>
-      </div>
-      <div class="brand-grid" id="brandGrid"></div>
-    </section>
-
-    <section class="card span-full" id="deals" aria-labelledby="deals-title">
-      <div class="card-head">
-        <div>
-          <h2 id="deals-title">House notes &amp; market moves</h2>
-          <p>Group dynamics, outlet resilience, emerging culture plays, and values showing up in product</p>
-        </div>
-        <span class="badge">Market</span>
-      </div>
-      <div class="deal-list" id="dealList"></div>
-    </section>
-
-    <section class="card span-full" id="feed" aria-labelledby="feed-title">
-      <div class="card-head">
-        <div>
-          <h2 id="feed-title">Fashion press</h2>
-          <p>Vogue · Business of Fashion · Fashionista · Who What Wear · Highsnobiety</p>
-        </div>
-        <button type="button" class="btn" id="refreshFeed" title="Refresh">↻ Refresh</button>
-      </div>
-      <div class="feed-toolbar" role="tablist" aria-label="Press filters">
-        <button type="button" class="chip active" data-filter="all">All</button>
-        <button type="button" class="chip" data-filter="runway">Runway</button>
-        <button type="button" class="chip" data-filter="street">Street &amp; culture</button>
-        <button type="button" class="chip" data-filter="beauty">Beauty &amp; style</button>
-      </div>
-      <div class="feed-list" id="feedList" aria-live="polite">
-        <div class="feed-loading">Opening press…</div>
+      <div class="mat-grid" id="matGrid">
+        <!-- filled by JS -->
       </div>
     </section>
 
-    <section class="card" id="mood" aria-labelledby="mood-title">
-      <div class="card-head">
-        <div>
-          <h2 id="mood-title">Visual mood board</h2>
-          <p>Editorial, street, and detail references</p>
-        </div>
-        <button type="button" class="btn" id="refreshMood">↻ Shuffle</button>
+    <!-- FOOTER -->
+    <footer class="foot">
+      <div class="foot-inner">
+        <p class="foot-brand">Blair · Fashion Atelier</p>
+        <p class="foot-note">Built as a living portfolio surface. Content layers refresh from public image sources and curated market signals. No credentials stored or referenced.</p>
       </div>
-      <div class="mood-grid" id="moodGrid"></div>
-    </section>
-
-    <section class="card" id="forecast" aria-labelledby="forecast-title">
-      <div class="card-head">
-        <div>
-          <h2 id="forecast-title">Horizon forecast</h2>
-          <p>Near term through the next two years</p>
-        </div>
-        <span class="badge">Atelier</span>
-      </div>
-      <div class="timeline-pred" id="predList"></div>
-    </section>
-
-    <section class="card span-full" aria-labelledby="method-title">
-      <div class="card-head">
-        <div>
-          <h2 id="method-title">How the lab works</h2>
-          <p>Private on the look side · open on the press side</p>
-        </div>
-      </div>
-      <div class="method-grid">
-        <p><strong>Looks</strong> — Colors are read in the browser. Nothing you upload is sent away.</p>
-        <p><strong>Press</strong> — Headlines from major fashion titles feed the keyword radar and signal meters.</p>
-        <p><strong>Brands</strong> — High luxury, mid-tier, outlet and factory, and emerging independents are mapped with short house notes and market context.</p>
-        <p><strong>Forecast</strong> — Seasonal narrative blends a fixed calendar with pressure from what the press is actually saying.</p>
-        <p>
-          <a href="../index.html">Portfolio home</a> ·
-          <a href="https://blairyfairy.github.io/BlairPage/Blairs_Picks.html" target="_blank" rel="noopener">Blair’s Picks</a> ·
-          <a href="https://www.linkedin.com/in/blairpagedrakemccoy/" target="_blank" rel="noopener">LinkedIn</a>
-        </p>
-      </div>
-    </section>
+    </footer>
   </main>
 
-  <footer class="atelier-footer">
-    <div>Blair Page · Fashion Atelier · Inside LVMH (In Training) · AWS Certified</div>
-    <div>
-      <a href="../index.html">← Portfolio</a>
-      ·
-      <a href="https://github.com/Blairyfairy" target="_blank" rel="noopener">GitHub</a>
-    </div>
-  </footer>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="atelier.js" defer></script>
+  <script src="atelier.js"></script>
 </body>
 </html>

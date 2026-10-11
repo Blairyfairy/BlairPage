@@ -1,42 +1,27 @@
-# Blair's Fashion Atelier
+# Fashion Atelier
 
-Static fashion trend lab for the Blair Page portfolio.
+A live portfolio surface for fashion intelligence — mood, market, materials, and forward signals.
 
-## Deploy
+## Contents
 
-Place `fashion-atelier/` next to your portfolio `index.html`, then push to GitHub Pages.
+- `index.html` — structure
+- `atelier.css` — layout & visual system
+- `atelier.js` — live image layers + curated market / trend content
 
-Live path: `https://blairyfairy.github.io/BlairPage/fashion-atelier/`
+## Use
 
-## Includes
+1. Place the `fashion-atelier/` folder next to your portfolio `index.html` (or wherever you host static pages).
+2. Open `fashion-atelier/index.html` or serve the folder.
+3. Push to GitHub Pages (or any static host). Example path:
+   `https://blairyfairy.github.io/BlairPage/fashion-atelier/`
 
-- Look analyzer (on-device palette + mood)
-- Signal board and keyword radar
-- Brand map: high luxury, mid-tier, outlet & off-price, emerging independents
-- House notes and market moves
-- Fashion press radar
-- Visual mood board
-- Horizon forecast
+## Design notes
 
-## Badge for portfolio index
+- **No top-bar logo mark** — wordmark only in the nav; favicon retains the BP monogram.
+- **Live images** — every visual is pulled from a public image endpoint using seeded URLs (no static image list, no credentials, no key language anywhere in the package).
+- **Market & trend layers** — house map, active signals, 2026 outlook, horizon cards, and materials are written as editorial content aligned with current luxury and fashion discourse.
+- **Refresh** — the ↻ control in the nav reseeds image layers for a fresh visual field.
 
-Paste the Fashion Atelier badge into the same `.brand-badge-row` as Linktree / Gardening (full URL version):
+## Quality bar
 
-```html
-<a href="https://blairyfairy.github.io/BlairPage/fashion-atelier/"
-   rel="noopener noreferrer"
-   class="badge-item compact-badge"
-   title="Blair's Fashion Atelier">
-  <span class="icon-wrap">
-    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M22 14 L26 22 L20 28 L24 52 H40 L44 28 L38 22 L42 14 Z" fill="none" stroke="#9e829c" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M28 14 C30 18 34 18 36 14" fill="none" stroke="#9e829c" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="32" cy="34" r="2.4" fill="#f0eff4"/>
-    </svg>
-  </span>
-  <span class="copy">
-    <span class="label">Fashion</span>
-    <span class="sub">Atelier</span>
-  </span>
-</a>
-```
+Built as a dense, full-viewport, high-signal experience suitable for a senior fashion / brand / strategy portfolio. Typography, spacing, and information architecture are tuned for clarity and presence.
