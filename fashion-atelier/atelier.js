@@ -8,7 +8,6 @@
   var OV = "https://api.openverse.org/v1/images/";
   var UA = { headers: { Accept: "application/json" } };
 
-  /* Fashion-specific Openverse queries — luxury → street → textile */
   var FASHION_QUERIES = [
     "fashion runway model",
     "haute couture dress",
@@ -64,6 +63,18 @@
       title: "Authorship over noise",
       body: "Creative-director transitions remain concentrated. Houses that pair a coherent code with visible craft and controlled distribution recover desire more reliably — whether historic maison or scaled independent.",
       meta: "House leadership"
+    },
+    {
+      tag: "Colour",
+      title: "Saturated return",
+      body: "After a muted cycle, blocks of red, cobalt, turquoise and antique gold re-enter the conversation — as accent and as full silhouette — from couture colour stories to elevated outlet discovery.",
+      meta: "Colour doctrine · AW26–SS27"
+    },
+    {
+      tag: "Client",
+      title: "Younger affluent entry",
+      body: "Southeast Asia, the Middle East and pockets of the US see first-time luxury clients entering through leather goods, beauty adjacency and elevated off-price — a pipeline maisons increasingly design for.",
+      meta: "Demand architecture"
     }
   ];
 
@@ -76,7 +87,10 @@
         ["Chanel", "Selective growth"],
         ["Louis Vuitton", "Creative continuity"],
         ["Dior", "Reset in progress"],
-        ["The Row", "Quiet authority"]
+        ["The Row", "Quiet authority"],
+        ["Balenciaga", "Code recalibration"],
+        ["Valentino", "Romantic precision"],
+        ["Givenchy", "New authorship"]
       ]
     },
     {
@@ -87,7 +101,10 @@
         ["Gucci", "Turnaround phase"],
         ["Loewe", "Craft-led desire"],
         ["Bottega Veneta", "Texture language"],
-        ["Celine", "Refined codes"]
+        ["Celine", "Refined codes"],
+        ["Prada", "Intellectual chic"],
+        ["Miu Miu", "Youthful velocity"],
+        ["Burberry", "British recalibration"]
       ]
     },
     {
@@ -98,7 +115,8 @@
         ["Off-price floors", "Margin protection"],
         ["Sample & archive", "Collector interest"],
         ["Authorised resale", "Journey extension"],
-        ["Private client sales", "Retention"]
+        ["Private client sales", "Retention"],
+        ["Seasonal clearance suites", "Controlled dilution"]
       ]
     },
     {
@@ -109,7 +127,8 @@
         ["Direct-to-client", "Service as luxury"],
         ["Material-first labels", "Fabric narrative"],
         ["Gender-fluid houses", "Silhouette play"],
-        ["Regional voices", "Beyond the capital"]
+        ["Regional voices", "Beyond the capital"],
+        ["Archive-led labels", "Long wardrobe logic"]
       ]
     }
   ];
@@ -137,6 +156,10 @@
     {
       title: "Capital remains selective",
       body: "Attention concentrates on assets with clear creative authorship, controllable distribution and legible craft — historic houses and scaled independents alike."
+    },
+    {
+      title: "Beauty as adjacency",
+      body: "Fragrance and beauty continue to outperform pure apparel for several groups — a lower-ticket entry that still carries maison codes and feeds the longer client relationship."
     }
   ];
 
@@ -175,6 +198,7 @@
     "Studio still", "Colour block", "Detail crop", "Movement", "Archive mood"
   ];
 
+  /* Relative strength charts — editorial indices, not financial advice */
   var GROWTH_BARS = [
     { label: "US luxury", pct: 72 },
     { label: "China recovery", pct: 68 },
@@ -182,7 +206,35 @@
     { label: "SE Asia / ME", pct: 78 },
     { label: "Resale corridor", pct: 88 },
     { label: "Leather goods", pct: 82 },
-    { label: "Elevated outlet", pct: 65 }
+    { label: "Elevated outlet", pct: 65 },
+    { label: "Beauty adjacency", pct: 84 }
+  ];
+
+  var CATEGORY_BARS = [
+    { label: "Handbags & SLG", pct: 86 },
+    { label: "Ready-to-wear", pct: 48 },
+    { label: "Footwear", pct: 52 },
+    { label: "Fragrance & beauty", pct: 80 },
+    { label: "Jewellery & watches", pct: 58 },
+    { label: "Outerwear", pct: 42 }
+  ];
+
+  var COLOUR_THEME = [
+    { name: "Antique gold", hex: "#c4a484", note: "Hardware & accent" },
+    { name: "Deep plum", hex: "#5d3b72", note: "Evening & brand" },
+    { name: "Cobalt", hex: "#2175a9", note: "Statement block" },
+    { name: "Rose", hex: "#b86b8f", note: "Femininity return" },
+    { name: "Turquoise", hex: "#2a9d8f", note: "Seasonal pop" },
+    { name: "Obsidian", hex: "#170e20", note: "Structure & base" },
+    { name: "Ivory", hex: "#f5f0eb", note: "Quiet luxury ground" },
+    { name: "Crimson", hex: "#9b1b30", note: "Bold return" }
+  ];
+
+  var SEASON_NOTES = [
+    { season: "AW26", focus: "Outerwear delayed; transitional layers elevated; saturated colour against dark base." },
+    { season: "SS27", focus: "Second-skin construction; airy formality; collector pieces over pure replenishment." },
+    { season: "Resort", focus: "Climate-aware travel wardrobe; lightweight structure; destination colour." },
+    { season: "Pre-Fall", focus: "Bridge season strength; commercial precision; outlet-ready depth." }
   ];
 
   function el(tag, cls, html) {
@@ -210,7 +262,6 @@
     }
   }
 
-  /* Fetch fashion images from Openverse (no credentials) */
   function fetchFashionImages(query, count) {
     count = count || 1;
     var url =
@@ -238,9 +289,8 @@
       });
   }
 
-  function imgFromResult(result, w) {
+  function imgFromResult(result) {
     if (!result) return "";
-    /* Prefer full URL; Openverse thumbnails also work */
     return result.url || result.thumbnail || "";
   }
 
@@ -251,16 +301,13 @@
     return c ? t + " · " + c : t;
   }
 
-  /* ─── HERO ─── */
   function setHero() {
     var bg = document.getElementById("heroBg");
     if (!bg) return;
     fetchFashionImages("haute couture fashion runway", 6).then(function (imgs) {
       if (!imgs.length) {
         fetchFashionImages("fashion week model", 6).then(function (imgs2) {
-          if (imgs2.length) {
-            bg.style.backgroundImage = "url('" + imgFromResult(imgs2[0]) + "')";
-          }
+          if (imgs2.length) bg.style.backgroundImage = "url('" + imgFromResult(imgs2[0]) + "')";
         });
         return;
       }
@@ -269,24 +316,19 @@
     });
   }
 
-  /* ─── MOOD LOOM — real fashion images ─── */
   function renderMood() {
     var grid = document.getElementById("moodGrid");
     if (!grid) return;
     grid.innerHTML = "";
-
-    /* Placeholder cells while loading */
     for (var i = 0; i < 9; i++) {
       var cell = el("div", "mood-cell");
       cell.innerHTML =
         '<div style="width:100%;height:100%;min-height:160px;background:linear-gradient(135deg,#2a1736,#5d3b72);opacity:.4"></div>';
       grid.appendChild(cell);
     }
-
     var promises = FASHION_QUERIES.map(function (q) {
       return fetchFashionImages(q, 2);
     });
-
     Promise.all(promises).then(function (allBatches) {
       var pool = [];
       allBatches.forEach(function (batch) {
@@ -294,20 +336,17 @@
           if (img && img.url) pool.push(img);
         });
       });
-      /* Dedupe by id */
       var seen = {};
       pool = pool.filter(function (img) {
         if (seen[img.id]) return false;
         seen[img.id] = true;
         return true;
       });
-
       if (!pool.length) {
         grid.innerHTML =
           '<div class="wire-empty" style="grid-column:1/-1">Fashion imagery temporarily quiet — editorial layers remain active.</div>';
         return;
       }
-
       grid.innerHTML = "";
       for (var j = 0; j < 9; j++) {
         var img = pool[j % pool.length];
@@ -318,27 +357,21 @@
         image.loading = "lazy";
         image.referrerPolicy = "no-referrer";
         cell.appendChild(image);
-        cell.appendChild(
-          el("div", "caption", MOOD_CAPTIONS[j] || attribution(img).slice(0, 40))
-        );
+        cell.appendChild(el("div", "caption", MOOD_CAPTIONS[j] || attribution(img).slice(0, 40)));
         grid.appendChild(cell);
       }
     });
   }
 
-  /* ─── LIVE WIRE ─── */
   function fetchWire(feedKey) {
     var grid = document.getElementById("wireGrid");
     var status = document.getElementById("feedStatus");
     if (!grid) return;
-
     var feed = FEEDS[feedKey] || FEEDS.guardian;
     grid.innerHTML = '<div class="wire-loading">Pulling the fashion wire…</div>';
     if (status) status.textContent = "Loading";
-
     var bridge =
       "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed.url);
-
     fetch(bridge)
       .then(function (r) {
         if (!r.ok) throw new Error("bridge");
@@ -409,7 +442,7 @@
           })
           .catch(function () {
             grid.innerHTML =
-              '<div class="wire-empty">Wire temporarily unreachable from this network. Mood Loom, Pulse, Houses, Ledger, Horizon and Grammar remain active with fashion imagery and editorial reads.</div>';
+              '<div class="wire-empty">Wire temporarily unreachable from this network. Mood Loom, Pulse, Houses, Ledger, Horizon and Grammar remain active.</div>';
             if (status) status.textContent = "Offline";
           });
       });
@@ -439,7 +472,7 @@
         var list = data.trends || data.items || data || [];
         if (!Array.isArray(list) || !list.length) return;
         host.innerHTML = "";
-        list.slice(0, 8).forEach(function (t) {
+        list.slice(0, 10).forEach(function (t) {
           var name = t.name || t.title || t.trend || String(t);
           var chip = el("div", "pulse-chip");
           chip.innerHTML =
@@ -470,13 +503,16 @@
     });
   }
 
-  function renderBars() {
-    var pulse = document.getElementById("pulse");
-    if (!pulse) return;
-    var existing = pulse.querySelector(".data-bars");
-    if (existing) existing.remove();
+  function renderBarSet(containerId, title, data) {
+    var host = document.getElementById(containerId);
+    if (!host) return;
+    host.innerHTML = "";
+    if (title) {
+      var h = el("h3", "chart-title", title);
+      host.appendChild(h);
+    }
     var wrap = el("div", "data-bars");
-    GROWTH_BARS.forEach(function (b) {
+    data.forEach(function (b) {
       var row = el("div", "bar-row");
       row.innerHTML =
         '<span class="label">' +
@@ -488,9 +524,41 @@
         "</span>";
       wrap.appendChild(row);
     });
-    var live = document.getElementById("pulseLive");
-    if (live && live.parentNode === pulse) pulse.insertBefore(wrap, live);
-    else pulse.appendChild(wrap);
+    host.appendChild(wrap);
+  }
+
+  function renderColourDoctrine() {
+    var host = document.getElementById("colourDoctrine");
+    if (!host) return;
+    host.innerHTML = "";
+    COLOUR_THEME.forEach(function (c) {
+      var card = el("div", "colour-chip");
+      card.innerHTML =
+        '<div class="colour-swatch" style="background:' +
+        c.hex +
+        '"></div><strong>' +
+        c.name +
+        "</strong><span>" +
+        c.note +
+        "</span>";
+      host.appendChild(card);
+    });
+  }
+
+  function renderSeasonNotes() {
+    var host = document.getElementById("seasonNotes");
+    if (!host) return;
+    host.innerHTML = "";
+    SEASON_NOTES.forEach(function (s) {
+      var card = el("div", "season-note-card");
+      card.innerHTML =
+        '<span class="season-tag">' +
+        s.season +
+        "</span><p>" +
+        s.focus +
+        "</p>";
+      host.appendChild(card);
+    });
   }
 
   function renderBrands() {
@@ -651,7 +719,10 @@
     setHero();
     renderMood();
     renderSignals();
-    renderBars();
+    renderBarSet("regionBars", "Regional relative strength", GROWTH_BARS);
+    renderBarSet("categoryBars", "Category relative strength", CATEGORY_BARS);
+    renderColourDoctrine();
+    renderSeasonNotes();
     renderBrands();
     renderMarket();
     renderForecast();
