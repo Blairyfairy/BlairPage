@@ -31,38 +31,38 @@
   var SIGNALS = [
     {
       tag: "Silhouette",
-      title: "Expressive femininity returns",
-      body: "Fluid fabrics, asymmetry, lace, bustiers and deliberate transparency cut through quiet-luxury restraint. Paris buyers flagged collector pieces over logo volume — from couture ateliers to accessible diffusion lines.",
-      meta: "Paris · AW26 reads"
+      title: "Expressive femininity, refined",
+      body: "Fluid volumes, asymmetry, lace and considered transparency are rebalancing quiet-luxury restraint. From couture ateliers to elevated diffusion, buyers favour singular, collector-minded pieces over pure logo density.",
+      meta: "Paris · AW26 silhouette doctrine"
     },
     {
       tag: "Climate",
-      title: "Seasons out of sync",
-      body: "Longer, hotter summers push outerwear later and elevate transitional layers. Maisons and mid-market houses alike are lightening constructions; winter margin is under pressure across the price ladder.",
-      meta: "Retail calendar shift"
+      title: "The long season",
+      body: "Extended warmth compresses the outerwear window and elevates transitional layering. Maisons and refined mid-market houses are lightening construction; winter margin is recalibrated across full-price and outlet floors.",
+      meta: "Seasonal calendar · climate read"
     },
     {
       tag: "Value",
-      title: "Price resistance is real",
-      body: "After multi-year increases, clients are more selective from luxury floors to outlet villages. Craft, service and early access now outrank artificial scarcity in both US and China.",
-      meta: "Industry outlook"
+      title: "Craft as the new scarcity",
+      body: "After successive price cycles, the discerning client — maison through elevated outlet — privileges finish, service and early access over artificial waitlists. Emotional connection outranks emblem alone.",
+      meta: "Client behaviour · US & China"
     },
     {
       tag: "Category",
-      title: "Handbags still outpace apparel",
-      body: "Bags have absorbed successive price rises more cleanly than ready-to-wear — true from maison leather goods to off-price accessories. Apparel and footwear saw softer realisation in recent cycles.",
-      meta: "Category split"
+      title: "Leather goods lead",
+      body: "Handbags and small leather goods have absorbed price architecture more cleanly than ready-to-wear. Apparel and footwear remain more sensitive — a split visible from flagship to off-price corridor.",
+      meta: "Category economics"
     },
     {
       tag: "Channel",
-      title: "Resale as behaviour, not niche",
-      body: "Second-hand grows multi-times faster than primary. Authorised resale, archive sales and outlet clearance are now part of the client journey from high luxury to mass fashion.",
-      meta: "Market structure"
+      title: "Resale and the long wardrobe",
+      body: "Authorised resale, archive and elevated outlet are no longer peripheral. They form part of a continuous client journey — discovery, ownership, recirculation — for the long wardrobe rather than the short season.",
+      meta: "Channel architecture"
     },
     {
       tag: "Creative",
-      title: "Director reset wave",
-      body: "A concentrated period of creative-director changes aims to re-ignite desire. Coherent codes and clear authorship still win — whether at a historic maison or an emerging independent.",
+      title: "Authorship over noise",
+      body: "Creative-director transitions remain concentrated. Houses that pair a coherent code with visible craft and controlled distribution recover desire more reliably — whether historic maison or scaled independent.",
       meta: "House leadership"
     }
   ];
@@ -72,102 +72,102 @@
       label: "High luxury",
       title: "Maisons",
       items: [
-        ["Hermès", "Resilient"],
+        ["Hermès", "Structural resilience"],
         ["Chanel", "Selective growth"],
         ["Louis Vuitton", "Creative continuity"],
-        ["Dior", "Reset watch"],
-        ["The Row", "Quiet power"]
+        ["Dior", "Reset in progress"],
+        ["The Row", "Quiet authority"]
       ]
     },
     {
       label: "Accessible luxury",
-      title: "Aspirational",
+      title: "Aspirational houses",
       items: [
         ["Saint Laurent", "Return to growth"],
         ["Gucci", "Turnaround phase"],
-        ["Loewe", "Craft focus"],
+        ["Loewe", "Craft-led desire"],
         ["Bottega Veneta", "Texture language"],
         ["Celine", "Refined codes"]
       ]
     },
     {
-      label: "Outlet & off-price",
-      title: "Resilience layer",
+      label: "Elevated outlet & off-price",
+      title: "Resilience corridor",
       items: [
-        ["Designer outlets", "Volume buffer"],
+        ["Designer outlet villages", "Volume with equity"],
         ["Off-price floors", "Margin protection"],
-        ["Sample & archive", "Rising interest"],
-        ["Authorised resale", "Channel expansion"],
-        ["Private client sales", "Retention tool"]
+        ["Sample & archive", "Collector interest"],
+        ["Authorised resale", "Journey extension"],
+        ["Private client sales", "Retention"]
       ]
     },
     {
       label: "Emerging independents",
-      title: "New signals",
+      title: "New authorship",
       items: [
         ["Independent ateliers", "Artisanal detail"],
-        ["Direct-to-client", "Service edge"],
-        ["Material-first labels", "Fabric stories"],
+        ["Direct-to-client", "Service as luxury"],
+        ["Material-first labels", "Fabric narrative"],
         ["Gender-fluid houses", "Silhouette play"],
-        ["Regional voices", "Beyond Paris"]
+        ["Regional voices", "Beyond the capital"]
       ]
     }
   ];
 
   var MARKET_PRIMARY = {
     kicker: "2026 outlook",
-    title: "Stabilisation, not decline — growth in the low single digits",
-    body: "Global luxury is expected to expand roughly 2–4% in 2026. The US remains the largest market; China is projected to recover and outpace other regions. Europe stays fragile under rent, regulation and cautious spend. Japan, Southeast Asia and the Middle East are relative outperformers. From maison floors to outlet villages, the through-line is selectivity: fewer, better, more meaningful purchases.",
+    title: "Stabilisation with selective desire",
+    body: "Global luxury is expected to advance in the low single digits — roughly 2–4% — as the industry shifts from volume-led expansion to stabilisation. The United States remains the largest market; China is positioned to recover and outpace other regions. Europe navigates rent, regulation and cautious spend. Japan, Southeast Asia and the Middle East offer relative strength, including younger affluent clients entering the category. Across maison floors and the elevated outlet corridor, the governing principle is selectivity: fewer, better, more enduring purchases.",
     stats: [
       { value: "2–4%", label: "Global growth" },
-      { value: "US + CN", label: "Demand anchors" },
-      { value: "Selective", label: "House recovery" }
+      { value: "US · CN", label: "Demand anchors" },
+      { value: "Selective", label: "Client posture" }
     ]
   };
 
   var MARKET_SIDE = [
     {
       title: "Emotional connection first",
-      body: "Desirability is driven more by emotional bond than by logo or pure heritage — true from couture clients to outlet shoppers seeking a first luxury touchpoint."
+      body: "Desirability is increasingly rooted in emotional bond rather than logo or heritage alone — a truth that holds from couture clients to the elevated outlet shopper seeking a first meaningful luxury touchpoint."
     },
     {
-      title: "Outlet & off-price buffer",
-      body: "Outlet villages and off-price floors absorb inventory pressure and protect brand equity when full-price demand softens, while still delivering fashion discovery."
+      title: "The outlet corridor as buffer",
+      body: "Designer outlet villages and refined off-price floors absorb inventory pressure while protecting brand equity, offering discovery without diluting the full-price narrative."
     },
     {
-      title: "Capital tone: selective",
-      body: "Quality assets with clear creative direction and controllable distribution remain the focus — from historic houses to scaled independents."
+      title: "Capital remains selective",
+      body: "Attention concentrates on assets with clear creative authorship, controllable distribution and legible craft — historic houses and scaled independents alike."
     }
   ];
 
   var FORECAST = [
     {
-      query: "bold colour fashion dress",
+      query: "bold colour fashion dress runway",
       horizon: "6–9 months",
-      title: "Bold colour & artisanal detail",
-      body: "Blocks of red, turquoise, blue and yellow alongside elevated materials and hand-work as primary differentiators — from couture ateliers to diffusion lines."
+      title: "Colour doctrine & the hand",
+      body: "Saturated blocks — red, turquoise, cobalt, gold — paired with visible artisanal detail. Colour and the hand become the primary differentiators after a quieter, more muted cycle."
     },
     {
-      query: "lightweight fashion layering summer",
+      query: "lightweight fashion layering summer couture",
       horizon: "9–14 months",
       title: "Climate-adapted construction",
-      body: "Lighter, second-skin fabrics and airy layering systems that respond to extended warm seasons without surrendering formality — maison to mid-market."
+      body: "Second-skin fabrics, airy layering and reduced bulk that honour formality while answering extended warmth — a construction language for maison and elevated diffusion alike."
     },
     {
-      query: "vintage fashion collector style",
+      query: "vintage archive fashion collector style",
       horizon: "12–18 months",
       title: "Collector wardrobe logic",
-      body: "Fewer, more singular pieces — rare hardware, archive conversation, limited fabrication — replacing pure seasonal replenishment across the price spectrum."
+      body: "Fewer, more singular pieces: rare hardware, archive conversation, limited fabrication. The long wardrobe replaces pure seasonal replenishment from full-price to elevated outlet discovery."
     }
   ];
 
   var MATERIALS = [
-    { query: "silk fabric fashion drape", name: "Fluid silks & georgette", note: "Movement and transparency" },
-    { query: "lace fashion dress detail", name: "Technical lace", note: "Structure meets delicacy" },
-    { query: "wool crepe fashion textile", name: "Lightweight wool crepe", note: "Transitional weight" },
-    { query: "knitwear fashion runway", name: "Sculptural knitwear", note: "Precision and volume" },
-    { query: "leather fashion handbag texture", name: "Supple nappa & suede", note: "Hand-feel first" },
-    { query: "cotton fashion shirt fabric", name: "High-twist cotton", note: "Crisp seasonal layers" }
+    { query: "silk fabric fashion drape couture", name: "Fluid silks & georgette", note: "Movement, transparency, evening weight" },
+    { query: "lace fashion dress couture detail", name: "Technical lace", note: "Structure meeting delicacy" },
+    { query: "wool crepe fashion textile luxury", name: "Lightweight wool crepe", note: "Transitional authority" },
+    { query: "knitwear fashion runway sculptural", name: "Sculptural knitwear", note: "Precision and volume" },
+    { query: "leather fashion handbag luxury texture", name: "Supple nappa & suede", note: "Hand-feel as argument" },
+    { query: "cotton fashion shirt luxury fabric", name: "High-twist cotton", note: "Crisp seasonal layers" }
   ];
 
   var MOOD_CAPTIONS = [
@@ -180,9 +180,9 @@
     { label: "China recovery", pct: 68 },
     { label: "Europe", pct: 38 },
     { label: "SE Asia / ME", pct: 78 },
-    { label: "Resale channel", pct: 88 },
-    { label: "Handbags", pct: 82 },
-    { label: "Outlet resilience", pct: 65 }
+    { label: "Resale corridor", pct: 88 },
+    { label: "Leather goods", pct: 82 },
+    { label: "Elevated outlet", pct: 65 }
   ];
 
   function el(tag, cls, html) {
@@ -633,7 +633,7 @@
       btn.id = "toTop";
       btn.type = "button";
       btn.setAttribute("aria-label", "Back to top");
-      btn.innerHTML = "⌃";
+      btn.innerHTML = "▲";
       document.body.appendChild(btn);
     }
     btn.addEventListener("click", function () {

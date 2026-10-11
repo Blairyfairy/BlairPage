@@ -1,8 +1,10 @@
 # Blair's Atelier
 
-A living fashion intelligence surface — wire, mood, pulse, house cartography, market ledger, horizon loom, and material grammar.
+**Freedom, Beauty, Truth & Love**
 
-Visual system aligned with Blair's Picks: Playfair Display + Inter, soft pastel field, glass panels, rose / plum / gold palette.
+A luxury fashion intelligence surface — live wire, open-licensed runway imagery, house cartography, market ledger, seasonal colour doctrine, and horizon reads from maison floors to the elevated outlet corridor.
+
+Visual language aligned with Blair's Picks: Playfair Display + Inter, soft pastel field, glass panels, rose / plum / gold.
 
 ## Contents
 
@@ -13,27 +15,23 @@ Visual system aligned with Blair's Picks: Playfair Display + Inter, soft pastel 
 
 ## Publish
 
-Place `fashion-atelier/` next to your site root (or host standalone), then open:
+Place `fashion-atelier/` beside your site root, then open:
 
 `https://blairyfairy.github.io/BlairPage/fashion-atelier/`
 
-## Surface map
+## Surface
 
 | Section | Role |
 |--------|------|
-| **Fashion Wire** | Live headlines from public fashion RSS (Guardian Fashion, WWD Fashion, WWD Business, Guardian Lifestyle) |
-| **Mood Loom** | Seeded live imagery with captions; reseed refreshes the field |
-| **Trend Pulse** | Six cultural signals + relative growth bars + optional live culture ticker |
-| **House Cartography** | Four-tier map: maisons, aspirational, outlet & off-price, emerging independents |
-| **Market Ledger** | 2026 stabilisation outlook, demand anchors, emotional connection, capital tone |
-| **Horizon Loom** | 6–18 month forecast cards (colour, climate construction, collector logic) |
-| **Material Grammar** | Fabrics and finishes gaining weight |
+| **The Fashion Wire** | Live headlines — Guardian Fashion, WWD Fashion, WWD Business, Guardian Lifestyle |
+| **The Mood Loom** | Open-licensed runway, couture, street-style and textile imagery |
+| **The Trend Pulse** | Silhouette, climate, craft-as-scarcity, leather goods, resale, authorship + growth bars |
+| **House Cartography** | Maisons · accessible luxury · elevated outlet & off-price · emerging independents |
+| **The Market Ledger** | 2026 stabilisation outlook, emotional connection, outlet corridor, selective capital |
+| **The Horizon Loom** | Colour doctrine, climate-adapted construction, collector wardrobe logic (6–18 months) |
+| **Material Grammar** | Silks, technical lace, wool crepe, sculptural knit, nappa, high-twist cotton |
 | **Season Dial** | AW26 through Couture |
-| **Sticky top bar** | Blair's Atelier wordmark + section jumps + Reseed |
-| **Purple chevron** | Fixed bottom-right control returns to top |
+| **Sticky top bar** | Blair's Atelier + section jumps + Reseed |
+| **Purple chevron** | Fixed bottom-right — returns to top |
 
-No credentials are stored or referenced. Headlines attribute to source publications. Imagery is drawn from public image endpoints.
-
-## Editorial stance
-
-Built as a dense, continuous field for brand, strategy, and fashion roles — research fluency, taste, and product thinking in one publishable surface.
+Public fashion feeds and open-licensed imagery only. Attribution to source publications where headlines appear.

@@ -624,14 +624,7 @@ a:hover { color: var(--rose); text-decoration: underline; }
 }
 .mat-card p { font-size: .8rem; font-weight: 700; color: rgba(36,24,37,.55); }
 
-/* ─── REFERENCE ─── */
-.reference-desk ul {
-  columns: 2; gap: 28px; margin: 18px 0 0; padding-left: 20px;
-}
-.reference-desk li {
-  break-inside: avoid; margin-bottom: 10px;
-  line-height: 1.55; font-weight: 600; color: rgba(36,24,37,.75);
-}
+
 
 /* ─── FOOTER ─── */
 .foot { margin-top: 36px; text-align: center; padding: 20px 12px 8px; }
@@ -651,28 +644,31 @@ a:hover { color: var(--rose); text-decoration: underline; }
   right: 22px;
   bottom: 22px;
   z-index: 300;
-  width: 52px; height: 52px;
+  width: 54px; height: 54px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.35);
-  background: linear-gradient(135deg, var(--deep), var(--plum), var(--violet));
-  color: #fff;
-  font-size: 1.35rem;
-  font-weight: 700;
+  border: 1px solid rgba(255,255,255,.4);
+  background: linear-gradient(145deg, #2a1736 0%, #5d3b72 45%, #6d3b8e 100%);
+  color: #ffd28f;
+  font-size: 1.05rem;
+  font-weight: 800;
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 12px 32px rgba(42,23,54,.45);
-  transition: transform .2s ease, filter .2s ease, opacity .25s;
+  box-shadow: 0 14px 36px rgba(42,23,54,.5), inset 0 1px 0 rgba(255,255,255,.15);
+  transition: transform .22s ease, filter .2s ease, opacity .25s, box-shadow .22s;
   opacity: 0;
   pointer-events: none;
   line-height: 1;
+  letter-spacing: 0;
 }
 #toTop.visible {
   opacity: 1;
   pointer-events: auto;
 }
 #toTop:hover {
-  filter: brightness(1.12);
-  transform: translateY(-3px);
+  filter: brightness(1.1);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 42px rgba(42,23,54,.55), inset 0 1px 0 rgba(255,255,255,.2);
+  color: #fff;
 }
 
 /* ─── RESPONSIVE ─── */
@@ -702,7 +698,6 @@ a:hover { color: var(--rose); text-decoration: underline; }
   .hero-grid { grid-template-columns: 1fr; }
   .title h1, .subtitle { text-align: center; margin-left: auto; margin-right: auto; }
   .stats { grid-template-columns: 1fr; }
-  .reference-desk ul { columns: 1; }
   .bar-row { grid-template-columns: 90px 1fr 40px; }
 }
 @media (max-width: 560px) {
