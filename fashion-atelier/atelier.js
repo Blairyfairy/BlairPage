@@ -313,31 +313,95 @@
     }
   }
 
+  // Multi-source, no-key image discovery. Openverse is primary; Wikimedia Commons
+  // is an independent fallback. Actual image elements also retry on load errors.
   function fetchFashionImages(query, count) {
     count = count || 1;
-    function once() {
-      var url =
-        OV +
-        "?q=" +
-        encodeURIComponent(query) +
-        "&page_size=" +
-        Math.min(count + 6, 20) +
-        "&mature=false";
+    var openverse = function () {
+      var url = OV + "?q=" + encodeURIComponent(query) +
+        "&page_size=" + Math.min(count + 8, 20) + "&mature=false";
       return fetch(url, UA).then(function (r) {
-        if (!r.ok) throw new Error("ov " + r.status);
+        if (!r.ok) throw new Error("Openverse " + r.status);
         return r.json();
       }).then(function (data) {
-        var results = (data && data.results) || [];
-        return results
-          .filter(function (img) {
-            return img && img.url && !img.mature;
-          })
-          .slice(0, count);
+        return ((data && data.results) || []).filter(function (img) {
+          return img && (img.url || img.thumbnail) && !img.mature;
+        }).map(function (img) {
+          return { id: "ov-" + (img.id || img.url), url: img.thumbnail || img.url,
+            fullUrl: img.url, title: img.title || "Fashion image",
+            creator: img.creator || "", provider: "Openverse",
+            license: img.license || "", source: img.foreign_landing_url || img.url };
+        });
       });
-    }
-    return withRetry(once, 2, 700).catch(function () {
-      return [];
+    };
+    var commons = function () {
+      var url = "https://commons.wikimedia.org/w/api.php?action=query&generator=search" +
+        "&gsrsearch=" + encodeURIComponent(query + " fashion") +
+        "&gsrnamespace=6&gsrlimit=" + Math.min(count + 8, 20) +
+        "&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=1000&format=json&origin=*";
+      return fetch(url, UA).then(function (r) {
+        if (!r.ok) throw new Error("Wikimedia " + r.status);
+        return r.json();
+      }).then(function (data) {
+        return Object.keys((data && data.query && data.query.pages) || {}).map(function (key) {
+          var page = data.query.pages[key], info = page.imageinfo && page.imageinfo[0];
+          if (!info || !(info.thumburl || info.url)) return null;
+          var meta = info.extmetadata || {};
+          return { id: "wc-" + page.pageid, url: info.thumburl || info.url,
+            fullUrl: info.url, title: page.title || "Fashion reference",
+            creator: stripHtml((meta.Artist && meta.Artist.value) || ""),
+            provider: "Wikimedia Commons",
+            license: stripHtml((meta.LicenseShortName && meta.LicenseShortName.value) || ""),
+            source: "https://commons.wikimedia.org/?curid=" + page.pageid };
+        }).filter(Boolean);
+      });
+    };
+    return withRetry(openverse, 2, 500).then(function (rows) {
+      if (rows.length >= count) return rows.slice(0, count);
+      return commons().then(function (extra) {
+        var all = rows.concat(extra);
+        var seen = {};
+        return all.filter(function (img) {
+          if (seen[img.id] || !img.url) return false;
+          seen[img.id] = true; return true;
+        }).slice(0, count);
+      }).catch(function () { return rows.slice(0, count); });
+    }).catch(function () {
+      return commons().then(function (rows) { return rows.slice(0, count); })
+        .catch(function () { return []; });
     });
+  }
+
+  function fashionFallbackSvg(label) {
+    var safe = String(label || "Atelier").replace(/[&<>"]/g, "");
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">' +
+      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#170e20"/><stop offset=".52" stop-color="#5d3b72"/><stop offset="1" stop-color="#c4a484"/></linearGradient>' +
+      '<radialGradient id="r"><stop stop-color="#ef4f9a" stop-opacity=".65"/><stop offset="1" stop-color="#170e20" stop-opacity="0"/></radialGradient></defs>' +
+      '<rect width="1200" height="900" fill="url(#g)"/><circle cx="930" cy="180" r="390" fill="url(#r)"/>' +
+      '<path d="M380 900 L510 220 Q600 150 690 220 L820 900" fill="none" stroke="#f5f0eb" stroke-opacity=".65" stroke-width="3"/>' +
+      '<path d="M470 430 Q600 510 730 430 M440 580 Q600 680 760 580" fill="none" stroke="#ffd28f" stroke-opacity=".8" stroke-width="2"/>' +
+      '<text x="70" y="760" fill="#fff" font-family="Georgia,serif" font-size="48">BLAIR’S ATELIER</text>' +
+      '<text x="72" y="812" fill="#f5f0eb" font-family="Arial,sans-serif" font-size="23" letter-spacing="5">' + safe.slice(0,48) + '</text></svg>';
+    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+  }
+
+  function attachImageRecovery(image, results, label) {
+    var candidates = (results || []).map(imgFromResult).filter(Boolean);
+    var index = 0, done = false;
+    function next() {
+      if (done) return;
+      if (index >= candidates.length) {
+        done = true;
+        image.onerror = null;
+        image.src = fashionFallbackSvg(label);
+        image.classList.add("image-fallback");
+        return;
+      }
+      image.src = candidates[index++];
+    }
+    image.onerror = next;
+    image.onload = function () { image.classList.remove("image-fallback"); };
+    next();
   }
 
   function imgFromResult(result) {
@@ -356,21 +420,20 @@
     var bg = document.getElementById("heroBg");
     if (!bg) return;
     function apply(imgs) {
-      if (!imgs || !imgs.length) {
-        setStatus("hero", "fail");
-        return;
+      var candidates = (imgs || []).map(imgFromResult).filter(Boolean);
+      function tryNext() {
+        if (!candidates.length) {
+          bg.style.backgroundImage = "linear-gradient(135deg,#170e20,#5d3b72 48%,#c4a484)";
+          setStatus("hero", "fallback");
+          return;
+        }
+        var url = candidates.shift();
+        verifyImage(url).then(function () {
+          bg.style.backgroundImage = "url('" + url.replace(/'/g, "%27") + "')";
+          setStatus("hero", "ok");
+        }).catch(tryNext);
       }
-      var pick = imgs[Math.floor(Math.random() * imgs.length)];
-      var url = imgFromResult(pick);
-      verifyImage(url)
-        .then(function () {
-          bg.style.backgroundImage = "url('" + url + "')";
-          setStatus("hero", "ok");
-        })
-        .catch(function () {
-          bg.style.backgroundImage = "url('" + url + "')";
-          setStatus("hero", "ok");
-        });
+      tryNext();
     }
     fetchFashionImages("Chanel Dior Hermès couture runway", 8).then(function (imgs) {
       if (imgs.length) apply(imgs);
@@ -407,7 +470,7 @@
       if (!pool.length) {
         setStatus("mood", "fail");
         grid.innerHTML =
-          '<div class="wire-empty" style="grid-column:1/-1">Fashion imagery temporarily quiet — editorial layers remain active.</div>';
+          '<div class="wire-empty" style="grid-column:1/-1">Visual field temporarily quiet — editorial layers remain active.</div>';
         return;
       }
       grid.innerHTML = "";
@@ -416,10 +479,16 @@
         var img = pool[j % pool.length];
         var cell = el("div", "mood-cell");
         var image = document.createElement("img");
-        image.src = imgFromResult(img);
-        image.alt = attribution(img) || MOOD_CAPTIONS[j] || "Fashion";
+        image.alt = attribution(img) || MOOD_CAPTIONS[j] || "Luxury fashion editorial";
         image.loading = "lazy";
+        image.decoding = "async";
         image.referrerPolicy = "no-referrer";
+        image.onerror = function () {
+          image.onerror = null;
+          image.src = fashionFallbackSvg(MOOD_CAPTIONS[j] || "Luxury fashion");
+          image.classList.add("image-fallback");
+        };
+        image.src = imgFromResult(img) || fashionFallbackSvg(MOOD_CAPTIONS[j]);
         cell.appendChild(image);
         cell.appendChild(el("div", "caption", MOOD_CAPTIONS[j] || attribution(img).slice(0, 40)));
         grid.appendChild(cell);
@@ -432,7 +501,7 @@
     var status = document.getElementById("feedStatus");
     if (!grid) return;
     var feed = FEEDS[feedKey] || FEEDS.guardian;
-    grid.innerHTML = '<div class="wire-loading">Pulling the fashion wire…</div>';
+    grid.innerHTML = '<div class="wire-loading">Loading industry feeds…</div>';
     if (status) status.textContent = "Loading";
     var bridge =
       "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed.url);
@@ -509,7 +578,7 @@
           .catch(function () {
             setStatus("wire", "fail");
             grid.innerHTML =
-              '<div class="wire-empty">Wire temporarily unreachable from this network. Mood Loom, Pulse, Houses, Ledger, Horizon and Grammar remain active.</div>';
+              '<div class="wire-empty">Industry wire temporarily unreachable from this network. Mood Loom, Pulse, Houses, Ledger, Horizon and Grammar remain active.</div>';
             if (status) status.textContent = "Offline";
           });
       });
@@ -543,7 +612,7 @@
           var name = t.name || t.title || t.trend || String(t);
           var chip = el("div", "pulse-chip");
           chip.innerHTML =
-            "<strong>" + name + "</strong><span>Culture ticker</span>";
+            "<strong>" + name + "</strong><span>Live culture index</span>";
           host.appendChild(chip);
         });
         setStatus("pulse", "ok");
@@ -734,8 +803,15 @@
       grid.appendChild(card);
       fetchFashionImages(m.query, 2).then(function (imgs) {
         var sw = document.getElementById("mat-sw-" + idx);
-        if (!sw || !imgs.length) return;
-        sw.style.backgroundImage = "url('" + imgFromResult(imgs[0]) + "')";
+        if (!sw) return;
+        if (!imgs.length) {
+          sw.style.backgroundImage = "url('" + fashionFallbackSvg(m.name) + "')";
+          return;
+        }
+        var probe = new Image();
+        probe.onload = function () { sw.style.backgroundImage = "url('" + imgFromResult(imgs[0]).replace(/'/g, "%27") + "')"; };
+        probe.onerror = function () { sw.style.backgroundImage = "url('" + fashionFallbackSvg(m.name) + "')"; };
+        probe.src = imgFromResult(imgs[0]);
       });
     });
   }
@@ -841,7 +917,7 @@
   function fetchHouseBriefs() {
     var host = document.getElementById("houseBriefs");
     if (!host) return;
-    host.innerHTML = '<div class="wire-loading">Loading house briefs…</div>';
+    host.innerHTML = '<div class="wire-loading">Loading maison briefs…</div>';
     var tasks = HOUSE_PAGES.map(function (title) {
       var url =
         "https://en.wikipedia.org/api/rest_v1/page/summary/" +
@@ -867,7 +943,7 @@
       host.innerHTML = "";
       if (!ok.length) {
         host.innerHTML =
-          '<div class="wire-empty">House briefs temporarily unavailable — cartography and ledger remain active.</div>';
+          '<div class="wire-empty">Maison briefs temporarily unavailable — cartography and ledger remain active.</div>';
         setStatus("briefs", "fail");
         return;
       }
@@ -920,8 +996,8 @@
     setHero();
     renderMood();
     renderSignals();
-    renderBarSet("regionBars", "Regional relative strength", GROWTH_BARS);
-    renderBarSet("categoryBars", "Category relative strength", CATEGORY_BARS);
+    renderBarSet("regionBars", "Regional demand posture", GROWTH_BARS);
+    renderBarSet("categoryBars", "Category demand posture", CATEGORY_BARS);
     renderColourDoctrine();
     renderSeasonNotes();
     renderBrands();

@@ -946,3 +946,25 @@ a:hover { color: var(--rose); text-decoration: underline; }
   .cover-card { min-height: 360px; }
   
 }
+
+
+/* Resilient image presentation: remote assets may be blocked by hotlink/CORS policies. */
+.mood-cell { background: linear-gradient(135deg, #170e20, #5d3b72 52%, #c4a484); }
+.mood-cell img { min-height: 160px; }
+.mood-cell img.image-fallback { object-fit: cover; opacity: 1; }
+.swatch { background-color: #5d3b72; background-size: cover; background-position: center; }
+.cover-bg { background-color: #2a1736; }
+@media (max-width: 920px) {
+  .topline { grid-template-columns: 1fr; }
+  .brand-pill { justify-content: center; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.25); }
+  .fashion-topline-nav { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .fashion-topline-btn { white-space: normal; min-height: 44px; }
+}
+@media (max-width: 560px) {
+  .fashion-topline-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-grid { grid-template-columns: 1fr; }
+  .cover-card { min-height: 320px; }
+  .mood-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 180px; }
+  .mood-cell:nth-child(n) { grid-column: span 1; grid-row: span 1; min-height: 180px; }
+  .mood-cell:first-child { grid-column: span 2; grid-row: span 2; }
+}

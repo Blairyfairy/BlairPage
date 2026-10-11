@@ -1,21 +1,12 @@
 # Blair's Atelier
 
-**Freedom, Beauty, Truth & Love**
+**Luxury Market Intelligence**
 
-A luxury fashion intelligence surface — live wire, open-licensed runway imagery, house cartography, market ledger, seasonal colour doctrine, and horizon reads from maison floors to the elevated outlet corridor.
-
-Visual language aligned with Blair's Picks: Playfair Display + Inter, soft pastel field, glass panels, rose / plum / gold.
-
-## Contents
-
-- `index.html`
-- `atelier.css`
-- `atelier.js`
-- `README.md`
+An editorial intelligence surface for contemporary luxury — industry wire, visual field, demand signals, house cartography, market ledger and forward seasonal doctrine. Oriented to brand strategy, merchandising and creative leadership at maison and elevated-diffusion scale.
 
 ## Publish
 
-Place `fashion-atelier/` beside your site root, then open:
+Place `fashion-atelier/` beside your site root:
 
 `https://blairyfairy.github.io/BlairPage/fashion-atelier/`
 
@@ -23,15 +14,29 @@ Place `fashion-atelier/` beside your site root, then open:
 
 | Section | Role |
 |--------|------|
-| **The Fashion Wire** | Live headlines — Guardian Fashion, WWD Fashion, WWD Business, Guardian Lifestyle |
-| **The Mood Loom** | Open-licensed runway, couture, street-style and textile imagery |
-| **The Trend Pulse** | Silhouette, climate, craft-as-scarcity, leather goods, resale, authorship + growth bars |
-| **House Cartography** | Maisons · accessible luxury · elevated outlet & off-price · emerging independents |
-| **The Market Ledger** | 2026 stabilisation outlook, emotional connection, outlet corridor, selective capital |
-| **The Horizon Loom** | Colour doctrine, climate-adapted construction, collector wardrobe logic (6–18 months) |
-| **Material Grammar** | Silks, technical lace, wool crepe, sculptural knit, nappa, high-twist cotton |
-| **Season Dial** | AW26 through Couture |
-| **Sticky top bar** | Blair's Atelier + section jumps + Reseed |
-| **Purple chevron** | Fixed bottom-right — returns to top |
+| Industry Wire | Guardian Fashion · WWD Fashion · WWD Business · Guardian Lifestyle |
+| Visual Field | Open-licensed runway and couture imagery (maison-weighted) |
+| Demand Signals | Structural signals + regional and category demand posture |
+| Seasonal Colour Doctrine | Palette and season focus notes AW26–Pre-Fall |
+| Maison Briefs | Factual house references |
+| House Map | Maisons · accessible luxury · elevated outlet · emerging |
+| Market Ledger | 2026 stabilisation outlook |
+| Forward Horizon | 6–18 month construction and colour themes |
+| Material Codes | Silks, lace, crepe, knit, nappa, cotton |
 
-Public fashion feeds and open-licensed imagery only. Attribution to source publications where headlines appear.
+Public industry feeds and open-licensed imagery. Attribution to source publications where headlines appear.
+
+
+## Reliability and discovery upgrades
+
+- Openverse image search is the primary no-key image source.
+- Wikimedia Commons API is an independent image-search fallback.
+- Failed remote images degrade to an embedded, locally generated atelier graphic instead of broken-image icons.
+- RSS feeds use public RSS-to-JSON bridges; bridges and publishers can rate-limit or change access without notice.
+- Public Wikipedia REST summaries support maison reference cards.
+- SEO metadata includes canonical URL, Open Graph, Twitter card, keywords, author, and Schema.org WebSite structured data.
+- No private API keys or paid API credentials are embedded.
+
+## Publishing and verification
+
+Upload the contents of this folder to `BlairPage/fashion-atelier/` in the GitHub Pages repository. Test the published URL on desktop and mobile, then inspect it in Google Search Console. SEO metadata improves clarity and crawlability but cannot guarantee rankings, interviews, or employment outcomes. Third-party APIs remain subject to availability, rate limits, licensing and CORS/hotlink restrictions.
