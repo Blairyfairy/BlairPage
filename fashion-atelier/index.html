@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#291528" />
+  <meta name="description" content="Blair's Fashion Atelier — live trend intelligence, image palette analysis, and press signal radar. Built for Blair Page." />
+  <title>Blair's Fashion Atelier · Trend Intelligence</title>
+  <link rel="stylesheet" href="atelier.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%29291528'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='14' fill='%23f0eff4' font-family='system-ui' font-weight='700'%3EBA%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="atelier-top">
+    <div class="brand-lockup">
+      <div class="brand-mark" aria-hidden="true">BA</div>
+      <div class="brand-text">
+        <strong>Blair's Fashion Atelier</strong>
+        <span>Trend Intelligence · No-key APIs</span>
+      </div>
+    </div>
+    <nav class="top-nav" aria-label="Atelier navigation">
+      <a href="#analyzer">Analyze</a>
+      <a href="#signals">Signals</a>
+      <a href="#feed">Press</a>
+      <a href="#forecast">Forecast</a>
+      <a class="home-chip" href="../index.html">← Portfolio Home</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-kicker">Fashion design lab · Static · GitHub Pages</div>
+    <h1>See the season <em>before</em> it lands.</h1>
+    <p class="hero-lead">
+      Upload a look, extract its palette, and cross-read it against live fashion press —
+      Vogue, Business of Fashion, Highsnobiety and more — with client-side trend scoring.
+      Built for <strong>Blair Page</strong> · Freedom, Beauty, Truth and Love.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-pill"><span class="dot" aria-hidden="true"></span><span id="liveStamp">Live</span></div>
+      <div class="stat-pill">RSS · CORS proxies · Canvas CV</div>
+      <div class="stat-pill">Zero API keys</div>
+    </div>
+  </section>
+
+  <main class="app-shell">
+    <!-- Image analyzer -->
+    <section class="card" id="analyzer" aria-labelledby="analyzer-title">
+      <div class="card-head">
+        <div>
+          <h2 id="analyzer-title">Look analyzer</h2>
+          <p>Drop a photo · dominant colors · mood &amp; season narrative</p>
+        </div>
+        <span class="badge">On-device</span>
+      </div>
+
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept="image/*" aria-label="Upload fashion image" />
+        <div class="upload-icon" aria-hidden="true">◇</div>
+        <strong>Drop a runway, street, or product shot</strong>
+        <span>PNG, JPG, WEBP · processed only in your browser</span>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-primary" id="sampleAnalyze">Try sample look</button>
+      </div>
+
+      <div class="preview-row" id="previewRow">
+        <div class="preview-frame">
+          <img id="previewImg" alt="Uploaded look preview" />
+        </div>
+        <div class="analysis-panel">
+          <div>
+            <div class="label" style="font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--mauve);margin-bottom:0.35rem;">Palette</div>
+            <div class="palette-row" id="paletteRow"></div>
+          </div>
+          <div class="insight-block" id="insightText">Upload an image to generate a trend narrative.</div>
+          <div class="tag-cloud" id="insightTags"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live signals -->
+    <section class="card" id="signals" aria-labelledby="signals-title">
+      <div class="card-head">
+        <div>
+          <h2 id="signals-title">Signal board</h2>
+          <p>Derived from current press headlines + lexicon model</p>
+        </div>
+        <span class="badge">Live model</span>
+      </div>
+      <div class="signal-grid">
+        <div class="signal-card">
+          <div class="label">Social heat</div>
+          <div class="value" id="valSocial">—</div>
+          <div class="meta">Color &amp; micro-trend volume</div>
+          <div class="meter"><span id="sigSocial" style="width:0%"></span></div>
+        </div>
+        <div class="signal-card">
+          <div class="label">Retail readiness</div>
+          <div class="value" id="valRetail">—</div>
+          <div class="meta">Silhouette + sustainability</div>
+          <div class="meter"><span id="sigRetail" style="width:0%"></span></div>
+        </div>
+        <div class="signal-card">
+          <div class="label">Runway echo</div>
+          <div class="value" id="valRunway">—</div>
+          <div class="meta">Press coverage density</div>
+          <div class="meter"><span id="sigRunway" style="width:0%"></span></div>
+        </div>
+        <div class="signal-card">
+          <div class="label">Fatigue risk</div>
+          <div class="value" id="valRisk">—</div>
+          <div class="meta">Lower is healthier cycle</div>
+          <div class="meter"><span id="sigRisk" style="width:0%"></span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.15rem;">
+        <div class="label" style="font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--mauve);margin-bottom:0.5rem;">Keyword radar</div>
+        <div class="radar-wrap" id="radarWrap">
+          <span class="radar-tag base">Loading lexicon…</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Press feed -->
+    <section class="card span-full" id="feed" aria-labelledby="feed-title">
+      <div class="card-head">
+        <div>
+          <h2 id="feed-title">Fashion press radar</h2>
+          <p>Public RSS · no API keys · CORS-proxied for static hosting</p>
+        </div>
+        <button type="button" class="btn" id="refreshFeed" title="Refresh feeds">↻ Refresh</button>
+      </div>
+      <div class="feed-toolbar" role="tablist" aria-label="Feed filters">
+        <button type="button" class="chip active" data-filter="all">All</button>
+        <button type="button" class="chip" data-filter="runway">Runway</button>
+        <button type="button" class="chip" data-filter="street">Street / culture</button>
+        <button type="button" class="chip" data-filter="beauty">Beauty &amp; style</button>
+      </div>
+      <div class="feed-list" id="feedList" aria-live="polite">
+        <div class="feed-loading">Connecting to fashion feeds…</div>
+      </div>
+    </section>
+
+    <!-- Mood board -->
+    <section class="card" id="mood" aria-labelledby="mood-title">
+      <div class="card-head">
+        <div>
+          <h2 id="mood-title">Visual mood board</h2>
+          <p>Random fashion imagery · Unsplash Source</p>
+        </div>
+        <button type="button" class="btn" id="refreshMood">↻ Shuffle</button>
+      </div>
+      <div class="mood-grid" id="moodGrid"></div>
+    </section>
+
+    <!-- Forecast -->
+    <section class="card" id="forecast" aria-labelledby="forecast-title">
+      <div class="card-head">
+        <div>
+          <h2 id="forecast-title">Horizon forecast</h2>
+          <p>Curated calendar × signal model</p>
+        </div>
+        <span class="badge">Atelier</span>
+      </div>
+      <div class="timeline-pred" id="predList"></div>
+    </section>
+
+    <!-- Method note -->
+    <section class="card span-full" aria-labelledby="method-title">
+      <div class="card-head">
+        <div>
+          <h2 id="method-title">How this works</h2>
+          <p>Designed for GitHub Pages · zero secrets · privacy-first</p>
+        </div>
+      </div>
+      <div class="insight-block" style="display:grid;gap:0.65rem;">
+        <p><strong>Image path:</strong> Canvas downsamples your photo and clusters colors in-browser. No upload leaves your device.</p>
+        <p><strong>Press path:</strong> Official RSS endpoints (Vogue, BoF, Fashionista, Who What Wear, Highsnobiety) are fetched through public CORS helpers, then scored against a fashion lexicon for heat, silhouette, and sustainability language.</p>
+        <p><strong>Forecast path:</strong> Seasonal narrative is a hybrid of fixed fashion-calendar knowledge and live keyword pressure from the feed.</p>
+        <p><strong>Links:</strong>
+          <a href="../index.html">Portfolio home</a> ·
+          <a href="../Blairs_Picks.html" target="_blank" rel="noopener">Blair’s Picks</a> ·
+          <a href="https://www.linkedin.com/in/blairpagedrakemccoy/" target="_blank" rel="noopener">LinkedIn</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="atelier-footer">
+    <div>© Blair Page · Fashion Atelier · AWS Certified · Inside LVMH (In Training)</div>
+    <div>
+      <a href="../index.html">← Back to portfolio</a>
+      ·
+      <a href="https://github.com/Blairyfairy" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="atelier.js" defer></script>
+</body>
+</html>
