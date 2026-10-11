@@ -97,7 +97,7 @@ a:hover { color: var(--rose); text-decoration: underline; }
 
 .fashion-topline-nav {
   display: grid;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-columns: repeat(10, minmax(0, 1fr));
   width: 100%;
   min-width: 0;
 }
@@ -722,40 +722,105 @@ a:hover { color: var(--rose); text-decoration: underline; }
   .pro-charts { grid-template-columns: 1fr; }
 }
 
+
+.system-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-top: 18px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(36,24,37,.45);
+}
+.system-status .st-ok { color: #2a9d8f; }
+.system-status .st-pending { color: rgba(36,24,37,.4); }
+.system-status .st-fail { color: #9b1b30; }
+
+.briefs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+}
+.brief-card {
+  border-radius: 22px;
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(255,255,255,.72);
+  box-shadow: var(--shadow-soft);
+  padding: 18px 16px;
+}
+.brief-card h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.2rem;
+  color: var(--deep);
+  margin-bottom: 8px;
+}
+.brief-card p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(36,24,37,.72);
+  margin: 0 0 10px;
+}
+.brief-card a {
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+
+
+
+
+
+/* Bare white chevron — no circle, no plate */
 #toTop {
   position: fixed;
-  right: 22px;
-  bottom: 22px;
+  right: 28px;
+  bottom: 28px;
   z-index: 300;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
-  background: #c9b7dd;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+  padding: 8px;
+  margin: 0;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  outline: none;
   color: #ffffff;
-  font-size: 0.85rem;
+  font-size: 1.35rem;
   font-weight: 400;
+  line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(109, 59, 142, 0.28);
-  transition: transform 0.22s ease, opacity 0.25s, box-shadow 0.22s, background 0.2s;
   opacity: 0;
   pointer-events: none;
-  line-height: 1;
-  padding: 0;
+  transition: opacity 0.25s ease, transform 0.2s ease, filter 0.2s ease;
+  text-shadow: 0 1px 3px rgba(42, 23, 54, 0.35);
 }
 #toTop.visible {
   opacity: 1;
   pointer-events: auto;
 }
 #toTop:hover {
-  background: #b8a3d4;
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(109, 59, 142, 0.35);
+  transform: translateY(-4px);
+  filter: brightness(1.08);
+  background: transparent !important;
+  box-shadow: none !important;
   color: #ffffff;
-  filter: none;
+}
+@media (max-width: 560px) {
+  #toTop {
+    right: 18px;
+    bottom: 18px;
+    font-size: 1.2rem;
+  }
 }
 
 /* ─── FOOTER ─── */
@@ -823,7 +888,53 @@ a:hover { color: var(--rose); text-decoration: underline; }
   .pro-charts { grid-template-columns: 1fr; }
 }
 
-#toTop { right: 14px; bottom: 14px; width: 44px; height: 44px; font-size: 0.8rem; }
+
+.system-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-top: 18px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(36,24,37,.45);
+}
+.system-status .st-ok { color: #2a9d8f; }
+.system-status .st-pending { color: rgba(36,24,37,.4); }
+.system-status .st-fail { color: #9b1b30; }
+
+.briefs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+}
+.brief-card {
+  border-radius: 22px;
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(255,255,255,.72);
+  box-shadow: var(--shadow-soft);
+  padding: 18px 16px;
+}
+.brief-card h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.2rem;
+  color: var(--deep);
+  margin-bottom: 8px;
+}
+.brief-card p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(36,24,37,.72);
+  margin: 0 0 10px;
+}
+.brief-card a {
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+
 
   .page { width: min(100% - 20px, 1180px); }
   .panel, .hero { border-radius: 24px; padding: 18px; }

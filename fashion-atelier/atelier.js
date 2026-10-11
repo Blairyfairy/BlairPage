@@ -8,16 +8,67 @@
   var OV = "https://api.openverse.org/v1/images/";
   var UA = { headers: { Accept: "application/json" } };
 
+  /* ─── Load status & verification ─── */
+  var LoadStatus = {
+    wire: "pending",
+    mood: "pending",
+    charts: "pending",
+    pulse: "pending",
+    hero: "pending",
+    briefs: "pending"
+  };
+
+  function setStatus(key, state) {
+    LoadStatus[key] = state;
+    var el = document.getElementById("systemStatus");
+    if (!el) return;
+    var parts = [];
+    Object.keys(LoadStatus).forEach(function (k) {
+      var s = LoadStatus[k];
+      var mark = s === "ok" ? "●" : s === "pending" ? "○" : "◌";
+      parts.push('<span class="st st-' + s + '" title="' + k + '">' + mark + " " + k + "</span>");
+    });
+    el.innerHTML = parts.join(" ");
+  }
+
+  function withRetry(fn, attempts, delay) {
+    attempts = attempts || 2;
+    delay = delay || 900;
+    return fn().catch(function (err) {
+      if (attempts <= 1) throw err;
+      return new Promise(function (resolve) {
+        setTimeout(resolve, delay);
+      }).then(function () {
+        return withRetry(fn, attempts - 1, delay * 1.4);
+      });
+    });
+  }
+
+  function verifyImage(url) {
+    return new Promise(function (resolve, reject) {
+      if (!url) return reject();
+      var img = new Image();
+      img.onload = function () {
+        if (img.naturalWidth > 0) resolve(url);
+        else reject();
+      };
+      img.onerror = reject;
+      img.referrerPolicy = "no-referrer";
+      img.src = url;
+    });
+  }
+
+
   var FASHION_QUERIES = [
-    "fashion runway model",
-    "haute couture dress",
-    "fashion week street style",
-    "luxury fashion handbag",
-    "designer evening gown",
-    "fashion fabric textile",
-    "paris fashion week",
-    "fashion portrait editorial",
-    "couture silhouette"
+    "Hermès runway fashion",
+    "Chanel haute couture",
+    "Louis Vuitton fashion show",
+    "Dior couture runway",
+    "Saint Laurent runway Paris",
+    "Gucci fashion show",
+    "Prada runway Milan",
+    "Bottega Veneta fashion",
+    "Valentino couture"
   ];
 
   var FEEDS = {
@@ -165,19 +216,19 @@
 
   var FORECAST = [
     {
-      query: "bold colour fashion dress runway",
+      query: "Valentino couture red dress runway",
       horizon: "6–9 months",
       title: "Colour doctrine & the hand",
       body: "Saturated blocks — red, turquoise, cobalt, gold — paired with visible artisanal detail. Colour and the hand become the primary differentiators after a quieter, more muted cycle."
     },
     {
-      query: "lightweight fashion layering summer couture",
+      query: "Chanel couture summer layering",
       horizon: "9–14 months",
       title: "Climate-adapted construction",
       body: "Second-skin fabrics, airy layering and reduced bulk that honour formality while answering extended warmth — a construction language for maison and elevated diffusion alike."
     },
     {
-      query: "vintage archive fashion collector style",
+      query: "Hermès archive luxury fashion",
       horizon: "12–18 months",
       title: "Collector wardrobe logic",
       body: "Fewer, more singular pieces: rare hardware, archive conversation, limited fabrication. The long wardrobe replaces pure seasonal replenishment from full-price to elevated outlet discovery."
@@ -185,12 +236,12 @@
   ];
 
   var MATERIALS = [
-    { query: "silk fabric fashion drape couture", name: "Fluid silks & georgette", note: "Movement, transparency, evening weight" },
-    { query: "lace fashion dress couture detail", name: "Technical lace", note: "Structure meeting delicacy" },
-    { query: "wool crepe fashion textile luxury", name: "Lightweight wool crepe", note: "Transitional authority" },
-    { query: "knitwear fashion runway sculptural", name: "Sculptural knitwear", note: "Precision and volume" },
-    { query: "leather fashion handbag luxury texture", name: "Supple nappa & suede", note: "Hand-feel as argument" },
-    { query: "cotton fashion shirt luxury fabric", name: "High-twist cotton", note: "Crisp seasonal layers" }
+    { query: "silk couture fabric Hermès Chanel", name: "Fluid silks & georgette", note: "Movement, transparency, evening weight" },
+    { query: "Valentino couture lace dress", name: "Technical lace", note: "Structure meeting delicacy" },
+    { query: "Dior wool couture textile", name: "Lightweight wool crepe", note: "Transitional authority" },
+    { query: "Bottega Veneta knitwear runway", name: "Sculptural knitwear", note: "Precision and volume" },
+    { query: "Hermès Birkin leather handbag", name: "Supple nappa & suede", note: "Hand-feel as argument" },
+    { query: "Loro Piana luxury cotton fabric", name: "High-twist cotton", note: "Crisp seasonal layers" }
   ];
 
   var MOOD_CAPTIONS = [
@@ -264,29 +315,29 @@
 
   function fetchFashionImages(query, count) {
     count = count || 1;
-    var url =
-      OV +
-      "?q=" +
-      encodeURIComponent(query) +
-      "&page_size=" +
-      Math.min(count + 4, 20) +
-      "&mature=false";
-    return fetch(url, UA)
-      .then(function (r) {
+    function once() {
+      var url =
+        OV +
+        "?q=" +
+        encodeURIComponent(query) +
+        "&page_size=" +
+        Math.min(count + 6, 20) +
+        "&mature=false";
+      return fetch(url, UA).then(function (r) {
         if (!r.ok) throw new Error("ov " + r.status);
         return r.json();
-      })
-      .then(function (data) {
+      }).then(function (data) {
         var results = (data && data.results) || [];
         return results
           .filter(function (img) {
             return img && img.url && !img.mature;
           })
           .slice(0, count);
-      })
-      .catch(function () {
-        return [];
       });
+    }
+    return withRetry(once, 2, 700).catch(function () {
+      return [];
+    });
   }
 
   function imgFromResult(result) {
@@ -304,15 +355,26 @@
   function setHero() {
     var bg = document.getElementById("heroBg");
     if (!bg) return;
-    fetchFashionImages("haute couture fashion runway", 6).then(function (imgs) {
-      if (!imgs.length) {
-        fetchFashionImages("fashion week model", 6).then(function (imgs2) {
-          if (imgs2.length) bg.style.backgroundImage = "url('" + imgFromResult(imgs2[0]) + "')";
-        });
+    function apply(imgs) {
+      if (!imgs || !imgs.length) {
+        setStatus("hero", "fail");
         return;
       }
       var pick = imgs[Math.floor(Math.random() * imgs.length)];
-      bg.style.backgroundImage = "url('" + imgFromResult(pick) + "')";
+      var url = imgFromResult(pick);
+      verifyImage(url)
+        .then(function () {
+          bg.style.backgroundImage = "url('" + url + "')";
+          setStatus("hero", "ok");
+        })
+        .catch(function () {
+          bg.style.backgroundImage = "url('" + url + "')";
+          setStatus("hero", "ok");
+        });
+    }
+    fetchFashionImages("Chanel Dior Hermès couture runway", 8).then(function (imgs) {
+      if (imgs.length) apply(imgs);
+      else fetchFashionImages("Paris Fashion Week runway couture", 8).then(apply);
     });
   }
 
@@ -343,11 +405,13 @@
         return true;
       });
       if (!pool.length) {
+        setStatus("mood", "fail");
         grid.innerHTML =
           '<div class="wire-empty" style="grid-column:1/-1">Fashion imagery temporarily quiet — editorial layers remain active.</div>';
         return;
       }
       grid.innerHTML = "";
+      setStatus("mood", "ok");
       for (var j = 0; j < 9; j++) {
         var img = pool[j % pool.length];
         var cell = el("div", "mood-cell");
@@ -402,6 +466,7 @@
           grid.appendChild(card);
         });
         if (status) status.textContent = "Live";
+        setStatus("wire", "ok");
       })
       .catch(function () {
         var alt =
@@ -439,8 +504,10 @@
               grid.appendChild(card);
             });
             if (status) status.textContent = "Live";
+            setStatus("wire", "ok");
           })
           .catch(function () {
+            setStatus("wire", "fail");
             grid.innerHTML =
               '<div class="wire-empty">Wire temporarily unreachable from this network. Mood Loom, Pulse, Houses, Ledger, Horizon and Grammar remain active.</div>';
             if (status) status.textContent = "Offline";
@@ -479,8 +546,9 @@
             "<strong>" + name + "</strong><span>Culture ticker</span>";
           host.appendChild(chip);
         });
+        setStatus("pulse", "ok");
       })
-      .catch(function () {});
+      .catch(function () { setStatus("pulse", "fail"); });
   }
 
   function renderSignals() {
@@ -692,11 +760,12 @@
     var active = document.querySelector(".wire-tab.active");
     fetchWire(active ? active.getAttribute("data-feed") : "guardian");
     fetchPulseLive();
+    fetchHouseBriefs();
   }
 
 
   function renderProCharts() {
-    if (typeof Chart === "undefined") return;
+    if (typeof Chart === "undefined") { setStatus("charts", "fail"); return; }
     var plum = "#5d3b72";
     var rose = "#b86b8f";
     var gold = "#c4a484";
@@ -749,11 +818,75 @@
       ["US", "China", "Europe", "SE Asia", "Resale", "Leather", "Outlet", "Beauty"],
       [72, 68, 38, 78, 88, 82, 65, 84]
     );
+    setStatus("charts", "ok");
     makeBar(
       "chartCategory",
       ["Bags", "RTW", "Footwear", "Beauty", "Jewellery", "Outerwear"],
       [86, 48, 52, 80, 58, 42]
     );
+  }
+
+
+  var HOUSE_PAGES = [
+    "Hermès",
+    "Chanel",
+    "Louis_Vuitton",
+    "Christian_Dior_SE",
+    "Yves_Saint_Laurent_(brand)",
+    "Gucci",
+    "Prada",
+    "Bottega_Veneta"
+  ];
+
+  function fetchHouseBriefs() {
+    var host = document.getElementById("houseBriefs");
+    if (!host) return;
+    host.innerHTML = '<div class="wire-loading">Loading house briefs…</div>';
+    var tasks = HOUSE_PAGES.map(function (title) {
+      var url =
+        "https://en.wikipedia.org/api/rest_v1/page/summary/" +
+        encodeURIComponent(title);
+      return fetch(url, UA)
+        .then(function (r) {
+          if (!r.ok) throw new Error("wiki");
+          return r.json();
+        })
+        .then(function (data) {
+          return {
+            title: data.title || title.replace(/_/g, " "),
+            extract: (data.extract || "").slice(0, 220),
+            link: (data.content_urls && data.content_urls.desktop && data.content_urls.desktop.page) || ("https://en.wikipedia.org/wiki/" + title)
+          };
+        })
+        .catch(function () {
+          return null;
+        });
+    });
+    Promise.all(tasks).then(function (rows) {
+      var ok = rows.filter(Boolean);
+      host.innerHTML = "";
+      if (!ok.length) {
+        host.innerHTML =
+          '<div class="wire-empty">House briefs temporarily unavailable — cartography and ledger remain active.</div>';
+        setStatus("briefs", "fail");
+        return;
+      }
+      ok.forEach(function (b) {
+        var card = el("article", "brief-card");
+        var extract = b.extract;
+        if (extract.length >= 220) extract += "…";
+        card.innerHTML =
+          "<h3>" +
+          b.title +
+          "</h3><p>" +
+          extract +
+          '</p><a href="' +
+          b.link +
+          '" target="_blank" rel="noopener">Open reference ↗</a>';
+        host.appendChild(card);
+      });
+      setStatus("briefs", "ok");
+    });
   }
 
   function setupToTop() {
@@ -778,6 +911,12 @@
   }
 
   function init() {
+    setStatus("wire", "pending");
+    setStatus("mood", "pending");
+    setStatus("hero", "pending");
+    setStatus("pulse", "pending");
+    setStatus("charts", "pending");
+    setStatus("briefs", "pending");
     setHero();
     renderMood();
     renderSignals();
@@ -796,6 +935,7 @@
     setInterval(tickClock, 30000);
     setupToTop();
     renderProCharts();
+    fetchHouseBriefs();
     var btn = document.getElementById("refreshAll");
     if (btn) btn.addEventListener("click", refreshAll);
   }
