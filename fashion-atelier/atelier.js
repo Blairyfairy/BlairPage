@@ -68,7 +68,18 @@
     "Gucci fashion show",
     "Prada runway Milan",
     "Bottega Veneta fashion",
-    "Valentino couture"
+    "Valentino couture",
+    "Loewe runway collection",
+    "Fendi haute fashion runway",
+    "Balenciaga fashion show",
+    "Celine runway fashion",
+    "Alexander McQueen fashion show",
+    "Cartier luxury jewelry exhibition",
+    "luxury fashion atelier craftsmanship embroidery",
+    "haute couture textile detail",
+    "luxury fashion flagship store architecture",
+    "fashion museum costume collection",
+    "luxury leather goods craftsmanship"
   ];
 
   var FEEDS = {
@@ -131,67 +142,63 @@
 
   var TIERS = [
     {
-      label: "High luxury",
-      title: "Maisons",
+      label: "Global icons · couture & leather goods",
+      title: "The heritage leaders",
       items: [
-        ["Hermès", "Structural resilience"],
-        ["Chanel", "Selective growth"],
-        ["Louis Vuitton", "Creative continuity"],
-        ["Dior", "Reset in progress"],
-        ["The Row", "Quiet authority"],
-        ["Balenciaga", "Code recalibration"],
-        ["Valentino", "Romantic precision"],
-        ["Givenchy", "New authorship"]
+        ["Chanel", "House codes · couture · accessories"],
+        ["Louis Vuitton", "Leather goods · travel · global retail"],
+        ["Hermès", "Craft · scarcity · enduring desirability"],
+        ["Dior", "Couture heritage · beauty · client experience"],
+        ["Gucci", "Italian codes · cultural relevance"],
+        ["Prada", "Intellectual design · retail innovation"],
+        ["Saint Laurent", "Modern Parisian codes · accessories"],
+        ["Burberry", "British heritage · outerwear"],
+        ["Fendi", "Roman craft · leather goods"],
+        ["Versace", "Bold identity · statement dressing"]
       ]
     },
     {
-      label: "Accessible luxury",
-      title: "Aspirational houses",
+      label: "High desirability · luxury fashion",
+      title: "The influential houses",
       items: [
-        ["Saint Laurent", "Return to growth"],
-        ["Gucci", "Turnaround phase"],
-        ["Loewe", "Craft-led desire"],
-        ["Bottega Veneta", "Texture language"],
-        ["Celine", "Refined codes"],
-        ["Prada", "Intellectual chic"],
-        ["Miu Miu", "Youthful velocity"],
-        ["Burberry", "British recalibration"]
+        ["Bottega Veneta", "Material intelligence · intrecciato craft"],
+        ["Loewe", "Leather craft · art and design"],
+        ["Miu Miu", "Youth culture · high fashion momentum"],
+        ["Balenciaga", "Fashion experimentation · silhouette"],
+        ["Celine", "Parisian minimalism · leather goods"],
+        ["Valentino", "Couture romance · colour"],
+        ["Givenchy", "Parisian couture legacy"],
+        ["The Row", "Discretion · exceptional materials"],
+        ["Loro Piana", "Textile excellence · quiet luxury"],
+        ["Brunello Cucinelli", "Italian craft · refined lifestyle"]
       ]
     },
     {
-      label: "Elevated outlet & off-price",
-      title: "Resilience corridor",
+      label: "Jewellery · watches · premium icons",
+      title: "The wider luxury ecosystem",
       items: [
-        ["Designer outlet villages", "Volume with equity"],
-        ["Off-price floors", "Margin protection"],
-        ["Sample & archive", "Collector interest"],
-        ["Authorised resale", "Journey extension"],
-        ["Private client sales", "Retention"],
-        ["Seasonal clearance suites", "Controlled dilution"]
-      ]
-    },
-    {
-      label: "Emerging independents",
-      title: "New authorship",
-      items: [
-        ["Independent ateliers", "Artisanal detail"],
-        ["Direct-to-client", "Service as luxury"],
-        ["Material-first labels", "Fabric narrative"],
-        ["Gender-fluid houses", "Silhouette play"],
-        ["Regional voices", "Beyond the capital"],
-        ["Archive-led labels", "Long wardrobe logic"]
+        ["Cartier", "Fine jewellery · watchmaking"],
+        ["Tiffany & Co.", "American luxury jewellery"],
+        ["Van Cleef & Arpels", "High jewellery · poetic codes"],
+        ["Bulgari", "Roman jewellery · hospitality"],
+        ["Rolex", "Watchmaking · enduring brand equity"],
+        ["Moncler", "Performance luxury · outerwear"],
+        ["Ralph Lauren", "American lifestyle · premium worlds"],
+        ["Coach", "Accessible luxury · leather goods"],
+        ["Ferragamo", "Italian footwear · leather craft"],
+        ["Rimowa", "Luxury travel · engineered design"]
       ]
     }
   ];
 
   var MARKET_PRIMARY = {
-    kicker: "2026 outlook",
-    title: "Stabilisation with selective desire",
-    body: "Global luxury is expected to advance in the low single digits — roughly 2–4% — as the industry shifts from volume-led expansion to stabilisation. The United States remains the largest market; China is positioned to recover and outpace other regions. Europe navigates rent, regulation and cautious spend. Japan, Southeast Asia and the Middle East offer relative strength, including younger affluent clients entering the category. Across maison floors and the elevated outlet corridor, the governing principle is selectivity: fewer, better, more enduring purchases.",
+    kicker: "2026 market reading · editorial analysis",
+    title: "Desirability, value and client trust",
+    body: "Luxury is navigating a more selective demand environment: headline brand power alone is not a guarantee of growth. The strategic questions are how each house protects desirability, demonstrates craft and value, localises client experience, and converts cultural relevance into full-price demand. This dashboard separates editorial interpretation from reported facts; indicators are directional hypotheses for discussion, not audited forecasts or financial advice.",
     stats: [
-      { value: "2–4%", label: "Global growth" },
-      { value: "US · CN", label: "Demand anchors" },
-      { value: "Selective", label: "Client posture" }
+      { value: "Desirability", label: "Brand priority" },
+      { value: "Client trust", label: "Experience priority" },
+      { value: "Evidence-led", label: "Decision standard" }
     ]
   };
 
@@ -416,36 +423,60 @@
     return c ? t + " · " + c : t;
   }
 
+  var heroRotationTimer = null;
   function setHero() {
     var bg = document.getElementById("heroBg");
     if (!bg) return;
-    function apply(imgs) {
-      var candidates = (imgs || []).map(imgFromResult).filter(Boolean);
-      function tryNext() {
-        if (!candidates.length) {
-          bg.style.backgroundImage = "linear-gradient(135deg,#170e20,#5d3b72 48%,#c4a484)";
+    var queryIndex = 0, candidates = [], active = 0;
+    var queries = [
+      "Chanel Dior Hermès haute couture runway",
+      "Louis Vuitton runway fashion show",
+      "Prada Gucci Saint Laurent fashion runway",
+      "luxury fashion atelier embroidery craftsmanship",
+      "luxury fashion flagship architecture Paris Milan"
+    ];
+    function showNext() {
+      if (!candidates.length) return;
+      var attempts = candidates.length, url = "";
+      function tryCandidate() {
+        if (!attempts--) {
+          bg.style.backgroundImage = "url(\"" + fashionFallbackSvg("Editorial cover") + "\")";
+          bg.style.backgroundSize = "cover";
+          bg.style.backgroundPosition = "center";
           setStatus("hero", "fallback");
           return;
         }
-        var url = candidates.shift();
+        url = candidates[(active++) % candidates.length];
         verifyImage(url).then(function () {
           bg.style.backgroundImage = "url('" + url.replace(/'/g, "%27") + "')";
           setStatus("hero", "ok");
-        }).catch(tryNext);
+        }).catch(tryCandidate);
       }
-      tryNext();
+      tryCandidate();
     }
-    fetchFashionImages("Chanel Dior Hermès couture runway", 8).then(function (imgs) {
-      if (imgs.length) apply(imgs);
-      else fetchFashionImages("Paris Fashion Week runway couture", 8).then(apply);
-    });
+    function loadNextQuery() {
+      if (queryIndex >= queries.length) {
+        if (candidates.length) showNext();
+        else { bg.style.backgroundImage = "url(\"" + fashionFallbackSvg("Editorial cover") + "\")"; bg.style.backgroundSize = "cover"; bg.style.backgroundPosition = "center"; setStatus("hero", "fallback"); }
+        return;
+      }
+      fetchFashionImages(queries[queryIndex++], 6).then(function (imgs) {
+        imgs.forEach(function (img) { var u = imgFromResult(img); if (u && candidates.indexOf(u) < 0) candidates.push(u); });
+        if (candidates.length >= 5) showNext();
+        else loadNextQuery();
+      }).catch(loadNextQuery);
+    }
+    loadNextQuery();
+    // Editorial cover rotates through verified images without stacking timers on refresh.
+    if (heroRotationTimer) window.clearInterval(heroRotationTimer);
+    heroRotationTimer = window.setInterval(function () { if (candidates.length > 1) showNext(); }, 14000);
   }
 
   function renderMood() {
     var grid = document.getElementById("moodGrid");
     if (!grid) return;
     grid.innerHTML = "";
-    for (var i = 0; i < 9; i++) {
+    for (var i = 0; i < 12; i++) {
       var cell = el("div", "mood-cell");
       cell.innerHTML =
         '<div style="width:100%;height:100%;min-height:160px;background:linear-gradient(135deg,#2a1736,#5d3b72);opacity:.4"></div>';
@@ -475,7 +506,7 @@
       }
       grid.innerHTML = "";
       setStatus("mood", "ok");
-      for (var j = 0; j < 9; j++) {
+      for (var j = 0; j < 12; j++) {
         var img = pool[j % pool.length];
         var cell = el("div", "mood-cell");
         var image = document.createElement("img");
@@ -483,12 +514,7 @@
         image.loading = "lazy";
         image.decoding = "async";
         image.referrerPolicy = "no-referrer";
-        image.onerror = function () {
-          image.onerror = null;
-          image.src = fashionFallbackSvg(MOOD_CAPTIONS[j] || "Luxury fashion");
-          image.classList.add("image-fallback");
-        };
-        image.src = imgFromResult(img) || fashionFallbackSvg(MOOD_CAPTIONS[j]);
+        attachImageRecovery(image, pool.slice((j + 1) % pool.length).concat([img]), MOOD_CAPTIONS[j] || "Luxury fashion");
         cell.appendChild(image);
         cell.appendChild(el("div", "caption", MOOD_CAPTIONS[j] || attribution(img).slice(0, 40)));
         grid.appendChild(cell);
@@ -721,6 +747,80 @@
     });
   }
 
+  var LUXURY_LOCATIONS = [
+    {region:"Las Vegas",name:"The Shops at Crystals",city:"Las Vegas · CityCenter",desc:"Flagship-focused luxury environment with a concentrated mix of fashion, leather goods, jewellery and watch maisons.",tags:["Flagships","Luxury retail","Architecture"],map:"The Shops at Crystals Las Vegas",source:"https://www.simon.com/mall/the-shops-at-crystals/about",sourceLabel:"Official centre"},
+    {region:"Las Vegas",name:"Wynn Esplanades",city:"Las Vegas · Wynn & Encore",desc:"Resort-led luxury retail where hospitality, service choreography and high-touch client experience intersect.",tags:["Resort retail","Client experience","Hospitality"],map:"Wynn Esplanades luxury shopping Las Vegas",source:"https://www.wynnlasvegas.com/experiences/shopping",sourceLabel:"Wynn shopping"},
+    {region:"Las Vegas",name:"Forum Shops at Caesars",city:"Las Vegas · Caesars Palace",desc:"High-traffic destination retail: a useful lens on luxury storytelling, visitor conversion and experiential merchandising.",tags:["Experiential retail","Visitor economy","Merchandising"],map:"Forum Shops at Caesars Palace Las Vegas",source:"https://www.caesars.com/caesars-palace/things-to-do/forum-shops",sourceLabel:"Centre website"},
+    {region:"Europe",name:"Via Montenapoleone",city:"Milan · Quadrilatero della Moda",desc:"A compact global fashion district connecting Italian craft, international maisons, flagship design and luxury street economics.",tags:["Fashion capital","Italian craft","Flagships"],map:"Via Montenapoleone Milan",source:"https://montenapoleonedistrict.it/en/",sourceLabel:"District association"},
+    {region:"Europe",name:"Avenue Montaigne",city:"Paris · Triangle d’Or",desc:"A signature Parisian couture and luxury corridor for studying maison heritage, presentation and high-value client journeys.",tags:["Couture heritage","Maison codes","Paris"],map:"Avenue Montaigne Paris luxury fashion",source:"https://parisjetaime.com/eng/",sourceLabel:"Paris tourism"},
+    {region:"Europe",name:"New Bond Street",city:"London · Mayfair",desc:"A global luxury street blending designer fashion, jewellery, watches, art and auction-house adjacency.",tags:["Luxury street","Fine jewellery","Mayfair"],map:"New Bond Street London",source:"https://www.visitlondon.com/things-to-do/place/7883674-bond-street",sourceLabel:"Visit London"},
+    {region:"Global",name:"Fifth Avenue",city:"New York · Manhattan",desc:"A benchmark for luxury flagships, premium department stores and the interaction between tourism and high-street retail.",tags:["Flagship strategy","Tourism","Retail economics"],map:"Fifth Avenue luxury shopping New York",source:"https://www.nycgo.com/",sourceLabel:"NYC tourism"},
+    {region:"Global",name:"Rodeo Drive",city:"Beverly Hills · Los Angeles",desc:"A recognisable luxury retail destination where brand theatre, destination marketing and personal service are central.",tags:["Brand theatre","Clienteling","Destination retail"],map:"Rodeo Drive Beverly Hills",source:"https://www.rodeodrive-bh.com/",sourceLabel:"Rodeo Drive"},
+    {region:"Global",name:"Ginza",city:"Tokyo · Chūō",desc:"A premium retail district for observing Japanese service culture, refined presentation, beauty, watches and international maisons.",tags:["Service culture","Beauty","Watches"],map:"Ginza luxury shopping Tokyo",source:"https://www.gotokyo.org/en/",sourceLabel:"Tokyo tourism"},
+    {region:"Global",name:"Dubai Mall Fashion Avenue",city:"Dubai · Downtown",desc:"A global luxury destination where international tourism, luxury hospitality and multi-category maison retail converge.",tags:["Global clients","Luxury ecosystem","Tourism"],map:"Dubai Mall Fashion Avenue",source:"https://thedubaimall.com/",sourceLabel:"Dubai Mall"},
+    {region:"Global",name:"Rue du Faubourg Saint-Honoré",city:"Paris · 8th arrondissement",desc:"A historic luxury corridor for studying heritage positioning, discreet boutiques and the relationship between fashion and art.",tags:["Heritage","Art adjacency","Paris"],map:"Rue du Faubourg Saint-Honoré Paris",source:"https://parisjetaime.com/eng/",sourceLabel:"Paris tourism"},
+    {region:"Global",name:"Madison Avenue",city:"New York · Upper East Side",desc:"A quieter luxury environment associated with established maisons, specialist retail, jewellery and relationship-led service.",tags:["Clienteling","Luxury service","New York"],map:"Madison Avenue luxury shopping New York",source:"https://www.nycgo.com/",sourceLabel:"NYC tourism"}
+  ];
+
+  function renderLuxuryLocations(filter) {
+    var host = document.getElementById("luxuryLocations");
+    if (!host) return;
+    filter = filter || "all";
+    host.innerHTML = "";
+    LUXURY_LOCATIONS.filter(function (item) { return filter === "all" || item.region === filter; }).forEach(function (item) {
+      var card = el("article", "location-card");
+      var tags = item.tags.map(function (tag) { return "<span>" + tag + "</span>"; }).join("");
+      var mapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(item.map);
+      card.innerHTML = '<div class="location-art"><span>' + item.name + '</span></div><div class="location-body"><h3>' + item.city + '</h3><p>' + item.desc + '</p><div class="location-tags">' + tags + '</div><div class="location-links"><a href="' + mapUrl + '" target="_blank" rel="noopener">Explore map ↗</a><a href="' + item.source + '" target="_blank" rel="noopener">' + item.sourceLabel + ' ↗</a></div></div>';
+      host.appendChild(card);
+    });
+  }
+
+  function bindLocationFilters() {
+    var buttons = document.querySelectorAll("[data-location-filter]");
+    Array.prototype.forEach.call(buttons, function (button) {
+      button.addEventListener("click", function () {
+        Array.prototype.forEach.call(buttons, function (b) { b.classList.toggle("active", b === button); });
+        renderLuxuryLocations(button.getAttribute("data-location-filter"));
+        loadLocationPhotography();
+      });
+    });
+  }
+
+  function loadLocationPhotography() {
+    var cards = Array.prototype.slice.call(document.querySelectorAll("#luxuryLocations .location-card .location-art"));
+    if (!cards.length) return;
+    var visibleNames = cards.map(function (card) { return (card.textContent || "").trim(); });
+    var imageQueries = [
+      { query: "The Shops at Crystals Las Vegas luxury shopping architecture", names: ["The Shops at Crystals", "Wynn Esplanades", "Forum Shops at Caesars"] },
+      { query: "Via Montenapoleone Milan Avenue Montaigne Paris Bond Street luxury fashion street", names: ["Via Montenapoleone", "Avenue Montaigne", "New Bond Street", "Rue du Faubourg Saint-Honoré"] },
+      { query: "Fifth Avenue Rodeo Drive Madison Avenue luxury fashion storefront", names: ["Fifth Avenue", "Rodeo Drive", "Madison Avenue"] },
+      { query: "Ginza Tokyo Dubai Mall Fashion Avenue luxury retail architecture", names: ["Ginza", "Dubai Mall Fashion Avenue"] }
+    ];
+    imageQueries.forEach(function (batch) {
+      fetchFashionImages(batch.query, 8).then(function (images) {
+        var candidates = images.map(function (img) { return { url: imgFromResult(img), title: img.title || "Luxury retail" }; }).filter(function (img) { return !!img.url; });
+        if (!candidates.length) return;
+        batch.names.forEach(function (name, index) {
+          var card = cards.find(function (art) { return (art.textContent || "").trim() === name; });
+          if (!card) return;
+          var candidateIndex = index % candidates.length;
+          function tryImage(offset) {
+            if (offset >= candidates.length) return; // Premium CSS artwork remains visible as fallback.
+            var candidate = candidates[(candidateIndex + offset) % candidates.length];
+            verifyImage(candidate.url).then(function (url) {
+              card.style.backgroundImage = "linear-gradient(0deg,rgba(25,15,31,.72),rgba(25,15,31,.04)),url('" + url.replace(/'/g, "%27") + "')";
+              card.style.backgroundSize = "cover";
+              card.style.backgroundPosition = "center";
+              card.setAttribute("data-image-source", candidate.title);
+            }).catch(function () { tryImage(offset + 1); });
+          }
+          tryImage(0);
+        });
+      }).catch(function () { /* Keep reliable designed artwork if public image APIs are unavailable. */ });
+    });
+  }
+
   function renderMarket() {
     var primary = document.getElementById("marketPrimary");
     if (!primary) return;
@@ -837,6 +937,7 @@
     fetchWire(active ? active.getAttribute("data-feed") : "guardian");
     fetchPulseLive();
     fetchHouseBriefs();
+    loadLocationPhotography();
   }
 
 
@@ -1010,6 +1111,13 @@
     tickClock();
     setInterval(tickClock, 30000);
     setupToTop();
+    renderLuxuryLocations("all");
+    bindLocationFilters();
+    loadLocationPhotography();
+    // Fixed navigation remains pinned to the viewport top; reserve its real height.
+    function sizeFixedHeader() { var top = document.querySelector(".top"); if (top) document.body.style.paddingTop = (top.offsetHeight + 6) + "px"; }
+    sizeFixedHeader();
+    window.addEventListener("resize", sizeFixedHeader, { passive: true });
     renderProCharts();
     fetchHouseBriefs();
     var btn = document.getElementById("refreshAll");

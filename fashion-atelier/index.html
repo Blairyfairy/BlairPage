@@ -34,17 +34,13 @@
         <span class="brand-dot"></span>
         Blair's Atelier
       </a>
-      <nav class="fashion-topline-nav">
-        <a class="fashion-topline-btn" href="#wire">Industry Wire</a>
-        <a class="fashion-topline-btn" href="#mood">Visual Field</a>
-        <a class="fashion-topline-btn" href="#pulse">Demand Signals</a>
-        <a class="fashion-topline-btn" href="#colour">Seasonal Colour</a>
-        <a class="fashion-topline-btn" href="#briefs">Maison Briefs</a>
-        <a class="fashion-topline-btn" href="#houses">House Map</a>
-        <a class="fashion-topline-btn" href="#market">Market Ledger</a>
-        <a class="fashion-topline-btn" href="#horizon">Forward Horizon</a>
-        <a class="fashion-topline-btn" href="#materials">Material Codes</a>
-        <button class="fashion-topline-btn refresh-btn" id="refreshAll" type="button" title="Reseed live layers">↻ Refresh Field</button>
+      <nav class="fashion-topline-nav" aria-label="Atelier navigation">
+        <a class="fashion-topline-btn" href="#wire">Industry</a>
+        <a class="fashion-topline-btn" href="#mood">Visuals</a>
+        <a class="fashion-topline-btn" href="#houses">Maison Index</a>
+        <a class="fashion-topline-btn" href="#locations">Luxury Places</a>
+        <a class="fashion-topline-btn" href="#market">Market Intelligence</a>
+        <button class="fashion-topline-btn refresh-btn" id="refreshAll" type="button" title="Refresh imagery and live editorial feeds" aria-label="Refresh imagery and live feeds">↻ Refresh</button>
       </nav>
     </div>
   </header>
@@ -159,15 +155,29 @@
     <section id="houses" class="panel">
       <span class="kicker">Cartography</span>
       <h2 class="section-title">House Map</h2>
-      <p class="lede">Four-tier map of value and velocity: maisons, accessible luxury, elevated outlet and off-price corridor, emerging independents — each read for tone, craft and client behaviour.</p>
+      <p class="lede">A curated index of globally recognisable luxury fashion, leather-goods, jewellery and watch names, organised by brand universe and strategic lens. This is an editorial reference—not a formal ranking or claim of affiliation.</p>
       <div class="brand-tiers" id="brandTiers"></div>
+    </section>
+
+    <!-- GLOBAL LUXURY LOCATIONS -->
+    <section id="locations" class="panel">
+      <span class="kicker">Retail Cartography</span>
+      <h2 class="section-title">Global Luxury Locations</h2>
+      <p class="lede">A practical map of flagship corridors and luxury retail environments — from Las Vegas’s high-touch resort retail to the established fashion streets of Paris, Milan, London, New York and Tokyo. Links open live map searches; store lineups can change.</p>
+      <div class="location-toolbar" role="group" aria-label="Filter luxury locations">
+        <button class="location-filter active" type="button" data-location-filter="all">All destinations</button>
+        <button class="location-filter" type="button" data-location-filter="Las Vegas">Las Vegas</button>
+        <button class="location-filter" type="button" data-location-filter="Europe">Europe</button>
+        <button class="location-filter" type="button" data-location-filter="Global">Global icons</button>
+      </div>
+      <div class="locations-grid" id="luxuryLocations"></div>
     </section>
 
     <!-- MARKET LEDGER -->
     <section id="market" class="panel">
       <span class="kicker">Outlook</span>
       <h2 class="section-title">Market Ledger</h2>
-      <p class="lede">Stabilisation over volume expansion; emotional connection over emblem; the outlet corridor as controlled buffer; selective capital — a 2026 outlook written for the long client.</p>
+      <p class="lede">A strategy desk for desirability, value perception, client experience and selective demand. Market commentary is labelled as editorial interpretation, with external research linked for context.</p>
       <div class="market-layout">
         <article class="market-card primary" id="marketPrimary"></article>
         <div class="market-side" id="marketSide"></div>
@@ -194,7 +204,8 @@
 
 <footer class="foot">
       <p class="foot-brand">Blair's Atelier</p>
-      <p class="foot-note">An independent portfolio concept by Blair Page exploring luxury brand strategy, fashion technology, merchandising and AI-enabled research. Public feeds and third-party image services may vary by availability; image credits and source links are retained where supplied.</p>
+      <p class="foot-note">An independent portfolio concept by Blair Page exploring luxury brand strategy, fashion technology, merchandising and AI-enabled research. This project is not affiliated with or endorsed by the brands referenced. Brand names remain the property of their respective owners. Public image APIs and news feeds can change or rate-limit; remote images are verified and designed fallbacks are provided. Use each image’s source/creator information to confirm the licence before reuse.</p>
+      <p class="foot-note">Research context: <a href="https://brandfinance.com/press-releases/porsche-remains-the-pinnacle-of-luxury-leading-the-luxury-and-premium-sector-for-a-ninth-consecutive-year-with-a-brand-value-of-35-2-billion" target="_blank" rel="noopener">Brand Finance Luxury &amp; Premium 50 (2026)</a> · <a href="https://www.vogue.com/article/vogue-business-index-top-10-preppy-is-back-and-so-is-ralph-lauren" target="_blank" rel="noopener">Vogue Business Index coverage</a> · <a href="https://www.theguardian.com/fashion/2026/oct/06/chanel-joy-matthieu-blazy-paris-fashion-week" target="_blank" rel="noopener">The Guardian on Chanel and current creative direction</a>. This is a portfolio exercise, not investment advice or an audited market forecast.</p>
     </footer>
   </main>
 
