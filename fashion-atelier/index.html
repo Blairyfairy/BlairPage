@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blair's Atelier — Live Fashion Intelligence</title>
-  <meta name="description" content="Blair's Atelier: mood boards, house maps, market signals, materials, and horizon forecasts — a living fashion intelligence surface." />
+  <meta name="description" content="Blair's Atelier: live fashion wire, trend pulse, house cartography, material grammar, horizon loom — portfolio-grade intelligence surface." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%232a1736'/><text x='50' y='68' font-family='Georgia,serif' font-size='48' fill='%23ffd28f' text-anchor='middle' font-weight='700'>BP</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,46 +21,50 @@
         Blair's Atelier
       </a>
       <nav class="fashion-topline-nav">
+        <a class="fashion-topline-btn" href="#wire">Wire</a>
         <a class="fashion-topline-btn" href="#mood">Mood</a>
-        <a class="fashion-topline-btn" href="#signals">Signals</a>
-        <a class="fashion-topline-btn" href="#brands">Houses</a>
-        <a class="fashion-topline-btn" href="#market">Market</a>
-        <a class="fashion-topline-btn" href="#forecast">Horizon</a>
-        <a class="fashion-topline-btn" href="#materials">Materials</a>
-        <button class="fashion-topline-btn refresh-btn" id="refreshAll" type="button" title="Refresh live layers">↻ Refresh</button>
+        <a class="fashion-topline-btn" href="#pulse">Pulse</a>
+        <a class="fashion-topline-btn" href="#houses">Houses</a>
+        <a class="fashion-topline-btn" href="#market">Ledger</a>
+        <a class="fashion-topline-btn" href="#horizon">Horizon</a>
+        <a class="fashion-topline-btn" href="#materials">Grammar</a>
+        <button class="fashion-topline-btn refresh-btn" id="refreshAll" type="button" title="Reseed live layers">↻ Reseed</button>
       </nav>
     </div>
   </header>
 
   <main class="page">
 
+    <!-- HERO -->
     <section id="hero" class="hero panel-like">
       <div class="hero-grid">
         <div class="title">
-          <p class="eyebrow">Live fashion intelligence · Continuous field</p>
+          <p class="eyebrow">Continuous field · Wire · Pulse · Loom</p>
           <h1>Blair's <span>Atelier</span></h1>
           <p class="subtitle">
-            A working surface for mood, market moves, material shifts, and the quiet signals that shape the next season —
-            built as editorial intelligence with a living visual field.
+            A master's-level working surface for fashion intelligence — live wire from public feeds,
+            trend pulse, house cartography, material grammar, and a horizon loom of forward reads.
+            Built to demonstrate editorial taste, research fluency, and product thinking.
           </p>
           <div class="stats">
             <div class="stat"><strong id="liveClock">—</strong><small>Local time</small></div>
-            <div class="stat"><strong>AW26–SS27</strong><small>Season window</small></div>
-            <div class="stat"><strong>Live layers</strong><small>Images + signals</small></div>
+            <div class="stat"><strong>AW26–SS27</strong><small>Season dial</small></div>
+            <div class="stat"><strong id="feedStatus">Live</strong><small>Wire status</small></div>
           </div>
         </div>
-        <aside class="cover-card" id="heroCover">
+        <aside class="cover-card">
           <div class="cover-bg" id="heroBg"></div>
           <div class="cover-copy">
             <h2>Freedom, Beauty, Truth &amp; Love</h2>
-            <p>Mood, houses, market, materials, and horizon — one continuous atelier surface.</p>
+            <p>Wire, mood, pulse, houses, ledger, horizon, grammar — one continuous atelier.</p>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="season-strip panel-like" aria-label="Season markers">
-      <div class="strip-inner" id="seasonStrip">
+    <!-- SEASON DIAL -->
+    <section class="season-strip panel-like" aria-label="Season dial">
+      <div class="strip-inner">
         <div class="chip active">AW26</div>
         <div class="chip">SS27</div>
         <div class="chip">Transitional</div>
@@ -70,30 +74,51 @@
       </div>
     </section>
 
+    <!-- LIVE WIRE (RSS / news) -->
+    <section id="wire" class="panel">
+      <span class="kicker">The Wire</span>
+      <h2 class="section-title">Fashion Wire</h2>
+      <p class="lede">Live headlines pulled from public fashion RSS sources — Guardian Fashion, WWD, and related industry feeds. No credentials. Refresh reseeds the field.</p>
+      <div class="wire-toolbar">
+        <button type="button" class="wire-tab active" data-feed="guardian">Guardian Fashion</button>
+        <button type="button" class="wire-tab" data-feed="wwd">WWD Fashion</button>
+        <button type="button" class="wire-tab" data-feed="wwd-biz">WWD Business</button>
+        <button type="button" class="wire-tab" data-feed="guardian-life">Guardian Lifestyle</button>
+      </div>
+      <div class="wire-grid" id="wireGrid">
+        <div class="wire-loading" id="wireLoading">Pulling the wire…</div>
+      </div>
+    </section>
+
+    <!-- MOOD -->
     <section id="mood" class="panel">
       <span class="kicker">Visual Field</span>
-      <h2 class="section-title">Mood Board</h2>
-      <p class="lede">Live image layers seeded for organic variety. Hover for captions. Refresh reseeds the entire field.</p>
+      <h2 class="section-title">Mood Loom</h2>
+      <p class="lede">Live image layers seeded for organic variety. Hover for captions. Reseed refreshes the entire field from public image endpoints.</p>
       <div class="mood-grid" id="moodGrid"></div>
     </section>
 
-    <section id="signals" class="panel">
+    <!-- PULSE (signals + live trends) -->
+    <section id="pulse" class="panel">
       <span class="kicker">Culture in Motion</span>
-      <h2 class="section-title">Active Signals</h2>
-      <p class="lede">Organic ideas currently moving through the culture — silhouette, climate, value, category, channel, and creative leadership.</p>
+      <h2 class="section-title">Trend Pulse</h2>
+      <p class="lede">Organic signals currently moving through the culture — silhouette, climate, value, category, channel, creative leadership — plus a live trend ticker where available.</p>
       <div class="signal-grid" id="signalGrid"></div>
+      <div class="pulse-live" id="pulseLive"></div>
     </section>
 
-    <section id="brands" class="panel">
+    <!-- HOUSES -->
+    <section id="houses" class="panel">
       <span class="kicker">Where Value Sits</span>
-      <h2 class="section-title">House Map</h2>
+      <h2 class="section-title">House Cartography</h2>
       <p class="lede">High luxury, aspirational, outlet &amp; off-price resilience, and emerging independents — mapped by current velocity and tone.</p>
       <div class="brand-tiers" id="brandTiers"></div>
     </section>
 
+    <!-- MARKET LEDGER -->
     <section id="market" class="panel">
       <span class="kicker">Industry Read</span>
-      <h2 class="section-title">Market Notes</h2>
+      <h2 class="section-title">Market Ledger</h2>
       <p class="lede">Group dynamics · outlet resilience · M&amp;A tone · values shift · 2026 stabilisation outlook.</p>
       <div class="market-layout">
         <article class="market-card primary" id="marketPrimary"></article>
@@ -101,39 +126,42 @@
       </div>
     </section>
 
-    <section id="forecast" class="panel">
+    <!-- HORIZON -->
+    <section id="horizon" class="panel">
       <span class="kicker">Forward Window</span>
-      <h2 class="section-title">Horizon</h2>
-      <p class="lede">Longer-range movements across a 6–18 month view — colour, construction, and collector logic.</p>
+      <h2 class="section-title">Horizon Loom</h2>
+      <p class="lede">Longer-range movements across a 6–18 month view — colour, climate-adapted construction, and collector logic.</p>
       <div class="forecast-track" id="forecastTrack"></div>
     </section>
 
+    <!-- MATERIALS -->
     <section id="materials" class="panel">
       <span class="kicker">Hand &amp; Construction</span>
-      <h2 class="section-title">Materials &amp; Construction</h2>
+      <h2 class="section-title">Material Grammar</h2>
       <p class="lede">Fabrics and finishes gaining weight in the current conversation.</p>
       <div class="mat-grid" id="matGrid"></div>
     </section>
 
+    <!-- REFERENCE -->
     <section class="panel reference-desk">
       <span class="kicker">Reference Desk</span>
       <h2 class="section-title">Working Notes</h2>
-      <p class="lede">This surface is built as a portfolio tool: denser information architecture, live visual field, and editorial market intelligence suitable for brand, strategy, and fashion roles.</p>
+      <p class="lede">Portfolio-grade fashion intelligence surface: denser architecture, live wire, trend pulse, and editorial market framing.</p>
       <ul>
-        <li>Live image layers from public endpoints (seeded, no static list)</li>
-        <li>House map across high luxury → emerging independents</li>
-        <li>Active cultural signals with current market framing</li>
-        <li>2026 stabilisation outlook and regional demand anchors</li>
-        <li>Horizon cards for colour, climate-adapted construction, collector logic</li>
-        <li>Materials row for fabric and finish direction</li>
-        <li>Season strip and continuous clock</li>
-        <li>One-click refresh of the visual field</li>
+        <li>Live Fashion Wire from public RSS (Guardian, WWD) — no credentials</li>
+        <li>Mood Loom — seeded live imagery, captions, reseed control</li>
+        <li>Trend Pulse — six cultural signals + optional live ticker</li>
+        <li>House Cartography — four-tier map of value and velocity</li>
+        <li>Market Ledger — 2026 stabilisation, stats, outlet buffer, M&amp;A tone</li>
+        <li>Horizon Loom — 6–18 month forecast cards</li>
+        <li>Material Grammar — fabrics and finishes in play</li>
+        <li>Season Dial + continuous clock</li>
       </ul>
     </section>
 
     <footer class="foot">
       <p class="foot-brand">Blair's Atelier</p>
-      <p class="foot-note">Built as a living portfolio surface. Content layers refresh from public image sources and curated market signals. No credentials stored or referenced.</p>
+      <p class="foot-note">Living portfolio surface. Wire layers pull from public feeds; images from public endpoints. No credentials stored or referenced. Attribution to source publications where headlines appear.</p>
     </footer>
   </main>
 

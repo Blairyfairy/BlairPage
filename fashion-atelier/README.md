@@ -1,37 +1,39 @@
 # Blair's Atelier
 
-A live portfolio surface for fashion intelligence — mood, market, materials, and forward signals.
+A living fashion intelligence surface — wire, mood, pulse, house cartography, market ledger, horizon loom, and material grammar.
 
-Visual language aligned with Blair's Picks (Playfair Display + Inter, soft pastel gradients, glass panels, rose/plum/gold palette).
+Visual system aligned with Blair's Picks: Playfair Display + Inter, soft pastel field, glass panels, rose / plum / gold palette.
 
 ## Contents
 
-- `index.html` — structure
-- `atelier.css` — Blair's Picks–matched layout & visual system
-- `atelier.js` — live image layers + curated market / trend content
+- `index.html`
+- `atelier.css`
+- `atelier.js`
+- `README.md`
 
-## Use
+## Publish
 
-1. Place the `fashion-atelier/` folder next to your portfolio index (or host it standalone).
-2. Open `fashion-atelier/index.html` or serve the folder.
-3. Push to GitHub Pages. Example:
-   `https://blairyfairy.github.io/BlairPage/fashion-atelier/`
+Place `fashion-atelier/` next to your site root (or host standalone), then open:
 
-## What's included (full chat feature set)
+`https://blairyfairy.github.io/BlairPage/fashion-atelier/`
 
-- **Blair's Atelier** branding in the top bar (no BP logo square in nav; BP monogram only in favicon)
-- **Live images only** — every visual pulled from public seeded endpoints (no static image list, no credential language)
-- **Mood board** — asymmetric live grid with captions + refresh
-- **Active signals** — silhouette, climate, value, category, channel, creative leadership
-- **House map** — high luxury, aspirational, outlet & off-price, emerging independents
-- **Market notes** — 2026 stabilisation outlook, stats, emotional connection, outlet buffer, M&A tone
-- **Horizon** — 6–18 month forecast cards with live imagery
-- **Materials & construction** — fabrics gaining weight
-- **Season strip** — AW26 through Couture
-- **Live clock** in hero stats
-- **↻ Refresh** control reseeds the entire visual field
-- Dense, full-space, pro-level layout tuned for brand / strategy / fashion portfolio use
+## Surface map
 
-## Quality bar
+| Section | Role |
+|--------|------|
+| **Fashion Wire** | Live headlines from public fashion RSS (Guardian Fashion, WWD Fashion, WWD Business, Guardian Lifestyle) |
+| **Mood Loom** | Seeded live imagery with captions; reseed refreshes the field |
+| **Trend Pulse** | Six cultural signals + relative growth bars + optional live culture ticker |
+| **House Cartography** | Four-tier map: maisons, aspirational, outlet & off-price, emerging independents |
+| **Market Ledger** | 2026 stabilisation outlook, demand anchors, emotional connection, capital tone |
+| **Horizon Loom** | 6–18 month forecast cards (colour, climate construction, collector logic) |
+| **Material Grammar** | Fabrics and finishes gaining weight |
+| **Season Dial** | AW26 through Couture |
+| **Sticky top bar** | Blair's Atelier wordmark + section jumps + Reseed |
+| **Purple chevron** | Fixed bottom-right control returns to top |
 
-Built as a senior-level fashion intelligence surface: denser information architecture, living visuals, current market framing, and the Blair's Picks colour and type system.
+No credentials are stored or referenced. Headlines attribute to source publications. Imagery is drawn from public image endpoints.
+
+## Editorial stance
+
+Built as a dense, continuous field for brand, strategy, and fashion roles — research fluency, taste, and product thinking in one publishable surface.
