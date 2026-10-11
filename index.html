@@ -3545,10 +3545,10 @@ html.bp-scrolling body{
 
     border-radius: 50%;
 
-    background: #60953c;
+    background: #ffffff;
 
     box-shadow:
-        0 0 0 4px rgba(96,149,60,.12);
+        0 0 0 4px rgba(255,255,255,.12);
 }
 
 
@@ -15217,6 +15217,15 @@ html.desktop-resize-lock body .timeline-item > .timeline-content.job-layout > .j
 html body .timeline-item > .timeline-content.job-layout > .job-logo:not(:has(img[alt="Upwork"])):not(:has(.pt-logo)):not(:has(img[alt="SydneyKrey"])):not(:has(img[alt="Hot Topic"])),
 html.desktop-resize-lock body .timeline-item > .timeline-content.job-layout > .job-logo:not(:has(img[alt="Upwork"])):not(:has(.pt-logo)):not(:has(img[alt="SydneyKrey"])):not(:has(img[alt="Hot Topic"])){
   zoom: 1.3225;
+}
+
+/* +10% on top of the current size (1.3225 x 1.10 = 1.45475) for:
+   Shock Therapy, Liquid Web, UpCloud, CrazyLarry, Percona,
+   Craftartedu.com and String Theory Software. zoom scales the logo
+   box and its padding together so the layout beside it adjusts. */
+html body .timeline-item > .timeline-content.job-layout > .job-logo:is(:has(img[alt="Shock Therapy Rebuilding"]), :has(img.liquidweb-logo), :has(img.upcloud-logo), :has(img.crazylarry-logo), :has(img.percona-logo-clean), :has(img[alt="Craftartedu.com"]), :has(img[alt="String Theory Software"])),
+html.desktop-resize-lock body .timeline-item > .timeline-content.job-layout > .job-logo:is(:has(img[alt="Shock Therapy Rebuilding"]), :has(img.liquidweb-logo), :has(img.upcloud-logo), :has(img.crazylarry-logo), :has(img.percona-logo-clean), :has(img[alt="Craftartedu.com"]), :has(img[alt="String Theory Software"])){
+  zoom: 1.45475 !important;
 }
 </style>
 
