@@ -1794,23 +1794,49 @@ html.bp-scrolling body{
 </style>
 
 <style id="blair-page-brand-logo-fix">
-/* Brand lockup: logo sits where the "B" was, "Blair Page" text shifts right after it */
-.identity-info h1.brand-logo-heading{
-  display:flex !important;
+/* Brand lockup: logo + "Blair Page" on top row, "(Burness Drake McCoy)" centered under the Blair Page text */
+.identity-info .brand-lockup{
+  display:grid !important;
+  grid-template-columns:auto auto !important;
+  grid-template-rows:auto auto !important;
+  column-gap:0.3em !important;
+  row-gap:0.15em !important;
   align-items:center !important;
-  justify-content:flex-start !important;
-  gap:0.3em !important;
+  justify-content:start !important;
+  width:fit-content !important;
+  max-width:100% !important;
+  font-size:1rem;
 }
-.identity-info h1.brand-logo-heading .brand-logo-mark{
-  height:1.15em !important;
-  width:1.15em !important;
+.identity-info .brand-lockup h1.brand-logo-heading{
+  display:contents !important;
+}
+.identity-info .brand-lockup .brand-logo-mark{
+  grid-column:1 !important;
+  grid-row:1 !important;
+  height:clamp(2rem,4.6vw,2.6rem) !important;
+  width:clamp(2rem,4.6vw,2.6rem) !important;
   max-width:none !important;
-  flex:0 0 auto !important;
   object-fit:contain !important;
   display:block !important;
+  align-self:center !important;
 }
-.identity-info h1.brand-logo-heading .brand-logo-text{
-  display:inline-block !important;
+.identity-info .brand-lockup .brand-logo-text{
+  grid-column:2 !important;
+  grid-row:1 !important;
+  justify-self:center !important;
+  display:block !important;
+  margin:0 !important;
+  line-height:1.1 !important;
+  text-align:center !important;
+  white-space:nowrap !important;
+}
+.identity-info .brand-lockup .sub-name{
+  grid-column:2 !important;
+  grid-row:2 !important;
+  justify-self:center !important;
+  text-align:center !important;
+  margin:0 !important;
+  white-space:nowrap !important;
 }
 </style>
 </head>
@@ -1960,8 +1986,10 @@ html.bp-scrolling body{
 
   <!-- Identity text -->
   <div class="identity-info">
+    <div class="brand-lockup">
     <h1 class="brand-logo-heading"><img src="BlairPageImages/BlairPageLogo.png" alt="" class="brand-logo-mark" width="48" height="48" decoding="async"><span class="brand-logo-text">Blair Page</span></h1>
     <div class="sub-name">(Burness Drake McCoy)</div>
+    </div>
   <br>
    <a href="#udacity-section"
    class="credential-highlight-block mauve-anchor-btn">
