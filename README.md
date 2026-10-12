@@ -2,7 +2,7 @@
 
 Personal portfolio and resume site for **Blair Page** (Burness Drake McCoy).
 
-**RHCE6 · AWS Certified**
+**Inside LVMH (In Training) · AWS Certified**
 
 Live site: [blairyfairy.github.io/BlairPage](https://blairyfairy.github.io/BlairPage)
 
