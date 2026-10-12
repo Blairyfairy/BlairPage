@@ -1817,30 +1817,12 @@ html.bp-scrolling body{
 
     <section class="resume-shell">
 
-  <!-- Blair Page logo charms — decorative sparkles (different sizes & tilts, never over text/menu) -->
+  <!-- Blair Page logo — single refined brand mark (6-figure / executive treatment) -->
   <img src="BlairPageImages/BlairPageLogo.png"
        alt=""
-       class="blair-page-logo-charm charm-1"
-       width="88"
-       height="88"
-       aria-hidden="true">
-  <img src="BlairPageImages/BlairPageLogo.png"
-       alt=""
-       class="blair-page-logo-charm charm-2"
-       width="64"
-       height="64"
-       aria-hidden="true">
-  <img src="BlairPageImages/BlairPageLogo.png"
-       alt=""
-       class="blair-page-logo-charm charm-3"
-       width="52"
-       height="52"
-       aria-hidden="true">
-  <img src="BlairPageImages/BlairPageLogo.png"
-       alt=""
-       class="blair-page-logo-charm charm-4"
-       width="44"
-       height="44"
+       class="blair-page-logo-charm"
+       width="72"
+       height="72"
        aria-hidden="true">
 
 <section class="identity-row">
@@ -19035,173 +19017,75 @@ html.desktop-resize-lock body .timeline-item .job-details .projects-heading{
 </style>
 
 <!-- =========================================================
-     BLAIR PAGE LOGO CHARMS — decorative sparkles
-     Append-only. Four instances of the purple star charm at different
-     sizes, tilts, and positions around the resume card. Glow restored
-     on the primary charm. Never enters the menu or covers text.
-     All prior lines remain untouched.
+     BLAIR PAGE LOGO — single refined brand mark
+     Executive / 6-figure treatment: one clean gem on the left edge
+     of the card, modest size, soft tilt, restrained glow.
+     Never enters the menu or covers text. All prior lines untouched.
      ========================================================= -->
 <style id="blair-page-logo-charm">
-/* Ensure the card can show the protruding logos */
+/* Card must allow the mark to sit on the edge */
 html body .resume-shell,
 html.desktop-resize-lock body .resume-shell {
   position: relative !important;
   overflow: visible !important;
 }
 
-/* Shared base for every charm — full glow on all */
+/* Single pro brand mark */
 html body .blair-page-logo-charm,
 html.desktop-resize-lock body .blair-page-logo-charm {
   position: absolute !important;
   z-index: 5 !important;
   pointer-events: none !important;
   user-select: none !important;
+
+  width: clamp(56px, 7.5vw, 78px) !important;
+  max-width: 78px !important;
   height: auto !important;
   aspect-ratio: 1 / 1 !important;
   object-fit: contain !important;
-  opacity: 0.92 !important;
+
+  /* Left edge of card, above the profile circle */
+  left: 0 !important;
+  top: clamp(0.7rem, 1.6vw, 1.25rem) !important;
+  transform: translateX(-38%) rotate(-10deg) !important;
+
+  /* Restrained glow — present but not loud */
   filter:
-    drop-shadow(0 0 6px rgba(200, 140, 220, 0.55))
-    drop-shadow(0 2px 10px rgba(0, 0, 0, 0.45)) !important;
-  transition: transform 0.35s ease, filter 0.35s ease, opacity 0.35s ease !important;
+    drop-shadow(0 0 4px rgba(200, 140, 220, 0.38))
+    drop-shadow(0 1px 6px rgba(0, 0, 0, 0.35)) !important;
+
+  opacity: 0.94 !important;
+  transition: transform 0.3s ease, filter 0.3s ease !important;
 }
 
-/* Shared hover glow boost for every charm */
+/* Subtle hover refinement only */
 html body .resume-shell:hover .blair-page-logo-charm,
 html.desktop-resize-lock body .resume-shell:hover .blair-page-logo-charm {
+  transform: translateX(-38%) rotate(-8deg) scale(1.03) !important;
   filter:
-    drop-shadow(0 0 10px rgba(220, 160, 240, 0.7))
-    drop-shadow(0 3px 14px rgba(0, 0, 0, 0.5)) !important;
+    drop-shadow(0 0 6px rgba(210, 150, 230, 0.48))
+    drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4)) !important;
 }
 
-/* ——— Charm 1: primary (left edge, above profile circle) ——— */
-html body .blair-page-logo-charm.charm-1,
-html.desktop-resize-lock body .blair-page-logo-charm.charm-1 {
-  width: clamp(74px, 10.4vw, 106px) !important;
-  max-width: 106px !important;
-  left: 0 !important;
-  top: clamp(0.6rem, 1.8vw, 1.35rem) !important;
-  transform: translateX(-40%) rotate(-14deg) !important;
-  opacity: 0.97 !important;
-}
-
-html body .resume-shell:hover .blair-page-logo-charm.charm-1,
-html.desktop-resize-lock body .resume-shell:hover .blair-page-logo-charm.charm-1 {
-  transform: translateX(-40%) rotate(-10deg) scale(1.04) !important;
-}
-
-/* ——— Charm 2: top-right edge of the card ——— */
-html body .blair-page-logo-charm.charm-2,
-html.desktop-resize-lock body .blair-page-logo-charm.charm-2 {
-  width: clamp(48px, 6.3vw, 71px) !important;
-  max-width: 71px !important;
-  right: 0 !important;
-  left: auto !important;
-  top: clamp(1.1rem, 2.4vw, 2rem) !important;
-  transform: translateX(38%) rotate(16deg) !important;
-  opacity: 0.90 !important;
-}
-
-html body .resume-shell:hover .blair-page-logo-charm.charm-2,
-html.desktop-resize-lock body .resume-shell:hover .blair-page-logo-charm.charm-2 {
-  transform: translateX(38%) rotate(12deg) scale(1.05) !important;
-}
-
-/* ——— Charm 3: mid-lower right side (quiet corner, away from text) ——— */
-html body .blair-page-logo-charm.charm-3,
-html.desktop-resize-lock body .blair-page-logo-charm.charm-3 {
-  width: clamp(39px, 4.8vw, 55px) !important;
-  max-width: 55px !important;
-  right: 0 !important;
-  left: auto !important;
-  top: auto !important;
-  bottom: clamp(18%, 22vh, 28%) !important;
-  transform: translateX(42%) rotate(-22deg) !important;
-  opacity: 0.88 !important;
-}
-
-html body .resume-shell:hover .blair-page-logo-charm.charm-3,
-html.desktop-resize-lock body .resume-shell:hover .blair-page-logo-charm.charm-3 {
-  transform: translateX(42%) rotate(-18deg) scale(1.06) !important;
-}
-
-/* ——— Charm 4: lower-left edge (near bottom of card, above footer) ——— */
-html body .blair-page-logo-charm.charm-4,
-html.desktop-resize-lock body .blair-page-logo-charm.charm-4 {
-  width: clamp(32px, 4.1vw, 46px) !important;
-  max-width: 46px !important;
-  left: 0 !important;
-  right: auto !important;
-  top: auto !important;
-  bottom: clamp(2.5rem, 5vw, 4.5rem) !important;
-  transform: translateX(-36%) rotate(9deg) !important;
-  opacity: 0.86 !important;
-}
-
-html body .resume-shell:hover .blair-page-logo-charm.charm-4,
-html.desktop-resize-lock body .resume-shell:hover .blair-page-logo-charm.charm-4 {
-  transform: translateX(-36%) rotate(6deg) scale(1.05) !important;
-}
-
-/* ——— Responsive refinements ——— */
 @media (max-width: 900px) {
-  html body .blair-page-logo-charm.charm-1,
-  html.desktop-resize-lock body .blair-page-logo-charm.charm-1 {
-    width: clamp(60px, 16vw, 83px) !important;
-    top: clamp(0.45rem, 2vw, 1rem) !important;
-    transform: translateX(-38%) rotate(-12deg) !important;
+  html body .blair-page-logo-charm,
+  html.desktop-resize-lock body .blair-page-logo-charm {
+    width: clamp(48px, 12vw, 64px) !important;
+    top: clamp(0.5rem, 1.8vw, 1rem) !important;
+    transform: translateX(-36%) rotate(-9deg) !important;
   }
-  html body .resume-shell:hover .blair-page-logo-charm.charm-1,
-  html.desktop-resize-lock body .resume-shell:hover .blair-page-logo-charm.charm-1 {
-    transform: translateX(-38%) rotate(-9deg) scale(1.03) !important;
-  }
-
-  html body .blair-page-logo-charm.charm-2,
-  html.desktop-resize-lock body .blair-page-logo-charm.charm-2 {
-    width: clamp(39px, 10.4vw, 55px) !important;
-    top: clamp(0.8rem, 2vw, 1.4rem) !important;
-    transform: translateX(34%) rotate(14deg) !important;
-  }
-
-  html body .blair-page-logo-charm.charm-3,
-  html.desktop-resize-lock body .blair-page-logo-charm.charm-3 {
-    width: clamp(32px, 8vw, 44px) !important;
-    bottom: clamp(16%, 20vh, 24%) !important;
-    transform: translateX(36%) rotate(-18deg) !important;
-  }
-
-  html body .blair-page-logo-charm.charm-4,
-  html.desktop-resize-lock body .blair-page-logo-charm.charm-4 {
-    width: clamp(28px, 6.9vw, 39px) !important;
-    bottom: clamp(2rem, 4vw, 3.2rem) !important;
-    transform: translateX(-32%) rotate(8deg) !important;
+  html body .resume-shell:hover .blair-page-logo-charm,
+  html.desktop-resize-lock body .resume-shell:hover .blair-page-logo-charm {
+    transform: translateX(-36%) rotate(-7deg) scale(1.03) !important;
   }
 }
 
 @media (max-width: 480px) {
-  html body .blair-page-logo-charm.charm-1,
-  html.desktop-resize-lock body .blair-page-logo-charm.charm-1 {
-    width: clamp(53px, 18.4vw, 69px) !important;
+  html body .blair-page-logo-charm,
+  html.desktop-resize-lock body .blair-page-logo-charm {
+    width: clamp(42px, 14vw, 56px) !important;
     top: 0.4rem !important;
-    transform: translateX(-36%) rotate(-11deg) !important;
-  }
-
-  html body .blair-page-logo-charm.charm-2,
-  html.desktop-resize-lock body .blair-page-logo-charm.charm-2 {
-    width: clamp(32px, 11.5vw, 46px) !important;
-    transform: translateX(30%) rotate(12deg) !important;
-  }
-
-  html body .blair-page-logo-charm.charm-3,
-  html.desktop-resize-lock body .blair-page-logo-charm.charm-3 {
-    width: clamp(25px, 9.2vw, 37px) !important;
-    transform: translateX(30%) rotate(-16deg) !important;
-  }
-
-  html body .blair-page-logo-charm.charm-4,
-  html.desktop-resize-lock body .blair-page-logo-charm.charm-4 {
-    width: clamp(23px, 8vw, 32px) !important;
-    transform: translateX(-28%) rotate(7deg) !important;
+    transform: translateX(-34%) rotate(-8deg) !important;
   }
 }
 </style>
