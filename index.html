@@ -18821,3 +18821,229 @@ html body .udacity-accenture-lockup .institute-wordmark {
 }
 </style>
 </body>
+
+<!-- =========================================================
+     JOB DESCRIPTIONS (inside every + / − expansion) — "reading column" layout
+     Append-only. All text, links and accordion behaviour are unchanged.
+       • one continuous lavender rail ties each description together
+       • bullets = hairline-divided rows, comfortable line length
+       • the long closing summary is broken into one block per sentence
+         (display only — the words are exactly the same), with the first
+         sentence as a lead line and keyword runs softly highlighted
+       • 2 hover colours: lavender (same as the + row) and dusty sage, alternating
+     Fonts: Inter (body) + Lora (summary & sub-headings).
+     ========================================================= -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400;600&display=swap">
+<style id="job-description-reading-column">
+html body .timeline-item .job-details ul:not(.project-list),
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list){
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  max-width: 78ch !important;
+}
+
+/* rows */
+html body .timeline-item .job-details ul:not(.project-list) > li,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > li{
+  position: relative !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: .85rem 1rem .85rem 1.4rem !important;
+  border-left: 2px solid rgba(158,130,156,.30) !important;
+  border-bottom: 1px solid rgba(240,239,244,.08) !important;
+  border-radius: 0 10px 10px 0 !important;
+  background-color: transparent !important;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif !important;
+  font-size: clamp(.94rem, .91rem + .2vw, 1.01rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.72 !important;
+  letter-spacing: .004em !important;
+  color: rgba(240,239,244,.9) !important;
+  text-align: left !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+  transition: background-color .2s ease, border-left-color .2s ease !important;
+}
+html body .timeline-item .job-details ul:not(.project-list) > li::before,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > li::before{
+  content: none !important;
+  display: none !important;
+}
+html body .timeline-item .job-details ul:not(.project-list) > li:last-of-type,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > li:last-of-type{
+  border-bottom-color: transparent !important;
+}
+
+/* hover colour 1 — lavender (same as the + row) */
+html body .timeline-item .job-details ul:not(.project-list) > li:nth-of-type(odd):hover,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > li:nth-of-type(odd):hover{
+  background-color: rgba(158,130,156,0.10) !important;
+  border-left-color: rgba(158,130,156,.95) !important;
+}
+/* hover colour 2 — dusty sage */
+html body .timeline-item .job-details ul:not(.project-list) > li:nth-of-type(even):hover,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > li:nth-of-type(even):hover{
+  background-color: rgba(122,158,148,0.12) !important;
+  border-left-color: rgba(122,158,148,.95) !important;
+}
+
+/* keywords + links */
+html body .timeline-item .job-details ul:not(.project-list) strong,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) strong{
+  font-weight: 600 !important;
+  color: #f6eef6 !important;
+}
+html body .timeline-item .job-details ul:not(.project-list) a,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) a{
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+/* closing summary */
+html body .timeline-item .job-details ul:not(.project-list) > p,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > p{
+  margin: 1.5rem 0 .25rem 0 !important;
+  padding: 1.15rem 1.2rem 1rem 1.4rem !important;
+  border-left: 2px solid rgba(158,130,156,.30) !important;
+  border-radius: 0 12px 12px 0 !important;
+  background-color: rgba(240,239,244,.035) !important;
+  font-family: "Lora", Georgia, "Times New Roman", serif !important;
+  font-size: clamp(.95rem, .92rem + .18vw, 1.02rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.8 !important;
+  color: rgba(240,239,244,.86) !important;
+  text-align: left !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+  transition: background-color .2s ease, border-left-color .2s ease !important;
+}
+html body .timeline-item .job-details ul:not(.project-list) > p:hover,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > p:hover{
+  background-color: rgba(158,130,156,0.10) !important;
+  border-left-color: rgba(158,130,156,.95) !important;
+}
+/* sentence blocks (created by the small script below; plain text if JS is off) */
+html body .timeline-item .job-details ul:not(.project-list) > p .jd-sentence,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > p .jd-sentence{
+  display: block !important;
+  margin: 0 0 .8rem 0 !important;
+}
+html body .timeline-item .job-details ul:not(.project-list) > p .jd-sentence:last-child,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > p .jd-sentence:last-child{
+  margin-bottom: 0 !important;
+}
+html body .timeline-item .job-details ul:not(.project-list) > p .jd-sentence:first-child,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > p .jd-sentence:first-child{
+  font-size: 1.05em !important;
+  line-height: 1.7 !important;
+  color: #f0eff4 !important;
+  padding-bottom: .8rem !important;
+  border-bottom: 1px solid rgba(240,239,244,.10) !important;
+}
+html body .timeline-item .job-details ul:not(.project-list) > p strong,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > p strong{
+  font-family: "Lora", Georgia, "Times New Roman", serif !important;
+  font-weight: 600 !important;
+  color: #f6eef6 !important;
+  background-image: linear-gradient(transparent 60%, rgba(158,130,156,.24) 60%) !important;
+  padding: 0 .12em !important;
+  border-radius: 2px !important;
+  -webkit-box-decoration-break: clone !important;
+  box-decoration-break: clone !important;
+}
+
+/* sub-heading used inside a description */
+html body .timeline-item .job-details ul:not(.project-list) > h3,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > h3{
+  margin: 1.2rem 0 .55rem 0 !important;
+  padding-left: 1.4rem !important;
+  font-family: "Lora", Georgia, "Times New Roman", serif !important;
+  font-size: clamp(1rem, .96rem + .25vw, 1.12rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  letter-spacing: .01em !important;
+  color: #f0eff4 !important;
+}
+html body .timeline-item .job-details ul:not(.project-list) > h3:first-child,
+html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > h3:first-child{
+  margin-top: 0 !important;
+}
+html body .timeline-item .job-details .projects-heading,
+html.desktop-resize-lock body .timeline-item .job-details .projects-heading{
+  font-family: "Lora", Georgia, "Times New Roman", serif !important;
+  letter-spacing: .01em !important;
+}
+
+@media (max-width: 600px) {
+  html body .timeline-item .job-details ul:not(.project-list) > li,
+  html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > li{
+    padding: .75rem .6rem .75rem 1rem !important;
+    line-height: 1.68 !important;
+  }
+  html body .timeline-item .job-details ul:not(.project-list) > p,
+  html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > p{
+    padding: 1rem .8rem .9rem 1rem !important;
+    line-height: 1.75 !important;
+  }
+  html body .timeline-item .job-details ul:not(.project-list) > h3,
+  html.desktop-resize-lock body .timeline-item .job-details ul:not(.project-list) > h3{
+    padding-left: 1rem !important;
+  }
+}
+</style>
+
+<script id="job-description-sentence-blocks">
+/* Display-only: wraps each sentence of the closing summary paragraph in its own
+   block. No text is added, removed or reordered (whitespace is kept in place). */
+(function () {
+  'use strict';
+  function mk() {
+    var s = document.createElement('span');
+    s.className = 'jd-sentence';
+    return s;
+  }
+  function split(p) {
+    if (p.getAttribute('data-sentences') === '1') return;
+    p.setAttribute('data-sentences', '1');
+    var nodes = Array.prototype.slice.call(p.childNodes);
+    var frag = document.createDocumentFragment();
+    var cur = mk();
+    nodes.forEach(function (n) {
+      if (n.nodeType === 3) {
+        var t = n.nodeValue, re = /([.!?]["')\]]*)(\s+)(?=[A-Z])/g, last = 0, m;
+        while ((m = re.exec(t))) {
+          var end = m.index + m[1].length + m[2].length;
+          cur.appendChild(document.createTextNode(t.slice(last, end)));
+          frag.appendChild(cur);
+          cur = mk();
+          last = end;
+        }
+        cur.appendChild(document.createTextNode(t.slice(last)));
+      } else {
+        cur.appendChild(n);
+      }
+    });
+    frag.appendChild(cur);
+    while (p.firstChild) p.removeChild(p.firstChild);
+    p.appendChild(frag);
+  }
+  function run() {
+    try {
+      document.querySelectorAll(
+        '.timeline-item .job-details ul:not(.project-list) > p'
+      ).forEach(split);
+    } catch (e) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+  window.addEventListener('load', run, { passive: true });
+})();
+</script>
