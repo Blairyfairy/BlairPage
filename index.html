@@ -1793,6 +1793,26 @@ html.bp-scrolling body{
 }
 </style>
 
+<style id="blair-page-brand-logo-fix">
+/* Brand lockup: logo sits where the "B" was, "Blair Page" text shifts right after it */
+.identity-info h1.brand-logo-heading{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:0.3em !important;
+}
+.identity-info h1.brand-logo-heading .brand-logo-mark{
+  height:1.15em !important;
+  width:1.15em !important;
+  max-width:none !important;
+  flex:0 0 auto !important;
+  object-fit:contain !important;
+  display:block !important;
+}
+.identity-info h1.brand-logo-heading .brand-logo-text{
+  display:inline-block !important;
+}
+</style>
 </head>
 <body>
 
@@ -1940,7 +1960,7 @@ html.bp-scrolling body{
 
   <!-- Identity text -->
   <div class="identity-info">
-    <h1>Blair Page</h1>
+    <h1 class="brand-logo-heading"><img src="BlairPageImages/BlairPageLogo.png" alt="" class="brand-logo-mark" width="48" height="48" decoding="async"><span class="brand-logo-text">Blair Page</span></h1>
     <div class="sub-name">(Burness Drake McCoy)</div>
   <br>
    <a href="#udacity-section"
