@@ -19698,3 +19698,32 @@ html.desktop-resize-lock body .timeline-item .job-details .projects-heading {
     }
   }
 </style>
+
+<!-- Append-only merge fix: match the card version's gentle up/down bounce on the desktop link area only. -->
+<style id="desktop-card-matched-link-bounce">
+  html body .social-links a:hover,
+  html body .social-links a:focus-visible,
+  html body .project-links a:hover,
+  html body .project-links a:focus-visible,
+  html body .link-grid a:hover,
+  html body .link-grid a:focus-visible {
+    animation: desktopCardMatchedLinkBounce 620ms cubic-bezier(.22,.7,.25,1) both !important;
+  }
+  @keyframes desktopCardMatchedLinkBounce {
+    0% { transform: translateY(0); }
+    28% { transform: translateY(-4px); }
+    52% { transform: translateY(1px); }
+    72% { transform: translateY(-2px); }
+    100% { transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html body .social-links a:hover,
+    html body .social-links a:focus-visible,
+    html body .project-links a:hover,
+    html body .project-links a:focus-visible,
+    html body .link-grid a:hover,
+    html body .link-grid a:focus-visible {
+      animation: none !important;
+    }
+  }
+</style>
