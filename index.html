@@ -19942,3 +19942,33 @@ html body .identity-info .brand-lockup {
   }
 }
 </style>
+
+
+<!-- Append-only merge fix: change desktop social-link hover motion only to a gentle card-style vertical bounce; preserve white hover color and all other code. -->
+<style id="desktop-card-link-bounce-behavior-only-merge-fix">
+html body .brand-badge-row a.badge-item.compact-badge:hover,
+html body .brand-badge-row a.badge-item.compact-badge:focus-visible,
+html body .brand-badge-row > a.badge-item.compact-badge:hover,
+html body .brand-badge-row > a.badge-item.compact-badge:focus-visible {
+  animation: desktopCardLinkBounceBehaviorOnly 620ms cubic-bezier(.22,.7,.25,1) both !important;
+  top: 0 !important;
+  will-change: transform !important;
+}
+@keyframes desktopCardLinkBounceBehaviorOnly {
+  0% { transform: translateY(0); }
+  28% { transform: translateY(-3px); }
+  52% { transform: translateY(1px); }
+  72% { transform: translateY(-1.5px); }
+  100% { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body .brand-badge-row a.badge-item.compact-badge:hover,
+  html body .brand-badge-row a.badge-item.compact-badge:focus-visible,
+  html body .brand-badge-row > a.badge-item.compact-badge:hover,
+  html body .brand-badge-row > a.badge-item.compact-badge:focus-visible {
+    animation: none !important;
+    top: 0 !important;
+    transform: translateY(-3px) !important;
+  }
+}
+</style>
