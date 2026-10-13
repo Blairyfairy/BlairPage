@@ -19752,3 +19752,68 @@ html.desktop-resize-lock body .timeline-item .job-details .projects-heading {
     html body .badge-item.compact-badge:focus-visible { animation: none !important; }
   }
 </style>
+
+
+<!-- Append-only hard override: force the desktop badge links to visibly bounce using relative top, avoiding conflicting transform rules. -->
+<style id="desktop-badge-bounce-hard-override">
+html body .brand-badge-row > a.badge-item.compact-badge,
+html body .brand-badge-row a.badge-item.compact-badge {
+  position: relative !important;
+}
+html body .brand-badge-row > a.badge-item.compact-badge:hover,
+html body .brand-badge-row > a.badge-item.compact-badge:focus-visible,
+html body .brand-badge-row a.badge-item.compact-badge:hover,
+html body .brand-badge-row a.badge-item.compact-badge:focus-visible {
+  animation-name: desktopBadgeBounceTopOverride !important;
+  animation-duration: 620ms !important;
+  animation-timing-function: cubic-bezier(.22,.7,.25,1) !important;
+  animation-iteration-count: 1 !important;
+  animation-fill-mode: both !important;
+  animation-play-state: running !important;
+  will-change: top !important;
+}
+@keyframes desktopBadgeBounceTopOverride {
+  0% { top: 0; }
+  24% { top: -5px; }
+  45% { top: 1px; }
+  66% { top: -3px; }
+  84% { top: 1px; }
+  100% { top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body .brand-badge-row > a.badge-item.compact-badge:hover,
+  html body .brand-badge-row > a.badge-item.compact-badge:focus-visible,
+  html body .brand-badge-row a.badge-item.compact-badge:hover,
+  html body .brand-badge-row a.badge-item.compact-badge:focus-visible { animation: none !important; top: 0 !important; }
+}
+</style>
+
+
+<!-- Final append-only merge fix: match the card's gentle hover lift (translateY(-3px) with a 200ms transition), overriding the stronger prior bounce keyframes. -->
+<style id="desktop-badge-card-exact-gentle-lift-override">
+  html body .brand-badge-row a.badge-item.compact-badge,
+  html body .brand-badge-row > a.badge-item.compact-badge {
+    transition: transform 0.2s ease, filter 0.2s ease !important;
+  }
+  html body .brand-badge-row a.badge-item.compact-badge:hover,
+  html body .brand-badge-row a.badge-item.compact-badge:focus-visible,
+  html body .brand-badge-row > a.badge-item.compact-badge:hover,
+  html body .brand-badge-row > a.badge-item.compact-badge:focus-visible {
+    animation: none !important;
+    top: 0 !important;
+    transform: translateY(-3px) !important;
+    filter: drop-shadow(0 8px 14px rgba(0,0,0,0.5)) !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html body .brand-badge-row a.badge-item.compact-badge,
+    html body .brand-badge-row a.badge-item.compact-badge:hover,
+    html body .brand-badge-row a.badge-item.compact-badge:focus-visible,
+    html body .brand-badge-row > a.badge-item.compact-badge,
+    html body .brand-badge-row > a.badge-item.compact-badge:hover,
+    html body .brand-badge-row > a.badge-item.compact-badge:focus-visible {
+      transition: none !important;
+      transform: none !important;
+      animation: none !important;
+    }
+  }
+</style>
