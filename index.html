@@ -19457,3 +19457,65 @@ html.desktop-resize-lock body .resume-shell:hover .blair-page-logo-charm.charm-4
   });
 })();
 </script>
+
+
+<style id="bp-mobile-brand-gem-next-to-name-only-fix">
+/* Narrow-screen-only fix: keep the gemstone immediately left of the B in Blair Page,
+   while the name itself remains centered. All existing sizing/effects stay intact. */
+@media (max-width: 900px) {
+  html body .identity-info .brand-lockup {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 0.38em !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: stretch !important;
+    align-items: center !important;
+  }
+  html body .identity-info .brand-lockup h1.brand-logo-heading {
+    display: contents !important;
+  }
+  html body .identity-info .brand-lockup h1.brand-logo-heading > a {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    justify-self: end !important;
+    align-self: center !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important;
+  }
+  html body .identity-info .brand-lockup .brand-logo-mark {
+    display: block !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    width: clamp(2rem, 4.6vw, 2.6rem) !important;
+    height: clamp(2rem, 4.6vw, 2.6rem) !important;
+    max-width: none !important;
+    margin: 0 !important;
+    object-fit: contain !important;
+  }
+  html body .identity-info .brand-lockup .brand-logo-text {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    justify-self: center !important;
+    text-align: center !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+  }
+  html body .identity-info .brand-lockup .sub-name {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    justify-self: center !important;
+    text-align: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    white-space: nowrap !important;
+  }
+}
+</style>
