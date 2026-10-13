@@ -19817,3 +19817,32 @@ html body .brand-badge-row a.badge-item.compact-badge:focus-visible {
     }
   }
 </style>
+
+
+<!-- Append-only responsive logo-gap merge fix: keep the logo close to Blair Page at 50% zoom and smaller widths. -->
+<style id="responsive-brand-logo-tight-gap-merge-fix">
+@media (max-width: 900px){
+  html .identity-info .brand-lockup{
+    grid-template-columns:auto auto !important;
+    grid-template-rows:auto auto !important;
+    column-gap:.14em !important;
+    row-gap:.28em !important;
+    width:fit-content !important;
+    max-width:100% !important;
+    justify-content:center !important;
+  }
+  html .identity-info .brand-lockup .brand-logo-mark{
+    grid-column:1 !important; grid-row:1 !important;
+    justify-self:end !important; align-self:center !important;
+    margin:0 !important;
+  }
+  html .identity-info .brand-lockup .brand-logo-text{
+    grid-column:2 !important; grid-row:1 !important;
+    justify-self:start !important; text-align:center !important;
+  }
+  html .identity-info .brand-lockup .sub-name{
+    grid-column:2 !important; grid-row:2 !important;
+    justify-self:center !important; text-align:center !important;
+  }
+}
+</style>
