@@ -19991,3 +19991,219 @@ html body .brand-badge-row > a.badge-item.compact-badge:focus-visible {
   will-change: auto !important;
 }
 </style>
+
+<!-- Forced final override (append-only): desktop badge links use the card version's hover/motion BEHAVIOR at the highest priority.
+     Behavior only — no color, size, spacing or layout changes. The :not(#id) pieces add ID-level specificity so no earlier
+     class-based !important rule (bounce keyframes, scroll/resize state classes, older lift rules) can win over this block. -->
+<style id="desktop-badge-links-card-behavior-forced-final">
+html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-badge-row:not(#bpBadgeForceD) > a.badge-item.compact-badge,
+html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-badge-row:not(#bpBadgeForceD) a.badge-item.compact-badge{
+  animation:none !important;
+  top:0 !important;
+  will-change:auto !important;
+  transform:none !important;
+  filter:none !important;
+  transition:transform 0.2s ease, filter 0.2s ease !important;
+}
+html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-badge-row:not(#bpBadgeForceD) > a.badge-item.compact-badge:hover,
+html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-badge-row:not(#bpBadgeForceD) > a.badge-item.compact-badge:focus-visible,
+html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-badge-row:not(#bpBadgeForceD) a.badge-item.compact-badge:hover,
+html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-badge-row:not(#bpBadgeForceD) a.badge-item.compact-badge:focus-visible{
+  animation:none !important;
+  top:0 !important;
+  will-change:auto !important;
+  transform:translateY(-3px) !important;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,0.5)) !important;
+}
+@media (prefers-reduced-motion: reduce){
+  html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-badge-row:not(#bpBadgeForceD) a.badge-item.compact-badge,
+  html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-badge-row:not(#bpBadgeForceD) a.badge-item.compact-badge:hover,
+  html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-badge-row:not(#bpBadgeForceD) a.badge-item.compact-badge:focus-visible{
+    transition:none !important;
+    transform:none !important;
+    animation:none !important;
+  }
+}
+</style>
+
+<!-- Forced final override (append-only, nothing above this line was changed):
+     1) LINK ROW: never more than 6 links per row; extra links drop to the next row using the SAME item size and the SAME spacing the row already had.
+     2) LINK BEHAVIOR: the hover/focus behavior of the index-card.html links (3px lift, soft drop-shadow, 0.2s ease, mauve -> ghost-white text, no bounce)
+        is forced at the highest priority. The :not(#id) pieces add ID-level specificity so no earlier !important rule, state class
+        (bp-scrolling, desktop-resize-lock) or older bounce/keyframe rule can win over it. -->
+<style id="badge-links-six-per-row-and-card-behavior-forced-final">
+/* ---- 6 PER ROW: invisible row-break element inserted after every 6th link (see script below) ---- */
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > .bp-badge-row-break{
+  display:block !important;
+  flex:0 0 100% !important;
+  width:100% !important;
+  min-width:100% !important;
+  height:0 !important;
+  min-height:0 !important;
+  max-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  overflow:hidden !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  order:0 !important;
+}
+
+/* links on the line that ends a group of 6: pull the next row up by one row-gap so spacing between ALL rows stays identical */
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge.bp-last-line-before-break{
+  margin-bottom:calc(var(--bp-badge-row-gap, 0px) * -1) !important;
+}
+
+/* ---- CARD LINK BEHAVIOR: rest state ---- */
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge,
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:link,
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:visited,
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:active,
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:focus{
+  animation:none !important;
+  top:0 !important;
+  will-change:auto !important;
+  transform:none !important;
+  filter:none !important;
+  transition:transform 0.2s ease, filter 0.2s ease !important;
+  color:#9e829c !important;
+  -webkit-text-fill-color:#9e829c !important;
+  text-decoration-color:#9e829c !important;
+  text-shadow:none !important;
+}
+
+/* label + sub text follow the link color exactly like the card (mauve at rest, ghost white on hover) */
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge .label,
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge .sub{
+  color:inherit !important;
+  -webkit-text-fill-color:inherit !important;
+  text-shadow:inherit !important;
+}
+
+/* ---- CARD LINK BEHAVIOR: hover / keyboard focus ---- */
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:hover,
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:visited:hover,
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:active:hover,
+html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:focus-visible{
+  animation:none !important;
+  top:0 !important;
+  will-change:auto !important;
+  transform:translateY(-3px) !important;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,0.5)) !important;
+  color:#f0eff4 !important;
+  -webkit-text-fill-color:#f0eff4 !important;
+  text-decoration-color:#f0eff4 !important;
+  text-shadow:0 0 5px rgba(240,239,244,0.30),0 0 14px rgba(240,239,244,0.42) !important;
+}
+@media (max-width:900px){
+  html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:hover,
+  html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:visited:hover,
+  html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:active:hover,
+  html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:focus-visible{
+    text-shadow:none !important;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge,
+  html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:hover,
+  html:not(#bpSixA):not(#bpSixB) body:not(#bpSixC) .brand-badge-row:not(#bpSixD) > a.badge-item.compact-badge:focus-visible{
+    transition:none !important;
+    transform:none !important;
+    animation:none !important;
+  }
+}
+</style>
+<script id="badge-links-six-per-row-forced-final">
+(function(){
+  var PER_ROW = 6;
+  var BREAK_CLASS = 'bp-badge-row-break';
+  var busy = false, queued = false, observer = null;
+
+  /* split links into visual lines (a new line starts when a link sits lower than the first link of the current line) */
+  function getLines(links){
+    var lines = [], cur = null, lineTop = 0;
+    links.forEach(function(l){
+      if(!cur || (l.offsetTop - lineTop) > (l.offsetHeight / 2)){
+        cur = []; lines.push(cur); lineTop = l.offsetTop;
+      }
+      cur.push(l);
+    });
+    return lines;
+  }
+
+  function layout(row){
+    if(!row) return;
+    busy = true;
+    if(observer) observer.disconnect();
+    try{
+      var kids, links;
+      function readLinks(){
+        kids = Array.prototype.slice.call(row.children);
+        links = kids.filter(function(el){ return el.classList && el.classList.contains('badge-item'); });
+      }
+      /* start clean */
+      Array.prototype.slice.call(row.querySelectorAll(':scope > .' + BREAK_CLASS)).forEach(function(b){ b.remove(); });
+      readLinks();
+      links.forEach(function(l){ l.classList.remove('bp-last-line-before-break'); });
+
+      /* keep the row's existing vertical gap identical on every row */
+      var rg = getComputedStyle(row).rowGap;
+      if(!rg || rg === 'normal') rg = '0px';
+      row.style.setProperty('--bp-badge-row-gap', rg);
+
+      /* cap: whenever a visual line holds more than 6 links, break the line after its 6th link and re-measure.
+         Lines that already hold 6 or fewer keep their natural wrapping. */
+      for(var guard = 0; guard < links.length + 2; guard++){
+        var lines = getLines(links), over = null;
+        for(var i = 0; i < lines.length; i++){ if(lines[i].length > PER_ROW){ over = lines[i]; break; } }
+        if(!over) break;
+        var br = document.createElement('span');
+        br.className = BREAK_CLASS;
+        br.setAttribute('aria-hidden', 'true');
+        over[PER_ROW - 1].after(br);
+      }
+
+      /* links on the visual line right before each break: pull the next row up by one row-gap (the break line itself adds one) */
+      readLinks();
+      var marks = [];
+      Array.prototype.slice.call(row.querySelectorAll(':scope > .' + BREAK_CLASS)).forEach(function(b){
+        var prev = b.previousElementSibling;
+        if(!prev) return;
+        var top = prev.offsetTop;
+        for(var el = prev; el && el.classList && el.classList.contains('badge-item') && Math.abs(el.offsetTop - top) <= el.offsetHeight / 2; el = el.previousElementSibling){
+          marks.push(el);
+        }
+      });
+      marks.forEach(function(l){ l.classList.add('bp-last-line-before-break'); });
+    } finally {
+      if(observer) observer.observe(row, {childList:true});
+      busy = false;
+    }
+  }
+
+  function run(){
+    var row = document.querySelector('.brand-badge-row');
+    layout(row);
+  }
+  function schedule(){
+    if(queued) return;
+    queued = true;
+    requestAnimationFrame(function(){ queued = false; run(); });
+  }
+
+  function start(){
+    var row = document.querySelector('.brand-badge-row');
+    if(!row) return;
+    observer = new MutationObserver(function(){ if(!busy) schedule(); });
+    run();
+    window.addEventListener('resize', schedule);
+    window.addEventListener('orientationchange', schedule);
+    window.addEventListener('load', schedule);
+    if(window.ResizeObserver){ new ResizeObserver(schedule).observe(row); }
+  }
+
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', start); }
+  else { start(); }
+})();
+</script>
