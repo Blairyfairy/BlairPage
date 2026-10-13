@@ -1893,6 +1893,110 @@ html.bp-scrolling body{
   }
 }
 </style>
+
+<style id="main-site-brand-lockup-responsive-glow-merge">
+/* Additive branding-only patch: preserve all original markup and page behavior. */
+.identity-info .brand-lockup .brand-logo-mark{
+  transform:perspective(520px) translateZ(0) rotateX(0deg) rotateY(0deg) scale(1);
+  transform-origin:50% 50%;
+  transition:transform 260ms cubic-bezier(.2,.75,.25,1),filter 260ms ease;
+  will-change:transform,filter;
+  backface-visibility:hidden;
+}
+.identity-info .brand-lockup .brand-logo-mark:hover{
+  filter:brightness(1.08) saturate(1.12)
+    drop-shadow(0 0 2px rgba(255,255,255,.98))
+    drop-shadow(0 0 5px rgba(247,225,255,.95))
+    drop-shadow(0 0 10px rgba(205,160,218,.9))
+    drop-shadow(0 0 16px rgba(155,113,190,.62)) !important;
+  animation:mainBrandLogoGemTilt 920ms cubic-bezier(.22,.7,.25,1) both;
+}
+@keyframes mainBrandLogoGemTilt{
+  0%{transform:perspective(520px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(0) scale(1)}
+  18%{transform:perspective(520px) rotateX(5deg) rotateY(-8deg) rotateZ(-1.1deg) translateY(-1px) scale(1.035)}
+  36%{transform:perspective(520px) rotateX(-3deg) rotateY(6deg) rotateZ(1deg) translateY(0) scale(1.04)}
+  53%{transform:perspective(520px) rotateX(2deg) rotateY(-4deg) rotateZ(-.65deg) translateY(-.5px) scale(1.04)}
+  70%{transform:perspective(520px) rotateX(-1deg) rotateY(2.5deg) rotateZ(.35deg) translateY(0) scale(1.035)}
+  86%{transform:perspective(520px) rotateX(.5deg) rotateY(-1deg) rotateZ(-.15deg) translateY(0) scale(1.03)}
+  100%{transform:perspective(520px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(0) scale(1.03)}
+}
+/* At the existing circle-centering breakpoint, match the card lockup: logo left,
+   Blair Page lettering centered, and the mauve subtitle/divider centered below it. */
+@media(max-width:900px){
+  html .identity-info .brand-lockup{
+    display:grid !important;
+    grid-template-columns:auto auto !important;
+    grid-template-rows:auto auto !important;
+    column-gap:.38em !important;
+    row-gap:.28em !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:fit-content !important;
+    max-width:100% !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+  html .identity-info .brand-lockup h1.brand-logo-heading{display:contents !important}
+  html .identity-info .brand-lockup .brand-logo-mark{
+    grid-column:1 !important;grid-row:1 !important;
+    justify-self:center !important;align-self:center !important;
+    margin:0 !important;
+  }
+  html .identity-info .brand-lockup .brand-logo-text{
+    grid-column:2 !important;grid-row:1 !important;
+    justify-self:center !important;text-align:center !important;
+  }
+  html .identity-info .brand-lockup .sub-name{
+    grid-column:2 !important;grid-row:2 !important;
+    justify-self:center !important;text-align:center !important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .identity-info .brand-lockup .brand-logo-mark,
+  .identity-info .brand-lockup .brand-logo-mark:hover{
+    animation:none !important;transition:none !important;transform:none !important;
+  }
+}
+</style>
+
+
+<style id="main-site-centered-brand-text-logo-left-merge-fix">
+/* Responsive-only alignment merge: center the Blair Page lettering itself on the card/site axis,
+   with the logo tucked to its left; keep desktop layout above 900px unchanged. */
+@media (max-width:900px){
+  html .identity-info .brand-lockup{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) !important;
+    grid-template-rows:auto auto !important;
+    column-gap:0 !important;
+    row-gap:.28em !important;
+    align-items:center !important;
+    justify-content:stretch !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    box-sizing:border-box !important;
+  }
+  html .identity-info .brand-lockup h1.brand-logo-heading{display:contents !important}
+  html .identity-info .brand-lockup .brand-logo-mark{
+    grid-column:1 !important;grid-row:1 !important;
+    justify-self:end !important;align-self:center !important;
+    margin:0 .38em 0 0 !important;
+  }
+  html .identity-info .brand-lockup .brand-logo-text{
+    grid-column:2 !important;grid-row:1 !important;
+    justify-self:center !important;text-align:center !important;
+  }
+  html .identity-info .brand-lockup .sub-name{
+    grid-column:2 !important;grid-row:2 !important;
+    justify-self:center !important;text-align:center !important;
+  }
+}
+@media (max-width:480px){
+  html .identity-info .brand-lockup .brand-logo-mark{margin-right:.3em !important}
+}
+</style>
 </head>
 <body>
 
