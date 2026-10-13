@@ -19593,3 +19593,29 @@ html.desktop-resize-lock body .timeline-item .job-details .projects-heading {
     }
   }
 </style>
+
+
+<!-- Targeted follow-up merge fix: allow the existing card-matched gemstone keyframes to animate. -->
+<script id="desktop-gemstone-card-animation-conflict-fix">
+(function () {
+  function enableCardMatchedGemMotion() {
+    var style = document.getElementById('desktop-gemstone-card-exact-movement');
+    if (!style) return;
+
+    /* The previous resting transform was marked !important, which suppresses
+       the transform keyframes. Remove only that one priority flag so the
+       already-defined card-identical 920ms motion can run normally. */
+    var before = 'transform: perspective(520px) translateZ(0) rotateX(0deg) rotateY(0deg) scale(1) !important;';
+    var after = 'transform: perspective(520px) translateZ(0) rotateX(0deg) rotateY(0deg) scale(1);';
+    if (style.textContent.indexOf(before) !== -1) {
+      style.textContent = style.textContent.replace(before, after);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', enableCardMatchedGemMotion, { once: true });
+  } else {
+    enableCardMatchedGemMotion();
+  }
+})();
+</script>
