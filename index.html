@@ -19972,3 +19972,22 @@ html body .brand-badge-row > a.badge-item.compact-badge:focus-visible {
   }
 }
 </style>
+
+
+<!-- Append-only refinement: match the card links' original soft 0.2s hover lift exactly; override only desktop link hover motion. -->
+<style id="desktop-link-hover-soft-speed-match-card">
+html body .brand-badge-row a.badge-item.compact-badge,
+html body .brand-badge-row > a.badge-item.compact-badge {
+  transition: transform 0.2s ease, filter 0.2s ease !important;
+}
+html body .brand-badge-row a.badge-item.compact-badge:hover,
+html body .brand-badge-row a.badge-item.compact-badge:focus-visible,
+html body .brand-badge-row > a.badge-item.compact-badge:hover,
+html body .brand-badge-row > a.badge-item.compact-badge:focus-visible {
+  animation: none !important;
+  transform: translateY(-3px) !important;
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,0.5)) !important;
+  top: 0 !important;
+  will-change: auto !important;
+}
+</style>
