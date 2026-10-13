@@ -19846,3 +19846,63 @@ html body .brand-badge-row a.badge-item.compact-badge:focus-visible {
   }
 }
 </style>
+
+<!-- Append-only final responsive logo-spacing correction: keep the gemstone-to-name gap equal to desktop at every viewport width. -->
+<style id="final-all-size-brand-logo-gap-lock">
+html body .identity-info .brand-lockup {
+  display: grid !important;
+  grid-template-columns: max-content max-content !important;
+  grid-template-rows: auto auto !important;
+  column-gap: clamp(8px, 0.38em, 18px) !important;
+  row-gap: 0.28em !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+html body .identity-info .brand-lockup h1.brand-logo-heading {
+  display: contents !important;
+}
+html body .identity-info .brand-lockup h1.brand-logo-heading > a {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  justify-self: end !important;
+  align-self: center !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0 !important;
+}
+html body .identity-info .brand-lockup .brand-logo-mark {
+  display: block !important;
+  width: clamp(2rem, 4.6vw, 2.6rem) !important;
+  height: clamp(2rem, 4.6vw, 2.6rem) !important;
+  max-width: none !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+}
+html body .identity-info .brand-lockup .brand-logo-text {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  justify-self: start !important;
+  align-self: center !important;
+  text-align: left !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+html body .identity-info .brand-lockup .sub-name {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  justify-self: center !important;
+  text-align: center !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+@media (max-width: 420px) {
+  html body .identity-info .brand-lockup { column-gap: clamp(8px, 0.38em, 14px) !important; }
+}
+</style>
