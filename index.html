@@ -19396,3 +19396,98 @@ html.desktop-resize-lock body .resume-shell:hover .blair-page-logo-charm.charm-4
   }
 }
 </style>
+
+
+<!-- FINAL PATCH: clean, even back-to-top motion; all existing site code retained. -->
+<style id="final-chevron-scroll-motion-fix">
+  html.bp-top-scroll-running,
+  html.bp-top-scroll-running body {
+    scroll-behavior: auto !important;
+    scroll-snap-type: none !important;
+  }
+  html.bp-top-scroll-running .resume-shell,
+  html.bp-top-scroll-running .edu-card,
+  html.bp-top-scroll-running .courses-card,
+  html.bp-top-scroll-running .certs-card,
+  html.bp-top-scroll-running .cert-card,
+  html.bp-top-scroll-running .certification-card,
+  html.bp-top-scroll-running .volunteer-card,
+  html.bp-top-scroll-running .timeline-enhanced .timeline-item,
+  html.bp-top-scroll-running .matrix-card,
+  html.bp-top-scroll-running .theme-btn,
+  html.bp-top-scroll-running #themeToggle {
+    transform: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition: none !important;
+  }
+</style>
+<script id="final-chevron-scroll-motion-fix-js">
+(function () {
+  'use strict';
+  if (window.__bpCleanTopScrollInstalled) return;
+  window.__bpCleanTopScrollInstalled = true;
+
+  var raf = 0;
+  var cancelInputs = ['wheel', 'touchstart', 'touchmove', 'pointerdown'];
+
+  function clearScrollState() {
+    if (raf) {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    }
+    document.documentElement.classList.remove('bp-top-scroll-running', 'bp-scrolling');
+  }
+
+  function animateToTop() {
+    clearScrollState();
+    var root = document.documentElement;
+    var startY = window.pageYOffset || root.scrollTop || document.body.scrollTop || 0;
+    if (startY <= 0) return;
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    var startTime = 0;
+    var duration = Math.min(850, Math.max(480, startY * 0.22));
+    root.classList.add('bp-top-scroll-running', 'bp-scrolling');
+
+    function step(now) {
+      if (!startTime) startTime = now;
+      var progress = Math.min(1, (now - startTime) / duration);
+      /* Smooth ease-in-out with one deterministic scroll position per frame. */
+      var eased = progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo(0, Math.round(startY * (1 - eased)));
+      if (progress < 1) {
+        raf = requestAnimationFrame(step);
+      } else {
+        raf = 0;
+        window.scrollTo(0, 0);
+        root.classList.remove('bp-top-scroll-running', 'bp-scrolling');
+      }
+    }
+    raf = requestAnimationFrame(step);
+  }
+
+  document.addEventListener('click', function (event) {
+    var btn = event.target && event.target.closest
+      ? event.target.closest('#pageScrollTop, #globalScrollTop, #appendedPageScrollTop, .page-scroll-top')
+      : null;
+    if (!btn) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    animateToTop();
+  }, true);
+
+  cancelInputs.forEach(function (type) {
+    window.addEventListener(type, function () {
+      if (raf) clearScrollState();
+    }, { passive: true, capture: true });
+  });
+})();
+</script>
