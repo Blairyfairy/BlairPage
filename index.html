@@ -19906,3 +19906,39 @@ html body .identity-info .brand-lockup .sub-name {
   html body .identity-info .brand-lockup { column-gap: clamp(8px, 0.38em, 14px) !important; }
 }
 </style>
+
+
+<!-- Append-only merge fix: adjust ONLY the gap between the existing gemstone position and the first letter of Blair Page. -->
+<style id="logo-to-name-gap-only-merge-fix">
+html body .identity-info .brand-lockup {
+  column-gap: 0.14em !important;
+}
+</style>
+
+
+<!-- Append-only correction: restore the original desktop brand-lockup placement and following paragraph flow above 900px, while retaining the approved tight logo-to-B gap. -->
+<style id="restore-desktop-brand-flow-keep-logo-gap">
+@media (min-width: 901px) {
+  html body .identity-info .brand-lockup {
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    justify-content: start !important;
+    grid-template-columns: auto auto !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 0.14em !important;
+    row-gap: 0.28em !important;
+  }
+  html body .identity-info .brand-lockup .brand-logo-text {
+    justify-self: center !important;
+    text-align: center !important;
+  }
+  html body .identity-info .brand-lockup .sub-name {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    justify-self: center !important;
+    text-align: center !important;
+  }
+}
+</style>
