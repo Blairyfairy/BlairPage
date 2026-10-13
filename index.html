@@ -19727,3 +19727,28 @@ html.desktop-resize-lock body .timeline-item .job-details .projects-heading {
     }
   }
 </style>
+
+
+<!-- Targeted fix: use the actual desktop badge-link classes so hover motion runs like the portfolio card. -->
+<style id="desktop-card-badge-item-bounce-actual-selector">
+  html body .brand-badge-row a.badge-item:hover,
+  html body .brand-badge-row a.badge-item:focus-visible,
+  html body .badge-item.compact-badge:hover,
+  html body .badge-item.compact-badge:focus-visible {
+    animation: desktopCardBadgeItemBounceActual 620ms cubic-bezier(.22,.7,.25,1) both !important;
+    will-change: transform;
+  }
+  @keyframes desktopCardBadgeItemBounceActual {
+    0% { transform: translateY(0); }
+    28% { transform: translateY(-3px); }
+    52% { transform: translateY(1px); }
+    72% { transform: translateY(-1.5px); }
+    100% { transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html body .brand-badge-row a.badge-item:hover,
+    html body .brand-badge-row a.badge-item:focus-visible,
+    html body .badge-item.compact-badge:hover,
+    html body .badge-item.compact-badge:focus-visible { animation: none !important; }
+  }
+</style>
