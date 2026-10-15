@@ -2,8 +2,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blair Page | AWS Certified</title>
-  <link rel="icon" type="image/png" href="BlairPageImages/Favicon.png?v=2">
-  <link rel="apple-touch-icon" href="BlairPageImages/apple-touch-icon.png?v=2">
+  <link rel="icon" type="image/png" href="BlairPageImages/Favicon.png">
+  <link rel="apple-touch-icon" href="BlairPageImages/apple-touch-icon.png">
   <meta name="theme-color" content="#291528">
   <link rel="stylesheet" href="style.css" />
 <style id="bp-load-gate">
@@ -5845,6 +5845,106 @@ html.bp-scrolling body{
   setTimeout(renderFinalTransparentCredlyCards, 900);
 })();
 </script>
+<style id="credly-five-badges-one-row-20261015">
+/* Five Credly badges in one row; transparent cards and smaller artwork. */
+.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid{
+  display:grid !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  gap:0.55rem !important;
+  align-items:stretch !important;
+}
+.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid .bp-credly-clean-card{
+  width:100% !important; min-width:0 !important; max-width:none !important;
+  min-height:235px !important; padding:0.85rem 0.45rem !important;
+  border-radius:17px !important; background:transparent !important;
+  background-color:transparent !important;
+}
+.bp-credly-original-section .bp-credly-clean-badge-img{
+  width:clamp(35px,9vw,94px) !important; height:clamp(35px,9vw,94px) !important;
+  margin-bottom:0.65rem !important;
+}
+.bp-credly-original-section .bp-credly-clean-title{font-size:clamp(.55rem,.95vw,.78rem) !important;line-height:1.18 !important;}
+.bp-credly-original-section .bp-credly-clean-issuer{font-size:clamp(.5rem,.82vw,.66rem) !important;}
+.bp-credly-original-section .bp-credly-clean-footer{font-size:.49rem !important;padding-top:.45rem !important;}
+.bp-credly-original-section .bp-credly-clean-footer strong{font-size:.63rem !important;}
+.bp-credly-original-section .bp-credly-networking-embed{
+  display:block !important; width:100% !important; height:115px !important;
+  border:0 !important; background:transparent !important; mix-blend-mode:multiply !important;
+  margin:0 auto .4rem !important;
+}
+@media(max-width:640px){
+  .bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid{gap:.2rem !important;}
+  .bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid .bp-credly-clean-card{padding:.45rem .15rem !important;min-height:185px !important;border-radius:8px !important;}
+  .bp-credly-original-section .bp-credly-networking-embed{height:70px !important;}
+  .bp-credly-original-section .bp-credly-clean-footer{font-size:.4rem !important;}
+}
+</style>
+<style id="credly-networking-official-embed-compact-fix-20261016">
+/* Official Credly embed, clipped to its badge artwork and scaled to match the other four cards. */
+.bp-credly-original-section .bp-networking-official-clip{
+  display:block !important;position:relative !important;overflow:hidden !important;
+  width:min(100%,105px) !important;height:108px !important;
+  margin:0 auto .65rem !important;background:transparent !important;
+}
+.bp-credly-original-section .bp-networking-official-inner{
+  display:block !important;position:absolute !important;top:0 !important;left:50% !important;
+  width:150px !important;height:270px !important;
+  margin-left:-75px !important;transform:scale(.70) !important;
+  transform-origin:top center !important;background:transparent !important;
+}
+.bp-credly-original-section .bp-networking-official-inner iframe{
+  width:150px !important;height:270px !important;max-width:none !important;
+  background:transparent !important;border:0 !important;
+  mix-blend-mode:multiply !important;
+}
+.bp-credly-original-section .bp-networking-official-inner > span{
+  display:block !important;width:150px !important;height:270px !important;
+  background:transparent !important;
+}
+@media(max-width:640px){
+ .bp-credly-original-section .bp-networking-official-clip{height:75px !important;width:min(100%,70px) !important;}
+ .bp-credly-original-section .bp-networking-official-inner{transform:scale(.46) !important;}
+}
+</style>
+
+<style id="credly-networking-artwork-visibility-final">
+/* Credly requires a DIV for its official embed. Show its complete artwork area. */
+.bp-credly-original-section .bp-networking-official-clip{height:170px !important;width:100% !important;overflow:visible !important;margin-bottom:.45rem !important;}
+.bp-credly-original-section .bp-networking-official-inner{transform:scale(.62) !important;transform-origin:top center !important;}
+.bp-credly-original-section .bp-networking-official-inner > div[data-share-badge-id]{display:block !important;width:150px !important;height:270px !important;}
+.bp-credly-original-section .bp-networking-official-inner iframe{display:block !important;visibility:visible !important;opacity:1 !important;width:150px !important;height:270px !important;max-width:none !important;}
+@media(max-width:640px){.bp-credly-original-section .bp-networking-official-clip{height:115px !important;overflow:hidden !important;}.bp-credly-original-section .bp-networking-official-inner{transform:scale(.42) !important;}}
+</style>
+<script id="credly-networking-core-fifth-badge-20261015">
+(function(){
+  function addNetworkingCore(){
+    var grid=document.querySelector('.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid');
+    if(!grid || grid.querySelector('[data-networking-core-badge]')) return;
+    var card=document.createElement('a');
+    card.className='bp-credly-clean-card';
+    card.setAttribute('data-networking-core-badge','true');
+    card.href='https://www.credly.com/earner/earned/badge/51896ece-c147-437b-bb5d-56159af832fe';
+    card.target='_blank';card.rel='noopener noreferrer';
+    card.setAttribute('aria-label','View AWS Knowledge: Networking Core - Training Badge on Credly');
+    card.innerHTML='<img class="bp-credly-clean-badge-img" src="https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2023/08/22/Badge-330x330-1.png" alt="AWS Networking Core official badge artwork" loading="eager" decoding="async" style="display:block;width:132px;height:132px;object-fit:contain;margin:0 auto 1.35rem;background:transparent;">'+
+      '<div class="bp-credly-clean-title">AWS Knowledge: Networking Core - Training Badge</div>'+
+      '<div class="bp-credly-clean-issuer">Issuer: Amazon Web Services</div>'+
+      '<div class="bp-credly-clean-footer">Provided by <strong>Credly</strong></div>';
+    grid.insertBefore(card, grid.querySelector('.bp-credly-clean-card:last-child'));
+    /* Credly's original embed.js ran before this dynamically inserted badge existed.
+       Load it again after insertion so it builds the actual badge image/iframe. */
+    var credlyScript=document.createElement('script');
+    credlyScript.src='https://cdn.credly.com/assets/utilities/embed.js';
+    credlyScript.async=true;
+    document.body.appendChild(credlyScript);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addNetworkingCore);
+  else addNetworkingCore();
+  window.addEventListener('load',addNetworkingCore);
+  setTimeout(addNetworkingCore,100);setTimeout(addNetworkingCore,400);setTimeout(addNetworkingCore,1000);
+})();
+</script>
+
 
         <section class="education-wrapper">
 
@@ -10063,6 +10163,14 @@ a.certificate-link.akamai-cert:hover::after {
           <strong>ITIL 4: Foundations and Framework</strong>
           <span>Logical Operations</span>
       </a>
+
+      <a href="https://www.coursera.org/account/accomplishments/verify/TH4ZDO80VTDU"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="certificate-link">
+          <strong>Coaching & Mentoring Practice</strong>
+          <span>Microsoft</span>
+      </a>
         
       <a href="https://www.coursera.org/account/accomplishments/verify/E8EH8KQNB38G"
            target="_blank"
@@ -11079,7 +11187,7 @@ a.certificate-link.akamai-cert:hover::after {
   background:url("https://cdn.simpleicons.org/codecademy/FFFFFF") center / contain no-repeat !important;
 }
 .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker::before{
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath fill='%23A435F0' d='M12 2L5.5 9.2h3.1L12 5.6l3.4 3.6h3.1L12 2z'/%3E%3Cpath fill='%23FFFFFF' d='M6.8 10h2.5v5.4c0 1.5 1.2 2.7 2.7 2.7s2.7-1.2 2.7-2.7V10H17.2v5.4c0 2.9-2.3 5.2-5.2 5.2S6.8 18.3 6.8 15.4V10z'/%3E%3C/svg%3E") center / contain no-repeat !important;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2064%22%3E%3Cpath%20fill%3D%22%23A435F0%22%20d%3D%22M5%2016%20L24%204%20L43%2016%20L43%2024%20L24%2012%20L5%2024%20Z%22%2F%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M7%2029%20H16%20V46%20C16%2053%2019%2056%2024%2056%20C29%2056%2032%2053%2032%2046%20V29%20H41%20V46%20C41%2058%2034%2063%2024%2063%20C14%2063%207%2058%207%2046%20Z%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat !important;
 }
 .tt-section .certificates-card:hover h3::before,
 .tt-section .tt-stack > a.tt-card[aria-label*="Pluralsight"]:hover .tt-kicker::before,
@@ -11114,7 +11222,7 @@ a.certificate-link.akamai-cert:hover::after {
   vertical-align: -0.32em !important;
   opacity: 0.55 !important;
   filter: grayscale(1) brightness(1.1) !important;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23A435F0' d='M12 1.5L4.8 9h3.4L12 4.8 15.8 9h3.4L12 1.5z'/%3E%3Cpath fill='%23FFFFFF' d='M7 9.8h2.4v5.8c0 1.45 1.15 2.6 2.6 2.6s2.6-1.15 2.6-2.6V9.8H17v5.8c0 2.85-2.25 5.1-5 5.1s-5-2.25-5-5.1V9.8z'/%3E%3C/svg%3E") center / contain no-repeat !important;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2064%22%3E%3Cpath%20fill%3D%22%23A435F0%22%20d%3D%22M5%2016%20L24%204%20L43%2016%20L43%2024%20L24%2012%20L5%2024%20Z%22%2F%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M7%2029%20H16%20V46%20C16%2053%2019%2056%2024%2056%20C29%2056%2032%2053%2032%2046%20V29%20H41%20V46%20C41%2058%2034%2063%2024%2063%20C14%2063%207%2058%207%2046%20Z%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat !important;
   opacity: 0.95 !important;
   filter: none !important;
   pointer-events: none !important;
@@ -11124,7 +11232,7 @@ a.certificate-link.akamai-cert:hover::after {
   display: inline-block !important;
   opacity: 1 !important;
   filter: none !important;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23A435F0' d='M12 1.5L4.8 9h3.4L12 4.8 15.8 9h3.4L12 1.5z'/%3E%3Cpath fill='%23FFFFFF' d='M7 9.8h2.4v5.8c0 1.45 1.15 2.6 2.6 2.6s2.6-1.15 2.6-2.6V9.8H17v5.8c0 2.85-2.25 5.1-5 5.1s-5-2.25-5-5.1V9.8z'/%3E%3C/svg%3E") center / contain no-repeat !important;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2064%22%3E%3Cpath%20fill%3D%22%23A435F0%22%20d%3D%22M5%2016%20L24%204%20L43%2016%20L43%2024%20L24%2012%20L5%2024%20Z%22%2F%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M7%2029%20H16%20V46%20C16%2053%2019%2056%2024%2056%20C29%2056%2032%2053%2032%2046%20V29%20H41%20V46%20C41%2058%2034%2063%2024%2063%20C14%2063%207%2058%207%2046%20Z%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat !important;
 }
 /* Natural document order like Coursera: company line first, feature title second */
 .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-title {
@@ -18870,10 +18978,10 @@ html body .brand-katespade::before {
   }
 }
 
-/* Udemy logo: muted until card hover (match Coursera/PS/CC) */
+/* Udemy logo: preserve official purple accent and white U at all times */
 .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker::before{
-  filter:grayscale(1) brightness(1.1) !important;
-  opacity:.55 !important;
+  filter:none !important;
+  opacity:1 !important;
 }
 .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kicker::before{
   filter:none !important;
