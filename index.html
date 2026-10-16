@@ -5798,6 +5798,11 @@ html.bp-scrolling body{
     }
   ];
 
+  /* Four additional official Credly badges before PMI */
+  credlyCards.push({id:'51896ece-c147-437b-bb5d-56159af832fe',url:'https://www.credly.com/badges/51896ece-c147-437b-bb5d-56159af832fe/public_url',title:'AWS Knowledge Badge',officialEmbed:true});
+  credlyCards.push({id:'a6e305be-67b5-4fd9-95fb-343d1d9c5478',url:'https://www.credly.com/badges/a6e305be-67b5-4fd9-95fb-343d1d9c5478/public_url',title:'AWS Knowledge Badge',officialEmbed:true});
+  credlyCards.push({id:'71222f4b-df6b-4417-9f0a-7018374218ee',url:'https://www.credly.com/badges/71222f4b-df6b-4417-9f0a-7018374218ee/public_url',title:'AWS Knowledge Badge',officialEmbed:true});
+  credlyCards.push({id:'afb4397f-6851-43c7-bc2b-3d614c6b3d42',url:'https://www.credly.com/badges/afb4397f-6851-43c7-bc2b-3d614c6b3d42/public_url',title:'AWS Knowledge Badge',officialEmbed:true});
   /* 4th badge: PMI Essentials — same transparent-artwork card treatment as the other three */
   credlyCards.push({
     id:'cb518690-8d82-4fef-a1f6-f2cc363f9ef8',
@@ -5821,6 +5826,7 @@ html.bp-scrolling body{
     grid.classList.add('bp-credly-clean-grid');
 
     grid.innerHTML = credlyCards.map(function (badge) {
+      if(badge.officialEmbed){return '<div class="bp-credly-clean-card bp-credly-official-card"><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="'+badge.id+'" data-share-badge-host="https://www.credly.com"></div></div>';}
       return '' +
         '<a class="bp-credly-clean-card" href="' + badge.url + '" target="_blank" rel="noopener" aria-label="Open ' + badge.title.replace(/"/g, '&quot;') + ' on Credly">' +
           '<img class="bp-credly-clean-badge-img" src="' + badge.img + '" alt="' + badge.title.replace(/"/g, '&quot;') + '">' +
@@ -5845,106 +5851,6 @@ html.bp-scrolling body{
   setTimeout(renderFinalTransparentCredlyCards, 900);
 })();
 </script>
-<style id="credly-five-badges-one-row-20261015">
-/* Five Credly badges in one row; transparent cards and smaller artwork. */
-.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid{
-  display:grid !important;
-  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
-  gap:0.55rem !important;
-  align-items:stretch !important;
-}
-.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid .bp-credly-clean-card{
-  width:100% !important; min-width:0 !important; max-width:none !important;
-  min-height:235px !important; padding:0.85rem 0.45rem !important;
-  border-radius:17px !important; background:transparent !important;
-  background-color:transparent !important;
-}
-.bp-credly-original-section .bp-credly-clean-badge-img{
-  width:clamp(35px,9vw,94px) !important; height:clamp(35px,9vw,94px) !important;
-  margin-bottom:0.65rem !important;
-}
-.bp-credly-original-section .bp-credly-clean-title{font-size:clamp(.55rem,.95vw,.78rem) !important;line-height:1.18 !important;}
-.bp-credly-original-section .bp-credly-clean-issuer{font-size:clamp(.5rem,.82vw,.66rem) !important;}
-.bp-credly-original-section .bp-credly-clean-footer{font-size:.49rem !important;padding-top:.45rem !important;}
-.bp-credly-original-section .bp-credly-clean-footer strong{font-size:.63rem !important;}
-.bp-credly-original-section .bp-credly-networking-embed{
-  display:block !important; width:100% !important; height:115px !important;
-  border:0 !important; background:transparent !important; mix-blend-mode:multiply !important;
-  margin:0 auto .4rem !important;
-}
-@media(max-width:640px){
-  .bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid{gap:.2rem !important;}
-  .bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid .bp-credly-clean-card{padding:.45rem .15rem !important;min-height:185px !important;border-radius:8px !important;}
-  .bp-credly-original-section .bp-credly-networking-embed{height:70px !important;}
-  .bp-credly-original-section .bp-credly-clean-footer{font-size:.4rem !important;}
-}
-</style>
-<style id="credly-networking-official-embed-compact-fix-20261016">
-/* Official Credly embed, clipped to its badge artwork and scaled to match the other four cards. */
-.bp-credly-original-section .bp-networking-official-clip{
-  display:block !important;position:relative !important;overflow:hidden !important;
-  width:min(100%,105px) !important;height:108px !important;
-  margin:0 auto .65rem !important;background:transparent !important;
-}
-.bp-credly-original-section .bp-networking-official-inner{
-  display:block !important;position:absolute !important;top:0 !important;left:50% !important;
-  width:150px !important;height:270px !important;
-  margin-left:-75px !important;transform:scale(.70) !important;
-  transform-origin:top center !important;background:transparent !important;
-}
-.bp-credly-original-section .bp-networking-official-inner iframe{
-  width:150px !important;height:270px !important;max-width:none !important;
-  background:transparent !important;border:0 !important;
-  mix-blend-mode:multiply !important;
-}
-.bp-credly-original-section .bp-networking-official-inner > span{
-  display:block !important;width:150px !important;height:270px !important;
-  background:transparent !important;
-}
-@media(max-width:640px){
- .bp-credly-original-section .bp-networking-official-clip{height:75px !important;width:min(100%,70px) !important;}
- .bp-credly-original-section .bp-networking-official-inner{transform:scale(.46) !important;}
-}
-</style>
-
-<style id="credly-networking-artwork-visibility-final">
-/* Credly requires a DIV for its official embed. Show its complete artwork area. */
-.bp-credly-original-section .bp-networking-official-clip{height:170px !important;width:100% !important;overflow:visible !important;margin-bottom:.45rem !important;}
-.bp-credly-original-section .bp-networking-official-inner{transform:scale(.62) !important;transform-origin:top center !important;}
-.bp-credly-original-section .bp-networking-official-inner > div[data-share-badge-id]{display:block !important;width:150px !important;height:270px !important;}
-.bp-credly-original-section .bp-networking-official-inner iframe{display:block !important;visibility:visible !important;opacity:1 !important;width:150px !important;height:270px !important;max-width:none !important;}
-@media(max-width:640px){.bp-credly-original-section .bp-networking-official-clip{height:115px !important;overflow:hidden !important;}.bp-credly-original-section .bp-networking-official-inner{transform:scale(.42) !important;}}
-</style>
-<script id="credly-networking-core-fifth-badge-20261015">
-(function(){
-  function addNetworkingCore(){
-    var grid=document.querySelector('.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid');
-    if(!grid || grid.querySelector('[data-networking-core-badge]')) return;
-    var card=document.createElement('a');
-    card.className='bp-credly-clean-card';
-    card.setAttribute('data-networking-core-badge','true');
-    card.href='https://www.credly.com/earner/earned/badge/51896ece-c147-437b-bb5d-56159af832fe';
-    card.target='_blank';card.rel='noopener noreferrer';
-    card.setAttribute('aria-label','View AWS Knowledge: Networking Core - Training Badge on Credly');
-    card.innerHTML='<img class="bp-credly-clean-badge-img" src="https://d2908q01vomqb2.cloudfront.net/5b384ce32d8cdef02bc3a139d4cac0a22bb029e8/2023/08/22/Badge-330x330-1.png" alt="AWS Networking Core official badge artwork" loading="eager" decoding="async" style="display:block;width:132px;height:132px;object-fit:contain;margin:0 auto 1.35rem;background:transparent;">'+
-      '<div class="bp-credly-clean-title">AWS Knowledge: Networking Core - Training Badge</div>'+
-      '<div class="bp-credly-clean-issuer">Issuer: Amazon Web Services</div>'+
-      '<div class="bp-credly-clean-footer">Provided by <strong>Credly</strong></div>';
-    grid.insertBefore(card, grid.querySelector('.bp-credly-clean-card:last-child'));
-    /* Credly's original embed.js ran before this dynamically inserted badge existed.
-       Load it again after insertion so it builds the actual badge image/iframe. */
-    var credlyScript=document.createElement('script');
-    credlyScript.src='https://cdn.credly.com/assets/utilities/embed.js';
-    credlyScript.async=true;
-    document.body.appendChild(credlyScript);
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addNetworkingCore);
-  else addNetworkingCore();
-  window.addEventListener('load',addNetworkingCore);
-  setTimeout(addNetworkingCore,100);setTimeout(addNetworkingCore,400);setTimeout(addNetworkingCore,1000);
-})();
-</script>
-
 
         <section class="education-wrapper">
 
@@ -15590,6 +15496,15 @@ html body .udacity-accenture-lockup .institute-wordmark {
   font-family: Arial, Helvetica, sans-serif !important;
 }
 </style>
+<style id="credly-five-per-row">
+.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;flex-wrap:wrap!important;gap:1rem!important}
+.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid .bp-credly-clean-card{box-sizing:border-box!important;min-width:0!important;width:100%!important;max-width:none!important;min-height:320px!important;flex:none!important}
+.bp-credly-original-section .bp-credly-official-card{display:flex!important;justify-content:center!important;align-items:center!important;overflow:hidden!important}
+.bp-credly-official-card iframe{max-width:100%!important;border:0!important}
+@media(max-width:850px){.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:480px){.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid{grid-template-columns:1fr!important}}
+</style>
+<script id="credly-new-embed-init">window.addEventListener('load',function(){setTimeout(function(){var sc=document.createElement('script');sc.src='https://cdn.credly.com/assets/utilities/embed.js';sc.async=true;document.body.appendChild(sc)},1200)});</script>
 </body>
 </html>
 
