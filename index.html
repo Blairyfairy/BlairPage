@@ -5418,6 +5418,52 @@ html.bp-scrolling body{
 </div>
 </section>
 <!-- ===== END GAMING PROJECTS ===== -->
+
+<!-- BEGIN: BLAIR PAGE CELESTIAL ARCHIVE SHOWCASE — standalone addition -->
+<style id="bp-celestial-showcase-style">
+#bp-celestial-showcase{position:relative;width:100%;margin:25px auto 30px;padding:24px 28px;overflow:hidden;isolation:isolate;box-sizing:border-box;background:transparent!important;border:1px solid rgba(216,181,238,.3);border-radius:19px;color:#f7f0fa;font-family:Arial,Helvetica,sans-serif}
+#bp-celestial-showcase *,#bp-celestial-showcase *::before,#bp-celestial-showcase *::after{box-sizing:border-box}
+#bp-celestial-showcase .cel-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(190px,.85fr);gap:20px;align-items:center}
+#bp-celestial-showcase .cel-eyebrow{color:#e1bde8;font-size:10px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;margin-bottom:9px}
+#bp-celestial-showcase h3{margin:0 0 11px;font-family:Georgia,'Times New Roman',serif;font-size:clamp(24px,3.2vw,36px);font-weight:500;line-height:1.12;letter-spacing:-.025em;color:#fff4ff;text-shadow:0 0 22px rgba(196,139,222,.24)}
+#bp-celestial-showcase h3 span{color:#e9bdf3;font-style:italic}
+#bp-celestial-showcase .cel-description{margin:0 0 14px;max-width:640px;color:#e6d8e9;font-size:13px;line-height:1.65}
+#bp-celestial-showcase .cel-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:17px}
+#bp-celestial-showcase .cel-tags span{border:1px solid rgba(219,184,234,.25);background:rgba(158,130,156,.09);border-radius:100px;padding:5px 10px;color:#ead6f1;font-size:10px;letter-spacing:.02em}
+#bp-celestial-showcase .cel-visit{display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border:1px solid rgba(232,193,245,.55);border-radius:10px;color:#fff4ff!important;background:rgba(164,109,181,.18);font-size:12px;font-weight:700;letter-spacing:.025em;text-decoration:none!important;transition:background .2s ease,border-color .2s ease}
+#bp-celestial-showcase .cel-visit:hover,#bp-celestial-showcase .cel-visit:focus-visible{background:rgba(164,109,181,.34);border-color:#f0c4fa}
+#bp-celestial-showcase .cel-byline{margin-top:12px;color:#cbb6d0;font-size:10px;letter-spacing:.08em}
+#bp-celestial-showcase .cel-universe{position:relative;height:215px;min-width:0;overflow:hidden;border-radius:50%;background:transparent!important}
+#bp-celestial-showcase .cel-orbit{position:absolute;top:50%;left:50%;width:93%;height:52%;border:1px solid rgba(225,183,246,.34);border-radius:50%;transform:translate(-50%,-50%) rotate(-27deg);pointer-events:none}
+#bp-celestial-showcase .cel-orbit.second{width:75%;height:75%;opacity:.55;transform:translate(-50%,-50%) rotate(31deg)}
+#bp-celestial-showcase .cel-planet{position:absolute;display:block;border-radius:50%;box-shadow:inset -13px -10px 20px rgba(28,10,45,.58),0 0 24px rgba(204,146,238,.22)}
+#bp-celestial-showcase .cel-planet.main{width:112px;height:112px;left:calc(50% - 56px);top:calc(50% - 56px);background:radial-gradient(circle at 28% 24%,#fff2fc 0%,#ebc8f4 16%,#bb88d2 43%,#85569f 70%,#352044 100%);animation:bp-cel-float 6s ease-in-out infinite}
+#bp-celestial-showcase .cel-planet.main::after{content:"";position:absolute;inset:-10px;border:1px solid rgba(244,209,255,.27);border-radius:50%}
+#bp-celestial-showcase .cel-planet.small-a{width:34px;height:34px;top:22px;right:16%;background:radial-gradient(circle at 25% 25%,#ffe7fa,#bf8cd7 45%,#58366e);animation:bp-cel-float 5s ease-in-out -2s infinite}
+#bp-celestial-showcase .cel-planet.small-b{width:23px;height:23px;bottom:25px;left:11%;background:radial-gradient(circle at 25% 25%,#dce5ff,#9f9cdd 50%,#514477);animation:bp-cel-float 4s ease-in-out -1s infinite}
+#bp-celestial-showcase .cel-planet.small-c{width:16px;height:16px;right:10%;bottom:43px;background:radial-gradient(circle at 25% 25%,#ffe9ee,#dc9dbb 50%,#754268)}
+#bp-celestial-showcase .cel-star{position:absolute;width:3px;height:3px;background:#fff0ff;border-radius:50%;box-shadow:0 0 9px 2px rgba(235,188,255,.6)}
+#bp-celestial-showcase .cel-star.s1{top:12%;left:19%}#bp-celestial-showcase .cel-star.s2{top:70%;right:17%}#bp-celestial-showcase .cel-star.s3{bottom:12%;left:40%}#bp-celestial-showcase .cel-star.s4{top:25%;right:33%}
+#bp-celestial-showcase .cel-crystal{position:absolute;left:12%;top:32%;width:17px;height:26px;background:linear-gradient(135deg,#fff4ff,#bb8ed5 52%,#58356e);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);filter:drop-shadow(0 0 7px #dfb0ff)}
+@keyframes bp-cel-float{0%,100%{translate:0 0}50%{translate:0 -9px}}
+@media(max-width:680px){#bp-celestial-showcase{padding:20px 18px;margin:20px auto}#bp-celestial-showcase .cel-layout{grid-template-columns:1fr;gap:0}#bp-celestial-showcase .cel-universe{height:170px;max-width:310px;width:100%;margin:6px auto 0}#bp-celestial-showcase .cel-planet.main{width:88px;height:88px;left:calc(50% - 44px);top:calc(50% - 44px)}}
+@media(prefers-reduced-motion:reduce){#bp-celestial-showcase .cel-planet{animation:none!important}}
+</style>
+<section id="bp-celestial-showcase" aria-labelledby="bp-celestial-title">
+  <div class="cel-layout">
+    <div class="cel-content">
+      <div class="cel-eyebrow">✦ Interactive Portfolio Universe</div>
+      <h3 id="bp-celestial-title">The <span>Celestial Archive</span></h3>
+      <p class="cel-description">An original, interactive career universe by Blair Page. Explore eight celestial worlds connecting Linux and cloud infrastructure, databases, e-commerce, education, career research, creative development, and retro gaming. Animated planets, orbital navigation, and interactive discoveries transform a traditional portfolio into an explorable digital experience.</p>
+      <div class="cel-tags"><span>8 Celestial Worlds</span><span>Interactive Exploration</span><span>Cloud &amp; Linux</span><span>Creative Development</span></div>
+      <a class="cel-visit" href="https://blairyfairy.github.io/Blairs-Celestial-Archive/" target="_blank" rel="noopener noreferrer" aria-label="Explore The Celestial Archive by Blair Page">Explore the Celestial Archive <span aria-hidden="true">↗</span></a>
+      <div class="cel-byline">CREATED BY BLAIR PAGE</div>
+    </div>
+    <div class="cel-universe" aria-hidden="true"><div class="cel-orbit"></div><div class="cel-orbit second"></div><span class="cel-star s1"></span><span class="cel-star s2"></span><span class="cel-star s3"></span><span class="cel-star s4"></span><span class="cel-crystal"></span><span class="cel-planet main"></span><span class="cel-planet small-a"></span><span class="cel-planet small-b"></span><span class="cel-planet small-c"></span></div>
+  </div>
+</section>
+<!-- END: BLAIR PAGE CELESTIAL ARCHIVE SHOWCASE -->
+
       <section class="resume-sections">
 <h2>Credly</h2>
         <div class="resume-block">
