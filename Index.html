@@ -5376,6 +5376,49 @@ html.bp-scrolling body{
       <!-- =====================
            FUTURE SECTIONS
            ===================== -->
+
+<!-- ===== GAMING PROJECTS: ADDITION ONLY ===== -->
+<style id="bp-gaming-projects-style">
+/* Scoped addition: no existing site styles are changed. */
+#bp-gaming-projects{margin:1.65rem 0 1.85rem;color:#f0eff4;}
+#bp-gaming-projects .bp-game-intro{font-size:.88rem;line-height:1.5;opacity:.83;margin:.2rem 0 1.15rem;}
+#bp-gaming-projects .bp-game-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;}
+#bp-gaming-projects .bp-game{--accent:#c9a3ed;position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;min-height:124px;overflow:hidden;border:1px solid rgba(240,239,244,.23);border-radius:14px;padding:11px 13px;text-decoration:none!important;color:#fff!important;-webkit-text-fill-color:#fff!important;background:transparent!important;background-color:transparent!important;box-shadow:none;transition:border-color .2s,box-shadow .2s,transform .2s;}
+#bp-gaming-projects .bp-game:before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;background:transparent;pointer-events:none;}
+#bp-gaming-projects .bp-game:hover,#bp-gaming-projects .bp-game:focus-visible{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 0 16px color-mix(in srgb,var(--accent) 25%,transparent),inset 0 0 16px color-mix(in srgb,var(--accent) 8%,transparent);transform:translateY(-3px);outline:none;}
+#bp-gaming-projects .bp-game-top{display:flex;align-items:center;justify-content:space-between;gap:8px;font:700 .62rem/1.2 ui-monospace,monospace;letter-spacing:.13em;color:#fff;}
+#bp-gaming-projects .bp-game-num{color:var(--accent);-webkit-text-fill-color:var(--accent);}
+#bp-gaming-projects .bp-game-name{font:900 clamp(1rem,1.8vw,1.35rem)/1.05 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.035em;text-transform:uppercase;text-shadow:0 2px 9px rgba(0,0,0,.6);margin:10px 0 7px;}
+#bp-gaming-projects .bp-game-name span{display:block;color:var(--accent);-webkit-text-fill-color:var(--accent);}
+#bp-gaming-projects .bp-game-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.72rem;opacity:.94;}
+#bp-gaming-projects .bp-game-play{font:800 .66rem/1.2 ui-monospace,monospace;white-space:nowrap;border:1px solid currentColor;border-radius:5px;padding:5px 7px;}
+#bp-gaming-projects .terminal{--accent:#5dff91!important}.bp-game.alien{--accent:#ff776e!important}.bp-game.funk{--accent:#ffca69!important}.bp-game.pixel{--accent:#7ac7ff!important}.bp-game.rune{--accent:#d5a5ff!important}.bp-game.quest{--accent:#86e8d8!important}
+@media(max-width:760px){#bp-gaming-projects .bp-game-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:460px){#bp-gaming-projects .bp-game-grid{grid-template-columns:1fr}#bp-gaming-projects .bp-game{min-height:116px}}
+@media(prefers-reduced-motion:reduce){#bp-gaming-projects .bp-game{transition:none}}
+
+/* Transparent, compact arcade cards: subtle accent animation only on interaction. */
+#bp-gaming-projects .bp-game::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .28s ease;pointer-events:none;}
+#bp-gaming-projects .bp-game:hover::after,#bp-gaming-projects .bp-game:focus-visible::after{transform:scaleX(1);}
+#bp-gaming-projects .bp-game-play{transition:background-color .22s ease,color .22s ease,box-shadow .22s ease;}
+#bp-gaming-projects .bp-game:hover .bp-game-play,#bp-gaming-projects .bp-game:focus-visible .bp-game-play{background:var(--accent);color:#101019!important;-webkit-text-fill-color:#101019!important;box-shadow:0 0 12px color-mix(in srgb,var(--accent) 35%,transparent);}
+#bp-gaming-projects .bp-game-name span{transition:text-shadow .22s ease;}
+#bp-gaming-projects .bp-game:hover .bp-game-name span{ text-shadow:0 0 12px color-mix(in srgb,var(--accent) 65%,transparent);}
+@media(prefers-reduced-motion:reduce){#bp-gaming-projects .bp-game::after,#bp-gaming-projects .bp-game-play,#bp-gaming-projects .bp-game-name span{transition:none!important;}}
+</style>
+<section id="bp-gaming-projects" aria-labelledby="bp-gaming-title">
+<h2 id="bp-gaming-title">Gaming Projects</h2>
+<p class="bp-game-intro">Six playable browser-game projects · Built with HTML · Explore the live GitHub Pages editions.</p>
+<div class="bp-game-grid">
+<a class="bp-game terminal" href="https://blairyfairy.github.io/Blairs-Shadow-Protocol-Dissent/" target="_blank" rel="noopener noreferrer" aria-label="Play SHADOW PROTOCOL DISSENT"><div class="bp-game-top"><span>BLΛIR // ARCADE</span><span class="bp-game-num">GAME 01</span></div><div class="bp-game-name">SHADOW PROTOCOL<span>DISSENT</span></div><div class="bp-game-bottom"><span>Terminal espionage</span><span class="bp-game-play">PLAY ↗</span></div></a>
+<a class="bp-game alien" href="https://blairyfairy.github.io/Blairs-Blacksite-Run/" target="_blank" rel="noopener noreferrer" aria-label="Play BLACKSITE RUN AREA 51"><div class="bp-game-top"><span>BLΛIR // ARCADE</span><span class="bp-game-num">GAME 02</span></div><div class="bp-game-name">BLACKSITE RUN<span>AREA 51</span></div><div class="bp-game-bottom"><span>Alien action / FPS</span><span class="bp-game-play">PLAY ↗</span></div></a>
+<a class="bp-game funk" href="https://blairyfairy.github.io/Blairs-Funky-Career-Islands/" target="_blank" rel="noopener noreferrer" aria-label="Play FUNKY CAREER ISLANDS"><div class="bp-game-top"><span>BLΛIR // ARCADE</span><span class="bp-game-num">GAME 03</span></div><div class="bp-game-name">FUNKY CAREER<span>ISLANDS</span></div><div class="bp-game-bottom"><span>Funky exploration</span><span class="bp-game-play">PLAY ↗</span></div></a>
+<a class="bp-game pixel" href="https://blairyfairy.github.io/Blairs-8Bit-Career-Quest/" target="_blank" rel="noopener noreferrer" aria-label="Play 8-BIT CAREER QUEST"><div class="bp-game-top"><span>BLΛIR // ARCADE</span><span class="bp-game-num">GAME 04</span></div><div class="bp-game-name">8-BIT CAREER<span>QUEST</span></div><div class="bp-game-bottom"><span>Retro side-scroller</span><span class="bp-game-play">PLAY ↗</span></div></a>
+<a class="bp-game rune" href="https://blairyfairy.github.io/Blairs-Rune-Career-Online/" target="_blank" rel="noopener noreferrer" aria-label="Play RUNE CAREER ONLINE"><div class="bp-game-top"><span>BLΛIR // ARCADE</span><span class="bp-game-num">GAME 05</span></div><div class="bp-game-name">RUNE CAREER<span>ONLINE</span></div><div class="bp-game-bottom"><span>Fantasy RPG</span><span class="bp-game-play">PLAY ↗</span></div></a>
+<a class="bp-game quest" href="https://blairyfairy.github.io/Blairs-Career-Quest/" target="_blank" rel="noopener noreferrer" aria-label="Play CAREER QUEST"><div class="bp-game-top"><span>BLΛIR // ARCADE</span><span class="bp-game-num">GAME 06</span></div><div class="bp-game-name">CAREER<span>QUEST</span></div><div class="bp-game-bottom"><span>Career adventure</span><span class="bp-game-play">PLAY ↗</span></div></a>
+</div>
+</section>
+<!-- ===== END GAMING PROJECTS ===== -->
       <section class="resume-sections">
 <h2>Credly</h2>
         <div class="resume-block">
