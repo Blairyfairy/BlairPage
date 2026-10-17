@@ -20126,8 +20126,10 @@ html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-bad
 <style id="bp-professional-experience-theme-font-pair-override">
 /* Clean, non-curly theme font for job titles; keep expanded description text unchanged. */
 html body .resume-shell section.timeline .timeline-item .job-toggle-row h4,
-html body .resume-shell section.timeline .timeline-item .job-toggle-row h4 * {
+html body .resume-shell section.timeline .timeline-item .job-toggle-row h4 *,
+html body .resume-shell .timeline-item .job-details > h4:not(.projects-heading) {
   font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
 }
 html body .resume-shell section.timeline .timeline-item .job-details > ul,
 html body .resume-shell section.timeline .timeline-item .job-details > ul *,
