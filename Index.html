@@ -20122,3 +20122,13 @@ html:not(#bpBadgeForceA):not(#bpBadgeForceB) body:not(#bpBadgeForceC) .brand-bad
   }
 }
 </style>
+
+<style id="bp-professional-experience-theme-font-pair-override">
+/* Apply theme body font to description text only; preserve original title typography. */
+html body .resume-shell section.timeline .timeline-item .job-details > ul,
+html body .resume-shell section.timeline .timeline-item .job-details > ul *,
+html body .resume-shell section.timeline .timeline-item .job-details .job-projects ul,
+html body .resume-shell section.timeline .timeline-item .job-details .job-projects ul * {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+</style>
