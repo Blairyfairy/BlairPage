@@ -5478,6 +5478,17 @@ html.bp-scrolling body{
 @media(max-width:580px){#bp-celestial-showcase .cel-layout{grid-template-columns:1fr!important;gap:4px!important}#bp-celestial-showcase .cel-universe{height:95px!important;max-width:185px!important;margin:0 auto!important}#bp-celestial-showcase{padding:12px 13px!important}}
 #bp-celestial-showcase a.cel-universe{display:block;cursor:pointer;text-decoration:none;color:inherit}
 #bp-celestial-showcase a.cel-universe:focus-visible{outline:2px solid #e9bdf3;outline-offset:4px}
+/* Celestial Archive hover effects only; original artwork and URLs unchanged. */
+#bp-celestial-showcase .cel-visit:hover,#bp-celestial-showcase .cel-visit:focus-visible{animation:cel-link-wiggle .85s ease-in-out!important;box-shadow:0 0 12px rgba(235,184,255,.5),0 0 25px rgba(187,117,226,.3)!important;filter:drop-shadow(0 0 5px rgba(232,185,255,.3))}
+#bp-celestial-showcase .cel-visit span{display:inline-block;transition:transform .3s ease}
+#bp-celestial-showcase .cel-visit:hover span{transform:translate(3px,-3px) rotate(-8deg)}
+#bp-celestial-showcase a.cel-universe:hover,#bp-celestial-showcase a.cel-universe:focus-visible{animation:cel-nebula-dance 2.4s ease-in-out infinite!important;filter:drop-shadow(0 0 10px rgba(235,184,255,.5)) drop-shadow(0 0 20px rgba(180,110,220,.25))}
+#bp-celestial-showcase a.cel-universe:hover .cel-orbit{border-color:rgba(245,211,255,.75);box-shadow:0 0 10px rgba(235,184,255,.25)}
+#bp-celestial-showcase a.cel-universe:hover .cel-crystal{animation:cel-crystal-glint 1.5s ease-in-out infinite alternate}
+@keyframes cel-link-wiggle{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(1px,-2px) rotate(-1deg)}50%{transform:translate(-1px,-3px) rotate(.8deg)}75%{transform:translate(1px,-1px) rotate(-.4deg)}}
+@keyframes cel-nebula-dance{0%,100%{transform:translate(0,0) rotate(0) scale(1)}30%{transform:translate(2px,-2px) rotate(.7deg) scale(1.015)}60%{transform:translate(-2px,1px) rotate(-.8deg) scale(1.025)}}
+@keyframes cel-crystal-glint{from{filter:drop-shadow(0 0 5px #dfb0ff)}to{filter:drop-shadow(0 0 13px #f4d4ff)}}
+@media(prefers-reduced-motion:reduce){#bp-celestial-showcase .cel-visit:hover,#bp-celestial-showcase a.cel-universe:hover,#bp-celestial-showcase a.cel-universe:hover .cel-crystal{animation:none!important}}
 </style>
 <section id="bp-celestial-showcase" aria-labelledby="bp-celestial-title">
   <div class="cel-layout">
