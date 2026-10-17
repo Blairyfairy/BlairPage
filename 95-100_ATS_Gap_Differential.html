@@ -181,7 +181,7 @@ td.m{color:#ffa0a0}
   <div class="section-title"><div><h2>Charts</h2><p>Evidence-first inventory-priority skill evidence, overall split, and average gap by ATS score band.</p></div></div>
   <section class="chart-grid">
     <article class="dashboard-card large"><div class="chart-head"><h3>Coverage by skill family</h3><p>Directly documented criteria by skill family.</p></div><div class="chart-wrap"><canvas id="catChart"></canvas></div></article>
-    <article class="dashboard-card small"><div class="chart-head"><h3>Overall split</h3><p>Direct evidence vs partial evidence vs undocumented.</p></div><div class="chart-wrap"><canvas id="splitChart"></canvas></div></article>
+    <article class="dashboard-card small"><div class="chart-head"><h3>Overall evidence split</h3><p>Portfolio checklist: directly documented vs partially evidenced vs undocumented skills. Separate from modeled ATS score deviation.</p></div><div class="chart-wrap"><canvas id="splitChart"></canvas></div></article>
     <article class="dashboard-card medium"><div class="chart-head"><h3>Avg % missing by ATS band</h3><p>Mean gap for titles at each score.</p></div><div class="chart-wrap"><canvas id="bandGapChart"></canvas></div></article>
     <article class="dashboard-card medium"><div class="chart-head"><h3>Avg % missing by family</h3><p>Mean family-specific documentation gap; thin evidence weighted at 50%.</p></div><div class="chart-wrap"><canvas id="famGapChart"></canvas></div></article>
   </section>
@@ -296,7 +296,7 @@ renderTable();
 const tc='#f0eff4';Chart.defaults.color=tc;
 new Chart(catChart,{type:'bar',data:{labels:Object.keys(D.cats),datasets:[{label:'% found',data:Object.values(D.cats).map(l=>Math.round(l.filter(n=>stat(n)!=='miss').length/l.length*100)),backgroundColor:'rgba(152,255,152,.65)'}]},options:{indexAxis:'y',scales:{x:{min:0,max:100}},plugins:{legend:{display:false}},maintainAspectRatio:false}});
 const th=all.filter(n=>stat(n)==='thin').length;
-new Chart(splitChart,{type:'doughnut',data:{labels:['Found','Thin','Missing'],datasets:[{data:[found-th,th,all.length-found],backgroundColor:['rgba(152,255,152,.7)','rgba(255,205,110,.7)','rgba(255,120,120,.8)']}]},options:{maintainAspectRatio:false}});
+new Chart(splitChart,{type:'doughnut',data:{labels:['Direct evidence','Partial evidence','Undocumented'],datasets:[{data:[found-th,th,all.length-found],backgroundColor:['rgba(152,255,152,.7)','rgba(255,205,110,.7)','rgba(255,120,120,.8)']}]},options:{maintainAspectRatio:false}});
 
 const bandMap={100:[],99:[],98:[],97:[],96:[],95:[]};
 rows.forEach(r=>{if(bandMap[r.s])bandMap[r.s].push(r.pct)});
