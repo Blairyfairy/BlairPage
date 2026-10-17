@@ -5458,6 +5458,24 @@ html.bp-scrolling body{
 #bp-celestial-showcase .cel-planet.small-b{left:15%;bottom:30px}
 @media(max-width:900px){#bp-celestial-showcase .cel-layout{grid-template-columns:1fr!important;gap:14px}#bp-celestial-showcase .cel-universe{width:min(100%,380px);height:175px;margin:0 auto}#bp-celestial-showcase .cel-description{max-width:100%}}
 @media(max-width:420px){#bp-celestial-showcase{padding:16px 14px}#bp-celestial-showcase .cel-universe{height:175px}#bp-celestial-showcase .cel-planet.main{width:92px;height:92px;left:calc(50% - 46px);top:calc(50% - 46px)}}
+/* Compact full-width Celestial Archive: artwork scaled to 50%, frame snug to text. */
+#bp-celestial-showcase{padding:12px 17px!important;margin:12px auto 14px!important;width:100%!important}
+#bp-celestial-showcase .cel-layout{grid-template-columns:minmax(0,1fr) minmax(120px,220px)!important;gap:12px!important;align-items:center!important}
+#bp-celestial-showcase .cel-eyebrow{margin-bottom:5px!important}
+#bp-celestial-showcase h3{margin-bottom:6px!important;font-size:clamp(20px,2.4vw,27px)!important}
+#bp-celestial-showcase .cel-description{margin-bottom:8px!important;font-size:12px!important;line-height:1.4!important}
+#bp-celestial-showcase .cel-tags{margin-bottom:9px!important;gap:5px!important}
+#bp-celestial-showcase .cel-tags span{padding:4px 8px!important}
+#bp-celestial-showcase .cel-visit{padding:8px 13px!important}
+#bp-celestial-showcase .cel-universe{height:105px!important;width:100%!important;max-width:220px!important;overflow:visible!important}
+#bp-celestial-showcase .cel-planet.main{width:50px!important;height:50px!important;left:calc(50% - 25px)!important;top:calc(50% - 25px)!important}
+#bp-celestial-showcase .cel-planet.main::after{inset:-5px!important}
+#bp-celestial-showcase .cel-planet.small-a{width:17px!important;height:17px!important;top:12px!important}
+#bp-celestial-showcase .cel-planet.small-b{width:12px!important;height:12px!important;bottom:14px!important}
+#bp-celestial-showcase .cel-planet.small-c{width:8px!important;height:8px!important;bottom:24px!important}
+#bp-celestial-showcase .cel-crystal{width:9px!important;height:13px!important}
+@media(max-width:900px){#bp-celestial-showcase .cel-layout{grid-template-columns:minmax(0,1fr) minmax(110px,165px)!important;gap:10px!important}#bp-celestial-showcase .cel-universe{height:100px!important;max-width:165px!important}}
+@media(max-width:580px){#bp-celestial-showcase .cel-layout{grid-template-columns:1fr!important;gap:4px!important}#bp-celestial-showcase .cel-universe{height:95px!important;max-width:185px!important;margin:0 auto!important}#bp-celestial-showcase{padding:12px 13px!important}}
 </style>
 <section id="bp-celestial-showcase" aria-labelledby="bp-celestial-title">
   <div class="cel-layout">
