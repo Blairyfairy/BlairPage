@@ -17,7 +17,7 @@
   --accent-green:rgba(152,255,152,0.75);
 }
 body.dark {
-  --bg-light:linear-gradient(135deg,#050507 0%,#0d0f16 25%,#141824 55%,#1c1f2b 78%,#26212d 100%);
+  --bg-light:linear-gradient(135deg,#000000 0%,#1a0d19 35%,#291528 70%,#3a3e3b 100%);
   --glass-bg:rgba(8,10,14,0.42); --glass-border:rgba(240,239,244,0.14);
 }
 *{box-sizing:border-box}
@@ -157,6 +157,38 @@ body:not(.dark) .glossary-card,body:not(.dark) .reference-card,body:not(.dark) .
   background:rgba(26,13,25,.67);
 }
 #themeToggle{color:var(--text-light);}
+</style>
+<style id="bp-index-theme-button-flat-match">
+/* Match the index.html light/dark toggle with flat, portfolio-palette surfaces. */
+html body #themeToggle.theme-btn {
+  appearance:none !important;
+  background:#291528 !important;
+  background-image:none !important;
+  color:#f0eff4 !important;
+  border:1px solid #9e829c !important;
+  border-radius:20px !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  transition:background-color .2s ease,border-color .2s ease,color .2s ease !important;
+}
+html body #themeToggle.theme-btn:hover,
+html body #themeToggle.theme-btn:focus-visible {
+  background:#3a3e3b !important;
+  border-color:#f0eff4 !important;
+  box-shadow:none !important;
+}
+html body.dark #themeToggle.theme-btn {
+  background:#3a3e3b !important;
+  border-color:#9e829c !important;
+  color:#f0eff4 !important;
+}
+html body.dark #themeToggle.theme-btn:hover,
+html body.dark #themeToggle.theme-btn:focus-visible {
+  background:#291528 !important;
+  border-color:#f0eff4 !important;
+}
 </style>
 </head>
 <body>
