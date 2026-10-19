@@ -1276,7 +1276,6 @@ Odds it is PII or harassment:
 <main class="gallery-page-shell">
   <div class="gallery-wrapper">
 
-    <button id="refreshPhotosBtn" class="refresh-photos-btn" type="button">Refresh Photos</button>
 
     <button class="arrow arrow-left">&#9664;</button>
 
@@ -7440,6 +7439,88 @@ body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="true"]{
     });
     mo.observe(car, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-loaded', 'src', 'style', 'class'] });
   }
+})();
+</script>
+
+
+<!-- Automatic recovery for gallery photos; no manual refresh control. -->
+<script id="karen-gallery-automatic-image-recovery">
+(function(){
+  'use strict';
+  const carousel = document.getElementById('galleryCarousel');
+  if (!carousel) return;
+  const retryAfter = new WeakMap();
+  const inFlight = new WeakSet();
+  const retryDelay = 15000;
+  const concurrent = 5;
+  let active = 0;
+
+  function hideUntilReady(img) {
+    if (img.dataset.loaded === 'true' && img.complete && img.naturalWidth > 0) {
+      img.style.setProperty('display', 'block', 'important');
+      img.style.setProperty('visibility', 'visible', 'important');
+      img.style.setProperty('opacity', '1', 'important');
+    } else {
+      img.style.setProperty('display', 'none', 'important');
+      img.style.setProperty('visibility', 'hidden', 'important');
+      img.style.setProperty('opacity', '0', 'important');
+    }
+  }
+
+  function recover(img) {
+    if (active >= concurrent || inFlight.has(img) || !img.isConnected) return;
+    if (img.dataset.loaded === 'true' && img.complete && img.naturalWidth > 0) return;
+    if (img.dataset.loading === 'true') return;
+    if (Date.now() < (retryAfter.get(img) || 0)) return;
+    const original = img.dataset.originalSrc;
+    if (!original) return;
+    retryAfter.set(img, Date.now() + retryDelay);
+    inFlight.add(img);
+    active++;
+    const candidates = typeof buildImageCandidates === 'function'
+      ? [original, ...buildImageCandidates(original)] : [original];
+    const unique = [...new Set(candidates)];
+    let index = 0;
+    function finish() { inFlight.delete(img); active--; }
+    function next() {
+      if (!img.isConnected || img.dataset.loaded === 'true') { finish(); return; }
+      if (index >= unique.length) { finish(); return; }
+      const url = unique[index++];
+      const probe = new Image();
+      probe.onload = function() {
+        if (!img.isConnected) { finish(); return; }
+        img.onload = function() {
+          img.dataset.loaded = 'true';
+          img.dataset.loading = 'false';
+          img.dataset.resolvedSrc = url;
+          hideUntilReady(img);
+        };
+        img.onerror = function() { img.dataset.loaded = 'false'; hideUntilReady(img); };
+        img.src = url;
+        if (img.complete && img.naturalWidth > 0) img.onload();
+        finish();
+      };
+      probe.onerror = next;
+      probe.src = url;
+    }
+    next();
+  }
+
+  function sweep() {
+    carousel.querySelectorAll('img').forEach(function(img) {
+      hideUntilReady(img);
+      if (active < concurrent) recover(img);
+    });
+  }
+  const observer = new MutationObserver(function() {
+    // Avoid reacting to our own style writes; image state changes are enough.
+    requestAnimationFrame(sweep);
+  });
+  observer.observe(carousel, {childList:true, subtree:true, attributes:true,
+    attributeFilter:['data-loaded','data-loading','src']});
+  sweep();
+  window.addEventListener('load', sweep);
+  setInterval(sweep, 12000);
 })();
 </script>
 
