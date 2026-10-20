@@ -20208,3 +20208,19 @@ html body .resume-shell section.timeline .timeline-item .job-details .job-projec
   font-family: Arial, Helvetica, sans-serif !important;
 }
 </style>
+
+<!-- Append-only: Celestial Archive identity hover triggers the existing gemstone-only flash. -->
+<style id="celestial-full-brand-hover-logo-only">
+html body .identity-info .brand-lockup:hover h1.brand-logo-heading > a,
+html body .identity-info .brand-lockup:focus-within h1.brand-logo-heading > a {
+  animation: desktopCardLogoWrapperJiggle 920ms cubic-bezier(.22,.7,.25,1) both !important;
+}
+html body .identity-info .brand-lockup:hover .brand-logo-mark,
+html body .identity-info .brand-lockup:focus-within .brand-logo-mark {
+  filter: brightness(1.08) saturate(1.12) drop-shadow(0 0 2px rgba(255,255,255,.98)) drop-shadow(0 0 5px rgba(247,225,255,.95)) drop-shadow(0 0 10px rgba(205,160,218,.9)) drop-shadow(0 0 16px rgba(155,113,190,.62)) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html body .identity-info .brand-lockup:hover h1.brand-logo-heading > a,
+  html body .identity-info .brand-lockup:focus-within h1.brand-logo-heading > a { animation:none !important; }
+}
+</style>
