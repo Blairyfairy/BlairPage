@@ -20224,3 +20224,26 @@ html body .identity-info .brand-lockup:focus-within .brand-logo-mark {
   html body .identity-info .brand-lockup:focus-within h1.brand-logo-heading > a { animation:none !important; }
 }
 </style>
+
+<!-- Mobile-only Celestial Archive nebula breathing room; existing code untouched. -->
+<style id="celestial-mobile-nebula-tiny-gap">
+@media (max-width:580px) {
+  #bp-celestial-showcase .cel-universe { margin-top: 7px !important; }
+}
+</style>
+
+<!-- Append-only: balanced Celestial Archive artwork spacing on narrow desktop and mobile; original lines untouched. -->
+<style id="celestial-showcase-balanced-responsive-spacing">
+@media (max-width:900px) and (min-width:761px) {
+  #bp-celestial-showcase .cel-layout { gap:18px !important; }
+  #bp-celestial-showcase .cel-universe { margin:8px auto 8px !important; }
+}
+@media (max-width:760px) {
+  #bp-celestial-showcase .cel-layout { grid-template-columns:minmax(0,1fr) !important; gap:17px !important; }
+  #bp-celestial-showcase .cel-universe { margin:12px auto 9px !important; }
+}
+@media (max-width:580px) {
+  #bp-celestial-showcase .cel-layout { gap:15px !important; }
+  #bp-celestial-showcase .cel-universe { margin:11px auto 8px !important; }
+}
+</style>
