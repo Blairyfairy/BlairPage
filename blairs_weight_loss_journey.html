@@ -3043,15 +3043,326 @@ a:focus-visible,button:focus-visible{outline:none;box-shadow:var(--focus)}
     <div class="journey-chip"><small>Current position</small><strong>143 lbs</strong></div>
     <div class="journey-chip"><small>Goal distance</small><strong>30 lbs remaining</strong></div>
     <div class="journey-chip"><small>Progress rate</small><strong>43.40% complete</strong></div>
-    The average weight for women in their 30s (ages 30 to 39) in the United States is approximately 178 pounds.
+    
+<section class="bp-journal-priority" aria-labelledby="bp-priority-title">
+  <style>
+    .bp-journal-priority {
+      --bg: #17111e;
+      --panel: #291528;
+      --accent: #b99ac4;
+      --text: #f0eff4;
+      --muted: #c6b7cb;
+      --border: rgba(185,154,196,.28);
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(145deg,#17111e,#291528);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(20px,4vw,34px);
+      max-width: 900px;
+      margin: 24px auto;
+      line-height: 1.7;
+      box-sizing: border-box;
+    }
 
-Weight Percentiles for 39-Year-Old Women (CDC Data)
+    .bp-journal-priority * {
+      box-sizing: border-box;
+    }
 
-• 5th percentile: 110.9 lbs (50.3 kg)
-• 25th percentile: 140.0 lbs (63.5 kg)
-• 50th percentile (median): 161.6 lbs (73.3 kg)
-• 75th percentile: 201.5 lbs (91.4 kg)
-• 95th percentile: 281.3 lbs (127.6 kg)
+    .bp-journal-priority h2 {
+      font-size: clamp(1.35rem,3vw,1.85rem);
+      line-height: 1.3;
+      margin: 0 0 12px;
+      color: #fff;
+    }
+
+    .bp-journal-priority h3 {
+      font-size: 1.05rem;
+      color: #e0c8e9;
+      margin: 0 0 12px;
+    }
+
+    .bp-journal-priority p {
+      margin: 0 0 15px;
+    }
+
+    .bp-journal-priority .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-size: .72rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .bp-journal-priority .intro {
+      color: var(--muted);
+      font-size: .96rem;
+    }
+
+    .bp-journal-priority .panel {
+      background: rgba(255,255,255,.035);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+
+    .bp-journal-priority .stats {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .bp-journal-priority .stat {
+      background: rgba(185,154,196,.08);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .bp-journal-priority .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .bp-journal-priority .stat span {
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    .bp-journal-priority .priority {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bp-journal-priority .priority:last-child {
+      border-bottom: none;
+    }
+
+    .bp-journal-priority .priority strong {
+      color: #e4c8ef;
+      white-space: nowrap;
+    }
+
+    .bp-journal-priority .note {
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .bp-journal-priority .conclusion {
+      margin-top: 22px;
+      padding: 18px;
+      border-left: 3px solid var(--accent);
+      background: rgba(185,154,196,.09);
+      border-radius: 0 12px 12px 0;
+    }
+
+    @media (max-width: 480px) {
+      .bp-journal-priority .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+      .bp-journal-priority .priority {
+        flex-direction: column;
+        gap: 2px;
+      }
+    }
+  </style>
+
+  <div class="eyebrow">
+    Blair Page | Weight-Loss Journal | October 2026
+  </div>
+
+  <h2>
+    Employment First: Balancing Career Recovery,
+    AWS Renewal &amp; Weight Management
+  </h2>
+
+  <p class="intro">
+    During unemployment, finding stable employment takes
+    priority over accelerating weight loss. My immediate
+    responsibilities include submitting job applications,
+    tailoring resumes, preparing for interviews, and
+    renewing my AWS Solutions Architect Associate
+    certification on November 2, 2026.
+  </p>
+
+  <p>
+    These activities require substantial daily concentration,
+    time, and mental energy. Although they are largely
+    sedentary, they represent necessary investments in
+    restoring financial stability and long-term career
+    opportunities.
+  </p>
+
+  <div class="panel">
+    <h3>Weight Statistics for Context</h3>
+
+    <p>
+      The supplied reference figures estimate an average
+      weight of approximately 178 pounds for U.S. women
+      ages 30–39. The following percentile figures provide
+      population context, not an individualized healthy
+      weight range.
+    </p>
+
+    <div class="stats">
+      <div class="stat">
+        <strong>110.9 lb</strong>
+        <span>5th percentile</span>
+      </div>
+      <div class="stat">
+        <strong>140.0 lb</strong>
+        <span>25th percentile</span>
+      </div>
+      <div class="stat">
+        <strong>161.6 lb</strong>
+        <span>50th percentile / median</span>
+      </div>
+      <div class="stat">
+        <strong>201.5 lb</strong>
+        <span>75th percentile</span>
+      </div>
+      <div class="stat">
+        <strong>281.3 lb</strong>
+        <span>95th percentile</span>
+      </div>
+    </div>
+
+    <p class="note">
+      Reference figures supplied for this journal entry;
+      age-specific CDC attribution has not been independently
+      verified. Population weight percentiles do not account
+      for height, body composition, or individual health.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h3>My Temporary Daily Priorities</h3>
+
+    <div class="priority">
+      <span>Job applications, resumes and interviews</span>
+      <strong>4–5 hours</strong>
+    </div>
+
+    <div class="priority">
+      <span>AWS SAA renewal preparation</span>
+      <strong>3 hours</strong>
+    </div>
+
+    <div class="priority">
+      <span>Walking or moderate physical activity</span>
+      <strong>30–45 minutes</strong>
+    </div>
+
+    <div class="priority">
+      <span>Meals, recovery and sleep</span>
+      <strong>Protected daily time</strong>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>The Trade-Off: Career vs. Calories</h3>
+
+    <p>
+      Every additional hour spent exercising is an hour
+      unavailable for applications, resume customization,
+      certification preparation, or interviewing. During
+      unemployment, the opportunity cost of that time
+      is particularly important.
+    </p>
+
+    <p>
+      For illustration, 30–45 minutes of moderate walking
+      may expend roughly 100–240 calories for someone
+      weighing approximately 150–180 pounds, depending
+      on walking speed and individual factors.
+      This is total activity expenditure, not necessarily
+      the additional calories burned above resting.
+    </p>
+
+    <p>
+      Desk-based job searching also uses energy, but its
+      calorie expenditure is relatively low. Therefore,
+      spending additional hours clicking application
+      buttons is not a meaningful substitute for exercise.
+      Likewise, extending exercise sessions at the expense
+      of important career deadlines is not automatically
+      the best use of limited time.
+    </p>
+
+    <p>
+      The practical compromise is to maintain regular
+      movement, balanced meals, adequate hydration,
+      and consistent sleep while avoiding the pressure
+      to maximize weight loss during this temporary
+      period of unemployment.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h3>My Goals Through November 2</h3>
+
+    <p>
+      My employment goal is approximately 25–35
+      appropriately matched applications per week,
+      supported by reusable master resumes and
+      targeted customization.
+    </p>
+
+    <p>
+      My certification goal is approximately 30–36
+      hours of focused AWS SAA preparation before
+      the scheduled renewal examination, adjusted
+      according to practice-test performance.
+    </p>
+
+    <p>
+      My health goal is consistency rather than rapid
+      weight loss: manageable daily activity, regular
+      nutrition, sufficient sleep, and maintaining
+      healthy habits during the job search.
+    </p>
+  </div>
+
+  <div class="conclusion">
+    <h3>Personal Journal Reflection</h3>
+
+    <p>
+      I am temporarily prioritizing employment and
+      professional development because financial
+      stability is essential to my long-term well-being.
+      This does not mean abandoning my weight-loss
+      journey. It means choosing a sustainable pace
+      that allows me to protect my health while
+      pursuing the income, security, and opportunities
+      needed for my future.
+    </p>
+
+    <p>
+      My progress should not be measured exclusively
+      by pounds lost. Applications completed,
+      interviews secured, professional credentials
+      renewed, consistent movement, and healthy
+      daily routines are also meaningful achievements.
+    </p>
+
+    <p style="margin-bottom:0">
+      <strong>
+        Current priority: Secure employment.
+        Maintain health. Resume more intensive
+        fitness goals when circumstances allow.
+      </strong>
+    </p>
+  </div>
+</section>
+
   </div>
 </div>
           <div aria-hidden="true"></div>
