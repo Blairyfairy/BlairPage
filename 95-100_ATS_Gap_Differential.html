@@ -17,7 +17,7 @@
   --accent-green:rgba(152,255,152,0.75);
 }
 body.dark {
-  --bg-light:linear-gradient(135deg,#000000 0%,#1a0d19 35%,#291528 70%,#3a3e3b 100%);
+  --bg-light:linear-gradient(135deg,#050507 0%,#0d0f16 25%,#141824 55%,#1c1f2b 78%,#26212d 100%);
   --glass-bg:rgba(8,10,14,0.42); --glass-border:rgba(240,239,244,0.14);
 }
 *{box-sizing:border-box}
@@ -135,60 +135,6 @@ td.m{color:#ffa0a0}
 </style>
 <style id="bp-expanded-title-count-style">
 #bp-expanded-title-count{max-width:1280px;margin:18px auto;padding:0 20px;color:#f5effa;font-family:Arial,Helvetica,sans-serif;position:relative;z-index:4}#bp-expanded-title-count .bp-extent{padding:24px;border-radius:18px;border:1px solid #bd89c7;background:rgba(21,13,29,.92)}#bp-expanded-title-count h2{font-size:clamp(1.3rem,2.5vw,2rem);color:#fff;margin:0 0 12px}#bp-expanded-title-count .bp-extent-numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}#bp-expanded-title-count .bp-extent-stat{padding:18px;border:1px solid #735c7c;border-radius:12px;background:rgba(255,255,255,.04)}#bp-expanded-title-count .bp-extent-stat strong{display:block;font-size:clamp(2.4rem,5vw,4.4rem);line-height:1;color:white}#bp-expanded-title-count .bp-extent-stat span{display:block;margin-top:10px;font-size:.9rem}#bp-expanded-title-count p{line-height:1.5}#bp-expanded-title-count table{width:100%;border-collapse:collapse;font-size:.87rem}#bp-expanded-title-count td,#bp-expanded-title-count th{text-align:left;padding:9px;border-bottom:1px solid #54415c}#bp-expanded-title-count th{position:sticky;top:0;background:#24172b}#bp-expanded-title-count .bp-ext-scroll{max-height:420px;overflow:auto}#bp-expanded-title-count input{width:min(100%,450px);background:#26182e;border:1px solid #b18bb8;color:white;border-radius:8px;padding:12px}#bp-expanded-title-count summary{cursor:pointer;font-weight:bold;padding:12px 0}#bp-expanded-title-count .bp-caution{font-size:.88rem;opacity:.93}#bp-expanded-title-count a{color:#f3c1f2}
-</style>
-<style id="bp-index-matched-light-dark-fix">
-/* Match the portfolio palette and make the existing theme button switch the full page. */
-:root {
-  --bg-light:linear-gradient(135deg,#000000 0%,#291528 30%,#3a3e3b 60%,#9e829c 85%,#f0eff4 100%);
-  --glass-bg:rgba(26,13,25,.64);
-  --glass-border:rgba(240,239,244,.24);
-  --text-light:#f0eff4;
-}
-html:has(body.dark),body.dark {
-  --bg-light:linear-gradient(135deg,#000000 0%,#1a0d19 35%,#291528 70%,#3a3e3b 100%);
-  --glass-bg:rgba(0,0,0,.65);
-  --glass-border:rgba(240,239,244,.12);
-  --text-light:#f0eff4;
-}
-html,body{background:var(--bg-light) !important;background-image:var(--bg-light) !important;}
-.hero{background:var(--bg-light) !important;}
-body:not(.dark) .dashboard-card,body:not(.dark) .badge-card,body:not(.dark) .job-card,
-body:not(.dark) .glossary-card,body:not(.dark) .reference-card,body:not(.dark) .feed-card {
-  background:rgba(26,13,25,.67);
-}
-#themeToggle{color:var(--text-light);}
-</style>
-<style id="bp-index-theme-button-flat-match">
-/* Match the index.html light/dark toggle with flat, portfolio-palette surfaces. */
-html body #themeToggle.theme-btn {
-  appearance:none !important;
-  background:#291528 !important;
-  background-image:none !important;
-  color:#f0eff4 !important;
-  border:1px solid #9e829c !important;
-  border-radius:20px !important;
-  box-shadow:none !important;
-  text-shadow:none !important;
-  backdrop-filter:none !important;
-  -webkit-backdrop-filter:none !important;
-  transition:background-color .2s ease,border-color .2s ease,color .2s ease !important;
-}
-html body #themeToggle.theme-btn:hover,
-html body #themeToggle.theme-btn:focus-visible {
-  background:#3a3e3b !important;
-  border-color:#f0eff4 !important;
-  box-shadow:none !important;
-}
-html body.dark #themeToggle.theme-btn {
-  background:#3a3e3b !important;
-  border-color:#9e829c !important;
-  color:#f0eff4 !important;
-}
-html body.dark #themeToggle.theme-btn:hover,
-html body.dark #themeToggle.theme-btn:focus-visible {
-  background:#291528 !important;
-  border-color:#f0eff4 !important;
-}
 </style>
 </head>
 <body>
