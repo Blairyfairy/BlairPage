@@ -7525,87 +7525,58 @@ body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="true"]{
 </script>
 
 
-<!-- Karen Wars gallery reliability patch: additive; preserves original markup, captions, and image order. -->
-<style id="karen-gallery-reliable-responsive-patch">
-  body#gallery-page #galleryCarousel.gallery-carousel { min-width:0 !important; box-sizing:border-box !important; }
-  body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="true"] { display:block !important; visibility:visible !important; opacity:1 !important; }
-  body#gallery-page #galleryCarousel.gallery-carousel img:not([data-loaded="true"]) { display:none !important; }
-  @media (min-width:901px) {
-    body#gallery-page #galleryCarousel.gallery-carousel { display:flex !important; flex-wrap:nowrap !important; overflow-x:auto !important; overflow-y:hidden !important; width:100% !important; max-width:100% !important; -webkit-overflow-scrolling:touch; }
-    body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="true"] { flex:0 0 200px !important; width:200px !important; height:200px !important; }
-  }
-  @media (max-width:900px) {
-    body#gallery-page #galleryCarousel.gallery-carousel { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:10px !important; overflow:visible !important; width:100% !important; max-width:100% !important; align-items:start !important; }
-    body#gallery-page #galleryCarousel.gallery-carousel img[data-loaded="true"] { width:100% !important; max-width:100% !important; height:auto !important; aspect-ratio:1/1 !important; margin:0 !important; object-fit:cover !important; min-width:0 !important; }
-  }
+<!-- Karen Wars: final gallery.html-style image loading compatibility layer; existing code/content retained. -->
+<style id="karen-wars-gallery-visibility-final">
+#gallery-page #galleryCarousel img.kw-ready[data-loaded="true"] {display:block!important;visibility:visible!important;opacity:1!important;content-visibility:visible!important;}
+#gallery-page #galleryCarousel img.kw-waiting {display:none!important;}
+@media(max-width:900px){#gallery-page #galleryCarousel img.kw-ready[data-loaded="true"]{display:block!important;width:100%!important;max-width:100%!important;height:auto!important;aspect-ratio:1/1!important;}}
 </style>
-<script id="karen-gallery-reliable-ordered-load-patch">
+<script id="karen-wars-gallery-loader-final">
 (function(){
-  'use strict';
-  const carousel=document.getElementById('galleryCarousel');
-  if(!carousel)return;
-  const pending=new WeakSet(), cooldown=new WeakMap();
-  let active=0;
-  const queue=[];
-  const maxActive=window.matchMedia('(max-width:900px)').matches?8:12;
-  function getSource(img){const raw=img.getAttribute('src')||'';return img.dataset.originalSrc || img.dataset.resolvedSrc || (raw.startsWith('data:')?'':raw);}
-  function candidates(src){
-    const list=[src];
-    if(typeof buildImageCandidates==='function')try{list.push(...buildImageCandidates(src));}catch(e){}
-    try{list.push(encodeURI(decodeURI(src)));}catch(e){}
-    return [...new Set(list.filter(Boolean))].slice(0,35);
-  }
-  function pump(){
-    while(active<maxActive && queue.length){
-      const img=queue.shift();
-      if(!img.isConnected || img.dataset.loaded==='true' && img.complete && img.naturalWidth>0){pending.delete(img);continue;}
-      const src=getSource(img);
-      if(!src){pending.delete(img);continue;}
-      active++;
-      (async function(){
-        for(const url of candidates(src)){
-          if(!img.isConnected)return;
-          const ok=await new Promise(resolve=>{
-            const probe=new Image();
-            let finished=false;
-            const timer=setTimeout(()=>{if(!finished){finished=true;probe.onload=probe.onerror=null;resolve(false);}},12000);
-            probe.onload=()=>{if(!finished){finished=true;clearTimeout(timer);resolve(probe.naturalWidth>0);}};
-            probe.onerror=()=>{if(!finished){finished=true;clearTimeout(timer);resolve(false);}};
-            probe.src=url;
-          });
-          if(!ok)continue;
-          if(!img.isConnected)return;
-          img.src=url;
-          img.dataset.resolvedSrc=url;
-          img.dataset.loading='false';
-          img.dataset.loaded='true';
-          img.loading='eager';
-          img.decoding='async';
-          img.style.removeProperty('display');
-          img.style.removeProperty('visibility');
-          img.style.removeProperty('opacity');
-          return;
-        }
-        img.dataset.loading='false';
-      })().finally(()=>{active--;pending.delete(img);cooldown.set(img,Date.now()+18000);pump();});
-    }
-  }
-  function scan(){
-    carousel.querySelectorAll('img').forEach(img=>{
-      if(img.dataset.loaded==='true' && img.complete && img.naturalWidth>0)return;
-      if(pending.has(img) || Date.now()<(cooldown.get(img)||0))return;
-      if(!getSource(img))return;
-      pending.add(img);queue.push(img);
-    });
-    pump();
-  }
-  let scheduled=false;
-  const observer=new MutationObserver(()=>{if(scheduled)return;scheduled=true;setTimeout(()=>{scheduled=false;scan();},150);});
-  observer.observe(carousel,{childList:true,subtree:true,attributes:true,attributeFilter:['src','data-original-src','data-loaded']});
-  scan();
-  window.addEventListener('load',scan);
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden)scan();});
-  setInterval(scan,10000);
+'use strict';
+const car=document.getElementById('galleryCarousel');if(!car)return;
+const jsons=['images2.json','./images2.json','EasterEggGallery/images2.json','./EasterEggGallery/images2.json'];
+let records=[],version=0,active=0;const max=window.matchMedia('(max-width:900px)').matches?24:20;
+const queue=[],seen=new Set(),resolved=new Map();
+function paths(raw){
+ const s=String(raw||'').trim();if(!s)return [];
+ const out=[],add=x=>{if(x&&!out.includes(x))out.push(x)};
+ add(s);try{add(encodeURI(decodeURI(s)))}catch(e){add(encodeURI(s))}
+ const stripped=s.replace(/^\.\//,'');
+ if(!/^(?:https?:|data:|blob:|\/)/i.test(s)){
+  if(!stripped.startsWith('EasterEggGallery/'))add('EasterEggGallery/'+stripped);
+  if(stripped.startsWith('EasterEggGallery/'))add(stripped.slice('EasterEggGallery/'.length));
+  const filename=stripped.split('/').pop();
+  for(const dir of ['BlairPageImages/','EasterEggGallery/BlairPageImages/','images/','EasterEggGallery/images/'])add(dir+filename);
+ }
+ return out;
+}
+function probe(url){return new Promise(ok=>{const test=new Image();let done=false;const timer=setTimeout(()=>finish(false),11000);function finish(success){if(done)return;done=true;clearTimeout(timer);test.onload=test.onerror=null;ok(success)}test.onload=()=>finish(test.naturalWidth>0);test.onerror=()=>finish(false);test.src=url;});}
+function pump(){while(active<max&&queue.length){const job=queue.shift();if(job.version!==version)continue;active++;(async()=>{
+ const img=job.img,source=job.src;
+ for(const u of (resolved.has(source)?[resolved.get(source),...paths(source)]:paths(source))){if(job.version!==version)return; if(await probe(u)){
+ resolved.set(source,u);img.onload=()=>{img.dataset.loaded='true';img.dataset.loading='false';img.classList.remove('kw-waiting');img.classList.add('kw-ready');};
+ img.src=u;img.dataset.resolvedSrc=u;img.dataset.originalSrc=source;
+ if(img.complete&&img.naturalWidth>0)img.onload();return;
+ }}img.dataset.loading='false';
+ })().finally(()=>{active--;pump()});}}
+function render(images){
+ if(!Array.isArray(images)||!images.length)return;
+ const normalized=images.map(v=>typeof v==='string'?v:(v&&typeof v==='object'?(v.src||v.url||v.path||v.image||v.filename):'')).filter(Boolean);
+ if(!normalized.length)return;
+ if(records.length===normalized.length&&records.every((v,i)=>v===normalized[i])&&car.querySelector('.kw-ready'))return;
+ records=normalized;version++;queue.length=0;car.replaceChildren();
+ normalized.forEach((src,i)=>{const img=document.createElement('img');img.className='kw-waiting master-fast-img gallery-json-final-image';img.alt='Gallery image '+(i+1);img.dataset.originalSrc=src;img.dataset.loading='true';img.dataset.loaded='false';img.loading='eager';img.decoding='async';img.addEventListener('click',()=>{if(img.dataset.loaded!=='true')return;const lb=document.getElementById('lightbox'),view=document.getElementById('lightboxImg');if(lb&&view){view.src=img.src;lb.classList.add('show')}});car.appendChild(img);queue.push({img,src,version});});pump();
+ }
+ async function start(){for(const path of jsons){try{const response=await fetch(path,{cache:'no-store'});if(!response.ok)continue;const data=await response.json();const list=Array.isArray(data)?data:(data.images||data.photos||data.items);if(Array.isArray(list)&&list.length){render(list);return}}catch(e){}}
+ if(Array.isArray(window.galleryImagesData))render(window.galleryImagesData);
+ }
+ // Older independent loaders can replace the carousel; restore the exact JSON order if that occurs.
+ let checkQueued=false;
+ const observer=new MutationObserver(()=>{if(checkQueued)return;checkQueued=true;setTimeout(()=>{checkQueued=false;if(records.length&&car.querySelectorAll('img').length!==records.length)render([...records]);},250)});
+ observer.observe(car,{childList:true});
+ start();window.addEventListener('load',()=>{if(!records.length)start()});
+ setInterval(()=>{if(records.length){const imgs=car.querySelectorAll('img');if(imgs.length!==records.length){const old=records.slice();records=[];render(old);}else imgs.forEach(img=>{if(img.classList.contains('kw-ready')&&img.complete&&img.naturalWidth>0){img.dataset.loaded='true';img.style.setProperty('display','block','important');}});}else start();},7000);
 })();
 </script>
 
