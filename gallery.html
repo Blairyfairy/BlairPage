@@ -1057,7 +1057,6 @@ body::before{
 <main class="gallery-page-shell">
   <div class="gallery-wrapper">
 
-    <button id="refreshPhotosBtn" class="refresh-photos-btn" type="button">Refresh Photos</button>
 
     <button class="arrow arrow-left">&#9664;</button>
 
@@ -1560,7 +1559,7 @@ fetch('images.json')
 .then(res=>res.json())
 .then(images=>{
 galleryImagesData=images;
-initializeGallery(galleryImagesData);
+/* Automatic gallery loader handles image discovery and display. */
 });
 
 /* LIGHTBOX */
@@ -1616,13 +1615,6 @@ carousel.scrollBy({left:-220,behavior:'smooth'});
 
 document.querySelector(".arrow-right").addEventListener("click",()=>{
 carousel.scrollBy({left:220,behavior:'smooth'});
-});
-
-/* REFRESH PHOTOS */
-const refreshPhotosBtn=document.getElementById("refreshPhotosBtn");
-refreshPhotosBtn.addEventListener("click",()=>{
-if(!galleryImagesData.length) return;
-initializeGallery(galleryImagesData);
 });
 
 /* PAGE SCROLL TOP */
@@ -3308,97 +3300,95 @@ iframe{
     img.src = resolvedSrc;
   }
 
+  /* Photos are created in the DOM only after the image is fully available. */
+  let automaticGalleryStarted = false;
+  let automaticGalleryItems = [];
+  let automaticGalleryBusy = false;
+
   async function rebuildGalleryImages() {
+    if (automaticGalleryStarted) return;
+    automaticGalleryStarted = true;
     const carousel = getCarousel();
     if (!carousel) return;
-
     const list = await fetchGalleryList();
     window.galleryImagesData = list;
-
     carousel.innerHTML = '';
+    automaticGalleryItems = list.map((src, index) => ({ src, index, loaded: false, busy: false, attempts: 0, nextTry: 0 }));
+    pumpAutomaticGallery();
+  }
 
-    const slots = list.map((src, index) => {
-      const img = document.createElement('img');
-      img.alt = `Gallery image ${index + 1}`;
-      img.loading = 'eager';
-      img.decoding = 'async';
-      img.dataset.originalSrc = src;
-      img.dataset.loading = 'true';
-      img.dataset.loaded = 'false';
-      img.style.setProperty('display', 'none', 'important');
-      carousel.appendChild(img);
-      return { img, src, index };
-    });
-
+  async function pumpAutomaticGallery() {
+    if (automaticGalleryBusy) return;
+    automaticGalleryBusy = true;
+    const carousel = getCarousel();
+    if (!carousel) { automaticGalleryBusy = false; return; }
+    const now = Date.now();
+    const ready = automaticGalleryItems.filter(item => !item.loaded && !item.busy && item.nextTry <= now);
     let cursor = 0;
-    const concurrency = window.innerWidth <= 900 ? 10 : 8;
-
     async function worker() {
-      while (cursor < slots.length) {
-        const item = slots[cursor++];
-        const resolved = await resolveFirstWorkingImage(item.src);
-
-        if (!resolved) {
-          item.img.dataset.loading = 'false';
-          item.img.dataset.loaded = 'false';
-          item.img.style.setProperty('display', 'none', 'important');
-          continue;
-        }
-
-        hardShowImage(item.img, resolved);
-
-        item.img.onclick = () => {
-          const parts = getLightboxParts();
-          if (parts.lightbox && parts.lightboxImg) {
-            parts.lightboxImg.src = resolved;
-            parts.lightbox.classList.add('show');
-          }
-        };
+      while (cursor < ready.length) {
+        const item = ready[cursor++];
+        item.busy = true;
+        try {
+          const resolved = await resolveFirstWorkingImage(item.src);
+          if (resolved) {
+            const probe = new Image();
+            probe.decoding = 'async';
+            probe.loading = 'eager';
+            probe.src = resolved;
+            if (probe.decode) await probe.decode();
+            else if (!probe.complete || !probe.naturalWidth) await new Promise((resolve, reject) => { probe.onload = resolve; probe.onerror = reject; });
+            if (!probe.naturalWidth) throw new Error('Image unavailable');
+            const img = document.createElement('img');
+            img.alt = `Gallery image ${item.index + 1}`;
+            img.loading = 'eager';
+            img.decoding = 'async';
+            img.dataset.originalSrc = item.src;
+            img.dataset.loading = 'false';
+            img.dataset.loaded = 'true';
+            img.src = resolved;
+            img.style.setProperty('display', 'block', 'important');
+            img.onclick = () => {
+              const parts = getLightboxParts();
+              if (parts.lightbox && parts.lightboxImg) {
+                parts.lightboxImg.src = resolved;
+                parts.lightbox.classList.add('show');
+              }
+            };
+            const next = automaticGalleryItems.slice(item.index + 1).find(other => other.loaded && other.element);
+            if (next) carousel.insertBefore(img, next.element);
+            else carousel.appendChild(img);
+            item.element = img;
+            item.loaded = true;
+          } else throw new Error('Image not found yet');
+        } catch (error) {
+          item.attempts++;
+          item.nextTry = Date.now() + Math.min(60000, 2000 * Math.pow(1.5, Math.min(item.attempts, 8)));
+        } finally { item.busy = false; }
       }
     }
-
-    await Promise.all(Array.from({ length: concurrency }, worker));
-
-    const loadedCount = carousel.querySelectorAll('img[data-loaded="true"]').length;
-
-    if (!loadedCount && list !== FALLBACK_IMAGE_LIST) {
-      window.galleryImagesData = FALLBACK_IMAGE_LIST;
-      carousel.innerHTML = '';
-      setTimeout(rebuildGalleryImages, 100);
-    }
+    await Promise.all(Array.from({length: window.innerWidth <= 900 ? 8 : 6}, worker));
+    automaticGalleryBusy = false;
   }
 
-  function runFinalPasses() {
-    rebuildGalleryImages();
-    setTimeout(rebuildGalleryImages, 500);
-    setTimeout(rebuildGalleryImages, 1500);
-  }
+  function runFinalPasses() { rebuildGalleryImages(); }
 
   const originalInitializeGallery = window.initializeGallery;
   window.initializeGallery = function finalInitializeGalleryOverride(images) {
-    if (Array.isArray(images) && images.length) {
-      window.galleryImagesData = images;
-    }
-    setTimeout(rebuildGalleryImages, 0);
-    return originalInitializeGallery ? undefined : undefined;
+    if (Array.isArray(images) && images.length) window.galleryImagesData = images;
+    rebuildGalleryImages();
   };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', runFinalPasses, { once: true });
-  } else {
-    runFinalPasses();
-  }
+  } else runFinalPasses();
 
-  window.addEventListener('load', () => setTimeout(rebuildGalleryImages, 100));
-  window.addEventListener('pageshow', () => setTimeout(rebuildGalleryImages, 100));
+  window.addEventListener('load', pumpAutomaticGallery);
+  window.addEventListener('pageshow', pumpAutomaticGallery);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) pumpAutomaticGallery(); });
+  window.addEventListener('online', pumpAutomaticGallery);
+  setInterval(pumpAutomaticGallery, 4000);
 
-  const refresh = document.getElementById('refreshPhotosBtn');
-  if (refresh) {
-    refresh.addEventListener('click', () => {
-      setTimeout(rebuildGalleryImages, 0);
-      setTimeout(rebuildGalleryImages, 350);
-    });
-  }
 })();
 </script>
 
