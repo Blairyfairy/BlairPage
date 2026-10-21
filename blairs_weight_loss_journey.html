@@ -3052,6 +3052,13 @@ body.dark .bp-journal-priority .stat span{color:var(--mauve)}
 body.dark .bp-journal-priority .conclusion{background:rgba(184,107,143,.16)}
 @media(max-width:520px){.bp-journal-priority{padding:14px}.bp-journal-priority .stats{grid-template-columns:repeat(2,minmax(0,1fr))}.bp-journal-priority .priority{flex-direction:column;gap:3px}.bp-journal-priority .priority strong{white-space:normal}}
 </style>
+<!-- Added only: prevent daily-priority rows overflowing at desktop, tablet, and phone widths. -->
+<style id="bp-priority-responsive-fit-20261020">
+.bp-journal-priority .priority {display:grid !important;grid-template-columns:minmax(0,1fr) minmax(0,auto) !important;align-items:start !important;gap:8px 14px !important;min-width:0 !important;max-width:100% !important;}
+.bp-journal-priority .priority > span {min-width:0 !important;overflow-wrap:break-word !important;word-break:normal !important;line-height:1.5 !important;}
+.bp-journal-priority .priority > strong {min-width:0 !important;max-width:100% !important;white-space:normal !important;text-align:right !important;overflow-wrap:break-word !important;line-height:1.4 !important;}
+@media(max-width:760px){.bp-journal-priority .priority{grid-template-columns:minmax(0,1fr) !important;gap:4px !important;}.bp-journal-priority .priority > strong{text-align:left !important;}}
+</style>
 </head>
 <body>
   <main class="page">
@@ -3183,6 +3190,10 @@ body.dark .bp-journal-priority .conclusion{background:rgba(184,107,143,.16)}
       <span>Meals, recovery and sleep</span>
       <strong>Protected daily time</strong>
     </div>
+    <!-- Added family-care and movement context without altering any original priority row. -->
+    <p class="note" style="margin:13px 0 0;line-height:1.6;overflow-wrap:break-word;">
+      <strong>Family care and movement:</strong> I am also caring for two daughters under age three. Much of my daily physical activity comes naturally from playing with them, carrying them, walking together, and keeping up with their routines. When time and energy allow, I sometimes use an elliptical for additional exercise. The 20–30-minute movement target is flexible and can include active time with my daughters rather than requiring a separate workout every day.
+    </p>
   </div>
 
   <div class="panel">
