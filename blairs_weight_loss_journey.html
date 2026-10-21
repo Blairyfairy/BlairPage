@@ -3024,6 +3024,34 @@ a:focus-visible,button:focus-visible{outline:none;box-shadow:var(--focus)}
   background: none !important;
 }
 </style>
+<style id="bp-priority-theme-merge">
+.bp-journal-priority{grid-column:1/-1;min-width:0;width:100%;max-width:100%;margin:18px 0 0;padding:clamp(17px,3vw,27px);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.50));border:1px solid rgba(255,255,255,.72);box-shadow:var(--shadow-soft);color:var(--ink);font-family:inherit;line-height:1.58;overflow-wrap:anywhere}
+.bp-journal-priority *{box-sizing:border-box;min-width:0}
+.bp-journal-priority .eyebrow{font-size:.75rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--rose);margin-bottom:9px}
+.bp-journal-priority h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.35rem,3vw,2rem);line-height:1.2;color:var(--deep);margin:0 0 13px;letter-spacing:-.03em}
+.bp-journal-priority h3{font-size:clamp(1rem,2vw,1.2rem);color:var(--deep);margin:0 0 12px;line-height:1.3}
+.bp-journal-priority p{margin:0 0 13px;color:rgba(36,24,37,.84);font-size:clamp(.88rem,1.5vw,1rem);font-weight:500;line-height:1.65}
+.bp-journal-priority .intro{font-weight:650;color:var(--plum)}
+.bp-journal-priority .panel{padding:clamp(13px,2vw,20px);margin:15px 0 0;border-radius:18px;background:rgba(255,255,255,.56);border:1px solid rgba(93,59,114,.13);box-shadow:none;color:var(--ink)}
+.bp-journal-priority .panel h3,.bp-journal-priority .panel p{color:inherit}
+.bp-journal-priority .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:9px;margin:14px 0}
+.bp-journal-priority .stat{padding:12px;border-radius:14px;background:rgba(214,179,201,.22);border:1px solid rgba(93,59,114,.13)}
+.bp-journal-priority .stat strong{display:block;color:var(--deep);font-size:clamp(1.1rem,2vw,1.42rem);line-height:1.3}
+.bp-journal-priority .stat span{display:block;color:var(--plum);font-size:.76rem;font-weight:750}
+.bp-journal-priority .priority{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(93,59,114,.15);font-size:.9rem}
+.bp-journal-priority .priority:last-child{border-bottom:0}
+.bp-journal-priority .priority strong{color:var(--plum);white-space:nowrap}
+.bp-journal-priority .note{font-size:.78rem;opacity:.8}
+.bp-journal-priority .conclusion{margin-top:18px;padding:16px;border-left:4px solid var(--rose);border-radius:0 15px 15px 0;background:rgba(184,107,143,.12)}
+body.dark .bp-journal-priority{color:var(--cream);background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.06));border-color:rgba(255,255,255,.2)}
+body.dark .bp-journal-priority h2,body.dark .bp-journal-priority h3,body.dark .bp-journal-priority p,body.dark .bp-journal-priority .intro{color:var(--cream)}
+body.dark .bp-journal-priority .panel{background:rgba(255,255,255,.075);border-color:rgba(255,255,255,.16);color:var(--cream)}
+body.dark .bp-journal-priority .stat{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.13)}
+body.dark .bp-journal-priority .stat strong,body.dark .bp-journal-priority .priority strong{color:var(--gold)}
+body.dark .bp-journal-priority .stat span{color:var(--mauve)}
+body.dark .bp-journal-priority .conclusion{background:rgba(184,107,143,.16)}
+@media(max-width:520px){.bp-journal-priority{padding:14px}.bp-journal-priority .stats{grid-template-columns:repeat(2,minmax(0,1fr))}.bp-journal-priority .priority{flex-direction:column;gap:3px}.bp-journal-priority .priority strong{white-space:normal}}
+</style>
 </head>
 <body>
   <main class="page">
@@ -3045,141 +3073,11 @@ a:focus-visible,button:focus-visible{outline:none;box-shadow:var(--focus)}
     <div class="journey-chip"><small>Progress rate</small><strong>43.40% complete</strong></div>
     
 <section class="bp-journal-priority" aria-labelledby="bp-priority-title">
-  <style>
-    .bp-journal-priority {
-      --bg: #17111e;
-      --panel: #291528;
-      --accent: #b99ac4;
-      --text: #f0eff4;
-      --muted: #c6b7cb;
-      --border: rgba(185,154,196,.28);
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background: linear-gradient(145deg,#17111e,#291528);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: clamp(20px,4vw,34px);
-      max-width: 900px;
-      margin: 24px auto;
-      line-height: 1.7;
-      box-sizing: border-box;
-    }
-
-    .bp-journal-priority * {
-      box-sizing: border-box;
-    }
-
-    .bp-journal-priority h2 {
-      font-size: clamp(1.35rem,3vw,1.85rem);
-      line-height: 1.3;
-      margin: 0 0 12px;
-      color: #fff;
-    }
-
-    .bp-journal-priority h3 {
-      font-size: 1.05rem;
-      color: #e0c8e9;
-      margin: 0 0 12px;
-    }
-
-    .bp-journal-priority p {
-      margin: 0 0 15px;
-    }
-
-    .bp-journal-priority .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: .13em;
-      font-size: .72rem;
-      font-weight: bold;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .bp-journal-priority .intro {
-      color: var(--muted);
-      font-size: .96rem;
-    }
-
-    .bp-journal-priority .panel {
-      background: rgba(255,255,255,.035);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px;
-      margin-top: 20px;
-    }
-
-    .bp-journal-priority .stats {
-      display: grid;
-      grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: 12px;
-      margin: 16px 0;
-    }
-
-    .bp-journal-priority .stat {
-      background: rgba(185,154,196,.08);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-    }
-
-    .bp-journal-priority .stat strong {
-      display: block;
-      font-size: 1.45rem;
-      color: #fff;
-      line-height: 1.3;
-    }
-
-    .bp-journal-priority .stat span {
-      font-size: .78rem;
-      color: var(--muted);
-    }
-
-    .bp-journal-priority .priority {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 11px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .bp-journal-priority .priority:last-child {
-      border-bottom: none;
-    }
-
-    .bp-journal-priority .priority strong {
-      color: #e4c8ef;
-      white-space: nowrap;
-    }
-
-    .bp-journal-priority .note {
-      color: var(--muted);
-      font-size: .82rem;
-    }
-
-    .bp-journal-priority .conclusion {
-      margin-top: 22px;
-      padding: 18px;
-      border-left: 3px solid var(--accent);
-      background: rgba(185,154,196,.09);
-      border-radius: 0 12px 12px 0;
-    }
-
-    @media (max-width: 480px) {
-      .bp-journal-priority .stats {
-        grid-template-columns: 1fr 1fr;
-      }
-      .bp-journal-priority .priority {
-        flex-direction: column;
-        gap: 2px;
-      }
-    }
-  </style>
-
   <div class="eyebrow">
     Blair Page | Weight-Loss Journal | October 2026
   </div>
 
-  <h2>
+  <h2 id="bp-priority-title">
     Employment First: Balancing Career Recovery,
     AWS Renewal &amp; Weight Management
   </h2>
@@ -3670,13 +3568,13 @@ body.dark .hero .theme-link-btn {
               <strong>25 lbs down</strong>
             </div>
 
-            <div class="loseit-chart-card" aria-label="Weight progress chart over time from Jan 1 to today">
+            <div class="loseit-chart-card" aria-label="Recorded weight progress from January 1 to July 29; chart reviewed October 20, 2026">
               <div class="loseit-chart-top">
                 <h3>Weight</h3>
                 <div><strong>↓ 25 lbs</strong><span>past six months</span></div>
               </div>
 
-              <svg class="loseit-chart-svg" viewBox="0 0 680 315" role="img" aria-label="Line chart showing weight moving from 168 pounds on Jan 1 to 143 pounds today">
+              <svg class="loseit-chart-svg" viewBox="0 0 680 315" role="img" aria-label="Line chart showing weight moving from 168 pounds on January 1 to 143 pounds at the last plotted point on July 29; no new October weigh-in supplied">
                 <defs>
                   <linearGradient id="journeyLine" x1="0" x2="1" y1="0" y2="0">
                     <stop offset="0%" stop-color="#FFD28F"/>
@@ -3734,6 +3632,7 @@ body.dark .hero .theme-link-btn {
                 <text class="loseit-date-text" x="324" y="286">Mar 31</text>
                 <text class="loseit-date-text" x="452" y="286">May 28</text>
                 <text class="loseit-date-text" x="558" y="286">Jul 29</text>
+                <text class="loseit-date-text" x="590" y="307" text-anchor="end" style="font-size:11px;fill:#FFD28F">Chart reviewed Oct 20, 2026 · last plotted weight: 143 lb (Jul 29)</text>
               </svg>
 
               <div class="loseit-current">
