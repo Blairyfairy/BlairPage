@@ -4451,53 +4451,7 @@ body.dark .hero-left-clean .theme-inherited-comparison-card {
 </script>
 <!-- =========================================================
      UNIVERSAL BACK-TO-TOP CHEVRON + SMOOTH ARROW-KEY SCROLLING
-     Paste this single block right before 
-<script>
-/* Timeline extension only: retain every original check-in and weight; fit Jan 1–Oct 20 in the existing 680 × 315 chart. */
-(function () {
-  const svg = document.querySelector('.loseit-chart-svg');
-  if (!svg) return;
-  const ns = 'http://www.w3.org/2000/svg';
-  const originalStartX = 150, originalEndX = 590;
-  const oldSpanDays = 209, newSpanDays = 292; // Jan 1–Jul 29 and Jan 1–Oct 20, 2026
-  const project = x => originalStartX + (x - originalStartX) * oldSpanDays / newSpanDays;
-  const dots = [...svg.querySelectorAll('circle.loseit-marker')];
-  dots.forEach(dot => dot.setAttribute('cx', project(Number(dot.getAttribute('cx'))).toFixed(2)));
-  const paths = [...svg.querySelectorAll('path[stroke-linecap]')].filter(p => p.getAttribute('d')?.startsWith('M 150 75'));
-  // Keep the original shape and every existing marker; extend horizontally from the last weight to today.
-  const oldPath = 'M 150 75 C 205 82, 246 93, 290 100 S 370 113, 416 113 S 438 118, 448 122 C 500 130, 548 140, 590 150';
-  const updatedPath = 'M 150 75 C 189.36 82, 218.69 93, 250.21 100 S 307.36 113, 340.19 113 S 355.92 118, 363.07 122 C 400.26 130, 434.60 140, 464.76 150 L 590 150';
-  paths.forEach(path => { if (path.getAttribute('d') === oldPath) path.setAttribute('d', updatedPath); });
-  // Move the existing 143-lb callout with its July 29 marker; do not alter its weight.
-  const callouts = svg.querySelectorAll('g.loseit-callout');
-  if (callouts.length > 1) {
-    const july = callouts[1];
-    july.querySelector('rect')?.setAttribute('x', '432.76');
-    july.querySelector('path')?.setAttribute('d', 'M 464.76 134 L 474.76 134 L 464.76 148 L 454.76 134 Z');
-    july.querySelector('text')?.setAttribute('x', '464.76');
-  }
-  const labels = [...svg.querySelectorAll('text.loseit-date-text')].filter(t => t.getAttribute('y') === '286');
-  // Reposition existing date labels without changing their wording.
-  const labelXs = [92, 206, 324, 452, 558];
-  const fittedXs = [68, 164, 263, 367, 439];
-  labels.forEach((label, i) => { if (i < fittedXs.length && Number(label.getAttribute('x')) === labelXs[i]) label.setAttribute('x', fittedXs[i]); });
-  const todayDot = document.createElementNS(ns, 'circle');
-  todayDot.setAttribute('class', 'loseit-marker');
-  todayDot.setAttribute('cx', '590'); todayDot.setAttribute('cy', '150');
-  todayDot.setAttribute('r', '9'); todayDot.setAttribute('stroke', '#FFD28F');
-  svg.insertBefore(todayDot, callouts[0] || labels[0] || null);
-  const todayLabel = document.createElementNS(ns, 'text');
-  todayLabel.setAttribute('class', 'loseit-date-text');
-  todayLabel.setAttribute('x', '590'); todayLabel.setAttribute('y', '286');
-  todayLabel.setAttribute('text-anchor', 'end'); todayLabel.textContent = 'Oct 20';
-  svg.appendChild(todayLabel);
-  const note = svg.querySelector('text.loseit-date-text[y="307"]');
-  if (note) note.textContent = 'Oct 20, 2026 · 143 lb (unchanged since Jul 29)';
-  svg.setAttribute('aria-label', 'Weight progress from Jan 1 to Oct 20, 2026; all original check-ins retained, with 143 pounds carried forward from Jul 29 to Oct 20');
-  svg.closest('.loseit-chart-card')?.setAttribute('aria-label', 'Weight timeline through October 20, 2026; original check-ins preserved, latest weight unchanged at 143 pounds');
-})();
-</script>
-</body> on any page.
+     Paste this single block right before </body> on any page.
 
      - If the page already has a back-to-top chevron (checked
        under a few common ids/classes below), that EXACT SAME
@@ -5027,6 +4981,70 @@ body.dark .hero-left-clean .theme-inherited-comparison-card {
   window.addEventListener('resize', updateBackToTop, { passive: true });
   setTimeout(ensureBackToTop, 250);
   setTimeout(ensureBackToTop, 1000);
+})();
+</script>
+
+<script>
+/* Extend the existing plotted timeline through October 20 without changing its historical dots, dates, or weights. */
+(function () {
+  function extendWeightTimeline() {
+    const svg = document.querySelector('.loseit-chart-svg');
+    if (!svg || svg.dataset.plateauExtended === 'true') return;
+    svg.dataset.plateauExtended = 'true';
+    const ns = 'http://www.w3.org/2000/svg';
+    // The original Jan 1–Jul 29 plot occupies x=150..590. Compress that
+    // interval proportionally into Jan 1–Oct 20, reserving the right for a plateau.
+    const julyX = 150 + (590 - 150) * 209 / 292;
+    const scaleX = x => 150 + (x - 150) * 209 / 292;
+    const oldD = 'M 150 75 C 205 82, 246 93, 290 100 S 370 113, 416 113 S 438 118, 448 122 C 500 130, 548 140, 590 150';
+    const newD = 'M 150 75 C ' + [205,246,290].map((x,i)=>scaleX(x).toFixed(2)+' '+[82,93,100][i]).join(', ').replace(', ', ', ') +
+      ' S ' + scaleX(370).toFixed(2) + ' 113, ' + scaleX(416).toFixed(2) + ' 113' +
+      ' S ' + scaleX(438).toFixed(2) + ' 118, ' + scaleX(448).toFixed(2) + ' 122' +
+      ' C ' + scaleX(500).toFixed(2) + ' 130, ' + scaleX(548).toFixed(2) + ' 140, ' + julyX.toFixed(2) + ' 150' +
+      ' L 590 150';
+    svg.querySelectorAll('path[d]').forEach(p => {
+      if (p.getAttribute('d') === oldD) p.setAttribute('d', newD);
+    });
+    const dots = [...svg.querySelectorAll('circle.loseit-marker')];
+    dots.forEach(dot => dot.setAttribute('cx', scaleX(Number(dot.getAttribute('cx'))).toFixed(2)));
+    // Move the existing July 29 / 143 lb callout, keeping the original marker and value.
+    const callouts = svg.querySelectorAll('g.loseit-callout');
+    if (callouts.length > 1) {
+      const july = callouts[1];
+      july.querySelector('rect')?.setAttribute('x', (julyX - 32).toFixed(2));
+      july.querySelector('path')?.setAttribute('d', `M ${julyX} 134 l 10 0 l -10 14 l -10 -14 Z`);
+      july.querySelector('text')?.setAttribute('x', julyX.toFixed(2));
+    }
+    // Keep every original timestamp visible, aligned to the compressed timeline.
+    const originalLabels = [...svg.querySelectorAll('text.loseit-date-text[y="286"]')];
+    const originalXs = [92,206,324,452,558];
+    originalLabels.forEach((label,i) => {
+      if (i === 0) return;
+      if (i === 4) {
+        label.setAttribute('x', julyX.toFixed(2));
+        label.setAttribute('text-anchor', 'middle');
+      } else {
+        label.setAttribute('x', scaleX(originalXs[i]).toFixed(2));
+        label.setAttribute('text-anchor', 'middle');
+      }
+    });
+    // A separate October 20 dot at exactly the same height makes the plateau explicit.
+    const dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('class', 'loseit-marker');
+    dot.setAttribute('cx', '590'); dot.setAttribute('cy', '150');
+    dot.setAttribute('r', '9'); dot.setAttribute('stroke', '#FFD28F');
+    svg.insertBefore(dot, callouts[0] || null);
+    const label = document.createElementNS(ns, 'text');
+    label.setAttribute('class', 'loseit-date-text');
+    label.setAttribute('x', '590'); label.setAttribute('y', '286');
+    label.setAttribute('text-anchor', 'end'); label.textContent = 'Oct 20';
+    svg.appendChild(label);
+    const note = svg.querySelector('text.loseit-date-text[y="307"]');
+    if (note) note.textContent = 'Oct 20, 2026 · 143 lb plateau since Jul 29';
+    svg.setAttribute('aria-label', 'Weight chart: original check-ins January 1 through July 29 retained, followed by a flat 143 pound plateau from July 29 through October 20, 2026');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', extendWeightTimeline);
+  else extendWeightTimeline();
 })();
 </script>
 </body>
