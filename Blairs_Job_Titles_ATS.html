@@ -513,7 +513,7 @@ document.getElementById('manualRefresh').addEventListener('click',async()=>{
   const b=document.getElementById('manualRefresh');b.textContent='Refreshing…';b.disabled=true;await hydrate();b.textContent='Refresh signals';b.disabled=false;
 });
 
-applyThemeIcon();updateHero();buildFeatured();renderCards();renderTable();createCharts();renderFeeds();renderRefs();hydrate();
+applyThemeIcon();updateHero();buildFeatured();renderHundredCandidates();renderCards();renderTable();createCharts();renderFeeds();renderRefs();hydrate();
 
 const st=document.getElementById('pageScrollTop');
 window.addEventListener('scroll',()=>{st.classList.toggle('show',(window.scrollY||0)>180)});
