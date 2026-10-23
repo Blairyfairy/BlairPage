@@ -3739,196 +3739,265 @@ body.dark .hero .theme-link-btn {
       For a 39-year-old woman who is 5′3″ in the United States, a reasonable estimate of the average weight is approximately 170–180 pounds, with 175 pounds as a rough midpoint. In the United States, a very rough estimate is that less than 1% of women aged 20 and approximately 1%–5% of women aged 39 have undergone $20,000 or more in cosmetic plastic surgery over their lifetimes.
       For a 20-year-old woman who is 5′3″ in the United States, a reasonable rough estimate of average weight is 150–160 pounds, with approximately 155 pounds as a midpoint.
       For a 39-year-old woman who is 5′3″, rough average-weight guesses are 160–170 pounds in Summerlin, 165–175 pounds in Henderson, 170–180 pounds in Spring Valley, and 170–180 pounds nationwide, although reliable neighborhood-specific statistics are unavailable and these differences are speculative.
+
+        
       </small>
 
-
 <style>
-  .body-comparison {
-    color: inherit;
-    background: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: 1.6;
+  .weight-mini {
     width: 100%;
     max-width: 100%;
-    margin: 1.5rem 0;
+    min-width: 0;
+    box-sizing: border-box;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    margin: 12px 0;
   }
 
-  .body-comparison h2 {
-    color: inherit;
-    font-family: inherit;
+  .weight-mini h3 {
+    font: inherit;
     font-weight: 700;
-    margin: 0 0 1rem;
-  }
-
-  .body-comparison p {
+    font-size: 0.95em;
     color: inherit;
-    font-family: inherit;
-    margin: 1rem 0;
+    margin: 0 0 6px;
   }
 
-  .body-comparison .table-scroll {
+  .weight-mini .intro,
+  .weight-mini .note {
+    font-size: 0.76em;
+    line-height: 1.5;
+    color: inherit;
+    margin: 6px 0;
+  }
+
+  .weight-mini .scroll {
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .body-comparison table {
-    width: 100%;
-    border-collapse: collapse;
-    color: inherit;
-    background: transparent;
-    font-family: inherit;
-    font-size: 0.9em;
-    min-width: 650px;
-  }
-
-  .body-comparison th,
-  .body-comparison td {
-    padding: 12px 14px;
-    text-align: left;
-    vertical-align: middle;
     border: 1px solid currentColor;
+    border-radius: 6px;
+  }
+
+  .weight-mini table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    font: inherit;
+    font-size: 0.73em;
+    line-height: 1.35;
     color: inherit;
     background: transparent;
   }
 
-  .body-comparison th {
-    font-weight: 700;
+  .weight-mini th,
+  .weight-mini td {
+    padding: 7px 9px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    border-color: color-mix(
+      in srgb, currentColor 20%, transparent
+    );
     color: inherit;
+    background: transparent;
+    white-space: nowrap;
+    text-align: left;
   }
 
-  .body-comparison td:first-child {
-    font-weight: 600;
+  .weight-mini th {
+    font-weight: 700;
   }
 
-  .body-comparison .note {
-    font-size: 0.9em;
-    opacity: 0.85;
+  .weight-mini th:first-child,
+  .weight-mini td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: Canvas;
+    color: CanvasText;
+    min-width: 105px;
+    max-width: 125px;
+    white-space: normal;
   }
 
-  @media (max-width: 600px) {
-    .body-comparison table {
-      font-size: 0.85em;
-    }
+  .weight-mini thead th:first-child {
+    z-index: 2;
+  }
 
-    .body-comparison th,
-    .body-comparison td {
-      padding: 9px 10px;
-    }
+  .weight-mini td:last-child,
+  .weight-mini th:last-child {
+    border-right: 0;
+  }
+
+  .weight-mini tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .weight-mini .scroll-hint {
+    font-size: 0.7em;
+    opacity: 0.7;
+    margin: 4px 0;
   }
 </style>
 
-<section class="body-comparison">
-  <h2>Women's Height, Weight & BMI Comparison</h2>
+<section class="weight-mini">
 
-  <p>
-    <strong>Age:</strong> 39 |
-    <strong>Height:</strong> 5'3" |
-    <strong>Weight:</strong> 143 lbs |
-    <strong>BMI:</strong> 25.3
+  <h3>Weight, Height & BMI Percentiles</h3>
+
+  <p class="intro">
+    <strong>You:</strong> Age 39 · 5'3" ·
+    143 lbs · BMI 25.3
   </p>
 
-  <div class="table-scroll">
+  <p class="scroll-hint">
+    Swipe left/right to compare ages &rarr;
+  </p>
+
+  <div class="scroll">
     <table>
       <thead>
         <tr>
           <th>Measurement</th>
+          <th>Age 20</th>
           <th>Ages 20–39</th>
           <th>Ages 30–39</th>
-          <th>Exact Age 39</th>
+          <th>Age 39</th>
         </tr>
       </thead>
       <tbody>
+
         <tr>
-          <td>Average weight</td>
-          <td>170–175 lbs</td>
-          <td>175–180 lbs</td>
-          <td>175–180 lbs</td>
+          <td>Avg. weight</td>
+          <td>155–165 lb</td>
+          <td>170–175 lb</td>
+          <td>175–180 lb</td>
+          <td>175–180 lb</td>
         </tr>
+
         <tr>
-          <td>Your weight difference</td>
-          <td>27–32 lbs below</td>
-          <td>32–37 lbs below</td>
-          <td>32–37 lbs below</td>
+          <td>Your weight</td>
+          <td>143 lb</td>
+          <td>143 lb</td>
+          <td>143 lb</td>
+          <td>143 lb</td>
         </tr>
+
+        <tr>
+          <td>Weight below avg.</td>
+          <td>12–22 lb</td>
+          <td>27–32 lb</td>
+          <td>32–37 lb</td>
+          <td>32–37 lb</td>
+        </tr>
+
         <tr>
           <td>Weight percentile</td>
-          <td>~25th–35th</td>
-          <td>~20th–30th</td>
-          <td>~20th–30th</td>
+          <td>~35–45th</td>
+          <td>~25–35th</td>
+          <td>~20–30th</td>
+          <td>~20–30th</td>
         </tr>
+
         <tr>
-          <td>Average height</td>
-          <td>5'4"</td>
-          <td>5'4"</td>
-          <td>5'4"</td>
+          <td>% heavier than you</td>
+          <td>~55–65%</td>
+          <td>~65–75%</td>
+          <td>~70–80%</td>
+          <td>~70–80%</td>
         </tr>
+
         <tr>
-          <td>Your height difference</td>
-          <td>1 inch shorter</td>
-          <td>1 inch shorter</td>
-          <td>1 inch shorter</td>
+          <td>Avg. height</td>
+          <td>~5'4"</td>
+          <td>~5'4"</td>
+          <td>~5'4"</td>
+          <td>~5'4"</td>
         </tr>
+
+        <tr>
+          <td>Your height</td>
+          <td>5'3"</td>
+          <td>5'3"</td>
+          <td>5'3"</td>
+          <td>5'3"</td>
+        </tr>
+
         <tr>
           <td>Height percentile</td>
-          <td>~30th–40th</td>
-          <td>~30th–40th</td>
-          <td>~30th–40th</td>
+          <td>~30–40th</td>
+          <td>~30–40th</td>
+          <td>~30–40th</td>
+          <td>~30–40th</td>
         </tr>
+
         <tr>
-          <td>Average BMI</td>
+          <td>Avg. BMI</td>
+          <td>~27–29</td>
           <td>~29–30</td>
           <td>~30–31</td>
           <td>~30–31</td>
         </tr>
+
         <tr>
-          <td>Your BMI difference</td>
-          <td>3.7–4.7 lower</td>
-          <td>4.7–5.7 lower</td>
-          <td>4.7–5.7 lower</td>
+          <td>Your BMI</td>
+          <td>25.3</td>
+          <td>25.3</td>
+          <td>25.3</td>
+          <td>25.3</td>
         </tr>
+
         <tr>
           <td>BMI percentile</td>
-          <td>~25th–35th</td>
-          <td>~20th–30th</td>
-          <td>~20th–30th</td>
+          <td>~35–45th</td>
+          <td>~25–35th</td>
+          <td>~20–30th</td>
+          <td>~20–30th</td>
         </tr>
+
         <tr>
-          <td>5th percentile weight</td>
-          <td>~108–115 lbs</td>
-          <td>~110–120 lbs</td>
-          <td>~110–120 lbs</td>
+          <td>5th pct. weight</td>
+          <td>~100–110 lb</td>
+          <td>~108–115 lb</td>
+          <td>~110–120 lb</td>
+          <td>~110–120 lb</td>
         </tr>
+
         <tr>
-          <td>95th percentile weight</td>
-          <td>~260–280 lbs</td>
-          <td>~270–290 lbs</td>
-          <td>~270–290 lbs</td>
+          <td>95th pct. weight</td>
+          <td>~240–265 lb</td>
+          <td>~260–280 lb</td>
+          <td>~270–290 lb</td>
+          <td>~270–290 lb</td>
         </tr>
+
         <tr>
-          <td>Observed min / max</td>
-          <td>Not established</td>
-          <td>Not established</td>
-          <td>Not established</td>
+          <td>Observed min/max</td>
+          <td>Unknown</td>
+          <td>Unknown</td>
+          <td>Unknown</td>
+          <td>Unknown</td>
         </tr>
+
       </tbody>
     </table>
   </div>
 
-  <p>
+  <p class="note">
     <strong>Summary:</strong>
-    At 143 lbs, you are estimated to weigh less than
-    approximately 65–80% of women in these age groups.
+    At 143 lbs, you are estimated to weigh
+    less than 55–65% of 20-year-old women
+    and 70–80% of 39-year-old women.
   </p>
 
   <p class="note">
-    All population averages and percentiles are rough
-    estimates, not verified exact-age CDC calculations.
-    BMI is calculated from your stated measurements.
-    Weight percentiles are not height-adjusted.
+    Population figures are illustrative estimates,
+    not verified CDC exact-age percentiles.
+    Weight comparisons include all heights.
+    BMI is calculated from your measurements.
   </p>
+
 </section>
 
       
