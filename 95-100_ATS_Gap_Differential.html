@@ -156,55 +156,371 @@ td.m{color:#ffa0a0}
 <div class="hero"></div>
 <section class="page-title-shell">
   <h1 class="blog-page-title">95%–100% ATS Gap Differential</h1>
-  <p>Conclusion: My rough estimate is that 4–8% of 39-year-old women in Las Vegas both weigh less than 143 lbs and have earning potential exceeding your resume's recommended $80,000 minimum, with 6% as the midpoint. For women age 39 in Las Vegas, my illustrative best guess is approximately 2–5% would meet both conditions:
-- Weigh less than 143 lbs.
-- Have a resume supporting an annual salary above $115,000, exceeding the upper end of your index.html portfolio's estimated $85,000–$115,000 range.
-Best single-number guess: 3%. That's approximately 1 in 33 women. Based on your latest `index.html` portfolio, I recommend $80,000 annually as the minimum salary to target for a full-time technical position in Las Vegas or remote within the U.S.
+ 
+<section class="bp-salary-analysis" aria-labelledby="bp-salary-title">
+  <style>
+    .bp-salary-analysis {
+      color: inherit;
+      font: inherit;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      margin: 1.25rem 0;
+      padding: clamp(1rem, 3vw, 1.6rem);
+      border: 1px solid currentColor;
+      border-radius: 18px;
+      background: transparent;
+      overflow: hidden;
+      isolation: isolate;
+    }
 
-Recommended minimum base salary
+    .bp-salary-analysis,
+    .bp-salary-analysis * {
+      box-sizing: border-box;
+    }
 
-# $80,000/year
+    .bp-salary-analysis h2,
+    .bp-salary-analysis h3,
+    .bp-salary-analysis p {
+      color: inherit;
+      font-family: inherit;
+    }
 
-Approximately $38.46/hour
+    .bp-salary-analysis h2 {
+      font-size: clamp(1.15rem, 2.8vw, 1.5rem);
+      line-height: 1.3;
+      margin: 0 0 .45rem;
+    }
 
-| Salary level       | Recommendation                                       |
-| ------------------ | ---------------------------------------------------- |
-| Under $65,000      | Generally decline for senior technical work          |
-| $65,000–$74,999    | Consider only if immediate income is essential       |
-| $75,000–$79,999    | Acceptable for a strong opportunity with advancement |
-| $80,000–$89,999    | Reasonable minimum target                            |
-| $90,000–$105,000   | Strong target                                        |
-| $105,000–$120,000+ | Competitive stretch target                           |
+    .bp-salary-analysis h3 {
+      font-size: 1rem;
+      margin: 1.35rem 0 .65rem;
+    }
 
-Your portfolio documents enterprise Linux infrastructure, cloud support, complex database administration, automation, and production troubleshooting, including experience at Liquid Web/Nexcess and UpCloud. Those qualifications support aiming above entry-level technical support compensation.
+    .bp-salary-analysis p {
+      font-size: .88rem;
+      line-height: 1.65;
+      margin: .65rem 0;
+    }
 
-My recommendation: Ask for $100,000, target a negotiated offer around $90,000–$100,000, and use $80,000 as your normal minimum. If you've been unemployed for an extended period, a $65,000–$75,000 offer could still be strategically worthwhile rather than remaining unemployed.
+    .bp-salary-analysis .bp-muted {
+      opacity: .76;
+    }
 
-These are compensation judgments based on your documented experience, not guaranteed market offers. Using the $80,000 minimum salary recommended for your `index.html` resume, rather than the previous $115,000 upper-end estimate, the comparison becomes less exclusive.
+    .bp-salary-analysis .bp-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .65rem;
+      margin: 1rem 0;
+    }
 
-For a 39-year-old woman in Las Vegas weighing 143 lbs, the question is: What percentage of women her age weigh less than 143 lbs and have qualifications supporting a salary above $80,000 annually?
+    .bp-salary-analysis .bp-stat {
+      min-width: 0;
+      padding: .85rem .65rem;
+      border: 1px solid currentColor;
+      border-radius: 12px;
+      text-align: center;
+      background: transparent;
+    }
 
-The earlier weight estimate was that approximately 20–30% weigh less than 143 lbs. However, resume earning potential is not directly measured in population statistics, so the combined percentage requires assumptions.
+    .bp-salary-analysis .bp-stat-number {
+      display: block;
+      font-size: clamp(1.15rem, 3vw, 1.8rem);
+      font-weight: 750;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
 
-Using published weight and earnings data as context, here is my revised illustrative estimate, not a measured Las Vegas-specific probability:
+    .bp-salary-analysis .bp-stat-label {
+      display: block;
+      margin-top: .4rem;
+      font-size: .72rem;
+      line-height: 1.4;
+      opacity: .85;
+    }
 
-| Women approximately age 39           | Estimated share |
-| ------------------------------------ | --------------- |
-| Weigh less than 143 lbs              | 25–30%          |
-| Have earning potential above $80,000 | 15–25%          |
-| Meet both conditions                 | 4–8%            |
+    .bp-salary-analysis .bp-salary-highlight {
+      margin: 1rem 0;
+      padding: 1rem;
+      border-left: 3px solid currentColor;
+      border-radius: 0 10px 10px 0;
+      background: transparent;
+    }
 
-Best single-number estimate
+    .bp-salary-analysis .bp-salary-highlight strong {
+      display: block;
+      font-size: clamp(1.35rem, 4vw, 2rem);
+      line-height: 1.2;
+      margin: .25rem 0;
+    }
 
-# 6%
+    .bp-salary-analysis .bp-table-scroll {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid currentColor;
+      border-radius: 10px;
+      margin: .8rem 0;
+    }
 
-Approximately 1 in 17 women
+    .bp-salary-analysis table {
+      width: 100%;
+      min-width: 370px;
+      border-collapse: collapse;
+      font-family: inherit;
+      color: inherit;
+      font-size: .8rem;
+      background: transparent;
+    }
 
-The CDC's national weight data place 143 lbs between the 25th and 50th percentiles for women ages 30–39. Nevada's median full-time female earnings were $912 per week in 2023, or approximately $47,424 annually.&#x20;
+    .bp-salary-analysis th,
+    .bp-salary-analysis td {
+      padding: .7rem .75rem;
+      border-bottom: 1px solid currentColor;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.45;
+    }
 
-Conclusion: My rough estimate is that 4–8% of 39-year-old women in Las Vegas both weigh less than 143 lbs and have earning potential exceeding your resume's recommended $80,000 minimum, with 6% as the midpoint.
+    .bp-salary-analysis th {
+      font-weight: 700;
+      background: transparent;
+    }
 
-The 6% is a modeled guess, not a verified statistic; earnings data do not measure resume-based salary potential, and no local dataset establishes the joint percentage.</p>
+    .bp-salary-analysis tr:last-child td {
+      border-bottom: none;
+    }
+
+    .bp-salary-analysis .bp-emphasis-row {
+      font-weight: 700;
+    }
+
+    .bp-salary-analysis .bp-note {
+      margin-top: 1rem;
+      padding-top: .8rem;
+      border-top: 1px solid currentColor;
+      font-size: .75rem;
+      line-height: 1.6;
+      opacity: .8;
+    }
+
+    @media (max-width: 540px) {
+      .bp-salary-analysis {
+        padding: .85rem;
+        border-radius: 13px;
+      }
+
+      .bp-salary-analysis .bp-stats {
+        gap: .4rem;
+      }
+
+      .bp-salary-analysis .bp-stat {
+        padding: .7rem .3rem;
+      }
+
+      .bp-salary-analysis .bp-stat-label {
+        font-size: .65rem;
+      }
+
+      .bp-salary-analysis table {
+        font-size: .74rem;
+      }
+    }
+  </style>
+
+  <h2 id="bp-salary-title">
+    Salary Potential &amp; Demographic Comparison
+  </h2>
+
+  <p class="bp-muted">
+    Las Vegas, Nevada | Women age 39 | 143 lbs |
+    Professional portfolio salary analysis
+  </p>
+
+  <div class="bp-stats">
+    <div class="bp-stat">
+      <span class="bp-stat-number">6%</span>
+      <span class="bp-stat-label">
+        Illustrative midpoint: lighter than 143 lbs
+        and salary potential above $80K
+      </span>
+    </div>
+
+    <div class="bp-stat">
+      <span class="bp-stat-number">3%</span>
+      <span class="bp-stat-label">
+        Illustrative midpoint: lighter than 143 lbs
+        and salary potential above $115K
+      </span>
+    </div>
+
+    <div class="bp-stat">
+      <span class="bp-stat-number">$80K</span>
+      <span class="bp-stat-label">
+        Recommended minimum annual base salary
+      </span>
+    </div>
+  </div>
+
+  <h3>Estimated Demographic Comparisons</h3>
+
+  <p>
+    For women age 39 in Las Vegas, the following are
+    hypothetical estimates based on assumed weight
+    distributions and earning potential.
+  </p>
+
+  <div class="bp-table-scroll" role="region"
+       aria-label="Demographic comparison table" tabindex="0">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Comparison</th>
+          <th scope="col">Estimate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Weigh less than 143 lbs</td>
+          <td>25–30%</td>
+        </tr>
+        <tr>
+          <td>Salary potential above $80,000</td>
+          <td>15–25%</td>
+        </tr>
+        <tr class="bp-emphasis-row">
+          <td>Both: under 143 lbs and above $80,000</td>
+          <td>4–8% (midpoint 6%)</td>
+        </tr>
+        <tr class="bp-emphasis-row">
+          <td>Both: under 143 lbs and above $115,000</td>
+          <td>2–5% (illustrative guess 3%)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    The estimated <strong>6%</strong> corresponds to
+    approximately <strong>1 in 17 women</strong>.
+    The higher salary threshold produces a smaller
+    illustrative estimate of <strong>3%</strong>,
+    or approximately <strong>1 in 33 women</strong>.
+  </p>
+
+  <h3>Recommended Salary Minimum</h3>
+
+  <div class="bp-salary-highlight">
+    <span class="bp-muted">Recommended minimum base salary</span>
+    <strong>$80,000 / year</strong>
+    <span class="bp-muted">Approximately $38.46 per hour</span>
+  </div>
+
+  <div class="bp-table-scroll" role="region"
+       aria-label="Salary recommendations" tabindex="0">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Annual Salary</th>
+          <th scope="col">Recommendation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Under $65,000</td>
+          <td>Generally decline for senior technical work</td>
+        </tr>
+        <tr>
+          <td>$65,000–$74,999</td>
+          <td>
+            Consider if immediate income is essential
+          </td>
+        </tr>
+        <tr>
+          <td>$75,000–$79,999</td>
+          <td>
+            Consider for a strong opportunity with advancement
+          </td>
+        </tr>
+        <tr class="bp-emphasis-row">
+          <td>$80,000–$89,999</td>
+          <td>Reasonable minimum target</td>
+        </tr>
+        <tr>
+          <td>$90,000–$105,000</td>
+          <td>Strong target</td>
+        </tr>
+        <tr>
+          <td>$105,000–$120,000+</td>
+          <td>Competitive stretch target</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Portfolio Qualifications</h3>
+
+  <p>
+    The index.html professional portfolio documents
+    enterprise Linux infrastructure, AWS and cloud
+    support, database administration, automation,
+    production troubleshooting, managed hosting,
+    and experience at Liquid Web/Nexcess and UpCloud.
+  </p>
+
+  <p>
+    These qualifications support targeting senior
+    technical support, Linux systems engineering,
+    cloud infrastructure, and managed hosting roles
+    rather than entry-level technical support compensation.
+  </p>
+
+  <h3>Salary Negotiation Strategy</h3>
+
+  <p>
+    <strong>Opening salary request:</strong> $100,000 annually.
+    <strong>Preferred negotiated range:</strong>
+    $90,000–$100,000.
+    <strong>Normal minimum:</strong> $80,000.
+  </p>
+
+  <p>
+    When immediate employment is a priority, a position
+    paying $65,000–$75,000 may still be strategically
+    worthwhile, depending on benefits, advancement,
+    stability, and the availability of better offers.
+  </p>
+
+  <h3>Conclusion</h3>
+
+  <p>
+    The illustrative estimate suggests that
+    <strong>4–8%</strong> of 39-year-old women in
+    Las Vegas both weigh less than 143 lbs and
+    have earning potential above the portfolio's
+    recommended <strong>$80,000 minimum</strong>,
+    with <strong>6%</strong> as the midpoint.
+    At an annual salary threshold exceeding
+    <strong>$115,000</strong>, the illustrative
+    estimate decreases to <strong>2–5%</strong>,
+    with <strong>3%</strong> as the single-number guess.
+  </p>
+
+  <div class="bp-note">
+    <strong>Methodology and limitations:</strong>
+    These demographic percentages are speculative
+    illustrations, not verified Las Vegas population
+    statistics. National weight distributions and
+    earnings figures do not establish the combined
+    prevalence of weight and resume-based earning
+    potential. Resume qualifications do not guarantee
+    a particular salary. The salary figures are
+    professional planning estimates rather than
+    confirmed employment offers.
+  </div>
+</section>
   <div id="bp-today-application-target-20261022" role="note" style="max-width:980px;margin:18px auto 22px;padding:20px 24px;border:1px solid rgba(216,171,226,.6);border-radius:16px;background:rgba(24,15,35,.91);box-shadow:0 12px 30px rgba(0,0,0,.22);text-align:center;color:#f0eff4;line-height:1.55;position:relative;z-index:5">
     <div style="font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:#e7c0ec;font-weight:700">October 22, 2026 · Today's application target pool</div>
     <div style="font-size:clamp(2.4rem,6vw,4rem);font-weight:800;line-height:1.12;margin:8px 0">524 job titles · ALL in the 95%–100% modeled ATS application range</div>
