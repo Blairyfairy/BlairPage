@@ -495,7 +495,7 @@ body.dark .tile strong { color: var(--cream); }
 
 .progress-fill {
   position: relative;
-  width: 37.74%;
+  width: 58.14%;
   height: 22px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--rose), var(--gold), var(--mint));
@@ -517,7 +517,7 @@ body.dark .tile strong { color: var(--cream); }
 
 .progress-today-marker {
   position: absolute;
-  left: 37.74%;
+  left: 58.14%;
   top: -30px;
   transform: translateX(-50%);
   display: flex;
@@ -2954,7 +2954,7 @@ a,button{touch-action:manipulation}
 a:focus-visible,button:focus-visible{outline:none;box-shadow:var(--focus)}
 @media(max-width:1080px){.hero-grid{grid-template-columns:1fr}.hero-left-clean{position:relative;top:auto}.journey-intro{max-width:none}h1{max-width:none}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:720px){.page{width:min(100% - 14px,var(--page-max))}.hero{padding:14px}.topline{margin-bottom:20px}.brand-pill{justify-content:flex-start}.journey-chip-grid,.professional-support{grid-template-columns:1fr}.panel{padding:13px}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.tile{min-height:100px;padding:14px}.loseit-chart-top{flex-direction:column}.loseit-chart-top strong,.loseit-chart-top span{text-align:left}.loseit-chart-svg{min-width:560px}.loseit-chart-card{overflow-x:auto}.progress-meta{grid-template-columns:1fr 1fr}.chart-title{align-items:flex-start!important}.chart-title h2,.chart-title strong{white-space:normal!important}}
-@media(max-width:420px){h1{font-size:clamp(2.5rem,15vw,3.8rem)}.metric-grid{grid-template-columns:1fr!important}.tile{min-height:auto}.progress-meta{grid-template-columns:1fr}.progress-today-marker{left:min(82%,37.74%)}.journey-intro{padding:16px}.chart-shell{padding:12px}.chart-title{flex-direction:column!important}.chart-title strong{text-align:left!important}}
+@media(max-width:420px){h1{font-size:clamp(2.5rem,15vw,3.8rem)}.metric-grid{grid-template-columns:1fr!important}.tile{min-height:auto}.progress-meta{grid-template-columns:1fr}.progress-today-marker{left:min(82%,58.14%)}.journey-intro{padding:16px}.chart-shell{padding:12px}.chart-title{flex-direction:column!important}.chart-title strong{text-align:left!important}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
 /* === Goal Distance Bar Cleanup (UI simplification) === */
@@ -3076,8 +3076,8 @@ body.dark .bp-journal-priority .conclusion{background:rgba(184,107,143,.16)}
   <div class="journey-chip-grid">
     <div class="journey-chip"><small>Recorded change</small><strong>25 lbs down</strong></div>
     <div class="journey-chip"><small>Current position</small><strong>143 lbs</strong></div>
-    <div class="journey-chip"><small>Goal distance</small><strong>30 lbs remaining</strong></div>
-    <div class="journey-chip"><small>Progress rate</small><strong>43.40% complete</strong></div>
+    <div class="journey-chip"><small>Goal distance</small><strong>18 lbs remaining</strong></div>
+    <div class="journey-chip"><small>Progress rate</small><strong>58.14% complete</strong></div>
     
 <section class="bp-journal-priority" aria-labelledby="bp-priority-title">
   <div class="eyebrow">
@@ -3690,9 +3690,9 @@ body.dark .hero .theme-link-btn {
 </div>
 <p class="journey-footnote">This page is a personal tracking presentation, not medical advice. Individual goals and healthy rates of change should be discussed with a qualified healthcare professional when appropriate.</p>
 
-            <div class="progress-scale-title">Goal-distance bar: 168 lbs start → 115 lbs goal = 53 lbs total distance</div>
-            <div class="progress-meta"><span>168 start / 0%</span><span>25 lbs complete</span><span>30 lbs left</span><span>115 goal / 100%</span></div>
-            <p class="progress-note">This bar measures the full 53 lb distance from 168 lbs to 115 lbs. Current position is 143 lbs, so the bar is 25 lbs filled and 28 lbs still estimated based on muscle and breast size.</p>
+            <div class="progress-scale-title">Goal-distance bar: 168 lbs start → 125 lbs goal = 43 lbs total distance</div>
+            <div class="progress-meta"><span>168 start / 0%</span><span>25 lbs complete</span><span>18 lbs left</span><span>125 goal / 100%</span></div>
+            <p class="progress-note">This bar measures the full 43 lb distance from 168 lbs to 125 lbs. Current position is 143 lbs, so the bar is 25 lbs complete and 18 lbs remain. The revised 125 lb goal reflects a personal preference to avoid further breast-volume loss below that weight.</p>
 
 <div class="bmi-results">
   <h2>BMI Results</h2>
@@ -5348,5 +5348,16 @@ body.dark .hero-left-clean .theme-inherited-comparison-card {
   else extendWeightTimeline();
 })();
 </script>
+
+<!-- Personal goal and breast-volume preference: appended without changing existing content. -->
+<section class="panel" aria-labelledby="breast-goal-heading" style="width:min(1180px,calc(100% - 32px));margin:24px auto 48px;padding:clamp(18px,3vw,28px);border-radius:24px;">
+  <h2 id="breast-goal-heading">Why 125 lbs is my preferred stopping point</h2>
+  <p>At 5'3" and 143 lbs, my current bra size is 36DD. My personal goal is 125 lbs—not a lower number—because I want to prioritize maintaining breast fullness and a breast size that feels comfortable and proportionate to me. I would consider further breast-volume loss below 125 lbs undesirable for my own aesthetic preferences. That is a personal preference, not a prediction that everyone loses breast volume at a particular weight.</p>
+  <h3>How bra cup size and breast weight relate</h3>
+  <p>A 36DD bra has a 36-inch nominal band size, while DD describes a cup-volume difference relative to that band. Cup letters are not fixed breast weights: a 34DD and a 36DD have different cup volumes, and sizing varies by brand. My earlier estimate of approximately 4.5 lbs for both breasts at 36DD is only a rough illustration, not a measurement. Weight loss may change both band and cup size, but it cannot reliably predict a future cup letter or how many pounds of breast tissue will remain at 125 lbs.</p>
+  <h3>My preference after reaching 125 lbs</h3>
+  <p>Once I reach 125 lbs, I would prefer weight maintenance rather than continued intentional weight loss. For any remaining contour goals, my trade-offs would be building muscle through resistance training and considering only modest, targeted cosmetic contouring after a qualified clinician evaluates the risks, likely results, and whether a procedure is appropriate. Liposuction is contouring rather than a substitute for weight loss; it cannot guarantee preservation of breast size, and even limited procedures have risks. Muscle building can improve shape and strength without requiring a lower scale weight.</p>
+  <p><strong>Personal goal:</strong> 125 lbs is my preferred landing weight. Going below it is not part of my current plan because preserving breast fullness matters more to me than a lower number on the scale.</p>
+</section>
 </body>
 </html>
