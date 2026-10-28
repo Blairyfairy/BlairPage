@@ -5349,8 +5349,23 @@ body.dark .hero-left-clean .theme-inherited-comparison-card {
 })();
 </script>
 
+<style>
+/* Scoped contrast fix for the appended 125 lb goal section only. */
+#breast-goal-panel {
+  color: #FFF4E8 !important;
+  background: radial-gradient(circle at 92% 8%, rgba(184,107,143,.28), transparent 42%), linear-gradient(135deg, #2A1736 0%, #49305e 55%, #5D3B72 100%) !important;
+  border: 1px solid rgba(255,210,143,.48) !important;
+  box-shadow: 0 18px 48px rgba(36,24,37,.25) !important;
+}
+#breast-goal-panel h2 { color: #FFD28F !important; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.65rem,3.5vw,2.5rem); line-height:1.18; margin:0 0 18px; }
+#breast-goal-panel h3 { color: #BFE8D4 !important; font-size: clamp(1.1rem,2.4vw,1.35rem); margin:22px 0 10px; }
+#breast-goal-panel p { color: #FFF4E8 !important; line-height:1.75; margin:0 0 14px; font-size:clamp(.95rem,1.5vw,1.05rem); }
+#breast-goal-panel p:last-child { background:rgba(255,210,143,.14); border-left:4px solid #FFD28F; padding:14px 16px; border-radius:0 12px 12px 0; margin:22px 0 0; }
+#breast-goal-panel strong { color:#FFD28F !important; }
+</style>
+
 <!-- Personal goal and breast-volume preference: appended without changing existing content. -->
-<section class="panel" aria-labelledby="breast-goal-heading" style="width:min(1180px,calc(100% - 32px));margin:24px auto 48px;padding:clamp(18px,3vw,28px);border-radius:24px;">
+<section id="breast-goal-panel" class="panel" aria-labelledby="breast-goal-heading" style="width:min(1180px,calc(100% - 32px));margin:24px auto 48px;padding:clamp(18px,3vw,28px);border-radius:24px;">
   <h2 id="breast-goal-heading">Why 125 lbs is my preferred stopping point</h2>
   <p>At 5'3" and 143 lbs, my current bra size is 36DD. My personal goal is 125 lbs—not a lower number—because I want to prioritize maintaining breast fullness and a breast size that feels comfortable and proportionate to me. I would consider further breast-volume loss below 125 lbs undesirable for my own aesthetic preferences. That is a personal preference, not a prediction that everyone loses breast volume at a particular weight.</p>
   <h3>How bra cup size and breast weight relate</h3>
