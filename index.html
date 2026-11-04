@@ -2162,6 +2162,29 @@ html body .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kic
 @media(max-width:640px){.top-bar .bp-brand-links .bp-exact-aws{width:89px !important;height:25px !important;}}
 @media(max-width:390px){.top-bar .bp-brand-links .bp-exact-aws{width:80px !important;height:23px !important;}}
 </style>
+<style id="bp-lvmh-training-below-logo-only-20261104">
+/* Stack the existing training label beneath the INSIDE LVMH artwork, without altering other elements. */
+.top-bar .bp-brand-links .bp-lvmh-link{flex-direction:column !important;align-items:center !important;justify-content:center !important;gap:2px !important;}
+.top-bar .bp-brand-links .bp-lvmh-link .bp-training-status{display:block !important;position:static !important;margin:0 !important;padding:0 !important;text-align:center !important;align-self:center !important;}
+</style>
+<style id="bp-aws-reference-spacing-lvmh-fixed-left-alignment-20261104">
+/* Match the supplied certificate's tightly grouped, lightweight AWS wordmark. */
+.top-bar .bp-brand-links .bp-exact-aws { object-fit:contain !important; object-position:left center !important; }
+/* Keep training anchored to the left edge of the LVMH artwork, even while hovered. */
+.top-bar .bp-brand-links .bp-lvmh-link,
+.top-bar .bp-brand-links .bp-lvmh-link:hover,
+.top-bar .bp-brand-links .bp-lvmh-link:focus-visible {
+  flex-direction:column !important; align-items:flex-start !important;
+  justify-content:center !important; transform:none !important; translate:none !important;
+}
+.top-bar .bp-brand-links .bp-lvmh-link .bp-training-status,
+.top-bar .bp-brand-links .bp-lvmh-link:hover .bp-training-status,
+.top-bar .bp-brand-links .bp-lvmh-link:focus-visible .bp-training-status {
+  position:static !important; display:block !important; align-self:flex-start !important;
+  margin:0 !important; padding:0 !important; text-align:left !important;
+  transform:none !important; translate:none !important; transition:none !important;
+}
+</style>
 </head>
 <body>
 
@@ -2173,7 +2196,7 @@ html body .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kic
       <span class="bp-training-status">(In Training)</span>
     </a>
     <a class="bp-brand-link bp-aws-link" href="#credly-badges" aria-label="AWS Certified — jump to Credly badges">
-      <img class="bp-exact-aws" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MzAgOTAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iYXdzIGNlcnRpZmllZCI+PHRleHQgeD0iNCIgeT0iNjUiIGZpbGw9IiNmZmYiIGZvbnQtZmFtaWx5PSJBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZiIgZm9udC1zaXplPSI3NiIgZm9udC13ZWlnaHQ9IjMwMCIgbGV0dGVyLXNwYWNpbmc9Ii00Ij5hd3M8L3RleHQ+PHBhdGggZD0iTTE1NCAyNyBMMTc2IDE0IEwxOTggMjcgTDE5OCA2NSBMMTc2IDc5IEwxNTQgNjUgWiIgZmlsbD0iI2ZmOTkwMCIvPjxwYXRoIGQ9Ik0xNjYgNDYgTDE3NCA1NCBMMTg3IDM4IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjx0ZXh0IHg9IjIwNyIgeT0iNjUiIGZpbGw9IiNmZmYiIGZvbnQtZmFtaWx5PSJBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZiIgZm9udC1zaXplPSI2OSIgZm9udC13ZWlnaHQ9IjIwMCIgbGV0dGVyLXNwYWNpbmc9Ii0yIj5jZXJ0aWZpZWQ8L3RleHQ+PC9zdmc+" alt="aws certified" />
+      <img class="bp-exact-aws" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOTggOTAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iYXdzIGNlcnRpZmllZCI+PHRleHQgeD0iMiIgeT0iNjYiIGZpbGw9IiNmZmYiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EgTmV1ZSxIZWx2ZXRpY2EsQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSI3NSIgZm9udC13ZWlnaHQ9IjIwMCIgbGV0dGVyLXNwYWNpbmc9Ii00Ij5hd3M8L3RleHQ+PHBhdGggZD0iTTE0NSAyNCBMMTY0LjA1IDM1IEwxNjQuMDUgNTcgTDE0NSA2OCBMMTI1Ljk1IDU3IEwxMjUuOTUgMzUgWiIgZmlsbD0iI2ZmOTkwMCIvPjxwYXRoIGQ9Ik0xMzYgNDYgTDE0MyA1MyBMMTU1IDM5IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48dGV4dCB4PSIxNzAiIHk9IjY2IiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIE5ldWUsSGVsdmV0aWNhLEFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNjkiIGZvbnQtd2VpZ2h0PSIxMDAiIGxldHRlci1zcGFjaW5nPSItMiI+Y2VydGlmaWVkPC90ZXh0Pjwvc3ZnPg==" alt="aws certified" />
     </a>
   </div>
 
@@ -15829,6 +15852,19 @@ html body .udacity-accenture-lockup .institute-wordmark {
 @media(max-width:480px){.bp-credly-original-section .bp-credly-original-grid.bp-credly-clean-grid{grid-template-columns:1fr!important}}
 </style>
 <script id="credly-new-embed-init">window.addEventListener('load',function(){setTimeout(function(){var sc=document.createElement('script');sc.src='https://cdn.credly.com/assets/utilities/embed.js';sc.async=true;document.body.appendChild(sc)},1200)});</script>
+
+<style id="bp-aws-hex-coursera-white-lettering-only-20261104">
+/* Restrained scoped color change: keep the Xbox green and Akamai gold glow, but lettering stays white. */
+.certificate-list a.certificate-link.xbox-cert:hover,
+.certificate-list a.certificate-link.xbox-cert:hover strong,
+.certificate-list a.certificate-link.xbox-cert:hover span,
+.certificate-list a.certificate-link.akamai-cert:hover,
+.certificate-list a.certificate-link.akamai-cert:hover strong,
+.certificate-list a.certificate-link.akamai-cert:hover span {
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+}
+</style>
 </body>
 </html>
 
@@ -20399,4 +20435,24 @@ html body .identity-info .brand-lockup:focus-within .brand-logo-mark {
 .certificate-list a.certificate-link.akamai-cert:hover strong { text-shadow:0 0 7px rgba(255,215,0,.85),0 0 16px rgba(255,215,0,.45) !important; }
 .certificate-list a.certificate-link.akamai-cert::after { content:"" !important; position:absolute !important; left:0 !important; bottom:-5px !important; width:0 !important; height:2px !important; background:#FFD700 !important; box-shadow:0 0 5px rgba(255,215,0,.9),0 0 12px rgba(255,215,0,.5) !important; transition:width .35s ease-in-out !important; opacity:1 !important; transform:none !important; pointer-events:none !important; }
 .certificate-list a.certificate-link.akamai-cert:hover::after { width:100% !important; }
+</style>
+
+
+<style id="bp-aws-tight-brand-spacing-coursera-white-hover-final">
+/* Targeted correction: preserve the AWS hexagon and existing dimensions, tighten only the wordmark spacing. */
+/* All Xbox and Akamai Coursera certificate text stays white on hover, while retaining the original branded glow. */
+html body .certificate-list a.certificate-link.xbox-cert:is(:hover,:focus-visible),
+html body .certificate-list a.certificate-link.xbox-cert:is(:hover,:focus-visible) :is(span,strong,em,b,i,small),
+html body .certificate-list a.certificate-link.xbox-cert:is(:hover,:focus-visible) * {
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  text-shadow:0 0 6px rgba(155,240,11,.72),0 0 13px rgba(16,124,16,.48) !important;
+}
+html body .certificate-list a.certificate-link.akamai-cert:is(:hover,:focus-visible),
+html body .certificate-list a.certificate-link.akamai-cert:is(:hover,:focus-visible) :is(span,strong,em,b,i,small),
+html body .certificate-list a.certificate-link.akamai-cert:is(:hover,:focus-visible) * {
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  text-shadow:0 0 6px rgba(255,215,0,.72),0 0 13px rgba(255,215,0,.43) !important;
+}
 </style>
