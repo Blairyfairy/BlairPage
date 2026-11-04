@@ -20456,3 +20456,41 @@ html body .certificate-list a.certificate-link.akamai-cert:is(:hover,:focus-visi
   text-shadow:0 0 6px rgba(255,215,0,.72),0 0 13px rgba(255,215,0,.43) !important;
 }
 </style>
+
+<style id="bp-credential-no-jump-hover-20261104">
+/* Lock both credential wordmarks and their training label in place.
+   Retain existing logo artwork, dimensions, responsive rules and hover glow filters. */
+html body .top-bar .bp-brand-links .bp-brand-link:is(.bp-lvmh-link,.bp-aws-link),
+html body .top-bar .bp-brand-links .bp-brand-link:is(.bp-lvmh-link,.bp-aws-link):is(:hover,:focus,:focus-visible,:active),
+html body .top-bar .bp-brand-links .bp-brand-link:is(.bp-lvmh-link,.bp-aws-link) .bp-exact-lvmh,
+html body .top-bar .bp-brand-links .bp-brand-link:is(.bp-lvmh-link,.bp-aws-link) .bp-exact-aws,
+html body .top-bar .bp-brand-links .bp-brand-link:is(.bp-lvmh-link,.bp-aws-link) .bp-training-status {
+  transform:none !important;
+  translate:none !important;
+  rotate:none !important;
+  scale:none !important;
+  animation:none !important;
+  transition-property:filter,color,text-shadow,opacity !important;
+  transition-duration:.22s !important;
+  transition-timing-function:ease !important;
+}
+/* No inherited hover font/spacing or flex alignment changes. */
+html body .top-bar .bp-brand-links .bp-lvmh-link:is(:hover,:focus-visible,:active) {
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+}
+html body .top-bar .bp-brand-links .bp-lvmh-link .bp-training-status,
+html body .top-bar .bp-brand-links .bp-lvmh-link:is(:hover,:focus-visible,:active) .bp-training-status {
+  align-self:flex-start !important;
+  text-align:left !important;
+  transform:none !important;
+  translate:none !important;
+  margin:0 !important;
+}
+html body .top-bar .bp-brand-links .bp-aws-link:is(:hover,:focus-visible,:active) {
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+}
+</style>
