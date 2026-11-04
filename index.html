@@ -2041,13 +2041,134 @@ html body .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kic
   filter:none !important;
 }
 </style>
+
+<style id="bp-brand-shortcuts-20261104">
+/* Independent branded credential navigation, scoped to the header. */
+.top-bar .credential-header.bp-brand-links{display:flex !important;flex-wrap:wrap !important;align-items:center !important;gap:clamp(7px,1.4vw,17px) !important;max-width:100% !important;}
+.bp-brand-links .bp-brand-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:37px;padding:6px 11px;border:1px solid rgba(240,239,244,.25);border-radius:11px;background:rgba(15,9,24,.38);color:#f0eff4;text-decoration:none;white-space:nowrap;max-width:100%;box-shadow:inset 0 1px rgba(255,255,255,.08);transition:background .22s,border-color .22s,box-shadow .22s,translate .22s;}
+.bp-brand-links .bp-brand-link:hover,.bp-brand-links .bp-brand-link:focus-visible{background:rgba(158,130,156,.24);border-color:rgba(240,239,244,.75);box-shadow:0 0 18px rgba(158,130,156,.25);translate:0 -1px;outline:none;}
+.bp-brand-links .bp-brand-link:active{translate:0 1px;background:rgba(158,130,156,.36);}
+.bp-lvmh-wordmark{display:inline-flex;align-items:baseline;gap:4px;letter-spacing:.015em;line-height:1;}
+.bp-inside{font:700 clamp(10px,1vw,13px)/1 Arial,sans-serif;letter-spacing:.14em;}
+.bp-lvmh{font:700 clamp(15px,1.5vw,20px)/1 Georgia,serif;letter-spacing:-.055em;}
+.bp-training-status{font:500 10px/1.2 Arial,sans-serif;color:#d9c7dc;letter-spacing:.015em;}
+.bp-aws-link{gap:6px !important;}
+.bp-aws-wordmark{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;line-height:.75;color:#fff;}
+.bp-aws-letters{font:700 clamp(19px,1.9vw,25px)/.82 Arial,sans-serif;letter-spacing:-.085em;}
+.bp-aws-wordmark svg{display:block;width:34px !important;height:10px !important;max-width:none !important;margin:2px 0 0 0;color:#ff9900;}
+.bp-certified-word{font:700 12px/1 Arial,sans-serif;letter-spacing:.075em;text-transform:uppercase;}
+#credly-badges,#certifications{scroll-margin-top:20px;}
+@media(max-width:640px){.top-bar .credential-header.bp-brand-links{gap:6px !important}.bp-brand-links .bp-brand-link{min-height:33px;padding:5px 7px;gap:4px}.bp-inside{font-size:9px}.bp-lvmh{font-size:14px}.bp-training-status{font-size:9px}.bp-aws-letters{font-size:19px}.bp-certified-word{font-size:10px}.bp-aws-wordmark svg{width:28px !important;height:8px !important}}
+@media(max-width:380px){.bp-brand-links .bp-brand-link{padding:4px 6px}.bp-training-status{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.bp-brand-links .bp-brand-link{transition:none;translate:none !important}}
+</style>
+
+<style id="bp-transparent-typographic-brand-refinement">
+/* Pure typographic links: clickable area remains, but no visible button furniture. */
+.top-bar .credential-header.bp-brand-links{gap:clamp(15px,2.2vw,32px) !important;align-items:center !important;}
+.bp-brand-links .bp-brand-link,
+.bp-brand-links .bp-brand-link:hover,
+.bp-brand-links .bp-brand-link:focus,
+.bp-brand-links .bp-brand-link:focus-visible,
+.bp-brand-links .bp-brand-link:active{
+  background:transparent !important;background-image:none !important;
+  border:0 !important;border-radius:0 !important;box-shadow:none !important;
+  outline:0 !important;filter:none !important;
+  padding:3px 2px !important;min-height:38px !important;
+  text-decoration:none !important;translate:none !important;transform:none !important;
+}
+.bp-brand-links .bp-brand-link{gap:9px !important;opacity:.94;transition:opacity .18s ease,color .18s ease !important;}
+.bp-brand-links .bp-brand-link:hover,.bp-brand-links .bp-brand-link:focus-visible{opacity:1;color:#fff !important;}
+.bp-brand-links .bp-brand-link:active{opacity:.73;}
+.bp-brand-links .bp-brand-link:focus-visible .bp-lvmh-wordmark,
+.bp-brand-links .bp-brand-link:focus-visible .bp-aws-wordmark{ text-decoration:underline;text-decoration-color:#d9c7dc;text-underline-offset:4px; }
+/* Stacked editorial monogram: INSIDE centered above the LVMH serif logotype. */
+.bp-lvmh-wordmark{display:inline-flex !important;flex-direction:column !important;align-items:center !important;justify-content:center !important;gap:0 !important;line-height:1 !important;white-space:nowrap;}
+.bp-lvmh-wordmark .bp-inside{display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif !important;font-weight:600 !important;font-size:clamp(9px,.85vw,11px) !important;letter-spacing:.28em !important;line-height:1.05 !important;padding-left:.28em;}
+.bp-lvmh-wordmark .bp-lvmh{display:block;font-family:'Times New Roman',Times,Georgia,serif !important;font-weight:400 !important;font-size:clamp(21px,2vw,28px) !important;letter-spacing:-.075em !important;line-height:.97 !important;}
+.bp-training-status{font-family:'Helvetica Neue',Arial,sans-serif !important;font-weight:400 !important;font-size:10px !important;letter-spacing:.025em !important;}
+.bp-aws-letters{font-family:'Arial',sans-serif !important;letter-spacing:-.075em !important;}
+.bp-certified-word{font-family:'Helvetica Neue',Arial,sans-serif !important;letter-spacing:.085em !important;}
+@media(max-width:640px){.top-bar .credential-header.bp-brand-links{gap:13px !important}.bp-brand-links .bp-brand-link{gap:5px !important;min-height:34px !important}.bp-lvmh-wordmark .bp-lvmh{font-size:21px !important}.bp-lvmh-wordmark .bp-inside{font-size:9px !important}.bp-training-status{font-size:9px !important}.bp-certified-word{font-size:10px !important}}
+@media(max-width:390px){.top-bar .credential-header.bp-brand-links{gap:9px !important}.bp-lvmh-wordmark .bp-lvmh{font-size:19px !important}.bp-training-status{font-size:8px !important}.bp-aws-letters{font-size:18px !important}.bp-certified-word{font-size:9px !important}}
+@media(prefers-reduced-motion:reduce){.bp-brand-links .bp-brand-link{transition:none !important}}
+</style>
+
+<style id="bp-official-proportion-correction-20261104">
+/* Brand-proportion refinement; no boxes or background, only clickable artwork. */
+.top-bar .credential-header.bp-brand-links{gap:clamp(17px,2.4vw,34px) !important;align-items:center !important;}
+.bp-brand-links .bp-brand-link{background:none !important;border:0 !important;box-shadow:none !important;border-radius:0 !important;padding:2px !important;outline:0 !important;}
+.bp-lvmh-wordmark{display:inline-flex !important;flex-direction:column !important;align-items:center !important;line-height:1 !important;}
+.bp-lvmh-wordmark .bp-inside{font-family:Arial,Helvetica,sans-serif !important;font-size:clamp(19px,2.15vw,29px) !important;font-weight:800 !important;letter-spacing:.025em !important;line-height:.94 !important;padding-left:.025em !important;}
+.bp-lvmh-wordmark .bp-lvmh{font-family:Georgia,'Times New Roman',serif !important;font-size:clamp(13px,1.4vw,19px) !important;font-weight:500 !important;letter-spacing:.045em !important;line-height:1.08 !important;margin-top:2px !important;}
+.bp-training-status{font-size:clamp(9px,.85vw,11px) !important;white-space:nowrap !important;}
+.bp-brand-links .bp-aws-link{display:inline-flex !important;flex-direction:column !important;gap:2px !important;align-items:center !important;justify-content:center !important;}
+.bp-aws-wordmark{line-height:1 !important;}
+.bp-aws-letters{font-family:Arial,Helvetica,sans-serif !important;font-weight:800 !important;font-size:clamp(23px,2.4vw,32px) !important;letter-spacing:-.085em !important;line-height:.83 !important;}
+.bp-aws-wordmark svg{width:42px !important;height:12px !important;margin-top:2px !important;color:#ff9900 !important;}
+.bp-certified-word{font-family:Arial,Helvetica,sans-serif !important;font-size:clamp(10px,1.05vw,14px) !important;font-weight:750 !important;letter-spacing:.13em !important;line-height:1.1 !important;}
+.bp-brand-links .bp-brand-link:hover,.bp-brand-links .bp-brand-link:focus-visible{background:none !important;border:0 !important;box-shadow:none !important;opacity:1 !important;filter:drop-shadow(0 0 5px rgba(240,239,244,.34)) !important;}
+.bp-brand-links .bp-brand-link:active{opacity:.72 !important;}
+@media(max-width:640px){.bp-lvmh-wordmark .bp-inside{font-size:20px !important}.bp-lvmh-wordmark .bp-lvmh{font-size:14px !important}.bp-aws-letters{font-size:23px !important}.bp-certified-word{font-size:10px !important}.bp-aws-wordmark svg{width:32px !important;height:10px !important}}
+@media(max-width:390px){.top-bar .credential-header.bp-brand-links{gap:10px !important}.bp-lvmh-wordmark .bp-inside{font-size:17px !important}.bp-lvmh-wordmark .bp-lvmh{font-size:12px !important}.bp-training-status{font-size:8px !important}.bp-aws-letters{font-size:20px !important}.bp-certified-word{font-size:9px !important}}
+</style>
+<style id="bp-compact-exact-brand-artwork-20261104">
+/* Faithful artwork taken from user-provided logo references, rendered without screenshot backgrounds. */
+.top-bar .credential-header.bp-brand-links{display:flex !important;flex-wrap:wrap !important;align-items:center !important;gap:clamp(11px,1.4vw,19px) !important;}
+.top-bar .bp-brand-links .bp-brand-link,.top-bar .bp-brand-links .bp-brand-link:hover,.top-bar .bp-brand-links .bp-brand-link:focus-visible,.top-bar .bp-brand-links .bp-brand-link:active{display:inline-flex !important;flex-direction:row !important;align-items:center !important;justify-content:flex-start !important;gap:5px !important;min-height:0 !important;padding:0 !important;margin:0 !important;background:transparent !important;background-image:none !important;border:0 !important;border-radius:0 !important;box-shadow:none !important;outline:0 !important;text-decoration:none !important;transform:none !important;translate:none !important;filter:none !important;}
+.top-bar .bp-brand-links .bp-brand-link:hover{opacity:.82 !important;}
+.top-bar .bp-brand-links .bp-brand-link:active{opacity:.65 !important;}
+.top-bar .bp-brand-links .bp-brand-link:focus-visible{outline:1px dotted currentColor !important;outline-offset:3px !important;}
+.top-bar .bp-brand-links .bp-exact-lvmh{display:block !important;width:64px !important;height:35px !important;max-width:none !important;max-height:none !important;object-fit:contain !important;margin:0 !important;}
+.top-bar .bp-brand-links .bp-exact-aws{display:block !important;width:68px !important;height:36px !important;max-width:none !important;max-height:none !important;object-fit:contain !important;margin:0 !important;}
+.top-bar .bp-brand-links .bp-training-status{font:400 9px/1.1 Arial,Helvetica,sans-serif !important;letter-spacing:0 !important;color:var(--text-light,#f0eff4) !important;white-space:nowrap !important;}
+@media(max-width:640px){.top-bar .credential-header.bp-brand-links{gap:10px !important}.top-bar .bp-brand-links .bp-exact-lvmh{width:53px !important;height:29px !important}.top-bar .bp-brand-links .bp-exact-aws{width:56px !important;height:30px !important}.top-bar .bp-brand-links .bp-training-status{font-size:8px !important}}
+@media(max-width:390px){.top-bar .credential-header.bp-brand-links{gap:7px !important}.top-bar .bp-brand-links .bp-exact-lvmh{width:47px !important;height:26px !important}.top-bar .bp-brand-links .bp-exact-aws{width:50px !important;height:27px !important}}
+</style>
+
+<style id="bp-aws-certified-svg-white-glow-20261104">
+/* AWS-only vector wordmark and white glow. INSIDE LVMH and (In Training) untouched. */
+.top-bar .bp-brand-links .bp-exact-aws{width:112px !important;height:30px !important;object-fit:contain !important;object-position:left center !important;filter:none !important;transition:filter .25s ease !important;}
+.top-bar .bp-brand-links .bp-aws-link:hover{opacity:1 !important;}
+.top-bar .bp-brand-links .bp-aws-link:hover .bp-exact-aws,.top-bar .bp-brand-links .bp-aws-link:focus-visible .bp-exact-aws{filter:drop-shadow(0 0 4px rgba(255,255,255,.95)) drop-shadow(0 0 9px rgba(255,255,255,.65)) !important;}
+@media(max-width:640px){.top-bar .bp-brand-links .bp-exact-aws{width:94px !important;height:26px !important;}}
+@media(max-width:390px){.top-bar .bp-brand-links .bp-exact-aws{width:84px !important;height:24px !important;}}
+</style>
+<style id="bp-matched-medium-white-brand-glow-20261104">
+/* Matching restrained white hover glow on brand artwork only; training text unaffected. */
+.top-bar .bp-brand-links .bp-lvmh-link:hover,
+.top-bar .bp-brand-links .bp-lvmh-link:focus-visible,
+.top-bar .bp-brand-links .bp-aws-link:hover,
+.top-bar .bp-brand-links .bp-aws-link:focus-visible{
+  filter:none !important; opacity:1 !important; box-shadow:none !important;
+}
+.top-bar .bp-brand-links .bp-exact-lvmh,
+.top-bar .bp-brand-links .bp-exact-aws{
+  filter:none !important; transition:filter .22s ease !important;
+}
+.top-bar .bp-brand-links .bp-lvmh-link:hover .bp-exact-lvmh,
+.top-bar .bp-brand-links .bp-lvmh-link:focus-visible .bp-exact-lvmh,
+.top-bar .bp-brand-links .bp-aws-link:hover .bp-exact-aws,
+.top-bar .bp-brand-links .bp-aws-link:focus-visible .bp-exact-aws{
+  filter:drop-shadow(0 0 3px rgba(255,255,255,.65)) drop-shadow(0 0 5px rgba(255,255,255,.32)) !important;
+}
+.top-bar .bp-brand-links .bp-training-status{
+  filter:none !important; text-shadow:none !important;
+}
+</style>
 </head>
 <body>
 
   <!-- 🌟 Executive Header -->
  <header class="top-bar">
-  <div class="credential-header">
-    Inside LVMH (In Training) · AWS Certified 
+  <div class="credential-header bp-brand-links" aria-label="Credential shortcuts">
+    <a class="bp-brand-link bp-lvmh-link" href="#certifications" aria-label="INSIDE LVMH in training — jump to Certifications">
+      <img class="bp-exact-lvmh" src="data:image/png;base64,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" alt="INSIDE LVMH" />
+      <span class="bp-training-status">(In Training)</span>
+    </a>
+    <a class="bp-brand-link bp-aws-link" href="#credly-badges" aria-label="AWS Certified — jump to Credly badges">
+      <img class="bp-exact-aws" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MzAgOTAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iYXdzIGNlcnRpZmllZCI+PHRleHQgeD0iNCIgeT0iNjUiIGZpbGw9IiNmZmYiIGZvbnQtZmFtaWx5PSJBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZiIgZm9udC1zaXplPSI3NiIgZm9udC13ZWlnaHQ9IjQwMCIgbGV0dGVyLXNwYWNpbmc9Ii00Ij5hd3M8L3RleHQ+PHBhdGggZD0iTTE1NCAyNyBMMTc2IDE0IEwxOTggMjcgTDE5OCA2NSBMMTc2IDc5IEwxNTQgNjUgWiIgZmlsbD0iI2ZmOTkwMCIvPjxwYXRoIGQ9Ik0xNjYgNDYgTDE3NCA1NCBMMTg3IDM4IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjx0ZXh0IHg9IjIwNyIgeT0iNjUiIGZpbGw9IiNmZmYiIGZvbnQtZmFtaWx5PSJBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZiIgZm9udC1zaXplPSI2OSIgZm9udC13ZWlnaHQ9IjMwMCIgbGV0dGVyLXNwYWNpbmc9Ii0yIj5jZXJ0aWZpZWQ8L3RleHQ+PC9zdmc+" alt="aws certified" />
+    </a>
   </div>
 
   <nav class="site-nav">
@@ -5555,7 +5676,7 @@ html body .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:hover .tt-kic
 <!-- END: BLAIR PAGE CELESTIAL ARCHIVE SHOWCASE -->
 
       <section class="resume-sections">
-<h2>Credly</h2>
+<h2 id="credly-badges">Credly</h2>
         <div class="resume-block">
 <!-- ===== Refined Credly Embed (Full Visible, Better Framed) ===== -->
 <section class="bp-credly-original-section" style="margin-top:3rem;">
@@ -20252,4 +20373,24 @@ html body .identity-info .brand-lockup:focus-within .brand-logo-mark {
   #bp-celestial-showcase .cel-layout { gap:15px !important; }
   #bp-celestial-showcase .cel-universe { margin:11px auto 8px !important; }
 }
+</style>
+
+<style id="bp-coursera-xbox-akamai-unified-hover-20261104">
+/* Scoped extension: every Xbox and Akamai Coursera certificate inherits its professional certificate behavior. */
+.certificate-list a.certificate-link.xbox-cert,
+.certificate-list a.certificate-link.akamai-cert { position:relative !important; overflow:visible !important; transition:color .3s ease-in-out, text-shadow .3s ease-in-out, transform .3s ease-in-out, border-color .3s ease, background .3s ease, box-shadow .3s ease !important; }
+.certificate-list a.certificate-link.xbox-cert:hover { transform:translateY(-2px) !important; border-color:rgba(16,124,16,.55) !important; background:radial-gradient(circle at 50% 50%,rgba(155,240,11,.12),transparent 75%) !important; box-shadow:0 0 0 1px rgba(155,240,11,.12),0 8px 22px rgba(16,124,16,.12) !important; text-shadow:0 0 6px rgba(155,240,11,.45),0 0 14px rgba(16,124,16,.25) !important; }
+.certificate-list a.certificate-link.xbox-cert:hover,
+.certificate-list a.certificate-link.xbox-cert:hover strong,
+.certificate-list a.certificate-link.xbox-cert:hover span { color:#9BF00B !important; -webkit-text-fill-color:#9BF00B !important; }
+.certificate-list a.certificate-link.xbox-cert:hover strong { text-shadow:0 0 7px rgba(155,240,11,.55),0 0 16px rgba(16,124,16,.3) !important; }
+.certificate-list a.certificate-link.xbox-cert::after { content:"" !important; position:absolute !important; left:12% !important; right:12% !important; bottom:4px !important; height:2px !important; width:auto !important; border-radius:2px !important; background:linear-gradient(90deg,transparent 0%,#9BF00B 35%,#107C10 65%,transparent 100%) !important; box-shadow:0 0 8px rgba(155,240,11,.35) !important; opacity:0 !important; transform:scaleX(.4) !important; transition:opacity .3s ease,transform .35s cubic-bezier(.16,1,.3,1) !important; pointer-events:none !important; }
+.certificate-list a.certificate-link.xbox-cert:hover::after { opacity:1 !important; transform:scaleX(1) !important; }
+.certificate-list a.certificate-link.akamai-cert:hover { transform:translateY(-2px) !important; text-shadow:0 0 6px rgba(255,215,0,.65),0 0 14px rgba(255,215,0,.4),0 0 22px rgba(255,215,0,.2) !important; }
+.certificate-list a.certificate-link.akamai-cert:hover,
+.certificate-list a.certificate-link.akamai-cert:hover strong,
+.certificate-list a.certificate-link.akamai-cert:hover span { color:#FFD700 !important; -webkit-text-fill-color:#FFD700 !important; }
+.certificate-list a.certificate-link.akamai-cert:hover strong { text-shadow:0 0 7px rgba(255,215,0,.85),0 0 16px rgba(255,215,0,.45) !important; }
+.certificate-list a.certificate-link.akamai-cert::after { content:"" !important; position:absolute !important; left:0 !important; bottom:-5px !important; width:0 !important; height:2px !important; background:#FFD700 !important; box-shadow:0 0 5px rgba(255,215,0,.9),0 0 12px rgba(255,215,0,.5) !important; transition:width .35s ease-in-out !important; opacity:1 !important; transform:none !important; pointer-events:none !important; }
+.certificate-list a.certificate-link.akamai-cert:hover::after { width:100% !important; }
 </style>
