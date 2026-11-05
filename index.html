@@ -10526,6 +10526,18 @@ a.asana-cert-banner:hover {
   .lapx-count { margin-left: auto !important; }
   .lapx-count strong { font-size: 2rem !important; }
 }
+/* Linux Academy logo only: half-size, monochrome until hovered. */
+#linux-academy-pluralsight .lapx-head .lapx-marks img.lapx-mark-linux {
+  width: 50% !important;
+  max-width: 50% !important;
+  height: auto !important;
+  filter: grayscale(1) !important;
+  transition: filter 0.3s ease !important;
+}
+#linux-academy-pluralsight:hover .lapx-head .lapx-marks img.lapx-mark-linux,
+#linux-academy-pluralsight .lapx-head .lapx-marks img.lapx-mark-linux:hover {
+  filter: none !important;
+}
 </style>
 
 <!-- Fashion / Luxury -->
