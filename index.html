@@ -2266,6 +2266,29 @@ html body .top-bar .credential-header.bp-brand-links { gap:clamp(8px,1.1vw,15px)
 @media (max-width:640px) { html body .top-bar .credential-header.bp-brand-links { gap:7px !important; } }
 @media (max-width:390px) { html body .top-bar .credential-header.bp-brand-links { gap:5px !important; } }
 </style>
+
+<style id="bp-credential-theme-toggle-top-pixel-alignment-20261104">
+/* Align the top of both credential artworks with the theme-toggle top edge.
+   Positioning is fixed in every interaction state; preserve original spacing and glow. */
+html body .top-bar .credential-header.bp-brand-links {
+  position:relative !important;
+  top:0 !important;
+  align-items:flex-start !important;
+}
+html body .top-bar .credential-header.bp-brand-links .bp-aws-link,
+html body .top-bar .credential-header.bp-brand-links .bp-aws-link:is(:hover,:focus,:focus-visible,:active) {
+  margin-top:0 !important;
+  align-self:flex-start !important;
+  transform:none !important;
+  translate:none !important;
+}
+html body .top-bar .credential-header.bp-brand-links .bp-lvmh-link,
+html body .top-bar .credential-header.bp-brand-links .bp-lvmh-link:is(:hover,:focus,:focus-visible,:active) {
+  align-self:flex-start !important;
+  transform:none !important;
+  translate:none !important;
+}
+</style>
 </head>
 <body>
 
