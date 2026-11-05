@@ -2429,7 +2429,6 @@ html body header.top-bar > .site-nav {
   top:auto !important;
   left:auto !important;
   right:auto !important;
-  gap:3px 0 !important;
 }
 html body header.top-bar > #themeToggle {
   grid-area:toggle !important;
@@ -2441,16 +2440,12 @@ html body header.top-bar > #themeToggle {
 }
 @media (max-width:900px) {
   html body header.top-bar { --bp-toggle-row-height:60px; column-gap:clamp(7px,1vw,13px) !important; }
-  html body header.top-bar > .site-nav a { margin-right:clamp(4px,0.7vw,10px) !important; }
 }
 @media (max-width:640px) {
   html body header.top-bar { --bp-toggle-row-height:60px; column-gap:7px !important; }
-  html body header.top-bar > .site-nav { gap:2px 0 !important; }
-  html body header.top-bar > .site-nav a { margin-right:5px !important; font-size:clamp(9px,2.35vw,12px) !important; line-height:1.15 !important; }
 }
 @media (max-width:390px) {
   html body header.top-bar { column-gap:5px !important; }
-  html body header.top-bar > .site-nav a { margin-right:3px !important; font-size:9px !important; }
 }
 </style>
 </head>
