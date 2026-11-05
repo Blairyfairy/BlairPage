@@ -10526,48 +10526,64 @@ a.asana-cert-banner:hover {
   .lapx-count { margin-left: auto !important; }
   .lapx-count strong { font-size: 2rem !important; }
 }
-/* Linux Academy only: 25% smaller logo, aligned text, dark silhouette until hover. */
+/* Linux Academy only: preserve the 25%-smaller logo and show its original color at all times.
+   Refine the heading, supporting labels, and copy without changing other sections. */
 #linux-academy-pluralsight .lapx-head .lapx-marks {
   flex: 0 0 clamp(105px, 14.34375%, 172.5px) !important;
   width: clamp(105px, 14.34375%, 172.5px) !important;
-}
-#linux-academy-pluralsight .lapx-head .lapx-titles {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-}
-#linux-academy-pluralsight .lapx-head .lapx-tag-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-#linux-academy-pluralsight .lapx-head .lapx-marks {
   position: relative !important;
 }
 #linux-academy-pluralsight .lapx-head .lapx-marks img.lapx-mark-linux {
   width: 100% !important;
   max-width: 100% !important;
   height: auto !important;
-  opacity: 0 !important;
+  opacity: 1 !important;
   filter: none !important;
-  transition: opacity 0.3s ease !important;
 }
 #linux-academy-pluralsight .lapx-head .lapx-marks::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: #55515f;
-  -webkit-mask: url("BlairPageImages/Linux_Academy.png") center / contain no-repeat;
-  mask: url("BlairPageImages/Linux_Academy.png") center / contain no-repeat;
-  pointer-events: none;
-  opacity: .72;
-  transition: opacity 0.3s ease;
+  content: none !important;
+  display: none !important;
 }
-#linux-academy-pluralsight:is(:hover, :focus-within) .lapx-head .lapx-marks img.lapx-mark-linux {
-  opacity: 1 !important;
+#linux-academy-pluralsight .lapx-head {
+  align-items: center !important;
+  column-gap: clamp(14px, 2vw, 26px) !important;
+  row-gap: 12px !important;
 }
-#linux-academy-pluralsight:is(:hover, :focus-within) .lapx-head .lapx-marks::after {
-  opacity: 0;
+#linux-academy-pluralsight .lapx-head .lapx-titles {
+  flex: 1 1 260px !important;
+  min-width: 0 !important;
+}
+#linux-academy-pluralsight .lapx-head .lapx-titles h3 {
+  line-height: 1.12 !important;
+  margin-block: 5px 10px !important;
+  overflow-wrap: break-word;
+}
+#linux-academy-pluralsight .lapx-head .lapx-tag-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 7px 9px !important;
+}
+#linux-academy-pluralsight .lapx-head .lapx-tag {
+  line-height: 1.35 !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+}
+#linux-academy-pluralsight .lapx-lead {
+  line-height: 1.65 !important;
+  text-wrap: pretty;
+}
+@media (max-width: 600px) {
+  #linux-academy-pluralsight .lapx-head {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  #linux-academy-pluralsight .lapx-head .lapx-titles {
+    flex: 1 1 100% !important;
+  }
+  #linux-academy-pluralsight .lapx-head .lapx-tag-row {
+    justify-content: center !important;
+  }
 }
 </style>
 
