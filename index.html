@@ -21169,3 +21169,24 @@ html body .enterprise-brand-slider__set {
   }
 }
 </style>
+
+<!-- Additive-only: generous, visually balanced spacing at every viewport size. -->
+<style id="bp-brand-slider-generous-optical-spacing-20261104">
+/* Equal measured gaps between the item boxes, including the loop seam. */
+html body .enterprise-brand-slider__set {
+  --bp-brand-gap: clamp(96px, 9vw, 156px) !important;
+  display: flex !important;
+  gap: var(--bp-brand-gap) !important;
+  column-gap: var(--bp-brand-gap) !important;
+  padding-right: var(--bp-brand-gap) !important;
+}
+html body .enterprise-brand-slider__set > .enterprise-brand-slider__item {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+@media (max-width: 600px) {
+  html body .enterprise-brand-slider__set {
+    --bp-brand-gap: clamp(88px, 23vw, 108px) !important;
+  }
+}
+</style>
