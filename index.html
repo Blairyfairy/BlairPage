@@ -19750,6 +19750,25 @@ html body .brand-katespade::before {
  html body .brand-katespade::before { width: 9.5px !important; height: 10px !important; margin-bottom: 3px !important; }
 }
 </style>
+
+<!-- Badge hover clipping fix: preserve all existing links, markup and styles. -->
+<style id="bp-badge-hover-unclipped-fix">
+  html body .identity-row,
+  html body .identity-info,
+  html body .brand-badge-row {
+    overflow: visible !important;
+    clip-path: none !important;
+  }
+  html body .brand-badge-row .badge-item {
+    position: relative !important;
+    overflow: visible !important;
+  }
+  html body .brand-badge-row .badge-item:hover,
+  html body .brand-badge-row .badge-item:focus-visible {
+    z-index: 100 !important;
+    overflow: visible !important;
+  }
+</style>
 </body>
 <!-- =========================================================
      JOB DESCRIPTIONS (inside every + / − expansion) — "reading column" layout
