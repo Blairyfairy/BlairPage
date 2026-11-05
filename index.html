@@ -2756,7 +2756,7 @@ html body .enterprise-brand-slider__item.enterprise-brand--membean .brand-membea
 <style id="bp-kate-spade-slider-10-percent-larger-20261105">
 /* Kate Spade only: 10% larger than the existing 0.9x standardized slider scale. */
 html body .enterprise-brand-slider__set > .enterprise-brand--katespade > .brand-katespade {
-  transform: scale(0.92565) !important;
+  transform: scale(0.833085) !important;
   transform-origin: center center !important;
 }
 </style>
@@ -21254,5 +21254,51 @@ html body .enterprise-brand-slider__set > .enterprise-brand-slider__item {
   html body .enterprise-brand-slider__set {
     --bp-brand-gap: clamp(88px, 23vw, 108px) !important;
   }
+}
+</style>
+
+<style id="bp-katespade-reference-accurate-mark-20261105">
+/* Kate Spade only: reference-style spade silhouette, refined serif lettering and NEW YORK lockup. */
+html body .enterprise-brand-slider__set > .enterprise-brand--katespade > .brand-katespade {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+}
+html body .enterprise-brand-slider__item .brand-katespade::before {
+  content: "" !important;
+  display: block !important;
+  width: 25px !important;
+  height: 25px !important;
+  flex: 0 0 25px !important;
+  margin: 0 auto 5px !important;
+  padding: 0 !important;
+  background: transparent url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M50%203%20C42%2015%2031%2022%2020%2031%20C8%2040%203%2048%203%2060%20C3%2073%2012%2081%2024%2081%20C33%2081%2041%2076%2047%2069%20C45%2082%2039%2089%2031%2094%20L69%2094%20C61%2089%2055%2082%2053%2069%20C59%2076%2067%2081%2076%2081%20C88%2081%2097%2073%2097%2060%20C97%2048%2092%2040%2080%2031%20C69%2022%2058%2015%2050%203%20Z%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat !important;
+  clip-path: none !important;
+  mask: none !important;
+  -webkit-mask: none !important;
+}
+html body .enterprise-brand-slider__item .brand-katespade strong {
+  font-family: 'Bodoni MT', 'Didot', 'Times New Roman', Georgia, serif !important;
+  font-size: clamp(22px, 2vw, 29px) !important;
+  font-weight: 400 !important;
+  letter-spacing: .015em !important;
+  line-height: 1.05 !important;
+}
+html body .enterprise-brand-slider__item .brand-katespade small {
+  font-family: 'Times New Roman', Georgia, serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  letter-spacing: .22em !important;
+  line-height: 1.1 !important;
+  margin-top: 8px !important;
+  padding-left: .22em !important;
+}
+@media (max-width: 600px) {
+  html body .enterprise-brand-slider__item .brand-katespade::before { width: 22px !important; height: 22px !important; flex-basis: 22px !important; margin-bottom: 4px !important; }
+  html body .enterprise-brand-slider__item .brand-katespade strong { font-size: 23px !important; }
+  html body .enterprise-brand-slider__item .brand-katespade small { font-size: 9px !important; margin-top: 6px !important; }
 }
 </style>
