@@ -21151,3 +21151,21 @@ html body .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:is(:hover,:fo
   }
 }
 </style>
+
+<!-- Additive-only: slightly roomier, proportionally responsive brand-to-brand spacing. -->
+<style id="bp-brand-slider-fluid-spacing-final-20261104">
+/* The exact same responsive gap applies to both repeating sets at every width. */
+html body .enterprise-brand-slider__set {
+  --bp-brand-gap: clamp(52px, 4.8vw, 68px);
+  gap: var(--bp-brand-gap) !important;
+  padding-right: var(--bp-brand-gap) !important;
+  column-gap: var(--bp-brand-gap) !important;
+}
+@media (max-width: 600px) {
+  html body .enterprise-brand-slider__set {
+    gap: var(--bp-brand-gap) !important;
+    padding-right: var(--bp-brand-gap) !important;
+    column-gap: var(--bp-brand-gap) !important;
+  }
+}
+</style>
