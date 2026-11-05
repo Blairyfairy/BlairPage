@@ -2260,6 +2260,12 @@ html body .top-bar .credential-header.bp-brand-links .bp-aws-link:is(:hover,:foc
   transition-property:filter,color,text-shadow,opacity !important;
 }
 </style>
+<style id="bp-aws-lvmh-subtle-horizontal-gap-20261104">
+/* Reduce only the space between the two credential marks; preserve all hover states and sizing. */
+html body .top-bar .credential-header.bp-brand-links { gap:clamp(8px,1.1vw,15px) !important; }
+@media (max-width:640px) { html body .top-bar .credential-header.bp-brand-links { gap:7px !important; } }
+@media (max-width:390px) { html body .top-bar .credential-header.bp-brand-links { gap:5px !important; } }
+</style>
 </head>
 <body>
 
