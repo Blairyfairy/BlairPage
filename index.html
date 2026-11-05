@@ -2448,6 +2448,70 @@ html body header.top-bar > #themeToggle {
   html body header.top-bar { column-gap:5px !important; }
 }
 </style>
+
+<style id="bp-nav-true-toggle-midpoint-no-horizontal-spacing-changes-20261104">
+/* Anchor the navigation box's actual center to the toggle midpoint.
+   Unlike margin-top + translateY(-50%), this remains correct if links wrap.
+   Leave every link's original gap, typography and horizontal spacing intact. */
+html body header.top-bar > .site-nav,
+html.desktop-resize-lock body header.top-bar > .site-nav,
+html.mobile-device-route body header.top-bar > .site-nav,
+html.index-only-mobile-source body header.top-bar > .site-nav {
+  margin-top:0 !important;
+  position:relative !important;
+  top:calc(var(--bp-toggle-row-height, 60px) / 2) !important;
+  transform:translateY(-50%) !important;
+}
+</style>
+<style id="bp-nav-measured-toggle-midpoint-20261104">
+/* Preserve original link spacing, typography, wrapping, and grid columns.
+   Only the navigation's Y translation is dynamically matched to the real toggle. */
+html body header.top-bar > .site-nav,
+html.desktop-resize-lock body header.top-bar > .site-nav,
+html.mobile-device-route body header.top-bar > .site-nav,
+html.index-only-mobile-source body header.top-bar > .site-nav {
+  top:0 !important;
+  margin-top:0 !important;
+  transform:translate3d(0,var(--bp-nav-exact-center-y,0px),0) !important;
+}
+</style>
+<script id="bp-nav-measured-toggle-midpoint-script-20261104">
+(function(){
+  function setup(){
+    var header=document.querySelector('header.top-bar');
+    if(!header || header.dataset.bpNavMeasuredCenter==='yes')return;
+    var nav=header.querySelector(':scope > .site-nav');
+    var toggle=header.querySelector(':scope > #themeToggle');
+    if(!nav||!toggle)return;
+    header.dataset.bpNavMeasuredCenter='yes';
+    var pending=false;
+    function align(){
+      pending=false;
+      if(!nav.isConnected||!toggle.isConnected)return;
+      /* Remove the previous translation from the measurement, so updates
+         cannot accumulate or jump as the navigation wraps or resizes. */
+      var previous=parseFloat(nav.style.getPropertyValue('--bp-nav-exact-center-y'))||0;
+      var n=nav.getBoundingClientRect();
+      var t=toggle.getBoundingClientRect();
+      var offset=previous+(t.top+t.height/2)-(n.top+n.height/2);
+      if(Number.isFinite(offset)&&Math.abs(offset-previous)>0.1){
+        nav.style.setProperty('--bp-nav-exact-center-y',offset.toFixed(2)+'px');
+      }
+    }
+    function queue(){if(!pending){pending=true;requestAnimationFrame(align);}}
+    queue();
+    window.addEventListener('resize',queue,{passive:true});
+    window.addEventListener('orientationchange',queue,{passive:true});
+    if('ResizeObserver' in window){
+      var observer=new ResizeObserver(queue);
+      observer.observe(header);observer.observe(nav);observer.observe(toggle);
+    }
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(queue);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});
+  else setup();
+})();
+</script>
 </head>
 <body>
 
