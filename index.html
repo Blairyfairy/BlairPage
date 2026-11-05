@@ -2289,6 +2289,54 @@ html body .top-bar .credential-header.bp-brand-links .bp-lvmh-link:is(:hover,:fo
   translate:none !important;
 }
 </style>
+
+<style id="bp-mobile-only-branding-menu-row-fit-20261104">
+/* Phone menu only. Desktop, tablet, and existing browser layout stay exactly as before.
+   Use the same top-row anchor as the Light/Dark control; avoid negative top offsets
+   that misalign artwork with the mobile navigation row. */
+@media (max-width:640px) {
+  html body .top-bar .credential-header.bp-brand-links {
+    top:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    align-self:start !important;
+    align-items:flex-start !important;
+    justify-self:start !important;
+    gap:7px !important;
+    min-width:0 !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-lvmh-link,
+  html body .top-bar .credential-header.bp-brand-links .bp-lvmh-link:is(:hover,:focus,:focus-visible,:active) {
+    align-self:flex-start !important;
+    row-gap:0 !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-aws-link,
+  html body .top-bar .credential-header.bp-brand-links .bp-aws-link:is(:hover,:focus,:focus-visible,:active) {
+    align-self:flex-start !important;
+    margin-top:0 !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-exact-lvmh {
+    width:49px !important;
+    height:27px !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-exact-aws {
+    width:79px !important;
+    height:23px !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-training-status {
+    font-size:8px !important;
+    line-height:1.05 !important;
+  }
+}
+@media (max-width:390px) {
+  html body .top-bar .credential-header.bp-brand-links { gap:5px !important; }
+  html body .top-bar .credential-header.bp-brand-links .bp-exact-lvmh { width:44px !important; height:24px !important; }
+  html body .top-bar .credential-header.bp-brand-links .bp-exact-aws { width:71px !important; height:21px !important; }
+  html body .top-bar .credential-header.bp-brand-links .bp-training-status { font-size:7.5px !important; }
+}
+</style>
 </head>
 <body>
 
