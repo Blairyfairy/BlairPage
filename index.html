@@ -2337,6 +2337,53 @@ html body .top-bar .credential-header.bp-brand-links .bp-lvmh-link:is(:hover,:fo
   html body .top-bar .credential-header.bp-brand-links .bp-training-status { font-size:7.5px !important; }
 }
 </style>
+
+<style id="bp-mobile-credential-desktop-artwork-proportions-20261104">
+/* Phone only: preserve the actual desktop artwork proportions rather than stretching
+   AWS into a taller mobile box. Keep both marks on the same top baseline. */
+@media (max-width:640px) {
+  html body .top-bar .credential-header.bp-brand-links {
+    gap:8px !important; align-items:flex-start !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-lvmh-link,
+  html body .top-bar .credential-header.bp-brand-links .bp-aws-link {
+    align-self:flex-start !important; justify-content:flex-start !important;
+    padding:0 !important; margin:0 !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-exact-lvmh {
+    width:52px !important; height:28.4px !important; object-fit:contain !important;
+    object-position:left top !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-exact-aws {
+    width:86px !important; height:19.45px !important; object-fit:contain !important;
+    object-position:left top !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-training-status {
+    font-size:8px !important; line-height:1.05 !important; letter-spacing:normal !important;
+  }
+}
+@media (max-width:390px) {
+  html body .top-bar .credential-header.bp-brand-links {gap:6px !important;}
+  html body .top-bar .credential-header.bp-brand-links .bp-exact-lvmh {
+    width:46px !important; height:25.1px !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-exact-aws {
+    width:76px !important; height:17.2px !important;
+  }
+  html body .top-bar .credential-header.bp-brand-links .bp-training-status {font-size:7.5px !important;}
+}
+</style>
+
+<style id="bp-phone-menu-desktop-top-inset-20261104">
+/* Match desktop header's 0.9rem distance from the viewport top.
+   Move the complete mobile menu row together, not individual logos or links. */
+@media screen and (max-width:640px) {
+  html body .top-bar,
+  html.desktop-resize-lock body .top-bar {
+    padding-top:0.9rem !important;
+  }
+}
+</style>
 </head>
 <body>
 
