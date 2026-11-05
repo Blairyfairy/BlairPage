@@ -2384,6 +2384,75 @@ html body .top-bar .credential-header.bp-brand-links .bp-lvmh-link:is(:hover,:fo
   }
 }
 </style>
+
+<style id="bp-unified-navigation-toggle-centerline-all-viewports-20261104">
+/* Single header row at every viewport width. No breakpoint can place navigation
+   into a separate top-aligned grid row. The theme control is the vertical anchor. */
+html body header.top-bar,
+html.desktop-resize-lock body header.top-bar,
+html.mobile-device-route body header.top-bar,
+html.index-only-mobile-source body header.top-bar {
+  display:grid !important;
+  grid-template-columns:max-content minmax(0,1fr) max-content !important;
+  grid-template-areas:"cred nav toggle" !important;
+  grid-template-rows:auto !important;
+  align-items:start !important;
+  column-gap:clamp(9px,1.4vw,24px) !important;
+}
+html body header.top-bar > .credential-header.bp-brand-links {
+  grid-area:cred !important;
+  grid-row:1 !important;
+  grid-column:1 !important;
+  align-self:start !important;
+  justify-self:start !important;
+}
+html body header.top-bar > .site-nav {
+  grid-area:nav !important;
+  grid-row:1 !important;
+  grid-column:2 !important;
+  align-self:start !important;
+  justify-self:center !important;
+  display:flex !important;
+  flex-direction:row !important;
+  flex-wrap:wrap !important;
+  align-items:center !important;
+  align-content:center !important;
+  justify-content:center !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  /* Center link line on the toggle's vertical midpoint, independently of the
+     taller INSIDE LVMH / In Training group. No breakpoint-specific top jump. */
+  margin-top:calc(var(--bp-toggle-row-height, 60px) / 2) !important;
+  transform:translateY(-50%) !important;
+  position:relative !important;
+  top:auto !important;
+  left:auto !important;
+  right:auto !important;
+  gap:3px 0 !important;
+}
+html body header.top-bar > #themeToggle {
+  grid-area:toggle !important;
+  grid-row:1 !important;
+  grid-column:3 !important;
+  justify-self:end !important;
+  align-self:start !important;
+  margin:0 !important;
+}
+@media (max-width:900px) {
+  html body header.top-bar { --bp-toggle-row-height:60px; column-gap:clamp(7px,1vw,13px) !important; }
+  html body header.top-bar > .site-nav a { margin-right:clamp(4px,0.7vw,10px) !important; }
+}
+@media (max-width:640px) {
+  html body header.top-bar { --bp-toggle-row-height:60px; column-gap:7px !important; }
+  html body header.top-bar > .site-nav { gap:2px 0 !important; }
+  html body header.top-bar > .site-nav a { margin-right:5px !important; font-size:clamp(9px,2.35vw,12px) !important; line-height:1.15 !important; }
+}
+@media (max-width:390px) {
+  html body header.top-bar { column-gap:5px !important; }
+  html body header.top-bar > .site-nav a { margin-right:3px !important; font-size:9px !important; }
+}
+</style>
 </head>
 <body>
 
@@ -2587,8 +2656,15 @@ html body .top-bar .credential-header.bp-brand-links .bp-lvmh-link:is(:hover,:fo
      title="Discord: BlairPage">
 
     <span class="icon-wrap">
-      <svg viewBox="0 0 24 24" fill="#9e829c">
-        <path d="M20.3 4.3A17.7 17.7 0 0 0 15.9 3c-.2.3-.4.7-.6 1a16.6 16.6 0 0 0-6.6 0c-.2-.3-.4-.7-.6-1a17.7 17.7 0 0 0-4.4 1.3C1.3 8.1.5 11.8.8 15.5a17.8 17.8 0 0 0 5.4 2.7c.4-.5.7-1 .9-1.6-.5-.2-1-.4-1.4-.6.1-.1.2-.2.3-.3a12.2 12.2 0 0 0 11 0l.3.3c-.5.2-1 .4-1.5.6.3.6.6 1.1.9 1.6a17.8 17.8 0 0 0 5.4-2.7c.4-4.3-.6-8-2.8-11.2Z"/>
+      <svg viewBox="0 0 24 24" fill="#9e829c" aria-hidden="true">
+        <defs>
+          <mask id="bp-discord-clyde-eye-cutouts">
+            <rect width="24" height="24" fill="white"/>
+            <ellipse cx="8.65" cy="10.65" rx="1.12" ry="1.48" fill="black"/>
+            <ellipse cx="15.35" cy="10.65" rx="1.12" ry="1.48" fill="black"/>
+          </mask>
+        </defs>
+        <path mask="url(#bp-discord-clyde-eye-cutouts)" d="M20.3 4.3A17.7 17.7 0 0 0 15.9 3c-.2.3-.4.7-.6 1a16.6 16.6 0 0 0-6.6 0c-.2-.3-.4-.7-.6-1a17.7 17.7 0 0 0-4.4 1.3C1.3 8.1.5 11.8.8 15.5a17.8 17.8 0 0 0 5.4 2.7c.4-.5.7-1 .9-1.6-.5-.2-1-.4-1.4-.6.1-.1.2-.2.3-.3a12.2 12.2 0 0 0 11 0l.3.3c-.5.2-1 .4-1.5.6.3.6.6 1.1.9 1.6a17.8 17.8 0 0 0 5.4-2.7c.4-4.3-.6-8-2.8-11.2Z"/>
       </svg>
     </span>
 
@@ -2606,8 +2682,9 @@ html body .top-bar .credential-header.bp-brand-links .bp-lvmh-link:is(:hover,:fo
      class="badge-item compact-badge">
 
     <span class="icon-wrap">
-      <svg viewBox="0 0 24 24" fill="#9e829c">
-        <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5-1.3A10 10 0 1 0 12 2Zm5.4 13.6c-.2.6-1.3 1.1-1.8 1.2-.5.1-1.2.2-3.5-.7-2.8-1.1-4.6-3.9-4.7-4-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.2-.3.6-.4.8-.4h.6c.2 0 .5 0 .7.5.2.6.8 2 .9 2.2.1.2.1.4 0 .6-.1.2-.2.4-.4.6l-.6.7c-.2.2-.4.4-.2.8.2.4 1 1.7 2.2 2.8 1.5 1.3 2.7 1.7 3.1 1.9.4.2.6.2.8-.1.2-.3.9-1 1.1-1.4.2-.3.4-.3.7-.2.3.1 1.9.9 2.2 1.1.3.2.5.3.5.5 0 .2-.1.9-.3 1.5Z"/>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <defs><mask id="bp-whatsapp-transparent-handset"><rect width="24" height="24" fill="white"/><path fill="black" d="M7.15 5.9c-.47 0-.87.2-1.2.55-.56.59-.86 1.4-.86 2.32 0 1.62 1.03 3.56 2.83 5.38 1.88 1.88 4.2 3.12 6.32 3.4 1.13.15 2.11-.06 2.8-.59.57-.44 1.02-1.24 1.02-1.92 0-.24-.13-.4-.39-.53l-2.46-1.15c-.3-.14-.52-.12-.72.18l-1.05 1.27c-.17.21-.33.24-.64.09-.83-.39-1.59-.88-2.3-1.49-.65-.57-1.23-1.26-1.71-2.02-.15-.25-.1-.4.09-.6l.77-.9c.2-.22.25-.4.15-.65L8.75 6.5c-.15-.4-.36-.59-.72-.6h-.88Z"/></mask></defs>
+        <path fill="#9e829c" mask="url(#bp-whatsapp-transparent-handset)" d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5-1.3A10 10 0 1 0 12 2Z"/>
       </svg>
     </span>
 
