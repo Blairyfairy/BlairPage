@@ -20875,3 +20875,63 @@ html body .top-bar .bp-brand-links .bp-aws-link:is(:hover,:focus-visible,:active
   justify-content:flex-start !important;
 }
 </style>
+
+<!-- Mobile marquee logo parity: desktop artwork, proportions and wordmarks. -->
+<style id="bp-mobile-brand-desktop-parity-20261104">
+@media (max-width: 900px) {
+  /* Match the desktop logo canvas rather than squeezing the artwork. */
+  html body .enterprise-brand-slider__item {
+    width: 205px !important;
+    height: 72px !important;
+    padding: 12px 20px !important;
+  }
+  /* GiveWP: identical heart glyph, typography, gap and relative scale. */
+  html body .enterprise-brand-slider__item .brand-givewp-mark {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    letter-spacing: -1.2px !important;
+    gap: 9px !important;
+    align-items: center !important;
+  }
+  html body .enterprise-brand-slider__item .brand-givewp-heart {
+    font-family: inherit !important;
+    font-size: 24px !important;
+    font-weight: inherit !important;
+    line-height: 1 !important;
+    transform: none !important;
+  }
+  /* Pizza Hut: preserve the desktop roof glyph and horizontal stretch. */
+  html body .enterprise-brand-slider__item .brand-pizzahut {
+    font-family: Arial, Helvetica, sans-serif !important;
+    line-height: .95 !important;
+    align-items: center !important;
+  }
+  html body .enterprise-brand-slider__item .brand-pizzahut-roof {
+    font-size: 30px !important;
+    line-height: .55 !important;
+    transform: scaleX(1.8) !important;
+    margin-bottom: 4px !important;
+  }
+  html body .enterprise-brand-slider__item .brand-pizzahut strong {
+    font-size: 19.2px !important;
+    font-weight: 800 !important;
+    letter-spacing: -1px !important;
+  }
+  /* GameCrazy: retain the desktop heavy wordmark and tight kerning. */
+  html body .enterprise-brand-slider__item .brand-gamecrazy {
+    font-family: "Arial Black", Arial, Helvetica, sans-serif !important;
+    font-size: 23px !important;
+    letter-spacing: -1.7px !important;
+    align-items: baseline !important;
+  }
+  html body .enterprise-brand-slider__item .brand-gamecrazy strong,
+  html body .enterprise-brand-slider__item .brand-gamecrazy em {
+    font-weight: 900 !important;
+  }
+  html body .enterprise-brand-slider__item .brand-gamecrazy em {
+    font-style: normal !important;
+    margin-left: 3px !important;
+  }
+}
+</style>
