@@ -2512,6 +2512,33 @@ html.index-only-mobile-source body header.top-bar > .site-nav {
   else setup();
 })();
 </script>
+
+<style id="bp-mobile-desktop-visual-parity-safeguard-20261104">
+/* Keep the approved desktop artwork, typography and aspect ratios at mobile
+   widths; this does not modify header columns, link spacing, or navigation Y. */
+@media (max-width:640px) {
+  html body header.top-bar .bp-brand-links .bp-exact-lvmh,
+  html body header.top-bar .bp-brand-links .bp-exact-aws {
+    object-fit:contain !important;
+    object-position:left top !important;
+    image-rendering:auto !important;
+    flex-shrink:0 !important;
+  }
+  html body header.top-bar .bp-brand-links .bp-brand-link {
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+  html body header.top-bar .bp-brand-links .bp-training-status {
+    white-space:nowrap !important;
+    font-kerning:normal !important;
+    font-synthesis:none !important;
+  }
+  html body header.top-bar > .site-nav a {
+    font-synthesis:none !important;
+    font-kerning:normal !important;
+  }
+}
+</style>
 </head>
 <body>
 
