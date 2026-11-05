@@ -20935,3 +20935,87 @@ html body .top-bar .bp-brand-links .bp-aws-link:is(:hover,:focus-visible,:active
   }
 }
 </style>
+
+
+<!-- Additive-only: Udemy resting monochrome and consistent desktop brand artwork on mobile. -->
+<style id="bp-udemy-rest-grey-and-brand-desktop-mobile-parity-20261104">
+/* Preserve the existing SVG and its exact full-color hover artwork. */
+html body .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"] .tt-kicker::before {
+  filter: grayscale(1) brightness(.92) !important;
+  opacity: .65 !important;
+}
+html body .tt-section .tt-stack > div.tt-card[aria-label*="Udemy"]:is(:hover,:focus-within) .tt-kicker::before {
+  filter: none !important;
+  opacity: 1 !important;
+}
+/* Desktop-equivalent logo canvas and internal artwork metrics at every narrow width.
+   No logo glyphs, SVG paths, link targets, or slider scripts are replaced. */
+@media (max-width: 900px) {
+  html body .enterprise-brand-slider__item {
+    width: 228px !important;
+    height: 84px !important;
+    padding: 12px 24px !important;
+    flex: 0 0 228px !important;
+  }
+  html body .enterprise-brand-slider__item .brand-givewp-mark {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    letter-spacing: -1.2px !important;
+    gap: 9px !important;
+  }
+  html body .enterprise-brand-slider__item .brand-givewp-heart {
+    font-size: 24px !important;
+    line-height: 1 !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+  }
+  html body .enterprise-brand-slider__item .brand-fitbit-symbol {
+    width: 34px !important;
+    height: 30px !important;
+    flex-basis: 34px !important;
+  }
+  html body .enterprise-brand-slider__item .brand-airbnb {
+    min-width: 145px !important;
+    min-height: 48px !important;
+    gap: 10px !important;
+    font-size: 24px !important;
+  }
+  html body .enterprise-brand-slider__item .brand-airbnb-symbol {
+    width: 34px !important;
+    height: 42px !important;
+    flex-basis: 34px !important;
+  }
+  html body .enterprise-brand-slider__item .brand-katespade strong { font-size: 23px !important; }
+  html body .enterprise-brand-slider__item .brand-vimeo { font-size: 27px !important; }
+  html body .enterprise-brand-slider__item .brand-pizzahut {
+    font-family: Arial, Helvetica, sans-serif !important;
+    line-height: .95 !important;
+    align-items: center !important;
+  }
+  html body .enterprise-brand-slider__item .brand-pizzahut-roof {
+    font-size: 30px !important;
+    line-height: .55 !important;
+    transform: scaleX(1.8) !important;
+    margin-bottom: 4px !important;
+  }
+  html body .enterprise-brand-slider__item .brand-pizzahut strong {
+    font-size: 19.2px !important;
+    font-weight: 800 !important;
+    letter-spacing: -1px !important;
+  }
+  html body .enterprise-brand-slider__item .brand-rtr { font-size: 19px !important; }
+  html body .enterprise-brand-slider__item .brand-membean { font-size: 24px !important; }
+  html body .enterprise-brand-slider__item .brand-gamecrazy {
+    font-family: "Arial Black", Arial, Helvetica, sans-serif !important;
+    font-size: 23px !important;
+    letter-spacing: -1.7px !important;
+    align-items: baseline !important;
+  }
+  html body .enterprise-brand-slider__item .brand-gamecrazy strong,
+  html body .enterprise-brand-slider__item .brand-gamecrazy em { font-weight: 900 !important; }
+  html body .enterprise-brand-slider__item .brand-gamecrazy em {
+    font-style: normal !important;
+    margin-left: 3px !important;
+  }
+}
+</style>
