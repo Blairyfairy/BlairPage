@@ -16342,6 +16342,43 @@ html body .udacity-accenture-lockup .institute-wordmark {
 /* Reference-traced original letter shapes, inner outlines and central flame; no green halo. */
 html body .enterprise-brand-slider__item .brand-gamecrazy-art { color:inherit !important; fill:currentColor !important; }
 </style>
+
+<style id="linux-academy-fluid-fit-all-breakpoints-final">
+/* Linux Academy only. Preserve desktop layout; prevent intermediate-size overflow. */
+#linux-academy-pluralsight,
+#linux-academy-pluralsight .lapx-inner,
+#linux-academy-pluralsight .lapx-main,
+#linux-academy-pluralsight .lapx-head,
+#linux-academy-pluralsight .lapx-titles,
+#linux-academy-pluralsight .lapx-value { min-width:0 !important; max-width:100% !important; box-sizing:border-box !important; }
+#linux-academy-pluralsight .lapx-tag,
+#linux-academy-pluralsight .lapx-lead,
+#linux-academy-pluralsight .lapx-body,
+#linux-academy-pluralsight .lapx-note,
+#linux-academy-pluralsight .lapx-value { overflow-wrap:break-word !important; }
+@media (max-width:900px) {
+  html body #linux-academy-pluralsight { padding:clamp(12px,3.5vw,24px) !important; }
+  html body #linux-academy-pluralsight .lapx-inner { display:flex !important; flex-direction:column !important; gap:clamp(12px,2vw,20px) !important; }
+  html body #linux-academy-pluralsight .lapx-head { display:flex !important; flex-direction:column !important; flex-wrap:nowrap !important; align-items:center !important; justify-content:center !important; gap:clamp(8px,2vw,16px) !important; width:100% !important; text-align:center !important; }
+  html body #linux-academy-pluralsight .lapx-head .lapx-marks { flex:0 0 auto !important; width:clamp(72px,22vw,155px) !important; max-width:60% !important; margin:0 auto !important; align-self:center !important; }
+  html body #linux-academy-pluralsight .lapx-head .lapx-titles { flex:0 1 auto !important; width:100% !important; margin:0 auto !important; text-align:center !important; }
+  html body #linux-academy-pluralsight .lapx-head .lapx-kicker,
+  html body #linux-academy-pluralsight .lapx-head h3#lapx-title { display:block !important; width:100% !important; margin-left:auto !important; margin-right:auto !important; text-align:center !important; }
+  html body #linux-academy-pluralsight .lapx-head .lapx-tag-row { display:flex !important; flex-wrap:wrap !important; justify-content:center !important; align-items:center !important; gap:6px !important; width:100% !important; }
+  html body #linux-academy-pluralsight .lapx-head .lapx-tag { flex:0 1 auto !important; width:auto !important; max-width:100% !important; white-space:normal !important; text-align:center !important; overflow-wrap:anywhere !important; }
+  html body #linux-academy-pluralsight .lapx-head .lapx-count { flex:0 0 auto !important; width:auto !important; margin:0 auto !important; text-align:center !important; }
+  html body #linux-academy-pluralsight .lapx-lead { width:100% !important; margin-left:auto !important; margin-right:auto !important; text-align:center !important; }
+  html body #linux-academy-pluralsight .lapx-value { width:100% !important; justify-content:center !important; text-align:center !important; gap:8px 14px !important; }
+  html body #linux-academy-pluralsight .lapx-value-box { flex-wrap:wrap !important; justify-content:center !important; }
+}
+@media (max-width:420px) {
+  html body #linux-academy-pluralsight { padding:12px !important; }
+  html body #linux-academy-pluralsight .lapx-head .lapx-tag-row { flex-direction:column !important; }
+  html body #linux-academy-pluralsight .lapx-head .lapx-tag { max-width:100% !important; }
+  html body #linux-academy-pluralsight .lapx-head h3#lapx-title { font-size:clamp(1.1rem,5vw,1.25rem) !important; }
+  html body #linux-academy-pluralsight .lapx-value { flex-direction:column !important; align-items:center !important; }
+}
+</style>
 </body>
 </html>
 
@@ -21324,5 +21361,66 @@ html body .enterprise-brand-slider__item .brand-katespade small {
   html body .enterprise-brand-slider__item .brand-katespade::before { width: 22px !important; height: 22px !important; flex-basis: 22px !important; margin-bottom: 4px !important; }
   html body .enterprise-brand-slider__item .brand-katespade strong { font-size: 23px !important; }
   html body .enterprise-brand-slider__item .brand-katespade small { font-size: 9px !important; margin-top: 6px !important; }
+}
+</style>
+
+<style id="linux-academy-half-desktop-width-centered-copy-fix">
+/* At half-desktop and smaller widths, keep the Linux Academy heading,
+   badges, count and introductory copy together in a centered column. */
+@media (max-width: 600px) {
+  #linux-academy-pluralsight .lapx-head {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.65rem !important;
+    text-align: center !important;
+  }
+  #linux-academy-pluralsight .lapx-head .lapx-titles {
+    flex: 0 1 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
+  }
+  #linux-academy-pluralsight .lapx-head .lapx-tag-row {
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+  }
+  #linux-academy-pluralsight .lapx-head .lapx-tag {
+    text-align: center !important;
+  }
+  #linux-academy-pluralsight .lapx-head .lapx-count {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+  #linux-academy-pluralsight .lapx-lead {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+}
+</style>
+
+<style id="linux-academy-mobile-heading-explicit-center-fix">
+/* Only the Linux Academy heading: explicitly override its desktop alignment. */
+@media (max-width: 600px) {
+  html body #linux-academy-pluralsight .lapx-head .lapx-titles h3#lapx-title {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-align: center !important;
+    align-self: center !important;
+    justify-self: center !important;
+  }
 }
 </style>
