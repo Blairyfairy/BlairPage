@@ -3243,6 +3243,37 @@ html body #inside-lvmh-2026:hover :is(.lvmh-eyebrow,.lvmh-year,.lvmh-intro,.lvmh
 }
 /* Keep the logo artwork and certificate PNG intact; preserve click-only disclosure. */
 </style>
+
+<style id="bp-lvmh-remove-nested-desaturation-20261110">
+/* Root cause: old hover-parity styles desaturated and faded entire nested groups,
+   so even explicitly mauve text rendered gray. Preserve colors at all times. */
+html body #inside-lvmh-2026,
+html body #inside-lvmh-2026 .lvmh-path,
+html body #inside-lvmh-2026 .lvmh-footer,
+html body #inside-lvmh-2026 .lvmh-certificate-reveal > summary,
+html body #inside-lvmh-2026 .lvmh-path .lvmh-module {
+  filter: none !important;
+  opacity: 1 !important;
+}
+/* Keep default mauve and whole-card white-hover behavior, including when the
+   disclosure is focused after clicking. No automatic disclosure on hover. */
+html body #inside-lvmh-2026:not(:hover) .lvmh-year,
+html body #inside-lvmh-2026:not(:hover) .lvmh-path .lvmh-module :is(small,strong,span),
+html body #inside-lvmh-2026:not(:hover) .lvmh-footer .lvmh-skills,
+html body #inside-lvmh-2026:not(:hover) .lvmh-footer .lvmh-skills strong,
+html body #inside-lvmh-2026:not(:hover) .lvmh-certificate-reveal > summary {
+  color: #9e829c !important;
+  -webkit-text-fill-color: #9e829c !important;
+}
+html body #inside-lvmh-2026:hover .lvmh-year,
+html body #inside-lvmh-2026:hover .lvmh-path .lvmh-module :is(small,strong,span),
+html body #inside-lvmh-2026:hover .lvmh-footer .lvmh-skills,
+html body #inside-lvmh-2026:hover .lvmh-footer .lvmh-skills strong,
+html body #inside-lvmh-2026:hover .lvmh-certificate-reveal > summary {
+  color: #f0eff4 !important;
+  -webkit-text-fill-color: #f0eff4 !important;
+}
+</style>
 </head>
 <body>
 
