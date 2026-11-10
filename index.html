@@ -3336,6 +3336,52 @@ html body #inside-lvmh-2026:hover .lvmh-skills * {
 }
 /* Never modify the certificate bitmap or logo artwork. */
 </style>
+
+<style id="bp-lvmh-match-asana-surface-and-shine-20261110">
+/* Match Asana's crisp, lightly misted glass surface instead of a heavy fog layer. */
+html body article#inside-lvmh-2026 {
+  background:linear-gradient(100deg,rgba(158,130,156,.06) 0%,rgba(58,62,59,.04) 38%,transparent 75%) !important;
+  background-color:transparent !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  filter:none !important;
+  opacity:1 !important;
+  border:1.5px solid rgba(158,130,156,.28) !important;
+  border-radius:22px !important;
+  box-shadow:0 10px 30px rgba(0,0,0,.20) !important;
+  overflow:hidden !important;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s ease,border-color .3s ease,box-shadow .3s ease !important;
+}
+/* A thin, sharp edge accent, as on the Asana cards. */
+html body article#inside-lvmh-2026::before {
+  content:"" !important;position:absolute !important;left:0 !important;top:0 !important;bottom:0 !important;
+  width:6px !important;height:auto !important;right:auto !important;
+  background:linear-gradient(180deg,rgba(158,130,156,.55),rgba(158,130,156,.25)) !important;
+  box-shadow:none !important;pointer-events:none !important;z-index:2 !important;
+}
+/* Sharp, narrow diagonal shine; isolated from the content and certificate artwork. */
+html body article#inside-lvmh-2026::after {
+  content:"" !important;position:absolute !important;inset:0 !important;
+  background:linear-gradient(108deg,transparent 0%,transparent 43%,rgba(255,255,255,.025) 46%,rgba(255,255,255,.17) 49%,rgba(255,255,255,.035) 52%,transparent 56%,transparent 100%) !important;
+  transform:translateX(-135%) skewX(-12deg) !important;
+  opacity:0 !important;pointer-events:none !important;z-index:3 !important;
+}
+@keyframes bpLvmhAsanaSharpSweep {0%{transform:translateX(-135%) skewX(-12deg);opacity:0}12%{opacity:1}80%{opacity:1}100%{transform:translateX(135%) skewX(-12deg);opacity:0}}
+html body article#inside-lvmh-2026:hover {
+  transform:translateY(-3px) !important;
+  background:linear-gradient(100deg,rgba(4,15,41,.48) 0%,rgba(4,15,41,.28) 45%,rgba(4,15,41,.14) 100%) !important;
+  border-color:rgba(158,130,156,.75) !important;
+  box-shadow:0 15px 35px rgba(0,0,0,.35),0 0 22px rgba(158,130,156,.22) !important;
+}
+html body article#inside-lvmh-2026:hover::before {
+  background:linear-gradient(180deg,#9e829c,rgba(158,130,156,.6)) !important;
+  box-shadow:0 0 18px rgba(158,130,156,.45) !important;
+}
+html body article#inside-lvmh-2026:hover::after {
+  animation:bpLvmhAsanaSharpSweep .95s cubic-bezier(.18,.55,.28,1) 1 !important;
+}
+@media (prefers-reduced-motion:reduce){html body article#inside-lvmh-2026:hover::after{animation:none !important}}
+</style>
 </head>
 <body>
 
