@@ -16921,6 +16921,28 @@ html body #inside-lvmh-2026 #inside-lvmh-certificate-image img.lvmh-original-cer
   filter:none !important;
 }
 </style>
+
+<style id="bp-lvmh-summary-follows-card-hover-20261110">
+/* The summary is only a native click-to-expand control. Card hover changes its
+   color, never the details open state or the control's dimensions. */
+html body #inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-link {
+  color:#9e829c !important;
+  -webkit-text-fill-color:#9e829c !important;
+  background:transparent !important;
+  background-image:none !important;
+  transition:color .28s ease,-webkit-text-fill-color .28s ease,border-color .28s ease !important;
+}
+html body #inside-lvmh-2026:hover .lvmh-certificate-reveal > summary.lvmh-certificate-link,
+html body #inside-lvmh-2026:hover .lvmh-certificate-reveal > summary.lvmh-certificate-link:not(:hover):not(:focus-visible),
+html body #inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-link:is(:hover,:focus-visible) {
+  color:#f0eff4 !important;
+  -webkit-text-fill-color:#f0eff4 !important;
+  background:transparent !important;
+  background-image:none !important;
+}
+/* The shine still only plays on direct summary hover, and clicking is still
+   the sole mechanism that toggles the native details element. */
+</style>
 </body>
 
 <style id="bp-lvmh-reference-navy-white-brand-parity-20261110">
@@ -20695,6 +20717,37 @@ html body .enterprise-brand-slider__item .brand-airbnb-word {
   box-shadow:0 0 14px rgba(65,65,98,.18) !important;
 }
 @media(prefers-reduced-motion:reduce){#inside-lvmh-2026,#inside-lvmh-2026::before{transition:none !important;}}
+</style>
+
+<style id="bp-lvmh-final-explicit-hover-only-text-colors-20261110">
+/* Correct the root cause: :focus-within could leave older rules in the white
+   state after a click. Default mauve must not depend on focus state. */
+html body #inside-lvmh-2026 .lvmh-year,
+html body #inside-lvmh-2026 .lvmh-path .lvmh-module,
+html body #inside-lvmh-2026 .lvmh-path .lvmh-module small,
+html body #inside-lvmh-2026 .lvmh-path .lvmh-module strong,
+html body #inside-lvmh-2026 .lvmh-path .lvmh-module span,
+html body #inside-lvmh-2026 .lvmh-footer .lvmh-skills,
+html body #inside-lvmh-2026 .lvmh-footer .lvmh-skills strong,
+html body #inside-lvmh-2026 .lvmh-intro,
+html body #inside-lvmh-2026 .lvmh-intro strong {
+  color:#9e829c !important;
+  -webkit-text-fill-color:#9e829c !important;
+  transition:color .28s ease,-webkit-text-fill-color .28s ease !important;
+}
+html body #inside-lvmh-2026:hover .lvmh-year,
+html body #inside-lvmh-2026:hover .lvmh-path .lvmh-module,
+html body #inside-lvmh-2026:hover .lvmh-path .lvmh-module small,
+html body #inside-lvmh-2026:hover .lvmh-path .lvmh-module strong,
+html body #inside-lvmh-2026:hover .lvmh-path .lvmh-module span,
+html body #inside-lvmh-2026:hover .lvmh-footer .lvmh-skills,
+html body #inside-lvmh-2026:hover .lvmh-footer .lvmh-skills strong,
+html body #inside-lvmh-2026:hover .lvmh-intro,
+html body #inside-lvmh-2026:hover .lvmh-intro strong {
+  color:#f0eff4 !important;
+  -webkit-text-fill-color:#f0eff4 !important;
+}
+/* Keep original white INSIDE LVMH artwork and certificate image unchanged. */
 </style>
 </body>
 <!-- =========================================================
