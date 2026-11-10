@@ -3274,6 +3274,36 @@ html body #inside-lvmh-2026:hover .lvmh-certificate-reveal > summary {
   -webkit-text-fill-color: #f0eff4 !important;
 }
 </style>
+
+<style id="bp-lvmh-remove-desaturation-opacity-at-source-20261110">
+/* Actual cause: legacy !important grayscale and .83 opacity on the TOP, PATH,
+   FOOTER and SUMMARY wrappers. CSS color alone cannot defeat a parent filter. */
+html body #inside-lvmh-2026,
+html body #inside-lvmh-2026 .lvmh-top,
+html body #inside-lvmh-2026 .lvmh-path,
+html body #inside-lvmh-2026 .lvmh-footer,
+html body #inside-lvmh-2026 .lvmh-certificate-reveal > summary,
+html body #inside-lvmh-2026 .lvmh-module,
+html body #inside-lvmh-2026 .lvmh-year,
+html body #inside-lvmh-2026 .lvmh-skills {
+  filter:none !important;
+  -webkit-filter:none !important;
+  opacity:1 !important;
+}
+/* Keep the original artwork unaffected, while making all actual text mauve at rest. */
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) :is(.lvmh-eyebrow,.lvmh-year,.lvmh-intro,.lvmh-meta span,.lvmh-path .lvmh-module,.lvmh-path .lvmh-module small,.lvmh-path .lvmh-module strong,.lvmh-path .lvmh-module span,.lvmh-footer .lvmh-skills,.lvmh-footer .lvmh-skills strong,.lvmh-certificate-reveal > summary.lvmh-certificate-link),
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-top h3 {
+  color:#9e829c !important;
+  -webkit-text-fill-color:#9e829c !important;
+}
+html body #inside-lvmh-2026:hover :is(.lvmh-eyebrow,.lvmh-year,.lvmh-intro,.lvmh-meta span,.lvmh-path .lvmh-module,.lvmh-path .lvmh-module small,.lvmh-path .lvmh-module strong,.lvmh-path .lvmh-module span,.lvmh-footer .lvmh-skills,.lvmh-footer .lvmh-skills strong,.lvmh-certificate-reveal > summary.lvmh-certificate-link),
+html body #inside-lvmh-2026:focus-within :is(.lvmh-eyebrow,.lvmh-year,.lvmh-intro,.lvmh-meta span,.lvmh-path .lvmh-module,.lvmh-path .lvmh-module small,.lvmh-path .lvmh-module strong,.lvmh-path .lvmh-module span,.lvmh-footer .lvmh-skills,.lvmh-footer .lvmh-skills strong,.lvmh-certificate-reveal > summary.lvmh-certificate-link),
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-top h3 {
+  color:#f0eff4 !important;
+  -webkit-text-fill-color:#f0eff4 !important;
+}
+/* The certificate remains click-to-expand; no hover-open behavior is added. */
+</style>
 </head>
 <body>
 
