@@ -16893,6 +16893,34 @@ html body .enterprise-brand-slider__item .brand-gamecrazy-art { color:inherit !i
 }
 @media(max-width:640px){#inside-lvmh-2026 .lvmh-wordmark .lvmh-exact-brand{width:94px !important;max-height:56px !important;}}
 </style>
+
+<style id="bp-lvmh-restored-certificate-translucent-navy-fix-20261110">
+/* Preserve the complete embedded certificate; adjust only the surrounding LVMH card tint. */
+html body #inside-lvmh-2026 {
+  background:transparent !important;
+  background-color:transparent !important;
+  background-image:none !important;
+  transition:background-color .35s ease, border-color .35s ease, box-shadow .35s ease !important;
+}
+html body #inside-lvmh-2026:is(:hover,:focus-within) {
+  background:rgba(4,15,41,.48) !important;
+  background-color:rgba(4,15,41,.48) !important;
+  background-image:none !important;
+  border-color:rgba(158,130,156,.42) !important;
+  box-shadow:0 12px 28px rgba(0,0,0,.20),0 0 18px rgba(4,15,41,.18) !important;
+}
+/* The certificate artwork itself retains its original printed colors and full contents. */
+html body #inside-lvmh-2026 #inside-lvmh-certificate-image,
+html body #inside-lvmh-2026:is(:hover,:focus-within) #inside-lvmh-certificate-image {
+  background:transparent !important;
+  background-image:none !important;
+}
+html body #inside-lvmh-2026 #inside-lvmh-certificate-image img.lvmh-original-certificate {
+  opacity:1 !important;
+  visibility:visible !important;
+  filter:none !important;
+}
+</style>
 </body>
 
 <style id="bp-lvmh-reference-navy-white-brand-parity-20261110">
