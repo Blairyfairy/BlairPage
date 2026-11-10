@@ -3220,6 +3220,29 @@ html body .top-bar .bp-brand-links .bp-lvmh-link:focus .bp-training-status {
 #inside-lvmh-2026 #inside-lvmh-certificate-image.lvmh-certificate-banner { display:block !important; padding:0 !important; background:transparent !important; overflow:hidden !important; }
 #inside-lvmh-2026 #inside-lvmh-certificate-image .lvmh-original-certificate { display:block !important; width:100% !important; max-width:100% !important; height:auto !important; max-height:none !important; object-fit:contain !important; opacity:1 !important; visibility:visible !important; filter:none !important; margin:0 !important; }
 </style>
+
+<style id="bp-lvmh-fix-parent-grayscale-not-just-child-colors-20261110">
+/* Actual cause of the grey text: earlier CSS desaturated entire parent groups.
+   Child text colors cannot defeat a grayscale filter on their ancestors. */
+html body #inside-lvmh-2026 .lvmh-top,
+html body #inside-lvmh-2026 .lvmh-path,
+html body #inside-lvmh-2026 .lvmh-footer,
+html body #inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-link {
+  filter:none !important;
+  opacity:1 !important;
+}
+/* Preserve exact mauve in the resting state; no desaturation of its parents. */
+html body #inside-lvmh-2026:not(:hover) :is(.lvmh-eyebrow,.lvmh-year,.lvmh-intro,.lvmh-intro strong,.lvmh-meta span,.lvmh-module small,.lvmh-module strong,.lvmh-module .lvmh-complete,.lvmh-skills,.lvmh-skills strong,.lvmh-certificate-reveal > summary.lvmh-certificate-link) {
+  color:#9e829c !important;
+  -webkit-text-fill-color:#9e829c !important;
+}
+/* Card hover changes every text label to the same white, even without button hover. */
+html body #inside-lvmh-2026:hover :is(.lvmh-eyebrow,.lvmh-year,.lvmh-intro,.lvmh-intro strong,.lvmh-meta span,.lvmh-module small,.lvmh-module strong,.lvmh-module .lvmh-complete,.lvmh-skills,.lvmh-skills strong,.lvmh-certificate-reveal > summary.lvmh-certificate-link) {
+  color:#f0eff4 !important;
+  -webkit-text-fill-color:#f0eff4 !important;
+}
+/* Keep the logo artwork and certificate PNG intact; preserve click-only disclosure. */
+</style>
 </head>
 <body>
 
