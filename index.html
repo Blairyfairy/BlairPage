@@ -3457,6 +3457,28 @@ html body article#inside-lvmh-2026 > :not(style) {
 }
 @media(prefers-reduced-motion:reduce){html body article#inside-lvmh-2026::after{transition:none !important;}}
 </style>
+<style id="bp-lvmh-certificate-button-relocation-20261110">
+/* Position the existing click-to-expand control in the open space to the
+   right of the introduction, without altering its native details behavior. */
+#inside-lvmh-2026 { position: relative !important; }
+#inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-link {
+  position: absolute !important;
+  top: 158px !important;
+  right: 32px !important;
+  left: auto !important;
+  margin: 0 !important;
+  z-index: 4 !important;
+}
+#inside-lvmh-2026 .lvmh-intro { padding-right: 185px !important; }
+@media (max-width: 850px) {
+  #inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-link {
+    position: static !important;
+    width: max-content !important;
+    margin: 12px 0 0 auto !important;
+  }
+  #inside-lvmh-2026 .lvmh-intro { padding-right: 0 !important; }
+}
+</style>
 </head>
 <body>
 
@@ -17207,6 +17229,31 @@ html body #inside-lvmh-2026:hover .lvmh-module :is(small,strong,span) {
   filter:none !important; opacity:1 !important;
 }
 /* Keep the actual printed certificate image and INSIDE wordmark untouched. */
+</style>
+
+<style id="bp-lvmh-asana-exact-shine-original-midnight-blue-20261110">
+/* Keep the approved Asana-matched geometry, shine sweep and animation; restore only the LVMH midnight-blue glass hue. */
+html body #inside-lvmh-2026 {
+  background:linear-gradient(100deg,rgba(4,15,41,.12) 0%,rgba(4,15,41,.055) 38%,transparent 75%) !important;
+  background-color:transparent !important;
+}
+html body #inside-lvmh-2026:hover,
+html body #inside-lvmh-2026:focus-within {
+  background:linear-gradient(100deg,rgba(4,15,41,.48),rgba(4,15,41,.48)) !important;
+  background-color:rgba(4,15,41,.48) !important;
+  border-color:rgba(87,112,165,.75) !important;
+  box-shadow:0 15px 35px rgba(0,0,0,.35),0 0 22px rgba(4,15,41,.28) !important;
+}
+html body #inside-lvmh-2026:hover::before,
+html body #inside-lvmh-2026:focus-within::before {
+  background:linear-gradient(180deg,#040f29 0%,#405c8b 100%) !important;
+  box-shadow:0 0 18px rgba(4,15,41,.55) !important;
+}
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-module {
+  background:rgba(4,15,41,.08) !important;
+  border-color:rgba(87,112,165,.35) !important;
+  box-shadow:0 0 14px rgba(4,15,41,.18) !important;
+}
 </style>
 </body>
 
