@@ -22419,3 +22419,32 @@ html body #inside-lvmh-2026:is(:hover,:focus-within) {
   box-shadow:0 12px 28px rgba(0,0,0,.20),0 0 18px rgba(4,15,41,.18) !important;
 }
 </style>
+
+<style id="bp-lvmh-all-details-mauve-default-20261110">
+/* Explicitly color every course row, module label, descriptive line and skills copy.
+   Leave the original logo and the embedded official certificate artwork untouched. */
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-module,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-module small,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-module strong,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-module span,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-module .lvmh-complete,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-skills,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-skills strong,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-intro,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-intro strong,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-meta,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-meta span,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-year {
+  color:#9e829c !important;
+  -webkit-text-fill-color:#9e829c !important;
+}
+/* On hover restore the same light-text transition as the surrounding certificates. */
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-module,
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-module :is(small,strong,span),
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-skills,
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-skills strong,
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-year {
+  color:#f0eff4 !important;
+  -webkit-text-fill-color:#f0eff4 !important;
+}
+</style>
