@@ -2934,8 +2934,8 @@ html body .top-bar .bp-brand-links .bp-lvmh-link:focus .bp-training-status {
 #inside-lvmh-2026 .lvmh-path,
 #inside-lvmh-2026 .lvmh-footer,
 #inside-lvmh-2026 .lvmh-certificate-reveal>summary {
-  filter:grayscale(1) saturate(.2);
-  opacity:.83;
+  filter:none;
+  opacity:1;
   transition:filter .3s ease,opacity .3s ease,color .25s ease,text-shadow .25s ease !important;
 }
 #inside-lvmh-2026:hover .lvmh-top,
@@ -2993,7 +2993,7 @@ html body .top-bar .bp-brand-links .bp-lvmh-link:focus .bp-training-status {
 #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-path,
 #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-footer,
 #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-certificate-reveal>summary {
-  filter:grayscale(1) saturate(.2) !important;opacity:.83 !important;
+  filter:none !important;opacity:1 !important;
 }
 #inside-lvmh-2026:hover,#inside-lvmh-2026:focus-within {
   background:linear-gradient(100deg,rgba(20,20,38,.16) 0%,rgba(20,20,38,.08) 38%,transparent 75%) !important;
@@ -17058,6 +17058,34 @@ html body #inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-
 }
 /* The shine still only plays on direct summary hover, and clicking is still
    the sole mechanism that toggles the native details element. */
+</style>
+<style id="bp-lvmh-20261110-final-specificity-repair">
+/* The original :not(:hover):not(:focus-within) rules had greater specificity
+   and !important grayscale/opacity, which visually defeated text color overrides. */
+html body #inside-lvmh-2026,
+html body #inside-lvmh-2026 .lvmh-top,
+html body #inside-lvmh-2026 .lvmh-path,
+html body #inside-lvmh-2026 .lvmh-footer,
+html body #inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-link {
+  filter:none !important; opacity:1 !important;
+}
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-top,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-path,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-footer,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-certificate-reveal > summary.lvmh-certificate-link {
+  filter:none !important; opacity:1 !important;
+}
+html body #inside-lvmh-2026:not(:hover) :is(.lvmh-eyebrow,.lvmh-year,.lvmh-intro,.lvmh-intro strong,.lvmh-meta span,.lvmh-module small,.lvmh-module strong,.lvmh-complete,.lvmh-skills,.lvmh-skills strong,.lvmh-certificate-link),
+html body #inside-lvmh-2026:not(:hover) .lvmh-module :is(small,strong,span) {
+  color:#9e829c !important; -webkit-text-fill-color:#9e829c !important;
+  filter:none !important; opacity:1 !important;
+}
+html body #inside-lvmh-2026:hover :is(.lvmh-eyebrow,.lvmh-year,.lvmh-intro,.lvmh-intro strong,.lvmh-meta span,.lvmh-module small,.lvmh-module strong,.lvmh-complete,.lvmh-skills,.lvmh-skills strong,.lvmh-certificate-link),
+html body #inside-lvmh-2026:hover .lvmh-module :is(small,strong,span) {
+  color:#f0eff4 !important; -webkit-text-fill-color:#f0eff4 !important;
+  filter:none !important; opacity:1 !important;
+}
+/* Keep the actual printed certificate image and INSIDE wordmark untouched. */
 </style>
 </body>
 
