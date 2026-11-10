@@ -21987,3 +21987,45 @@ html body .enterprise-brand-slider__item .brand-katespade small {
 @media(max-width:480px){#inside-lvmh-2026 .lvmh-module{padding:.65rem .7rem !important;}}
 @media(prefers-reduced-motion:reduce){#inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-link::after{display:none !important;}}
 </style>
+
+<style id="bp-lvmh-transparent-mauve-blue-hover-20261110">
+/* At rest, match the understated transparent certification surfaces. */
+#inside-lvmh-2026 {
+  background:transparent !important;
+  background-color:transparent !important;
+  border-color:rgba(158,130,156,.38) !important;
+  box-shadow:none !important;
+  transition:background .38s ease,border-color .38s ease,box-shadow .38s ease !important;
+}
+/* Only the LVMH card hover introduces its brand-inspired midnight/steel-blue tint. */
+#inside-lvmh-2026:hover,
+#inside-lvmh-2026:focus-within {
+  background:linear-gradient(125deg,rgba(13,20,38,.70),rgba(43,57,88,.48)) !important;
+  border-color:rgba(126,151,198,.65) !important;
+  box-shadow:0 8px 26px rgba(13,22,43,.18),inset 0 0 0 1px rgba(160,180,220,.06) !important;
+}
+/* The View Certificate control is transparent and mauve, not gray or blue, at rest.
+   Override earlier card-hover rules so only direct button hover lights it up. */
+#inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-link,
+#inside-lvmh-2026:hover .lvmh-certificate-reveal > summary.lvmh-certificate-link:not(:hover):not(:focus-visible),
+#inside-lvmh-2026:focus-within .lvmh-certificate-reveal > summary.lvmh-certificate-link:not(:hover):not(:focus-visible) {
+  background:transparent !important;
+  background-color:transparent !important;
+  color:#9e829c !important;
+  -webkit-text-fill-color:#9e829c !important;
+  border-color:rgba(158,130,156,.46) !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  transition:background .35s ease,border-color .35s ease,color .35s ease,box-shadow .35s ease !important;
+}
+#inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-link:is(:hover,:focus-visible),
+#inside-lvmh-2026:hover .lvmh-certificate-reveal > summary.lvmh-certificate-link:is(:hover,:focus-visible) {
+  background:linear-gradient(130deg,rgba(20,29,54,.94),rgba(66,84,125,.85)) !important;
+  color:#f0eff4 !important;
+  -webkit-text-fill-color:#f0eff4 !important;
+  border-color:rgba(169,189,231,.82) !important;
+  box-shadow:0 0 20px rgba(96,130,198,.35),inset 0 0 0 1px rgba(255,255,255,.1) !important;
+  text-shadow:0 0 7px rgba(240,239,244,.28) !important;
+}
+/* Keep the existing pronounced Asana-like sweep on direct hover. */
+</style>
