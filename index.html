@@ -22448,3 +22448,35 @@ html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-year {
   -webkit-text-fill-color:#f0eff4 !important;
 }
 </style>
+
+<style id="bp-lvmh-course-copy-state-specificity-fix-20261110">
+/* Target the exact nodes previously left grey by older nested selectors.
+   The certificate image and INSIDE LVMH brand image remain untouched. */
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-year,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-path .lvmh-module,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-path .lvmh-module small,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-path .lvmh-module strong,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-path .lvmh-module span,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-footer .lvmh-skills,
+html body #inside-lvmh-2026:not(:hover):not(:focus-within) .lvmh-footer .lvmh-skills strong {
+  color:#9e829c !important;
+  -webkit-text-fill-color:#9e829c !important;
+}
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-year,
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-path .lvmh-module,
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-path .lvmh-module small,
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-path .lvmh-module strong,
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-path .lvmh-module span,
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-footer .lvmh-skills,
+html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-footer .lvmh-skills strong {
+  color:#f0eff4 !important;
+  -webkit-text-fill-color:#f0eff4 !important;
+}
+html body #inside-lvmh-2026 .lvmh-year,
+html body #inside-lvmh-2026 .lvmh-path .lvmh-module,
+html body #inside-lvmh-2026 .lvmh-path .lvmh-module :is(small,strong,span),
+html body #inside-lvmh-2026 .lvmh-footer .lvmh-skills,
+html body #inside-lvmh-2026 .lvmh-footer .lvmh-skills strong {
+  transition:color .28s ease,-webkit-text-fill-color .28s ease !important;
+}
+</style>
