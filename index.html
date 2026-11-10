@@ -3304,6 +3304,38 @@ html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-top h3 {
 }
 /* The certificate remains click-to-expand; no hover-open behavior is added. */
 </style>
+
+<style id="bp-lvmh-hard-reset-mauve-20261110">
+/* HARD RESET: neutralize nested desaturation, translucency and text blending.
+   Preserve background hover and the embedded official certificate image. */
+html body #inside-lvmh-2026,
+html body #inside-lvmh-2026 .lvmh-top,
+html body #inside-lvmh-2026 .lvmh-path,
+html body #inside-lvmh-2026 .lvmh-module,
+html body #inside-lvmh-2026 .lvmh-footer,
+html body #inside-lvmh-2026 .lvmh-skills,
+html body #inside-lvmh-2026 .lvmh-meta,
+html body #inside-lvmh-2026 .lvmh-certificate-reveal {
+  filter:none !important;-webkit-filter:none !important;
+  opacity:1 !important;mix-blend-mode:normal !important;
+}
+/* Match Asana's true mauve without faded foregrounds. */
+html body #inside-lvmh-2026:not(:hover) :is(.lvmh-eyebrow,.lvmh-year,.lvmh-intro,.lvmh-intro strong,.lvmh-meta span,.lvmh-module,.lvmh-module small,.lvmh-module strong,.lvmh-module span,.lvmh-skills,.lvmh-skills strong,.lvmh-certificate-link),
+html body #inside-lvmh-2026:not(:hover) .lvmh-module *,
+html body #inside-lvmh-2026:not(:hover) .lvmh-skills * {
+ color:#9e829c !important;-webkit-text-fill-color:#9e829c !important;
+ opacity:1 !important;filter:none !important;-webkit-filter:none !important;
+ mix-blend-mode:normal !important;text-shadow:none !important;
+}
+html body #inside-lvmh-2026:hover :is(.lvmh-eyebrow,.lvmh-year,.lvmh-intro,.lvmh-intro strong,.lvmh-meta span,.lvmh-module,.lvmh-module small,.lvmh-module strong,.lvmh-module span,.lvmh-skills,.lvmh-skills strong,.lvmh-certificate-link),
+html body #inside-lvmh-2026:hover .lvmh-module *,
+html body #inside-lvmh-2026:hover .lvmh-skills * {
+ color:#f0eff4 !important;-webkit-text-fill-color:#f0eff4 !important;
+ opacity:1 !important;filter:none !important;-webkit-filter:none !important;
+ mix-blend-mode:normal !important;
+}
+/* Never modify the certificate bitmap or logo artwork. */
+</style>
 </head>
 <body>
 
