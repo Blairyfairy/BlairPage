@@ -3521,6 +3521,61 @@ html body article#inside-lvmh-2026 > :not(style) {
   html body #inside-lvmh-2026 .lvmh-intro {padding-right:0 !important;}
 }
 </style>
+
+<style id="bp-lvmh-visible-certificate-control-position-20261110">
+/* The disclosure was positioned against its zero-height <details>, rather than
+   the card. Anchor the summary to the card; keep native click-to-open. */
+@media (min-width:851px) {
+  html body article#inside-lvmh-2026 { position:relative !important; }
+  html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal,
+  html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal:not([open]) {
+    position:static !important;
+    overflow:visible !important;
+  }
+  html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal > summary.lvmh-certificate-link {
+    position:absolute !important;
+    top:clamp(145px, 12vw, 190px) !important;
+    right:clamp(20px, 3vw, 42px) !important;
+    left:auto !important;
+    bottom:auto !important;
+    display:inline-flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    min-height:40px !important;
+    line-height:normal !important;
+    margin:0 !important;
+    z-index:30 !important;
+    pointer-events:auto !important;
+  }
+  html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal[open] {
+    position:static !important;
+    padding-top:0 !important;
+  }
+  html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal[open] > .lvmh-certificate-banner {
+    position:relative !important;
+    z-index:1 !important;
+    margin-top:1rem !important;
+  }
+}
+@media (max-width:850px) {
+  html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal {
+    position:relative !important;
+    height:auto !important;
+    overflow:visible !important;
+  }
+  html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal > summary.lvmh-certificate-link {
+    position:relative !important;
+    top:auto !important;
+    right:auto !important;
+    left:auto !important;
+    display:inline-flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    margin:12px 0 0 auto !important;
+    z-index:3 !important;
+  }
+}
+</style>
 </head>
 <body>
 
