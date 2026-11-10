@@ -9041,36 +9041,44 @@ html body #inside-lvmh-2026:hover::after {
 #inside-lvmh-2026:focus-visible { outline:2px solid #9e829c; outline-offset:4px; }
 #inside-lvmh-2026 .lvmh-original-certificate { cursor:pointer; }
 </style>
-<script id="bp-lvmh-click-entire-card-20261110">
-(function () {
-  function init() {
-    const card = document.getElementById('inside-lvmh-2026');
-    if (!card) return;
-    const reveal = card.querySelector('details.lvmh-certificate-reveal');
-    if (!reveal) return;
-    function toggle() {
-      reveal.open = !reveal.open;
-      card.setAttribute('aria-expanded', String(reveal.open));
-    }
-    card.addEventListener('click', function (event) {
-      if (event.target.closest('a, button, input, select, textarea')) return;
-      toggle();
-    });
-    card.addEventListener('keydown', function (event) {
-      if (event.target !== card || (event.key !== 'Enter' && event.key !== ' ')) return;
-      event.preventDefault();
-      toggle();
-    });
-    reveal.addEventListener('toggle', function () {
-      card.setAttribute('aria-expanded', String(reveal.open));
-    });
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+
+
+
+
+
+<style id="bp-lvmh-whole-card-original-certificate-repair">
+/* Only the INSIDE LVMH card toggles its original embedded certificate. */
+html body article#inside-lvmh-2026 { cursor:pointer !important; }
+html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal > summary.lvmh-certificate-link { display:none !important; visibility:hidden !important; }
+html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal:not([open]) { height:0 !important; margin:0 !important; padding:0 !important; min-height:0 !important; }
+html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal[open] { display:block !important; height:auto !important; overflow:visible !important; margin-top:12px !important; line-height:normal !important; }
+html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal[open] > #inside-lvmh-certificate-image { display:block !important; visibility:visible !important; height:auto !important; max-height:none !important; opacity:1 !important; overflow:visible !important; }
+html body article#inside-lvmh-2026 > details.lvmh-certificate-reveal[open] > #inside-lvmh-certificate-image > img.lvmh-original-certificate { display:block !important; width:100% !important; height:auto !important; max-height:none !important; opacity:1 !important; visibility:visible !important; }
+</style>
+<script id="bp-lvmh-whole-card-original-certificate-repair">
+(function(){
+ function init(){
+  var card=document.getElementById('inside-lvmh-2026');
+  if(!card || card.dataset.lvmhWholeCardBound==='yes') return;
+  var details=card.querySelector('details.lvmh-certificate-reveal');
+  if(!details) return;
+  card.dataset.lvmhWholeCardBound='yes';
+  function toggle(){ details.open=!details.open; card.setAttribute('aria-expanded',String(details.open)); }
+  card.addEventListener('click',function(e){
+   if(e.target.closest('a,button,input,textarea,select,[contenteditable="true"]')) return;
+   if(e.target.closest('summary')) {e.preventDefault();}
+   toggle();
+  });
+  card.addEventListener('keydown',function(e){
+   if(e.target!==card || (e.key!=='Enter' && e.key!==' ')) return;
+   e.preventDefault();toggle();
+  });
+  details.addEventListener('toggle',function(){card.setAttribute('aria-expanded',String(details.open));});
+  card.setAttribute('aria-expanded',String(details.open));
+ }
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
 </script>
-
-
 
 <!-- =====================
      ASANA CERTIFICATION BANNER (sits directly under the Credly badges)
