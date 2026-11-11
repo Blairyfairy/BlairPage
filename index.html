@@ -6912,26 +6912,33 @@ html body #inside-lvmh-2026:hover::after {
 </a>
 </p>
 <style id="udacity-nanodegree-credential-styles">
-/* Inherits the portfolio's mauve, glass and light/dark theme. */
-.udacity-nanodegrees{margin:1.15rem 0 1.55rem;max-width:100%;min-width:0}
-.udacity-nanodegrees .und-heading{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;margin-bottom:.8rem}
-.udacity-nanodegrees .und-heading-title{font-weight:750;font-size:.96rem;letter-spacing:.015em;color:inherit}
-.udacity-nanodegrees .und-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:.65rem}
-.udacity-nanodegrees .und-card{display:flex;align-items:center;justify-content:space-between;gap:.8rem;min-width:0;padding:.82rem .9rem;border:1px solid var(--glass-border,rgba(240,239,244,.22));border-left:3px solid var(--dusty-mauve,#9e829c);border-radius:12px;background:var(--glass-bg,rgba(240,239,244,.08));color:inherit;text-decoration:none;transition:border-color .22s ease,background .22s ease,box-shadow .22s ease}
-.udacity-nanodegrees .und-card:hover,.udacity-nanodegrees .und-card:focus-visible{border-color:var(--dusty-mauve,#9e829c);background:var(--glass-bg,rgba(240,239,244,.08));box-shadow:0 0 15px rgba(158,130,156,.25);outline-offset:3px}
-.udacity-nanodegrees .und-card-title{display:block;font-size:.84rem;font-weight:650;line-height:1.3;overflow-wrap:anywhere}
-.udacity-nanodegrees .und-card-meta{display:block;margin-top:.3rem;font-size:.66rem;letter-spacing:.04em;opacity:.75}
-.udacity-nanodegrees .und-arrow{flex:none;color:var(--dusty-mauve,#9e829c);font-size:1.1rem;line-height:1}
-@media(max-width:640px){.udacity-nanodegrees .und-grid{grid-template-columns:1fr}.udacity-nanodegrees .und-card{padding:.75rem .8rem}}
+/* Refined, theme-native credential collection; isolated to this section. */
+.udacity-nanodegrees{margin:1.35rem 0 1.65rem;max-width:100%;min-width:0;color:inherit}
+.udacity-nanodegrees .und-heading{display:flex;align-items:center;gap:.8rem;margin:0 0 1rem}
+.udacity-nanodegrees .und-heading::before{content:"";display:block;width:3px;height:1.45rem;border-radius:3px;background:var(--dusty-mauve,#9e829c);box-shadow:0 0 12px rgba(158,130,156,.25);flex:none}
+.udacity-nanodegrees .und-heading-title{font-size:clamp(.92rem,1.4vw,1.06rem);font-weight:750;letter-spacing:.012em;line-height:1.35;color:inherit}
+.udacity-nanodegrees .und-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.udacity-nanodegrees .und-card{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-width:0;min-height:94px;padding:1.05rem 1.1rem;border:1px solid var(--glass-border,rgba(240,239,244,.22));border-radius:14px;background:linear-gradient(135deg,rgba(158,130,156,.105),rgba(58,62,59,.07) 65%),var(--glass-bg,rgba(240,239,244,.08));color:inherit !important;text-decoration:none !important;box-shadow:inset 0 1px 0 rgba(240,239,244,.055),0 5px 18px rgba(0,0,0,.08);transition:border-color .25s ease,background-color .25s ease,box-shadow .25s ease !important}
+.udacity-nanodegrees .und-card::before{content:"";position:absolute;left:0;top:18%;bottom:18%;width:2px;border-radius:0 3px 3px 0;background:var(--dusty-mauve,#9e829c);opacity:.65;transition:opacity .25s ease,top .25s ease,bottom .25s ease}
+.udacity-nanodegrees .und-card:hover,.udacity-nanodegrees .und-card:focus-visible{border-color:rgba(158,130,156,.7) !important;background:linear-gradient(135deg,rgba(158,130,156,.17),rgba(58,62,59,.09) 65%),var(--glass-bg,rgba(240,239,244,.08));box-shadow:inset 0 1px 0 rgba(240,239,244,.11),0 8px 25px rgba(0,0,0,.15),0 0 17px rgba(158,130,156,.16) !important;outline:none}
+.udacity-nanodegrees .und-card:focus-visible{outline:2px solid var(--dusty-mauve,#9e829c);outline-offset:3px}
+.udacity-nanodegrees .und-card:hover::before,.udacity-nanodegrees .und-card:focus-visible::before{top:10%;bottom:10%;opacity:1}
+.udacity-nanodegrees .und-card>span:first-child{display:block;min-width:0}
+.udacity-nanodegrees .und-card-title{display:block;font-size:.88rem;font-weight:700;line-height:1.35;letter-spacing:.005em;overflow-wrap:break-word;color:inherit !important}
+.udacity-nanodegrees .und-card-meta{display:block;width:max-content;max-width:100%;margin-top:.52rem;font-size:.69rem;font-weight:550;letter-spacing:.035em;color:var(--dusty-mauve,#9e829c) !important;opacity:1}
+.udacity-nanodegrees .und-arrow{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;border-radius:10px;border:1px solid rgba(158,130,156,.3);background:rgba(158,130,156,.095);color:var(--dusty-mauve,#9e829c) !important;font-size:1.08rem;line-height:1;transition:background .25s ease,border-color .25s ease,box-shadow .25s ease}
+.udacity-nanodegrees .und-card:hover .und-arrow,.udacity-nanodegrees .und-card:focus-visible .und-arrow{background:rgba(158,130,156,.2);border-color:rgba(158,130,156,.55);box-shadow:0 0 12px rgba(158,130,156,.14)}
+@media(max-width:680px){.udacity-nanodegrees .und-grid{grid-template-columns:1fr;gap:.65rem}.udacity-nanodegrees .und-card{min-height:80px;padding:.9rem 1rem}}
+@media(prefers-reduced-motion:reduce){.udacity-nanodegrees .und-card,.udacity-nanodegrees .und-card::before,.udacity-nanodegrees .und-arrow{transition:none !important}}
 </style>
 <div class="udacity-nanodegrees" aria-label="Udacity Nanodegree credentials">
-  <div class="und-heading"><span class="und-heading-title">Nanodegree Programs &amp; Credentials</span></div>
+  <div class="und-heading"><span class="und-heading-title">Professional Nanodegree Certifications</span></div>
   <div class="und-grid">
-    <a class="und-card" href="https://www.udacity.com/certificate/e/8f22f506-335e-11f1-8e80-17a428de4d90" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Growth Product Manager (opens in a new tab)"><span><span class="und-card-title">Growth Product Manager</span><span class="und-card-meta">Udacity · View credential</span></span><span class="und-arrow" aria-hidden="true">↗</span></a>
-    <a class="und-card" href="https://www.udacity.com/certificate/e/288201be-35d1-11f1-a1df-03b70bfa907d" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: AI for Business Leaders (opens in a new tab)"><span><span class="und-card-title">AI for Business Leaders</span><span class="und-card-meta">Udacity · View credential</span></span><span class="und-arrow" aria-hidden="true">↗</span></a>
-    <a class="und-card" href="https://www.udacity.com/certificate/e/9049c39c-dbdd-11f1-a80f-9fd001585fda" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Digital Transformation for Business Leaders (opens in a new tab)"><span><span class="und-card-title">Digital Transformation for Business Leaders</span><span class="und-card-meta">Udacity · View credential</span></span><span class="und-arrow" aria-hidden="true">↗</span></a>
-    <a class="und-card" href="https://www.udacity.com/certificate/e/9412084a-d877-11f1-8b88-8f5770615cda" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: AI Product Manager (opens in a new tab)"><span><span class="und-card-title">AI Product Manager</span><span class="und-card-meta">Udacity · View credential</span></span><span class="und-arrow" aria-hidden="true">↗</span></a>
-    <a class="und-card" href="https://www.udacity.com/certificate/e/5c987abc-dba0-11f1-8812-a3bae8c4afc4" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Introduction to Data Analytics (opens in a new tab)"><span><span class="und-card-title">Introduction to Data Analytics</span><span class="und-card-meta">Udacity · View credential</span></span><span class="und-arrow" aria-hidden="true">↗</span></a>
+    <a class="und-card" href="https://www.udacity.com/certificate/e/8f22f506-335e-11f1-8e80-17a428de4d90" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Growth Product Manager (opens in a new tab)"><span><span class="und-card-title">Growth Product Manager</span><span class="und-card-meta">View credential</span></span><span class="und-arrow" aria-hidden="true">↗</span></a>
+    <a class="und-card" href="https://www.udacity.com/certificate/e/288201be-35d1-11f1-a1df-03b70bfa907d" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: AI for Business Leaders (opens in a new tab)"><span><span class="und-card-title">AI for Business Leaders</span><span class="und-card-meta">View credential</span></span><span class="und-arrow" aria-hidden="true">↗</span></a>
+    <a class="und-card" href="https://www.udacity.com/certificate/e/9049c39c-dbdd-11f1-a80f-9fd001585fda" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Digital Transformation for Business Leaders (opens in a new tab)"><span><span class="und-card-title">Digital Transformation for Business Leaders</span><span class="und-card-meta">View credential</span></span><span class="und-arrow" aria-hidden="true">↗</span></a>
+    <a class="und-card" href="https://www.udacity.com/certificate/e/9412084a-d877-11f1-8b88-8f5770615cda" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: AI Product Manager (opens in a new tab)"><span><span class="und-card-title">AI Product Manager</span><span class="und-card-meta">View credential</span></span><span class="und-arrow" aria-hidden="true">↗</span></a>
+    <a class="und-card" href="https://www.udacity.com/certificate/e/5c987abc-dba0-11f1-8812-a3bae8c4afc4" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Introduction to Data Analytics (opens in a new tab)"><span><span class="und-card-title">Introduction to Data Analytics</span><span class="und-card-meta">View credential</span></span><span class="und-arrow" aria-hidden="true">↗</span></a>
   </div>
 </div>
 <br>
