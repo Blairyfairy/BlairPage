@@ -16106,6 +16106,12 @@ html body #inside-lvmh-2026:is(:hover,:focus-within) .lvmh-module {
   box-shadow:0 0 14px rgba(4,15,41,.18) !important;
 }
 </style>
+
+<style id="bp-coursera-original-links-no-shine-20261111">
+/* Restore original individual Xbox/Akamai hover accents and suppress ONLY injected shine spans. */
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link > .bp-asana-unified-white-sweep { display:none !important; }
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link { overflow:visible !important; }
+</style>
 </body>
 
 <style id="bp-lvmh-reference-navy-white-brand-parity-20261110">
@@ -19678,9 +19684,8 @@ html body .bp-dull-shine-target {position:relative !important;overflow:hidden !i
 /* Disable legacy colored/bright pseudo sweeps on the card surfaces. */
 html body .bp-dull-shine-target::after {content:none !important;display:none !important;animation:none !important;transition:none !important;background-image:none !important;}
 /* Coursera course buttons retain their original individual hover styles, without an extra sweep. */
-html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link::after,
-html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link::before {content:none !important;display:none !important;animation:none !important;}
-html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link {isolation:auto !important;}
+/* Coursera individual links are excluded from the card-wide shine.
+   Their original Xbox/Akamai underline and yellow hover rules remain active. */
 html body .bp-dull-shine-target > .bp-asana-unified-white-sweep {
  content:"" !important;display:block !important;position:absolute !important;
  top:0 !important;bottom:0 !important;left:-40% !important;right:auto !important;
