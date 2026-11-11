@@ -21757,3 +21757,23 @@ html body .udacity-nanodegrees .und-card:is(:hover,:focus-visible,:focus-within)
   -webkit-backdrop-filter:none !important;
 }
 </style>
+
+<!-- Udacity only: equal card dimensions at every breakpoint, without altering hover colors or shine. -->
+<style id="bp-udacity-uniform-card-dimensions-20261111">
+html body .udacity-nanodegrees .und-grid {
+  grid-auto-rows: minmax(88px, 1fr) !important;
+  align-items: stretch !important;
+}
+html body .udacity-nanodegrees .und-grid > .und-card {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 88px !important;
+  align-self: stretch !important;
+  flex-shrink: 0 !important;
+  transform: none !important;
+}
+html body .udacity-nanodegrees .und-grid > .und-card:is(:hover,:focus-visible,:focus-within) {
+  transform: none !important;
+}
+</style>
