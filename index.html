@@ -21742,3 +21742,18 @@ html body .udacity-nanodegrees .und-card.und-accenture:is(:hover,:focus-visible)
   box-shadow:0 0 10px rgba(139,75,232,.65) !important;
 }
 </style>
+
+<!-- Udacity only: remove resting frosted fill, retain existing branded hover gradients and white sweep. -->
+<style id="bp-udacity-clear-resting-surface-20261111">
+html body .udacity-nanodegrees .und-card:not(:hover):not(:focus-visible):not(:focus-within) {
+  background:transparent !important;
+  background-color:transparent !important;
+  background-image:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+html body .udacity-nanodegrees .und-card:is(:hover,:focus-visible,:focus-within) {
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+</style>
