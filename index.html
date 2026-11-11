@@ -21533,3 +21533,49 @@ html body #inside-lvmh-2026 .lvmh-footer .lvmh-skills strong {
 
 
 
+
+<style id="bp-asana-fade-lvmh-udacity-precise-20261111">
+/* Keep the existing approved Coursera/Xbox/Akamai and other card styling intact.
+   LVMH/Udacity: Asana's left-weighted color haze, fading to clear. */
+html body #inside-lvmh-2026,
+html body .udacity-nanodegrees .und-card {
+  background-image:none !important;
+  background-color:transparent !important;
+  transition:background .38s ease,border-color .38s ease,box-shadow .38s ease,transform .38s ease !important;
+}
+html body #inside-lvmh-2026:is(:hover,:focus-within) {
+  background:radial-gradient(ellipse 380px 260px at 6% 50%,rgba(18,42,94,.25) 0%,transparent 70%),linear-gradient(100deg,rgba(15,35,83,.24) 0%,rgba(35,56,104,.11) 38%,transparent 75%) !important;
+  background-color:transparent !important;
+  border-color:rgba(113,143,201,.64) !important;
+}
+html body .udacity-nanodegrees .und-card:is(:hover,:focus-visible) {
+  background:radial-gradient(ellipse 380px 260px at 6% 50%,rgba(2,42,237,.19) 0%,transparent 70%),linear-gradient(100deg,rgba(2,42,237,.14) 0%,rgba(158,130,156,.07) 38%,transparent 75%) !important;
+  background-color:transparent !important;
+  border-color:rgba(2,42,237,.52) !important;
+}
+/* Suppress all earlier colored pseudo-shine overlays, retaining accent rails. */
+html body #inside-lvmh-2026::after,
+html body .udacity-nanodegrees .und-card::after {
+  content:none !important;display:none !important;animation:none !important;
+  background:none !important;box-shadow:none !important;filter:none !important;
+}
+/* The existing injected sweep is pure white, uniformly faint and Asana-paced. */
+html body #inside-lvmh-2026.bp-dull-shine-target > .bp-asana-unified-white-sweep,
+html body .udacity-nanodegrees .und-card.bp-dull-shine-target > .bp-asana-unified-white-sweep {
+  display:block !important;position:absolute !important;top:0 !important;bottom:0 !important;
+  left:-40% !important;width:32% !important;height:100% !important;
+  background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.045) 50%,transparent 100%) !important;
+  background-color:transparent !important;mix-blend-mode:normal !important;
+  filter:none !important;box-shadow:none !important;transform:skewX(-18deg) !important;
+  opacity:0 !important;animation:none !important;pointer-events:none !important;
+  transition:left 1.1s ease,opacity .2s ease !important;z-index:10 !important;
+}
+html body #inside-lvmh-2026.bp-dull-shine-target:is(:hover,:focus-within) > .bp-asana-unified-white-sweep,
+html body .udacity-nanodegrees .und-card.bp-dull-shine-target:is(:hover,:focus-visible) > .bp-asana-unified-white-sweep {
+  left:120% !important;opacity:1 !important;
+}
+@media(prefers-reduced-motion:reduce){
+ html body #inside-lvmh-2026.bp-dull-shine-target > .bp-asana-unified-white-sweep,
+ html body .udacity-nanodegrees .und-card.bp-dull-shine-target > .bp-asana-unified-white-sweep {transition:none !important;opacity:0 !important;}
+}
+</style>
