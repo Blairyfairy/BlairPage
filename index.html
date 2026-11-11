@@ -21766,3 +21766,38 @@ html body .udacity-accenture-lockup > .accenture-wordmark { transform:translateY
  html body .udacity-accenture-lockup > .udacity-wordmark { margin-right:-.13em!important; }
 }
 </style>
+
+<style id="bp-udacity-equal-x-gaps-bottom-alignment">
+/* Equal spacing on both sides of ×; keep the original brand artwork. */
+html body .udacity-accenture-lockup {
+  display:inline-flex!important; flex-flow:row nowrap!important;
+  align-items:flex-end!important; justify-content:flex-start!important;
+  column-gap:.32em!important; gap:.32em!important;
+  white-space:nowrap!important;
+}
+html body .udacity-accenture-lockup > .udacity-wordmark {
+  margin:0!important; padding:0!important; transform:none!important;
+  position:relative!important; top:.13em!important;
+  flex:0 0 9.04em!important; width:9.04em!important;
+}
+html body .udacity-accenture-lockup > .brand-separator {
+  margin:0!important; padding:0!important; transform:none!important;
+  position:relative!important; top:0!important; line-height:1!important;
+  flex:0 0 auto!important;
+}
+/* Align the bottom of white accenture lettering with the ×. The purple >
+   remains free to rise above the shared text line. */
+html body .udacity-accenture-lockup > .accenture-wordmark {
+  margin:0!important; padding:0!important;
+  position:relative!important; top:.13em!important;
+  transform:none!important;
+  flex:0 0 6.09em!important; width:6.09em!important;
+}
+html body .udacity-accenture-lockup > .institute-wordmark {
+  margin:0!important; padding:0!important; transform:none!important;
+  position:relative!important; top:0!important;
+}
+@media(max-width:640px){
+  html body .udacity-accenture-lockup {gap:.32em!important;column-gap:.32em!important;}
+}
+</style>
