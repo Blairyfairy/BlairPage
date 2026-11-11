@@ -3288,6 +3288,23 @@ html body .edu-header > img.udacity-combined-brand-image {
   }
 }
 </style>
+
+<!-- Consistent carousel logo presentation; artwork and slider behavior preserved. -->
+<style id="bp-carousel-logo-uniform-size-20261111">
+html body .enterprise-brand-slider__set > .enterprise-brand-slider__item {
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  width:var(--bp-logo-slot) !important; min-width:var(--bp-logo-slot) !important;
+  max-width:var(--bp-logo-slot) !important; flex:0 0 var(--bp-logo-slot) !important;
+}
+html body .enterprise-brand-slider__set > .enterprise-brand-slider__item > :is(span,div,a,svg) {
+  transform:scale(.765) !important; transform-origin:center center !important;
+  flex-shrink:0 !important;
+}
+html body .enterprise-brand-slider__set > .enterprise-brand-slider__item > svg {
+  width:145px !important; height:46px !important; max-width:145px !important;
+  max-height:46px !important; object-fit:contain !important;
+}
+</style>
 </head>
 <body>
 
