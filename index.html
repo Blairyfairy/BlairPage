@@ -19767,6 +19767,35 @@ html body article#inside-lvmh-2026:is(:hover,:focus-within){background-color:rgb
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
 </script>
+
+<!-- Udacity glass/transparency parity with certification and technical-training cards; no shine changes. -->
+<style id="bp-udacity-glass-parity-20261111">
+/* Match the muted, translucent frosted card surface at rest. */
+html body .udacity-nanodegrees .und-card,
+html body .udacity-nanodegrees .und-card.und-accenture {
+ background:linear-gradient(110deg,rgba(240,239,244,.065),rgba(58,62,59,.055) 65%,rgba(0,0,0,.025)) !important;
+ background-color:transparent !important;
+ border-color:rgba(158,130,156,.25) !important;
+ box-shadow:inset 0 1px 0 rgba(240,239,244,.065),0 3px 10px rgba(0,0,0,.12) !important;
+ backdrop-filter:blur(7px) !important;
+ -webkit-backdrop-filter:blur(7px) !important;
+ transition:background .3s ease,border-color .3s ease,box-shadow .3s ease !important;
+}
+/* Same translucent left-origin color wash as other credential/training cards. */
+html body .udacity-nanodegrees .und-card:is(:hover,:focus-visible) {
+ background:radial-gradient(ellipse 380px 260px at 6% 50%,rgba(2,42,237,.19) 0%,transparent 70%),linear-gradient(100deg,rgba(2,42,237,.14) 0%,rgba(158,130,156,.07) 38%,transparent 75%) !important;
+ background-color:transparent !important;
+ border-color:rgba(2,42,237,.52) !important;
+ box-shadow:inset 0 1px 0 rgba(240,239,244,.11),0 0 16px rgba(2,42,237,.16),0 5px 15px rgba(0,0,0,.16) !important;
+}
+/* The three Accenture cards use the identical transparency and fade, tinted purple. */
+html body .udacity-nanodegrees .und-card.und-accenture:is(:hover,:focus-visible) {
+ background:radial-gradient(ellipse 380px 260px at 6% 50%,rgba(139,75,232,.19) 0%,transparent 70%),linear-gradient(100deg,rgba(139,75,232,.14) 0%,rgba(158,130,156,.07) 38%,transparent 75%) !important;
+ background-color:transparent !important;
+ border-color:rgba(139,75,232,.52) !important;
+ box-shadow:inset 0 1px 0 rgba(240,239,244,.11),0 0 16px rgba(139,75,232,.16),0 5px 15px rgba(0,0,0,.16) !important;
+}
+</style>
 </body>
 <!-- =========================================================
      JOB DESCRIPTIONS (inside every + / − expansion) — "reading column" layout
