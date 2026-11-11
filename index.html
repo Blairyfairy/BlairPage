@@ -21514,3 +21514,59 @@ html body .certificates-card .certificate-list .cert-card::after,
 html body .lvmh-certificate-reveal > summary.lvmh-certificate-link::after {transition:none !important;opacity:0 !important;display:none !important;}
 }
 </style>
+
+<style id="bp-asana-shine-hard-unification-20261111">
+/* One real overlay per card, independent of conflicting legacy pseudo-element shine rules. */
+html body .asana-cert-banner,
+html body .redhat-cert-banner,
+html body .lpi-cert-banner,
+html body .plesk-cert-banner,
+html body .cpanel-cert-banner,
+html body #inside-lvmh-2026,
+html body #linux-academy-pluralsight,
+html body .udacity-nanodegrees .und-card,
+html body .tt-section .tt-card,
+html body .certificate-list a.certificate-link,
+html body .certificates-card .certificate-list > a,
+html body .certificates-card .certificate-list .certification-card,
+html body .certificates-card .certificate-list .cert-card,
+html body .lvmh-certificate-reveal > summary.lvmh-certificate-link { position:relative !important; overflow:hidden !important; isolation:isolate; }
+html body .asana-cert-banner::after,
+html body .redhat-cert-banner::after,
+html body .lpi-cert-banner::after,
+html body .plesk-cert-banner::after,
+html body .cpanel-cert-banner::after,
+html body #inside-lvmh-2026::after,
+html body #linux-academy-pluralsight::after,
+html body .udacity-nanodegrees .und-card::after,
+html body .tt-section .tt-card::after,
+html body .certificate-list a.certificate-link::after,
+html body .certificates-card .certificate-list > a::after,
+html body .certificates-card .certificate-list .certification-card::after,
+html body .certificates-card .certificate-list .cert-card::after,
+html body .lvmh-certificate-reveal > summary.lvmh-certificate-link::after { content:none !important; display:none !important; animation:none !important; }
+.bp-asana-unified-white-sweep {
+ position:absolute !important; inset:0 auto 0 -40% !important; width:32% !important; height:100% !important;
+ display:block !important; background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.10) 50%,transparent 100%) !important;
+ background-color:transparent !important; transform:skewX(-18deg) !important; filter:none !important;
+ mix-blend-mode:normal !important; opacity:0 !important; pointer-events:none !important; z-index:3 !important;
+ border:0 !important; box-shadow:none !important; animation:none !important;
+ transition:left 1.1s ease,opacity .2s ease !important;
+}
+.bp-asana-shine-target:is(:hover,:focus-visible,:focus-within) > .bp-asana-unified-white-sweep {left:120% !important;opacity:1 !important;}
+@media(prefers-reduced-motion:reduce){.bp-asana-unified-white-sweep{transition:none !important;opacity:0 !important;}}
+</style>
+<script id="bp-asana-shine-hard-unification-script-20261111">
+(function(){
+ const selectors = '.asana-cert-banner,.redhat-cert-banner,.lpi-cert-banner,.plesk-cert-banner,.cpanel-cert-banner,#inside-lvmh-2026,#linux-academy-pluralsight,.udacity-nanodegrees .und-card,.tt-section .tt-card,.certificate-list a.certificate-link,.certificates-card .certificate-list > a,.certificates-card .certificate-list .certification-card,.certificates-card .certificate-list .cert-card,.lvmh-certificate-reveal > summary.lvmh-certificate-link';
+ function setup(){
+  document.querySelectorAll(selectors).forEach(function(el){
+   if(el.querySelector(':scope > .bp-asana-unified-white-sweep'))return;
+   el.classList.add('bp-asana-shine-target');
+   const sweep=document.createElement('span');sweep.className='bp-asana-unified-white-sweep';sweep.setAttribute('aria-hidden','true');
+   el.appendChild(sweep);
+  });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
+})();
+</script>
