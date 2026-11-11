@@ -19404,6 +19404,19 @@ width:6.45em !important;
 }
 }
 </style>
+
+<style id="bp-udacity-optical-left-nudge-20261111">
+/* Move only the painted UDACITY wordmark left; keep the separator and all other layout fixed. */
+html body .udacity-accenture-lockup > .udacity-wordmark > svg {
+  transform:translateX(-.30em) !important;
+  transform-origin:left center !important;
+}
+@media(max-width:640px) {
+  html body .udacity-accenture-lockup > .udacity-wordmark > svg {
+    transform:translateX(-.26em) !important;
+  }
+}
+</style>
 </body>
 <!-- =========================================================
      JOB DESCRIPTIONS (inside every + / − expansion) — "reading column" layout
@@ -21415,4 +21428,22 @@ top:.34em !important;
 }
 html body .udacity-accenture-lockup > .brand-separator { margin-left:.16em !important; }
 }
+</style>
+
+<style id="bp-uopeople-nanodegree-style-parity-20261111">
+/* Match the responsive Udacity credential cards while retaining UoPeople's neutral mauve palette. */
+html body .education-links{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr))!important;gap:.65rem!important;align-items:stretch!important;width:100%!important;margin:1.1rem 0 1.45rem!important;}
+html body .education-links>a:is(.credly-inline-link,.internship-inline-link){position:relative!important;isolation:isolate!important;overflow:hidden!important;box-sizing:border-box!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:.3rem!important;width:100%!important;min-width:0!important;min-height:88px!important;padding:.82rem .95rem!important;border:1px solid rgba(158,130,156,.35)!important;border-radius:11px!important;background:linear-gradient(115deg,rgba(158,130,156,.085),rgba(158,130,156,.025))!important;color:var(--text-primary,#f5f2f6)!important;-webkit-text-fill-color:currentColor!important;font-size:.84rem!important;font-weight:650!important;line-height:1.4!important;text-align:left!important;white-space:normal!important;overflow-wrap:break-word!important;text-decoration:none!important;box-shadow:0 3px 12px rgba(0,0,0,.055)!important;transform:none!important;transition:border-color .25s ease,background .25s ease,box-shadow .25s ease!important;}
+html body .education-links>a:is(.credly-inline-link,.internship-inline-link)::before{content:""!important;display:block!important;position:absolute!important;left:0!important;top:0!important;bottom:0!important;width:3px!important;background:linear-gradient(180deg,rgba(158,130,156,.7),rgba(158,130,156,.24))!important;box-shadow:none!important;pointer-events:none!important;}
+html body .education-links>a:is(.credly-inline-link,.internship-inline-link)::after{content:""!important;display:block!important;position:absolute!important;left:-60%!important;top:0!important;bottom:0!important;width:35%!important;background:linear-gradient(100deg,transparent,rgba(255,255,255,.13),transparent)!important;opacity:0!important;pointer-events:none!important;transition:left .8s ease,opacity .2s ease!important;}
+html body .education-links>a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible){border-color:rgba(190,158,188,.78)!important;background:linear-gradient(110deg,rgba(158,130,156,.16),rgba(158,130,156,.045) 75%)!important;box-shadow:0 0 12px rgba(158,130,156,.20),0 0 22px rgba(158,130,156,.09)!important;transform:none!important;}
+html body .education-links>a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible)::before{background:linear-gradient(180deg,#c5a6c1,#9e829c)!important;box-shadow:0 0 10px rgba(158,130,156,.35)!important;}
+html body .education-links>a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible)::after{left:125%!important;opacity:1!important;}
+html body .education-links>a:is(.credly-inline-link,.internship-inline-link):focus-visible{outline:2px solid #bda2ba!important;outline-offset:3px!important;}
+html body .education-links>a.credly-inline-link span{font:inherit!important;line-height:1.5!important;color:inherit!important;-webkit-text-fill-color:inherit!important;}
+html body .education-links>a.credly-inline-link i{font-size:1rem!important;color:var(--dusty-mauve,#9e829c)!important;-webkit-text-fill-color:currentColor!important;}
+html body .education-links>a.internship-inline-link span{display:block!important;font-size:.73rem!important;font-weight:450!important;line-height:1.4!important;color:var(--dusty-mauve,#9e829c)!important;-webkit-text-fill-color:currentColor!important;}
+html body .education-links>a.internship-inline-link{grid-column:1/-1!important;min-height:82px!important;}
+@media(max-width:640px){html body .education-links{grid-template-columns:1fr!important;gap:.6rem!important;}html body .education-links>a:is(.credly-inline-link,.internship-inline-link){min-height:76px!important;padding:.75rem .85rem!important;font-size:.81rem!important;}}
+@media(prefers-reduced-motion:reduce){html body .education-links>a:is(.credly-inline-link,.internship-inline-link),html body .education-links>a:is(.credly-inline-link,.internship-inline-link)::after{transition:none!important;}html body .education-links>a:is(.credly-inline-link,.internship-inline-link)::after{display:none!important;}}
 </style>
