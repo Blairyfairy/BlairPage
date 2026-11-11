@@ -6912,24 +6912,27 @@ html body #inside-lvmh-2026:hover::after {
 </a>
 </p>
 <style id="udacity-nanodegree-credential-styles">
-/* Refined, theme-native credential collection; isolated to this section. */
-.udacity-nanodegrees{margin:1.35rem 0 1.65rem;max-width:100%;min-width:0;color:inherit}
-.udacity-nanodegrees .und-heading{display:flex;align-items:center;gap:.8rem;margin:0 0 1rem}
-.udacity-nanodegrees .und-heading::before{content:"";display:block;width:3px;height:1.45rem;border-radius:3px;background:var(--dusty-mauve,#9e829c);box-shadow:0 0 12px rgba(158,130,156,.25);flex:none}
-.udacity-nanodegrees .und-heading-title{font-size:clamp(.92rem,1.4vw,1.06rem);font-weight:750;letter-spacing:.012em;line-height:1.35;color:inherit}
-.udacity-nanodegrees .und-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
-.udacity-nanodegrees .und-card{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-width:0;min-height:94px;padding:1.05rem 1.1rem;border:1px solid var(--glass-border,rgba(240,239,244,.22));border-radius:14px;background:linear-gradient(135deg,rgba(158,130,156,.105),rgba(58,62,59,.07) 65%),var(--glass-bg,rgba(240,239,244,.08));color:inherit !important;text-decoration:none !important;box-shadow:inset 0 1px 0 rgba(240,239,244,.055),0 5px 18px rgba(0,0,0,.08);transition:border-color .25s ease,background-color .25s ease,box-shadow .25s ease !important}
-.udacity-nanodegrees .und-card::before{content:"";position:absolute;left:0;top:18%;bottom:18%;width:2px;border-radius:0 3px 3px 0;background:var(--dusty-mauve,#9e829c);opacity:.65;transition:opacity .25s ease,top .25s ease,bottom .25s ease}
-.udacity-nanodegrees .und-card:hover,.udacity-nanodegrees .und-card:focus-visible{border-color:rgba(158,130,156,.7) !important;background:linear-gradient(135deg,rgba(158,130,156,.17),rgba(58,62,59,.09) 65%),var(--glass-bg,rgba(240,239,244,.08));box-shadow:inset 0 1px 0 rgba(240,239,244,.11),0 8px 25px rgba(0,0,0,.15),0 0 17px rgba(158,130,156,.16) !important;outline:none}
-.udacity-nanodegrees .und-card:focus-visible{outline:2px solid var(--dusty-mauve,#9e829c);outline-offset:3px}
-.udacity-nanodegrees .und-card:hover::before,.udacity-nanodegrees .und-card:focus-visible::before{top:10%;bottom:10%;opacity:1}
-.udacity-nanodegrees .und-card>span:first-child{display:block;min-width:0}
-.udacity-nanodegrees .und-card-title{display:block;font-size:.88rem;font-weight:700;line-height:1.35;letter-spacing:.005em;overflow-wrap:break-word;color:inherit !important}
-.udacity-nanodegrees .und-card-meta{display:block;width:max-content;max-width:100%;margin-top:.52rem;font-size:.69rem;font-weight:550;letter-spacing:.035em;color:var(--dusty-mauve,#9e829c) !important;opacity:1}
-.udacity-nanodegrees .und-arrow{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;border-radius:10px;border:1px solid rgba(158,130,156,.3);background:rgba(158,130,156,.095);color:var(--dusty-mauve,#9e829c) !important;font-size:1.08rem;line-height:1;transition:background .25s ease,border-color .25s ease,box-shadow .25s ease}
-.udacity-nanodegrees .und-card:hover .und-arrow,.udacity-nanodegrees .und-card:focus-visible .und-arrow{background:rgba(158,130,156,.2);border-color:rgba(158,130,156,.55);box-shadow:0 0 12px rgba(158,130,156,.14)}
-@media(max-width:680px){.udacity-nanodegrees .und-grid{grid-template-columns:1fr;gap:.65rem}.udacity-nanodegrees .und-card{min-height:80px;padding:.9rem 1rem}}
-@media(prefers-reduced-motion:reduce){.udacity-nanodegrees .und-card,.udacity-nanodegrees .und-card::before,.udacity-nanodegrees .und-arrow{transition:none !important}}
+/* Original credential proportions with certification-style glass and edge lighting. */
+.udacity-nanodegrees{margin:1.15rem 0 1.55rem;max-width:100%;min-width:0;color:inherit;--und-blue:#022aed}
+.udacity-nanodegrees .und-heading{display:flex;align-items:center;gap:.65rem;margin:0 0 .8rem}
+.udacity-nanodegrees .und-heading::before{content:"";width:2px;height:1rem;border-radius:2px;background:var(--dusty-mauve,#9e829c);flex:none}
+.udacity-nanodegrees .und-heading-title{font-size:.96rem;font-weight:750;letter-spacing:.015em;line-height:1.3;color:inherit}
+.udacity-nanodegrees .und-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:.65rem}
+.udacity-nanodegrees .und-card{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:.8rem;min-width:0;padding:.82rem .9rem;border:1px solid rgba(158,130,156,.25);border-radius:12px;background:linear-gradient(110deg,rgba(240,239,244,.065),rgba(58,62,59,.055) 65%,rgba(0,0,0,.025)) !important;box-shadow:inset 0 1px 0 rgba(240,239,244,.065),0 3px 10px rgba(0,0,0,.12) !important;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);color:inherit !important;text-decoration:none !important;transition:background .3s ease,border-color .3s ease,box-shadow .3s ease !important}
+/* Certification-style narrow left accent: dim at rest, luminous on hover. */
+.udacity-nanodegrees .und-card::before{content:"";position:absolute;top:0;bottom:0;left:0;width:3px;border-radius:12px 0 0 12px;background:linear-gradient(180deg,rgba(158,130,156,.55),rgba(158,130,156,.18));box-shadow:none;pointer-events:none;z-index:0;transition:background .3s ease,box-shadow .3s ease}
+.udacity-nanodegrees .und-card::after{content:"";position:absolute;top:0;bottom:0;left:-50%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.10),rgba(2,42,237,.11),transparent);transform:skewX(-18deg);opacity:0;pointer-events:none;z-index:0}
+.udacity-nanodegrees .und-card>span{position:relative;z-index:1}
+.udacity-nanodegrees .und-card-title{display:block;font-size:.84rem;font-weight:650;line-height:1.3;overflow-wrap:anywhere;color:inherit !important}
+.udacity-nanodegrees .und-card-meta{display:block;margin-top:.3rem;font-size:.66rem;letter-spacing:.04em;color:var(--dusty-mauve,#9e829c) !important}
+.udacity-nanodegrees .und-arrow{flex:none;color:var(--dusty-mauve,#9e829c) !important;font-size:1.1rem;line-height:1}
+.udacity-nanodegrees .und-card:hover,.udacity-nanodegrees .und-card:focus-visible{border-color:rgba(2,42,237,.52) !important;background:linear-gradient(110deg,rgba(2,42,237,.13),rgba(158,130,156,.065) 70%,rgba(0,0,0,.025)) !important;box-shadow:inset 0 1px 0 rgba(240,239,244,.11),0 0 16px rgba(2,42,237,.16),0 5px 15px rgba(0,0,0,.16) !important}
+.udacity-nanodegrees .und-card:hover::before,.udacity-nanodegrees .und-card:focus-visible::before{background:linear-gradient(180deg,#4261ff,var(--und-blue) 55%,#0018a8);box-shadow:0 0 10px rgba(2,42,237,.65)}
+.udacity-nanodegrees .und-card:hover::after,.udacity-nanodegrees .und-card:focus-visible::after{left:120%;opacity:1;transition:left 1.05s ease,opacity .2s ease}
+.udacity-nanodegrees .und-card:hover .und-card-meta,.udacity-nanodegrees .und-card:focus-visible .und-card-meta,.udacity-nanodegrees .und-card:hover .und-arrow,.udacity-nanodegrees .und-card:focus-visible .und-arrow{color:#6c85ff !important}
+.udacity-nanodegrees .und-card:focus-visible{outline:2px solid var(--und-blue);outline-offset:3px}
+@media(max-width:640px){.udacity-nanodegrees .und-grid{grid-template-columns:1fr}.udacity-nanodegrees .und-card{padding:.75rem .8rem}}
+@media(prefers-reduced-motion:reduce){.udacity-nanodegrees .und-card,.udacity-nanodegrees .und-card::before{transition:none !important}.udacity-nanodegrees .und-card::after{display:none}}
 </style>
 <div class="udacity-nanodegrees" aria-label="Udacity Nanodegree credentials">
   <div class="und-heading"><span class="und-heading-title">Professional Nanodegree Certifications</span></div>
