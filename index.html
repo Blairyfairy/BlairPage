@@ -6937,10 +6937,10 @@ html body #inside-lvmh-2026:hover::after {
 <div class="udacity-nanodegrees" aria-label="Udacity Nanodegree credentials">
   <div class="und-heading"><span class="und-heading-title">Professional Nanodegree Certifications</span></div>
   <div class="und-grid">
-    <a class="und-accenture" href="https://www.udacity.com/certificate/e/8f22f506-335e-11f1-8e80-17a428de4d90" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Growth Product Manager (opens in a new tab)"><span><span class="und-card-title">Growth Product Manager</span></span></a>
+    <a class="und-card und-accenture" href="https://www.udacity.com/certificate/e/8f22f506-335e-11f1-8e80-17a428de4d90" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Growth Product Manager (opens in a new tab)"><span><span class="und-card-title">Growth Product Manager</span></span></a>
     <a class="und-card" href="https://www.udacity.com/certificate/e/288201be-35d1-11f1-a1df-03b70bfa907d" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: AI for Business Leaders (opens in a new tab)"><span><span class="und-card-title">AI for Business Leaders</span></span></a>
-    <a class="und-accenture" href="https://www.udacity.com/certificate/e/9049c39c-dbdd-11f1-a80f-9fd001585fda" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Digital Transformation for Business Leaders (opens in a new tab)"><span><span class="und-card-title">Digital Transformation for Business Leaders</span></span></a>
-    <a class="und-accenture" href="https://www.udacity.com/certificate/e/9412084a-d877-11f1-8b88-8f5770615cda" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: AI Product Manager (opens in a new tab)"><span><span class="und-card-title">AI Product Manager</span></span></a>
+    <a class="und-card und-accenture" href="https://www.udacity.com/certificate/e/9049c39c-dbdd-11f1-a80f-9fd001585fda" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Digital Transformation for Business Leaders (opens in a new tab)"><span><span class="und-card-title">Digital Transformation for Business Leaders</span></span></a>
+    <a class="und-card und-accenture" href="https://www.udacity.com/certificate/e/9412084a-d877-11f1-8b88-8f5770615cda" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: AI Product Manager (opens in a new tab)"><span><span class="und-card-title">AI Product Manager</span></span></a>
     <a class="und-card" href="https://www.udacity.com/certificate/e/5c987abc-dba0-11f1-8812-a3bae8c4afc4" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Introduction to Data Analytics (opens in a new tab)"><span><span class="und-card-title">Introduction to Data Analytics</span></span></a>
   </div>
 </div>
@@ -21696,5 +21696,16 @@ html body .udacity-nanodegrees .und-card.und-accenture:is(:hover,:focus-visible)
 }
 html body .udacity-nanodegrees .und-card.und-accenture:focus-visible {
   outline-color:#8b4be8 !important;
+}
+</style>
+
+<style id="bp-accenture-visible-border-fix">
+html body .udacity-nanodegrees .und-card.und-accenture {
+  border:1px solid rgba(166,103,244,.57) !important;
+  box-shadow:inset 0 1px 0 rgba(240,239,244,.065),0 0 0 1px rgba(139,75,232,.09),0 3px 10px rgba(0,0,0,.12) !important;
+}
+html body .udacity-nanodegrees .und-card.und-accenture::before {
+  background:linear-gradient(180deg,#b78aff,#8b4be8 55%,#5921ac) !important;
+  box-shadow:0 0 7px rgba(139,75,232,.30) !important;
 }
 </style>
