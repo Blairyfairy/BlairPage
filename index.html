@@ -16390,6 +16390,90 @@ html body #inside-lvmh-2026 .lvmh-certificate-reveal > summary.lvmh-certificate-
   html body #inside-lvmh-2026 > .bp-asana-unified-white-sweep {opacity:0 !important;transition:none !important;}
 }
 </style>
+
+<style id="bp-education-links-balanced-layout-20261111">
+/* Three original anchors, reorganized visually without modifying destinations or content. */
+html body .education-links {
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  gap:10px !important;
+  margin:18px 0 16px !important;
+  width:100% !important;
+  max-width:100% !important;
+}
+html body .education-links > a.internship-inline-link,
+html body .education-links > a.credly-inline-link {
+  flex:none !important;
+  grid-column:auto !important;
+  width:100% !important;
+  min-height:0 !important;
+  height:auto !important;
+  margin:0 !important;
+  border-radius:11px !important;
+  box-sizing:border-box !important;
+  position:relative !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  align-items:flex-start !important;
+  text-align:left !important;
+  gap:4px !important;
+  letter-spacing:normal !important;
+  white-space:normal !important;
+  text-decoration:none !important;
+}
+/* The internship gets the widest visual emphasis and appears first. */
+html body .education-links > a.internship-inline-link {
+  order:-1 !important;
+  padding:16px 19px !important;
+  font-size:clamp(14px,1.25vw,16px) !important;
+  line-height:1.35 !important;
+  font-weight:600 !important;
+}
+html body .education-links > a.internship-inline-link > span {
+  display:block !important;
+  margin:2px 0 0 !important;
+  font-size:clamp(12px,1vw,13px) !important;
+  line-height:1.4 !important;
+  font-weight:400 !important;
+}
+/* Credential has room to read each of the three outcomes without awkward side-by-side squeezing. */
+html body .education-links > a.credly-inline-link[title] {
+  order:0 !important;
+  padding:14px 19px !important;
+  font-size:clamp(12.5px,1.05vw,14px) !important;
+  line-height:1.7 !important;
+  font-weight:500 !important;
+}
+html body .education-links > a.credly-inline-link[title] > span {
+  display:block !important;
+  width:100% !important;
+  line-height:1.75 !important;
+  font-size:inherit !important;
+  font-weight:inherit !important;
+}
+/* Credly Sophia is intentionally compact rather than an oversized empty tile. */
+html body .education-links > a.credly-inline-link:not([title]) {
+  order:1 !important;
+  padding:11px 19px !important;
+  min-height:44px !important;
+  font-size:clamp(12.5px,1.05vw,14px) !important;
+  font-weight:500 !important;
+  line-height:1.35 !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+}
+html body .education-links > a.credly-inline-link:not([title]) i {margin:0 0 0 12px !important;flex-shrink:0 !important;}
+html body .education-links > a.credly-inline-link[title] i {align-self:flex-end !important;margin-top:2px !important;}
+@media(max-width:640px) {
+  html body .education-links {gap:8px !important;margin:14px 0 !important;}
+  html body .education-links > a.internship-inline-link {padding:14px 15px !important;font-size:14px !important;}
+  html body .education-links > a.credly-inline-link[title] {padding:12px 15px !important;font-size:12.5px !important;line-height:1.65 !important;}
+  html body .education-links > a.credly-inline-link:not([title]) {padding:11px 15px !important;font-size:13px !important;}
+}
+</style>
 </html>
 
 <!-- =========================================================
@@ -22015,5 +22099,86 @@ html body .udacity-accenture-lockup .udacity-wordmark {
 html body .udacity-accenture-lockup .brand-separator { margin-left:0 !important; }
 @media(max-width:640px){
   html body .udacity-accenture-lockup .udacity-wordmark { margin-right:-1.22em !important; top:.34em !important; }
+}
+</style>
+
+
+<style id="bp-education-links-neutral-refinement-20261111">
+/* Only the three existing education links: neutral portfolio palette, internship priority. */
+.education-links {
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:10px !important;
+  align-items:stretch !important;
+}
+.education-links > a.credly-inline-link,
+.education-links > a.internship-inline-link {
+  box-sizing:border-box !important;
+  min-width:0 !important;
+  width:100% !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+  padding:13px 16px !important;
+  gap:5px !important;
+  border:1px solid rgba(158,130,156,.48) !important;
+  border-radius:12px !important;
+  background:rgba(240,239,244,.035) !important;
+  background-image:none !important;
+  color:#f0eff4 !important;
+  -webkit-text-fill-color:#f0eff4 !important;
+  font-size:clamp(12px,1.05vw,14px) !important;
+  font-weight:500 !important;
+  line-height:1.5 !important;
+  text-align:left !important;
+  text-decoration:none !important;
+  overflow-wrap:break-word !important;
+  box-shadow:inset 0 0 0 1px rgba(240,239,244,.035) !important;
+  transform:none !important;
+  transition:background .22s ease,border-color .22s ease,box-shadow .22s ease !important;
+}
+.education-links > a.internship-inline-link {
+  grid-column:1 / -1 !important;
+  padding:17px 19px !important;
+  font-size:clamp(13px,1.15vw,15px) !important;
+  font-weight:600 !important;
+  border-color:rgba(158,130,156,.62) !important;
+}
+.education-links > a.internship-inline-link span {
+  color:#d1c5d0 !important;
+  -webkit-text-fill-color:#d1c5d0 !important;
+  font-size:clamp(12px,1vw,14px) !important;
+  font-weight:400 !important;
+  line-height:1.45 !important;
+}
+.education-links > a.credly-inline-link span {
+  color:inherit !important;
+  -webkit-text-fill-color:inherit !important;
+  font-size:inherit !important;
+  line-height:1.65 !important;
+}
+.education-links > a.credly-inline-link i {
+  color:#c9b6c8 !important;
+  -webkit-text-fill-color:#c9b6c8 !important;
+}
+.education-links > a.credly-inline-link:hover,
+.education-links > a.internship-inline-link:hover,
+.education-links > a.credly-inline-link:focus-visible,
+.education-links > a.internship-inline-link:focus-visible {
+  background:rgba(158,130,156,.12) !important;
+  background-image:none !important;
+  border-color:rgba(240,239,244,.65) !important;
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  box-shadow:0 0 12px rgba(158,130,156,.28),0 0 24px rgba(158,130,156,.12) !important;
+  transform:none !important;
+}
+@media(max-width:640px){
+  .education-links{grid-template-columns:minmax(0,1fr) !important;gap:9px !important;}
+  .education-links > a.internship-inline-link{grid-column:1 !important;}
+  .education-links > a.credly-inline-link,
+  .education-links > a.internship-inline-link{padding:12px 14px !important;font-size:13px !important;}
+  .education-links > a.internship-inline-link span{font-size:12px !important;}
 }
 </style>
