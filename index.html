@@ -6649,10 +6649,9 @@ font-size: 0.65rem;
     target="_blank"
     rel="noopener noreferrer"
     title="University of the People — Business Problem-Solving Credential"
+    aria-label="Identifying and Framing Business Problems and Opportunities; Analyzing Root Causes and Evaluating Strategic Options; Formulating and Communicating Evidence-Based Recommendations"
   >
-<span>Identifying and Framing Business Problems and Opportunities<br>
-    Analyzing Root Causes and Evaluating Strategic Options<br>
-    Formulating and Communicating Evidence-Based Recommendations</span>
+<span>Business Problem-Solving Credential</span>
 <i class="ti ti-external-link" aria-hidden="true"></i>
 </a>
 
@@ -19417,6 +19416,15 @@ html body .udacity-accenture-lockup > .udacity-wordmark > svg {
   }
 }
 </style>
+
+<style id="bp-uopeople-three-full-width-stack-20261111">
+/* Three independent, full-width credential rows at every viewport size. */
+html body .education-links{display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:10px!important;width:100%!important;max-width:100%!important;}
+html body .education-links>a:is(.credly-inline-link,.internship-inline-link){display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;flex:0 0 auto!important;grid-column:auto!important;width:100%!important;max-width:100%!important;min-width:0!important;min-height:0!important;padding:14px 18px!important;margin:0!important;box-sizing:border-box!important;}
+html body .education-links>a.internship-inline-link{min-height:0!important;padding:16px 18px!important;}
+html body .education-links>a.credly-inline-link span{line-height:1.65!important;}
+@media(max-width:640px){html body .education-links{gap:9px!important;}html body .education-links>a:is(.credly-inline-link,.internship-inline-link){padding:12px 14px!important;}html body .education-links>a.internship-inline-link{padding:14px!important;}}
+</style>
 </body>
 <!-- =========================================================
      JOB DESCRIPTIONS (inside every + / − expansion) — "reading column" layout
@@ -21446,4 +21454,102 @@ html body .education-links>a.internship-inline-link span{display:block!important
 html body .education-links>a.internship-inline-link{grid-column:1/-1!important;min-height:82px!important;}
 @media(max-width:640px){html body .education-links{grid-template-columns:1fr!important;gap:.6rem!important;}html body .education-links>a:is(.credly-inline-link,.internship-inline-link){min-height:76px!important;padding:.75rem .85rem!important;font-size:.81rem!important;}}
 @media(prefers-reduced-motion:reduce){html body .education-links>a:is(.credly-inline-link,.internship-inline-link),html body .education-links>a:is(.credly-inline-link,.internship-inline-link)::after{transition:none!important;}html body .education-links>a:is(.credly-inline-link,.internship-inline-link)::after{display:none!important;}}
+</style>
+
+<style id="bp-uopeople-udacity-exact-card-sizing-20261111">
+/* Match Udacity Nanodegree card sizing, retaining three full-width stacked rows. */
+html body .education-links{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:.65rem!important;width:100%!important;align-items:stretch!important;}
+html body .education-links>a:is(.credly-inline-link,.internship-inline-link){grid-column:1/-1!important;box-sizing:border-box!important;width:100%!important;min-width:0!important;min-height:0!important;height:auto!important;padding:.82rem .9rem!important;border-radius:12px!important;font-size:.84rem!important;font-weight:650!important;line-height:1.3!important;gap:.3rem!important;justify-content:center!important;}
+html body .education-links>a.credly-inline-link span{font-size:inherit!important;line-height:1.3!important;}
+html body .education-links>a.internship-inline-link span{font-size:.66rem!important;line-height:1.4!important;letter-spacing:.04em!important;margin-top:.3rem!important;}
+@media(max-width:640px){html body .education-links>a:is(.credly-inline-link,.internship-inline-link){padding:.75rem .8rem!important;font-size:.84rem!important;}}
+</style>
+
+<style id="bp-uopeople-udacity-identical-card-dimensions-20261111">
+/* A shared card height and box model makes the three UoPeople rows the same size as Udacity cards. */
+html body .udacity-nanodegrees .und-card,
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link){
+  box-sizing:border-box!important;
+  min-height:84px!important;
+  height:84px!important;
+  padding:.82rem .9rem!important;
+  border-radius:12px!important;
+}
+html body .education-links{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:.65rem!important;}
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link){
+  grid-column:1/-1!important;
+  width:100%!important;
+  max-width:100%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:.2rem!important;
+  margin:0!important;
+  font-size:.84rem!important;
+  line-height:1.3!important;
+}
+@media(max-width:640px){
+ html body .udacity-nanodegrees .und-card,
+ html body .education-links > a:is(.credly-inline-link,.internship-inline-link){
+  height:84px!important;min-height:84px!important;padding:.75rem .8rem!important;
+ }
+}
+</style>
+
+
+<style id="bp-uopeople-three-inline-udacity-sized-final">
+/* Three equal-sized UoPeople links, using the same three-column card geometry as Udacity. */
+html body .education-links {
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  grid-auto-rows:88px!important;
+  align-items:stretch!important;
+  gap:.65rem!important;
+  width:100%!important;
+  max-width:100%!important;
+  flex-direction:row!important;
+}
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link) {
+  display:flex!important;
+  box-sizing:border-box!important;
+  grid-column:auto!important;
+  grid-row:auto!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  height:88px!important;
+  min-height:88px!important;
+  max-height:88px!important;
+  margin:0!important;
+  padding:.82rem .9rem!important;
+  flex:initial!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  align-items:flex-start!important;
+  gap:.2rem!important;
+  font-size:.84rem!important;
+  line-height:1.3!important;
+  text-align:left!important;
+  overflow:hidden!important;
+  border-radius:12px!important;
+}
+html body .education-links > a.internship-inline-link span {
+  display:block!important;
+  font-size:.68rem!important;
+  line-height:1.3!important;
+  margin-top:.15rem!important;
+}
+html body .education-links > a.credly-inline-link span {
+  line-height:1.3!important;
+}
+@media(max-width:640px) {
+  html body .education-links {grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:.4rem!important;}
+  html body .education-links > a:is(.credly-inline-link,.internship-inline-link) {
+    padding:.5rem!important;
+    font-size:clamp(.62rem,2.1vw,.84rem)!important;
+    overflow-wrap:anywhere!important;
+  }
+  html body .education-links > a.internship-inline-link span {font-size:clamp(.54rem,1.65vw,.68rem)!important;}
+}
 </style>
