@@ -21700,12 +21700,22 @@ html body .udacity-nanodegrees .und-card.und-accenture:focus-visible {
 </style>
 
 <style id="bp-accenture-visible-border-fix">
-html body .udacity-nanodegrees .und-card.und-accenture {
-  border:1px solid rgba(166,103,244,.57) !important;
-  box-shadow:inset 0 1px 0 rgba(240,239,244,.065),0 0 0 1px rgba(139,75,232,.09),0 3px 10px rgba(0,0,0,.12) !important;
+/* Same resting appearance as the two blue Udacity cards. Purple is revealed on hover only. */
+html body .udacity-nanodegrees .und-card.und-accenture:not(:hover):not(:focus-visible) {
+  border-color:rgba(158,130,156,.28) !important;
+  box-shadow:inset 0 1px 0 rgba(240,239,244,.065),0 3px 10px rgba(0,0,0,.12) !important;
 }
-html body .udacity-nanodegrees .und-card.und-accenture::before {
+html body .udacity-nanodegrees .und-card.und-accenture:not(:hover):not(:focus-visible)::before {
+  background:linear-gradient(180deg,rgba(158,130,156,.55),rgba(158,130,156,.18)) !important;
+  box-shadow:none !important;
+}
+/* Purple uses the identical reveal timing and structure as blue on hover. */
+html body .udacity-nanodegrees .und-card.und-accenture:is(:hover,:focus-visible) {
+  border-color:rgba(139,75,232,.52) !important;
+  box-shadow:inset 0 1px 0 rgba(240,239,244,.11),0 0 16px rgba(139,75,232,.16),0 5px 15px rgba(0,0,0,.16) !important;
+}
+html body .udacity-nanodegrees .und-card.und-accenture:is(:hover,:focus-visible)::before {
   background:linear-gradient(180deg,#b78aff,#8b4be8 55%,#5921ac) !important;
-  box-shadow:0 0 7px rgba(139,75,232,.30) !important;
+  box-shadow:0 0 10px rgba(139,75,232,.65) !important;
 }
 </style>
