@@ -5159,9 +5159,15 @@ html body #inside-lvmh-2026:hover::after {
   align-items: center !important;
   cursor: pointer !important;
 }
-.profile-matrix .matrix-card .card-toggle:focus:not(:focus-visible) {
+.card-toggle:focus {
+  /* Remove only the gray click-focus rectangle; do not change button state or events. */
   outline: none !important;
   outline-offset: 0 !important;
+}
+.card-toggle:focus-visible {
+  /* Keep an accessible indicator for keyboard navigation. */
+  outline: 2px solid rgba(255,255,255,0.35) !important;
+  outline-offset: 2px !important;
 }
 .chevron {
   transition: transform 0.3s ease !important;
@@ -6933,6 +6939,7 @@ html body #inside-lvmh-2026:hover::after {
   <div class="und-grid">
     <a class="und-card" href="https://www.udacity.com/certificate/e/5c987abc-dba0-11f1-8812-a3bae8c4afc4" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Introduction to Data Analytics (opens in a new tab)"><span><span class="und-card-title">Introduction to Data Analytics</span></span></a>
     <a class="und-card" href="https://www.udacity.com/certificate/e/288201be-35d1-11f1-a1df-03b70bfa907d" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: AI for Business Leaders (opens in a new tab)"><span><span class="und-card-title">AI for Business Leaders</span></span></a>
+    <a class="und-card und-accenture" href="https://www.udacity.com/certificate/e/8c994c7e-335c-11f1-8ff4-3ff2c3ec7f5a" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Agile Software Developer (opens in a new tab)"><span><span class="und-card-title">Agile Software Developer</span></span></a>
     <a class="und-card und-accenture" href="https://www.udacity.com/certificate/e/9049c39c-dbdd-11f1-a80f-9fd001585fda" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Digital Transformation for Business Leaders (opens in a new tab)"><span><span class="und-card-title">Digital Transformation for Business Leaders</span></span></a>
     <a class="und-card und-accenture" href="https://www.udacity.com/certificate/e/9412084a-d877-11f1-8b88-8f5770615cda" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: AI Product Manager (opens in a new tab)"><span><span class="und-card-title">AI Product Manager</span></span></a>
     <a class="und-card und-accenture" href="https://www.udacity.com/certificate/e/8f22f506-335e-11f1-8e80-17a428de4d90" target="_blank" rel="noopener noreferrer" aria-label="View Udacity credential: Growth Product Manager (opens in a new tab)"><span><span class="und-card-title">Growth Product Manager</span></span></a>
