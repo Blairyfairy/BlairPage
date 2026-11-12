@@ -10033,10 +10033,15 @@ transition: color 0.25s ease, -webkit-text-fill-color 0.25s ease, border-color 0
 }
 .lapx-note strong { color: inherit !important; -webkit-text-fill-color: inherit !important; font-weight: 800 !important; }
 .lapx-note a {
-color: #2A9DB4 !important;
--webkit-text-fill-color: #2A9DB4 !important;
+color: inherit !important;
+-webkit-text-fill-color: inherit !important;
 text-decoration: underline !important;
 text-underline-offset: 2px !important;
+}
+.lapx-note a:hover,
+.lapx-note a:focus-visible {
+color: #2A9DB4 !important;
+-webkit-text-fill-color: #2A9DB4 !important;
 }
 .lapx-fused:hover .lapx-note {
 color: var(--bp-link-white, #f0eff4) !important;
