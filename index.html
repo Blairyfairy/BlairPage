@@ -19083,10 +19083,31 @@ html body .udacity-accenture-lockup > .institute-wordmark {
 </style>
 
 <style id="bp-uopeople-purple-udacity-hover-parity-20261111">
-/* Keep existing geometry and interactions; match Udacity hover with UoPeople purple. */
-html body .education-links > a:is(.credly-inline-link,.internship-inline-link){transition:background .38s ease,border-color .38s ease,box-shadow .38s ease,transform .38s ease,color .38s ease!important;}
-html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible){background:radial-gradient(ellipse 380px 260px at 6% 50%,rgba(112,52,154,.19) 0%,transparent 70%),linear-gradient(100deg,rgba(112,52,154,.14) 0%,rgba(158,130,156,.07) 38%,transparent 75%)!important;background-color:transparent!important;border-color:rgba(112,52,154,.65)!important;box-shadow:0 0 12px rgba(112,52,154,.20),0 0 22px rgba(112,52,154,.09)!important;color:#b887e3!important;-webkit-text-fill-color:#b887e3!important;text-shadow:0 0 6px rgba(160,94,204,.35)!important;}
-html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible) span,html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible) i{color:#b887e3!important;-webkit-text-fill-color:#b887e3!important;}
+/* Same neutral resting state and hover transition as Udacity; UoPeople purple sweep. */
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link) {
+  background:transparent !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  color:var(--dusty-mauve) !important;
+  -webkit-text-fill-color:var(--dusty-mauve) !important;
+  text-shadow:none !important;
+  transition:background .38s ease,border-color .38s ease,box-shadow .38s ease,color .38s ease !important;
+}
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):not(:hover):not(:focus-visible) :is(span,i) {
+  text-shadow:none !important;
+}
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible) {
+  background:radial-gradient(ellipse 380px 260px at 6% 50%,rgba(112,52,154,.23) 0%,transparent 70%),linear-gradient(100deg,rgba(112,52,154,.23) 0%,rgba(112,52,154,.11) 42%,transparent 85%) !important;
+  border-color:rgba(112,52,154,.65) !important;
+  box-shadow:0 0 12px rgba(112,52,154,.20),0 0 22px rgba(112,52,154,.09) !important;
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  text-shadow:0 0 6px rgba(255,255,255,.25) !important;
+}
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible) :is(span,i) {
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+}
 </style>
 </body>
 <!-- =========================================================
@@ -21242,5 +21263,49 @@ html body .udacity-accenture-lockup > .institute-wordmark {
 }
 @media(max-width:640px){
   html body .udacity-accenture-lockup {gap:.32em!important;column-gap:.32em!important;}
+}
+</style>
+
+<style id="bp-uopeople-final-verified-hover-20261111">
+/* Final cascade override: mirror Udacity's neutral rest and sweep interaction. */
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):not(:hover):not(:focus-visible) {
+ background:transparent!important;background-color:transparent!important;background-image:none!important;
+ box-shadow:inset 0 1px 0 rgba(240,239,244,.065),0 3px 10px rgba(0,0,0,.12)!important;
+ border-color:rgba(158,130,156,.25)!important;
+ color:var(--bp-link-mauve,#9e829c)!important;-webkit-text-fill-color:var(--bp-link-mauve,#9e829c)!important;text-shadow:none!important;
+}
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link) {
+ transition:background .3s ease,border-color .3s ease,box-shadow .3s ease!important;
+}
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible) {
+ background:linear-gradient(110deg,rgba(112,52,154,.30) 0%,rgba(112,52,154,.16) 42%,rgba(112,52,154,.035) 100%)!important;
+ background-image:linear-gradient(110deg,rgba(112,52,154,.30) 0%,rgba(112,52,154,.16) 42%,rgba(112,52,154,.035) 100%)!important;
+ border-color:rgba(112,52,154,.62)!important;
+ box-shadow:inset 0 1px 0 rgba(240,239,244,.11),0 0 16px rgba(112,52,154,.23),0 5px 15px rgba(0,0,0,.16)!important;
+ color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:none!important;
+}
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible) span,
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible) i {
+ color:#fff!important;-webkit-text-fill-color:#fff!important;
+}
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible)::before {
+ background:linear-gradient(180deg,#b78aff,#70349a 55%,#492066)!important;
+ box-shadow:0 0 10px rgba(112,52,154,.65)!important;
+}
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible)::after {
+ left:125%!important;opacity:1!important;transition:left 1.05s ease,opacity .2s ease!important;
+}
+
+/* Match Udacity's mauve text at rest, including nested labels and icons. */
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):not(:hover):not(:focus-visible) :is(span,i,svg) {
+ color:var(--bp-link-mauve,#9e829c)!important;
+ -webkit-text-fill-color:var(--bp-link-mauve,#9e829c)!important;
+ text-shadow:none!important;
+}
+
+/* Match Udacity's soft white text glow on hover, without changing the purple sweep. */
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible),
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link):is(:hover,:focus-visible) :is(span,i) {
+ text-shadow:0 0 5px rgba(240,239,244,.30),0 0 14px rgba(240,239,244,.42)!important;
 }
 </style>
