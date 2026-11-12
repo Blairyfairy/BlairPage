@@ -21336,3 +21336,37 @@ html body .education-links > a.credly-inline-link > span {
   }
 }
 </style>
+
+<style id="bp-uopeople-two-credential-bold-only">
+/* Bold only the first two credential links; retain all existing colors and hover effects. */
+html body .education-links > a.credly-inline-link,
+html body .education-links > a.credly-inline-link > span { font-weight:700!important; }
+</style>
+
+<style id="bp-coursera-uniform-link-sizes-20261111">
+/* Equal-sized Coursera link cards, without altering their individual hover effects. */
+html body .training-card.certificates-card .certificate-list {
+  grid-auto-rows: minmax(0, 1fr) !important;
+  align-items: stretch !important;
+}
+html body .training-card.certificates-card .certificate-list > a.certificate-link {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 17px !important;
+  gap: 7px !important;
+  align-self: stretch !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+}
+html body .training-card.certificates-card .certificate-list > a.certificate-link > strong {
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+}
+html body .training-card.certificates-card .certificate-list > a.certificate-link > span {
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+}
+</style>
