@@ -938,6 +938,17 @@ Placement: top text area, above the standalone PDF subtitle/actions.
         <small>Rabbot Mall Scene</small>
       </button>
 
+      <button
+        class="athf-aws-video"
+        type="button"
+        data-athf-id="hmRtsi7fg54"
+        data-athf-start="7"
+        data-athf-title="Behold, The Rabbot | Aqua Teen Hunger Force | adult swim">
+        <span class="athf-aws-mini">Eleventh</span>
+        <strong>Behold, The Rabbot | Aqua Teen Hunger Force | adult swim</strong>
+        <small>Starts at 0:07</small>
+      </button>
+
     </div>
   </div>
 </section>
@@ -1254,7 +1265,8 @@ Placement: top text area, above the standalone PDF subtitle/actions.
     'Aqua Teen Hunger Force — Best of the Mooninites': '0udqZsvrux0',
     'Aqua Teen Hunger Force — Rabbot': '1cXD8ym1GzY',
     'Bella Poarch - Dolls (Official Music Video)': 'cGJIl1TM074',
-    'Aqua Teen Hunger Force - Rabbot Mall Scene': '91xpnMZ30aM'
+    'Aqua Teen Hunger Force - Rabbot Mall Scene': '91xpnMZ30aM',
+    'Behold, The Rabbot | Aqua Teen Hunger Force | adult swim': 'hmRtsi7fg54'
   };
 
   function athfEmbed(id, shouldAutoplay){
@@ -1273,7 +1285,7 @@ Placement: top text area, above the standalone PDF subtitle/actions.
 
     button.dataset.athfId = id;
 
-    athfFrame.src = athfEmbed(id, shouldAutoplay);
+    athfFrame.src = athfEmbed(id, shouldAutoplay) + (button.dataset.athfStart ? '&start=' + encodeURIComponent(button.dataset.athfStart) : '');
     athfFrame.title = title;
 
     if(athfNow){
@@ -1281,7 +1293,7 @@ Placement: top text area, above the standalone PDF subtitle/actions.
     }
 
     if(athfOpen){
-      athfOpen.href = 'https://www.youtube.com/watch?v=' + id;
+      athfOpen.href = 'https://www.youtube.com/watch?v=' + id + (button.dataset.athfStart ? '&t=' + encodeURIComponent(button.dataset.athfStart) + 's' : '');
     }
 
     athfButtons.forEach(btn => btn.classList.remove('active'));
