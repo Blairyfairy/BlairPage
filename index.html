@@ -21309,3 +21309,30 @@ html body .education-links > a:is(.credly-inline-link,.internship-inline-link):i
  text-shadow:0 0 5px rgba(240,239,244,.30),0 0 14px rgba(240,239,244,.42)!important;
 }
 </style>
+
+<style id="bp-uopeople-three-link-typography-parity-20261111">
+/* Match the two credential labels to the Front-End internship button's primary label. */
+html body .education-links > a:is(.credly-inline-link,.internship-inline-link) {
+  font-family:var(--font-sans),sans-serif!important;
+  font-size:.84rem!important;
+  font-weight:650!important;
+  font-style:normal!important;
+  letter-spacing:normal!important;
+  line-height:1.3!important;
+  text-transform:none!important;
+}
+html body .education-links > a.credly-inline-link > span {
+  font-family:inherit!important;
+  font-size:inherit!important;
+  font-weight:inherit!important;
+  font-style:inherit!important;
+  letter-spacing:inherit!important;
+  line-height:inherit!important;
+  text-transform:inherit!important;
+}
+@media(max-width:640px){
+  html body .education-links > a:is(.credly-inline-link,.internship-inline-link){
+    font-size:clamp(.62rem,2.1vw,.84rem)!important;
+  }
+}
+</style>
