@@ -4581,7 +4581,7 @@ text-shadow:
 </div>
 </article>
 <!-- 5. COMMUNITIES -->
-<article class="matrix-card">
+<article class="matrix-card game-servers-card">
 <button class="card-toggle" aria-expanded="false">
 <span>🌐 Game Servers</span>
 <span class="expand-icon">＋</span>
@@ -4721,6 +4721,16 @@ font-size: 0.95rem !important;
 .matrix-card.open .card-content {
 display: block !important;
 }
+
+/* Game Servers: keep grid and table text within their containing card. */
+.matrix-grid > .game-servers-card { min-width: 0 !important; max-width: 100% !important; box-sizing: border-box !important; }
+.game-servers-card .card-content,
+.game-servers-card .data-table-section { min-width: 0 !important; max-width: 100% !important; box-sizing: border-box !important; overflow-wrap: anywhere !important; }
+.game-servers-card .data-table { width: 100% !important; max-width: 100% !important; min-width: 0 !important; table-layout: fixed !important; }
+.game-servers-card .data-table th,
+.game-servers-card .data-table td { overflow-wrap: anywhere !important; word-break: normal !important; white-space: normal !important; box-sizing: border-box !important; }
+.game-servers-card .data-table-section h3,
+.game-servers-card .table-note { overflow-wrap: anywhere !important; max-width: 100% !important; }
 </style>
 <h2>Professional Experience</h2>
 <!-- =====================
