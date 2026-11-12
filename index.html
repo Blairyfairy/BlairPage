@@ -15215,6 +15215,52 @@ html body .education-links > a:is(.credly-inline-link,.internship-inline-link):i
   }
 }
 </style>
+
+<style id="bp-coursera-xbox-akamai-restore-colored-underline-white-core">
+/* Keep the Coursera-wide shine only; restore brand-color underlines, not button shines. */
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link:is(.xbox-cert,.akamai-cert)::before {
+  content:none!important;display:none!important;
+}
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link:is(.xbox-cert,.akamai-cert)::after {
+  content:""!important;display:block!important;position:absolute!important;
+  pointer-events:none!important;z-index:1!important;
+  top:auto!important;right:auto!important;
+  height:2px!important;filter:none!important;
+  animation:none!important;
+  background-image:none!important;
+}
+/* Xbox: vivid green underline grows into place as before. */
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link.xbox-cert::after {
+  left:12%!important;right:12%!important;bottom:4px!important;width:auto!important;
+  background-color:#9BF00B!important;box-shadow:0 0 7px rgba(155,240,11,.65)!important;
+  border-radius:2px!important;opacity:0!important;transform:scaleX(0)!important;
+  transition:transform .3s ease,opacity .3s ease!important;
+}
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link.xbox-cert:is(:hover,:focus-visible)::after {
+  opacity:1!important;transform:scaleX(1)!important;
+}
+/* Akamai: pure yellow underline expands from the left as before. */
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link.akamai-cert::after {
+  left:0!important;bottom:-5px!important;width:0!important;
+  background-color:#FFD700!important;box-shadow:0 0 5px rgba(255,215,0,.8)!important;
+  opacity:1!important;transform:none!important;
+  transition:width .3s ease!important;
+}
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link.akamai-cert:is(:hover,:focus-visible)::after {
+  width:100%!important;
+}
+/* Bright white letter centers, with brand-colored haze around the letters. */
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link.xbox-cert:is(:hover,:focus-visible),
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link.xbox-cert:is(:hover,:focus-visible) :is(strong,span) {
+  color:#fff!important;-webkit-text-fill-color:#fff!important;
+  text-shadow:0 0 3px rgba(255,255,255,.55),0 0 7px rgba(155,240,11,.85),0 0 16px rgba(155,240,11,.52)!important;
+}
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link.akamai-cert:is(:hover,:focus-visible),
+html body .tt-section .training-card.certificates-card .certificate-list a.certificate-link.akamai-cert:is(:hover,:focus-visible) :is(strong,span) {
+  color:#fff!important;-webkit-text-fill-color:#fff!important;
+  text-shadow:0 0 3px rgba(255,255,255,.55),0 0 7px rgba(255,215,0,.85),0 0 16px rgba(255,215,0,.52)!important;
+}
+</style>
 </body>
 <style id="bp-lvmh-reference-navy-white-brand-parity-20261110">
 #inside-lvmh-2026,
