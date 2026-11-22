@@ -1023,14 +1023,52 @@ body::before{
   }
 }
 </style>
+<style id="credential-svg-index-hover-parity-20261121">
+/* Exact header-logo interaction from index.html: no lift, no link-level glow,
+   independent medium-white glow applied only to the artwork. */
+html body .top-bar .credential-header .bp-brand-link,
+html body .top-bar .credential-header .bp-brand-link:is(:hover,:focus,:focus-visible,:active) {
+  display:inline-flex !important; align-items:center !important; justify-content:flex-start !important;
+  padding:0 !important; margin:0 !important; border:0 !important;
+  background:transparent !important; box-shadow:none !important;
+  transform:none !important; translate:none !important; scale:none !important;
+  text-decoration:none !important; filter:none !important; opacity:1 !important;
+}
+html body .top-bar .credential-header .bp-brand-link svg {
+  display:block !important; overflow:visible !important; filter:none !important;
+  transform:none !important; transition:filter .22s ease !important;
+}
+html body .top-bar .credential-header .bp-brand-link:is(:hover,:focus-visible) svg {
+  filter:drop-shadow(0 0 3px rgba(255,255,255,.65)) drop-shadow(0 0 5px rgba(255,255,255,.32)) !important;
+}
+html body .top-bar .credential-header .bp-brand-link:focus-visible {
+  outline:1px dotted currentColor !important; outline-offset:3px !important;
+}
+html body .top-bar .credential-header .bp-brand-lockup {
+  display:inline-flex !important; align-items:center !important; flex-wrap:nowrap !important;
+  gap:clamp(6px,1.1vw,12.5px) !important; max-width:100% !important;
+  white-space:nowrap !important; vertical-align:middle !important;
+}
+@media(max-width:640px) {
+ html body .top-bar .credential-header .bp-brand-lockup {gap:7px !important;}
+ html body .top-bar .credential-header .bp-lvmh-svg {width:64.1px !important;height:auto !important;}
+ html body .top-bar .credential-header .bp-aws-svg {width:69.4px !important;height:auto !important;}
+}
+@media(max-width:390px) {
+ html body .top-bar .credential-header .bp-brand-lockup {gap:5px !important;}
+ html body .top-bar .credential-header .bp-lvmh-svg {width:56.9px !important;height:auto !important;}
+ html body .top-bar .credential-header .bp-aws-svg {width:61.5px !important;height:auto !important;}
+}
+</style>
 </head>
 
 <body id="gallery-page">
 
 <header class="top-bar">
-  <div class="credential-header">
-    Inside LVMH (In Training) · AWS Certified
-  </div>
+  <div class="credential-header"><span class="bp-brand-lockup" style="display:inline-flex;align-items:center;gap:clamp(6px,1.1vw,12.5px);vertical-align:middle;max-width:100%;white-space:nowrap">
+<a href="https://blairyfairy.github.io/BlairPage/#certifications" class="bp-brand-link" aria-label="INSIDE LVMH certifications" title="INSIDE LVMH certifications" style="display:inline-flex;align-items:center;text-decoration:none;flex-shrink:1;min-width:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 244 45" class="bp-lvmh-svg" width="76.65" height="14.7" role="img" aria-label="INSIDE LVMH" style="display:block;max-width:100%;height:auto;overflow:visible"><text x="1" y="35" fill="#f0eff4" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="300" letter-spacing="-1.1">INSIDE</text><text x="127" y="35" fill="#f0eff4" font-family="Georgia,'Times New Roman',serif" font-size="35" letter-spacing="-1">LVMH</text></svg></a>
+<a href="https://blairyfairy.github.io/BlairPage/#credly-badges" class="bp-brand-link" aria-label="AWS certified badges" title="AWS certification badges" style="display:inline-flex;align-items:center;text-decoration:none;flex-shrink:1;min-width:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 47" class="bp-aws-svg" width="82.95" height="14.7" role="img" aria-label="aws certified" style="display:block;max-width:100%;height:auto;overflow:visible"><text x="1" y="36" fill="#f0eff4" font-family="Arial,Helvetica,sans-serif" font-size="47" font-weight="200" letter-spacing="-4">aws</text><path d="M110 5 L128 15 L128 35 L110 45 L92 35 L92 15 Z" fill="#ff9900"/><path d="M101 25 L108 32 L120 18" fill="none" stroke="#ffffff" stroke-width="5.2" stroke-linecap="square" stroke-linejoin="miter"/><text x="136" y="36" fill="#f0eff4" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="200" letter-spacing="-2.5">certified</text></svg></a>
+</span></div>
 
   <nav class="site-nav">
     <a href="index.html">Home</a>
