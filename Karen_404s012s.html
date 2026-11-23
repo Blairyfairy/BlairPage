@@ -1157,6 +1157,43 @@ button#pageScrollTop.page-scroll-top:hover span {
 }
 
 </style>
+<style id="credential-svg-index-hover-parity-20261121">
+/* Exact header-logo interaction from index.html: no lift, no link-level glow,
+   independent medium-white glow applied only to the artwork. */
+html body .top-bar .credential-header .bp-brand-link,
+html body .top-bar .credential-header .bp-brand-link:is(:hover,:focus,:focus-visible,:active) {
+  display:inline-flex !important; align-items:center !important; justify-content:flex-start !important;
+  padding:0 !important; margin:0 !important; border:0 !important;
+  background:transparent !important; box-shadow:none !important;
+  transform:none !important; translate:none !important; scale:none !important;
+  text-decoration:none !important; filter:none !important; opacity:1 !important;
+}
+html body .top-bar .credential-header .bp-brand-link svg {
+  display:block !important; overflow:visible !important; filter:none !important;
+  transform:none !important; transition:filter .22s ease !important;
+}
+html body .top-bar .credential-header .bp-brand-link:is(:hover,:focus-visible) svg {
+  filter:drop-shadow(0 0 3px rgba(255,255,255,.65)) drop-shadow(0 0 5px rgba(255,255,255,.32)) !important;
+}
+html body .top-bar .credential-header .bp-brand-link:focus-visible {
+  outline:1px dotted currentColor !important; outline-offset:3px !important;
+}
+html body .top-bar .credential-header .bp-brand-lockup {
+  display:inline-flex !important; align-items:center !important; flex-wrap:nowrap !important;
+  gap:clamp(6px,1.1vw,12.5px) !important; max-width:100% !important;
+  white-space:nowrap !important; vertical-align:middle !important;
+}
+@media(max-width:640px) {
+ html body .top-bar .credential-header .bp-brand-lockup {gap:7px !important;}
+ html body .top-bar .credential-header .bp-lvmh-svg {width:64.1px !important;height:auto !important;}
+ html body .top-bar .credential-header .bp-aws-svg {width:69.4px !important;height:auto !important;}
+}
+@media(max-width:390px) {
+ html body .top-bar .credential-header .bp-brand-lockup {gap:5px !important;}
+ html body .top-bar .credential-header .bp-lvmh-svg {width:56.9px !important;height:auto !important;}
+ html body .top-bar .credential-header .bp-aws-svg {width:61.5px !important;height:auto !important;}
+}
+</style>
 </head>
 
 <body id="gallery-page">
