@@ -5418,5 +5418,19 @@ body.dark .hero-left-clean .theme-inherited-comparison-card {
 @media(max-width:1080px){.hero-grid{grid-template-columns:minmax(0,1fr)!important;gap:24px!important;}.hero-grid h1{text-align:center;}}
 @media(max-width:420px){.hero-grid .metric-grid{grid-template-columns:1fr!important;}.hero-grid h1{font-size:clamp(2.5rem,13vw,3.8rem);}}
 </style>
+<script>
+(function(){
+  function moveJournalToRightBottom(){
+    var journal = Array.from(document.querySelectorAll('.bp-journal-priority .conclusion h3')).find(function(h){return h.textContent.trim() === 'Personal Journal Reflection';});
+    if (!journal || journal.textContent.trim() !== 'Personal Journal Reflection') return;
+    var card = journal.closest('.bp-journal-priority');
+    var chart = document.querySelector('.chart-shell');
+    var panel = chart && chart.closest('.panel');
+    if (card && panel) panel.appendChild(card);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', moveJournalToRightBottom);
+  else moveJournalToRightBottom();
+})();
+</script>
 </body>
 </html>
