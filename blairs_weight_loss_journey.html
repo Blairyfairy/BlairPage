@@ -5456,7 +5456,7 @@ body.dark .hero-left-clean .theme-inherited-comparison-card {
     var panel = chart && chart.closest('.panel');
     if (card && panel) panel.appendChild(card);
     if (panel) {
-      ['The Trade-Off: Career vs. Calories', 'My Goals'].forEach(function(title){
+      ['The Trade-Off: Career vs. Calories', 'My Goals', 'My Temporary Daily Priorities'].forEach(function(title){
         var heading = Array.from(document.querySelectorAll('h3')).find(function(h){return h.textContent.trim() === title;});
         var section = heading && heading.closest('.panel');
         if (section && section !== panel) {
