@@ -3181,6 +3181,20 @@ body.dark .bp-journal-priority .conclusion{background:rgba(184,107,143,.16)}
         <p style="margin:0;"><strong>Changes and study strategy:</strong> Practice migration from 8.0 to 8.4 and then 9.7, authentication compatibility (mysql_native_password disabled by default in 8.4 and removed in 9.x), replication terminology and upgrade checks. MySQL 9.7 brings additional formerly enterprise-only capabilities into Community Edition, including the hypergraph optimizer. Software end of life is not the same as exam retirement; no replacement 8.4/9.7 DBA exam or retirement date for 1Z0-908 was verified. Confirm the current exam catalog before spending money.</p>
         <p style="margin:0;"><a href="https://www.mysql.com/certification/" target="_blank" rel="noopener noreferrer">Certification &amp; retake packages</a> · <a href="https://www.oracle.com/education/training/buy/" target="_blank" rel="noopener noreferrer">Oracle exam purchase</a> · <a href="https://www.mysql.com/support/eol-notice.html" target="_blank" rel="noopener noreferrer">End-of-life notices</a> · <a href="https://www.oracle.com/assets/lsp-tech-chart-069290.pdf" target="_blank" rel="noopener noreferrer">Support dates</a> · <a href="https://blogs.oracle.com/mysql/mysql-9-7-is-out-and-the-community-wins" target="_blank" rel="noopener noreferrer">9.7 changes</a></p>
       </div>
+      <div class="tile" style="min-height:0;padding:16px;gap:8px;">
+        <small>CompTIA Security+ — planned</small>
+        <strong style="font-size:1.35rem;">$439 exam · $579 with retake</strong>
+        <p style="margin:0;">Two separate attempts cost $878. Retake Assurance saves $299 if both attempts are needed. The $593 Practice and Exam Bundle includes CertMaster Practice and retake assurance.</p>
+        <p style="margin:0;"><strong>Best potential savings:</strong> Check academic eligibility while enrolled at UoPeople. CCRI lists academic prices of $290 for one attempt or $377 with retake; these are benchmarks, not confirmed UoPeople offers. Crucial Exams advertises $492.15 with retake. Verify seller authorization, expiration and exam version. Both assurance attempts generally must occur within 12 months. SY0-701 English retirement is reported for June 11, 2027; check SY0-801 availability.</p>
+        <p style="margin:0;"><a href="https://www.ccri.edu/comp/comptia" target="_blank" rel="noopener noreferrer">Pricing and eligibility</a> · <a href="https://crucialexams.com/store/product/comptia-security-voucher-with-retake-v7" target="_blank" rel="noopener noreferrer">Retake options</a></p>
+      </div>
+      <div class="tile" style="min-height:0;padding:16px;gap:8px;">
+        <small>PMI Project Management Professional (PMP) — planned</small>
+        <strong style="font-size:1.35rem;">$405 member · $655 nonmember</strong>
+        <p style="margin:0;">PMI public exam prices; reported retake fees are $275 member and $375 nonmember. Up to three attempts in one eligibility year; no universal free retake. Using an illustrative $174 first-year membership allowance: $579 first attempt or $854 with one retake, compared with $655 or $1,030 without membership.</p>
+        <p style="margin:0;"><strong>Best potential savings:</strong> Check student membership eligibility and current dues. Membership saves money on the first attempt if dues are below $250. With a qualifying bachelor’s degree, typically 36 months of project leadership and 35 hours of qualifying education are required. Compare training bundles with explicit exam vouchers or retake reimbursement; pass guarantees do not necessarily cover retakes. Recent reported prices differ; verify checkout before purchase.</p>
+        <p style="margin:0;"><a href="https://www.pmi.org/certifications/project-management-pmp" target="_blank" rel="noopener noreferrer">Pricing and eligibility</a> · <a href="https://agilefever.com/pmp-exam-fee/" target="_blank" rel="noopener noreferrer">Retake options</a></p>
+      </div>
     </div>
     <p class="note">Official calendars: <a href="https://catalog.uopeople.edu/ug_term1_item/about-the-university/academic-calendar-2026-2027" target="_blank" rel="noopener noreferrer">UoPeople 2026–27 Academic Calendar</a>. Dates and hours are shown as verified program information or explicitly labeled planning estimates.</p>
   </div>
@@ -5438,6 +5452,19 @@ body.dark .hero-left-clean .theme-inherited-comparison-card {
     var chart = document.querySelector('.chart-shell');
     var panel = chart && chart.closest('.panel');
     if (card && panel) panel.appendChild(card);
+    if (panel) {
+      ['The Trade-Off: Career vs. Calories', 'My Goals'].forEach(function(title){
+        var heading = Array.from(document.querySelectorAll('h3')).find(function(h){return h.textContent.trim() === title;});
+        var section = heading && heading.closest('.panel');
+        if (section && section !== panel) {
+          var wrapper = document.createElement('div');
+          wrapper.className = 'bp-journal-priority';
+          wrapper.style.cssText = 'padding:0;margin:18px 0 0;background:none;border:0;box-shadow:none';
+          wrapper.appendChild(section);
+          panel.appendChild(wrapper);
+        }
+      });
+    }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', moveJournalToRightBottom);
   else moveJournalToRightBottom();
